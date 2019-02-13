@@ -165,14 +165,14 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 			while(rs.next()){
 				
 				activityVO=new ActivityVO();
-				activityVO.setActivity_Id(rs.getString("activity_id"));
-				activityVO.setActivity_Name(rs.getString("activity_name"));
-				activityVO.setActivity_Info(rs.getString("activity_info"));
-				activityVO.setActivity_Start(rs.getDate("activity_start"));
-				activityVO.setActivity_End(rs.getDate("activity_end"));
-				activityVO.setActivity_Code(rs.getString("activity_code"));
-				activityVO.setToken_Amount(rs.getInt("token_amount"));
-				activityVO.setActivity_Post(rs.getBytes("activity_id"));
+				activityVO.setActivity_Id(rs.getString("activity_Id"));
+				activityVO.setActivity_Name(rs.getString("activity_Name"));
+				activityVO.setActivity_Info(rs.getString("activity_Info"));
+				activityVO.setActivity_Start(rs.getDate("activity_Start"));
+				activityVO.setActivity_End(rs.getDate("activity_End"));
+				activityVO.setActivity_Code(rs.getString("activity_Code"));
+				activityVO.setToken_Amount(rs.getInt("token_Amount"));
+				activityVO.setActivity_Post(rs.getBytes("activity_Id"));
 			}
 		
 		}catch(ClassNotFoundException e){
@@ -218,14 +218,14 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 			while(rs.next()){
 				
 				activityVO=new ActivityVO();
-				activityVO.setActivity_Id(rs.getString("activity_id"));
-				activityVO.setActivity_Name(rs.getString("activity_name"));
-				activityVO.setActivity_Info(rs.getString("activity_info"));
-				activityVO.setActivity_Start(rs.getDate("activity_start"));
-				activityVO.setActivity_End(rs.getDate("activity_end"));
-				activityVO.setActivity_Code(rs.getString("activity_code"));
-				activityVO.setToken_Amount(rs.getInt("token_amount"));
-				activityVO.setActivity_Post(rs.getBytes("activity_id"));
+				activityVO.setActivity_Id(rs.getString("activity_Id"));
+				activityVO.setActivity_Name(rs.getString("activity_Name"));
+				activityVO.setActivity_Info(rs.getString("activity_Info"));
+				activityVO.setActivity_Start(rs.getDate("activity_Start"));
+				activityVO.setActivity_End(rs.getDate("activity_End"));
+				activityVO.setActivity_Code(rs.getString("activity_Code"));
+				activityVO.setToken_Amount(rs.getInt("token_Amount"));
+				activityVO.setActivity_Post(rs.getBytes("activity_Id"));
 				list.add(activityVO);
 			}
 		}catch(ClassNotFoundException e){
