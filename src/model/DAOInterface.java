@@ -3,9 +3,9 @@ package model;
 import java.util.List;
 
 public interface DAOInterface<T> {
-    T findByPrimaryKey(T VO);
+    T findByPrimaryKey(String primaryKey);
     void insert(T VO);
     void update(T VO);
-    void delete(T VO);
-    List<T> selectAll(T VO);
+    void delete(String VO);
+    List<T> getAll();
 }

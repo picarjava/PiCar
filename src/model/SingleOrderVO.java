@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 public class SingleOrderVO {
     private String orderId;
     private String driverId;
+    private String memId;
     private Integer state;
     private Integer totalAmount;
     private String startLoc;
@@ -39,6 +40,14 @@ public class SingleOrderVO {
         this.driverId = driverId;
     }
     
+    public String getMemId() {
+        return memId;
+    }
+
+    public void setMemId(String memId) {
+        this.memId = memId;
+    }
+
     public Integer getState() {
         return state;
     }
@@ -150,4 +159,15 @@ public class SingleOrderVO {
     public void setLauchTime(Timestamp lauchTime) {
         this.lauchTime = lauchTime;
     }
+
+    @Override
+    public String toString() {
+        return "SingleOrderVO [orderId=" + orderId + ", driverId=" + driverId + ", state=" + state + ", totalAmount="
+                + totalAmount + ", startLoc=" + startLoc + ", endLoc=" + endLoc + ", startTime=" + startTime
+                + ", endTime=" + endTime + ", startLng=" + startLng + ", startLat=" + startLat + ", endLng=" + endLng
+                + ", endLat=" + endLat + ", orderType=" + orderType + ", rate=" + rate + ", note=" + note
+                + ", lauchTime=" + lauchTime + "]";
+    }
+    
+    
 }

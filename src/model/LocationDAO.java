@@ -77,13 +77,26 @@ public class LocationDAO {
     }
     
     public void delete(String memId, String location) {
-        excuteUpdate(new LocationVO(memId, location), DELETE, null);
-    }
-    
-    private int excuteUpdate(LocationVO locationVO, String sql, String newLocation) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-        int count = 0;
+        try {
+//          connection = dataSource.getConnection();
+            connection = DriverManager.getConnection(URL, NAME, NAME);
+            preparedStatement = connection.prepareStatement(DELETE);
+            preparedStatement.setString(1, memId);
+            preparedStatement.setString(2, location);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        }
+    }
+    
+    private void excuteUpdate(LocationVO locationVO, String sql, String newLocation) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
         int index = 1;
         try {
 //            connection = dataSource.getConnection();
@@ -91,9 +104,10 @@ public class LocationDAO {
             preparedStatement = connection.prepareStatement(sql);    
             if (sql.equals(UPDATE))
                 preparedStatement.setString(index++, newLocation);
+            
             preparedStatement.setString(index++, locationVO.getMemId());
             preparedStatement.setString(index++, locationVO.getLocation());
-            count = preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -101,7 +115,6 @@ public class LocationDAO {
             closeConnection(connection);
         } // finally
         
-        return count;
     }
     
     private void closeResultSet(ResultSet resultSet) {

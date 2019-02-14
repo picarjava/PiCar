@@ -1,37 +1,212 @@
 package model;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
-public class SingleOrderDAO implements DAOInterface<SingleOrderVO> {
+import javax.sql.DataSource;
 
+public class SingleOrderDAO implements SingleOrderInterface {
+	private final static String SELECT = "SELECT * FROM SINGLE_ORDER WHERE ORDER_ID=?";
+	private final static String SELECT_ALL = "SELECT * FROM SINGLE_ORDER";
+    private final static String UPDATE = "UPDATE LOCATION SET DRIVER_ID=?, MEM_ID=?, STATE=?, " + 
+                                         "START_TIME=?, END_TIME=?, START_LOC=?, END_LOC=?, START_LNG=?, START_LAT=?, " + 
+                                         "END_LNG=?, END_LAT=?, TOTAL_AMOUNT=?, ORDER_TYPE=?, RATE=?, NOTE=?, LUNCH_TIME=? WHERE ORDER_ID=?";
+    private final static String INSERT = "INSERT INTO SINGLE_OREDR(ORDER_ID, DRIVER_ID, MEM_ID, STATE, " + 
+                                         "START_TIME, END_TIME, START_LOC, END_LOC, START_LNG, START_LAT, " +
+                                         "END_LNG, END_LAT, TOTAL_AMOUNT, ORDER_TYPE, RATE, NOTE, LUNCH_TIME)) " + 
+                                         "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private final static String DELETE = "DELETE FROM SINGLE_ORDER WHERE ORDER_ID=?";
+    private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+    private final static String NAME = "CA106";
+    private static DataSource dataSource;
+
+//  static {
+//  try {
+//      Context context = new InitialContext();
+//      dataSource = (DataSource) context.lookup("java:comp/env/jdbc/TestDB");
+//  } catch (NamingException e) {
+//      e.printStackTrace();
+//  }
+//}
+    public static void main(String[] args) throws ClassNotFoundException {
+        Class.forName("oracle.jdbc.driver.OracleDriver");
+        SingleOrderInterface singleOrderDAO = new SingleOrderDAO();
+        singleOrderDAO.delete("1");
+        System.out.println(singleOrderDAO.getAll());
+    }
+    
     @Override
-    public SingleOrderVO findByPrimaryKey(SingleOrderVO VO) {
-        // TODO Auto-generated method stub
-        return null;
+    public SingleOrderVO findByPrimaryKey(String orderId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        SingleOrderVO newSingleOrderVO = null;
+        try {
+//          connection = dataSource.getConnection();
+            connection = DriverManager.getConnection(URL, NAME, NAME);
+            preparedStatement = connection.prepareStatement(SELECT);
+            preparedStatement.setString(1, orderId);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+               newSingleOrderVO = getSingleOrderVo(resultSet);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        }
+        
+        return newSingleOrderVO;
     }
 
     @Override
-    public void insert(SingleOrderVO VO) {
-        // TODO Auto-generated method stub
+    public void insert(SingleOrderVO singleOrderVO) {
+        excuteUpdate(singleOrderVO, INSERT);     
+    }
+
+    @Override
+    public void update(SingleOrderVO singleOrderVO) {
+        excuteUpdate(singleOrderVO, UPDATE);
+    }
+
+    @Override
+    public void delete(String orderId) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+//          connection = dataSource.getConnection();
+            connection = DriverManager.getConnection(URL, NAME, NAME);
+            preparedStatement = connection.prepareStatement(DELETE);
+            preparedStatement.setString(1, orderId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        }
+    }
+
+    @Override
+    public List<SingleOrderVO> getAll() {
+        ArrayList<SingleOrderVO> arrayList = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = DriverManager.getConnection(URL, NAME, NAME);
+            preparedStatement = connection.prepareStatement(SELECT_ALL);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                arrayList.add(getSingleOrderVo(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return arrayList;
+    }
+    
+    private void excuteUpdate(SingleOrderVO singleOrderVO, String sql) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        int index = 1;
+        try {
+//            connection = dataSource.getConnection();
+            connection = DriverManager.getConnection(URL, NAME, NAME);
+            preparedStatement = connection.prepareStatement(sql);
+            if (sql.equals(INSERT))
+                preparedStatement.setString(index++,singleOrderVO.getOrderId());
+            
+            preparedStatement.setString(index++,singleOrderVO.getDriverId());
+            preparedStatement.setString(index++, singleOrderVO.getMemId());
+            preparedStatement.setInt(index++,singleOrderVO.getState());
+            preparedStatement.setDate(index++,singleOrderVO.getStartTime());
+            preparedStatement.setDate(index++,singleOrderVO.getEndTime());
+            preparedStatement.setString(index++,singleOrderVO.getStartLoc());
+            preparedStatement.setString(index++,singleOrderVO.getEndLoc());
+            preparedStatement.setDouble(index++,singleOrderVO.getStartLng());
+            preparedStatement.setDouble(index++,singleOrderVO.getStartLat());
+            preparedStatement.setDouble(index++,singleOrderVO.getEndLng());
+            preparedStatement.setDouble(index++,singleOrderVO.getEndLat());
+            preparedStatement.setInt(index++,singleOrderVO.getTotalAmount());
+            preparedStatement.setInt(index++,singleOrderVO.getOrderType());
+            preparedStatement.setInt(index++,singleOrderVO.getRate());
+            preparedStatement.setString(index++,singleOrderVO.getNote());
+            preparedStatement.setTimestamp(index++,singleOrderVO.getLauchTime());
+            if (sql.equals(UPDATE))
+                preparedStatement.setString(index++,singleOrderVO.getOrderId());
+            
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        } // finally
         
     }
-
-    @Override
-    public void update(SingleOrderVO VO) {
-        // TODO Auto-generated method stub
-        
+    
+    private void closeResultSet(ResultSet resultSet) {
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
-    @Override
-    public void delete(SingleOrderVO VO) {
-        // TODO Auto-generated method stub
-        
+    
+    private SingleOrderVO getSingleOrderVo(ResultSet resultSet) throws SQLException {
+        int index = 1;
+        SingleOrderVO singleOrderVO = new SingleOrderVO();
+        singleOrderVO.setOrderId(resultSet.getString(index++));
+        singleOrderVO.setDriverId(resultSet.getString(index++));
+        singleOrderVO.setMemId(resultSet.getString(index++));
+        singleOrderVO.setState(resultSet.getInt(index++));
+        singleOrderVO.setStartTime(resultSet.getDate(index++));
+        singleOrderVO.setEndTime(resultSet.getDate(index++));
+        singleOrderVO.setStartLoc(resultSet.getString(index++));
+        singleOrderVO.setEndLoc(resultSet.getString(index++));
+        singleOrderVO.setStartLng(resultSet.getDouble(index++));
+        singleOrderVO.setStartLat(resultSet.getDouble(index++));
+        singleOrderVO.setEndLng(resultSet.getDouble(index++));
+        singleOrderVO.setEndLat(resultSet.getDouble(index++));
+        singleOrderVO.setTotalAmount(resultSet.getInt(index++));
+        singleOrderVO.setOrderType(resultSet.getInt(index++));
+        singleOrderVO.setRate(resultSet.getInt(index++));
+        singleOrderVO.setNote(resultSet.getString(index++));
+        singleOrderVO.setLauchTime(resultSet.getTimestamp(index++));
+        return singleOrderVO;
     }
-
-    @Override
-    public List<SingleOrderVO> selectAll(SingleOrderVO VO) {
-        // TODO Auto-generated method stub
-        return null;
+    
+    private void closePreparedStatement(PreparedStatement preparedStatement) {
+        if (preparedStatement != null) {
+            try {
+                preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
-
+    
+    private void closeConnection(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
