@@ -13,7 +13,7 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class InstantMessageDAO implements LocationDAOInterface{
+public class LocationDAO implements LocationDAOInterface{
     private final static String SELECT = "SELECT * FROM LOCATION WHERE MEM_ID=? AND LOCATION=?";
     private final static String SELECT_ALL = "SELECT * FROM LOCATION";
     private final static String UPDATE = "UPDATE LOCATION SET LOCATION=? WHERE MEM_ID=? AND LOCATION=?";
@@ -43,11 +43,11 @@ public class InstantMessageDAO implements LocationDAOInterface{
 //    } // main()
     
     @Override
-    public InstantMessageVO findByPrimaryKey(String primaryKey1, String primaryKey2) {
+    public LocationVO findByPrimaryKey(String primaryKey1, String primaryKey2) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        InstantMessageVO locationVO = null;
+        LocationVO locationVO = null;
         try {
 //          connection = dataSource.getConnection();
           int index = 1;
@@ -71,12 +71,12 @@ public class InstantMessageDAO implements LocationDAOInterface{
     } // findByPrimaryKey()
     
     @Override
-    public void insert(InstantMessageVO locationVO) {
+    public void insert(LocationVO locationVO) {
         excuteUpdate(locationVO, INSERT, null);
     } // insert()
     
     @Override
-    public void update(InstantMessageVO locationVO, String newLocation) {
+    public void update(LocationVO locationVO, String newLocation) {
         excuteUpdate(locationVO, UPDATE, newLocation);
     } // update()
     
@@ -101,11 +101,11 @@ public class InstantMessageDAO implements LocationDAOInterface{
     } // delete()
     
     @Override
-    public List<InstantMessageVO> getAll() {
+    public List<LocationVO> getAll() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
-        List<InstantMessageVO> list = new ArrayList<>();
+        List<LocationVO> list = new ArrayList<>();
         try {
 //            connection = dataSource.getConnection();
             connection = DriverManager.getConnection(URL, NAME, NAME);
@@ -125,7 +125,7 @@ public class InstantMessageDAO implements LocationDAOInterface{
         return list;
     } // getAll()
     
-    private void excuteUpdate(InstantMessageVO locationVO, String sql, String newLocation) {
+    private void excuteUpdate(LocationVO locationVO, String sql, String newLocation) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         int index = 1;
@@ -147,8 +147,8 @@ public class InstantMessageDAO implements LocationDAOInterface{
         } // finally
     } // excuteUpdate()
     
-    private InstantMessageVO getLocationVO(ResultSet resultSet) throws SQLException {
-        InstantMessageVO locationVO = new InstantMessageVO();
+    private LocationVO getLocationVO(ResultSet resultSet) throws SQLException {
+        LocationVO locationVO = new LocationVO();
         locationVO.setMemId(resultSet.getString(1));
         locationVO.setLocation(resultSet.getString(2));
         return locationVO; 
