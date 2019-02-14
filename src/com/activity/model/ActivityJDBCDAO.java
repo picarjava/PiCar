@@ -8,7 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
+/*DAO功能是用SQL語法，透過VO物件傳遞資料庫資料  進行增刪改查*/
 public class ActivityJDBCDAO implements ActivityDAO_Impl{
 	String driver="oracle.jdbc.driver.OracleDriver";
 	String url="jdbc:oracle:thin:@localhost:1521:XE";

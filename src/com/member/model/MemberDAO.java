@@ -21,8 +21,7 @@ public class MemberDAO implements MemberDAO_interface {
 
 	@Override
 	public MemberVO findByPrimaryKey(String memid) {
-		return null;
-		
+		return null;		
 	}
 
 	@Override

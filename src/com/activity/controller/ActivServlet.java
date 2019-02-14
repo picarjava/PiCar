@@ -1,4 +1,4 @@
-package com.activManage.controller;
+package com.activity.controller;
 
 import java.io.IOException;
 import java.sql.Date;
