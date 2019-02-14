@@ -24,9 +24,9 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 	private static final String DELETE=
 			"DELETE FROM ACTIVITY WHERE ACTIVITY_ID=?";
 	private static final String UPDATE=
-			"UPDATE ACTIVITY SET ACTIVITY_ID=?,ACTIVITY_NAME=?,ACTIVITY_INFO=?,ACTIVITY_START=?,ACTIVITY_END,ACTIVITY_CODE=?,TOKEN_AMOUNT=?,ACTIVITY_POST=?";
+			"UPDATE ACTIVITY SET ACTIVITY_NAME=?,ACTIVITY_INFO=?,ACTIVITY_START=?,ACTIVITY_END,ACTIVITY_CODE=?,TOKEN_AMOUNT=?,ACTIVITY_POST=? WHERE ACTIVITY_ID=?" ;
 	
-	/*增、改的code一樣，只差在pstmt預先送出的SQL常數不同*/
+	/*增、改的code一樣，只差在(1)pstmt預先送出的SQL常數不同(2)改的PK放在parameterIndex=8的位置*/
 	@Override
 	public void insert(ActivityVO activityVO) {
 		Connection con =null;
@@ -78,14 +78,16 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 			con=DriverManager.getConnection(url,userid,passwd);
 			pstmt=con.prepareStatement(UPDATE);
 			/*根據SQL常數，用vo.getxxx去set pstmt需要的值*/
-			pstmt.setString(1, activityVO.getActivity_Id());
-			pstmt.setString(2, activityVO.getActivity_Name());
-			pstmt.setString(3, activityVO.getActivity_Info());
-			pstmt.setDate(4, activityVO.getActivity_Start());
-			pstmt.setDate(5, activityVO.getActivity_End());
-			pstmt.setString(6, activityVO.getActivity_Code());
-			pstmt.setInt(7, activityVO.getToken_Amount());
-			pstmt.setBytes(8, activityVO.getActivity_Post());
+			
+			pstmt.setString(1, activityVO.getActivity_Name());
+			pstmt.setString(2, activityVO.getActivity_Info());
+			pstmt.setDate(3, activityVO.getActivity_Start());
+			pstmt.setDate(4, activityVO.getActivity_End());
+			pstmt.setString(5, activityVO.getActivity_Code());
+			pstmt.setInt(6, activityVO.getToken_Amount());
+			pstmt.setBytes(7, activityVO.getActivity_Post());
+			pstmt.setString(8, activityVO.getActivity_Id());
+			
 			pstmt.executeUpdate();
 			
 		}catch(ClassNotFoundException e){
