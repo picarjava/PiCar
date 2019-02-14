@@ -183,4 +183,4 @@ public class LocationDAO implements LocationDAOInterface{
             } // catch
         } // if
     } // closeConnection()
-} // class InstantMessageDAO
+} // class LocationDAO
