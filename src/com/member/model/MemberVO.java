@@ -111,6 +111,8 @@ public class MemberVO implements java.io.Serializable{
 	public void setBirthday(Date birthday) {
 		this.birthday = birthday;
 	}
+	
+	
 	public Integer getVerified() {
 		return verified;
 	}
@@ -118,6 +120,7 @@ public class MemberVO implements java.io.Serializable{
 	public void setVerified(Integer verified) {
 		this.verified = verified;
 	}
+	
 	public Integer getBabysite() {
 		return babysite;
 	}
