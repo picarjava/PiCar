@@ -1,4 +1,4 @@
-package com.activ_manage.model;
+package com.activity.model;
 
 import java.io.Reader;
 import java.io.Serializable;

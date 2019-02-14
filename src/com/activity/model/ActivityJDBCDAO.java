@@ -1,5 +1,5 @@
 
-package com.activ_manage.model;
+package com.activity.model;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

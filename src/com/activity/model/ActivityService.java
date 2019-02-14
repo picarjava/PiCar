@@ -1,4 +1,4 @@
-package com.activ_manage.model;
+package com.activity.model;
 
 import java.sql.Date;
 import java.util.List;

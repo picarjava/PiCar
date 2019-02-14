@@ -12,9 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.activ_manage.model.ActivityJDBCDAO;
-import com.activ_manage.model.ActivityService;
-import com.activ_manage.model.ActivityVO;
+import com.activity.model.ActivityJDBCDAO;
+import com.activity.model.ActivityService;
+import com.activity.model.ActivityVO;
 
 /**
  * Servlet implementation class activ_servlet
