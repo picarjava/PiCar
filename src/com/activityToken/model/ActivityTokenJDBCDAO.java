@@ -1,10 +1,12 @@
 package com.activityToken.model;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -23,7 +25,7 @@ public class ActivityTokenJDBCDAO implements ActivityTokenDAO_Impl{
 	private static final String DELETE=
 			"DELETE FROM ACTIVITY_TOKEN WHERE MEM_ID=? AND ACTIVITY_ID= ?";
 	private static final String UPDATE=
-			"UPDATE ACTIVITY_TOKEN SET TOKEN_AMOUNT,TO_CHAR(DEADLINE,'YYYY-MM-DD HH24:MI:SS')DEADLINE WHERE MEM_ID=? AND ACTIVITY_ID=?" ;
+			"UPDATE ACTIVITY_TOKEN SET TOKEN_AMOUNT=?,DEADLINE=? WHERE MEM_ID=? AND ACTIVITY_ID=?" ;
 	@Override
 	public void insert(ActivityTokenVO activityTokenVO) {
 		Connection con = null;
@@ -219,16 +221,68 @@ public class ActivityTokenJDBCDAO implements ActivityTokenDAO_Impl{
 				}
 			}
 		}
-		
 		return activityTokenVO;
 	}
 	
-	/*從GETALL開始*/
+
 	@Override
 	public List<ActivityTokenVO> getAll() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+		List<ActivityTokenVO> list=new ArrayList<ActivityTokenVO>();
+		ActivityTokenVO activityTokenVO;
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
+		try {
+
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				activityTokenVO = new ActivityTokenVO();
+				activityTokenVO.setMem_id(rs.getString("mem_id"));
+				activityTokenVO.setActivity_id(rs.getString("activity_id"));
+				activityTokenVO.setToken_amount(rs.getInt("token_amount"));
+				activityTokenVO.setDeadline(rs.getDate("deadline"));
+				list.add(activityTokenVO); // Store the row in the list
+			}
+
+			// Handle any driver errors
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
 }
