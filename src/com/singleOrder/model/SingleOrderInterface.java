@@ -1,6 +1,8 @@
-package model;
+package com.singleOrder.model;
 
 import java.util.List;
+
+import model.DAOInterface;
 
 public interface SingleOrderInterface extends DAOInterface<SingleOrderVO> {
 

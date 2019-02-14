@@ -1,12 +1,12 @@
-package model;
+package com.location.model;
 
-public class LocationVO {
+public class InstantMessageVO {
     private String memId;
     private String location;
 
-    public LocationVO() {}
+    public InstantMessageVO() {}
     
-    public LocationVO(String memId, String location) {
+    public InstantMessageVO(String memId, String location) {
         setMemId(memId);
         setLocation(location);
     }
@@ -44,7 +44,7 @@ public class LocationVO {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        LocationVO other = (LocationVO) obj;
+        InstantMessageVO other = (InstantMessageVO) obj;
         if (location == null) {
             if (other.location != null)
                 return false;

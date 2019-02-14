@@ -1,8 +1,6 @@
-package model;
+package com.singleOrder.model;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.Reader;
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -11,15 +9,13 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.sql.DataSource;
-
 public class SingleOrderDAO implements SingleOrderInterface {
 	private final static String SELECT = "SELECT * FROM SINGLE_ORDER WHERE ORDER_ID=?";
 	private final static String SELECT_ALL = "SELECT * FROM SINGLE_ORDER";
-    private final static String UPDATE = "UPDATE LOCATION SET DRIVER_ID=?, MEM_ID=?, STATE=?, " + 
+    private final static String UPDATE = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, MEM_ID=?, STATE=?, " + 
                                          "START_TIME=?, END_TIME=?, START_LOC=?, END_LOC=?, START_LNG=?, START_LAT=?, " + 
                                          "END_LNG=?, END_LAT=?, TOTAL_AMOUNT=?, ORDER_TYPE=?, RATE=?, NOTE=?, LUNCH_TIME=? WHERE ORDER_ID=?";
-    private final static String INSERT = "INSERT INTO SINGLE_OREDR(ORDER_ID, DRIVER_ID, MEM_ID, STATE, " + 
+    private final static String INSERT = "INSERT INTO SINGLE_OREDR(SEQ_SINGLE_ORDER.NEXTVAL, DRIVER_ID, MEM_ID, STATE, " + 
                                          "START_TIME, END_TIME, START_LOC, END_LOC, START_LNG, START_LAT, " +
                                          "END_LNG, END_LAT, TOTAL_AMOUNT, ORDER_TYPE, RATE, NOTE, LUNCH_TIME)) " + 
                                          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -36,12 +32,18 @@ public class SingleOrderDAO implements SingleOrderInterface {
 //      e.printStackTrace();
 //  }
 //}
-    public static void main(String[] args) throws ClassNotFoundException {
-        Class.forName("oracle.jdbc.driver.OracleDriver");
-        SingleOrderInterface singleOrderDAO = new SingleOrderDAO();
-        singleOrderDAO.delete("1");
-        System.out.println(singleOrderDAO.getAll());
-    }
+    
+//    public static void main(String[] args) throws ClassNotFoundException {
+//        Class.forName("oracle.jdbc.driver.OracleDriver");
+//        SingleOrderInterface singleOrderDAO = new SingleOrderDAO();
+//        singleOrderDAO.delete("1");
+//        System.out.println(singleOrderDAO.findByPrimaryKey("2"));
+//        SingleOrderVO singleOrderVO = singleOrderDAO.findByPrimaryKey("2");
+//        singleOrderVO.setStartLoc("Taipei 101");
+//        singleOrderDAO.update(singleOrderVO);
+//        System.out.println(singleOrderDAO.findByPrimaryKey("2"));
+//        System.out.println(singleOrderDAO.getAll());
+//    }
     
     @Override
     public SingleOrderVO findByPrimaryKey(String orderId) {
@@ -100,7 +102,7 @@ public class SingleOrderDAO implements SingleOrderInterface {
 
     @Override
     public List<SingleOrderVO> getAll() {
-        ArrayList<SingleOrderVO> arrayList = new ArrayList<>();
+        List<SingleOrderVO> list = new ArrayList<>();
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -109,12 +111,12 @@ public class SingleOrderDAO implements SingleOrderInterface {
             preparedStatement = connection.prepareStatement(SELECT_ALL);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                arrayList.add(getSingleOrderVo(resultSet));
+                list.add(getSingleOrderVo(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return arrayList;
+        return list;
     }
     
     private void excuteUpdate(SingleOrderVO singleOrderVO, String sql) {
@@ -125,8 +127,10 @@ public class SingleOrderDAO implements SingleOrderInterface {
 //            connection = dataSource.getConnection();
             connection = DriverManager.getConnection(URL, NAME, NAME);
             preparedStatement = connection.prepareStatement(sql);
-            if (sql.equals(INSERT))
+            if (sql.equals(INSERT)) {
+                
                 preparedStatement.setString(index++,singleOrderVO.getOrderId());
+            }
             
             preparedStatement.setString(index++,singleOrderVO.getDriverId());
             preparedStatement.setString(index++, singleOrderVO.getMemId());

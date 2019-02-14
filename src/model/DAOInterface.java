@@ -6,6 +6,6 @@ public interface DAOInterface<T> {
     T findByPrimaryKey(String primaryKey);
     void insert(T VO);
     void update(T VO);
-    void delete(String VO);
+    void delete(String primaryKey);
     List<T> getAll();
 }

@@ -1,4 +1,4 @@
-package model;
+package com.instantMessage.model;
 
 import java.sql.Date;
 
@@ -31,5 +31,10 @@ public class InstantMessageVO {
     
     public void setStartTime(Date startTime) {
         this.startTime = startTime;
+    }
+
+    @Override
+    public String toString() {
+        return "InstantMessageVO [memId=" + memId + ", msgRecord=" + msgRecord + ", startTime=" + startTime + "]";
     }
 }
