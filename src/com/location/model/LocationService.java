@@ -3,7 +3,7 @@ package com.location.model;
 import java.util.List;
 
 public class LocationService {
-    private LocationDAOInterface locationDAO;
+    private LocationDAO_interface locationDAO;
     
     public LocationService() {
         locationDAO = new LocationDAO();

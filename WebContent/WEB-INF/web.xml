@@ -15,4 +15,12 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <servlet>
+    <servlet-name>location</servlet-name>
+    <servlet-class>com.location.controller.LocationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>location</servlet-name>
+    <url-pattern>/locationServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

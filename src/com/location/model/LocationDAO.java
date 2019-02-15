@@ -1,7 +1,7 @@
 package com.location.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
+//import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,24 +13,24 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-public class LocationDAO implements LocationDAOInterface{
+public class LocationDAO implements LocationDAO_interface{
     private final static String SELECT = "SELECT * FROM LOCATION WHERE MEM_ID=? AND LOCATION=?";
     private final static String SELECT_ALL = "SELECT * FROM LOCATION";
     private final static String UPDATE = "UPDATE LOCATION SET LOCATION=? WHERE MEM_ID=? AND LOCATION=?";
     private final static String INSERT = "INSERT INTO LOCATION(MEM_ID, LOCATION) VALUES (?, ?)";
     private final static String DELETE = "DELETE FROM LOCATION WHERE MEM_ID=? AND LOCATION=?";
-    private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-    private final static String NAME = "CA106";
+//    private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+//    private final static String NAME = "CA106";
     private static DataSource dataSource;
     
-//    static {
-//        try {
-//            Context context = new InitialContext();
-//            dataSource = (DataSource) context.lookup("java:comp/env/jdbc/TestDB");
-//        } catch (NamingException e) {
-//            e.printStackTrace();
-//        }
-//    }
+    static {
+        try {
+            Context context = new InitialContext();
+            dataSource = (DataSource) context.lookup("java:comp/env/jdbc/TestDB");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        }
+    }
     
 //    public static void main(String[] args) throws ClassNotFoundException {
 //        Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -49,9 +49,9 @@ public class LocationDAO implements LocationDAOInterface{
         ResultSet resultSet = null;
         LocationVO locationVO = null;
         try {
-//          connection = dataSource.getConnection();
+//          connection = DriverManager.getConnection(URL, NAME, NAME);
+          connection = dataSource.getConnection();
           int index = 1;
-          connection = DriverManager.getConnection(URL, NAME, NAME);
           preparedStatement = connection.prepareStatement(SELECT);
           preparedStatement.setString(index++, primaryKey1);
           preparedStatement.setString(index++, primaryKey2);
@@ -86,8 +86,8 @@ public class LocationDAO implements LocationDAOInterface{
         PreparedStatement preparedStatement = null;
         try {
             int index = 1;
-//          connection = dataSource.getConnection();
-            connection = DriverManager.getConnection(URL, NAME, NAME);
+          connection = dataSource.getConnection();
+//            connection = DriverManager.getConnection(URL, NAME, NAME);
             preparedStatement = connection.prepareStatement(DELETE);
             preparedStatement.setString(index++, memId);
             preparedStatement.setString(index++, location);
@@ -107,8 +107,8 @@ public class LocationDAO implements LocationDAOInterface{
         ResultSet resultSet = null;
         List<LocationVO> list = new ArrayList<>();
         try {
-//            connection = dataSource.getConnection();
-            connection = DriverManager.getConnection(URL, NAME, NAME);
+            connection = dataSource.getConnection();
+//            connection = DriverManager.getConnection(URL, NAME, NAME);
             preparedStatement = connection.prepareStatement(SELECT_ALL);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
@@ -130,8 +130,8 @@ public class LocationDAO implements LocationDAOInterface{
         PreparedStatement preparedStatement = null;
         int index = 1;
         try {
-//            connection = dataSource.getConnection();
-            connection = DriverManager.getConnection(URL, NAME, NAME);
+//          connection = DriverManager.getConnection(URL, NAME, NAME);
+            connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(sql);    
             if (sql.equals(UPDATE))
                 preparedStatement.setString(index++, newLocation);

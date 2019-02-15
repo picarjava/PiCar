@@ -18,7 +18,7 @@ import java.util.List;
 
 import javax.sql.DataSource;
 
-public class InstantMessageDAO implements InstantMessageInterface {
+public class InstantMessageDAO implements InstantMessage_interface {
     private final static String SELECT = "SELECT * FROM INSTANT_MESSAGE WHERE MEM_ID=? AND START_TIME=?";
     private final static String SELECT_ALL = "SELECT * FROM INSTANT_MESSAGE";
     private final static String UPDATE = "UPDATE INSTANT_MESSAGE SET MSG_RECORD=? WHERE MEM_ID=? AND START_TIME=?";

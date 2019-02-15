@@ -5,7 +5,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class SingleOrderService {
-    private SingleOrderInterface singleOrderDAO;
+    private SingleOrder_interface singleOrderDAO;
     
     public SingleOrderService() {
         singleOrderDAO = new SingleOrderDAO();
