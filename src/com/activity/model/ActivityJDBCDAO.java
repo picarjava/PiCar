@@ -262,7 +262,9 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 		activityVO1.setActivity_Id("AC007");
 		activityVO1.setActivity_Name("測試活動名稱");
 		activityVO1.setActivity_Info("測試活動資訊");
-//		activityVO1.setActivity_Start("activity_Start");
+		java.util.Date  date=new java.util.Date();
+//		GregorianCalendar(int year, int month, int dayOfMonth)
+		activityVO1.setActivity_Start(new java.sql.Date(date.getTime()));
 //		activityVO1
 //		activityVO1
 //		activityVO1
