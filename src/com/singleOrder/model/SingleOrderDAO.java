@@ -19,7 +19,6 @@ public class SingleOrderDAO implements SingleOrderInterface {
                                          "START_TIME, END_TIME, START_LOC, END_LOC, START_LNG, START_LAT, " +
                                          "END_LNG, END_LAT, TOTAL_AMOUNT, ORDER_TYPE, RATE, NOTE, LUNCH_TIME)) " + 
                                          "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private final static String DELETE = "DELETE FROM SINGLE_ORDER WHERE ORDER_ID=?";
     private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
     private final static String NAME = "CA106";
     private static DataSource dataSource;
@@ -36,7 +35,6 @@ public class SingleOrderDAO implements SingleOrderInterface {
 //    public static void main(String[] args) throws ClassNotFoundException {
 //        Class.forName("oracle.jdbc.driver.OracleDriver");
 //        SingleOrderInterface singleOrderDAO = new SingleOrderDAO();
-//        singleOrderDAO.delete("1");
 //        System.out.println(singleOrderDAO.findByPrimaryKey("2"));
 //        SingleOrderVO singleOrderVO = singleOrderDAO.findByPrimaryKey("2");
 //        singleOrderVO.setStartLoc("Taipei 101");
@@ -80,24 +78,6 @@ public class SingleOrderDAO implements SingleOrderInterface {
     @Override
     public void update(SingleOrderVO singleOrderVO) {
         excuteUpdate(singleOrderVO, UPDATE);
-    }
-
-    @Override
-    public void delete(String orderId) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-//          connection = dataSource.getConnection();
-            connection = DriverManager.getConnection(URL, NAME, NAME);
-            preparedStatement = connection.prepareStatement(DELETE);
-            preparedStatement.setString(1, orderId);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            closePreparedStatement(preparedStatement);
-            closeConnection(connection);
-        }
     }
 
     @Override
