@@ -254,6 +254,22 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 		return null;
 	}
 	
+	/*JDBC DAO 測試*/
+	public static void main(String[]args) {
+		/*新增*/
+		ActivityJDBCDAO ActivityTokenJDBCDAO=new ActivityJDBCDAO();
+		ActivityVO activityVO1= new ActivityVO();
+		activityVO1.setActivity_Id("AC007");
+		activityVO1.setActivity_Name("測試活動名稱");
+		activityVO1.setActivity_Info("測試活動資訊");
+//		activityVO1.setActivity_Start("activity_Start");
+//		activityVO1
+//		activityVO1
+//		activityVO1
+		
+		
+	}
+	
 }
 		
 
