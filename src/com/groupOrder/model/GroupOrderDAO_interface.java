@@ -1,4 +1,4 @@
-package GroupOrder;
+package com.groupOrder.model;
 
 import java.util.List;
 import java.util.Set;

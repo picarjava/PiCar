@@ -1,10 +1,10 @@
-package GroupBand;
+package com.groupBand.model;
 
 import java.sql.*;
 
 public class GroupBandVO implements java.io.Serializable {
 
-	private String groupId;
+	private String groupID;
 	private String content;
 	private Date launchTime;
 	private String introduction;
@@ -24,11 +24,11 @@ public class GroupBandVO implements java.io.Serializable {
 	private Integer rate;
 	private String note;
 	
-	public String getGroupId() {
-		return groupId;
+	public String getGroupID() {
+		return groupID;
 	}
-	public void setGroupId(String groupId) {
-		this.groupId = groupId;
+	public void setGroupID(String groupId) {
+		this.groupID = groupId;
 	}
 	public String getContent() {
 		return content;
