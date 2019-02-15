@@ -196,6 +196,7 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setString(1, memID);
 
 			rs = pstmt.executeQuery();
+			
 
 			while (rs.next()) {
 				MemberVO memberVO = new MemberVO();

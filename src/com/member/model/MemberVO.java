@@ -19,6 +19,7 @@ public class MemberVO implements java.io.Serializable{
 	private Integer verified;
 	private Integer babySeat;
 	
+	
 	public String getMemID() {
 		return memID;
 	}

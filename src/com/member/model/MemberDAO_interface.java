@@ -14,4 +14,5 @@ public interface MemberDAO_interface {
 	
 //	public List<MemberVO> getAll(Map<String, String> map);
 	
+	
 }
