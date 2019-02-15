@@ -3,7 +3,7 @@ package com.activityToken.model;
 import java.util.List;
 
 public class ActivityTokenService {
-	private ActivityTokenDAO_Impl dao;
+	private ActivityTokenDAO_interface dao;
 	
 	public ActivityTokenService() {
 		dao=new ActivityTokenJDBCDAO();

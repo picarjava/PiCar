@@ -4,8 +4,8 @@ import java.sql.Date;
 import java.sql.Timestamp;
 
 public class SingleOrderVO {
-    private String orderId;
-    private String driverId;
+    private String orderID;
+    private String driverID;
     private String memId;
     private Integer state;
     private Integer totalAmount;
@@ -20,31 +20,31 @@ public class SingleOrderVO {
     private Integer orderType;
     private Integer rate;
     private String note;
-    private Timestamp lauchTime;
+    private Timestamp launchTime;
     
     public SingleOrderVO() {}
     
-    public String getOrderId() {
-        return orderId;
+    public String getOrderID() {
+        return orderID;
     }
     
-    public void setOrderId(String orderId) {
-        this.orderId = orderId;
+    public void setOrderID(String orderId) {
+        this.orderID = orderId;
     }
     
-    public String getDriverId() {
-        return driverId;
+    public String getDriverID() {
+        return driverID;
     }
     
-    public void setDriverId(String driverId) {
-        this.driverId = driverId;
+    public void setDriverID(String driverId) {
+        this.driverID = driverId;
     }
     
-    public String getMemId() {
+    public String getMemID() {
         return memId;
     }
 
-    public void setMemId(String memId) {
+    public void setMemID(String memId) {
         this.memId = memId;
     }
 
@@ -152,21 +152,21 @@ public class SingleOrderVO {
         this.note = note;
     }
     
-    public Timestamp getLauchTime() {
-        return lauchTime;
+    public Timestamp getLaunchTime() {
+        return launchTime;
     }
     
-    public void setLauchTime(Timestamp lauchTime) {
-        this.lauchTime = lauchTime;
+    public void setLaunchTime(Timestamp lauchTime) {
+        this.launchTime = lauchTime;
     }
 
     @Override
     public String toString() {
-        return "SingleOrderVO [orderId=" + orderId + ", driverId=" + driverId + ", state=" + state + ", totalAmount="
+        return "SingleOrderVO [orderId=" + orderID + ", driverId=" + driverID + ", state=" + state + ", totalAmount="
                 + totalAmount + ", startLoc=" + startLoc + ", endLoc=" + endLoc + ", startTime=" + startTime
                 + ", endTime=" + endTime + ", startLng=" + startLng + ", startLat=" + startLat + ", endLng=" + endLng
                 + ", endLat=" + endLat + ", orderType=" + orderType + ", rate=" + rate + ", note=" + note
-                + ", lauchTime=" + lauchTime + "]";
+                + ", lauchTime=" + launchTime + "]";
     }
     
     

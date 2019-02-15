@@ -4,12 +4,7 @@ public class LocationVO {
     private String memId;
     private String location;
 
-    public LocationVO() {}
-    
-    public LocationVO(String memId, String location) {
-        setMemId(memId);
-        setLocation(location);
-    }
+    public LocationVO() {} 
 
     public String getMemId() {
         return memId;

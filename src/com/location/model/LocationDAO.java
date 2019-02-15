@@ -29,8 +29,8 @@ public class LocationDAO implements LocationDAO_interface{
             dataSource = (DataSource) context.lookup("java:comp/env/jdbc/TestDB");
         } catch (NamingException e) {
             e.printStackTrace();
-        }
-    }
+        } // catch
+    } // static
     
 //    public static void main(String[] args) throws ClassNotFoundException {
 //        Class.forName("oracle.jdbc.driver.OracleDriver");

@@ -20,8 +20,8 @@ public class SingleOrderService {
                                         Double startLat, Double endLng, Double endLat, Integer totalAmount,
                                         Integer orderType, Integer rate, String note, Timestamp lauchTime) {
         SingleOrderVO singleOrderVO = new SingleOrderVO();
-        singleOrderVO.setDriverId(driverId);
-        singleOrderVO.setMemId(memId);
+        singleOrderVO.setDriverID(driverId);
+        singleOrderVO.setMemID(memId);
         singleOrderVO.setState(state);
         singleOrderVO.setStartTime(startTime);
         singleOrderVO.setEndTime(endTime);
@@ -35,7 +35,7 @@ public class SingleOrderService {
         singleOrderVO.setOrderType(orderType);
         singleOrderVO.setRate(rate);
         singleOrderVO.setNote(note);
-        singleOrderVO.setLauchTime(lauchTime);
+        singleOrderVO.setLaunchTime(lauchTime);
         singleOrderDAO.insert(singleOrderVO);
         return singleOrderVO;
     } // addSingleOrder()
@@ -45,9 +45,9 @@ public class SingleOrderService {
                                            Double startLat, Double endLng, Double endLat, Integer totalAmount,
                                            Integer orderType, Integer rate, String note, Timestamp lauchTime) {
         SingleOrderVO singleOrderVO = new SingleOrderVO();
-        singleOrderVO.setOrderId(orderId);
-        singleOrderVO.setDriverId(driverId);
-        singleOrderVO.setMemId(memId);
+        singleOrderVO.setOrderID(orderId);
+        singleOrderVO.setDriverID(driverId);
+        singleOrderVO.setMemID(memId);
         singleOrderVO.setState(state);
         singleOrderVO.setStartTime(startTime);
         singleOrderVO.setEndTime(endTime);
@@ -61,12 +61,12 @@ public class SingleOrderService {
         singleOrderVO.setOrderType(orderType);
         singleOrderVO.setRate(rate);
         singleOrderVO.setNote(note);
-        singleOrderVO.setLauchTime(lauchTime);
+        singleOrderVO.setLaunchTime(lauchTime);
         singleOrderDAO.update(singleOrderVO);
         return singleOrderVO;
     } // updateSingleOrder()
     
-    List<SingleOrderVO> getAll() {
+    public List<SingleOrderVO> getAll() {
         return singleOrderDAO.getAll();
     } // getAll()
 } // class SingleOrderService

@@ -6,64 +6,64 @@ import java.sql.Date;
 
 public class ActivityVO implements Serializable {
 	/*SQL型別轉換參考JDBC P29*/
-	private String activity_Id;
-	private String activity_Name;
-	private String activity_Info;
-	private Date activity_Start;
-	private Date activity_End;
-	private String activity_Code;
-	private Integer token_Amount;
+	private String activityID;
+	private String activityName;
+	private String activityInfo;
+	private Date activityStart;
+	private Date activityEnd;
+	private String activityCode;
+	private Integer tokenAmount;
 	/*將圖片設為byte[]型別，以利於在DAO中使用getBytes()、setBytes()對VO進行操作*/
-	private byte[] activity_Post;
+	private byte[] activityPost;
 	
 	/*由eclisps自動產生*/
-	public String getActivity_Id() {
-		return activity_Id;
+	public String getActivityID() {
+		return activityID;
 	}
-	public void setActivity_Id(String activity_Id) {
-		this.activity_Id = activity_Id;
+	public void setActivityID(String activity_Id) {
+		this.activityID = activity_Id;
 	}
-	public String getActivity_Name() {
-		return activity_Name;
+	public String getActivityName() {
+		return activityName;
 	}
-	public void setActivity_Name(String activity_Name) {
-		this.activity_Name = activity_Name;
+	public void setActivityName(String activity_Name) {
+		this.activityName = activity_Name;
 	}
-	public String getActivity_Info() {
-		return activity_Info;
+	public String getActivityInfo() {
+		return activityInfo;
 	}
-	public void setActivity_Info(String activity_Info) {
-		this.activity_Info = activity_Info;
+	public void setActivityInfo(String activity_Info) {
+		this.activityInfo = activity_Info;
 	}
-	public Date getActivity_Start() {
-		return activity_Start;
+	public Date getActivityStart() {
+		return activityStart;
 	}
-	public void setActivity_Start(Date activity_Start) {
-		this.activity_Start = activity_Start;
+	public void setActivityStart(Date activity_Start) {
+		this.activityStart = activity_Start;
 	}
-	public Date getActivity_End() {
-		return activity_End;
+	public Date getActivityEnd() {
+		return activityEnd;
 	}
-	public void setActivity_End(Date activity_End) {
-		this.activity_End = activity_End;
+	public void setActivityEnd(Date activity_End) {
+		this.activityEnd = activity_End;
 	}
-	public String getActivity_Code() {
-		return activity_Code;
+	public String getActivityCode() {
+		return activityCode;
 	}
-	public void setActivity_Code(String activity_Code) {
-		this.activity_Code = activity_Code;
+	public void setActivityCode(String activity_Code) {
+		this.activityCode = activity_Code;
 	}
-	public Integer getToken_Amount() {
-		return token_Amount;
+	public Integer getTokenAmount() {
+		return tokenAmount;
 	}
-	public void setToken_Amount(Integer token_Amount) {
-		this.token_Amount = token_Amount;
+	public void setTokenAmount(Integer token_Amount) {
+		this.tokenAmount = token_Amount;
 	}
-	public byte[] getActivity_Post() {
-		return activity_Post;
+	public byte[] getActivityPost() {
+		return activityPost;
 	}
-	public void setActivity_Post(byte[] activity_Post) {
-		this.activity_Post = activity_Post;
+	public void setActivityPost(byte[] activity_Post) {
+		this.activityPost = activity_Post;
 	}
 
 }

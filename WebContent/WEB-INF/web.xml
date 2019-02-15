@@ -16,11 +16,16 @@
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
   <servlet>
-    <servlet-name>location</servlet-name>
-    <servlet-class>com.location.controller.LocationServlet</servlet-class>
+    <servlet-name>singleOrder</servlet-name>
+    <servlet-class>com.singleOrder.controller.SingleOrderServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>location</servlet-name>
-    <url-pattern>/locationServlet</url-pattern>
+    <servlet-name>singleOrder</servlet-name>
+    <url-pattern>/singleOrder</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>orderType</servlet-name>
+    <servlet-class>model.OrderTypeMap</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
 </web-app>

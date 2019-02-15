@@ -4,7 +4,7 @@ import java.util.List;
 
 
 
-public interface ActivityTokenDAO_Impl {
+public interface ActivityTokenDAO_interface {
 	
 	public void insert(ActivityTokenVO activityTokenVO);
     public void update(ActivityTokenVO activityTokenVO);

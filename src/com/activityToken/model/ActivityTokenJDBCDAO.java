@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ActivityTokenJDBCDAO implements ActivityTokenDAO_Impl{
+public class ActivityTokenJDBCDAO implements ActivityTokenDAO_interface{
 	String driver="oracle.jdbc.driver.OracleDriver";
 	String url="jdbc:oracle:thin:@localhost:1521:XE";
 	String userid="CA106";
