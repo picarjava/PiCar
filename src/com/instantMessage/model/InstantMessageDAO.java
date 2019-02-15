@@ -9,7 +9,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -24,7 +23,6 @@ public class InstantMessageDAO implements InstantMessageInterface {
     private final static String SELECT_ALL = "SELECT * FROM INSTANT_MESSAGE";
     private final static String UPDATE = "UPDATE INSTANT_MESSAGE SET MSG_RECORD=? WHERE MEM_ID=? AND START_TIME=?";
     private final static String INSERT = "INSERT INTO INSTANT_MESSAGE(MSG_RECORD, MEM_ID, START_TIME) VALUES (?, ?, ?)";
-    private final static String DELETE = "DELETE FROM INSTANT_MESSAGE WHERE MEM_ID=? AND START_TIME=?";
     private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
     private final static String NAME = "CA106";
     private static DataSource dataSource;
@@ -93,14 +91,6 @@ public class InstantMessageDAO implements InstantMessageInterface {
     } // update()
 
     @Override
-    public void delete(String memId, Date startTime) {
-        InstantMessageVO instantMessageVO = new InstantMessageVO();
-        instantMessageVO.setMemId(memId);
-        instantMessageVO.setStartTime(startTime);
-        excuteUpdate(instantMessageVO, DELETE);
-    } // delete()
-
-    @Override
     public List<InstantMessageVO> getAll() {
         List<InstantMessageVO> list = new ArrayList<>();
         Connection connection = null;
@@ -133,12 +123,7 @@ public class InstantMessageDAO implements InstantMessageInterface {
 //          connection = dataSource.getConnection();
             connection = DriverManager.getConnection(URL, NAME, NAME);
             preparedStatement = connection.prepareStatement(sql);
-            // INSERT statement order: msg_record mem_id start_time
-            if (!sql.equals(DELETE)) {
-                // DELETE statement doesn't require msg_record
-                preparedStatement.setString(index++, instantMessageVO.getMsgRecord());
-            } // if
-            
+            // INSERT statement order: msg_record mem_id start_time        
             preparedStatement.setString(index++, instantMessageVO.getMemId());
             preparedStatement.setDate(index++, instantMessageVO.getStartTime()); 
             preparedStatement.executeUpdate();
