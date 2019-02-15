@@ -6,7 +6,7 @@ public interface MemberDAO_interface {
 	
 	public void insert(MemberVO memberVO);
 	public void update(MemberVO memberVO);
-	public void delete(MemberVO memberVO);
+	public void delete(String memID);
 	public MemberVO findByPrimaryKey(String memID);
 	public List<MemberVO> getAll();
 	

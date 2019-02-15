@@ -142,7 +142,7 @@ public class MemberDAO implements MemberDAO_interface {
 //	private static final String DELETE =  "DELET FROM MEMBER WHERE MEM_ID = ?";
 
 	@Override
-	public void delete(MemberVO memberVO) {
+	public void delete(String memID) {
 
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -151,7 +151,7 @@ public class MemberDAO implements MemberDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setString(1, memberVO.getMemID());
+			pstmt.setString(1, memID);
 
 			pstmt.executeUpdate();
 
@@ -200,18 +200,53 @@ public class MemberDAO implements MemberDAO_interface {
 
 			while (rs.next()) {
 				MemberVO memberVO = new MemberVO();
-				memberVO.setMemID(rs.getString("memID"));
-				memberVO.setName(rs.getString("name"));
-				memberVO.setEmail(rs.getString("email"));
-				memberVO.setPassword(rs.getString("password"));
+				
+				memberVO.setMemID(rs.getString("MEM_ID"));
+				memberVO.setName(rs.getString("NAME"));
+				memberVO.setEmail(rs.getString("EMAIL"));
+				memberVO.setPassword(rs.getString("PASSWORD"));
+				memberVO.setPhone(rs.getString("PHONE"));
+				memberVO.setCreditcard(rs.getString("CREDIT_CARD"));
+				memberVO.setPet(rs.getInt("PET"));
+				memberVO.setSmoke(rs.getInt("SMOKE"));
+				memberVO.setGender(rs.getInt("GENDER"));
+				memberVO.setToken(rs.getInt("TOKEN"));
+				memberVO.setActivityToken(rs.getInt("ACTIVITY_TOKEN"));
+				memberVO.setBirthday(rs.getDate("BIRTHDAY"));
+				memberVO.setVerified(rs.getInt("VERIFIED"));
+				memberVO.setBabySeat(rs.getInt("BABY_SEAT"));			
 
 			}
-
+			
 		} catch (SQLException se) {
 			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
+		}finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {					
+					se.printStackTrace();
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {					
+					se.printStackTrace();
+				}
+			}
+			
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
 		}
 
-		return null;
+		return mwmberVO;
 	}
 
 	@Override
