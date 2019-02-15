@@ -4,7 +4,7 @@ import java.sql.Date;
 
 public class MemberVO implements java.io.Serializable{
 	
-	private String memid;
+	private String memID;
 	private String name;
 	private String email;
 	private String password;
@@ -14,18 +14,17 @@ public class MemberVO implements java.io.Serializable{
 	private Integer smoke;
 	private Integer gender;
 	private Integer token; 
-	private Integer activitytoken;
+	private Integer activityToken;
 	private Date birthday;
 	private Integer verified;
-	private Integer babysite;
+	private Integer babySeat;
 	
-	
-	public String getMemid() {
-		return memid;
+	public String getMemID() {
+		return memID;
 	}
 	
-	public void setMemid(String memid) {
-		this.memid = memid;
+	public void setMemID(String memID) {
+		this.memID = memID;
 	}
 	
 	public String getName() {
@@ -47,6 +46,7 @@ public class MemberVO implements java.io.Serializable{
 	public String getPassword() {
 		return password;
 	}
+	
 	public void setPassword(String password) {
 		this.password = password;
 	}
@@ -74,9 +74,11 @@ public class MemberVO implements java.io.Serializable{
 	public void setPet(Integer pet) {
 		this.pet = pet;
 	}
+	
 	public Integer getSmoke() {
 		return smoke;
 	}
+	
 	public void setSmoke(Integer smoke) {
 		this.smoke = smoke;
 	}
@@ -92,16 +94,17 @@ public class MemberVO implements java.io.Serializable{
 	public Integer getToken() {
 		return token;
 	}
+	
 	public void setToken(Integer token) {
 		this.token = token;
 	}
 	
-	public Integer getActivitytoken() {
-		return activitytoken;
+	public Integer getActivityToken() {
+		return activityToken;
 	}
 	
-	public void setActivitytoken(Integer activitytoken) {
-		this.activitytoken = activitytoken;
+	public void setActivityToken(Integer activityToken) {
+		this.activityToken = activityToken;
 	}
 	
 	public Date getBirthday() {
@@ -112,7 +115,6 @@ public class MemberVO implements java.io.Serializable{
 		this.birthday = birthday;
 	}
 	
-	
 	public Integer getVerified() {
 		return verified;
 	}
@@ -121,13 +123,13 @@ public class MemberVO implements java.io.Serializable{
 		this.verified = verified;
 	}
 	
-	public Integer getBabysite() {
-		return babysite;
+	public Integer getBabySeat() {
+		return babySeat;
 	}
 	
-	public void setBabysite(Integer babysite) {
-		this.babysite = babysite;
-	}
+	public void setBabySeat(Integer babySeat) {
+		this.babySeat = babySeat;
+	}	
 	
 	
 	
