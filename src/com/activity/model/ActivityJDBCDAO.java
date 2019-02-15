@@ -1,6 +1,7 @@
 
 package com.activity.model;
 
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 /*DAO功能是用SQL語法，透過VO物件傳遞資料庫資料  進行增刪改查*/
-public class ActivityJDBCDAO implements ActivityDAO_Impl{
+public class ActivityJDBCDAO implements ActivityDAO_interface{
 	String driver="oracle.jdbc.driver.OracleDriver";
 	String url="jdbc:oracle:thin:@localhost:1521:XE";
 	String userid="CA106";
@@ -18,13 +19,13 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 	private static final String INSERT_STMT=
 			"INSERT INTO ACTIVITY(ACTIVITY_ID,ACTIVITY_NAME,ACTIVITY_INFO,ACTIVITY_START,ACTIVITY_END,ACTIVITY_CODE,TOKEN_AMOUNT,ACTIVITY_POST) VALUES(?,?,?,?,?,?,?,?)"; 
 	private static final String GET_ALL_STMT=
-			"SELECT ACTIVITY_ID,ACTIVITY_NAME,ACTIVITY_INFO,TO_CHAR(ACTIVITY_START,'YYYY-MM-DD HH24:MI:SS')ACTIVITY_START,TO_CHAR(ACTIVITY_END,'YYYY-MM-DD HH24:MI:SS')ACTIVITY_END,ACTIVITY_CODE,TOKEN_AMOUNT,ACTIVITY_POST FROM ACTIVITY ORDER BY TO_CHAR(ACTIVITY_START,'YYYY-MM-DD HH24:MI:SS')ACTIVITY_START";
+			"SELECT ACTIVITY_ID,ACTIVITY_NAME,ACTIVITY_INFO,TO_CHAR(ACTIVITY_START,'YYYY-MM-DD HH24:MI:SS')ACTIVITY_START,TO_CHAR(ACTIVITY_END,'YYYY-MM-DD HH24:MI:SS')ACTIVITY_END,ACTIVITY_CODE,TOKEN_AMOUNT,ACTIVITY_POST FROM ACTIVITY ORDER BY ACTIVITY_ID";
 	private static final String GET_ONE_STMT=
 			"SELECT ACTIVITY_ID,ACTIVITY_NAME,ACTIVITY_INFO,TO_CHAR(ACTIVITY_START,'YYYY-MM-DD HH24:MI:SS')ACTIVITY_START,TO_CHAR(ACTIVITY_END,'YYYY-MM-DD HH24:MI:SS')ACTIVITY_END,ACTIVITY_CODE,TOKEN_AMOUNT,ACTIVITY_POST FROM ACTIVITY WHERE ACTIVITY_ID=?";
 	private static final String DELETE=
 			"DELETE FROM ACTIVITY WHERE ACTIVITY_ID=?";
 	private static final String UPDATE=
-			"UPDATE ACTIVITY SET ACTIVITY_NAME=?,ACTIVITY_INFO=?,ACTIVITY_START=?,ACTIVITY_END,ACTIVITY_CODE=?,TOKEN_AMOUNT=?,ACTIVITY_POST=? WHERE ACTIVITY_ID=?" ;
+			"UPDATE ACTIVITY SET ACTIVITY_NAME=?,ACTIVITY_INFO=?,ACTIVITY_START=?,ACTIVITY_END=?,ACTIVITY_CODE=?,TOKEN_AMOUNT=?,ACTIVITY_POST=? WHERE ACTIVITY_ID=?" ;
 	
 	/*增、改的code一樣，只差在(1)pstmt預先送出的SQL常數不同(2)改的PK放在parameterIndex=8的位置*/
 	@Override
@@ -36,21 +37,21 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 			con=DriverManager.getConnection(url,userid,passwd);
 			pstmt=con.prepareStatement(INSERT_STMT);
 			/*根據SQL常數，用vo.getxxx去set pstmt需要的值*/
-			pstmt.setString(1, activityVO.getActivity_Id());
-			pstmt.setString(2, activityVO.getActivity_Name());
-			pstmt.setString(3, activityVO.getActivity_Info());
-			pstmt.setDate(4, activityVO.getActivity_Start());
-			pstmt.setDate(5, activityVO.getActivity_End());
-			pstmt.setString(6, activityVO.getActivity_Code());
-			pstmt.setInt(7, activityVO.getToken_Amount());
-			pstmt.setBytes(8, activityVO.getActivity_Post());
+			pstmt.setString(1, activityVO.getActivityID());
+			pstmt.setString(2, activityVO.getActivityName());
+			pstmt.setString(3, activityVO.getActivityInfo());
+			pstmt.setDate(4, activityVO.getActivityStart());
+			pstmt.setDate(5, activityVO.getActivityEnd());
+			pstmt.setString(6, activityVO.getActivityCode());
+			pstmt.setInt(7, activityVO.getTokenAmount());
+			pstmt.setBytes(8, activityVO.getActivityPost());
 			pstmt.executeUpdate();
 		/*處理driver errors*/
 		}catch(ClassNotFoundException e){
 			throw new RuntimeException("無法載入DB Driver"+e.getMessage());
 		/*處理SQL errors*/
 		}catch(SQLException se){
-			throw new RuntimeException ("發生DB error"+se.getMessage());
+			throw new RuntimeException ("發生SQL error"+se.getMessage());
 		/*清除JDBC資源*/
 		}finally{
 			if(pstmt !=null){
@@ -79,21 +80,21 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 			pstmt=con.prepareStatement(UPDATE);
 			/*根據SQL常數，用vo.getxxx去set pstmt需要的值*/
 			
-			pstmt.setString(1, activityVO.getActivity_Name());
-			pstmt.setString(2, activityVO.getActivity_Info());
-			pstmt.setDate(3, activityVO.getActivity_Start());
-			pstmt.setDate(4, activityVO.getActivity_End());
-			pstmt.setString(5, activityVO.getActivity_Code());
-			pstmt.setInt(6, activityVO.getToken_Amount());
-			pstmt.setBytes(7, activityVO.getActivity_Post());
-			pstmt.setString(8, activityVO.getActivity_Id());
+			pstmt.setString(1, activityVO.getActivityName());
+			pstmt.setString(2, activityVO.getActivityInfo());
+			pstmt.setDate(3, activityVO.getActivityStart());
+			pstmt.setDate(4, activityVO.getActivityEnd());
+			pstmt.setString(5, activityVO.getActivityCode());
+			pstmt.setInt(6, activityVO.getTokenAmount());
+			pstmt.setBytes(7, activityVO.getActivityPost());
+			pstmt.setString(8, activityVO.getActivityID());
 			
 			pstmt.executeUpdate();
 			
 		}catch(ClassNotFoundException e){
 			throw new RuntimeException("無法載入DB Driver"+e.getMessage());
 		}catch(SQLException se){
-			throw new RuntimeException ("發生DB error"+se.getMessage());
+			throw new RuntimeException ("發生SQL error"+se.getMessage());
 		}finally{
 			if(pstmt !=null){
 				try{
@@ -113,7 +114,7 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 	}
 		
 	@Override
-	public void delete(String activity_id) {
+	public void delete(String activityID) {
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try{
@@ -122,13 +123,13 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 			pstmt=con.prepareStatement(DELETE);
 			/*根據SQL常數，pstmt需要的值*/
 			/*parameterIndex 從1開始*/
-			pstmt.setString(1, activity_id);
+			pstmt.setString(1, activityID);
 			pstmt.executeUpdate();
 			
 		}catch(ClassNotFoundException e){
 			throw new RuntimeException("無法載入DB Driver"+e.getMessage());
 		}catch(SQLException se){
-			throw new RuntimeException("發生DB error"+se.getMessage());
+			throw new RuntimeException("發生SQL error"+se.getMessage());
 		}finally{
 			if(pstmt!=null){
 				try{
@@ -149,7 +150,7 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 	
 	
 	@Override
-	public ActivityVO findByPrimaryKey(String activity_id) {
+	public ActivityVO findByPrimaryKey(String activityID) {
 		ActivityVO activityVO=null;
 		Connection con= null;
 		PreparedStatement pstmt =null;
@@ -160,27 +161,29 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 			pstmt=con.prepareStatement(GET_ONE_STMT);
 			/*根據SQL常數，pstmt需要的值*/
 			/*parameterIndex 從1開始*/
-			pstmt.setString(1, activity_id);
+			pstmt.setString(1, activityID);
 			/*進行一筆資料的查詢*/
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()){
 				
 				activityVO=new ActivityVO();
-				activityVO.setActivity_Id(rs.getString("activity_Id"));
-				activityVO.setActivity_Name(rs.getString("activity_Name"));
-				activityVO.setActivity_Info(rs.getString("activity_Info"));
-				activityVO.setActivity_Start(rs.getDate("activity_Start"));
-				activityVO.setActivity_End(rs.getDate("activity_End"));
-				activityVO.setActivity_Code(rs.getString("activity_Code"));
-				activityVO.setToken_Amount(rs.getInt("token_Amount"));
-				activityVO.setActivity_Post(rs.getBytes("activity_Id"));
+				activityVO.setActivityID(rs.getString("ACTIVITY_ID"));
+				activityVO.setActivityName(rs.getString("ACTIVITY_NAME"));
+				activityVO.setActivityInfo(rs.getString("ACTIVITY_INFO"));
+				
+//				測試時，getDate()出現 java.lang.IllegalArgumentException
+				activityVO.setActivityStart(rs.getDate("ACTIVITY_START"));
+				activityVO.setActivityEnd(rs.getDate("ACTIVITY_END"));
+				activityVO.setActivityCode(rs.getString("ACTIVITY_CODE"));
+				activityVO.setTokenAmount(rs.getInt("TOKEN_AMOUNT"));
+				activityVO.setActivityPost(rs.getBytes("ACTIVITY_POST"));
 			}
 		
 		}catch(ClassNotFoundException e){
 			throw new RuntimeException("無法載入BD driver"+e.getMessage());
 		}catch(SQLException se){
-			throw new RuntimeException("發生DB errors"+se.getMessage());
+			throw new RuntimeException("發生SQL errors"+se.getMessage());
 		}finally{
 			if(pstmt!=null){
 				try{
@@ -220,20 +223,23 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 			while(rs.next()){
 				
 				activityVO=new ActivityVO();
-				activityVO.setActivity_Id(rs.getString("activity_Id"));
-				activityVO.setActivity_Name(rs.getString("activity_Name"));
-				activityVO.setActivity_Info(rs.getString("activity_Info"));
-				activityVO.setActivity_Start(rs.getDate("activity_Start"));
-				activityVO.setActivity_End(rs.getDate("activity_End"));
-				activityVO.setActivity_Code(rs.getString("activity_Code"));
-				activityVO.setToken_Amount(rs.getInt("token_Amount"));
-				activityVO.setActivity_Post(rs.getBytes("activity_Id"));
+				activityVO.setActivityID(rs.getString("ACTIVITY_ID"));
+				activityVO.setActivityName(rs.getString("ACTIVITY_NAME"));
+				activityVO.setActivityInfo(rs.getString("ACTIVITY_INFO"));
+				
+				
+//				測試時，getDate()出現 java.lang.IllegalArgumentException
+				activityVO.setActivityStart(rs.getDate("ACTIVITY_START"));
+				activityVO.setActivityEnd(rs.getDate("ACTIVITY_END"));
+				activityVO.setActivityCode(rs.getString("ACTIVITY_CODE"));
+				activityVO.setTokenAmount(rs.getInt("TOKEN_AMOUNT"));
+				activityVO.setActivityPost(rs.getBytes("ACTIVITY_POST"));
 				list.add(activityVO);
 			}
 		}catch(ClassNotFoundException e){
 			throw new RuntimeException("無法載入BD driver"+e.getMessage());
 		}catch(SQLException se){
-			throw new RuntimeException("發生DB errors"+se.getMessage());
+			throw new RuntimeException("發生SQL errors"+se.getMessage());
 		}finally{
 			if(pstmt!=null){
 				try{
@@ -254,23 +260,6 @@ public class ActivityJDBCDAO implements ActivityDAO_Impl{
 		return null;
 	}
 	
-	/*JDBC DAO 測試*/
-	public static void main(String[]args) {
-		/*新增*/
-		ActivityJDBCDAO ActivityTokenJDBCDAO=new ActivityJDBCDAO();
-		ActivityVO activityVO1= new ActivityVO();
-		activityVO1.setActivity_Id("AC007");
-		activityVO1.setActivity_Name("測試活動名稱");
-		activityVO1.setActivity_Info("測試活動資訊");
-		java.util.Date  date=new java.util.Date();
-//		GregorianCalendar(int year, int month, int dayOfMonth)
-		activityVO1.setActivity_Start(new java.sql.Date(date.getTime()));
-//		activityVO1
-//		activityVO1
-//		activityVO1
-		
-		
-	}
 	
 }
 		
