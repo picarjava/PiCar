@@ -1,12 +1,12 @@
-package GroupOrder;
+package com.groupOrder.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
 
 public class GroupOrderVO {
-	private String gorderId;
-	private String driverId;
-	private String memId;
+	private String gorderID;
+	private String driverID;
+	private String memID;
 	private Integer state;
 	private Integer totalAmout;
 	private Timestamp launchTime;
@@ -19,23 +19,23 @@ public class GroupOrderVO {
 	private Integer orderType;
 	private Integer rate;
 	private String note;
-	public String getGorderId() {
-		return gorderId;
+	public String getGorderID() {
+		return gorderID;
 	}
-	public void setGorderId(String gorderId) {
-		this.gorderId = gorderId;
+	public void setGorderID(String gorderId) {
+		this.gorderID = gorderId;
 	}
-	public String getDriverId() {
-		return driverId;
+	public String getDriverID() {
+		return driverID;
 	}
-	public void setDriverId(String driverId) {
-		this.driverId = driverId;
+	public void setDriverID(String driverId) {
+		this.driverID = driverId;
 	}
-	public String getMemId() {
-		return memId;
+	public String getMemID() {
+		return memID;
 	}
-	public void setMemId(String memId) {
-		this.memId = memId;
+	public void setMemID(String memId) {
+		this.memID = memId;
 	}
 	public Integer getState() {
 		return state;

@@ -1,4 +1,4 @@
-package GroupBand;
+package com.groupBand.model;
 
 import java.sql.*;
 import java.util.*;
@@ -40,7 +40,7 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 		con = ds.getConnection();
 		pstmt = con.prepareStatement(INSERT_STMT);
 
-		pstmt.setString(1, groupBandVO.getGroupId());
+		pstmt.setString(1, groupBandVO.getGroupID());
 		pstmt.setString(2, groupBandVO.getContent());
 		pstmt.setDate(3, groupBandVO.getLaunchTime());
 		pstmt.setString(4, groupBandVO.getIntroduction());
@@ -53,7 +53,7 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 		pstmt.setString(11, groupBandVO.getStartLoc());
 		pstmt.setString(12, groupBandVO.getEndLoc());
 		pstmt.setInt(13, groupBandVO.getPrivates());
-//		pstmt.setInt(14, groupBandVO.getPhoto());
+		pstmt.setBytes(14, groupBandVO.getPhoto());
 		pstmt.setString(15, groupBandVO.getGroupType());
 		pstmt.setInt(16, groupBandVO.getTotalAmout());
 		pstmt.setDate(17, groupBandVO.getStartTime());
@@ -61,6 +61,7 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 		pstmt.setString(19, groupBandVO.getNote());
 		
 		pstmt.executeUpdate();
+		
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());
