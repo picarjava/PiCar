@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SingleOrderDAO implements SingleOrderInterface {
+public class SingleOrderDAO implements SingleOrder_interface {
 	private final static String SELECT = "SELECT * FROM SINGLE_ORDER WHERE ORDER_ID=?";
 	private final static String SELECT_ALL = "SELECT * FROM SINGLE_ORDER";
     private final static String UPDATE = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, MEM_ID=?, STATE=?, " + 

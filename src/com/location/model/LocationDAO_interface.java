@@ -2,7 +2,7 @@ package com.location.model;
 
 import java.util.List;
 
-public interface LocationDAOInterface {
+public interface LocationDAO_interface {
 
     LocationVO findByPrimaryKey(String primaryKey1, String primaryKey2);
     void insert(LocationVO VO);

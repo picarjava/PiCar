@@ -4,7 +4,7 @@ import java.sql.Date;
 import java.util.List;
 
 public class InstantMessageService {
-    private InstantMessageInterface instantMessageDAO;
+    private InstantMessage_interface instantMessageDAO;
     
     public InstantMessageService() {
         instantMessageDAO = new InstantMessageDAO();
