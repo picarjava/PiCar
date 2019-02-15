@@ -1,12 +1,14 @@
 package model;
 
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
 public class OrderTypeMap extends HttpServlet {
-    public final static HashMap<String, String> ORDER_TYPE = new HashMap<>();
+    public final static Map<String, String> ORDER_TYPE = new HashMap<>();
     @Override
     public void init() throws ServletException {
         ORDER_TYPE.put("0", "一般叫車");

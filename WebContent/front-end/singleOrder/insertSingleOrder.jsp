@@ -9,19 +9,32 @@
 </head>
 <body>
     <h3>新增訂單</h3>
+    <c:if test="${not empty errorMsgs }">
+                <h3>資料未填或格式錯誤</h3>
+                <p>
+                    <c:forEach var="errorMsg" items="${errorMsgs}">
+                        ${errorMsg}
+                    </c:forEach>
+                </p>
+            </c:if>
     <form action="/PiCar/singleOrder" method="POST">
-        <label for="memId">會員ID</label><input type="text" name="memId" id="memID"/><br>
-        <label for="startTime">上車時間</label><input type="date" name="startTime" id="startTime"/><br>
-        <label for="endTime">下車時間</label><input type="date" name="endTime" id="endTime"/><br>
-        <label for="startLoc">上車地點</label><input type="text" name="startLoc" id="startLoc"/><br>
-        <label for="endLoc">上車地點</label><input type="text" name="endLoc" id="endLoc"/><br>
-        <label for="orderType">訂單種類</label>
-        <select name="endLoc" id="endLoc">
-            <% HashMap<String, String> map = (HashMap<String, String>) application.getAttribute("orderTypeMap");
-               for (String oT:map.keySet()) {%>
-                   <option value=<%=oT%>><%=map.get(oT)%></option>
-             <%}//for ()%>
+        <label for="memId">會員ID </label><input type="text" name="memId" id="memID"/><br>
+        <label for="startTime">上車時間 </label><input type="date" name="startTime" id="startTime"/><br>
+        <label for="endTime">下車時間 </label><input type="date" name="endTime" id="endTime"/><br>
+        <label for="startLoc">上車地點 </label><input type="text" name="startLoc" id="startLoc"/><br>
+        <label for="endLoc">下車地點 </label><input type="text" name="endLoc" id="endLoc"/><br>
+        <label for="orderType">訂單種類 </label>
+        <select name="orderType" id="orderType">
+            <c:forEach var="orderType" items="${orderTypeMap}">
+                <option value="${orderType.key}">${orderType.value}</option>
+            </c:forEach>
         </select><br>
+        <label for="totalAmount">總金額 </label><input type="text" name="totalAmount" id="totalAmount"/><br>
+        <label for="rate">評價</label><input type="text" name="rate" id="rate"/><br>
+        <label for="note">備註 </label><br>
+        <textarea name="note" id="note" rows="3" cols="50"></textarea><br>
+        <input type="hidden" name="action" value="insert"/>
+        <input type="submit"/>
     </form>
 </body>
 </html>

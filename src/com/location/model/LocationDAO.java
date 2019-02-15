@@ -136,7 +136,7 @@ public class LocationDAO implements LocationDAO_interface{
             if (sql.equals(UPDATE))
                 preparedStatement.setString(index++, newLocation);
             
-            preparedStatement.setString(index++, locationVO.getMemId());
+            preparedStatement.setString(index++, locationVO.getMemID());
             preparedStatement.setString(index++, locationVO.getLocation());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {

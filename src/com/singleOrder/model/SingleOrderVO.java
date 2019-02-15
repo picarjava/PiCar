@@ -28,24 +28,24 @@ public class SingleOrderVO {
         return orderID;
     }
     
-    public void setOrderID(String orderId) {
-        this.orderID = orderId;
+    public void setOrderID(String orderID) {
+        this.orderID = orderID;
     }
     
     public String getDriverID() {
         return driverID;
     }
     
-    public void setDriverID(String driverId) {
-        this.driverID = driverId;
+    public void setDriverID(String driverID) {
+        this.driverID = driverID;
     }
     
     public String getMemID() {
         return memId;
     }
 
-    public void setMemID(String memId) {
-        this.memId = memId;
+    public void setMemID(String memID) {
+        this.memId = memID;
     }
 
     public Integer getState() {

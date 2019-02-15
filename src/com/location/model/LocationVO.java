@@ -1,17 +1,17 @@
 package com.location.model;
 
 public class LocationVO {
-    private String memId;
+    private String memID;
     private String location;
 
     public LocationVO() {} 
 
-    public String getMemId() {
-        return memId;
+    public String getMemID() {
+        return memID;
     }
 
-    public void setMemId(String memId) {
-        this.memId = memId;
+    public void setMemId(String memID) {
+        this.memID = memID;
     }
 
     public String getLocation() {
@@ -27,7 +27,7 @@ public class LocationVO {
         final int prime = 31;
         int result = 1;
         result = prime * result + ((location == null) ? 0 : location.hashCode());
-        result = prime * result + ((memId == null) ? 0 : memId.hashCode());
+        result = prime * result + ((memID == null) ? 0 : memID.hashCode());
         return result;
     }
 
@@ -45,16 +45,16 @@ public class LocationVO {
                 return false;
         } else if (!location.equals(other.location))
             return false;
-        if (memId == null) {
-            if (other.memId != null)
+        if (memID == null) {
+            if (other.memID != null)
                 return false;
-        } else if (!memId.equals(other.memId))
+        } else if (!memID.equals(other.memID))
             return false;
         return true;
     }
 
     @Override
     public String toString() {
-        return "LocationVO [memId=" + memId + ", location=" + location + "]";
+        return "LocationVO [memId=" + memID + ", location=" + location + "]";
     }
 }
