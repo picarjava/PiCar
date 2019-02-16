@@ -13,8 +13,8 @@ import com.activity.model.TestActivityJDBCDAO;
 public class TestActivityTokenJDBCDAO {
 
 	public static void main(String[] args) {
-		ActivityTokenJDBCDAO ActivityTokenJDBCDAO=new ActivityTokenJDBCDAO();
-		TestActivityTokenJDBCDAO useMethod=new TestActivityTokenJDBCDAO();
+//		ActivityTokenJDBCDAO ActivityTokenJDBCDAO=new ActivityTokenJDBCDAO();
+//		TestActivityTokenJDBCDAO useMethod=new TestActivityTokenJDBCDAO();
 //		/*新增*//*測試成功*/
 //		ActivityTokenVO activityTokenVO1=new ActivityTokenVO();
 //		activityTokenVO1.setMemID("M002");
@@ -46,18 +46,18 @@ public class TestActivityTokenJDBCDAO {
 //		System.out.println(activityTokenVO3.getDeadline());
 //		System.out.println("已查詢一筆活動代幣");
 		
-		/*查全部*//*測試成功*/
-		 List<ActivityTokenVO> list=ActivityTokenJDBCDAO.getAll();
-		 int count=1;
-		 for(ActivityTokenVO activityTokenVO4:list) {
-			 System.out.println(activityTokenVO4.getActivityID());
-			 System.out.println(activityTokenVO4.getActivityID());
-			 System.out.println(activityTokenVO4.getTokenAmount());
-			 System.out.println(activityTokenVO4.getDeadline());
-			 System.out.println("已查詢一筆活動代幣");
-			 System.out.println("=====已查詢第"+ count++ +"筆活動====");
-		 }
-		 System.out.println("=====已查詢全部活動代幣====");
+//		/*查全部*//*測試成功*/
+//		 List<ActivityTokenVO> list=ActivityTokenJDBCDAO.getAll();
+//		 int count=1;
+//		 for(ActivityTokenVO activityTokenVO4:list) {
+//			 System.out.println(activityTokenVO4.getActivityID());
+//			 System.out.println(activityTokenVO4.getActivityID());
+//			 System.out.println(activityTokenVO4.getTokenAmount());
+//			 System.out.println(activityTokenVO4.getDeadline());
+//			 System.out.println("已查詢一筆活動代幣");
+//			 System.out.println("=====已查詢第"+ count++ +"筆活動====");
+//		 }
+//		 System.out.println("=====已查詢全部活動代幣====");
 		
 	}
 	public java.sql.Date getSQLDate(int year, int month, int dayOfMonth, int hourOfDay, int minute) {
