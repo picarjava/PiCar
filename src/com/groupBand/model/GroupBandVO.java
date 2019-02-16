@@ -6,7 +6,7 @@ public class GroupBandVO implements java.io.Serializable {
 
 	private String groupID;
 	private String content;
-	private Date launchTime;
+	private Timestamp launchTime;
 	private String introduction;
 	private Integer groupStatus;
 	private Integer currenTnum;
@@ -36,10 +36,10 @@ public class GroupBandVO implements java.io.Serializable {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	public Date getLaunchTime() {
+	public Timestamp getLaunchTime() {
 		return launchTime;
 	}
-	public void setLaunchTime(Date launchTime) {
+	public void setLaunchTime(Timestamp launchTime) {
 		this.launchTime = launchTime;
 	}
 	public String getIntroduction() {

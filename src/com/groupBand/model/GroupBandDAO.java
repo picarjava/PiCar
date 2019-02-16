@@ -1,5 +1,9 @@
 package com.groupBand.model;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
@@ -20,13 +24,10 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 			e.printStackTrace();
 		}
 	}
-	private static final String INSERT_STMT = "INSERT INTO GroupBand (deptno,dname,loc) VALUES (dept2_seq.NEXTVAL, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO GROUP_BAND (GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE) VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?);";
 	private static final String GET_ALL_STMT = "SELECT deptno , dname, loc FROM GroupBand";
 	private static final String GET_ONE_STMT = "SELECT deptno , dname, loc FROM GroupBand where deptno = ?";
-	private static final String GET_Emps_ByDeptno_STMT = "SELECT empno,ename,job,to_char(hiredate,'yyyy-mm-dd') hiredate,sal,comm,deptno FROM GroupBand where deptno = ? order by empno";
 	
-	private static final String DELETE_EMPs = "DELETE FROM GroupBand where deptno = ?";
-	private static final String DELETE_DEPT = "DELETE FROM GroupBand where deptno = ?";	
 	private static final String DELETE = 
 			"DELETE FROM emp2 where empno = ?";
 	private static final String UPDATE = "UPDATE GroupBand set dname=?, loc=? where deptno = ?";
@@ -40,25 +41,24 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 		con = ds.getConnection();
 		pstmt = con.prepareStatement(INSERT_STMT);
 
-		pstmt.setString(1, groupBandVO.getGroupID());
-		pstmt.setString(2, groupBandVO.getContent());
-		pstmt.setDate(3, groupBandVO.getLaunchTime());
-		pstmt.setString(4, groupBandVO.getIntroduction());
-		pstmt.setInt(5, groupBandVO.getGroupStatus());
-		pstmt.setInt(6, groupBandVO.getCurrenTnum());
-		pstmt.setInt(7, groupBandVO.getUpperLimit());
-		pstmt.setInt(8, groupBandVO.getLowerLimit());
-		pstmt.setString(9, groupBandVO.getGroupName());
-		pstmt.setInt(10, groupBandVO.getGroupLeader());
-		pstmt.setString(11, groupBandVO.getStartLoc());
-		pstmt.setString(12, groupBandVO.getEndLoc());
-		pstmt.setInt(13, groupBandVO.getPrivates());
-		pstmt.setBytes(14, groupBandVO.getPhoto());
-		pstmt.setString(15, groupBandVO.getGroupType());
-		pstmt.setInt(16, groupBandVO.getTotalAmout());
-		pstmt.setDate(17, groupBandVO.getStartTime());
-		pstmt.setInt(18, groupBandVO.getRate());
-		pstmt.setString(19, groupBandVO.getNote());
+		
+		pstmt.setString(1, groupBandVO.getContent());		
+		pstmt.setString(2, groupBandVO.getIntroduction());
+		pstmt.setInt(3, groupBandVO.getGroupStatus());
+		pstmt.setInt(4, groupBandVO.getCurrenTnum());
+		pstmt.setInt(5, groupBandVO.getUpperLimit());
+		pstmt.setInt(6, groupBandVO.getLowerLimit());
+		pstmt.setString(7, groupBandVO.getGroupName());
+		pstmt.setInt(8, groupBandVO.getGroupLeader());
+		pstmt.setString(9, groupBandVO.getStartLoc());
+		pstmt.setString(10, groupBandVO.getEndLoc());
+		pstmt.setInt(11, groupBandVO.getPrivates());
+		pstmt.setBytes(12, groupBandVO.getPhoto());
+		pstmt.setString(13, groupBandVO.getGroupType());
+		pstmt.setInt(14, groupBandVO.getTotalAmout());
+		pstmt.setDate(15, groupBandVO.getStartTime());
+		pstmt.setInt(16, groupBandVO.getRate());
+		pstmt.setString(17, groupBandVO.getNote());
 		
 		pstmt.executeUpdate();
 		
@@ -124,7 +124,7 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 	}
 
 	@Override
-	public void delete(Integer groupBandno) {
+	public void delete(String groupBandno) {
 		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -134,7 +134,7 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 
-			pstmt.setInt(1, groupBandno);
+			pstmt.setString(1, groupBandno);
 		
 
 			pstmt.executeUpdate();
@@ -163,7 +163,7 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 	}
 
 	@Override
-	public GroupBandVO findByPrimaryKey(Integer groupBandno) {
+	public GroupBandVO findByPrimaryKey(String groupBandno) {
 		// TODO Auto-generated method stu
 		return null;
 	}
@@ -173,5 +173,6 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 		// TODO Auto-generated method stub
 		return null;
 	}
+
 
 }
