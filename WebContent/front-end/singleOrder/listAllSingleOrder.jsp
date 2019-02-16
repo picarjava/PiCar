@@ -42,7 +42,7 @@
                <td>${singleOrder.endTime}</td>
                <td>${singleOrder.startLoc}</td>
                <td>${singleOrder.endLoc}</td>
-               <td>${singleOrder.orderType}</td>
+               <td>${orderTypeMap[singleOrder.orderType]}</td>
                <td>${singleOrder.totalAmount}</td>
                <td>${singleOrder.rate}</td>
                <td>${singleOrder.note}</td>
