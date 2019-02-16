@@ -9,8 +9,8 @@ import java.util.Set;
 public interface GroupBandDAO_interface {
 public void insert(GroupBandVO groupBandVO);
 public void update(GroupBandVO groupBandVO);
-public void delete(Integer groupBandno);
-public GroupBandVO findByPrimaryKey(Integer groupBandno);
+public void delete(String groupBandno);
+public GroupBandVO findByPrimaryKey(String groupBandno);
 public List<GroupBandVO> getAll();
-//public Set<> getEmpsByDeptno(Integer groupBandno);
+
 }
