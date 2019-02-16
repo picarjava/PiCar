@@ -13,19 +13,19 @@ import java.sql.ResultSet;
 
 public class MemberJDBCDAO implements MemberDAO_interface {
 
-	String driver = "oracle.jdbc.driver.OracleDriver";
-	String url = "jdbc:oracle:thin:@localhost:1521:XE";
-	String userid = "PICAR";
-	String passwd = "123456";
+	public static final String driver = "oracle.jdbc.driver.OracleDriver";
+	public static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
+	public static final String userid = "PICAR";
+	public static final String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO MEMBER (MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER, "
 			+ "TOKEN, ACTIVITY_TOKEN, BIRTHDAY, VERIFIED, BABY_SEAT) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
-	private static final String GET_ALL_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER"
-			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER ORDER BY MEM_ID";
+	private static final String GET_ALL_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER,"
+			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER ORDER BY MEM_ID";
 
-	private static final String GET_ONE_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER"
-			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER WHERE MEM_ID = ?";
+	private static final String GET_ONE_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER,"
+			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER WHERE MEM_ID = ?";
 
 	private static final String DELETE = "DELET FROM MEMBER WHERE MEM_ID = ?";
 
@@ -191,7 +191,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	@Override
 	public MemberVO findByPrimaryKey(String memID) {
 
-		MemberVO mwmberVO = null;
+		MemberVO memberVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -208,7 +208,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			
 
 			while (rs.next()) {
-				MemberVO memberVO = new MemberVO();
+				memberVO = new MemberVO();
 				
 				memberVO.setMemID(rs.getString("MEM_ID"));
 				memberVO.setName(rs.getString("NAME"));
@@ -258,7 +258,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			}
 		}
 
-		return mwmberVO;
+		return memberVO;
 	}
 
 	@Override
@@ -268,8 +268,12 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	
 	public static void main(String[] args) {
 		
-		MemberDAO mbDAO = new MemberDAO();
-		mbDAO.findByPrimaryKey("m001");
+		MemberJDBCDAO memberDAOJBDC = new MemberJDBCDAO();
+		
+		MemberVO mbDAO = memberDAOJBDC.findByPrimaryKey("M002");
+		System.out.println(mbDAO.getName());
+		
+		
 		
 	}
 

@@ -183,7 +183,7 @@ public class MemberDAO implements MemberDAO_interface {
 	@Override
 	public MemberVO findByPrimaryKey(String memID) {
 
-		MemberVO mwmberVO = null;
+		MemberVO memberVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -199,7 +199,7 @@ public class MemberDAO implements MemberDAO_interface {
 			
 
 			while (rs.next()) {
-				MemberVO memberVO = new MemberVO();
+				 memberVO = new MemberVO();
 				
 				memberVO.setMemID(rs.getString("MEM_ID"));
 				memberVO.setName(rs.getString("NAME"));
@@ -246,7 +246,7 @@ public class MemberDAO implements MemberDAO_interface {
 			}
 		}
 
-		return mwmberVO;
+		return memberVO;
 	}
 
 	@Override
