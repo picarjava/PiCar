@@ -1,5 +1,6 @@
 package com.member.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import javax.naming.Context;
@@ -11,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
+
+//測試完成
 public class MemberJDBCDAO implements MemberDAO_interface {
 
 	public static final String driver = "oracle.jdbc.driver.OracleDriver";
@@ -27,7 +30,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER,"
 			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER WHERE MEM_ID = ?";
 
-	private static final String DELETE = "DELET FROM MEMBER WHERE MEM_ID = ?";
+	private static final String DELETE = "DELETE FROM MEMBER WHERE MEM_ID = ?";
 
 	private static final String UPDATE_STMT = "UPDATE MEMBER SET  NAME=?, EMAIL=?, PASSWORD=?, PHONE=?, CREDIT_CARD=?, PET=?, SMOKE=?, GENDER=?, "
 			+ "TOKEN=?, ACTIVITY_TOKEN=?, BIRTHDAY=?, VERIFIED=?, BABY_SEAT=? WHERE MEM_ID=?";
@@ -95,9 +98,9 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		PreparedStatement pstmt = null;
 
 		try {
-			
+
 			Class.forName(driver);
-			con = DriverManager.getConnection(url, userid, passwd);			
+			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE_STMT);
 
 			pstmt.setString(1, memberVO.getName());
@@ -119,7 +122,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		} catch (ClassNotFoundException se) {
 			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
 
-		}catch (SQLException se) {
+		} catch (SQLException se) {
 			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
 
 		} finally {
@@ -205,11 +208,10 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			pstmt.setString(1, memID);
 
 			rs = pstmt.executeQuery();
-			
 
 			while (rs.next()) {
 				memberVO = new MemberVO();
-				
+
 				memberVO.setMemID(rs.getString("MEM_ID"));
 				memberVO.setName(rs.getString("NAME"));
 				memberVO.setEmail(rs.getString("EMAIL"));
@@ -223,32 +225,32 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 				memberVO.setActivityToken(rs.getInt("ACTIVITY_TOKEN"));
 				memberVO.setBirthday(rs.getDate("BIRTHDAY"));
 				memberVO.setVerified(rs.getInt("VERIFIED"));
-				memberVO.setBabySeat(rs.getInt("BABY_SEAT"));			
+				memberVO.setBabySeat(rs.getInt("BABY_SEAT"));
 
 			}
-			
+
 		} catch (ClassNotFoundException se) {
 			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
 
 		} catch (SQLException se) {
 			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
-		}finally {
+		} finally {
 			if (rs != null) {
 				try {
 					rs.close();
-				} catch (SQLException se) {					
+				} catch (SQLException se) {
 					se.printStackTrace();
 				}
 			}
-			
+
 			if (con != null) {
 				try {
 					con.close();
-				} catch (SQLException se) {					
+				} catch (SQLException se) {
 					se.printStackTrace();
 				}
 			}
-			
+
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -263,18 +265,132 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 	@Override
 	public List<MemberVO> getAll() {
-		return null;
+		List<MemberVO> list = new ArrayList();
+		MemberVO memberVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				memberVO = new MemberVO();
+				memberVO.setMemID(rs.getString("MEM_ID"));
+				memberVO.setName(rs.getString("NAME"));
+				memberVO.setEmail(rs.getString("EMAIL"));
+				memberVO.setPassword(rs.getString("PASSWORD"));
+				memberVO.setPhone(rs.getString("PHONE"));
+				memberVO.setCreditcard(rs.getString("CREDIT_CARD"));
+				memberVO.setPet(rs.getInt("PET"));
+				memberVO.setSmoke(rs.getInt("SMOKE"));
+				memberVO.setGender(rs.getInt("GENDER"));
+				memberVO.setToken(rs.getInt("TOKEN"));
+				memberVO.setActivityToken(rs.getInt("ACTIVITY_TOKEN"));
+				memberVO.setBirthday(rs.getDate("BIRTHDAY"));
+				memberVO.setVerified(rs.getInt("VERIFIED"));
+				memberVO.setBabySeat(rs.getInt("BABY_SEAT"));
+				list.add(memberVO);
+			}
+
+		} catch (ClassNotFoundException se) {
+			throw new RuntimeException("連線或SQL錯誤:" + se.getMessage());
+		} catch (SQLException se) {
+			throw new RuntimeException("連線或SQL錯誤:" + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+
+		return list;
 	}
-	
+
 	public static void main(String[] args) {
-		
+
 		MemberJDBCDAO memberDAOJBDC = new MemberJDBCDAO();
+
+//		MemberVO mbDAO = memberDAOJBDC.findByPrimaryKey("M003");
+//		System.out.println(mbDAO.getMemID());
+//		System.out.println(mbDAO.getName());
+//		System.out.println(mbDAO.getEmail());
+//		System.out.println(mbDAO.getPassword());
+//		System.out.println(mbDAO.getPhone());
+//		System.out.println(mbDAO.getCreditcard());
+//		System.out.println(mbDAO.getPet());
+//		System.out.println(mbDAO.getSmoke());
+//		System.out.println(mbDAO.getGender());
+//		System.out.println(mbDAO.getToken());
+//		System.out.println(mbDAO.getActivityToken());
+//		System.out.println(mbDAO.getBirthday());
+//		System.out.println(mbDAO.getVerified());
+//		System.out.println(mbDAO.getBabySeat());
+
+//		MemberVO mbDAO1 = new MemberVO();
+//		
+//		mbDAO1.setMemID("M111");
+//		mbDAO1.setName("SS");
+//		mbDAO1.setEmail("ZXX");
+//		mbDAO1.setPassword("XX");
+//		mbDAO1.setPhone("XXXX");
+//		mbDAO1.setCreditcard("XXXX");
+//		mbDAO1.setPet(0);
+//		mbDAO1.setSmoke(0);
+//		mbDAO1.setGender(1);
+//		mbDAO1.setToken(33);
+//		mbDAO1.setActivityToken(444);
+//		mbDAO1.setBirthday(java.sql.Date.valueOf("1988-07-07"));
+//		mbDAO1.setVerified(1);
+//		mbDAO1.setBabySeat(1);//	
+//		memberDAOJBDC.insert(mbDAO1);
+//		System.out.println(" insert ok~");
+
+//		memberDAOJBDC.delete("M111");
+//		System.out.println("delete ok~");
 		
-		MemberVO mbDAO = memberDAOJBDC.findByPrimaryKey("M002");
-		System.out.println(mbDAO.getName());
-		
-		
-		
+		List<MemberVO> list = memberDAOJBDC.getAll();
+		for(MemberVO mbDAO2 : list) {
+			System.out.println(mbDAO2.getMemID());
+			System.out.println(mbDAO2.getName());
+			System.out.println(mbDAO2.getEmail());
+			System.out.println(mbDAO2.getPassword());
+			System.out.println(mbDAO2.getPhone());
+			System.out.println(mbDAO2.getCreditcard());
+			System.out.println(mbDAO2.getPet());
+			System.out.println(mbDAO2.getSmoke());
+			System.out.println(mbDAO2.getGender());
+			System.out.println(mbDAO2.getToken());
+			System.out.println(mbDAO2.getActivityToken());
+			System.out.println(mbDAO2.getBirthday());
+			System.out.println(mbDAO2.getVerified());
+			System.out.println(mbDAO2.getBabySeat());
+			System.out.println("==============================");
+		}
+
 	}
 
 }

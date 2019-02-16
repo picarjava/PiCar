@@ -1,5 +1,6 @@
 package com.member.model;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
 import javax.naming.Context;
@@ -25,13 +26,13 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String INSERT_STMT = "INSERT INTO MEMBER (MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER, "
 			+ "TOKEN, ACTIVITY_TOKEN, BIRTHDAY, VERIFIED, BABY_SEAT) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
-	private static final String GET_ALL_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER"
-			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER ORDER BY MEM_ID";
+	private static final String GET_ALL_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER,"
+			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER ORDER BY MEM_ID";
 
-	private static final String GET_ONE_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER"
-			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER WHERE MEM_ID = ?";
+	private static final String GET_ONE_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER,"
+			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER WHERE MEM_ID = ?";
 
-	private static final String DELETE = "DELET FROM MEMBER WHERE MEM_ID = ?";
+	private static final String DELETE = "DELETE FROM MEMBER WHERE MEM_ID = ?";
 
 	private static final String UPDATE_STMT = "UPDATE MEMBER SET  NAME=?, EMAIL=?, PASSWORD=?, PHONE=?, CREDIT_CARD=?, PET=?, SMOKE=?, GENDER=?, "
 			+ "TOKEN=?, ACTIVITY_TOKEN=?, BIRTHDAY=?, VERIFIED=?, BABY_SEAT=? WHERE MEM_ID=?";
@@ -196,11 +197,10 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setString(1, memID);
 
 			rs = pstmt.executeQuery();
-			
 
 			while (rs.next()) {
-				 memberVO = new MemberVO();
-				
+				memberVO = new MemberVO();
+
 				memberVO.setMemID(rs.getString("MEM_ID"));
 				memberVO.setName(rs.getString("NAME"));
 				memberVO.setEmail(rs.getString("EMAIL"));
@@ -214,29 +214,29 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setActivityToken(rs.getInt("ACTIVITY_TOKEN"));
 				memberVO.setBirthday(rs.getDate("BIRTHDAY"));
 				memberVO.setVerified(rs.getInt("VERIFIED"));
-				memberVO.setBabySeat(rs.getInt("BABY_SEAT"));			
+				memberVO.setBabySeat(rs.getInt("BABY_SEAT"));
 
 			}
-			
+
 		} catch (SQLException se) {
 			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
-		}finally {
+		} finally {
 			if (rs != null) {
 				try {
 					rs.close();
-				} catch (SQLException se) {					
+				} catch (SQLException se) {
 					se.printStackTrace();
 				}
 			}
-			
+
 			if (con != null) {
 				try {
 					con.close();
-				} catch (SQLException se) {					
+				} catch (SQLException se) {
 					se.printStackTrace();
 				}
 			}
-			
+
 			if (pstmt != null) {
 				try {
 					pstmt.close();
@@ -251,7 +251,67 @@ public class MemberDAO implements MemberDAO_interface {
 
 	@Override
 	public List<MemberVO> getAll() {
-		return null;
+
+		List<MemberVO> list = new ArrayList();
+		MemberVO memberVO = null;
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				memberVO = new MemberVO();
+				memberVO.setMemID(rs.getString("MEM_ID"));
+				memberVO.setName(rs.getString("NAME"));
+				memberVO.setEmail(rs.getString("EMAIL"));
+				memberVO.setPassword(rs.getString("PASSWORD"));
+				memberVO.setPhone(rs.getString("PHONE"));
+				memberVO.setCreditcard(rs.getString("CREDIT_CARD"));
+				memberVO.setPet(rs.getInt("PET"));
+				memberVO.setSmoke(rs.getInt("SMOKE"));
+				memberVO.setGender(rs.getInt("GENDER"));
+				memberVO.setToken(rs.getInt("TOKEN"));
+				memberVO.setActivityToken(rs.getInt("ACTIVITY_TOKEN"));
+				memberVO.setBirthday(rs.getDate("BIRTHDAY"));
+				memberVO.setVerified(rs.getInt("VERIFIED"));
+				memberVO.setBabySeat(rs.getInt("BABY_SEAT"));
+				list.add(memberVO);
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("連線或SQL錯誤:" + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+
+		return list;
 	}
 
 }
