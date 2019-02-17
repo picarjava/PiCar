@@ -1,5 +1,6 @@
 package model;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -8,7 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
 public class OrderTypeMap extends HttpServlet {
-    public final static Map<Integer, String> ORDER_TYPE = new HashMap<>();
+    public static Map<Integer, String> ORDER_TYPE = new HashMap<>();
     @Override
     public void init() throws ServletException {
         ORDER_TYPE.put(0, "一般叫車");
@@ -19,6 +20,7 @@ public class OrderTypeMap extends HttpServlet {
         ORDER_TYPE.put(5, "揪團叫車");
         ORDER_TYPE.put(6, "長期揪團");
         ORDER_TYPE.put(7, "客服叫車");
+        ORDER_TYPE = Collections.unmodifiableMap(ORDER_TYPE); // let orderType map unmodified
         getServletContext().setAttribute("orderTypeMap", ORDER_TYPE);
     }
     

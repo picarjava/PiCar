@@ -11,20 +11,18 @@ public class SingleOrderService {
         singleOrderDAO = new SingleOrderDAO();
     } // SingleOrderService()
     
-    public SingleOrderVO getOneSingleOrder(String orderId) {
-        return singleOrderDAO.findByPrimaryKey(orderId);
+    public SingleOrderVO getOneSingleOrder(String orderID) {
+        return singleOrderDAO.findByPrimaryKey(orderID);
     } // getOneSingleOrder()
-    
-    public SingleOrderVO addSingleOrder(String driverId, String memId, Integer state, Date startTime,
-                                        Date endTime, String startLoc, String endLoc, Double startLng,
-                                        Double startLat, Double endLng, Double endLat, Integer totalAmount,
-                                        Integer orderType, Integer rate, String note, Timestamp lauchTime) {
+        
+    public SingleOrderVO addSingleOrder(String memID, Integer state, Date startTime, String startLoc,
+                                        String endLoc, Double startLng, Double startLat, Double endLng,
+                                        Double endLat, Integer totalAmount, Integer orderType, String note,
+                                        Timestamp lauchTime) {
         SingleOrderVO singleOrderVO = new SingleOrderVO();
-        singleOrderVO.setDriverID(driverId);
-        singleOrderVO.setMemID(memId);
+        singleOrderVO.setMemID(memID);
         singleOrderVO.setState(state);
         singleOrderVO.setStartTime(startTime);
-        singleOrderVO.setEndTime(endTime);
         singleOrderVO.setStartLoc(startLoc);
         singleOrderVO.setEndLoc(endLoc);
         singleOrderVO.setStartLng(startLng);
@@ -33,21 +31,19 @@ public class SingleOrderService {
         singleOrderVO.setEndLat(endLat);
         singleOrderVO.setTotalAmount(totalAmount);
         singleOrderVO.setOrderType(orderType);
-        singleOrderVO.setRate(rate);
         singleOrderVO.setNote(note);
         singleOrderVO.setLaunchTime(lauchTime);
         singleOrderDAO.insert(singleOrderVO);
         return singleOrderVO;
     } // addSingleOrder()
     
-    public SingleOrderVO updateSingleOrder(String orderId,String driverId, String memId, Integer state, Date startTime,
+    public SingleOrderVO updateSingleOrder(String orderID, String driverID, Integer state, Date startTime,
                                            Date endTime, String startLoc, String endLoc, Double startLng,
                                            Double startLat, Double endLng, Double endLat, Integer totalAmount,
-                                           Integer orderType, Integer rate, String note, Timestamp lauchTime) {
+                                           Integer orderType, Integer rate) {
         SingleOrderVO singleOrderVO = new SingleOrderVO();
-        singleOrderVO.setOrderID(orderId);
-        singleOrderVO.setDriverID(driverId);
-        singleOrderVO.setMemID(memId);
+        singleOrderVO.setOrderID(orderID);
+        singleOrderVO.setDriverID(driverID);
         singleOrderVO.setState(state);
         singleOrderVO.setStartTime(startTime);
         singleOrderVO.setEndTime(endTime);
@@ -60,8 +56,6 @@ public class SingleOrderService {
         singleOrderVO.setTotalAmount(totalAmount);
         singleOrderVO.setOrderType(orderType);
         singleOrderVO.setRate(rate);
-        singleOrderVO.setNote(note);
-        singleOrderVO.setLaunchTime(lauchTime);
         singleOrderDAO.update(singleOrderVO);
         return singleOrderVO;
     } // updateSingleOrder()
@@ -69,4 +63,6 @@ public class SingleOrderService {
     public List<SingleOrderVO> getAll() {
         return singleOrderDAO.getAll();
     } // getAll()
+
+    
 } // class SingleOrderService

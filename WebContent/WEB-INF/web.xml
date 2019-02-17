@@ -29,6 +29,11 @@
     <load-on-startup>3</load-on-startup>
   </servlet>
   <servlet>
+    <servlet-name>state</servlet-name>
+    <servlet-class>model.StateMap</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+  <servlet>
     <servlet-name>GroupMem</servlet-name>
     <servlet-class>com.groupMem.controller.GroupMemServlet</servlet-class>
   </servlet>
