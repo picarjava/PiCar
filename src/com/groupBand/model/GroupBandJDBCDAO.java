@@ -7,8 +7,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+
+
 
 public class GroupBandJDBCDAO implements GroupBandDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
@@ -19,11 +23,11 @@ public class GroupBandJDBCDAO implements GroupBandDAO_interface{
 	private static final String INSERT_STMT = 
 			"INSERT INTO GROUP_BAND (GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE) VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE FROM GROUP_ORDER";
+			"SELECT GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE FROM GROUP_BAND";
 		private static final String GET_ONE_STMT = 
-			"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE FROM GROUP_ORDER where GORDER_ID = ?";
+			"SELECT GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE FROM GROUP_BAND where GROUP_ID = ?";
 		private static final String DELETE = 
-			"DELETE FROM GROUP_ORDER where GORDER_ID = ?";
+			"DELETE FROM GROUP_BAND where GROUP_ID = ?";
 		private static final String UPDATE = 
 			"UPDATE GROUP_BAND set GROUP_ID=?,CONTENT=?,LAUNCH_TIME=?,INTRODUCTION=?,GROUP_STATUS=?,CURRENT_NUM=?,UPPER_LIMIT=?,LOWER_LIMIT=?,GROUP_NAME=?,GROUP_LEADER=?,START_LOC=?,END_LOC=?,PRIVATES=?,PHOTO=?,GROUP_TYPE=?,TOTAL_AMOUT=?,START_TIME=?,RATE=?,NOTE=? where GROUP_ID= ?";
 
@@ -149,19 +153,186 @@ public class GroupBandJDBCDAO implements GroupBandDAO_interface{
 	@Override
 	public void delete(String groupBandno) {
 		// TODO Auto-generated method stub
-		
+		Connection con =null;
+		PreparedStatement pstmt = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(DELETE);
+			pstmt.setString(1, groupBandno);
+			pstmt.executeUpdate();
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 	@Override
 	public GroupBandVO findByPrimaryKey(String groupBandno) {
 		// TODO Auto-generated method stub
-		return null;
+		GroupBandVO groupBandVO =null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		
+		try{
+			Class.forName(driver);
+		con = DriverManager.getConnection(url, userid, passwd);
+		pstmt = con.prepareStatement(GET_ONE_STMT);
+		pstmt.setString(1, groupBandno);
+		rs = pstmt.executeQuery();
+		
+		while(rs.next()) {
+			groupBandVO = new GroupBandVO();
+			groupBandVO.setGroupID(rs.getString("GROUP_ID"));
+			groupBandVO.setContent(rs.getString("CONTENT"));
+			groupBandVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
+			groupBandVO.setIntroduction(rs.getString("INTRODUCTION"));
+			groupBandVO.setGroupStatus(rs.getInt("GROUP_STATUS"));
+			groupBandVO.setCurrenTnum(rs.getInt("CURRENT_NUM"));
+			groupBandVO.setUpperLimit(rs.getInt("UPPER_LIMIT"));
+			groupBandVO.setLowerLimit(rs.getInt("LOWER_LIMIT"));
+			groupBandVO.setGroupName(rs.getString("GROUP_NAME"));
+			groupBandVO.setGroupLeader(rs.getInt("GROUP_LEADER"));
+			groupBandVO.setStartLoc(rs.getString("START_LOC"));
+			groupBandVO.setEndLoc(rs.getString("END_LOC"));
+			groupBandVO.setPrivates(rs.getInt("PRIVATES"));
+			groupBandVO.setPhoto(rs.getBytes("PHOTO"));
+			groupBandVO.setGroupType(rs.getString("GROUP_TYPE"));
+			groupBandVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
+			groupBandVO.setStartTime(rs.getDate("START_TIME"));
+			groupBandVO.setRate(rs.getInt("RATE"));
+			groupBandVO.setNote(rs.getString("NOTE"));
+			
+			
+		}
+		
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return groupBandVO;
 	}
 
 	@Override
 	public List<GroupBandVO> getAll() {
 		// TODO Auto-generated method stub
-		return null;
+		List<GroupBandVO> list =new ArrayList<GroupBandVO>();
+		GroupBandVO groupBandVO =null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ALL_STMT);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				groupBandVO = new GroupBandVO();
+				groupBandVO.setGroupID(rs.getString("GROUP_ID"));
+				groupBandVO.setContent(rs.getString("CONTENT"));
+				groupBandVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
+				groupBandVO.setIntroduction(rs.getString("INTRODUCTION"));
+				groupBandVO.setGroupStatus(rs.getInt("GROUP_STATUS"));
+				groupBandVO.setCurrenTnum(rs.getInt("CURRENT_NUM"));
+				groupBandVO.setUpperLimit(rs.getInt("UPPER_LIMIT"));
+				groupBandVO.setLowerLimit(rs.getInt("LOWER_LIMIT"));
+				groupBandVO.setGroupName(rs.getString("GROUP_NAME"));
+				groupBandVO.setGroupLeader(rs.getInt("GROUP_LEADER"));
+				groupBandVO.setStartLoc(rs.getString("START_LOC"));
+				groupBandVO.setEndLoc(rs.getString("END_LOC"));
+				groupBandVO.setPrivates(rs.getInt("PRIVATES"));
+				groupBandVO.setPhoto(rs.getBytes("PHOTO"));
+				groupBandVO.setGroupType(rs.getString("GROUP_TYPE"));
+				groupBandVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
+				groupBandVO.setStartTime(rs.getDate("START_TIME"));
+				groupBandVO.setRate(rs.getInt("RATE"));
+				groupBandVO.setNote(rs.getString("NOTE"));
+				list.add(groupBandVO);
+				
+			}
+			
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("Couldn't load database driver. "
+					+ e.getMessage());
+			// Handle any SQL errors
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return list;
 	}
 
 

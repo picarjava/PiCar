@@ -9,6 +9,7 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 public class textgroupBandDAO {
 
@@ -73,6 +74,61 @@ public class textgroupBandDAO {
 //		System.out.println("成功拉");
 //		
 		
+		//刪除
+//		DAO.delete("G002");
+//		System.out.println("成功拉");
+		
+		
+		
+		//查一
+//		GroupBandVO groupBandVO =DAO.findByPrimaryKey("G001");
+//		
+//		System.out.print(groupBandVO.getGroupID() + ",");
+//		System.out.print(groupBandVO.getContent() + ",");
+//		System.out.print(groupBandVO.getLaunchTime() + ",");
+//		System.out.print(groupBandVO.getIntroduction() + ",");
+//		System.out.print(groupBandVO.getGroupStatus() + ",");
+//		System.out.print(groupBandVO.getCurrenTnum() + ",");
+//		System.out.print(groupBandVO.getUpperLimit() + ",");
+//		System.out.print(groupBandVO.getLowerLimit() + ",");
+//		System.out.print(groupBandVO.getGroupName() + ",");
+//		System.out.print(groupBandVO.getGroupLeader() + ",");
+//		System.out.print(groupBandVO.getStartLoc() + ",");
+//		System.out.print(groupBandVO.getEndLoc() + ",");
+//		System.out.print(groupBandVO.getPrivates() + ",");
+//		System.out.print(groupBandVO.getPhoto() + ",");
+//		System.out.print(groupBandVO.getGroupType() + ",");
+//		System.out.print(groupBandVO.getTotalAmout() + ",");
+//		System.out.print(groupBandVO.getStartTime() + ",");
+//		System.out.print(groupBandVO.getRate() + ",");
+//		System.out.print(groupBandVO.getNote() + ",");
+//		System.out.println("成功拉");	
+		
+		List<GroupBandVO> list =DAO.getAll();
+		for(GroupBandVO groupBandVO :list)
+		{
+			System.out.print(groupBandVO.getGroupID() + ",");
+			System.out.print(groupBandVO.getContent() + ",");
+			System.out.print(groupBandVO.getLaunchTime() + ",");
+			System.out.print(groupBandVO.getIntroduction() + ",");
+			System.out.print(groupBandVO.getGroupStatus() + ",");
+			System.out.print(groupBandVO.getCurrenTnum() + ",");
+			System.out.print(groupBandVO.getUpperLimit() + ",");
+			System.out.print(groupBandVO.getLowerLimit() + ",");
+			System.out.print(groupBandVO.getGroupName() + ",");
+			System.out.print(groupBandVO.getGroupLeader() + ",");
+			System.out.print(groupBandVO.getStartLoc() + ",");
+			System.out.print(groupBandVO.getEndLoc() + ",");
+			System.out.print(groupBandVO.getPrivates() + ",");
+			System.out.print(groupBandVO.getPhoto() + ",");
+			System.out.print(groupBandVO.getGroupType() + ",");
+			System.out.print(groupBandVO.getTotalAmout() + ",");
+			System.out.print(groupBandVO.getStartTime() + ",");
+			System.out.print(groupBandVO.getRate() + ",");
+			System.out.print(groupBandVO.getNote() + ",");
+			System.out.println("成功拉");	
+			
+		}
 		
 	}
 	public static byte[] getPictureByteArray(String path) throws IOException {

@@ -4,6 +4,10 @@ import java.sql.*;
 
 public class GroupBandVO implements java.io.Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String groupID;
 	private String content;
 	private Timestamp launchTime;
