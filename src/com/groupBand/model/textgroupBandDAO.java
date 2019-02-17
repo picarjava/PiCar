@@ -44,14 +44,14 @@ public class textgroupBandDAO {
 
 		
 		
-		
+	
 		//修改		
 //		GroupBandVO groupBandVO =new GroupBandVO();
 //		
 //		groupBandVO.setGroupID("G001");
 //		groupBandVO.setContent("X4x55");
-//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		groupBandVO.setLaunchTime(new Timestamp(simpleDateFormat.parse("2019-02-14").getTime()));
+//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		groupBandVO.setLaunchTime(new Timestamp(simpleDateFormat.parse("2019-02-14 10:00:00").getTime()));
 //		groupBandVO.setIntroduction("G001");
 //		groupBandVO.setGroupStatus(1);
 //		groupBandVO.setCurrenTnum(1);

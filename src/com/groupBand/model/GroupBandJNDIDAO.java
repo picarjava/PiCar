@@ -13,7 +13,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 
-public class GroupBandDAO implements GroupBandDAO_interface{
+public class GroupBandJNDIDAO implements GroupBandDAO_interface{
 	
 	private static DataSource ds = null;
 	static {
