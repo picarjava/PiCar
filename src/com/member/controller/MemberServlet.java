@@ -2,6 +2,7 @@ package com.member.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +33,15 @@ public class MemberServlet extends HttpServlet {
 		MemberVO memberVO = memberDAO.findByPrimaryKey(action);
 		System.out.println(memberVO.getCreditcard());
 		out.println(memberVO.getName());
+		
+		List<MemberVO> list = memberDAO.getAll();
+		for(MemberVO memberVO2 : list) {
+			out.println(memberVO2.getName());
+			out.println(memberVO2.getActivityToken()); 
+		}
+		
+		
+		
 //		memberDAO.delete("ation");
 //		out.print("delete ok");
 		doGet(req, res);
