@@ -6,7 +6,7 @@ public class PaymentRecordVO implements java.io.Serializable{
 	
 	private String paymentID;
 	private String driverID;
-	private Integer payAnount;
+	private Integer payAmount;
 	private Date payTime;
 	
 	public String getPaymentID() {
@@ -25,12 +25,12 @@ public class PaymentRecordVO implements java.io.Serializable{
 		this.driverID = driverID;
 	}
 	
-	public Integer getPayAnount() {
-		return payAnount;
+	public Integer getPayAmount() {
+		return payAmount;
 	}
 	
-	public void setPayAnount(Integer payAnount) {
-		this.payAnount = payAnount;
+	public void setPayAmount(Integer payAnount) {
+		this.payAmount = payAnount;
 	}
 	
 	public Date getPayTime() {
