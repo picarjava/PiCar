@@ -81,10 +81,10 @@ public class RateDAO implements RateDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_STMT);
 
-			pstmt.setInt(1, rateVO.getRateID());
-			pstmt.setString(2, rateVO.getRateName());
-			pstmt.setDouble(3, rateVO.getRatePrice());
-			pstmt.setInt(4, rateVO.getRateBasic());
+			pstmt.setString(1, rateVO.getRateName());
+			pstmt.setDouble(2, rateVO.getRatePrice());
+			pstmt.setInt(3, rateVO.getRateBasic());
+			pstmt.setInt(4, rateVO.getRateID());
 
 			pstmt.executeUpdate();
 
