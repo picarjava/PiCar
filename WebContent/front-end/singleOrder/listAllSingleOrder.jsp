@@ -37,7 +37,7 @@
                <td>${singleOrder.orderID}</td>
                <td>${singleOrder.driverID}</td>
                <td>${singleOrder.memID}</td>
-               <td>${singleOrder.state}</td>
+               <td>${stateMap[singleOrder.state]}</td>
                <td>${singleOrder.startTime}</td>
                <td>${singleOrder.endTime}</td>
                <td>${singleOrder.startLoc}</td>

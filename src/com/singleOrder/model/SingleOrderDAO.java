@@ -5,50 +5,51 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+//import java.sql.DriverManager;
 
 public class SingleOrderDAO implements SingleOrder_interface {
 	private final static String SELECT = "SELECT * FROM SINGLE_ORDER WHERE ORDER_ID=?";
 	private final static String SELECT_ALL = "SELECT * FROM SINGLE_ORDER";
-    private final static String UPDATE = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, STATE=?, END_TIME=?, END_LOC=?, " + 
-                                                                 "END_LNG=?, END_LAT=?, TOTAL_AMOUNT=?, ORDER_TYPE=?, " + 
+    private final static String UPDATE = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, STATE=?, START_TIME=?, END_TIME=?, " +
+                                                                 "START_LOC=?, END_LOC=?, START_LNG=?, START_LAT=?, " +
+                                                                 "END_LNG=?, END_LAT=?, TOTAL_AMOUNT=?, ORDER_TYPE=?, " +
                                                                  "RATE=? WHERE ORDER_ID=?";
     private final static String INSERT = "INSERT INTO SINGLE_ORDER(ORDER_ID, MEM_ID, STATE, START_TIME, " + 
                                                                   "START_LOC, END_LOC, START_LNG, START_LAT, " +
                                                                   "END_LNG, END_LAT, TOTAL_AMOUNT, ORDER_TYPE, " +
                                                                   "NOTE, LAUNCH_TIME) " + 
                                                                   "VALUES (SEQ_SINGLE_ORDER.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
-    private final static String NAME = "PiCar";
-    private final static String PASSWORD = "123456";
-//    private static DataSource dataSource;
+    private static DataSource dataSource;
+//    private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
+//    private final static String NAME = "PiCar";
+//    private final static String PASSWORD = "123456";
 
-//    static {
-//        try {
-//            Context context = new InitialContext();
-//            dataSource = (DataSource) context.lookup("java:comp/env/jdbc/TestDB");
-//        } catch (NamingException e) {
-//            e.printStackTrace();
-//        } // catch
-//    } // static
+    static {
+        try {
+            Context context = new InitialContext();
+            dataSource = (DataSource) context.lookup("java:comp/env/jdbc/TestDB");
+        } catch (NamingException e) {
+            e.printStackTrace();
+        } // catch
+    } // static
     
-    public static void main(String[] args) throws ClassNotFoundException {
-        Class.forName("oracle.jdbc.driver.OracleDriver");
-        SingleOrder_interface singleOrderDAO = new SingleOrderDAO();
-        SingleOrderVO singleOrderVO = singleOrderDAO.findByPrimaryKey("2");
-        System.out.println(singleOrderVO);  
-        singleOrderVO.setStartLoc("Taipei 101");
-        singleOrderDAO.update(singleOrderVO);
-        singleOrderVO.setOrderID("4");
-        singleOrderVO.setNote("das");
-        singleOrderDAO.insert(singleOrderVO);
-        System.out.println(singleOrderDAO.getAll());
-    }
+//    public static void main(String[] args) throws ClassNotFoundException {
+//        Class.forName("oracle.jdbc.driver.OracleDriver");
+//        SingleOrder_interface singleOrderDAO = new SingleOrderDAO();
+//        SingleOrderVO singleOrderVO = singleOrderDAO.findByPrimaryKey("2");
+//        System.out.println(singleOrderVO);  
+//        singleOrderVO.setStartLoc("Taipei 101");
+//        singleOrderDAO.update(singleOrderVO);
+//        singleOrderVO.setOrderID("4");
+//        singleOrderVO.setNote("das");
+//        singleOrderDAO.insert(singleOrderVO);
+//        System.out.println(singleOrderDAO.getAll());
+//    } // main()
     
     @Override
     public SingleOrderVO findByPrimaryKey(String orderId) {
@@ -57,13 +58,13 @@ public class SingleOrderDAO implements SingleOrder_interface {
         ResultSet resultSet = null;
         SingleOrderVO newSingleOrderVO = null;
         try {
-          connection = DriverManager.getConnection(URL, NAME, PASSWORD);
-//            connection = dataSource.getConnection();
+//          connection = DriverManager.getConnection(URL, NAME, PASSWORD);
+            connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(SELECT);
             preparedStatement.setString(1, orderId);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-               newSingleOrderVO = getSingleOrderVo(resultSet);
+               newSingleOrderVO = getSingleOrderVO(resultSet);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,10 +72,10 @@ public class SingleOrderDAO implements SingleOrder_interface {
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
             closeConnection(connection);
-        }
+        } // finally
         
         return newSingleOrderVO;
-    }
+    } // findByPrimaryKey()
 
     @Override
     public void insert(SingleOrderVO singleOrderVO) {
@@ -82,22 +83,22 @@ public class SingleOrderDAO implements SingleOrder_interface {
         PreparedStatement preparedStatement = null;
         int index = 1;
         try {
-            connection = DriverManager.getConnection(URL, NAME, PASSWORD);
-//            connection = dataSource.getConnection();
+//            connection = DriverManager.getConnection(URL, NAME, PASSWORD);
+            connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(INSERT);
             preparedStatement.setString(index++, singleOrderVO.getMemID());
-            preparedStatement.setInt(index++,singleOrderVO.getState());
-            preparedStatement.setDate(index++,singleOrderVO.getStartTime());
-            preparedStatement.setString(index++,singleOrderVO.getStartLoc());
-            preparedStatement.setString(index++,singleOrderVO.getEndLoc());
-            preparedStatement.setDouble(index++,singleOrderVO.getStartLng());
-            preparedStatement.setDouble(index++,singleOrderVO.getStartLat());
-            preparedStatement.setDouble(index++,singleOrderVO.getEndLng());
-            preparedStatement.setDouble(index++,singleOrderVO.getEndLat());
-            preparedStatement.setInt(index++,singleOrderVO.getTotalAmount());
-            preparedStatement.setInt(index++,singleOrderVO.getOrderType());
-            preparedStatement.setString(index++,singleOrderVO.getNote());
-            preparedStatement.setTimestamp(index++,singleOrderVO.getLaunchTime());            
+            preparedStatement.setInt(index++, singleOrderVO.getState());
+            preparedStatement.setDate(index++, singleOrderVO.getStartTime());
+            preparedStatement.setString(index++, singleOrderVO.getStartLoc());
+            preparedStatement.setString(index++, singleOrderVO.getEndLoc());
+            preparedStatement.setDouble(index++, singleOrderVO.getStartLng());
+            preparedStatement.setDouble(index++, singleOrderVO.getStartLat());
+            preparedStatement.setDouble(index++, singleOrderVO.getEndLng());
+            preparedStatement.setDouble(index++, singleOrderVO.getEndLat());
+            preparedStatement.setInt(index++, singleOrderVO.getTotalAmount());
+            preparedStatement.setInt(index++, singleOrderVO.getOrderType());
+            preparedStatement.setString(index++, singleOrderVO.getNote());
+            preparedStatement.setTimestamp(index++, singleOrderVO.getLaunchTime());            
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -105,7 +106,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
             closePreparedStatement(preparedStatement);
             closeConnection(connection);
         } // finally    
-    }
+    } // insert()
 
     @Override
     public void update(SingleOrderVO singleOrderVO) {
@@ -113,19 +114,23 @@ public class SingleOrderDAO implements SingleOrder_interface {
         PreparedStatement preparedStatement = null;
         int index = 1;
         try {
-            connection = DriverManager.getConnection(URL, NAME, PASSWORD);
-//            connection = dataSource.getConnection();
+//            connection = DriverManager.getConnection(URL, NAME, PASSWORD);
+            connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(UPDATE);
-            preparedStatement.setString(index++,singleOrderVO.getDriverID());
-            preparedStatement.setInt(index++,singleOrderVO.getState());
-            preparedStatement.setDate(index++,singleOrderVO.getEndTime());
-            preparedStatement.setString(index++,singleOrderVO.getEndLoc());
-            preparedStatement.setDouble(index++,singleOrderVO.getEndLng());
-            preparedStatement.setDouble(index++,singleOrderVO.getEndLat());
-            preparedStatement.setInt(index++,singleOrderVO.getTotalAmount());
-            preparedStatement.setInt(index++,singleOrderVO.getOrderType());
-            preparedStatement.setInt(index++,singleOrderVO.getRate());
-            preparedStatement.setString(index++,singleOrderVO.getOrderID());
+            preparedStatement.setString(index++, singleOrderVO.getDriverID());
+            preparedStatement.setInt(index++, singleOrderVO.getState());
+            preparedStatement.setDate(index++, singleOrderVO.getStartTime());
+            preparedStatement.setDate(index++, singleOrderVO.getEndTime());
+            preparedStatement.setString(index++, singleOrderVO.getStartLoc());
+            preparedStatement.setString(index++, singleOrderVO.getEndLoc());
+            preparedStatement.setDouble(index++, singleOrderVO.getStartLng());
+            preparedStatement.setDouble(index++, singleOrderVO.getStartLat());
+            preparedStatement.setDouble(index++, singleOrderVO.getEndLng());
+            preparedStatement.setDouble(index++, singleOrderVO.getEndLat());
+            preparedStatement.setInt(index++, singleOrderVO.getTotalAmount());
+            preparedStatement.setInt(index++, singleOrderVO.getOrderType());
+            preparedStatement.setInt(index++, singleOrderVO.getRate());
+            preparedStatement.setString(index++, singleOrderVO.getOrderID());
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -133,7 +138,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
             closePreparedStatement(preparedStatement);
             closeConnection(connection);
         } // finally
-    }
+    } // update()
 
     @Override
     public List<SingleOrderVO> getAll() {
@@ -142,18 +147,23 @@ public class SingleOrderDAO implements SingleOrder_interface {
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
         try {
-            connection = DriverManager.getConnection(URL, NAME, PASSWORD);
-//            connection = dataSource.getConnection();
+//            connection = DriverManager.getConnection(URL, NAME, PASSWORD);
+            connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(SELECT_ALL);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                list.add(getSingleOrderVo(resultSet));
+                list.add(getSingleOrderVO(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        } // finally
+        
         return list;
-    }
+    } // getAll()
     
     private void closeResultSet(ResultSet resultSet) {
         if (resultSet != null) {
@@ -161,11 +171,11 @@ public class SingleOrderDAO implements SingleOrder_interface {
                 resultSet.close();
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
-        }
-    }
+            } // catch
+        } // if
+    } // closeResultSet()
     
-    private SingleOrderVO getSingleOrderVo(ResultSet resultSet) throws SQLException {
+    private SingleOrderVO getSingleOrderVO(ResultSet resultSet) throws SQLException {
         int index = 1;
         SingleOrderVO singleOrderVO = new SingleOrderVO();
         singleOrderVO.setOrderID(resultSet.getString(index++));
@@ -186,7 +196,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
         singleOrderVO.setNote(resultSet.getString(index++));
         singleOrderVO.setLaunchTime(resultSet.getTimestamp(index++));
         return singleOrderVO;
-    }
+    } // getSingleOrderVO()
     
     private void closePreparedStatement(PreparedStatement preparedStatement) {
         if (preparedStatement != null) {
@@ -194,9 +204,9 @@ public class SingleOrderDAO implements SingleOrder_interface {
                 preparedStatement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
-        }
-    }
+            } // catch
+        } // if
+    } // closePreparedStatement()
     
     private void closeConnection(Connection connection) {
         if (connection != null) {
@@ -204,7 +214,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
-            }
-        }
-    }
-}
+            } //catch
+        } // if
+    } // closeConnection()
+} // class SingleOrderDAO
