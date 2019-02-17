@@ -75,8 +75,8 @@ public class GroupBandService {
 
 	}
 	
-	public GroupBandVO getOneGroupBand(String groupID) {
-		return dao.findByPrimaryKey(groupID);	
+	public GroupBandVO getOneGroupBand(String GroupBandno) {
+		return dao.findByPrimaryKey(GroupBandno);	
 	}
 	public List<GroupBandVO> getAll() {
 		return dao.getAll();
