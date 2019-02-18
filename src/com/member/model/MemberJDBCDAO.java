@@ -374,6 +374,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		
 		List<MemberVO> list = memberDAOJBDC.getAll();
 		for(MemberVO mbDAO2 : list) {
+			System.out.println(mbDAO2);
 			System.out.println(mbDAO2.getMemID());
 			System.out.println(mbDAO2.getName());
 			System.out.println(mbDAO2.getEmail());
@@ -389,6 +390,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			System.out.println(mbDAO2.getVerified());
 			System.out.println(mbDAO2.getBabySeat());
 			System.out.println("==============================");
+			
 		}
 
 	}
