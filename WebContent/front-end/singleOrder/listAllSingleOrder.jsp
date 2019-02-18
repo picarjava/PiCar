@@ -1,8 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="com.singleOrder.model.SingleOrderService" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="com.singleOrder.model.SingleOrderService"%>
+<%@ page import="java.util.List"%>
+<%@ page import="com.singleOrder.model.SingleOrderVO"%>
 <% SingleOrderService service = new SingleOrderService();
-   pageContext.setAttribute("allSingleOrder", service.getAll());
+   List<SingleOrderVO> list = service.getAll();
+   pageContext.setAttribute("list", list);
 %>
 <!DOCTYPE html>
 <html>
@@ -16,7 +19,27 @@
     </style>
 </head>
 <body>
+    <% int rowNum = 3;
+       int whichPage;
+       int totalPage = list.size() / rowNum;
+       if (list.size() % rowNum != 0)
+           totalPage++;
+       
+       try {
+           whichPage = Integer.parseInt(request.getParameter("whichPage"));
+           if (whichPage <= 0)
+               whichPage = 1;
+           else if (whichPage >= totalPage)
+               whichPage = totalPage;
+       } catch(NumberFormatException e) {
+           whichPage = 1;
+       } // catch
+       
+       int fromIndex = (whichPage - 1) * rowNum;
+       int toIndex = whichPage * rowNum - 1;
+    %>
     <table border="1" >
+        <caption>搜尋結果</caption>
         <tr>
             <th>訂單編號</th>
             <th>司機ID</th>
@@ -32,7 +55,7 @@
             <th>備註</th>
             <th>建立時間</th>
         </tr>
-        <c:forEach var="singleOrder" items="${allSingleOrder}">
+        <c:forEach var="singleOrder" items="${list}" begin="<%=fromIndex%>" end="<%=toIndex%>">
            <tr>
                <td>${singleOrder.orderID}</td>
                <td>${singleOrder.driverID}</td>
@@ -50,5 +73,18 @@
            </tr>
         </c:forEach>
     </table>
+    <% if (whichPage > 1) {%>
+    <a href="<%=request.getRequestURI()%>?whichPage=1">第一頁</a>
+    <a href="<%=request.getRequestURI()%>?whichPage=<%=whichPage - 1%>">上一頁</a>
+    <% } else {%>
+                第一頁 上一頁
+    <% }
+       
+       if (whichPage < totalPage) {%>
+    <a href="<%=request.getRequestURI()%>?whichPage=<%=whichPage + 1%>">下一頁</a>
+    <a href="<%=request.getRequestURI()%>?whichPage=<%=totalPage%>">最後一頁</a>
+    <% } else {%>
+                下一頁 最後一頁
+    <% }%>
 </body>
 </html>
