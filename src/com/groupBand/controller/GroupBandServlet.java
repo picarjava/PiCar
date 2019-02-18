@@ -4,8 +4,10 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -15,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import com.groupBand.model.*;
 
@@ -106,7 +109,23 @@ public class GroupBandServlet extends HttpServlet {
 					privates =0;	
 						  }
 					
-					byte[] photo =textgroupBandDAO.getPictureByteArray(req.getParameter("photo"));
+					byte[] photo=null;
+					
+					Collection<Part> parts = req.getParts();
+					for (Part part : parts) {
+						if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
+						
+							
+							long size = part.getSize();
+
+							// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
+							InputStream in = part.getInputStream();
+							photo = new byte[in.available()];						
+							in.close();						
+						}
+					}
+					
+					
 					
 					
 					String groupType = req.getParameter("groupType");
@@ -202,5 +221,15 @@ public class GroupBandServlet extends HttpServlet {
 		fis.close();
 
 		return baos.toByteArray();
+	}
+	public String getFileNameFromPart(Part part) {
+		String header = part.getHeader("content-disposition");
+		System.out.println("header=" + header); // 測試用
+		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
+		System.out.println("filename=" + filename); // 測試用
+		if (filename.length() == 0) {
+			return null;
+		}
+		return filename;
 	}
 }
