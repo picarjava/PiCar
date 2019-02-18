@@ -52,6 +52,7 @@
     <!--==========================
       Contact Section
     ============================-->
+    
     <section id="contact">
 	     <div class="container wow fadeInUp">
 	      	<div class="col-lg-12 col-md-12">
@@ -59,7 +60,7 @@
 		          <h3 class="section-title">請新增一筆活動資訊</h3>
 		          <div class="text-center">
 		          <form action="homeActivity.jsp">
-		          <button type="button" >返回</button>
+		          <button type="submit" >返回</button>
 		          </form>
 				  </div>		        
 		        </div>	
@@ -70,41 +71,43 @@
 	          <div class="col-lg-12 col-md-12">
 	            <div class="form">
 	              <!-- 活動表單開始 -->
-	              <form action="<%=request.getContextPath()%>/Activ_servlet.html" method="post" role="form" class="contactForm">
+	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" role="form" class="contactForm">
 	                <div class="form-group">
 	                  <p>活動編號</p> 
-	                 <input type="text" name="activityId" class="form-control" id="name" placeholder="請輸入1-10個英文或數字" data-rule="minlen:4" data-msg="Please enter at least 4 chars" />
+	                 <input type="text" name="activityId" class="form-control" id="name" placeholder="請輸入1-10個英文或數字"  />
 	  				</div>
 	                <div class="form-group">
 	                   <p>活動名稱</p>
-	                  <input type="text" class="form-control" name="activityName" id="email" placeholder="請輸入活動名稱" data-rule="email" data-msg="Please enter a valid email" />
+	                  <input type="text" class="form-control" name="activityName"  placeholder="請輸入活動名稱" />
 	       			</div>
 	       			<div class="form-group">
 	                  <p>活動資訊</p>
-	                  <textarea class="form-control" name="activityInfo" rows="5" data-rule="required" data-msg="請輸入活動資訊" placeholder="Message"></textarea>
+	                  <textarea class="form-control" name="activityInfo"  placeholder="請輸入活動資訊"></textarea>
 	                </div>
 	                <div class="form-group">
 	                  <p>活動開始時間</p>
-	                  <input type="date" class="form-control" name="activityStart" id="email" placeholder="請輸入活動開始時間" data-rule="email" data-msg="Please enter a valid email" />
+	                  <input type="date" class="form-control" name="activityStart"  placeholder="請輸入活動開始時間"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動結束時間</p>
-	                  <input type="date" class="form-control" name="activityEnd" id="email" placeholder="請輸入活動結束時間" data-rule="email" data-msg="Please enter a valid email" />
+	                  <input type="date" class="form-control" name="activityEnd"  placeholder="請輸入活動結束時間"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動序號</p>
-	                  <input type="text" class="form-control" name="activityCode" id="email" placeholder="請輸入活動序號" data-rule="email" data-msg="Please enter a valid email" />
+	                  <input type="text" class="form-control" name="activityCode"  placeholder="請輸入活動序號"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動代幣</p>
-	                  <input type="text" class="form-control" name="tokenAmount" id="email" placeholder="請輸入本活動代幣數量" data-rule="email" data-msg="Please enter a valid email" />
+	                  <input type="text" class="form-control" name="tokenAmount"  placeholder="請輸入本活動代幣數量"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動海報</p>
 	                  <input type="file" class="form-control" name="activityPost">
 	                </div>
-	                <div class="text-center"><button type="submit" >新增活動</button></div>
-	              	<!--隱藏的參數action讓controller抓-->
+	                <div class="text-center">
+	                <button type="submit" class="btn btn-dark">新增活動</button>
+	                </div>
+	                <!--隱藏的參數action讓controller抓-->
 	              	<input type="hidden" name="action" value="INSERT">
 	              </form>
 	            </div>
@@ -131,8 +134,8 @@
   <script src="lib/superfish/hoverIntent.js"></script>
   <script src="lib/superfish/superfish.min.js"></script>
 
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
+  <!-- Contact Form JavaScript File 
+  <script src="contactform/contactform.js"></script> -->
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>

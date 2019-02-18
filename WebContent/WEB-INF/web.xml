@@ -49,4 +49,13 @@
     <servlet-name>GroupBand</servlet-name>
     <url-pattern>/GroupBand</url-pattern>
   </servlet-mapping>
+  <servlet>
+	  <servlet-name>ActivServlet</servlet-name>
+	  <servlet-class>com.activity.controller.ActivServlet</servlet-class>
+	  <load-on-startup>3</load-on-startup>
+  </servlet>
+	  <servlet-mapping>
+	  <servlet-name>ActivServlet</servlet-name>
+  <url-pattern>/activity/Activ_servlet.html</url-pattern>
+  </servlet-mapping>
 </web-app>
