@@ -17,10 +17,11 @@ public class BroadcastJDBCDAO implements BroadcastDAO_interface {
 	
 //	private static final String GET_ALL_STMT=
 //	"SELECT MSG_ID,MEM_ID,MESSAGE,CONFIRMED FROM BROADCAST ORDER BY MSG_ID";
-	private static final String UPDATE=
-	"UPDATE BROADCAST SET MSG_ID=? ,MEM_ID=? ,MESSAGE=? ,CONFIRMED=?  WHERE MSG_ID=?" ;
 	private static final String DELETE=
-			"DELETE FROM BROADCAST WHERE BROADCAST_ID=?";
+			"DELETE FROM BROADCAST WHERE MSG_ID=?";
+	private static final String UPDATE=
+	"UPDATE BROADCAST SET MEM_ID=? ,MESSAGE=? ,CONFIRMED=?  WHERE MSG_ID=?" ;
+
 
 
 	@Override
@@ -75,11 +76,11 @@ public class BroadcastJDBCDAO implements BroadcastDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(UPDATE);
 			
-			pstmt.setString(1, broadcastVO.getMsgID());
-			pstmt.setString(2, broadcastVO.getMemID());
-			pstmt.setString(3, broadcastVO.getMessage());
-			pstmt.setInt(4, broadcastVO.getConfirmed());
-						
+			pstmt.setString(1, broadcastVO.getMemID());
+			pstmt.setString(2, broadcastVO.getMessage());
+			pstmt.setInt(3, broadcastVO.getConfirmed());
+			//PK MsgID
+			pstmt.setString(4, broadcastVO.getMsgID());			
 			pstmt.executeUpdate();
 		} catch (ClassNotFoundException e){
 			throw new RuntimeException("無法載入DB Driver"+e.getMessage());
