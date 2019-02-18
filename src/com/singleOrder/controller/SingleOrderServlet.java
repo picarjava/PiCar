@@ -14,12 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.singleOrder.model.SingleOrderDAO;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 
 public class SingleOrderServlet extends HttpServlet{
-    private final static String DATE_PATTERN = "^\\d{4}-\\d{2}-\\d{2}";
+    private final static String DATE_PATTERN = "^\\d{4}-\\d{2}-\\d{2}$";
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,10 +31,10 @@ public class SingleOrderServlet extends HttpServlet{
         RequestDispatcher requestDispatcher;
         String forwordURL = null;
         List<String> errorMsgs = new LinkedList<>();
-        String action = req.getParameter("action");
+        String action = req.getParameter("action").trim();
         SingleOrderService serivce = new SingleOrderService();
         if ("select".equals(action)) {
-            String orderID = req.getParameter("orderID");
+            String orderID = req.getParameter("orderID").trim();
             if (!isValidParameter(orderID, "^\\d+$"))
                 errorMsgs.add("請輸入數字");
             
@@ -44,12 +43,12 @@ public class SingleOrderServlet extends HttpServlet{
                 forwordURL = "/front-end/singleOrder/selectSingleOrder.jsp";
             } // if
         } else if ("insert".equals(action)) {
-            String memID = req.getParameter("memId");
-            String startTime = req.getParameter("startTime");
-            String startLoc = req.getParameter("startLoc");
-            String endLoc = req.getParameter("endLoc");
-            String orderType = req.getParameter("orderType");
-            String note = req.getParameter("note");
+            String memID = req.getParameter("memId").trim();
+            String startTime = req.getParameter("startTime").trim();
+            String startLoc = req.getParameter("startLoc").trim();
+            String endLoc = req.getParameter("endLoc").trim();
+            String orderType = req.getParameter("orderType").trim();
+            String note = req.getParameter("note").trim();
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
             Date startTimeDate = null;
             int totalAmount = (int) (Math.random() * 1000) + 1;
@@ -76,8 +75,6 @@ public class SingleOrderServlet extends HttpServlet{
             
             if (!errorMsgs.isEmpty()) {
                 forwordURL = "/front-end/singleOrder/insertSingleOrder.jsp";
-                req.setAttribute("errorMsgs", errorMsgs);
-            } else {
                 SingleOrderVO singleOrderVO = new SingleOrderVO();
                 singleOrderVO.setMemID(memID);
                 singleOrderVO.setStartTime(startTimeDate);
@@ -85,6 +82,10 @@ public class SingleOrderServlet extends HttpServlet{
                 singleOrderVO.setEndLoc(endLoc);
                 singleOrderVO.setOrderType(Integer.parseInt(orderType));
                 singleOrderVO.setNote(note);
+                req.setAttribute("singleOrder", singleOrderVO);
+                req.setAttribute("errorMsgs", errorMsgs);
+            } else {
+                
                 serivce.addSingleOrder(memID, 0, startTimeDate, startLoc,
                                        endLoc, 0.0, 0.0, 0.0,
                                        0.0, totalAmount, orderTypeInt, note,
