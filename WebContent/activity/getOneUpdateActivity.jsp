@@ -58,8 +58,8 @@
 		        <div class="section-header">
 		          <h3 class="section-title">請修改此筆活動資訊</h3>
 		          <div class="text-center">
-		          <form action=homeActivity.jsp>
-		          <button type="button" >返回</button>
+		          <form action="listAllActivity.jsp">
+		          <button type="submit" >返回</button>
 		          </form>
 				  </div>		        
 		        </div>	
@@ -70,7 +70,7 @@
 	          <div class="col-lg-12 col-md-12">
 	            <div class="form">
 	              <!-- 活動表單開始 -->
-	              <form action="<%=request.getContextPath()%>/Activ_servlet.html" method="post" role="form" class="contactForm">
+	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" role="form" class="contactForm">
 	                <div class="form-group">
 	                  <p>活動編號</p> 
 	                 <input type="text" name="activityID" readonly class="form-control"  value="${activityVO.activityID}"  />
@@ -81,7 +81,7 @@
 	       			</div>
 	       			<div class="form-group">
 	                  <p>活動資訊</p>
-	                  <textarea class="form-control" name="activityInfo" rows="5" data-rule="required" data-msg="請輸入活動資訊" value="${activityVO.activityInfo}"></textarea>
+	                  <textarea class="form-control" name="activityInfo" rows="5" data-rule="required" >${activityVO.activityInfo}</textarea>
 	                </div>
 	                <div class="form-group">
 	                  <p>活動開始時間</p>
@@ -109,7 +109,7 @@
 	                </div>
 	                <div class="text-center"><button type="submit" >確認修改</button></div>
 	              	<!--隱藏的參數action讓controller抓-->
-	              	<input type="hidden" name="action" value="UPDATE">
+	              	<input type="hidden" name="action" value="UPTDATE">
 	              </form>
 	            </div>
 	          </div>
@@ -135,8 +135,8 @@
   <script src="lib/superfish/hoverIntent.js"></script>
   <script src="lib/superfish/superfish.min.js"></script>
 
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
+  <!-- Contact Form JavaScript File 
+  <script src="contactform/contactform.js"></script>-->
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>

@@ -64,7 +64,7 @@
 		          <h3 class="section-title">請查看單筆活動資訊</h3>
 		          <div class="text-center">
 		          <form action="homeActivity.jsp">
-		          <button type="button" >返回</button>
+		          <button type="submit" >返回</button>
 		          </form>
 				  </div>		        
 		        </div>	
@@ -75,22 +75,22 @@
 	          <div class="col-lg-12 col-md-12">
 	            <div class="form">
 	              <!-- 活動表單開始 -->
-	              <form action="<%=request.getContextPath()%>/Activ_servlet.html" method="post" role="form" class="contactForm">
+	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" role="form" class="contactForm">
 	                <div class="form-group">
 	                  <p>活動編號</p> 
-	                 <input type="text" name="activityID" readonly class="form-control"  placeholder="${activityVO.activityID}" />
+	                 <input type="text" name="activityID"  class="form-control" readonly value="${activityVO.activityID}" />
 	  				</div>
 	                <div class="form-group">
 	                   <p>活動名稱</p>
-	                  <input type="text" class="form-control" name="activityName"  placeholder="${activityVO.activityName}"  />
+	                  <input type="text" class="form-control" name="activityName"  value="${activityVO.activityName}" />
 	       			</div>
 	       			<div class="form-group">
 	                  <p>活動資訊</p>
-	                  <textarea class="form-control" name="activityInfo" rows="5" data-rule="required" data-msg="請輸入活動資訊" value="${activityVO.activityInfo}"></textarea>
+	                  <textarea class="form-control"  name="activityInfo" rows="5" >${activityVO.activityInfo}</textarea>
 	                </div>
 	                <div class="form-group">
 	                  <p>活動開始時間</p>
-	                  <input type="date" class="form-control" name="activityStart" value="${activityVO.activityStart}"  />
+	                  <input type="date" class="form-control" name="activityStart"  value="${activityVO.activityStart}"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動結束時間</p>
@@ -106,15 +106,14 @@
 	                </div>
 	                <div class="form-group">
 	                  <p>活動海報</p>
-	                  <input type="file" class="form-control" name="activityPost" >
+	                  <input type="file" class="form-control" name="activityPost" value="${activityVO.activityPost}"/>
 	                  <div class="card" style="width: 18rem;">
-						  <div class="card" style="width: 18rem;">
-						  <img src="ActivityPost.jpg" width="300" height="150" class="card-img-top" alt="...">
+						  <img src="${activityVO.activityPost}" width="300" height="150" class="card-img-top" alt="..." >
 						</div>
 	                </div>
-	                <div class="text-center"><button type="submit" >確認修改</button></div>
+	              <!--  <div class="text-center"><button type="submit">確認修改</button></div>  -->
 	              	<!--隱藏的參數action讓controller抓-->
-	              	<input type="hidden" name="action" value="UPDATE">
+	              	<!-- <input type="hidden" name="action" value="UPTDATE"> -->
 	              </form>
 	            </div>
 	          </div>
@@ -124,7 +123,7 @@
   <!--==========================
     底部
   ============================-->
-  
+ 
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
   <!-- JavaScript Libraries -->
@@ -140,8 +139,8 @@
   <script src="lib/superfish/hoverIntent.js"></script>
   <script src="lib/superfish/superfish.min.js"></script>
 
-  <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
+  <!-- Contact Form JavaScript File 
+  <script src="contactform/contactform.js"></script>-->
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>

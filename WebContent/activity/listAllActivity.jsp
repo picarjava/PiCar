@@ -60,6 +60,9 @@
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">所有活動列表</h3>
+                    <form action="homeActivity.jsp">
+			          <div class="text-center"><button type="submit" class="btn btn-outline-success">返回</button>
+			         </form>
                 </div>
             </div>
             <div class="container wow fadeInUp">
@@ -88,7 +91,7 @@
 						      <td>${activityVO.activityStart}</td>
 						      <td>${activityVO.activityEnd}</td>
 						      <td>
-						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/Activ_servlet.html" >
+						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/activity/Activ_servlet.html" >
 							    <div class="text-center"><button type="submit" class="btn btn-light">修改</button>
 							      	<!-- /*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ -->
 	                				<input type="hidden" name="action" value="GET_ONE_FOR_UPTDATE">
@@ -97,7 +100,7 @@
 							  </Form>
 						      </td>
 						      <td>
-						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/Activ_servlet.html" >
+						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/activity/Activ_servlet.html" >
 							    <div class="text-center"><button type="submit" class="btn btn-light">刪除</button>
 							      	<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
 	                				<input type="hidden" name="action" value="DELETE">

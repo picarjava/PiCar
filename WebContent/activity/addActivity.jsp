@@ -38,7 +38,7 @@
 </head>
 
 <body>
-
+<%ActivityVO activityVO=(ActivityVO)request.getAttribute("activityVO");%>
 
 <%LinkedList errorMsgs=(LinkedList)request.getAttribute("errorMsgs");%>
     <!-- 錯誤列表 -->
@@ -50,7 +50,7 @@
 		</ul>
 	</c:if>
     <!--==========================
-      Contact Section
+      Contact Section 
     ============================-->
     
     <section id="contact">
@@ -60,7 +60,7 @@
 		          <h3 class="section-title">請新增一筆活動資訊</h3>
 		          <div class="text-center">
 		          <form action="homeActivity.jsp">
-		          <button type="submit" >返回</button>
+		          <button type="submit"  class="btn btn-outline-success"">返回</button>
 		          </form>
 				  </div>		        
 		        </div>	
@@ -71,14 +71,14 @@
 	          <div class="col-lg-12 col-md-12">
 	            <div class="form">
 	              <!-- 活動表單開始 -->
-	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" role="form" class="contactForm">
+	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post"  >
 	                <div class="form-group">
 	                  <p>活動編號</p> 
-	                 <input type="text" name="activityId" class="form-control" id="name" placeholder="請輸入1-10個英文或數字"  />
+	                 <input type="text" name="activityID" value="AC007" class="form-control"  placeholder="請輸入1-10個英文或數字" />
 	  				</div>
 	                <div class="form-group">
 	                   <p>活動名稱</p>
-	                  <input type="text" class="form-control" name="activityName"  placeholder="請輸入活動名稱" />
+	                  <input type="text" name="activityName" class="form-control" value="PICAR畢業專題"   placeholder="請輸入活動名稱" />
 	       			</div>
 	       			<div class="form-group">
 	                  <p>活動資訊</p>
@@ -86,19 +86,19 @@
 	                </div>
 	                <div class="form-group">
 	                  <p>活動開始時間</p>
-	                  <input type="date" class="form-control" name="activityStart"  placeholder="請輸入活動開始時間"  />
+	                  <input type="date" class="form-control" name="activityStart" value="2018-10-08" placeholder="請輸入活動開始時間"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動結束時間</p>
-	                  <input type="date" class="form-control" name="activityEnd"  placeholder="請輸入活動結束時間"  />
+	                  <input type="date" class="form-control" name="activityEnd" value="2019-03-29" placeholder="請輸入活動結束時間"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動序號</p>
-	                  <input type="text" class="form-control" name="activityCode"  placeholder="請輸入活動序號"  />
+	                  <input type="text" class="form-control" name="activityCode" value="picar" placeholder="請輸入活動序號"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動代幣</p>
-	                  <input type="text" class="form-control" name="tokenAmount"  placeholder="請輸入本活動代幣數量"  />
+	                  <input type="text" class="form-control" name="tokenAmount" value="200" placeholder="請輸入本活動代幣數量"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動海報</p>
@@ -137,7 +137,7 @@
   <!-- Contact Form JavaScript File 
   <script src="contactform/contactform.js"></script> -->
 
-  <!-- Template Main Javascript File -->
+  <!-- Template Main Javascript File  -->
   <script src="js/main.js"></script>
 
 </body>
