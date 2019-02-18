@@ -30,9 +30,9 @@ public class MemberServlet extends HttpServlet {
 		PrintWriter out = res.getWriter();
 		
 		MemberDAO memberDAO = new MemberDAO();
-		MemberVO memberVO = memberDAO.findByPrimaryKey(action);
-		System.out.println(memberVO.getCreditcard());
-		out.println(memberVO.getName());
+//		MemberVO memberVO = memberDAO.findByPrimaryKey(action);
+//		System.out.println(memberVO.getCreditcard());
+//		out.println(memberVO.getName());
 		
 		List<MemberVO> list = memberDAO.getAll();
 		for(MemberVO memberVO2 : list) {
