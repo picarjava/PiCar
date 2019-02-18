@@ -13,13 +13,13 @@ import java.util.List;
 //import java.sql.DriverManager;
 
 public class SingleOrderDAO implements SingleOrder_interface {
-	private final static String SELECT = "SELECT * FROM SINGLE_ORDER WHERE ORDER_ID=?";
-	private final static String SELECT_ALL = "SELECT * FROM SINGLE_ORDER";
-    private final static String UPDATE = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, STATE=?, START_TIME=?, END_TIME=?, " +
-                                                                 "START_LOC=?, END_LOC=?, START_LNG=?, START_LAT=?, " +
-                                                                 "END_LNG=?, END_LAT=?, TOTAL_AMOUNT=?, ORDER_TYPE=?, " +
-                                                                 "RATE=? WHERE ORDER_ID=?";
-    private final static String INSERT = "INSERT INTO SINGLE_ORDER(ORDER_ID, MEM_ID, STATE, START_TIME, " + 
+	private final static String SELECT_STMT = "SELECT * FROM SINGLE_ORDER WHERE ORDER_ID=?";
+	private final static String SELECT_ALL_STMT = "SELECT * FROM SINGLE_ORDER";
+    private final static String UPDATE_STMT = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, STATE=?, START_TIME=?, END_TIME=?, " +
+                                                                      "START_LOC=?, END_LOC=?, START_LNG=?, START_LAT=?, " +
+                                                                      "END_LNG=?, END_LAT=?, TOTAL_AMOUNT=?, RATE=? " +
+                                                                      "WHERE ORDER_ID=?";
+    private final static String INSERT_STMT = "INSERT INTO SINGLE_ORDER(ORDER_ID, MEM_ID, STATE, START_TIME, " + 
                                                                   "START_LOC, END_LOC, START_LNG, START_LAT, " +
                                                                   "END_LNG, END_LAT, TOTAL_AMOUNT, ORDER_TYPE, " +
                                                                   "NOTE, LAUNCH_TIME) " + 
@@ -52,7 +52,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
 //    } // main()
     
     @Override
-    public SingleOrderVO findByPrimaryKey(String orderId) {
+    public SingleOrderVO findByPrimaryKey(String orderID) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -60,8 +60,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
         try {
 //          connection = DriverManager.getConnection(URL, NAME, PASSWORD);
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(SELECT);
-            preparedStatement.setString(1, orderId);
+            preparedStatement = connection.prepareStatement(SELECT_STMT);
+            preparedStatement.setString(1, orderID);
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                newSingleOrderVO = getSingleOrderVO(resultSet);
@@ -85,7 +85,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
         try {
 //            connection = DriverManager.getConnection(URL, NAME, PASSWORD);
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(INSERT);
+            preparedStatement = connection.prepareStatement(INSERT_STMT);
             preparedStatement.setString(index++, singleOrderVO.getMemID());
             preparedStatement.setInt(index++, singleOrderVO.getState());
             preparedStatement.setDate(index++, singleOrderVO.getStartTime());
@@ -116,7 +116,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
         try {
 //            connection = DriverManager.getConnection(URL, NAME, PASSWORD);
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(UPDATE);
+            preparedStatement = connection.prepareStatement(UPDATE_STMT);
             preparedStatement.setString(index++, singleOrderVO.getDriverID());
             preparedStatement.setInt(index++, singleOrderVO.getState());
             preparedStatement.setDate(index++, singleOrderVO.getStartTime());
@@ -128,7 +128,6 @@ public class SingleOrderDAO implements SingleOrder_interface {
             preparedStatement.setDouble(index++, singleOrderVO.getEndLng());
             preparedStatement.setDouble(index++, singleOrderVO.getEndLat());
             preparedStatement.setInt(index++, singleOrderVO.getTotalAmount());
-            preparedStatement.setInt(index++, singleOrderVO.getOrderType());
             preparedStatement.setInt(index++, singleOrderVO.getRate());
             preparedStatement.setString(index++, singleOrderVO.getOrderID());
             preparedStatement.executeUpdate();
@@ -149,7 +148,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
         try {
 //            connection = DriverManager.getConnection(URL, NAME, PASSWORD);
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(SELECT_ALL);
+            preparedStatement = connection.prepareStatement(SELECT_ALL_STMT);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 list.add(getSingleOrderVO(resultSet));

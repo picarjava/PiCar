@@ -40,7 +40,7 @@ public class SingleOrderService {
     public SingleOrderVO updateSingleOrder(String orderID, String driverID, Integer state, Date startTime,
                                            Date endTime, String startLoc, String endLoc, Double startLng,
                                            Double startLat, Double endLng, Double endLat, Integer totalAmount,
-                                           Integer orderType, Integer rate) {
+                                           Integer rate) {
         SingleOrderVO singleOrderVO = new SingleOrderVO();
         singleOrderVO.setOrderID(orderID);
         singleOrderVO.setDriverID(driverID);
@@ -54,7 +54,6 @@ public class SingleOrderService {
         singleOrderVO.setEndLng(endLng);
         singleOrderVO.setEndLat(endLat);
         singleOrderVO.setTotalAmount(totalAmount);
-        singleOrderVO.setOrderType(orderType);
         singleOrderVO.setRate(rate);
         singleOrderDAO.update(singleOrderVO);
         return singleOrderVO;

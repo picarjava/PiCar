@@ -11,7 +11,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Insert title here</title>
+<title>List single order</title>
     <style type="text/css">
         table {
             border-spacing:0;
@@ -19,25 +19,14 @@
     </style>
 </head>
 <body>
-    <% int rowNum = 3;
-       int whichPage;
-       int totalPage = list.size() / rowNum;
-       if (list.size() % rowNum != 0)
-           totalPage++;
-       
-       try {
-           whichPage = Integer.parseInt(request.getParameter("whichPage"));
-           if (whichPage <= 0)
-               whichPage = 1;
-           else if (whichPage >= totalPage)
-               whichPage = totalPage;
-       } catch(NumberFormatException e) {
-           whichPage = 1;
-       } // catch
-       
-       int fromIndex = (whichPage - 1) * rowNum;
-       int toIndex = whichPage * rowNum - 1;
-    %>
+    <c:if test="${not empty singleOrder}">
+        <div id="errorMsg">
+            <c:forEach var="errorMsg" items="errorMsgs">
+                <p>${errorMsg}</p>
+        </c:forEach>
+        </div>
+    </c:if>
+    <%@include file="pageTop.file"%>
     <table border="1" >
         <caption>搜尋結果</caption>
         <tr>
@@ -54,37 +43,33 @@
             <th>評價分數</th>
             <th>備註</th>
             <th>建立時間</th>
+            <th></th>
         </tr>
         <c:forEach var="singleOrder" items="${list}" begin="<%=fromIndex%>" end="<%=toIndex%>">
-           <tr>
-               <td>${singleOrder.orderID}</td>
-               <td>${singleOrder.driverID}</td>
-               <td>${singleOrder.memID}</td>
-               <td>${stateMap[singleOrder.state]}</td>
-               <td>${singleOrder.startTime}</td>
-               <td>${singleOrder.endTime}</td>
-               <td>${singleOrder.startLoc}</td>
-               <td>${singleOrder.endLoc}</td>
-               <td>${orderTypeMap[singleOrder.orderType]}</td>
-               <td>${singleOrder.totalAmount}</td>
-               <td>${singleOrder.rate}</td>
-               <td>${singleOrder.note}</td>
-               <td>${singleOrder.launchTime}</td>
-           </tr>
+        <tr>
+            <td>${singleOrder.orderID}</td>
+            <td>${singleOrder.driverID}</td>
+            <td>${singleOrder.memID}</td>
+            <td>${stateMap[singleOrder.state]}</td>
+            <td>${singleOrder.startTime}</td>
+            <td>${singleOrder.endTime}</td>
+            <td>${singleOrder.startLoc}</td>
+            <td>${singleOrder.endLoc}</td>
+            <td>${orderTypeMap[singleOrder.orderType]}</td>
+            <td>${singleOrder.totalAmount}</td>
+            <td>${singleOrder.rate}</td>
+            <td>${singleOrder.note}</td>
+            <td>${singleOrder.launchTime}</td>
+            <td>
+                <form action="/PiCar/singleOrder" method="POST">
+                    <input type="hidden" name="orderID" value="${singleOrder.orderID}"/>
+                    <input type="hidden" name="action" value="getUpdateID"/>
+                    <button type="submit">修改</button>
+                </form>
+            </td>
+        </tr>
         </c:forEach>
     </table>
-    <% if (whichPage > 1) {%>
-    <a href="<%=request.getRequestURI()%>?whichPage=1">第一頁</a>
-    <a href="<%=request.getRequestURI()%>?whichPage=<%=whichPage - 1%>">上一頁</a>
-    <% } else {%>
-                第一頁 上一頁
-    <% }
-       
-       if (whichPage < totalPage) {%>
-    <a href="<%=request.getRequestURI()%>?whichPage=<%=whichPage + 1%>">下一頁</a>
-    <a href="<%=request.getRequestURI()%>?whichPage=<%=totalPage%>">最後一頁</a>
-    <% } else {%>
-                下一頁 最後一頁
-    <% }%>
+    <%@include file="pageBot.file" %>
 </body>
 </html>

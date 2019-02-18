@@ -19,13 +19,13 @@
 <body>
     <h3>新增訂單</h3>
     <c:if test="${not empty errorMsgs }">
-                <h3>資料未填或格式錯誤</h3>
-                <div id="errorMsg">
-                    <c:forEach var="errorMsg" items="${errorMsgs}">
-                        <p>${errorMsg}</p>
-                    </c:forEach>
-                </div>
-            </c:if>
+        <h3>資料未填或格式錯誤</h3>
+        <div id="errorMsg">
+            <c:forEach var="errorMsg" items="${errorMsgs}">
+                <p>${errorMsg}</p>
+            </c:forEach>
+        </div>
+    </c:if>
     <form action="/PiCar/singleOrder" method="POST">
         <label for="memId">會員ID </label><input type="text" name="memId" id="memID" value="${singleOrder.memID}"/><br>
         <label for="startTime">上車時間 </label><input type="date" name="startTime" id="startTime" value="${singleOrder.startTime}"/><br>
