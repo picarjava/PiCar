@@ -1,5 +1,8 @@
 package com.groupBand.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
@@ -87,48 +90,51 @@ public class GroupBandServlet extends HttpServlet {
 						errorMsgs.add("團名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 		            }
 					
-					groupLeader
+					String groupLeader = "M001";
 					
 					
+					String startLoc = req.getParameter("startLoc");
 					
-					String ename = req.getParameter("ename");
-					String introduc = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]";
-					if (ename == null || ename.trim().length() == 0) {
-						errorMsgs.add("員工姓名: 請勿空白");
-					} else if(!ename.trim().matches(enameReg)) { //以下練習正則(規)表示式(regular-expression)
-						errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-		            }
 					
-					String job = req.getParameter("job").trim();
-					if (job == null || job.trim().length() == 0) {
-						errorMsgs.add("職位請勿空白");
-					}
+					String endLoc = req.getParameter("endLoc");
 					
-					java.sql.Date hiredate = null;
+					
+					Integer privates =null;
+					if("1".equals(req.getParameter("privates"))) {
+					privates = new Integer(req.getParameter("privates").trim());	
+					}else {
+					privates =0;	
+						  }
+					
+					byte[] photo =textgroupBandDAO.getPictureByteArray(req.getParameter("photo"));
+					
+					
+					String groupType = req.getParameter("groupType");
+					
+					
+					Integer totalAmout	=0;
+					
+					
+					java.sql.Date startTime = null;
 					try {
-						hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
+						startTime = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
 					} catch (IllegalArgumentException e) {
-						hiredate=new java.sql.Date(System.currentTimeMillis());
+						startTime=new java.sql.Date(System.currentTimeMillis());
 						errorMsgs.add("請輸入日期!");
 					}
 					
-					Double sal = null;
-					try {
-						sal = new Double(req.getParameter("sal").trim());
-					} catch (NumberFormatException e) {
-						sal = 0.0;
-						errorMsgs.add("薪水請填數字.");
-					}
 					
-					Double comm = null;
-					try {
-						comm = new Double(req.getParameter("comm").trim());
-					} catch (NumberFormatException e) {
-						comm = 0.0;
-						errorMsgs.add("獎金請填數字.");
-					}
+					Integer rate =5;
 					
-					Integer deptno = new Integer(req.getParameter("deptno").trim());
+					
+					String note =req.getParameter("note");
+					String notes = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
+					if (note == null || note.trim().length() == 0) {
+						errorMsgs.add("員工姓名: 請勿空白");
+					} else if(!note.trim().matches(notes)) { //以下練習正則(規)表示式(regular-expression)
+						errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+		            }
+					
 					
 					
 					GroupBandVO groupBandVO = new GroupBandVO();
@@ -183,5 +189,18 @@ public class GroupBandServlet extends HttpServlet {
 			}
 		
 	}
+	public static byte[] getPictureByteArray(String path) throws IOException {
+		File file = new File(path);
+		FileInputStream fis = new FileInputStream(file);
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		byte[] buffer = new byte[8192];
+		int i;
+		while ((i = fis.read(buffer)) != -1) {
+			baos.write(buffer, 0, i);
+		}
+		baos.close();
+		fis.close();
 
+		return baos.toByteArray();
+	}
 }

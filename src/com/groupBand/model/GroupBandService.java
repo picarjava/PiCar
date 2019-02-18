@@ -16,7 +16,7 @@ public class GroupBandService {
 	}
 
 	public GroupBandVO addGroupBand(String content, String introduction, Integer groupStatus, Integer currenTnum,
-			Integer upperLimit, Integer lowerLimit, String groupName, Integer groupLeader, String startLoc,
+			Integer upperLimit, Integer lowerLimit, String groupName, String groupLeader, String startLoc,
 			String endLoc, Integer privates, byte[] photo, String groupType, Integer totalAmout, Date startTime,
 			Integer rate, String note) {
 
@@ -47,7 +47,7 @@ public class GroupBandService {
 	public GroupBandVO updateGroupBand(
 
 			String content, String introduction, Integer groupStatus, Integer currenTnum, Integer upperLimit,
-			Integer lowerLimit, String groupName, Integer groupLeader, String startLoc, String endLoc, Integer privates,
+			Integer lowerLimit, String groupName, String groupLeader, String startLoc, String endLoc, Integer privates,
 			byte[] photo, String groupType, Integer totalAmout, Date startTime, Integer rate, String note) {
 
 		GroupBandVO groupBandVO = new GroupBandVO();

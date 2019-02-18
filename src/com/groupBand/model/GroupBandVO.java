@@ -17,7 +17,7 @@ public class GroupBandVO implements java.io.Serializable {
 	private Integer upperLimit;
 	private Integer lowerLimit;
 	private String groupName;
-	private Integer groupLeader;
+	private String groupLeader;
 	private String startLoc;
 	private String endLoc;
 	private Integer privates;
@@ -82,10 +82,10 @@ public class GroupBandVO implements java.io.Serializable {
 	public void setGroupName(String groupName) {
 		this.groupName = groupName;
 	}
-	public Integer getGroupLeader() {
+	public String getGroupLeader() {
 		return groupLeader;
 	}
-	public void setGroupLeader(Integer groupLeader) {
+	public void setGroupLeader(String groupLeader) {
 		this.groupLeader = groupLeader;
 	}
 	public String getStartLoc() {

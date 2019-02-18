@@ -54,7 +54,7 @@ public class GroupBandJNDIDAO implements GroupBandDAO_interface{
 			pstmt.setInt(5, groupBandVO.getUpperLimit());
 			pstmt.setInt(6, groupBandVO.getLowerLimit());
 			pstmt.setString(7, groupBandVO.getGroupName());
-			pstmt.setInt(8, groupBandVO.getGroupLeader());
+			pstmt.setString(8, groupBandVO.getGroupLeader());
 			pstmt.setString(9, groupBandVO.getStartLoc());
 			pstmt.setString(10, groupBandVO.getEndLoc());
 			pstmt.setInt(11, groupBandVO.getPrivates());
@@ -107,7 +107,7 @@ public class GroupBandJNDIDAO implements GroupBandDAO_interface{
 			pstmt.setInt(7, groupBandVO.getUpperLimit());
 			pstmt.setInt(8, groupBandVO.getLowerLimit());
 			pstmt.setString(9, groupBandVO.getGroupName());
-			pstmt.setInt(10, groupBandVO.getGroupLeader());
+			pstmt.setString(10, groupBandVO.getGroupLeader());
 			pstmt.setString(11, groupBandVO.getStartLoc());
 			pstmt.setString(12, groupBandVO.getEndLoc());
 			pstmt.setInt(13, groupBandVO.getPrivates());
@@ -200,7 +200,7 @@ public class GroupBandJNDIDAO implements GroupBandDAO_interface{
 			groupBandVO.setUpperLimit(rs.getInt("UPPER_LIMIT"));
 			groupBandVO.setLowerLimit(rs.getInt("LOWER_LIMIT"));
 			groupBandVO.setGroupName(rs.getString("GROUP_NAME"));
-			groupBandVO.setGroupLeader(rs.getInt("GROUP_LEADER"));
+			groupBandVO.setGroupLeader(rs.getString("GROUP_LEADER"));
 			groupBandVO.setStartLoc(rs.getString("START_LOC"));
 			groupBandVO.setEndLoc(rs.getString("END_LOC"));
 			groupBandVO.setPrivates(rs.getInt("PRIVATES"));
@@ -268,7 +268,7 @@ public class GroupBandJNDIDAO implements GroupBandDAO_interface{
 				groupBandVO.setUpperLimit(rs.getInt("UPPER_LIMIT"));
 				groupBandVO.setLowerLimit(rs.getInt("LOWER_LIMIT"));
 				groupBandVO.setGroupName(rs.getString("GROUP_NAME"));
-				groupBandVO.setGroupLeader(rs.getInt("GROUP_LEADER"));
+				groupBandVO.setGroupLeader(rs.getString("GROUP_LEADER"));
 				groupBandVO.setStartLoc(rs.getString("START_LOC"));
 				groupBandVO.setEndLoc(rs.getString("END_LOC"));
 				groupBandVO.setPrivates(rs.getInt("PRIVATES"));
