@@ -8,7 +8,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.activity.model.ActivityVO;
 
 public class BroadcastJDBCDAO implements BroadcastDAO_interface {
 
