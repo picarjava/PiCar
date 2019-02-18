@@ -9,7 +9,7 @@ public interface BroadcastDAO_interface {
     public void update(BroadcastVO broadcastVO);
     /*delete建構子argument是放欲刪除資料的PK*/
     public void delete(String msgID);
-    public BroadcastVO findByPrimaryKey(Integer msgID);
+    public BroadcastVO findByPrimaryKey(String msgID);
     public List<BroadcastVO> getAll(); 
 	
 	
