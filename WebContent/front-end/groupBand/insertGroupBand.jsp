@@ -9,6 +9,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css"
+	href="../../datetimepicker/jquery.datetimepicker.css" />
+<script src="../../datetimepicker/jquery.js"></script>
+<script src="../../datetimepicker/jquery.datetimepicker.full.js"></script>
 <meta charset="BIG5">
 <title>Insert title here</title>
 <style>
@@ -52,6 +56,7 @@ th, td {
 </style>
 </head>
 <body bgcolor=#aaaaaa>
+
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
 		<ul>
@@ -80,10 +85,24 @@ th, td {
 		<table>
 
 			<tr>
-				<td><input type="radio" name="orderType" value="0">揪團</td>
-				<td><input type="radio" name="orderType" value="1">長期揪團
-				</td>
+				<td><input type="radio" name="orderT" value="0" checked
+					onclick="groupif(this.value)">揪團</td>
+				<td><input type="radio" name="orderT" value="1"
+					onclick="groupif(this.value)">長期揪團<br></td>
 			</tr>
+			
+			<tr>
+			<td>揪團類別</td>
+			<td><select name="groupType">
+			<option value="演唱會">演唱會</option>
+			<option value="旅遊">旅遊</option>
+			<option value="美食">美食</option>
+			<option value="運動團">運動團</option>
+			<option value="展覽">展覽</option>
+			<option value="遊樂園">遊樂園</option>
+			</select></td>
+			</tr>
+			
 
 			<tr>
 				<td>團名</td>
@@ -124,8 +143,8 @@ th, td {
 			</tr>
 
 			<tr>
-				<td>上限人數</td>
-				<td><select id="LowerLimit" onchange="pvalue(this.value);">
+				<td>下限人數</td>
+				<td><select id="lowerLimit" onchange="pvalue(this.value);" name="lowerlimit">
 						<%
 							for (int a = 2; a < 5; a++) {
 						%>
@@ -136,9 +155,10 @@ th, td {
 				</select></td>
 			</tr>
 
+
 			<tr>
-				<td>下限人數</td>
-				<td><select id="Lower">
+				<td>上限人數</td>
+				<td><select id="Lower" name="upperlimit">
 						<%
 							for (int a = 2; a < 5; a++) {
 						%>
@@ -168,10 +188,20 @@ th, td {
 			<tr>
 				<td>上車日期</td>
 
-				<td><input type="file" name="photo" size="25"
-					value="<%=(groupBandVO == null) ? "" : groupBandVO.getPhoto()%>" />
-				</td>
+				<td><input name="startTime" id="start_date" type="text"
+					style="display: none"> 
+					<input name="startTime" id="f_date1"
+					type="text"></td>
 			</tr>
+
+			<tr>
+				<td><nobr id="enddate" style="display:none">結束日期:</nobr></td>
+
+				<td><input name="endtime" id="end_date" type="text"
+					style="display: none"></td>
+			</tr>
+
+
 			<td>備註:</td>
 
 			<td><textarea name="note" id="note" rows="3" cols="50">
@@ -194,4 +224,69 @@ th, td {
 		</table>
 	</form>
 </body>
+
+<script>
+	$.datetimepicker.setLocale('zh'); // kr ko ja en
+	$('#f_date1').datetimepicker({
+		theme : '', //theme: 'dark',
+		timepicker : true, //timepicker: false,
+		step : 1, //step: 60 (這是timepicker的預設間隔60分鐘)
+		format : 'Y-m-d H:i:s',
+		value : new Date(),
+	//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+	//startDate:	        '2017/07/10',  // 起始日
+	//minDate:           '-1970-01-01', // 去除今日(不含)之前
+	//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
+	});
+</script>
+
+<script>
+	$.datetimepicker.setLocale('zh'); // kr ko ja en
+	$(function() {
+		$('#start_date').datetimepicker(
+				{
+					format : 'Y-m-d',
+					onShow : function() {
+						this.setOptions({
+							maxDate : $('#end_date').val() ? $('#end_date')
+									.val() : false
+						})
+					},
+					timepicker : false
+				});
+
+		$('#end_date').datetimepicker(
+				{
+					format : 'Y-m-d',
+					onShow : function() {
+						this.setOptions({
+							minDate : $('#start_date').val() ? $('#start_date')
+									.val() : false
+						})
+					},
+					timepicker : false
+				});
+	});
+</script>
+
+<script>
+	function groupif(number) {
+		startdate = document.getElementById("start_date");
+		enddate = document.getElementById("end_date");
+		fdate1 = document.getElementById("f_date1");
+		enddates = document.getElementById("enddate");
+		if (number == 1) {
+			startdate.style = "";
+			enddate.style = "";
+			fdate1.style = "display:none";
+			enddates.style = "";
+		} else {
+			startdate.style = "display:none";
+			enddate.style = "display:none";
+			fdate1.style = "";
+			enddates.style = "display:none";
+
+		}
+	}
+</script>
 </html>

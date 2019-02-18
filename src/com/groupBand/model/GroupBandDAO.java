@@ -12,9 +12,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+public class GroupBandDAO implements GroupBandDAO_interface {
 
-public class GroupBandDAO implements GroupBandDAO_interface{
-	
 	private static DataSource ds = null;
 	static {
 		try {
@@ -25,16 +24,11 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 		}
 	}
 
-	private static final String INSERT_STMT = 
-			"INSERT INTO GROUP_BAND (GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE) VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-		private static final String GET_ALL_STMT = 
-			"SELECT GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE FROM GROUP_BAND";
-		private static final String GET_ONE_STMT = 
-			"SELECT GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE FROM GROUP_BAND where GROUP_ID = ?";
-		private static final String DELETE = 
-			"DELETE FROM GROUP_BAND where GROUP_ID = ?";
-		private static final String UPDATE = 
-			"UPDATE GROUP_BAND set GROUP_ID=?,CONTENT=?,LAUNCH_TIME=?,INTRODUCTION=?,GROUP_STATUS=?,CURRENT_NUM=?,UPPER_LIMIT=?,LOWER_LIMIT=?,GROUP_NAME=?,GROUP_LEADER=?,START_LOC=?,END_LOC=?,PRIVATES=?,PHOTO=?,GROUP_TYPE=?,TOTAL_AMOUT=?,START_TIME=?,RATE=?,NOTE=? where GROUP_ID= ?";
+	private static final String INSERT_STMT = "INSERT INTO GROUP_BAND (GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE) VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String GET_ALL_STMT = "SELECT GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE FROM GROUP_BAND";
+	private static final String GET_ONE_STMT = "SELECT GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE FROM GROUP_BAND where GROUP_ID = ?";
+	private static final String DELETE = "DELETE FROM GROUP_BAND where GROUP_ID = ?";
+	private static final String UPDATE = "UPDATE GROUP_BAND set GROUP_ID=?,CONTENT=?,LAUNCH_TIME=?,INTRODUCTION=?,GROUP_STATUS=?,CURRENT_NUM=?,UPPER_LIMIT=?,LOWER_LIMIT=?,GROUP_NAME=?,GROUP_LEADER=?,START_LOC=?,END_LOC=?,PRIVATES=?,PHOTO=?,GROUP_TYPE=?,TOTAL_AMOUT=?,START_TIME=?,RATE=?,NOTE=? where GROUP_ID= ?";
 
 	@Override
 	public void insert(GroupBandVO groupBandVO) {
@@ -46,8 +40,7 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 			con.setAutoCommit(true);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			
-			pstmt.setString(1, groupBandVO.getContent());		
+			pstmt.setString(1, groupBandVO.getContent());
 			pstmt.setString(2, groupBandVO.getIntroduction());
 			pstmt.setInt(3, groupBandVO.getGroupStatus());
 			pstmt.setInt(4, groupBandVO.getCurrenTnum());
@@ -64,41 +57,40 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 			pstmt.setDate(15, groupBandVO.getStartTime());
 			pstmt.setInt(16, groupBandVO.getRate());
 			pstmt.setString(17, groupBandVO.getNote());
-			
+
 			pstmt.executeUpdate();
 			con.commit();
-			} catch (SQLException se) {
-				throw new RuntimeException("A database error occured. "
-						+ se.getMessage());
-				// Clean up JDBC resources
-			} finally {
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (con != null) {
-					try {
-						con.close();
-					} catch (Exception e) {
-						e.printStackTrace(System.err);
-					}
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
 				}
 			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 	@Override
 	public void update(GroupBandVO groupBandVO) {
 		// TODO Auto-generated method stub
-		Connection con =null;
+		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
 			con = ds.getConnection();
 			con.setAutoCommit(true);
 			pstmt = con.prepareStatement(UPDATE);
-			pstmt.setString(1, groupBandVO.getGroupID());	
+			pstmt.setString(1, groupBandVO.getGroupID());
 			pstmt.setString(2, groupBandVO.getContent());
 			pstmt.setTimestamp(3, groupBandVO.getLaunchTime());
 			pstmt.setString(4, groupBandVO.getIntroduction());
@@ -120,10 +112,9 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 			pstmt.setString(20, groupBandVO.getGroupID());
 			pstmt.executeUpdate();
 			con.commit();
-			
-		}catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -146,16 +137,15 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 	@Override
 	public void delete(String groupBandno) {
 		// TODO Auto-generated method stub
-		Connection con =null;
+		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
-			con = ds.getConnection();		
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
 			pstmt.setString(1, groupBandno);
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -178,45 +168,43 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 	@Override
 	public GroupBandVO findByPrimaryKey(String groupBandno) {
 		// TODO Auto-generated method stub
-		GroupBandVO groupBandVO =null;
+		GroupBandVO groupBandVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
-		
-		try{
-			con = ds.getConnection();	
+
+		try {
+			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ONE_STMT);
 			pstmt.setString(1, groupBandno);
 			rs = pstmt.executeQuery();
-		
-		while(rs.next()) {
-			groupBandVO = new GroupBandVO();
-			groupBandVO.setGroupID(rs.getString("GROUP_ID"));
-			groupBandVO.setContent(rs.getString("CONTENT"));
-			groupBandVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
-			groupBandVO.setIntroduction(rs.getString("INTRODUCTION"));
-			groupBandVO.setGroupStatus(rs.getInt("GROUP_STATUS"));
-			groupBandVO.setCurrenTnum(rs.getInt("CURRENT_NUM"));
-			groupBandVO.setUpperLimit(rs.getInt("UPPER_LIMIT"));
-			groupBandVO.setLowerLimit(rs.getInt("LOWER_LIMIT"));
-			groupBandVO.setGroupName(rs.getString("GROUP_NAME"));
-			groupBandVO.setGroupLeader(rs.getInt("GROUP_LEADER"));
-			groupBandVO.setStartLoc(rs.getString("START_LOC"));
-			groupBandVO.setEndLoc(rs.getString("END_LOC"));
-			groupBandVO.setPrivates(rs.getInt("PRIVATES"));
-			groupBandVO.setPhoto(rs.getBytes("PHOTO"));
-			groupBandVO.setGroupType(rs.getString("GROUP_TYPE"));
-			groupBandVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
-			groupBandVO.setStartTime(rs.getDate("START_TIME"));
-			groupBandVO.setRate(rs.getInt("RATE"));
-			groupBandVO.setNote(rs.getString("NOTE"));
-			
-			
-		}
-		
+
+			while (rs.next()) {
+				groupBandVO = new GroupBandVO();
+				groupBandVO.setGroupID(rs.getString("GROUP_ID"));
+				groupBandVO.setContent(rs.getString("CONTENT"));
+				groupBandVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
+				groupBandVO.setIntroduction(rs.getString("INTRODUCTION"));
+				groupBandVO.setGroupStatus(rs.getInt("GROUP_STATUS"));
+				groupBandVO.setCurrenTnum(rs.getInt("CURRENT_NUM"));
+				groupBandVO.setUpperLimit(rs.getInt("UPPER_LIMIT"));
+				groupBandVO.setLowerLimit(rs.getInt("LOWER_LIMIT"));
+				groupBandVO.setGroupName(rs.getString("GROUP_NAME"));
+				groupBandVO.setGroupLeader(rs.getInt("GROUP_LEADER"));
+				groupBandVO.setStartLoc(rs.getString("START_LOC"));
+				groupBandVO.setEndLoc(rs.getString("END_LOC"));
+				groupBandVO.setPrivates(rs.getInt("PRIVATES"));
+				groupBandVO.setPhoto(rs.getBytes("PHOTO"));
+				groupBandVO.setGroupType(rs.getString("GROUP_TYPE"));
+				groupBandVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
+				groupBandVO.setStartTime(rs.getDate("START_TIME"));
+				groupBandVO.setRate(rs.getInt("RATE"));
+				groupBandVO.setNote(rs.getString("NOTE"));
+
+			}
+
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -241,15 +229,15 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 				}
 			}
 		}
-		
+
 		return groupBandVO;
 	}
 
 	@Override
 	public List<GroupBandVO> getAll() {
 		// TODO Auto-generated method stub
-		List<GroupBandVO> list =new ArrayList<GroupBandVO>();
-		GroupBandVO groupBandVO =null;
+		List<GroupBandVO> list = new ArrayList<GroupBandVO>();
+		GroupBandVO groupBandVO = null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -257,7 +245,7 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(GET_ALL_STMT);
 			rs = pstmt.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				groupBandVO = new GroupBandVO();
 				groupBandVO.setGroupID(rs.getString("GROUP_ID"));
 				groupBandVO.setContent(rs.getString("CONTENT"));
@@ -279,12 +267,11 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 				groupBandVO.setRate(rs.getInt("RATE"));
 				groupBandVO.setNote(rs.getString("NOTE"));
 				list.add(groupBandVO);
-				
+
 			}
-			
+
 		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
+			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (rs != null) {
@@ -309,11 +296,8 @@ public class GroupBandDAO implements GroupBandDAO_interface{
 				}
 			}
 		}
-		
+
 		return list;
 	}
-
-	
-
 
 }
