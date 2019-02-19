@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.GregorianCalendar;
+import java.util.List;
 
 public class TestDriverDAO {
 	
@@ -85,6 +86,31 @@ public class TestDriverDAO {
 //		
 //		System.out.println("driver has searched for one");
 /////////////////////////////////////////////////////
+		
+//		search for all ok//
+//		List<DriverVO> list= DAO.getAll();
+//		for(DriverVO testall :list) {
+//		System.out.println(testall.getMemID());
+//		System.out.println(testall.getDriverID());
+//		System.out.println(testall.getPlateNum());
+//		System.out.println(testall.getLicence());
+//		System.out.println(testall.getCriminal());
+//		System.out.println(testall.getTrafficRecord());
+//		System.out.println(testall.getIdNum());
+//		System.out.println(testall.getPhoto());
+//		System.out.println(testall.getVerified());
+//		System.out.println(testall.getBanned());
+//		System.out.println(testall.getDeadline());
+//		System.out.println(testall.getOnlineCar());
+//		System.out.println(testall.getScore());
+//		System.out.println(testall.getCarType());
+//		System.out.println(testall.getSharedCar());
+//		System.out.println(testall.getPet());
+//		System.out.println(testall.getSmoke());
+//		System.out.println(testall.getBabySeat());
+//System.out.println("============================================");		
+//	}
+//		System.out.println("all of broadcast has searched");
 		
 		
 		
