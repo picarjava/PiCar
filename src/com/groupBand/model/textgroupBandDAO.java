@@ -34,7 +34,7 @@ public class textgroupBandDAO {
 		groupBandVO.setPhoto(textgroupBandDAO.getPictureByteArray("WebContent/activity/img/team-1.jpg"));
 		groupBandVO.setGroupType("演唱會");
 		groupBandVO.setTotalAmout(5000);
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 		groupBandVO.setStartTime(new Date(simpleDateFormat.parse("2019-02-14").getTime()));
 		groupBandVO.setRate(5);
 		groupBandVO.setNote("無");

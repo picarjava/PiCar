@@ -127,7 +127,7 @@ th, td {
 				<td>上車地點:</td>
 
 				<td><select name="startLoc">
-						<option value="a01">桃園市</option>
+						<option value="桃園火車站">桃園市</option>
 						<option value="a02">台北市</option>
 				</select></td>
 			</tr>
@@ -136,8 +136,8 @@ th, td {
 				<td>下車地點:</td>
 
 				<td><select name="endLoc">
-						<option value="a01">桃園市</option>
-						<option value="a02">台北市</option>
+						<option value="桃園火車站">桃園市</option>
+						<option value="台北市火車站">台北市</option>
 				</select></td>
 			</tr>
 
@@ -189,7 +189,7 @@ th, td {
 
 				<td><input name="startTime" id="start_date" type="text"
 					style="display: none"> 
-					<input name="startTime" id="f_date1"
+					<input name="startTimes" id="f_date1"
 					type="text"></td>
 			</tr>
 
@@ -233,8 +233,8 @@ th, td {
 		value : new Date(),
 	//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 	//startDate:	        '2017/07/10',  // 起始日
-	//minDate:           '-1970-01-01', // 去除今日(不含)之前
-	//maxDate:           '+1970-01-01'  // 去除今日(不含)之後
+	minDate:           '-1970-01-01', // 去除今日(不含)之前
+	maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 	});
 </script>
 
@@ -243,26 +243,31 @@ th, td {
 	$(function() {
 		$('#start_date').datetimepicker(
 				{
-					format : 'Y-m-d',
+					format : 'Y-m-d H:i:s',
 					onShow : function() {
 						this.setOptions({
 							maxDate : $('#end_date').val() ? $('#end_date')
 									.val() : false
 						})
 					},
-					timepicker : false
+					timepicker : true,
+					
+					minDate:           '-1970-01-01', // 去除今日(不含)之前
+					maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 				});
 
 		$('#end_date').datetimepicker(
 				{
-					format : 'Y-m-d',
+					format : 'Y-m-d H:i:s',
 					onShow : function() {
 						this.setOptions({
 							minDate : $('#start_date').val() ? $('#start_date')
 									.val() : false
 						})
 					},
-					timepicker : false
+					timepicker : false,
+					minDate:           '-1970-01-01', // 去除今日(不含)之前
+					maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 				});
 	});
 </script>

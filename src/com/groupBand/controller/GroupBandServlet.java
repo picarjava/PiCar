@@ -104,7 +104,7 @@ public class GroupBandServlet extends HttpServlet {
 					String endLoc = req.getParameter("endLoc");
 					
 					
-					Integer privates =null;
+					Integer privates =1;
 					if("1".equals(req.getParameter("privates"))) {
 					privates = new Integer(req.getParameter("privates").trim());	
 					}else {
@@ -135,14 +135,25 @@ public class GroupBandServlet extends HttpServlet {
 					
 					Integer totalAmout	=0;
 					
-					
+				
 					java.sql.Date startTime = null;
-					try {
-						startTime = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
-					} catch (IllegalArgumentException e) {
-						startTime=new java.sql.Date(System.currentTimeMillis());
-						errorMsgs.add("請輸入日期!");
+//					try {
+					String startTimes =null;
+					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				
+				
+					if("1".equals(req.getParameter("orderT"))) {
+						startTimes=req.getParameter("startTime");
 					}
+					else {
+					    startTimes=req.getParameter("startTimes");
+					}			
+					
+   				startTime = new Date(simpleDateFormat.parse(startTimes).getTime());
+//					} catch (IllegalArgumentException e) {
+//						startTime=new java.sql.Date(System.currentTimeMillis());
+//						errorMsgs.add("請輸入日期!");
+//					}
 					
 					
 					Integer rate =5;
@@ -173,34 +184,14 @@ public class GroupBandServlet extends HttpServlet {
 					groupBandVO.setPhoto(photo);
 					groupBandVO.setGroupType(groupType);
 					groupBandVO.setTotalAmout(totalAmout);
-					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
 					groupBandVO.setStartTime(startTime);
 //					groupBandVO.setStartTime(new Date(simpleDateFormat.parse("2019-02-14").getTime()));
 					groupBandVO.setRate(rate);
 					groupBandVO.setNote(note);
 				
 					
-//					GroupBandVO groupBandVO =new GroupBandVO();
-//					
-//					groupBandVO.setContent("XX");
-//					groupBandVO.setIntroduction("XXX");
-//					groupBandVO.setGroupStatus(1);
-//					groupBandVO.setCurrenTnum(1);
-//					groupBandVO.setUpperLimit(2);
-//					groupBandVO.setLowerLimit(4);
-//					groupBandVO.setGroupName("五月天演唱會");
-//					groupBandVO.setGroupLeader("M001");
-//					groupBandVO.setStartLoc("桃園火車站");
-//					groupBandVO.setEndLoc("中壢火車站");
-//					groupBandVO.setPrivates(1);
-//					groupBandVO.setPhoto(textgroupBandDAO.getPictureByteArray("WebContent/activity/img/team-1.jpg"));
-//					groupBandVO.setGroupType("演唱會");
-//					groupBandVO.setTotalAmout(5000);
-//					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//					groupBandVO.setStartTime(new Date(simpleDateFormat.parse("2019-02-14").getTime()));
-//					groupBandVO.setRate(5);
-//					groupBandVO.setNote("無");
-					
+
 					// Send the use back to the form, if there were errors
 					if (!errorMsgs.isEmpty()) {
 						req.setAttribute("GroupBandVO", groupBandVO); // �t����J�榡���~��GroupBandVO����,�]�s�Jreq
@@ -217,7 +208,7 @@ public class GroupBandServlet extends HttpServlet {
 							endLoc,privates,photo,groupType,totalAmout,startTime,
 							rate,note);
 					
-//					groupBandVO = groupBandService.addGroupBand("XX","XXX",1,1,2,4,"五月天演唱會","M001","桃園火車站","中壢火車站",1,textgroupBandDAO.getPictureByteArray("WebContent/activity/img/team-1.jpg"),"演唱會",5000,new Date(simpleDateFormat.parse("2019-02-14").getTime()),5,"無");
+
 					
 					
 					/***************************3.�s�W����,�ǳ����(Send the Success view)***********/
