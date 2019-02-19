@@ -10,7 +10,7 @@ public interface DriverDAO_interface {
     public void update(DriverVO driverVO);
     /*delete建構子argument是放欲刪除資料的PK*/
     public void delete(String driver_id);
-    public DriverVO findByPrimaryKey(String driver_id);
+    public DriverVO findByPrimaryKey(String driverID);
     public List<DriverVO> getAll(); 
 
 

@@ -39,31 +39,30 @@ public class TestDriverDAO {
 //		DAO.delete("DR003");
 //		System.out.println("driver has deleted");
 ///////////////////////////////////////////////////
-//		update  no OK
-		DriverVO driverdao1= new DriverVO();
-		driverdao1.setMemID("M004");
-		driverdao1.setDriverID("DR003");
-		driverdao1.setPlateNum("PCI-0002");
-		driverdao1.setLicence(testJDBCDAO.getBytePost("WebContent/driver/img/licence2.jpg"));
-		driverdao1.setCriminal(testJDBCDAO.getBytePost("WebContent/driver/img/criminal1.jpg"));
-		driverdao1.setTrafficRecord(testJDBCDAO.getBytePost("WebContent/driver/img/trafficrecord2.jpg"));
-		driverdao1.setIdNum(testJDBCDAO.getBytePost("WebContent/driver/img/idnum2.jpg"));
-		driverdao1.setPhoto(testJDBCDAO.getBytePost("WebContent/driver/img/photo2.jpg"));
-		driverdao1.setVerified(1);
-		driverdao1.setBanned(1);
-		driverdao1.setDeadline(testJDBCDAO.getSQLDate(2019,3,29,8,10));
-		driverdao1.setOnlineCar(1);
-		driverdao1.setScore(75);
-		driverdao1.setCarType("MAZDA");
-		driverdao1.setSharedCar(1);
-		driverdao1.setPet(1);
-		driverdao1.setSmoke(2);
-		driverdao1.setBabySeat(1);
-		DAO.update(driverdao1);
-		System.out.println("update success");
+//		update   OK
+//		DriverVO driverdao1= new DriverVO();
+//		
+//		driverdao1.setDriverID("DR002");
+//		driverdao1.setPlateNum("PCI-0002");
+//		driverdao1.setLicence(testJDBCDAO.getBytePost("WebContent/driver/img/licence2.jpg"));
+//		driverdao1.setCriminal(testJDBCDAO.getBytePost("WebContent/driver/img/criminal1.jpg"));
+//		driverdao1.setTrafficRecord(testJDBCDAO.getBytePost("WebContent/driver/img/trafficrecord2.jpg"));
+//		driverdao1.setPhoto(testJDBCDAO.getBytePost("WebContent/driver/img/photo2.jpg"));
+//		driverdao1.setVerified(1);
+//		driverdao1.setBanned(1);
+//		driverdao1.setDeadline(testJDBCDAO.getSQLDate(2019,3,29,8,11));
+//		driverdao1.setOnlineCar(1);
+//		driverdao1.setScore(75);
+//		driverdao1.setCarType("MAZDA");
+//		driverdao1.setSharedCar(1);
+//		driverdao1.setPet(1);
+//		driverdao1.setSmoke(0);
+//		driverdao1.setBabySeat(1);
+//		DAO.update(driverdao1);
+//		System.out.println("update success");
+///////////////////////////////////////////////////////////////		
 		
-		
-//		search for one
+//		search for one ok
 //		DriverVO driverdao2= DAO.findByPrimaryKey("DR001");
 //		System.out.println(driverdao2.getMemID());
 //		System.out.println(driverdao2.getDriverID());
@@ -85,6 +84,9 @@ public class TestDriverDAO {
 //		System.out.println(driverdao2.getBabySeat());
 //		
 //		System.out.println("driver has searched for one");
+/////////////////////////////////////////////////////
+		
+		
 		
 	}
 	public java.sql.Date getSQLDate(int year, int month, int dayOfMonth, int hourOfDay, int minute) {
