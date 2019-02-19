@@ -13,7 +13,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -28,6 +28,7 @@ import com.groupBand.model.*;
  * Servlet implementation class GroupBandServlet
  */
 //@WebServlet("/GroupBandServlet")
+@MultipartConfig
 public class GroupBandServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -46,6 +47,7 @@ public class GroupBandServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		req.setCharacterEncoding("UTF-8");
@@ -65,7 +67,7 @@ public class GroupBandServlet extends HttpServlet {
 					
 					
 					String introduction = req.getParameter("introduction");
-					String introduc = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]";
+					String introduc = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{1,20}$";
 					if (introduction == null || introduction.trim().length() == 0) {
 						errorMsgs.add("簡介: 請勿空白");
 					} else if(!introduction.trim().matches(introduc)) { //以下練習正則(規)表示式(regular-expression)
@@ -177,6 +179,28 @@ public class GroupBandServlet extends HttpServlet {
 					groupBandVO.setRate(rate);
 					groupBandVO.setNote(note);
 				
+					
+//					GroupBandVO groupBandVO =new GroupBandVO();
+//					
+//					groupBandVO.setContent("XX");
+//					groupBandVO.setIntroduction("XXX");
+//					groupBandVO.setGroupStatus(1);
+//					groupBandVO.setCurrenTnum(1);
+//					groupBandVO.setUpperLimit(2);
+//					groupBandVO.setLowerLimit(4);
+//					groupBandVO.setGroupName("五月天演唱會");
+//					groupBandVO.setGroupLeader("M001");
+//					groupBandVO.setStartLoc("桃園火車站");
+//					groupBandVO.setEndLoc("中壢火車站");
+//					groupBandVO.setPrivates(1);
+//					groupBandVO.setPhoto(textgroupBandDAO.getPictureByteArray("WebContent/activity/img/team-1.jpg"));
+//					groupBandVO.setGroupType("演唱會");
+//					groupBandVO.setTotalAmout(5000);
+//					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//					groupBandVO.setStartTime(new Date(simpleDateFormat.parse("2019-02-14").getTime()));
+//					groupBandVO.setRate(5);
+//					groupBandVO.setNote("無");
+					
 					// Send the use back to the form, if there were errors
 					if (!errorMsgs.isEmpty()) {
 						req.setAttribute("GroupBandVO", groupBandVO); // �t����J�榡���~��GroupBandVO����,�]�s�Jreq
@@ -187,14 +211,17 @@ public class GroupBandServlet extends HttpServlet {
 					}
 					
 					/***************************2.�}�l�s�W���***************************************/
-					GroupBandService empSvc = new GroupBandService();
-					groupBandVO = empSvc.addGroupBand(content,introduction,groupStatus,currenTnum,
+					GroupBandService groupBandService = new GroupBandService();
+					groupBandVO = groupBandService.addGroupBand(content,introduction,groupStatus,currenTnum,
 							upperLimit,lowerLimit,groupName,groupLeader,startLoc,
 							endLoc,privates,photo,groupType,totalAmout,startTime,
 							rate,note);
 					
+//					groupBandVO = groupBandService.addGroupBand("XX","XXX",1,1,2,4,"五月天演唱會","M001","桃園火車站","中壢火車站",1,textgroupBandDAO.getPictureByteArray("WebContent/activity/img/team-1.jpg"),"演唱會",5000,new Date(simpleDateFormat.parse("2019-02-14").getTime()),5,"無");
+					
+					
 					/***************************3.�s�W����,�ǳ����(Send the Success view)***********/
-					String url = "/front-end/groupBand/insertGroupBand.jsp";
+					String url = "/front-end/groupBand/listAllGroupBand.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
 					successView.forward(req, res);				
 					

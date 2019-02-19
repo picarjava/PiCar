@@ -81,7 +81,7 @@ th, td {
 	</table>
 	<h3>發起揪團</h3>
 
-	<form action="/PiCar/GroupBand" method="POST">
+	<form action="/PiCar/GroupBand" method="POST" enctype="multipart/form-data">
 		<table>
 
 			<tr>
@@ -112,8 +112,7 @@ th, td {
 			<tr>
 				<td>簡介:</td>
 
-				<td><textarea name="introduction" id="note" rows="3" cols="50">
-					<%=(groupBandVO == null) ? "" : groupBandVO.getIntroduction()%> </textarea></td>
+				<td><textarea name="introduction" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "" : groupBandVO.getIntroduction()%> </textarea></td>
 			</tr>
 
 			<tr>
@@ -204,8 +203,7 @@ th, td {
 
 			<td>備註:</td>
 
-			<td><textarea name="note" id="note" rows="3" cols="50">
-					<%=(groupBandVO == null) ? "" : groupBandVO.getNote()%> </textarea></td>
+			<td><textarea name="note" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "" : groupBandVO.getNote()%> </textarea></td>
 			</tr>
 			<tr>
 				<td>隱私設定:</td>

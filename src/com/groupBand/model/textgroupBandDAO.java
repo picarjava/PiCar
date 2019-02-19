@@ -16,7 +16,7 @@ public class textgroupBandDAO {
 	public static void main(String[] args) throws IOException, ParseException {
 		// TODO Auto-generated method stub
 		GroupBandJDBCDAO DAO =new GroupBandJDBCDAO();
-		
+	
 		//增加
 		GroupBandVO groupBandVO =new GroupBandVO();
 		

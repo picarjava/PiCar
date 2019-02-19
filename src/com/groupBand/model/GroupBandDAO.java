@@ -40,7 +40,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			con.setAutoCommit(true);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, groupBandVO.getContent());
+			pstmt.setString(1, groupBandVO.getContent());		
 			pstmt.setString(2, groupBandVO.getIntroduction());
 			pstmt.setInt(3, groupBandVO.getGroupStatus());
 			pstmt.setInt(4, groupBandVO.getCurrenTnum());
@@ -57,12 +57,13 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			pstmt.setDate(15, groupBandVO.getStartTime());
 			pstmt.setInt(16, groupBandVO.getRate());
 			pstmt.setString(17, groupBandVO.getNote());
-
+			
 			pstmt.executeUpdate();
 			con.commit();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
+//			se.printStackTrace();
 		} finally {
 			if (pstmt != null) {
 				try {
