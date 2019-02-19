@@ -14,23 +14,25 @@
 <html>
 <head>
 <meta charset="BIG5">
-<title>Insert title here</title>
+<title>ALL MEMBER</title>
 </head>
 
 <style>
 	#table1{
 		width: 1100px;
 		height: 350px;
-		background-color: white;
+		background-color:	#7afec6;
 		margin-top: 50px;
 		margin-bottom: 20px;
 		text-align:center;
-		
+		font-family:Microsoft JhengHei;
 	}
+
 </style>
+<h1 align="center">Picar 員工資料</h1>
+<body bgcolor="#d1e9e9">
 
-<body>
-
+	<a align="right" href="select_page.jsp" >回主頁面</a><br><br>
 
 	<table align="center" border="1" id="table1">
 				<td>memID</td>
