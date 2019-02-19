@@ -8,7 +8,7 @@
 <meta charset="BIG5">
 <title>Insert title here</title>
 </head>
-<body>
+<body bgcolor="#c1ece9">
 
 	<ul>
 		<li><a href="listAllmember_byDAO.jsp" >點選顯示全部員工</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
