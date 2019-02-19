@@ -71,7 +71,7 @@
 	          <div class="col-lg-12 col-md-12">
 	            <div class="form">
 	              <!-- 活動表單開始 -->
-	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" enctype="multipart/form-data" >
+	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" >
 	                <div class="form-group">
 	                  <p>活動編號</p> 
 	                 <input type="text" name="activityID" value="AC007" class="form-control"  placeholder="請輸入1-10個英文或數字" />

@@ -1,5 +1,8 @@
 package com.activity.controller;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -35,22 +38,23 @@ public class ActivServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
     
-    public void doGet(HttpServletRequest req, HttpServletResponse res)
-			throws ServletException, IOException {
-		doPost(req, res);
-	}
+//    public void doGet(HttpServletRequest req, HttpServletResponse res)
+//			throws ServletException, IOException {
+//		doPost(req, res);
+//	}
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
 		res.setCharacterEncoding("UTF-8");
 		String action =((ServletRequest) req).getParameter("action");
-		String btn=req.getParameter("btn");
-//		
+		
+	
 		
 		// 來自addActivity.jsp的請求  
 		if("INSERT".equals(action)){
 			LinkedList<String> errorMsgs =new LinkedList<String>();
 			/*將errorMsgs設定為request scope，以便送至errorPage view*/
 			req.setAttribute("errorMsgs", errorMsgs);
+			java.sql.Date activityStart=null;
 			/**************step1.接收請求參數+錯誤處理*****************/
 			
 			try {
@@ -64,18 +68,27 @@ public class ActivServlet extends HttpServlet {
 				 
 				 String activityName=(String) req.getParameter("activityName");
 				 String activityInfo=(String) req.getParameter("activityInfo");
-				 java.sql.Date activityStart=java.sql.Date.valueOf(req.getParameter("activityStart"));
+				 try {
+					 activityStart=java.sql.Date.valueOf(req.getParameter("activityStart"));
+				 }catch(IllegalArgumentException e) {
+					 errorMsgs.add("日期格式轉換錯誤");
+				 }
+				 
 				 java.sql.Date activityEnd=java.sql.Date.valueOf(req.getParameter("activityEnd"));
 				 String activityCode=(String) req.getParameter("activityCode");
 				 Integer tokenAmount=new Integer(req.getParameter("tokenAmount")) ;
-				 /*表單屬性設定為enctype="multipart/form-data" 即可使用getPart傳遞圖片*/
-				 Collection<Part> activityPost= (Collection<Part>) req.getPart("activityPost");
+				//自訂方法，將請求參數得到的圖片路徑讀入並 寫出byte[]
+				 byte[] activityPost=this.getBytePost(req.getParameter("activityPost"));
+				 
+				 
 				 if(activityName==null||activityName.trim().length()==0){
 					 errorMsgs.add("活動名稱未填寫");
 				 }else if(activityInfo==null||activityInfo.trim().length()==0){
 					 errorMsgs.add("活動資訊未填寫");
 				 }else if(activityEnd.getTime()>=activityStart.getTime()){
 					 errorMsgs.add("活動開始時間需早於活動結束間之前");
+				 }else if(activityPost==null) {
+					 errorMsgs.add("無法轉換為byte");
 				 }
 				 
 				 ActivityVO activityVO=new ActivityVO();
@@ -101,14 +114,16 @@ public class ActivServlet extends HttpServlet {
 			/**************step2.開始新增資料*****************/
 			 /*從addActiv.jsp取得的資料，透過ActivityService操作DAO存進資料庫*/
 			 ActivityService activityService=new ActivityService();
-			 activityService.addActivity(activityID,activityName,activityInfo,activityStart,activityEnd,activityCode,tokenAmount,activityPost);
-			
+			 ActivityVO addedActivityVO =activityService.addActivity(activityID,activityName,activityInfo,activityStart,activityEnd,activityCode,tokenAmount,activityPost);
+			 if(addedActivityVO==null) {
+				 errorMsgs.add("無法新增至DB");
+			 }
 			
 			/**************step3.開始新增完成，轉交ListAllActivity頁面*****************/
-			String url="/activity.listAllActivity.jsp";
+			String url="/activity/listAllActivity.jsp";
 			RequestDispatcher successPage =req.getRequestDispatcher(url);
 			successPage.forward(req, res);
-			}
+		}
 			/**************step4.處理其他可能的錯誤，轉交addActivity頁面*****************/
 			catch(Exception e){
 				errorMsgs.add("無法新增此筆資料"+e.getMessage());
@@ -196,7 +211,11 @@ public class ActivServlet extends HttpServlet {
 				 java.sql.Date activityEnd=java.sql.Date.valueOf(req.getParameter("activityEnd"));
 				 String activityCode=(String) req.getParameter("activityCode");
 				 Integer tokenAmount=new Integer(req.getParameter("tokenAmount")) ;
-				 Collection<Part> activityPost= (Collection<Part>) req.getPart("activityPost");
+				//自訂方法，將請求參數得到的圖片路徑讀入並 寫出byte[]
+				 byte[] activityPost=this.getBytePost(req.getParameter("activityPost"));
+				 /*表單屬性設定為enctype="multipart/form-data" 即可使用getPart傳遞圖片*/ /*但是會跳白*/
+				 //寫一個writeInFileAndGetByet(Part part) 寫進本地、秀圖並回傳byte[]存進vo
+//				 Collection<Part> activityPost= (Collection<Part>) req.getPart("activityPost");
 				 if(activityName==null||activityName.trim().length()==0){
 					 errorMsgs.add("活動名稱未填寫");
 				 }else if(activityInfo==null||activityInfo.trim().length()==0){
@@ -281,6 +300,24 @@ public class ActivServlet extends HttpServlet {
 		
 		return post;
 	}
+	//將請求參數得到的圖片路徑讀入並 寫出byte[]
+	public byte[] getBytePost(String path) throws IOException {
+		File file=new File(path);
+		FileInputStream fis;
+		ByteArrayOutputStream baos;
+		byte[] bytePost;
+		
+			fis = new FileInputStream(file);
+			baos=new ByteArrayOutputStream();
+			bytePost=new byte[fis.available()];
+			while((fis.read(bytePost))!=-1) {
+				baos.write(bytePost);
+			}
+			baos.close();
+			fis.close();
+		return bytePost;
+	}
+	
 }
 
 
