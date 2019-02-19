@@ -4,11 +4,14 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.member.model.*"%>
 
-<%
+<%--
 	MemberDAO memberDAO = new MemberDAO();
 	List<MemberVO> list = memberDAO.getAll();
 	pageContext.setAttribute("list", list);
-%>
+--%>
+
+<jsp:useBean id="list" scope="session" type="java.util.List<MemberVO>" />
+
 
 <!DOCTYPE html>
 <html>
@@ -19,10 +22,10 @@
 
 <style>
 #table1 {
-	width: 1300px;
+	
 	height: 350px;
 	background-color: #7afec6;
-	margin-top: 20px;
+	margin-top: 50px;
 	margin-bottom: 20px;
 	text-align: center;
 	font-family: Microsoft JhengHei;
@@ -36,8 +39,8 @@ table1, td {
 	margin-left: 80px
 }
 </style>
-<h1 align="center">Picar 員工資料 by DAO</h1>
-<body bgcolor="#11e1e9">
+<h1 align="center">Picar 員工資料 by Session</h1>
+<body bgcolor="#d1e9e9">
 
 	<div class="page1">
 		<a href="select_page.jsp">回主頁面</a>
