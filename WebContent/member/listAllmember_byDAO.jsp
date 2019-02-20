@@ -107,7 +107,7 @@ table1, td {
 				<form method="post" action="member.do">
 				<input type="submit" value="刪除">
 				<input type="hidden" name="memID"  value="${memberVO.memID}">
-				<input type="hidden" name="action" value="getOne_For_Delete">
+				<input type="hidden" name="action" value="delete">
 				</form>
 			
 			</td>
