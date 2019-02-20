@@ -24,7 +24,7 @@ public class MemberDAO implements MemberDAO_interface {
 	}
 
 	private static final String INSERT_STMT = "INSERT INTO MEMBER (MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER, "
-			+ "TOKEN, ACTIVITY_TOKEN, BIRTHDAY, VERIFIED, BABY_SEAT) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+			+ "TOKEN, ACTIVITY_TOKEN, BIRTHDAY, VERIFIED, BABY_SEAT) VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 	private static final String GET_ALL_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER,"
 			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER ORDER BY MEM_ID";
@@ -46,20 +46,20 @@ public class MemberDAO implements MemberDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, memberVO.getMemID());
-			pstmt.setString(2, memberVO.getName());
-			pstmt.setString(3, memberVO.getEmail());
-			pstmt.setString(4, memberVO.getPassword());
-			pstmt.setString(5, memberVO.getPhone());
-			pstmt.setString(6, memberVO.getCreditcard());
-			pstmt.setInt(7, memberVO.getPet());
-			pstmt.setInt(8, memberVO.getSmoke());
-			pstmt.setInt(9, memberVO.getGender());
-			pstmt.setInt(10, memberVO.getToken());
-			pstmt.setInt(11, memberVO.getActivityToken());
-			pstmt.setDate(12, memberVO.getBirthday());
-			pstmt.setInt(13, memberVO.getVerified());
-			pstmt.setInt(14, memberVO.getBabySeat());
+//			pstmt.setString(1, memberVO.getMemID());
+			pstmt.setString(1, memberVO.getName());
+			pstmt.setString(2, memberVO.getEmail());
+			pstmt.setString(3, memberVO.getPassword());
+			pstmt.setString(4, memberVO.getPhone());
+			pstmt.setString(5, memberVO.getCreditcard());
+			pstmt.setInt(6, memberVO.getPet());
+			pstmt.setInt(7, memberVO.getSmoke());
+			pstmt.setInt(8, memberVO.getGender());
+			pstmt.setInt(9, memberVO.getToken());
+			pstmt.setInt(10, memberVO.getActivityToken());
+			pstmt.setDate(11, memberVO.getBirthday());
+			pstmt.setInt(12, memberVO.getVerified());
+			pstmt.setInt(13, memberVO.getBabySeat());
 
 			pstmt.executeUpdate();
 
