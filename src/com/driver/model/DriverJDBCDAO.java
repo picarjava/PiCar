@@ -37,7 +37,7 @@ public class DriverJDBCDAO implements DriverDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			con.setAutoCommit(true);
 			pstmt = con.prepareStatement(INSERT_STMT);
-
+//vo.getxxx後 set in pstmt 比較於service
 			pstmt.setString(1, driverVO.getMemID());
 			pstmt.setString(2, driverVO.getDriverID());
 			pstmt.setString(3, driverVO.getPlateNum());
