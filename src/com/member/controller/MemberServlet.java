@@ -152,6 +152,235 @@ public class MemberServlet extends HttpServlet {
 		
 		}
 		
+		if ("update".equals(action)) {
+			List<String> errorMsgs = new LinkedList();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				String memID = new String(req.getParameter("memID"));
+				
+				String name = req.getParameter("name");
+				String nameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+				if (name ==null || name.trim().length() == 0) {
+					errorMsgs.add("員工姓名~請勿空白");
+				}else if (!name.trim().matches(nameReg)) {
+					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \"  , 且長度必需在2到20之間");
+				}
+				
+				String email = req.getParameter("email");
+				if (email == null || email.trim().length() == 0) {
+					errorMsgs.add("EMAI請勿空白");
+				}
+				String password = req.getParameter("password");
+				if (password == null || password.trim().length() == 0) {
+					errorMsgs.add("password請勿空白");
+				}	
+				String phone = req.getParameter("phone");
+				if (phone == null || phone.trim().length() == 0) {
+					errorMsgs.add("phone請勿空白");
+				}
+				String creditcard = req.getParameter("creditcard");
+				if (creditcard == null || creditcard.trim().length() == 0) {
+					errorMsgs.add("creditcard請勿空白");
+				}
+				Integer token = null;
+				try {
+					token = new Integer(req.getParameter("token").trim());
+				} catch (NumberFormatException e) {
+					token = 0;
+					errorMsgs.add("代幣請填數字.");
+				}
+				Integer activityToken = null;
+				try {
+					activityToken = new Integer(req.getParameter("activityToken").trim());
+				} catch (NumberFormatException e) {
+					activityToken = 100;
+					errorMsgs.add("活動代幣請填數字.");
+				}
+				java.sql.Date birthday = null;
+				try {
+					birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
+				} catch (IllegalArgumentException e) {
+					birthday=new java.sql.Date(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期!");
+				}
+				
+				Integer pet = new Integer(req.getParameter("pet"));
+				Integer smoke = new Integer(req.getParameter("smoke"));
+				Integer gender = new Integer(req.getParameter("gender"));
+				Integer verified = new Integer(req.getParameter("verified"));
+				Integer babySeat = new Integer(req.getParameter("babySeat"));
+//				
+				MemberVO memberVO = new MemberVO();
+				memberVO.setMemID(memID);				
+				memberVO.setName(name);
+				memberVO.setEmail(email);
+				memberVO.setPassword(password);
+				memberVO.setPhone(phone);
+				memberVO.setCreditcard(creditcard);
+				memberVO.setPet(pet);
+				memberVO.setSmoke(smoke);
+				memberVO.setGender(gender);
+				memberVO.setToken(token);
+				memberVO.setActivityToken(activityToken);
+				memberVO.setBirthday(birthday);
+				memberVO.setVerified(verified);
+				memberVO.setBabySeat(babySeat);	
+				
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/member/update_member_input.jsp");
+					failureView.forward(req, res);
+					return; //程式中斷				
+				}							
+				
+				//開始修改資料
+				MemberService memberSvc = new MemberService();
+				memberVO = memberSvc.updateMember(memID, nameReg, email, password, phone, creditcard, pet, smoke, gender, token, activityToken, birthday, verified, babySeat);
+				
+				
+				RequestDispatcher successView = req.getRequestDispatcher("/member/listAllmember_byDAO.jsp"); // 新增成功後轉交listAllmember_byDAO
+				successView.forward(req, res);
+				
+			}catch(Exception e) {
+				errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
+				RequestDispatcher successView = req.getRequestDispatcher("/member/update_member_input.jsp");
+				successView.forward(req, res);
+			
+			}
+		}
+		
+		if ("insert".equals(action)) {
+			List<String> errorMsgs = new LinkedList();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+//				String memID = new String(req.getParameter("memID"));
+				
+				String name = req.getParameter("name");
+				String nameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+				if (name ==null || name.trim().length() == 0) {
+					errorMsgs.add("員工姓名~請勿空白");
+				}else if (!name.trim().matches(nameReg)) {
+					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \"  , 且長度必需在2到20之間");
+				}
+				
+				String email = req.getParameter("email");
+				if (email == null || email.trim().length() == 0) {
+					errorMsgs.add("EMAI請勿空白");
+				}
+				String password = req.getParameter("password");
+				if (password == null || password.trim().length() == 0) {
+					errorMsgs.add("password請勿空白");
+				}	
+				String phone = req.getParameter("phone");
+				if (phone == null || phone.trim().length() == 0) {
+					errorMsgs.add("phone請勿空白");
+				}
+				String creditcard = req.getParameter("creditcard");
+				if (creditcard == null || creditcard.trim().length() == 0) {
+					errorMsgs.add("creditcard請勿空白");
+				}
+				Integer token = null;
+				try {
+					token = new Integer(req.getParameter("token").trim());
+				} catch (NumberFormatException e) {
+					token = 0;
+					errorMsgs.add("代幣請填數字.");
+				}
+				Integer activityToken = null;
+				try {
+					activityToken = new Integer(req.getParameter("activityToken").trim());
+				} catch (NumberFormatException e) {
+					activityToken = 100;
+					errorMsgs.add("活動代幣請填數字.");
+				}
+				java.sql.Date birthday = null;
+				try {
+					birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
+				} catch (IllegalArgumentException e) {
+					birthday=new java.sql.Date(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期!");
+				}
+				
+				Integer pet = new Integer(req.getParameter("pet"));
+				Integer smoke = new Integer(req.getParameter("smoke"));
+				Integer gender = new Integer(req.getParameter("gender"));
+				Integer verified = new Integer(req.getParameter("verified"));
+				Integer babySeat = new Integer(req.getParameter("babySeat"));
+//				
+				MemberVO memberVO = new MemberVO();
+//				memberVO.setMemID(memID);				
+				memberVO.setName(name);
+				memberVO.setEmail(email);
+				memberVO.setPassword(password);
+				memberVO.setPhone(phone);
+				memberVO.setCreditcard(creditcard);
+				memberVO.setPet(pet);
+				memberVO.setSmoke(smoke);
+				memberVO.setGender(gender);
+				memberVO.setToken(token);
+				memberVO.setActivityToken(activityToken);
+				memberVO.setBirthday(birthday);
+				memberVO.setVerified(verified);
+				memberVO.setBabySeat(babySeat);	
+				
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/member/update_member_input.jsp");
+					failureView.forward(req, res);
+					return; //程式中斷				
+				}							
+				
+				//開始修改資料
+				MemberService memberSvc = new MemberService();
+				memberVO = memberSvc.addMember(nameReg, email, password, phone, creditcard, pet, smoke, gender, token, activityToken, birthday, verified, babySeat);
+				
+				
+				RequestDispatcher successView = req.getRequestDispatcher("/member/listAllmember_byDAO.jsp"); // 新增成功後轉交listAllmember_byDAO
+				successView.forward(req, res);
+				
+			}catch(Exception e) {
+				errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
+				RequestDispatcher successView = req.getRequestDispatcher("/member/update_member_input.jsp");
+				successView.forward(req, res);
+			
+			}
+		}
+		
+		
+		
+		
+		if ("delete".equals(action)) { // 來自listAllEmp.jsp
+
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+	
+			try {
+				/***************************1.接收請求參數***************************************/
+				String empno = new String(req.getParameter("memID"));
+				
+				/***************************2.開始刪除資料***************************************/
+				MemberService memberSvc = new MemberService();
+				memberSvc.deleteEmp(empno);
+				
+				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+				String url = "listAllmember_byDAO.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
+				successView.forward(req, res);
+				
+				/***************************其他可能的錯誤處理**********************************/
+			} catch (Exception e) {
+				errorMsgs.add("刪除資料失敗:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("listAllmember_byDAO.jsp");
+				failureView.forward(req, res);
+			}
+		}
 
 //		MemberDAO memberDAO = new MemberDAO();
 //		MemberVO memberVO = memberDAO.findByPrimaryKey(action);
