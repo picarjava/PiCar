@@ -148,7 +148,7 @@ public class ActivServlet extends HttpServlet {
 		 }
 		//來自homeActivity.jsp的請求
 		if("GET_ONE".equals(action)){
-			LinkedList errorMsgs=new LinkedList();
+			LinkedList<String> errorMsgs=new LinkedList();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 			/*************1.接收請求參數**************/
@@ -169,11 +169,9 @@ public class ActivServlet extends HttpServlet {
 			if(activityVO.getActivityPost()!=null) {
 				path=this.saveToGetPath(activityID,activityVO.getActivityPost(),req);
 			}
-			
 			/*************4.得到資料存在scope=reqest，並送出VO給處理頁面**************/
 			req.setAttribute("path", path);
 			req.setAttribute("activityVO", activityVO);
-//			readPicture(activityVO.getActivityPost(),"ActivityPost.jpg"); //把海報存在某名稱
 			String url="/activity/getOneActivity.jsp";
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
 			successPage.forward(req, res);
@@ -253,13 +251,16 @@ public class ActivServlet extends HttpServlet {
 				 byte[] activityPost=null;
 				 /*狀況3原本沒值有更改*/
 				 if(originActivityVO.getActivityPost()==null&&activityPostValue.trim().length()!=0) {
-					  activityPost=this.getBytePost(abstactPath);
+					  activityPost=this.getBytePost(activityPostValue);
 				 /*狀況4:原本沒值/沒更改*/
 				 }else if(originActivityVO.getActivityPost()==null&&activityPostValue.trim().length()==0) {
 					 activityPost=null;
-					 /*狀況 原本有值沒改*/
+				/*狀況2: 原本有值/沒改*/
 				 }else if(originActivityVO.getActivityPost()!=null&&this.getBytePost(abstactPath)==originActivityVO.getActivityPost()){ 
-					activityPost=this.getBytePost(req.getParameter("activityPost"));
+					activityPost=this.getBytePost(req.getParameter(abstactPath));
+				 /*狀況1 原本有值/有改*/
+				 }else {
+					 activityPost=this.getBytePost(activityPostValue);
 				 }
 				 
 				 
