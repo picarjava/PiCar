@@ -36,19 +36,19 @@
 		
 		<li>
 			<form method="post" action="member.do">
-				<b>請輸入會員編號(EX:M001):</b><br> 
+				<b>請輸入會員編號(EX:M001) (資料格式驗證  by Controller ):</b><br> 
 				<input type="text" name="memID">
 				<input type="hidden" name="action" value="getOne_For_Display"><br>
-				<input type="submit" value="submit"> <h4>(資料格式驗證  by Controller ).</h4> 
+				<input type="submit" value="submit"> 
 			</form> 
 		</li>	
 		<br>
 		<li>
 			<form method="post" action="member.do">
-				<b>請輸入會員編號(EX:M001):</b><br> 
+				<b>請輸入會員編號(EX:M001) (資料格式驗證  by Java Script):</b><br> 
 				<input type="text" name="memID">
 				<input type="hidden" name="action" value="getOne_For_Display"><br>
-				<input type="button" value="submit" onlick="fun1()"> <h4>(資料格式驗證  by Java Script).</h4> 
+				<input type="button" value="submit" onlick="fun1()">  
 			</form> 
 		</li>	
 		
@@ -84,6 +84,15 @@
 			
 		</li>
 	</ul>
+	<ul>
+		<li>	
+		<a href="addMember.jsp">點選新增員工資料</a>
+		</li>
+	</ul>
+	
+	
+	
+	
 
 <script>    
    function fun1(){
