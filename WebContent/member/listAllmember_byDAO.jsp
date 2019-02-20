@@ -38,6 +38,19 @@ table1, td {
 </style>
 
 <body bgcolor="#11e1e9">
+
+
+	<div id="errmsg">
+	<c:if test="${not empty errorMsgs}">
+	<ul>	
+		<c:forEach var="message" items="${errorMsgs}">
+			<li>
+				${message}
+			</li>
+		</c:forEach>	
+	</ul>
+	</c:if>
+	</div>
 	<h1 align="center">Picar 員工資料 by DAO</h1>
 	<div class="page1">
 		<a href="select_page.jsp">回主頁面</a>
@@ -63,26 +76,43 @@ table1, td {
 			<td>birthday</td>
 			<td>verified</td>
 			<td>babySeat</td>
+			<td>修改</td>
+			<td>刪除</td>
 		</tr>
 
-		<c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-			<tr>
-				<td>${memberVO.memID}</td>
-				<td>${memberVO.name}</td>
-				<td>${memberVO.email}</td>
-				<td>${memberVO.password}</td>
-				<td>${memberVO.phone}</td>
-				<td>${memberVO.creditcard}</td>
-				<td>${memberVO.pet}</td>
-				<td>${memberVO.smoke}</td>
-				<td>${memberVO.gender}</td>
-				<td>${memberVO.token}</td>
-				<td>${memberVO.activityToken}</td>
-				<td>${memberVO.birthday}</td>
-				<td>${memberVO.verified}</td>
-				<td>${memberVO.babySeat}</td>
-			</tr>
-		</c:forEach>
+	<c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+		<tr>
+			<td>${memberVO.memID}</td>
+			<td>${memberVO.name}</td>
+			<td>${memberVO.email}</td>
+			<td>${memberVO.password}</td>
+			<td>${memberVO.phone}</td>
+			<td>${memberVO.creditcard}</td>
+			<td>${memberVO.pet}</td>
+			<td>${memberVO.smoke}</td>
+			<td>${memberVO.gender}</td>
+			<td>${memberVO.token}</td>
+			<td>${memberVO.activityToken}</td>
+			<td>${memberVO.birthday}</td>
+			<td>${memberVO.verified}</td>
+			<td>${memberVO.babySeat}</td>
+			
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改">
+			     <input type="hidden" name="memID"  value="${memberVO.memID}">
+			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+			</td>
+			<td>
+				<form method="post" action="member.do">
+				<input type="submit" value="刪除">
+				<input type="hidden" name="memID"  value="${memberVO.memID}">
+				<input type="hidden" name="action" value="getOne_For_Delete">
+				</form>
+			
+			</td>
+		</tr>
+	</c:forEach>
 
 	</table>
 	<div align="center"><%@ include file="page2.file"%></div>
