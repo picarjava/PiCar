@@ -36,9 +36,9 @@ table1, td {
 	margin-left: 80px
 }
 </style>
-<h1 align="center">Picar 員工資料 by DAO</h1>
-<body bgcolor="#11e1e9">
 
+<body bgcolor="#11e1e9">
+	<h1 align="center">Picar 員工資料 by DAO</h1>
 	<div class="page1">
 		<a href="select_page.jsp">回主頁面</a>
 	</div>
