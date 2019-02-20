@@ -71,8 +71,8 @@
 	          <div class="col-lg-12 col-md-12">
 	            <div class="form">
 	              <!-- 成為司機開始 -->
-<!-- 	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" > -->
-		              <form action="https://www.google.com" method="post" >
+             
+		              <form action="driver.do" method="post" >
 
 	              	 <div class="form-group">
 	                  <p>會員編號</p> 
