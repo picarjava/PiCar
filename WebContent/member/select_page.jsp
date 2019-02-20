@@ -86,7 +86,7 @@
 	</ul>
 	<ul>
 		<li>	
-		<a href="addMember.jsp">點選新增員工資料</a>
+		<a href="addMember1.jsp">點選新增員工資料</a>
 		</li>
 	</ul>
 	
