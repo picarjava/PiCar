@@ -1,98 +1,122 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.driverReport.model.*"%>
 
 <%
-DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverReportVO"); //DriverReportServlet.java (Concroller) ¦s¤JreqªºDriverReportVOª«¥ó (¥]¬AÀ°¦£¨ú¥XªºDriverReportVO, ¤]¥]¬A¿é¤J¸ê®Æ¿ù»~®ÉªºDriverReportVOª«¥ó)
+DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverReportVO"); //DriverReportServlet.java (Concroller) å­˜å…¥reqçš„DriverReportVOç‰©ä»¶ (åŒ…æ‹¬å¹«å¿™å–å‡ºçš„DriverReportVO, ä¹ŸåŒ…æ‹¬è¼¸å…¥è³‡æ–™éŒ¯èª¤æ™‚çš„DriverReportVOç‰©ä»¶)
 %>
 
 <html>
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>ÀËÁ|¥q¾÷¸ê®Æ­×§ï - update_DriverReport_input.jsp</title>
+  <title>PICAR BACK-END</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- Material Kit CSS -->
+  <link href="assets/css/material-dashboard.css" rel="stylesheet" />
+ <style>
+ 	table, tr, td, th {
+		background-color: white;
+	    border: 1px solid #aaa;
+	    text-align: center;
+	    padding: 5px;
+		margin-left:10%;
+	    font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
+	}
 
-<style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+	table {
+		width:80%;
+	}
+	.col-9 {
+    margin-top: -15px;
+  	margin-left: -55px;
+    margin-bottom: 1rem;
+	}
 
-<style>
-  table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
-</style>
+	h4 {
+		padding-left: 50%;
+		font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
+	}
+
+	h3 {
+		font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
+	}
+
+	#btn1 {
+		padding: 20px;
+		font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
+		margin-left:50%;
+	}
+
+
+	.form-control {
+	    background: no-repeat center bottom, center calc(100% - 1px);
+	    border: 0;
+	    transition: background 0s ease-out;
+	    padding-left: 480px;
+	    padding-right: 0;
+	    border-radius: 0;
+	    font-size: 14px;
+	    
+	}
+
+ </style>
 
 </head>
 <body bgcolor='white'>
 
 <table id="table-1">
 	<tr><td>
-		 <h3>ÀËÁ|¥q¾÷¸ê®Æ­×§ï - update_DriverReport_input.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		 <h3>æª¢èˆ‰å¸æ©Ÿè³‡æ–™ä¿®æ”¹ - update_DriverReport_input.jsp</h3>
+		 <h4><a href="select_page.jsp">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 
-<h3>¸ê®Æ­×§ï:</h3>
-
-<%-- ¿ù»~ªí¦C --%>
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
-
+<h4>è³‡æ–™ä¿®æ”¹</h4>
+<%-- éŒ¯èª¤è¡¨åˆ— --%>
+	<table>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color:red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+	</table>
+	
 <FORM METHOD="post" ACTION="driverReport.do" name="form1">
 <table>
 	<tr>
-		<td>ÀËÁ|¥q¾÷³æ¸¹:<font color=red><b>*</b></font></td>
-		<td><%=driverReportVO.getDreportID()%></td>
+		<td>æª¢èˆ‰å¸æ©Ÿå–®è™Ÿ<font color=red><b>*</b></font></td>
+		<td><input class="form-control" type="text" size="45" value="<%=driverReportVO.getDreportID()%>" placeholder="Readonly input here..." readonly></td>
 	</tr>
 	<tr>
-		<td>·|­û½s¸¹:</td>
+		<td>æœƒå“¡ç·¨è™Ÿ</td>
 		<td><input type="TEXT" name="memID" size="45" value="<%=driverReportVO.getMemID()%>" /></td>
 	</tr>
 	<tr>
-		<td>ºŞ²z­û½s¸¹:</td>
+		<td>ç®¡ç†å“¡ç·¨è™Ÿ</td>
 		<td><input type="TEXT" name="adminID" size="45"	value="<%=driverReportVO.getAdminID()%>" /></td>
 	</tr>
 	<tr>
-		<td>ÀËÁ|¤é´Á:</td>
-		<td><input name="time" id="f_date1" type="text" ></td>
+		<td>æª¢èˆ‰æ—¥æœŸ</td>
+		<td><input name="time" id="f_date1"  size="45" type="text" ></td>
 	</tr>
 	<tr>
-		<td>­q³æ½s¸¹:</td>
+		<td>è¨‚å–®ç·¨è™Ÿ</td>
 		<td><input type="TEXT" name="orderID" size="45"	value="<%=driverReportVO.getOrderID()%>" /></td>
 	</tr>
 	<tr>
-		<td>¤º®e:</td>
+		<td>å…§å®¹</td>
 		<td><input type="TEXT" name="content" size="45" value="<%=driverReportVO.getContent()%>" /></td>
 	</tr>
 	<tr>
-		<td>³B²zª¬ºA:</td>
+		<td>è™•ç†ç‹€æ…‹</td>
 		<td><input type="TEXT" name="state" size="45" value="<%=driverReportVO.getState()%>" /></td>
 	</tr>
 
@@ -100,12 +124,13 @@ DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverRep
 <br>
 <input type="hidden" name="action" value="update">
 <input type="hidden" name="dreportID" value="<%=driverReportVO.getDreportID()%>">
-<input type="submit" value="°e¥X­×§ï"></FORM>
+<input type="submit" value="é€å‡ºä¿®æ”¹" id="btn1">
+</FORM>
 </body>
 
 
 
-<!-- =========================================¥H¤U¬° datetimepicker ¤§¬ÛÃö³]©w========================================== -->
+<!-- =========================================ä»¥ä¸‹ç‚º datetimepicker ä¹‹ç›¸é—œè¨­å®š========================================== -->
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
@@ -125,20 +150,20 @@ DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverRep
         $('#f_date1').datetimepicker({
            theme: '',              //theme: 'dark',
  	       timepicker:false,       //timepicker:true,
- 	       step: 1,                //step: 60 (³o¬Otimepickerªº¹w³]¶¡¹j60¤ÀÄÁ)
+ 	       step: 1,                //step: 60 (é€™æ˜¯timepickerçš„é è¨­é–“éš”60åˆ†é˜)
  	       format:'Y-m-d',         //format:'Y-m-d H:i:s',
  		   value: '<%=driverReportVO.getTime()%>', // value:   new Date(),
-           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // ¥h°£¯S©w¤£§t
-           //startDate:	            '2017/07/10',  // °_©l¤é
-           //minDate:               '-1970-01-01', // ¥h°£¤µ¤é(¤£§t)¤§«e
-           //maxDate:               '+1970-01-01'  // ¥h°£¤µ¤é(¤£§t)¤§«á
+           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // å»é™¤ç‰¹å®šä¸å«
+           //startDate:	            '2017/07/10',  // èµ·å§‹æ—¥
+           //minDate:               '-1970-01-01', // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å‰
+           //maxDate:               '+1970-01-01'  // å»é™¤ä»Šæ—¥(ä¸å«)ä¹‹å¾Œ
         });
         
         
    
-        // ----------------------------------------------------------¥H¤U¥Î¨Ó±Æ©wµLªk¿ï¾Üªº¤é´Á-----------------------------------------------------------
+        // ----------------------------------------------------------ä»¥ä¸‹ç”¨ä¾†æ’å®šç„¡æ³•é¸æ“‡çš„æ—¥æœŸ-----------------------------------------------------------
 
-        //      1.¥H¤U¬°¬Y¤@¤Ñ¤§«eªº¤é´ÁµLªk¿ï¾Ü
+        //      1.ä»¥ä¸‹ç‚ºæŸä¸€å¤©ä¹‹å‰çš„æ—¥æœŸç„¡æ³•é¸æ“‡
         //      var somedate1 = new Date('2017-06-15');
         //      $('#f_date1').datetimepicker({
         //          beforeShowDay: function(date) {
@@ -152,7 +177,7 @@ DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverRep
         //      }});
 
         
-        //      2.¥H¤U¬°¬Y¤@¤Ñ¤§«áªº¤é´ÁµLªk¿ï¾Ü
+        //      2.ä»¥ä¸‹ç‚ºæŸä¸€å¤©ä¹‹å¾Œçš„æ—¥æœŸç„¡æ³•é¸æ“‡
         //      var somedate2 = new Date('2017-06-15');
         //      $('#f_date1').datetimepicker({
         //          beforeShowDay: function(date) {
@@ -166,7 +191,7 @@ DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverRep
         //      }});
 
 
-        //      3.¥H¤U¬°¨â­Ó¤é´Á¤§¥~ªº¤é´ÁµLªk¿ï¾Ü (¤]¥i«ö»İ­n´«¦¨¨ä¥L¤é´Á)
+        //      3.ä»¥ä¸‹ç‚ºå…©å€‹æ—¥æœŸä¹‹å¤–çš„æ—¥æœŸç„¡æ³•é¸æ“‡ (ä¹Ÿå¯æŒ‰éœ€è¦æ›æˆå…¶ä»–æ—¥æœŸ)
         //      var somedate1 = new Date('2017-06-15');
         //      var somedate2 = new Date('2017-06-25');
         //      $('#f_date1').datetimepicker({

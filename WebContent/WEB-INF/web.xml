@@ -68,4 +68,17 @@
 	  <servlet-name>ActivServlet</servlet-name>
   <url-pattern>/activity/Activ_servlet.html</url-pattern>
   </servlet-mapping>
+  
+	
+	<servlet>
+	<servlet-name>DriverReportServlet</servlet-name>
+		<servlet-class>com.driverReport.controller.DriverReportServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>DriverReportServlet</servlet-name>
+		<url-pattern>/driverReport/driverReport.do</url-pattern>
+	</servlet-mapping>
+  
+  
+  
 </web-app>
