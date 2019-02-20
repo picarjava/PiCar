@@ -1,8 +1,8 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.driverReport.model.*"%>
-<%-- ╕╧╜╤╫m╡ъ╠д╔н EL ╙╨╪g╙k╗З╜х --%>
+<%-- Ф╜╓И═│Г╥╢Г©▓Ф▌║Г■╗ EL Г └Е╞╚ФЁ∙Е▐√Е─╪ --%>
 
 <%
     DriverReportService driverReportSvc = new DriverReportService();
@@ -13,7 +13,7 @@
 
 <html>
 <head>
-<title>╘р╕Ёюка|╔q╬В╦Й╝ф - listAllDriverReport.jsp</title>
+<title>Ф┴─Ф°┴Ф╙╒Х┬┴Е▐╦Ф╘÷ХЁ┤Ф√≥ - listAllDriverReport.jsp</title>
 
 <style>
   table#table-1 {
@@ -51,17 +51,17 @@
 </head>
 <body bgcolor='white'>
 
-<h4>╕╧╜╤╫m╡ъ╠д╔н EL ╙╨╪g╙k╗З╜х:</h4>
+<h4>Ф╜╓И═│Г╥╢Г©▓Ф▌║Г■╗ EL Г └Е╞╚ФЁ∙Е▐√Е─╪:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>╘р╕Ёюка|╔q╬В╦Й╝ф - listAllDriverReport.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">╕^╜╨╜╤</a></h4>
+		 <h3>Ф┴─Ф°┴Ф╙╒Х┬┴Е▐╦Ф╘÷ХЁ┤Ф√≥ - listAllDriverReport.jsp</h3>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">Е⌡·И╕√И═│</a></h4>
 	</td></tr>
 </table>
 
-<%-- ©Ы╩~╙М╕C --%>
+<%-- И▄╞Х╙╓Х║╗Е┬≈ --%>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">╫п╜в╔©╔H╓U©Ы╩~:</font>
+	<font style="color:red">Х╚▀Д©╝Ф╜ёД╩╔Д╦▀И▄╞Х╙╓:</font>
 	<ul>
 		<c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -71,15 +71,15 @@
 
 <table>
 	<tr>
-		<th>юка|╔q╬ВЁФ╦╧</th>
-		<th>╥|╜Ш╫s╦╧</th>
-		<th>╨ч╡z╜Ш╫s╦╧</th>
-		<th>╜qЁФ╫s╦╧</th>
-		<th>юка|╓╨╝e</th>
-		<th>юка|╓И╢а</th>
-		<th>ЁB╡z╙╛╨A</th>
-		<th>╜в╖О</th>
-		<th>╖R╟ё</th>
+		<th>Ф╙╒Х┬┴Е▐╦Ф╘÷Е√╝Х≥÷</th>
+		<th>Ф°┐Е⌠║Г╥╗Х≥÷</th>
+		<th>Г╝║Г░├Е⌠║Г╥╗Х≥÷</th>
+		<th>Х╗┌Е√╝Г╥╗Х≥÷</th>
+		<th>Ф╙╒Х┬┴Е┘╖Е╝╧</th>
+		<th>Ф╙╒Х┬┴Ф≈╔Ф°÷</th>
+		<th>Х≥∙Г░├Г▀─Ф┘▀</th>
+		<th>Д©╝Ф■╧</th>
+		<th>Е┬╙И≥╓</th>
 	</tr>
 	<%@ include file="page1.file" %> 
 	<c:forEach var="driverReportVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -94,13 +94,13 @@
 			<td>${driverReportVO.state}</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/driverReport/driverReport.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="╜в╖О">
+			     <input type="submit" value="Д©╝Ф■╧">
 			     <input type="hidden" name="dreportID"  value="${driverReportVO.dreportID}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/driverReport/driverReport.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="╖R╟ё">
+			     <input type="submit" value="Е┬╙И≥╓">
 			     <input type="hidden" name="dreportID"  value="${driverReportVO.dreportID}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>

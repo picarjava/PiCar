@@ -1,14 +1,14 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="Big5"%>
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.driverReport.model.*"%>
-<%-- ¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È --%>
+<%-- æ­¤é æš«ç·´ç¿’æ¡ç”¨ Script çš„å¯«æ³•å–å€¼ --%>
 
 <%
-	DriverReportVO driverReportVO = (DriverReportVO)request.getAttribute("driverReportVO"); //DriverReportServlet.java(Concroller), ¦s¤JreqªºDriverReportVOª«¥ó
+	DriverReportVO driverReportVO = (DriverReportVO)request.getAttribute("driverReportVO"); //DriverReportServlet.java(Concroller), å­˜å…¥reqçš„DriverReportVOç‰©ä»¶
 %>
 
 <html>
 <head>
-<title>ÀËÁ|¥q¾÷¸ê®Æ - listOneDriverReport.jsp</title>
+<title>æª¢èˆ‰å¸æ©Ÿè³‡æ–™ - listOneDriverReport.jsp</title>
 
 <style>
   table#table-1 {
@@ -46,23 +46,23 @@
 </head>
 <body bgcolor='white'>
 
-<h4>¦¹­¶¼È½m²ß±Ä¥Î Script ªº¼gªk¨ú­È:</h4>
+<h4>æ­¤é æš«ç·´ç¿’æ¡ç”¨ Script çš„å¯«æ³•å–å€¼:</h4>
 <table id="table-1">
 	<tr><td>
-		 <h3>ÀËÁ|¥q¾÷¸ê®Æ - listOneDriverReport.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">¦^­º­¶</a></h4>
+		 <h3>æª¢èˆ‰å¸æ©Ÿè³‡æ–™ - listOneDriverReport.jsp</h3>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">å›é¦–é </a></h4>
 	</td></tr>
 </table>
 
 <table>
 	<tr>
-		<th>ÀËÁ|¥q¾÷³æ¸¹</th>
-		<th>·|­û½s¸¹</th>
-		<th>ºŞ²z­û½s¸¹</th>
-		<th>­q³æ½s¸¹</th>
-		<th>¤º®e</th>
-		<th>®É¶¡</th>
-		<th>ª¬ºA</th>
+		<th>æª¢èˆ‰å¸æ©Ÿå–®è™Ÿ</th>
+		<th>æœƒå“¡ç·¨è™Ÿ</th>
+		<th>ç®¡ç†å“¡ç·¨è™Ÿ</th>
+		<th>è¨‚å–®ç·¨è™Ÿ</th>
+		<th>å…§å®¹</th>
+		<th>æ™‚é–“</th>
+		<th>ç‹€æ…‹</th>
 	</tr>
 	<tr>
 		<td><%=driverReportVO.getDreportID()%></td>

@@ -21,7 +21,7 @@ public class DriverReportServlet extends HttpServlet {
 		
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-		//寫action.equals("getOne_For_Display")也可以,但比較不好
+			
 		if("getOne_For_Display".equals(action)) { //來自select_page.jsp的請求
 			
 			List<String> errorMsgs = new LinkedList<String>();
@@ -121,13 +121,21 @@ public class DriverReportServlet extends HttpServlet {
 					String dreportID = req.getParameter("dreportID").trim();
 						
 					String memID = req.getParameter("memID").trim();
+					String memIDReg = "^[(M)(0-9)]{4}$";
 					if(memID == null || memID.trim().length()==0) {
 						errorMsgs.add("會員編號請勿空白");
-					}
+					} else if (!memID.trim().matches(memIDReg)) {
+						errorMsgs.add("輸入格式有誤");
+					} 
+
 					String adminID = req.getParameter("adminID").trim();
+					String adminIDreg = "^[(A)(0-9)]{4}$";
 					if(adminID == null || adminID.trim().length() == 0) {
 						errorMsgs.add("管理員編號請勿空白");
+					} else if (!adminID.trim().matches(adminIDreg)) {
+						errorMsgs.add("輸入格式有誤");
 					}
+
 					String orderID = req.getParameter("orderID").trim();
 					if(orderID == null || orderID.trim().length() == 0) {
 						errorMsgs.add("訂單編號請勿空白");
@@ -182,13 +190,13 @@ public class DriverReportServlet extends HttpServlet {
 						
 					/***************************3.修改完成,準備轉交(Send the Success view)*************/
 					req.setAttribute("driverReportVO", driverReportVO); // 資料庫update成功後,正確的的driverReportVO物件,存入req
-					String url = "/driverReport/listOneDriverReport.jsp";
+					String url = "/driverReport/select_page.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneDriverReport.jsp
 					successView.forward(req, res);
 
 					/***************************其他可能的錯誤處理*************************************/
 				} catch (Exception e) {
-					errorMsgs.add("修改資料失敗:"+e.getMessage());
+					errorMsgs.add(e.getMessage());
 					RequestDispatcher failureView = req.getRequestDispatcher("/driverReport/update_DriverReport_input.jsp");
 					failureView.forward(req, res);
 				}
@@ -206,9 +214,13 @@ public class DriverReportServlet extends HttpServlet {
 					//String dreportID = req.getParameter("dreportID").trim();
 					
 					String memID = req.getParameter("memID").trim();
+					String memIDReg = "^[(M)(0-9_)]{4}$";
 					if(memID == null || memID.trim().length()==0) {
 						errorMsgs.add("會員編號請勿空白");
+					} else if (!memID.trim().matches(memIDReg)) {
+						errorMsgs.add("輸入格式有誤");
 					}
+
 					String adminID = req.getParameter("adminID").trim();
 					if(adminID == null || adminID.trim().length() == 0) {
 						errorMsgs.add("管理員編號請勿空白");
@@ -266,7 +278,7 @@ public class DriverReportServlet extends HttpServlet {
 					driverReportVO = driverReportSvc.addDriverReport(memID, adminID, orderID, content, time, state);
 					
 					/***************************3.新增完成,準備轉交(Send the Success view)***********/
-					String url = "/driverReport/listAllDriverReport.jsp";
+					String url = "/driverReport/select_page.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllDriverReport.jsp
 					successView.forward(req, res);				
 					
@@ -294,7 +306,7 @@ public class DriverReportServlet extends HttpServlet {
 					DriverReportService driverReportSvc = new DriverReportService();
 					driverReportSvc.deleteDriverReport(dreportID);
 					/***************************3.刪除完成,準備轉交(Send the Success view)***********/					
-					String url = "/driverReport/listAllDriverReport.jsp";
+					String url = "/driverReport/select_page.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 					successView.forward(req, res);
 					
@@ -302,7 +314,7 @@ public class DriverReportServlet extends HttpServlet {
 				} catch (Exception e) {
 					errorMsgs.add("刪除資料失敗:"+e.getMessage());
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/driverReport/listAllDriverReport.jsp");
+							.getRequestDispatcher("/driverReport/select_page.jsp");
 					failureView.forward(req, res);
 				}
 			}

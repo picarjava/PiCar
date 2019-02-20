@@ -14,27 +14,27 @@ public class TestDriverDAO {
 		TestDriverDAO testJDBCDAO = new TestDriverDAO();
 //		----------------------------
 //		insert ok
-//		DriverVO driverdao= new DriverVO();
-//		driverdao.setMemID("M006");
-//		driverdao.setDriverID("DR003");
-//		driverdao.setPlateNum("PCI-0001");
-//		driverdao.setLicence(testJDBCDAO.getBytePost("WebContent/driver/img/licence1.jpg"));
-//		driverdao.setCriminal(testJDBCDAO.getBytePost("WebContent/driver/img/criminal1.jpg"));
-//		driverdao.setTrafficRecord(testJDBCDAO.getBytePost("WebContent/driver/img/trafficrecord1.jpg"));
-//		driverdao.setIdNum(testJDBCDAO.getBytePost("WebContent/driver/img/idnum1.jpg"));
-//		driverdao.setPhoto(testJDBCDAO.getBytePost("WebContent/driver/img/photo1.jpg"));
-//		driverdao.setVerified(1);
-//		driverdao.setBanned(1);
-//		driverdao.setDeadline(testJDBCDAO.getSQLDate(2019,3,29,8,10));
-//		driverdao.setOnlineCar(1);
-//		driverdao.setScore(80);
-//		driverdao.setCarType("AA");
-//		driverdao.setSharedCar(1);
-//		driverdao.setPet(1);
-//		driverdao.setSmoke(1);
-//		driverdao.setBabySeat(1);
-//		DAO.insert(driverdao);
-//		System.out.println("insert success");
+		DriverVO driverdao= new DriverVO();
+		driverdao.setMemID("M006");
+		driverdao.setDriverID("DR003");
+		driverdao.setPlateNum("PCI-0001");
+		driverdao.setLicence(testJDBCDAO.getBytePost("WebContent/driver/img/licence1.jpg"));
+		driverdao.setCriminal(testJDBCDAO.getBytePost("WebContent/driver/img/criminal1.jpg"));
+		driverdao.setTrafficRecord(testJDBCDAO.getBytePost("WebContent/driver/img/trafficrecord1.jpg"));
+		driverdao.setIdNum(testJDBCDAO.getBytePost("WebContent/driver/img/idnum1.jpg"));
+		driverdao.setPhoto(testJDBCDAO.getBytePost("WebContent/driver/img/photo1.jpg"));
+		driverdao.setVerified(1);
+		driverdao.setBanned(1);
+		driverdao.setDeadline(testJDBCDAO.getSQLDate(2019,3,29,8,10));
+		driverdao.setOnlineCar(1);
+		driverdao.setScore(80);
+		driverdao.setCarType("AA");
+		driverdao.setSharedCar(1);
+		driverdao.setPet(1);
+		driverdao.setSmoke(1);
+		driverdao.setBabySeat(1);
+		DAO.insert(driverdao);
+		System.out.println("insert success");
 ///////////////////////////////////////////////////				
         //delete ok
 //		DAO.delete("DR003");
