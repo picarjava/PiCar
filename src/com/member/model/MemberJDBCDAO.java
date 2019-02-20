@@ -22,7 +22,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	public static final String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO MEMBER (MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER, "
-			+ "TOKEN, ACTIVITY_TOKEN, BIRTHDAY, VERIFIED, BABY_SEAT) VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+			+ "TOKEN, ACTIVITY_TOKEN, BIRTHDAY, VERIFIED, BABY_SEAT) VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 	private static final String GET_ALL_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER,"
 			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER ORDER BY MEM_ID";
@@ -45,20 +45,20 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			con = DriverManager.getConnection(url, userid, passwd);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, memberVO.getMemID());
-			pstmt.setString(2, memberVO.getName());
-			pstmt.setString(3, memberVO.getEmail());
-			pstmt.setString(4, memberVO.getPassword());
-			pstmt.setString(5, memberVO.getPhone());
-			pstmt.setString(6, memberVO.getCreditcard());
-			pstmt.setInt(7, memberVO.getPet());
-			pstmt.setInt(8, memberVO.getSmoke());
-			pstmt.setInt(9, memberVO.getGender());
-			pstmt.setInt(10, memberVO.getToken());
-			pstmt.setInt(11, memberVO.getActivityToken());
-			pstmt.setDate(12, memberVO.getBirthday());
-			pstmt.setInt(13, memberVO.getVerified());
-			pstmt.setInt(14, memberVO.getBabySeat());
+//			pstmt.setString(1, memberVO.getMemID());
+			pstmt.setString(1, memberVO.getName());
+			pstmt.setString(2, memberVO.getEmail());
+			pstmt.setString(3, memberVO.getPassword());
+			pstmt.setString(4, memberVO.getPhone());
+			pstmt.setString(5, memberVO.getCreditcard());
+			pstmt.setInt(6, memberVO.getPet());
+			pstmt.setInt(7, memberVO.getSmoke());
+			pstmt.setInt(8, memberVO.getGender());
+			pstmt.setInt(9, memberVO.getToken());
+			pstmt.setInt(10, memberVO.getActivityToken());
+			pstmt.setDate(11, memberVO.getBirthday());
+			pstmt.setInt(12, memberVO.getVerified());
+			pstmt.setInt(13, memberVO.getBabySeat());
 
 			pstmt.executeUpdate();
 		} catch (ClassNotFoundException se) {
@@ -116,6 +116,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 			pstmt.setDate(11, memberVO.getBirthday());
 			pstmt.setInt(12, memberVO.getVerified());
 			pstmt.setInt(13, memberVO.getBabySeat());
+			pstmt.setString(14, memberVO.getMemID());
 
 			pstmt.executeUpdate();
 
@@ -350,9 +351,50 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //		System.out.println(mbDAO.getVerified());
 //		System.out.println(mbDAO.getBabySeat());
 
+		MemberVO mbDAO1 = new MemberVO();
+		
+//		mbDAO1.setMemID("M111");
+		mbDAO1.setName("SS");
+		mbDAO1.setEmail("ZXX");
+		mbDAO1.setPassword("XX");
+		mbDAO1.setPhone("XXXX");
+		mbDAO1.setCreditcard("XXXX");
+		mbDAO1.setPet(0);
+		mbDAO1.setSmoke(0);
+		mbDAO1.setGender(1);
+		mbDAO1.setToken(33);
+		mbDAO1.setActivityToken(444);
+		mbDAO1.setBirthday(java.sql.Date.valueOf("1988-07-07"));
+		mbDAO1.setVerified(1);
+		mbDAO1.setBabySeat(1);//	
+		memberDAOJBDC.insert(mbDAO1);
+		System.out.println(" insert ok~");
+
+//		memberDAOJBDC.delete("M111");
+//		System.out.println("delete ok~");
+		
+//		List<MemberVO> list = memberDAOJBDC.getAll();
+//		for(MemberVO mbDAO2 : list) {
+//			System.out.println(mbDAO2);
+//			System.out.println(mbDAO2.getMemID());
+//			System.out.println(mbDAO2.getName());
+//			System.out.println(mbDAO2.getEmail());
+//			System.out.println(mbDAO2.getPassword());
+//			System.out.println(mbDAO2.getPhone());
+//			System.out.println(mbDAO2.getCreditcard());
+//			System.out.println(mbDAO2.getPet());
+//			System.out.println(mbDAO2.getSmoke());
+//			System.out.println(mbDAO2.getGender());
+//			System.out.println(mbDAO2.getToken());
+//			System.out.println(mbDAO2.getActivityToken());
+//			System.out.println(mbDAO2.getBirthday());
+//			System.out.println(mbDAO2.getVerified());
+//			System.out.println(mbDAO2.getBabySeat());
+//			System.out.println("==============================");
+		
 //		MemberVO mbDAO1 = new MemberVO();
 //		
-//		mbDAO1.setMemID("M111");
+//		mbDAO1.setMemID("M001");
 //		mbDAO1.setName("SS");
 //		mbDAO1.setEmail("ZXX");
 //		mbDAO1.setPassword("XX");
@@ -362,36 +404,14 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //		mbDAO1.setSmoke(0);
 //		mbDAO1.setGender(1);
 //		mbDAO1.setToken(33);
-//		mbDAO1.setActivityToken(444);
+//		mbDAO1.setActivityToken(666);
 //		mbDAO1.setBirthday(java.sql.Date.valueOf("1988-07-07"));
 //		mbDAO1.setVerified(1);
 //		mbDAO1.setBabySeat(1);//	
-//		memberDAOJBDC.insert(mbDAO1);
-//		System.out.println(" insert ok~");
-
-//		memberDAOJBDC.delete("M111");
-//		System.out.println("delete ok~");
+//		memberDAOJBDC.update(mbDAO1);
+//		System.out.println(" update ok~");
+//			
 		
-		List<MemberVO> list = memberDAOJBDC.getAll();
-		for(MemberVO mbDAO2 : list) {
-			System.out.println(mbDAO2);
-			System.out.println(mbDAO2.getMemID());
-			System.out.println(mbDAO2.getName());
-			System.out.println(mbDAO2.getEmail());
-			System.out.println(mbDAO2.getPassword());
-			System.out.println(mbDAO2.getPhone());
-			System.out.println(mbDAO2.getCreditcard());
-			System.out.println(mbDAO2.getPet());
-			System.out.println(mbDAO2.getSmoke());
-			System.out.println(mbDAO2.getGender());
-			System.out.println(mbDAO2.getToken());
-			System.out.println(mbDAO2.getActivityToken());
-			System.out.println(mbDAO2.getBirthday());
-			System.out.println(mbDAO2.getVerified());
-			System.out.println(mbDAO2.getBabySeat());
-			System.out.println("==============================");
-			
-		}
 
 	}
 
