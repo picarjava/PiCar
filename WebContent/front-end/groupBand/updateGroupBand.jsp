@@ -3,7 +3,7 @@
 <%@ page import="com.groupBand.model.*"%>
 
 <%
-	GroupBandVO groupBandVO = (GroupBandVO) request.getAttribute("groupBandVO");
+	GroupBandVO groupBandVO = (GroupBandVO) request.getAttribute("GroupBandVO");
 %>
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
 <script src="../../datetimepicker/jquery.js"></script>
 <script src="../../datetimepicker/jquery.datetimepicker.full.js"></script>
 <meta charset="BIG5">
-<title>Insert title here</title>
+<title>updateGroupBand.jsp</title>
 <style>
 table#table-1 {
 	width: 450px;
@@ -70,18 +70,19 @@ th, td {
 
 		<tr>
 			<td>
-				<h3>發起揪團 - insertGroupBand.jsp</h3>
+				<h3>揪團資料修改 -updateGroupBand.jsp</h3>
 			</td>
 			<td>
 				<h4>
-					<a href="select_page.jsp">回首頁</a>
+					<a href="listAllGroupBand.jsp">回首頁</a>
 				</h4>
 			</td>
 		</tr>
 	</table>
-	<h3>發起揪團</h3>
+	<h3>修改揪團資料</h3>
 
-	<form action="/PiCar/GroupBand" method="POST" enctype="multipart/form-data">
+	<form action="/PiCar/GroupBand" method="POST" enctype="multipart/form-data" name="form1">
+	
 		<table>
 
 			<tr>
@@ -93,13 +94,13 @@ th, td {
 			
 			<tr>
 			<td>揪團類別</td>
-			<td><select name="groupType">
-			<option value="演唱會">演唱會</option>
-			<option value="旅遊">旅遊</option>
-			<option value="美食">美食</option>
-			<option value="運動團">運動團</option>
-			<option value="展覽">展覽</option>
-			<option value="遊樂園">遊樂園</option>
+			<td><select name="groupType" >
+			<option value="演唱會" <% if("演唱會".equals(groupBandVO.getGroupType())){out.print("selected='selected'");}%>>演唱會</option>
+			<option value="旅遊" <% if("旅遊".equals(groupBandVO.getGroupType())){out.print("selected='selected'");}%>>旅遊</option>
+			<option value="美食" <% if("美食".equals(groupBandVO.getGroupType())){out.print("selected='selected'");}%>>美食</option>
+			<option value="運動團" <% if("運動團".equals(groupBandVO.getGroupType())){out.print("selected='selected'");}%>>運動團</option>
+			<option value="展覽" <% if("展覽".equals(groupBandVO.getGroupType())){out.print("selected='selected'");}%>>展覽</option>
+			<option value="遊樂園" <% if("遊樂園".equals(groupBandVO.getGroupType())){out.print("selected='selected'");}%>>遊樂園</option>
 			</select></td>
 			</tr>
 			
@@ -112,7 +113,7 @@ th, td {
 			<tr>
 				<td>簡介:</td>
 
-				<td><textarea name="introduction" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "" : groupBandVO.getIntroduction()%> </textarea></td>
+				<td><textarea name="introduction" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "" : groupBandVO.getNote()%> </textarea></td>
 			</tr>
 
 			<tr>
@@ -127,8 +128,8 @@ th, td {
 				<td>上車地點:</td>
 
 				<td><select name="startLoc">
-						<option value="桃園火車站">桃園市</option>
-						<option value="a02">台北市</option>
+						<option value="桃園火車站" <% if("桃園火車站".equals(groupBandVO.getStartLoc())){out.print("selected='selected'");}%>>桃園市</option>
+						<option value="台北市火車站" <% if("台北市火車站".equals(groupBandVO.getStartLoc())){out.print("selected='selected'");}%>>台北市</option>
 				</select></td>
 			</tr>
 
@@ -136,8 +137,8 @@ th, td {
 				<td>下車地點:</td>
 
 				<td><select name="endLoc">
-						<option value="桃園火車站">桃園市</option>
-						<option value="台北市火車站">台北市</option>
+						<option value="桃園火車站" <% if("桃園火車站".equals(groupBandVO.getEndLoc())){out.print("selected='selected'");}%>>桃園市</option>
+						<option value="台北市火車站" <% if("台北市火車站".equals(groupBandVO.getEndLoc())){out.print("selected='selected'");}%>>台北市</option>
 				</select></td>
 			</tr>
 
@@ -147,7 +148,7 @@ th, td {
 						<%
 							for (int a = 2; a < 5; a++) {
 						%>
-						<option name="<%=a%>" value="<%=a%>"><%=a%></option>
+						<option name="<%=a%>" value="<%=a%>" <% if(a==(groupBandVO.getLowerLimit())){out.print("selected='selected'");}%>><%=a%> </option>
 						<%
 							}
 						%>
@@ -161,7 +162,7 @@ th, td {
 						<%
 							for (int a = 2; a < 5; a++) {
 						%>
-						<option name="<%=a%>" value="<%=a%>"><%=a%></option>
+						<option name="<%=a%>" value="<%=a%>" <% if(a==(groupBandVO.getUpperLimit())){out.print("selected='selected'");}%>><%=a%> </option>
 						<%
 							}
 						%>
@@ -188,7 +189,7 @@ th, td {
 				<td>上車日期</td>
 
 				<td><input name="startTime" id="start_date" type="text"
-					style="display: none"> 
+					style="display: none" value="<%=groupBandVO.getStartTime()%>"> 
 					<input name="startTimes" id="f_date1"
 					type="text"></td>
 			</tr>
@@ -208,14 +209,16 @@ th, td {
 			<tr>
 				<td>隱私設定:</td>
 
-				<td><input type="checkbox" value="1" name="privates">隱私權<br>
+				<td><input type="checkbox" value="1" name="privates" <% if(1==(groupBandVO.getPrivates())){out.print("checked='checked'");}%>>隱私權<br>
 				</td>
 			</tr>
 
 
 			<tr>
-				<td><input type="hidden" name="action" value="insert" /> <input
-					type="submit" value="發起揪團" /></td>
+				<td><input type="hidden" name="action" value="update" /> 
+				<input type="hidden" name="groupID" value="<%=groupBandVO.getGroupID()%>">
+				<input type="hidden" name="LaunchTime" value="<%=groupBandVO.getLaunchTime()%>">
+				 <input type="submit" value="更改揪團" /></td>
 				<td><input type="reset" value="清除揪團" /></td>
 
 			</tr>

@@ -74,7 +74,7 @@ th, td {
 			</td>
 			<td>
 				<h4>
-					<a href="select_page.jsp">回首頁</a>
+					<a href="slistAllGroupBand.jsp">回首頁</a>
 				</h4>
 			</td>
 		</tr>
@@ -128,7 +128,7 @@ th, td {
 
 				<td><select name="startLoc">
 						<option value="桃園火車站">桃園市</option>
-						<option value="a02">台北市</option>
+						<option value="台北市火車站">台北市</option>
 				</select></td>
 			</tr>
 
@@ -188,7 +188,7 @@ th, td {
 				<td>上車日期</td>
 
 				<td><input name="startTime" id="start_date" type="text"
-					style="display: none"> 
+					style="display: none" > 
 					<input name="startTimes" id="f_date1"
 					type="text"></td>
 			</tr>

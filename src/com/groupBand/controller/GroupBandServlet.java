@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -87,6 +88,14 @@ public class GroupBandServlet extends HttpServlet {
 				String content =" ";	
 				
 				
+				java.sql.Timestamp launchTime = null;
+//				try {
+				String launchTimes =null;
+				launchTimes = req.getParameter("LaunchTime");
+				SimpleDateFormat simpleDateFormats = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				
+				launchTime = new Timestamp(simpleDateFormats.parse(launchTimes).getTime());
+				
 				String introduction = req.getParameter("introduction");
 				String introduc = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{1,20}$";
 				if (introduction == null || introduction.trim().length() == 0) {
@@ -94,6 +103,8 @@ public class GroupBandServlet extends HttpServlet {
 				} else if(!introduction.trim().matches(introduc)) { //以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("簡介: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 	            }
+				
+				
 				
 				
 				Integer groupStatus =1;
@@ -191,7 +202,9 @@ public class GroupBandServlet extends HttpServlet {
 				
 				
 				GroupBandVO groupBandVO = new GroupBandVO();
+				groupBandVO.setGroupID(req.getParameter("groupID"));
 				groupBandVO.setContent(content);
+				groupBandVO.setLaunchTime(launchTime);
 				groupBandVO.setIntroduction(introduction);
 				groupBandVO.setGroupStatus(groupStatus);
 				groupBandVO.setCurrenTnum(currenTnum);
@@ -224,7 +237,7 @@ public class GroupBandServlet extends HttpServlet {
 				
 				/***************************2.�}�l�s�W���***************************************/
 				GroupBandService groupBandService = new GroupBandService();
-				groupBandVO = groupBandService.addGroupBand(content,introduction,groupStatus,currenTnum,
+				groupBandVO = groupBandService.updateGroupBand(req.getParameter("groupID"),launchTime,content,introduction,groupStatus,currenTnum,
 						upperLimit,lowerLimit,groupName,groupLeader,startLoc,
 						endLoc,privates,photo,groupType,totalAmout,startTime,
 						rate,note);

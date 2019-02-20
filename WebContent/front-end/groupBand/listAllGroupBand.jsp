@@ -84,6 +84,8 @@
 <th>上車時間</th>
 <th>評價分數</th>
 <th>備註</th>
+<th>修改資料</th>
+<th>刪除資料</th>
 </tr>
 <%@ include file="page1.file" %> 
 <c:forEach var="GroupBandVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -110,14 +112,14 @@
 <td>
 <form action="/PiCar/GroupBand" method="POST" enctype="multipart/form-data"style="margin-bottom: 0px;">
 	<input type="submit" value="修改">
-	<input type="hidden" name="groupID"  value="${empVO.groupID}">
+	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
 	<input type="hidden" name="action"	value="getOne_For_Update">
 </FORM>
 </td>
 <td>
 <FORM METHOD="post" ACTION="/PiCar/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
 	<input type="submit" value="刪除">
-	<input type="hidden" name="groupID"  value="${empVO.groupID}">
+	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
 	<input type="hidden" name="action"	value="delete"></FORM>
 </td>
 </tr>
