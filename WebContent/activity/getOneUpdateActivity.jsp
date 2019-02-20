@@ -4,7 +4,7 @@
 <%@ page import="java.util.*" %>>
 <html>
 <head>
-  <meta charset="utf-8">
+  <meta charset="UTF-8">
   <title>Regna Bootstrap Template</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
@@ -43,8 +43,9 @@
     ============================-->
     <!-- 先取出VO -->
   <%ActivityVO activityVO=(ActivityVO)request.getAttribute("activityVO");%>
+  <%String path=(String)request.getAttribute("path"); %>
   <!-- 錯誤列表 -->
-    <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
+    <%LinkedList<String> errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
 		  <li class="list-group-item active">Opps!錯誤訊息回報</li>
 		  <c:forEach var="massage" items="${errorMsgs}">
@@ -70,7 +71,7 @@
 	          <div class="col-lg-12 col-md-12">
 	            <div class="form">
 	              <!-- 活動表單開始 -->
-	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" role="form" class="contactForm">
+	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" >
 	                <div class="form-group">
 	                  <p>活動編號</p> 
 	                 <input type="text" name="activityID" readonly class="form-control"  value="${activityVO.activityID}"  />
@@ -81,7 +82,7 @@
 	       			</div>
 	       			<div class="form-group">
 	                  <p>活動資訊</p>
-	                  <textarea class="form-control" name="activityInfo" rows="5" data-rule="required" >${activityVO.activityInfo}</textarea>
+	                  <textarea class="form-control" name="activityInfo" rows="5">${activityVO.activityInfo}</textarea>
 	                </div>
 	                <div class="form-group">
 	                  <p>活動開始時間</p>
@@ -100,13 +101,10 @@
 	                  <input type="text" class="form-control" name="tokenAmount" value="${activityVO.tokenAmount}"  />
 	                </div>
 	                <div class="form-group">
-	                  <p>活動海報</p>
-	                  <input type="file" class="form-control" name="activityPost" value="${activityVO.activityPost}">
-	                  <div class="card" style="width: 18rem;">
-						  <div class="card" style="width: 18rem;">
-						  <img src="${activityVO.activityPost}" class="card-img-top" alt="...">
-						</div>
-	                </div>
+	                  <p>活動海報</p> <!-- EL回傳空字串 -->
+	                  <input type="file" class="form-control" name="activityPost" value="${path}" />
+		               <img src='${path}'  width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報" '  />
+		            </div>
 	                <div class="text-center"><button type="submit" >確認修改</button></div>
 	              	<!--隱藏的參數action讓controller抓-->
 	              	<input type="hidden" name="action" value="UPTDATE">
@@ -119,6 +117,7 @@
   <!--==========================
     底部
   ============================-->
+ 	
   
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
