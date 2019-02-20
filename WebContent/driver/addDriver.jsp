@@ -86,7 +86,6 @@
 	                   <p>車型</p>
 	                  <input type="text" name="carType" class="form-control" value="PICAR"   placeholder="請輸入車型" />
 	       			</div>
-
 	       			<div class="form-group">
 	                  <p>駕照</p>
 	                  <input type="file" class="form-control" name="licence" value="2018-10-08" placeholder="請輸入駕照"  />       
@@ -110,6 +109,7 @@
 	                  <p>大頭照</p>
 	                  <input type="file" class="form-control" name="photo" >
 	                </div>
+	                
 	                <div class="text-center">
 	                <button type="submit" class="btn btn-dark">新增司機</button>
 	                </div>
