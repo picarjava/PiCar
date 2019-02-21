@@ -65,6 +65,14 @@
     <servlet-name>GroupBand</servlet-name>
     <url-pattern>/GroupBand</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <servlet-name>ImgServlet</servlet-name>
+    <servlet-class>com.groupBand.controller.ImgServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ImgServlet</servlet-name>
+    <url-pattern>/ImgServlet</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>ActivServlet</servlet-name>
     <servlet-class>com.activity.controller.ActivServlet</servlet-class>

@@ -14,6 +14,7 @@ import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,9 +41,23 @@ public class GroupBandServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doPost(request, response);
+		req.setCharacterEncoding("utf-8");
+		res.setContentType("image/gif");
+		ServletOutputStream out = res.getOutputStream();
+	
+		String groupID =req.getParameter("groupID");
+		
+		GroupBandService groupBandService = new GroupBandService();
+		GroupBandVO groupBandVO=(GroupBandVO) groupBandService.getOneGroupBand(groupID);
+		System.out.println(groupID);
+		
+		byte[] pic =groupBandVO.getPhoto();
+		if(pic !=null) {
+			out.write(pic);
+		}
+		
 	}
 
 	/**
@@ -377,22 +392,28 @@ public class GroupBandServlet extends HttpServlet {
 					
 					byte[] photo=null;
 					
-					Collection<Part> parts = req.getParts();
-					for (Part part : parts) {
-						if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
-						
-							
-							long size = part.getSize();
-
-							// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
-							InputStream in = part.getInputStream();
-							photo = new byte[in.available()];						
-							in.close();						
-						}
-					}
+//					Collection<Part> parts = req.getParts();
+//					for (Part part : parts) {
+//						if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
+//						
+//							
+//							long size = part.getSize();
+//
+//							// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
+//							InputStream in = part.getInputStream();
+//							photo = new byte[in.available()];						
+//							in.close();						
+//						}
+//					}
 					
 					
-					
+					Part part = req.getPart("photo");
+					long size = part.getSize();
+					System.out.println(size);
+					InputStream in = part.getInputStream();
+					photo = new byte[in.available()];
+					in.read(photo); 
+					in.close();		
 					
 					String groupType = req.getParameter("groupType");
 					

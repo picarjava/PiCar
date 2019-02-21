@@ -103,7 +103,7 @@
 	<td>${GroupBandVO.startLoc}</td>
 	<td>${GroupBandVO.endLoc}</td>
 	<td>${GroupBandVO.privates}</td>
-	<td><img src="${GroupBandVO.photo}"width="100px"   height="100px"></td>
+	<td><img src="/PiCar/GroupBand?groupID=${GroupBandVO.groupID}" width="100px"   height="100px"></td>
 	<td>${GroupBandVO.groupType}</td>
 	<td>${GroupBandVO.totalAmout}</td>
 	<td>${GroupBandVO.startTime}</td>
