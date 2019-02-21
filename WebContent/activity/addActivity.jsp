@@ -4,7 +4,7 @@
 <%@ page import="java.util.*" %>
 <html>
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8">  
   <title>Regna Bootstrap Template</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
@@ -38,6 +38,7 @@
 </head>
 
 <body>
+
 <%ActivityVO activityVO=(ActivityVO)request.getAttribute("activityVO");%>
 
 <%LinkedList errorMsgs=(LinkedList)request.getAttribute("errorMsgs");%>
@@ -71,38 +72,38 @@
 	          <div class="col-lg-12 col-md-12">
 	            <div class="form">
 	              <!-- 活動表單開始 -->
-	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" >
+	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post"  enctype="multipart/form-data">
 	                <div class="form-group">
 	                  <p>活動編號</p> 
-	                 <input type="text" name="activityID" value="AC007" class="form-control"  placeholder="請輸入1-10個英文或數字" />
+	                 <input type="text" name="activityID" value="${activityVO.activityID}" class="form-control"  placeholder="請輸入1-10個英文或數字" />
 	  				</div>
 	                <div class="form-group">
 	                   <p>活動名稱</p>
-	                  <input type="text" name="activityName" class="form-control" value="PICAR畢業專題"   placeholder="請輸入活動名稱" />
+	                  <input type="text" name="activityName" class="form-control" value="${activityVO.activityName}"   placeholder="請輸入活動名稱" />
 	       			</div>
 	       			<div class="form-group">
 	                  <p>活動資訊</p>
-	                  <textarea class="form-control" name="activityInfo"  placeholder="請輸入活動資訊"></textarea>
+	                  <textarea class="form-control" name="activityInfo"  placeholder="請輸入活動資訊">${activityVO.activityInfo}</textarea>
 	                </div>
 	                <div class="form-group">
 	                  <p>活動開始時間</p>
-	                  <input type="date" class="form-control" name="activityStart" value="2018-10-08" placeholder="請輸入活動開始時間"  />
+	                  <input type="date" class="form-control" name="activityStart" value="${activityVO.activityStart}" placeholder="請輸入活動開始時間"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動結束時間</p>
-	                  <input type="date" class="form-control" name="activityEnd" value="2019-03-29" placeholder="請輸入活動結束時間"  />
+	                  <input type="date" class="form-control" name="activityEnd" value="${activityVO.activityEnd}" placeholder="請輸入活動結束時間"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動序號</p>
-	                  <input type="text" class="form-control" name="activityCode" value="picar" placeholder="請輸入活動序號"  />
+	                  <input type="text" class="form-control" name="activityCode" value="${activityVO.activityCode}" placeholder="請輸入活動序號"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動代幣</p>
-	                  <input type="text" class="form-control" name="tokenAmount" value="200" placeholder="請輸入本活動代幣數量"  />
+	                  <input type="text" class="form-control" name="tokenAmount" value="${activityVO.tokenAmount}" placeholder="請輸入本活動代幣數量"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動海報</p>
-	                  <input type="file" class="form-control" name="activityPost" >
+	                  <input type="file" class="form-control" name="activityPost" value="${activityVO.activityPost}">
 	                </div>
 	                <div class="text-center">
 	                <button type="submit" class="btn btn-dark">新增活動</button>

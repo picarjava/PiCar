@@ -47,7 +47,7 @@
     ============================-->
     <!-- 先取出VO -->
   <%ActivityVO activityVO=(ActivityVO)request.getAttribute("activityVO");%>
-   <%String path=(String)request.getAttribute("path"); %>
+   
     <!-- 錯誤列表 -->
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
@@ -82,32 +82,32 @@
 	  				</div>
 	                <div class="form-group">
 	                   <p>活動名稱</p>
-	                  <input type="text" class="form-control" name="activityName"  value="${activityVO.activityName}" />
+	                  <input type="text" class="form-control" name="activityName" readonly value="${activityVO.activityName}" />
 	       			</div>
 	       			<div class="form-group">
 	                  <p>活動資訊</p>
-	                  <textarea class="form-control"  name="activityInfo" rows="5" >${activityVO.activityInfo}</textarea>
+	                  <textarea class="form-control"  name="activityInfo" rows="5" readonly>${activityVO.activityInfo}</textarea>
 	                </div>
 	                <div class="form-group">
 	                  <p>活動開始時間</p>
-	                  <input type="date" class="form-control" name="activityStart"  value="${activityVO.activityStart}"  />
+	                  <input type="date" class="form-control" name="activityStart" readonly value="${activityVO.activityStart}"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動結束時間</p>
-	                  <input type="date" class="form-control" name="activityEnd"  value="${activityVO.activityEnd}" />
+	                  <input type="date" class="form-control" name="activityEnd" readonly value="${activityVO.activityEnd}" />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動序號</p>
-	                  <input type="text" class="form-control" name="activityCode" value="${activityVO.activityCode}"  />
+	                  <input type="text" class="form-control" name="activityCode" readonly value="${activityVO.activityCode}"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動代幣</p>
-	                  <input type="text" class="form-control" name="tokenAmount" value="${activityVO.tokenAmount}"  />
+	                  <input type="text" class="form-control" name="tokenAmount" readonly value="${activityVO.tokenAmount}"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動海報</p> <!-- EL回傳空字串 -->
-	                  <input type="file" class="form-control" name="activityPost" value="${path}" />
-		               <img src='${path}'  width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報" '  />
+	                  <input type="file" class="form-control" name="activityPost" readonly value="{activityVO.activityPost}" />
+		               <img src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報" '  />
 		            </div>
 	              <!--  <div class="text-center"><button type="submit">確認修改</button></div>  -->
 	              	<!--隱藏的參數action讓controller抓-->

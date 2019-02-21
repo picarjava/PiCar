@@ -1,7 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>>
-<%@ page import="com.activity.model.*" %>>
-<%@ page import="java.util.*" %>>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.activity.model.*" %>
+<%@ page import="java.util.*" %>
 <html>
 <head>
   <meta charset="UTF-8">
@@ -43,7 +43,7 @@
     ============================-->
     <!-- 先取出VO -->
   <%ActivityVO activityVO=(ActivityVO)request.getAttribute("activityVO");%>
-  <%String path=(String)request.getAttribute("path"); %>
+  
   <!-- 錯誤列表 -->
     <%LinkedList<String> errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
@@ -71,7 +71,7 @@
 	          <div class="col-lg-12 col-md-12">
 	            <div class="form">
 	              <!-- 活動表單開始 -->
-	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" >
+	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" enctype="multipart/form-data">
 	                <div class="form-group">
 	                  <p>活動編號</p> 
 	                 <input type="text" name="activityID" readonly class="form-control"  value="${activityVO.activityID}"  />
@@ -102,12 +102,12 @@
 	                </div>
 	                <div class="form-group">
 	                  <p>活動海報</p> <!-- EL回傳空字串 -->
-	                  <input type="file" class="form-control" name="activityPost" value="${path}" />
-		               <img src='${path}'  width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報" '  />
+	                  <input type="file" class="form-control" name="activityPost" value="${activityVO.activityPost}" />
+		              <img src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報" '  />
 		            </div>
 	                <div class="text-center"><button type="submit" >確認修改</button></div>
 	              	<!--隱藏的參數action讓controller抓-->
-	              	<input type="hidden" name="action" value="UPTDATE">
+	              	<input type="hidden" name="action" value="UPDATE">
 	              </form>
 	            </div>
 	          </div>

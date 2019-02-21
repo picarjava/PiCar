@@ -65,7 +65,7 @@
 	          <nav class="navbar navbar-light bg-light">
 				<ul class="nav nav-tabs">
 				  <li class="nav-item">
-				    <form class="form-inline" action="Activ_servlet.html">
+				    <form class="form-inline" action="Activ_servlet.html" method="post">
 					   <input class="form-control mr-sm-2" name="activityID" type="search" placeholder="請輸入活動編號" aria-label="Search">
 					   <!--隱藏的參數action讓controller抓-->
 		              	<input type="hidden" name="action" value="GET_ONE">

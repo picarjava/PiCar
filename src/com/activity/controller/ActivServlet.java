@@ -9,6 +9,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PipedInputStream;
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -16,7 +17,9 @@ import java.util.LinkedList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.ServletRequest;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +34,7 @@ import com.activity.model.ActivityVO;
 /**
  * Servlet implementation class activ_servlet
  */
-
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 50 * 1024 * 1024, maxRequestSize = 5 * 50 * 1024 * 1024)
 public class ActivServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	ActivityVO activityVO;
@@ -44,11 +47,22 @@ public class ActivServlet extends HttpServlet {
     }
   
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException{
-    	doPost(req,res);
+    	req.setCharacterEncoding("UTF-8");
+		res.setContentType("image/gif");
+		
+    	ServletOutputStream out=res.getOutputStream();
+    	
+		String activityID=req.getParameter("activityID");
+		ActivityService activityService=new ActivityService();
+		ActivityVO activityVO=activityService.getOneActivity(activityID);
+		byte[] printPost=activityVO.getActivityPost();
+		if(printPost!=null) {
+			out.write(printPost);
+		}
     } 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		
-		res.setCharacterEncoding("UTF-8");
+		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html; charset=UTF-8");
 		String action =((ServletRequest) req).getParameter("action");
 		PrintWriter out=res.getWriter();
@@ -60,7 +74,7 @@ public class ActivServlet extends HttpServlet {
 			/*將errorMsgs設定為request scope，以便送至errorPage view*/
 			req.setAttribute("errorMsgs", errorMsgs);
 			java.sql.Date activityStart=null;
-			byte[] activityPost=null;
+			
 			/**************step1.接收請求參數+錯誤處理*****************/
 			
 			try {
@@ -73,7 +87,6 @@ public class ActivServlet extends HttpServlet {
 				 }
 				 
 				 String activityName=(String) req.getParameter("activityName");
-				 System.out.println("activityName測試亂碼:"+activityName);
 				 String activityInfo=(String) req.getParameter("activityInfo");
 				 try {
 					 activityStart=java.sql.Date.valueOf(req.getParameter("activityStart"));
@@ -88,14 +101,17 @@ public class ActivServlet extends HttpServlet {
 				 /*表單屬性設定為enctype="multipart/form-data" 即可使用getPart傳遞圖片*/ /*但是會跳白*/
 				 //寫一個writeInFileAndGetByet(Part part) 寫進本地、秀圖並回傳檔案位置，以指定給activityPost作為參數值
 //				 Collection<Part> activityPost= (Collection<Part>) req.getPart("activityPost");
-				 
-				 try {
-					 activityPost=this.getBytePost(req.getParameter("activityPost"));
-				 }catch(Exception e) {
-					 errorMsgs.add("無法轉型"+e.getMessage());
-				 }
-				 
-				 
+				 Part part = req.getPart("activityPost");
+				 byte[] activityPost=null;
+				
+				try { 
+					InputStream in = part.getInputStream();
+					activityPost = new byte[in.available()];
+					in.read(activityPost);
+					in.close();
+				}catch(Exception e) {
+							 errorMsgs.add("無法取得圖片"+e.getMessage());
+						 }
 				 
 				 if(activityName==null||activityName.trim().length()==0){
 					 errorMsgs.add("活動名稱未填寫");
@@ -148,7 +164,7 @@ public class ActivServlet extends HttpServlet {
 		 }
 		//來自homeActivity.jsp的請求
 		if("GET_ONE".equals(action)){
-			LinkedList<String> errorMsgs=new LinkedList();
+			LinkedList<String> errorMsgs=new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 			/*************1.接收請求參數**************/
@@ -164,13 +180,9 @@ public class ActivServlet extends HttpServlet {
 				failurePage.forward(req, res);
 				return;
 			}
-			/*************3.圖片資料處理**************/
-			String path="";//給空字串 
-			if(activityVO.getActivityPost()!=null) {
-				path=this.saveToGetPath(activityID,activityVO.getActivityPost(),req);
-			}
-			/*************4.得到資料存在scope=reqest，並送出VO給處理頁面**************/
-			req.setAttribute("path", path);
+			
+			/*************3.得到資料存在scope=reqest，並送出VO給處理頁面**************/
+			
 			req.setAttribute("activityVO", activityVO);
 			String url="/activity/getOneActivity.jsp";
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
@@ -195,18 +207,9 @@ public class ActivServlet extends HttpServlet {
 			/*************2查詢資料:調出某一筆的vo**************/
 			ActivityService activitySvc=new ActivityService();
 			ActivityVO activityVO=activitySvc.getOneActivity(activityID);
-			/*************3.資料處理:某一筆的vo的圖片資料轉換**************/
-			/*在此處先將圖片做處理，寫入本地端並傳送檔案位置給頁面，即可秀圖*/
-			/*將byte[]存入專案資料夾，以活動ID命名，回傳轉此圖的檔案路徑*/
-			/*檢查是否有已上傳海報，有則儲存轉換為路徑，否則為null*/
-			/*嘗試回傳相對路徑*/
-			String path="";//給空字串 
-			if(activityVO.getActivityPost()!=null) {
-				path=this.saveToGetPath(activityID,activityVO.getActivityPost(),req);
-			}
+			
 			/*************3.得到資料和圖片轉換資料存在scope=reqest，並送出VO給處理頁面:getOneUpdate頁面**************/
 			
-			req.setAttribute("path", path);
 			req.setAttribute("activityVO", activityVO);
 			String url="/activity/getOneUpdateActivity.jsp";
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
@@ -240,31 +243,19 @@ public class ActivServlet extends HttpServlet {
 				 java.sql.Date activityEnd=java.sql.Date.valueOf(req.getParameter("activityEnd"));
 				 String activityCode=(String) req.getParameter("activityCode");
 				 Integer tokenAmount=new Integer(req.getParameter("tokenAmount")) ;
-				/*這邊還沒寫好*/
-				 //activityPost若有更改，重新上傳為絕對路徑可直接傳入；
-				 //若未更改則為回傳的是本地端儲存檔案的相對路徑，須轉換為絕對路徑才能使用FileInpustream讀取
-				 ActivityService activitySvc1=new ActivityService();
-				 ActivityVO originActivityVO=activitySvc1.getOneActivity(activityID);
-				 
-				 String abstactPath=getServletContext().getRealPath(req.getParameter("activityPost"));
-				 String activityPostValue=req.getParameter("activityPost");
+				
+				 Part part = req.getPart("activityPost");
 				 byte[] activityPost=null;
-				 /*狀況3原本沒值有更改*/
-				 if(originActivityVO.getActivityPost()==null&&activityPostValue.trim().length()!=0) {
-					  activityPost=this.getBytePost(activityPostValue);
-				 /*狀況4:原本沒值/沒更改*/
-				 }else if(originActivityVO.getActivityPost()==null&&activityPostValue.trim().length()==0) {
-					 activityPost=null;
-				/*狀況2: 原本有值/沒改*/
-				 }else if(originActivityVO.getActivityPost()!=null&&this.getBytePost(abstactPath)==originActivityVO.getActivityPost()){ 
-					activityPost=this.getBytePost(req.getParameter(abstactPath));
-				 /*狀況1 原本有值/有改*/
-				 }else {
-					 activityPost=this.getBytePost(activityPostValue);
-				 }
-				 
-				 
-				 System.out.println(req.getParameter("activityPost"));//測試路徑是否正常傳遞
+				
+				try { 
+					InputStream in = part.getInputStream();
+					activityPost = new byte[in.available()];
+					in.read(activityPost);
+					in.close();
+				}catch(Exception e) {
+							 errorMsgs.add("無法取得圖片"+e.getMessage());
+						 }
+				
 				 if(activityName==null||activityName.trim().length()==0){
 					 errorMsgs.add("活動名稱未填寫");
 				 }else if(activityInfo==null||activityInfo.trim().length()==0){
@@ -281,7 +272,6 @@ public class ActivServlet extends HttpServlet {
 				 activityVO.setActivityCode(activityCode);
 				 activityVO.setTokenAmount(tokenAmount);
 				 activityVO.setActivityPost(activityPost);
-				 
 				 
 				 /*修改的資料如有錯誤，資料包進VO送回原頁面*/
 				 if(!errorMsgs.isEmpty()) {
@@ -333,95 +323,7 @@ public class ActivServlet extends HttpServlet {
 			
 		}
 	}
-	/*用於初次客戶端上傳時秀圖*/
-	/*處理圖片存進本地資夾，以便用路徑名稱顯示在jsp網頁<img>標籤中，利於預設值並秀圖*/
-	/*parts裡可放多張Part型別的圖片*/
-	/*Part介面方便用於檔案上傳*/
-	public String writeInMyFileAndGetPath(Collection <Part>parts) {
-		String myPath="/img_saveFromDB"; //指定資料夾名稱
-		File file=new File(myPath);
-		String realPath=getServletContext().getRealPath(myPath);//先取得指定資料在進專案的真實路徑
-		System.out.println("realPath="+realPath);
-		File realPathFile=new File(realPath);
-		if(!realPathFile.exists()) {
-			realPathFile.mkdirs();//在專案裡建立目錄
-		}
-		for(Part part:parts) {
-			//取得上傳檔名
-		}
-		return realPath;
-	}
 	
-	
-	//byte[] 轉換真實相對路徑(才能秀圖)， 用acitivityID當檔名存入指定資料夾/img_saveFromDB
-	public String saveToGetPath(String acitivityID,byte[] acitivityPost,HttpServletRequest req ) {
-		/*取得相對路徑寫法*/
-//		String relativePath="/activity/img_saveFromDB"; //指定資料夾名稱
-//		String realPath=req.getContextPath()+relativePath;//先取得指定資料再進 ContextPath的路徑
-//		System.out.println("realPath="+realPath);
-//		File realPathFile=new File(realPath);
-//		if(!realPathFile.exists()) {
-//			realPathFile.mkdirs();//在 ContextPath裡建立目錄
-//		}
-		
-//		/*絕對路徑寫法 伺服器無法取讀本地端資料*/
-		String saveFile="/activity/img_saveFromDB"; /*指定儲存位置的資料夾名稱*/
-		String realPath=getServletContext().getRealPath(saveFile);//取得資料夾在ContextPath下的真實路徑
-		String relativePath=req.getContextPath()+saveFile; /*資料夾相對路徑*/
-		File relativeFile=new File(realPath);//ContextPath下自動建目錄
-		if(!relativeFile.exists()) {
-			relativeFile.mkdirs();
-		}
-		FileOutputStream fos=null;
-		String getRelativePath=relativePath+"\\"+acitivityID +".jpg";  /*檔案的相對路徑，回傳用*/
-		String saveAbstractPath=realPath+"\\"+acitivityID +".jpg"; /*檔案的絕對路徑，儲存用*/
-		//位元資料>bais讀入低階管>bis讀入高階管>fos寫出低階短管>檔案位置
-		
-		try {
-			fos=new FileOutputStream(saveAbstractPath); //存絕對路徑
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		//讀進
-		ByteArrayInputStream bais=new ByteArrayInputStream(acitivityPost);
-		BufferedInputStream bis=new BufferedInputStream(bais);
-		
-		int i;
-		try {
-			while((i=bis.read(acitivityPost))!=-1){	
-				fos.write(acitivityPost,0,i);
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-		}finally {
-			try {
-				bis.close();
-				bais.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		return getRelativePath; //回傳相對位置，伺服器才能取讀
-	}
-	
-	//將請求參數得到的圖片路徑讀入並 寫出byte[]
-	public byte[] getBytePost(String ClientPath) throws IOException {
-		File file=new File(ClientPath);
-		FileInputStream fis;
-		ByteArrayOutputStream baos;
-		byte[] bytePost;
-		
-			fis = new FileInputStream(file);
-			baos=new ByteArrayOutputStream();
-			bytePost=new byte[fis.available()];
-			while((fis.read(bytePost))!=-1) {
-				baos.write(bytePost);
-			}
-			baos.close();
-			fis.close();
-		return bytePost;
-	}
 	
 }
 
