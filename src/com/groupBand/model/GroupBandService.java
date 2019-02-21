@@ -84,5 +84,9 @@ public class GroupBandService {
 		
 	}
 	
+	public void deleteGroupBand(String empno) {
+		dao.delete(empno);
+	}
+	
 
 }

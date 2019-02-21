@@ -5,9 +5,7 @@
     <%@ page import="java.util.*"%>
     
     <%
-    GroupBandService groupBandSvc = new GroupBandService();
-    List<GroupBandVO> list = groupBandSvc.getAll();
-    pageContext.setAttribute("list",list);
+    GroupBandVO groupBandVO =(GroupBandVO) request.getAttribute("GroupBandVO");
 %>
     
     
@@ -15,7 +13,7 @@
 <html>
 <head>
 <meta charset="BIG5">
-<title>listAllGroupBand.jsp</title>
+<title>listOneGroupBand.jsp</title>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -87,28 +85,28 @@
 <th>修改資料</th>
 <th>刪除資料</th>
 </tr>
-<%@ include file="page1.file" %> 
-<c:forEach var="GroupBandVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+
+
 <tr>
-	<td>${GroupBandVO.groupID}</td>
-	<td>${GroupBandVO.content}</td>
-	<td>${GroupBandVO.launchTime}</td>
-	<td>${GroupBandVO.introduction}</td>
-	<td>${GroupBandVO.groupStatus}</td>
-	<td>${GroupBandVO.currenTnum}</td>
-	<td>${GroupBandVO.upperLimit}</td>
-	<td>${GroupBandVO.lowerLimit}</td>
-	<td>${GroupBandVO.groupName}</td>
-	<td>${GroupBandVO.groupLeader}</td>
-	<td>${GroupBandVO.startLoc}</td>
-	<td>${GroupBandVO.endLoc}</td>
-	<td>${GroupBandVO.privates}</td>
-	<td><img src="${GroupBandVO.photo}"width="100px"   height="100px"></td>
-	<td>${GroupBandVO.groupType}</td>
-	<td>${GroupBandVO.totalAmout}</td>
-	<td>${GroupBandVO.startTime}</td>
-	<td>${GroupBandVO.rate}</td>
-	<td>${GroupBandVO.note}</td>
+	<td><%=groupBandVO.getGroupID()%></td>
+	<td><%=groupBandVO.getContent()%></td>
+	<td><%=groupBandVO.getLaunchTime()%></td>
+	<td><%=groupBandVO.getIntroduction()%></td>
+	<td><%=groupBandVO.getGroupStatus()%></td>
+	<td><%=groupBandVO.getCurrenTnum()%></td>
+	<td><%=groupBandVO.getUpperLimit()%></td>
+	<td><%=groupBandVO.getLowerLimit()%></td>
+	<td><%=groupBandVO.getGroupName()%></td>
+	<td><%=groupBandVO.getGroupLeader()%></td>
+	<td><%=groupBandVO.getStartLoc()%></td>
+	<td><%=groupBandVO.getEndLoc()%></td>
+	<td><%=groupBandVO.getPrivates()%></td>
+	<td><%=groupBandVO.getPhoto()%></td>
+	<td><%=groupBandVO.getGroupType()%></td>
+	<td><%=groupBandVO.getTotalAmout()%></td>
+	<td><%=groupBandVO.getStartTime()%></td>
+	<td><%=groupBandVO.getRate()%></td>
+	<td><%=groupBandVO.getNote()%></td>
 <td>
 <form action="/PiCar/GroupBand" method="POST" enctype="multipart/form-data"style="margin-bottom: 0px;">
 	<input type="submit" value="修改">
@@ -123,9 +121,9 @@
 	<input type="hidden" name="action"	value="delete"></FORM>
 </td>
 </tr>
-</c:forEach>
+
 </table>
-<%@ include file="page2.file" %>
+
 
 
 </body>

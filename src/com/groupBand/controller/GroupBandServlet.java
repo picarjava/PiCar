@@ -53,7 +53,62 @@ public class GroupBandServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-	   	
+		if ("getOne_For_Display".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				String groupID = req.getParameter("groupID");
+				if (groupID == null || (groupID.trim()).length() == 0) {
+					errorMsgs.add("錯誤拉");
+				}
+				GroupBandService groupBandService = new GroupBandService();
+				GroupBandVO groupBandVO = groupBandService.getOneGroupBand(groupID);
+				if (groupBandVO == null) {
+					errorMsgs.add("�d�L���");
+				}
+			
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/groupBand/SelectGroupBand.jsp");
+					failureView.forward(req, res);
+					return;//�{�����_
+				}
+				
+				req.setAttribute("GroupBandVO", groupBandVO);
+				String url = "/front-end/groupBand/listOneGroupBand.jsp";
+				
+			} catch (Exception e) {
+				errorMsgs.add("�L�k���o���:" + e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/groupBand/SelectGroupBand.jsp");
+				failureView.forward(req, res);
+			}
+			
+			
+			
+		}
+		if ("delete".equals(action)){
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				String groupID = req.getParameter("groupID");
+				 
+				GroupBandService groupBandService  = new GroupBandService();
+				
+				groupBandService.deleteGroupBand(groupID);
+				
+				String url = "/front-end/groupBand/listAllGroupBand.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url);// �R�����\��,���^�e�X�R�����ӷ�����
+				successView.forward(req, res);
+				
+			} catch (Exception e) {
+				errorMsgs.add("�R����ƥ���:"+e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/groupBand/listAllGroupBand.jsp");
+				failureView.forward(req, res);
+			}
+			
+		}
 		if ("getOne_For_Update".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -70,7 +125,7 @@ public class GroupBandServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("�L�k���o�n�ק諸���:" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/emp/listAllEmp.jsp");
+						.getRequestDispatcher("/front-end/groupBand/listAllGroupBand.jsp");
 				failureView.forward(req, res);
 			}
 			

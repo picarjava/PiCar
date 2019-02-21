@@ -4,6 +4,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.*;
 
@@ -260,8 +261,8 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 				groupBandVO.setGroupLeader(rs.getString("GROUP_LEADER"));
 				groupBandVO.setStartLoc(rs.getString("START_LOC"));
 				groupBandVO.setEndLoc(rs.getString("END_LOC"));
-				groupBandVO.setPrivates(rs.getInt("PRIVATES"));
-				groupBandVO.setPhoto(rs.getBytes("PHOTO"));
+				groupBandVO.setPrivates(rs.getInt("PRIVATES"));				
+				groupBandVO.setPhoto(rs.getBytes("PHOTO"));	 
 				groupBandVO.setGroupType(rs.getString("GROUP_TYPE"));
 				groupBandVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
 				groupBandVO.setStartTime(rs.getDate("START_TIME"));
