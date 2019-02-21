@@ -8,7 +8,7 @@ public class BroadcastService {
 
 	//創建DAO 實體保存在DAO介面的實體變數
 public BroadcastService() {
-	dao = new BroadcastJDBCDAO();
+	dao = new BroadcastJNDIDAO();
 		}
 public BroadcastVO addBroadcast(String msgID,String memID , String message, Integer confirmed ) {
 	BroadcastVO broadcastVO = new BroadcastVO( );
@@ -45,7 +45,7 @@ public List<BroadcastVO> getAll() {
 	return dao.getAll();
 }
 
-public BroadcastVO getOneDriver(String broadcastVO) {
+public BroadcastVO getOneBroadcast(String broadcastVO) {
 	return dao.findByPrimaryKey(broadcastVO);
 }
 
