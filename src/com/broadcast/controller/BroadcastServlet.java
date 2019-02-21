@@ -111,7 +111,7 @@ public class BroadcastServlet extends HttpServlet {
 //		         String msgID = req.getParameter("msgID");
 //				
 //				/***************************2.�}�l�d�߸��****************************************/
-				BroadcastService brodSvc = new BroadcastService();
+//				BroadcastService brodSvc = new BroadcastService();
 //				BroadcastVO brodVO = brodSvc.getOneBroadcast(msgid);
 //								
 //				/***************************3.�d�ߧ���,�ǳ����(Send the Success view)************/
@@ -154,14 +154,7 @@ public class BroadcastServlet extends HttpServlet {
 //					errorMsgs.add("¾��ФŪť�");
 //				}	
 //				
-//				java.sql.Date hiredate = null;
-//				try {
-//					hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
-//				} catch (IllegalArgumentException e) {
-//					hiredate=new java.sql.Date(System.currentTimeMillis());
-//					errorMsgs.add("�п�J���!");
-//				}
-//
+
 //				Double sal = null;
 //				try {
 //					sal = new Double(req.getParameter("sal").trim());
@@ -170,24 +163,15 @@ public class BroadcastServlet extends HttpServlet {
 //					errorMsgs.add("�~��ж�Ʀr.");
 //				}
 //
-//				Double comm = null;
-//				try {
-//					comm = new Double(req.getParameter("comm").trim());
-//				} catch (NumberFormatException e) {
-//					comm = 0.0;
-//					errorMsgs.add("�����ж�Ʀr.");
-//				}
-//
+
 //				Integer deptno = new Integer(req.getParameter("deptno").trim());
 //
 //				BroadcastVO brodVO= new BroadcastVO();
-//				empVO.setEmpno(empno);
-//				empVO.setEname(ename);
-//				empVO.setJob(job);
-//				empVO.setHiredate(hiredate);
-//				empVO.setSal(sal);
-//				empVO.setComm(comm);
-//				empVO.setDeptno(deptno);
+//				brodVO.setEmpno(empno);
+//				brodVO.setEname(ename);
+//				brodVO.setJob(job);
+//				brodVO.setHiredate(hiredate);
+
 //
 //				// Send the use back to the form, if there were errors
 //				if (!errorMsgs.isEmpty()) {
@@ -217,88 +201,75 @@ public class BroadcastServlet extends HttpServlet {
 //			}
 //		}
 ////////////////////////////////////////////////////////////////
-//        if ("insert".equals(action)) { // �Ӧ�addEmp.jsp���ШD  
-//			
-//			List<String> errorMsgs = new LinkedList<String>();
-//			// Store this set in the request scope, in case we need to
-//			// send the ErrorPage view.
-//			req.setAttribute("errorMsgs", errorMsgs);
-//
-//			try {
-//				/***********************1.�����ШD�Ѽ� - ��J�榡�����~�B�z*************************/
-//				String ename = req.getParameter("ename");
-//				String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-//				if (ename == null || ename.trim().length() == 0) {
-//					errorMsgs.add("���u�m�W: �ФŪť�");
-//				} else if(!ename.trim().matches(enameReg)) { //�H�U�m�ߥ��h(�W)��ܦ�(regular-expression)
-//					errorMsgs.add("���u�m�W: �u��O���B�^��r���B�Ʀr�M_ , �B���ץ��ݦb2��10����");
-//	            }
-//				
-//				String job = req.getParameter("job").trim();
-//				if (job == null || job.trim().length() == 0) {
+        if ("insert".equals(action)) { // 來自addEmp.jsp的請求  
+			
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				/************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+				String msgID = req.getParameter("msgID");
+				String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+				if (msgID == null || msgID.trim().length() == 0) {
+					errorMsgs.add("員工姓名: 請勿空白");
+				} else if(!msgID.trim().matches(enameReg)) { ////以下練習正則(規)表示式(regular-expression)
+					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間�");
+	            }
+				
+				String memID = "M001";
+						
+//						req.getParameter("memID").trim();
+//				if (memID == null || memID.trim().length() == 0) {
 //					errorMsgs.add("¾��ФŪť�");
 //				}
-//				
-//				java.sql.Date hiredate = null;
-//				try {
-//					hiredate = java.sql.Date.valueOf(req.getParameter("hiredate").trim());
-//				} catch (IllegalArgumentException e) {
-//					hiredate=new java.sql.Date(System.currentTimeMillis());
-//					errorMsgs.add("�п�J���!");
-//				}
-//				
-//				Double sal = null;
-//				try {
-//					sal = new Double(req.getParameter("sal").trim());
-//				} catch (NumberFormatException e) {
-//					sal = 0.0;
-//					errorMsgs.add("�~��ж�Ʀr.");
-//				}
-//				
-//				Double comm = null;
-//				try {
-//					comm = new Double(req.getParameter("comm").trim());
-//				} catch (NumberFormatException e) {
-//					comm = 0.0;
-//					errorMsgs.add("�����ж�Ʀr.");
-//				}
-//				
-//				Integer deptno = new Integer(req.getParameter("deptno").trim());
-//
-//				BroadcastVO brodVO = new BroadcastVO();
-//				empVO.setEname(ename);
-//				empVO.setJob(job);
-//				empVO.setHiredate(hiredate);
-//				empVO.setSal(sal);
-//				empVO.setComm(comm);
-//				empVO.setDeptno(deptno);
-//
-//				// Send the use back to the form, if there were errors
-//				if (!errorMsgs.isEmpty()) {
-//					req.setAttribute("brodVO", brodVO); // �t����J�榡���~��empVO����,�]�s�Jreq
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/broadcast/addEmp.jsp");
-//					failureView.forward(req, res);
-//					return;
-//				}
-//				
-//				/***************************2.�}�l�s�W���***************************************/
-//				BroadcastService brodSvc = new BroadcastService();
-//				brodVO = brodSvc.addEmp(ename, job, hiredate, sal, comm, deptno);
-//				
-//				/***************************3.�s�W����,�ǳ����(Send the Success view)***********/
-//				String url = "/broadcast/listAllEmp.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
-//				successView.forward(req, res);				
-//				
-//				/***************************��L�i�઺���~�B�z**********************************/
-//			} catch (Exception e) {
-//				errorMsgs.add(e.getMessage());
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/broadcast/addEmp.jsp");
-//				failureView.forward(req, res);
-//			}
-//		}
+				
+
+				String message = null;
+				try {
+					message = new String (req.getParameter("message").trim());
+				} catch (NumberFormatException e) {
+					message = "";
+					errorMsgs.add("�����ж�Ʀr.");
+				}
+				
+				Integer confirmed = new Integer(req.getParameter("confirmed").trim());
+
+				BroadcastVO brodVO = new BroadcastVO();
+				
+				brodVO.setMsgID(msgID);
+				brodVO.setMemID(memID);
+				brodVO.setMessage(message);
+				brodVO.setConfirmed(confirmed);
+
+
+				// Send the use back to the form, if there were errors
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("brodVO", brodVO); // �t����J�榡���~��empVO����,�]�s�Jreq
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/broadcast/addBrod.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+				
+				/***************************2.�}�l�s�W���***************************************/
+				BroadcastService brodSvc = new BroadcastService();
+				brodVO = brodSvc.addBroadcast(msgID, memID, message, confirmed);
+				
+				/***************************3.�s�W����,�ǳ����(Send the Success view)***********/
+				String url = "/broadcast/listAllEmp.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
+				successView.forward(req, res);				
+				
+				/***************************��L�i�઺���~�B�z**********************************/
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/broadcast/addBrod.jsp");
+				failureView.forward(req, res);
+			}
+		}
 //		
 //		//////////////////////////////////////////////////////
 //		if ("delete".equals(action)) { // �Ӧ�listAllEmp.jsp

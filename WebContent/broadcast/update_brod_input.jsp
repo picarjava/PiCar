@@ -3,13 +3,13 @@
 <%@ page import="com.broadcast.model.*"%>
 
 <%
-BroadcastVO brodVO = (BroadcastVO) request.getAttribute("brodVO");
+BroadcastVO brodVO = (BroadcastVO) request.getAttribute("brodVO"); //EmpServlet.java (Concroller) 存入req的empVO物件 (包括幫忙取出的empVO, 也包括輸入資料錯誤時的empVO物件)
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>推播資料新增 - addBrod.jsp</title>
+<title>員工資料修改 - update_emp_input.jsp</title>
 
 <style>
   table#table-1 {
@@ -48,12 +48,12 @@ BroadcastVO brodVO = (BroadcastVO) request.getAttribute("brodVO");
 
 <table id="table-1">
 	<tr><td>
-		 <h3>推播資料新增 - addBrod.jsp</h3></td><td>
-		 <h4><a href="select_page.jsp">回首頁</a></h4>
+		 <h3>員工資料修改 - update_emp_input.jsp</h3>
+		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
 
-<h3>資料新增:</h3>
+<h3>資料修改:</h3>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -65,35 +65,37 @@ BroadcastVO brodVO = (BroadcastVO) request.getAttribute("brodVO");
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="broadcast.do" name="form1">
+<FORM METHOD="post" ACTION="emp.do" name="form1">
 <table>
 	<tr>
 		<td>推播編號:</td>
-		<td><input type="TEXT" name="msgID" size="45" 
-			 value="<%= (brodVO==null)? "MSG003" : brodVO.getMsgID()%>" /></td>
+		<td><input type="TEXT" name="ename" size="45" 
+			 value="<%= (brodVO==null)? "吳永志" : brodVO.getMsgID()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員編號:</td>
-		<td><input type="TEXT" name="memID" size="45"
-			 value="<%= (brodVO==null)? "M001" : brodVO.getMemID()%>" /></td>
+		<td><input type="TEXT" name="job" size="45"
+			 value="<%= (brodVO==null)? "MANAGER" : brodVO.getMemID()%>" /></td>
 	</tr>
 	<tr>
 		<td>訊息內容:</td>
-		<td><input type="TEXT" name="message" size="45"
+		<td><input type="TEXT" name="sal" size="45"
 			 value="<%= (brodVO==null)? "10000" : brodVO.getMessage()%>" /></td>
 	</tr>
 	<tr>
 		<td>是否已讀:</td>
-		<td><input type="TEXT" name="confirm" size="45"
-			 value="<%= (brodVO==null)? "0" : brodVO.getConfirmed()%>" /></td>
+		<td><input type="TEXT" name="comm" size="45"
+			 value="<%= (brodVO==null)? "100" : brodVO.getConfirmed()%>" /></td>
 	</tr>
+
 
 
 </table>
 <br>
-<input type="hidden" name="action" value="insert">
-<input type="submit" value="送出新增"></FORM>
+<input type="hidden" name="action" value="update"/>
+<input type="submit" value="送出修改"></FORM>
 </body>
+
 
 
 </html>
