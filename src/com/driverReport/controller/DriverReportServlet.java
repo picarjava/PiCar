@@ -159,10 +159,10 @@ public class DriverReportServlet extends HttpServlet {
 						
 					Integer state = new Integer(req.getParameter("state"));
 					try {
-					if (state>1) 
+					if (state>1 || state==null) 
 							errorMsgs.add("處理狀態只能0或1");
-					} catch (NullPointerException ne) {
-						ne.getMessage();
+					} catch (Exception e) {
+						e.getMessage();
 					}
 					
 					
