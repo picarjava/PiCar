@@ -46,7 +46,7 @@ public class SingleOrderServlet extends HttpServlet{
                 forwordURL = "/front-end/singleOrder/selectSingleOrder.jsp";
             } // if
         } else if ("insert".equals(action)) {
-            String memID = req.getParameter("memId");
+            String memID = req.getParameter("memID");
             Date startTime = parseDate(req.getParameter("startTime"));
             String startLoc = req.getParameter("startLoc");
             String endLoc = req.getParameter("endLoc");

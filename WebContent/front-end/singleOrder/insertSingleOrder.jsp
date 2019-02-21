@@ -27,7 +27,7 @@
         </div>
     </c:if>
     <form action="/PiCar/singleOrder" method="POST">
-        <label for="memId">會員ID </label><input type="text" name="memId" id="memID" value="${singleOrder.memID}"/><br>
+        <label for="memId">會員ID </label><input type="text" name="memID" id="memID" value="${singleOrder.memID}"/><br>
         <label for="startTime">上車時間 </label><input type="date" name="startTime" id="startTime" value="${singleOrder.startTime}"/><br>
         <label for="startLoc">上車地點 </label><input type="text" name="startLoc" id="startLoc" value="${singleOrder.startLoc}"/><br>
         <label for="endLoc">下車地點 </label><input type="text" name="endLoc" id="endLoc" value="${singleOrder.endLoc}"/><br>
