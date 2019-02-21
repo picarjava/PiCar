@@ -113,7 +113,7 @@ th, td {
 			<tr>
 				<td>簡介:</td>
 
-				<td><textarea name="introduction" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "" : groupBandVO.getNote()%> </textarea></td>
+				<td><textarea name="introduction" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "好吃嗎".trim() : groupBandVO.getIntroduction().trim()%></textarea></td>
 			</tr>
 
 			<tr>
@@ -121,7 +121,9 @@ th, td {
 
 				<td><input type="file" name="photo" size="25"
 					value="<%=(groupBandVO == null) ? "" : groupBandVO.getPhoto()%>" />
+					<img src="/PiCar/GroupBand?groupID=${GroupBandVO.groupID}" width="100px"   height="100px">
 				</td>
+				
 			</tr>
 
 			<tr>
@@ -204,7 +206,7 @@ th, td {
 
 			<td>備註:</td>
 
-			<td><textarea name="note" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "" : groupBandVO.getNote()%> </textarea></td>
+			<td><textarea name="note" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "".trim() : groupBandVO.getNote().trim()%></textarea></td>
 			</tr>
 			<tr>
 				<td>隱私設定:</td>

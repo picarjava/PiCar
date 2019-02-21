@@ -62,7 +62,7 @@
 		</c:forEach>
 	</ul>
 </c:if>
-
+ <a href="SelectGroupBand.jsp" >查詢</a>
 <table>
 <tr>
 <th>揪團ID</th>

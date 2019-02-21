@@ -79,7 +79,7 @@ public class GroupBandServlet extends HttpServlet {
 				GroupBandService groupBandService = new GroupBandService();
 				GroupBandVO groupBandVO = groupBandService.getOneGroupBand(groupID);
 				if (groupBandVO == null) {
-					errorMsgs.add("�d�L���");
+					errorMsgs.add("格式不正確");
 				}
 			
 				if (!errorMsgs.isEmpty()) {
@@ -91,9 +91,10 @@ public class GroupBandServlet extends HttpServlet {
 				
 				req.setAttribute("GroupBandVO", groupBandVO);
 				String url = "/front-end/groupBand/listOneGroupBand.jsp";
-				
+				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
+				successView.forward(req, res);
 			} catch (Exception e) {
-				errorMsgs.add("�L�k���o���:" + e.getMessage());
+				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/groupBand/SelectGroupBand.jsp");
 				failureView.forward(req, res);
@@ -117,7 +118,7 @@ public class GroupBandServlet extends HttpServlet {
 				successView.forward(req, res);
 				
 			} catch (Exception e) {
-				errorMsgs.add("�R����ƥ���:"+e.getMessage());
+				errorMsgs.add("無法取得資料:"+e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/groupBand/listAllGroupBand.jsp");
 				failureView.forward(req, res);
@@ -138,7 +139,7 @@ public class GroupBandServlet extends HttpServlet {
 			RequestDispatcher successView = req.getRequestDispatcher(url);// ���\��� update_emp_input.jsp
 			successView.forward(req, res);
 			} catch (Exception e) {
-				errorMsgs.add("�L�k���o�n�ק諸���:" + e.getMessage());
+				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req
 						.getRequestDispatcher("/front-end/groupBand/listAllGroupBand.jsp");
 				failureView.forward(req, res);
@@ -214,22 +215,19 @@ public class GroupBandServlet extends HttpServlet {
 					  }
 				
 				byte[] photo=null;
+				Part part = req.getPart("photo");
+				long size = part.getSize();
+				System.out.println(size);
+				InputStream in = part.getInputStream();
 				
-				Collection<Part> parts = req.getParts();
-				for (Part part : parts) {
-					if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
-					
+				photo = new byte[in.available()];							
+				if(in.available()!=0) {
+					in.read(photo); 
+					in.close();		
+					}else {
+						errorMsgs.add("請上傳照片");
 						
-						long size = part.getSize();
-
-						// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
-						InputStream in = part.getInputStream();
-						photo = new byte[in.available()];						
-						in.close();						
 					}
-				}
-				
-				
 				
 				
 				String groupType = req.getParameter("groupType");
@@ -246,12 +244,20 @@ public class GroupBandServlet extends HttpServlet {
 			
 				if("1".equals(req.getParameter("orderT"))) {
 					startTimes=req.getParameter("startTime");
+					if(startTimes==null || "".equals(startTimes)) {
+						errorMsgs.add("日期: 請勿空白");
+						
+						
+					}
 				}
 				else {
 				    startTimes=req.getParameter("startTimes");
-				}			
-				
-				startTime = new Date(simpleDateFormat.parse(startTimes).getTime());
+				    if(startTimes==null || "".equals(startTimes)) {
+						errorMsgs.add("日期: 請勿空白");
+						
+						
+					}
+				}
 //				} catch (IllegalArgumentException e) {
 //					startTime=new java.sql.Date(System.currentTimeMillis());
 //					errorMsgs.add("請輸入日期!");
@@ -264,9 +270,9 @@ public class GroupBandServlet extends HttpServlet {
 				String note =req.getParameter("note");
 				String notes = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
 				if (note == null || note.trim().length() == 0) {
-					errorMsgs.add("員工姓名: 請勿空白");
+					errorMsgs.add("備註: 請勿空白");
 				} else if(!note.trim().matches(notes)) { //以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+					errorMsgs.add("備註: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 	            }
 				
 				
@@ -407,14 +413,22 @@ public class GroupBandServlet extends HttpServlet {
 //					}
 					
 					
-					Part part = req.getPart("photo");
+					Part part =null;
+					part = req.getPart("photo");
+					System.out.println(part);
+					
 					long size = part.getSize();
 					System.out.println(size);
 					InputStream in = part.getInputStream();
+					
 					photo = new byte[in.available()];
+					if(in.available()!=0) {
 					in.read(photo); 
 					in.close();		
-					
+					}else {
+						errorMsgs.add("請上傳照片");
+						
+					}
 					String groupType = req.getParameter("groupType");
 					
 					
@@ -423,15 +437,26 @@ public class GroupBandServlet extends HttpServlet {
 				
 					java.sql.Date startTime = null;
 //					try {
+					
 					String startTimes =null;
 					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				
 				
 					if("1".equals(req.getParameter("orderT"))) {
 						startTimes=req.getParameter("startTime");
+						if(startTimes==null || "".equals(startTimes)) {
+							errorMsgs.add("日期: 請勿空白");
+							
+							
+						}
 					}
 					else {
 					    startTimes=req.getParameter("startTimes");
+					    if(startTimes==null || "".equals(startTimes)) {
+							errorMsgs.add("日期: 請勿空白");
+							
+							
+						}
 					}			
 					
    				startTime = new Date(simpleDateFormat.parse(startTimes).getTime());
@@ -447,9 +472,9 @@ public class GroupBandServlet extends HttpServlet {
 					String note =req.getParameter("note");
 					String notes = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
 					if (note == null || note.trim().length() == 0) {
-						errorMsgs.add("員工姓名: 請勿空白");
+						errorMsgs.add("備註: 請勿空白");
 					} else if(!note.trim().matches(notes)) { //以下練習正則(規)表示式(regular-expression)
-						errorMsgs.add("員工姓名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+						errorMsgs.add("備註: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 		            }
 					
 					
