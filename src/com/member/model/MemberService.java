@@ -30,7 +30,7 @@ public class MemberService {
 		memberVO.setBirthday(birthday);
 		memberVO.setVerified(verified);
 		memberVO.setBabySeat(babySeat);
-		dao.update(memberVO);
+		dao.insert(memberVO);
 
 		return memberVO;
 	}
