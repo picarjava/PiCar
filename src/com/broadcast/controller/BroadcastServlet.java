@@ -18,9 +18,7 @@ import com.broadcast.model.BroadcastVO;
 public class BroadcastServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
+
     public BroadcastServlet() {
         super();
         // TODO Auto-generated constructor stub
@@ -35,73 +33,73 @@ public class BroadcastServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 		
-		if ("getOne_For_Display".equals(action)) { // �Ӧ�select_page.jsp���ШD
+		if ("getOne_For_Display".equals(action)) { // 來自select_page.jsp的請求
 
-			List<String> errorMsgs = new LinkedList<String>();
+			List<String> errorMsgs = new LinkedList<String>();	
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
-				/***************************1.�����ШD�Ѽ� - ��J�榡�����~�B�z**********************/
+				/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
 				String msgID = req.getParameter("msgID");
 				
 				if (msgID == null || (msgID.trim()).length() == 0) {
-					errorMsgs.add("�п�J���u�s��");
+					errorMsgs.add("請輸入推播編號");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/emp/select_page.jsp");
+							.getRequestDispatcher("/broadcast/select_page.jsp");
 					failureView.forward(req, res);
-					return;//�{�����_
+					return;//程式中斷
 				}
 				
-				Integer empno = null;
+				String msgid = null;
 				try {
-					empno = new Integer(msgID);
+					msgid = new String(msgID);
 				} catch (Exception e) {
-					errorMsgs.add("���u�s���榡�����T");
+					errorMsgs.add("推播編號格式不正確");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/emp/select_page.jsp");
+							.getRequestDispatcher("/broadcast/select_page.jsp");
 					failureView.forward(req, res);
-					return;//�{�����_
+					return;//程式中斷
 				}
 				
-				/***************************2.�}�l�d�߸��*****************************************/
+				/***************************2.開始查詢資料*****************************************/
 				BroadcastService brodSvc = new BroadcastService();
-				BroadcastVO brodVO = brodSvc.getOneDriver(broadcastVO);
+				BroadcastVO brodVO = brodSvc.getOneBroadcast(msgid);
 				if (brodVO == null) {
-					errorMsgs.add("�d�L���");
+					errorMsgs.add("查無資料");
 				}
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/emp/select_page.jsp");
+							.getRequestDispatcher("/broadcast/select_page.jsp");
 					failureView.forward(req, res);
 					return;//�{�����_
 				}
 				
-				/***************************3.�d�ߧ���,�ǳ����(Send the Success view)*************/
-				req.setAttribute("brodVO", brodVO); // ��Ʈw���X��empVO����,�s�Jreq
-				String url = "/emp/listOneEmp.jsp";
+				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
+				req.setAttribute("brodVO", brodVO); // 資料庫取出的empVO物件,存入req
+				String url = "/broadcast/listOneEmp.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
 				successView.forward(req, res);
 
 				/***************************��L�i�઺���~�B�z*************************************/
 			} catch (Exception e) {
-				errorMsgs.add("�L�k���o���:" + e.getMessage());
+				errorMsgs.add("無法取得資料::" + e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/emp/select_page.jsp");
+						.getRequestDispatcher("/broadcast/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
 		
-
-//		if ("getOne_For_Update".equals(action)) { // �Ӧ�listAllEmp.jsp���ШD
+////////////////////////////////////////////////////////////////////////////////
+//		if ("getOne_For_Update".equals(action)) {  // 來自listAllEmp.jsp的請求
 //
 //			List<String> errorMsgs = new LinkedList<String>();
 //			// Store this set in the request scope, in case we need to
@@ -109,29 +107,29 @@ public class BroadcastServlet extends HttpServlet {
 //			req.setAttribute("errorMsgs", errorMsgs);
 //			
 //			try {
-//				/***************************1.�����ШD�Ѽ�****************************************/
-//				Integer empno = new Integer(req.getParameter("empno"));
+		/***************************1.接收請求參數 - 輸入格式的錯誤處理**********************/
+//		         String msgID = req.getParameter("msgID");
 //				
 //				/***************************2.�}�l�d�߸��****************************************/
-//				BroadcastService brodSvc = new BroadcastService();
-//				BroadcastVO brodVO = empSvc.getOneEmp(empno);
+				BroadcastService brodSvc = new BroadcastService();
+//				BroadcastVO brodVO = brodSvc.getOneBroadcast(msgid);
 //								
 //				/***************************3.�d�ߧ���,�ǳ����(Send the Success view)************/
 //				req.setAttribute("brodVO", brodVO);         // ��Ʈw���X��empVO����,�s�Jreq
-//				String url = "/emp/update_emp_input.jsp";
-//				RequestDispatcher successView = req.getRequestDispatcher(url);// ���\��� update_emp_input.jsp
+//				String url = "/broadcast/update_emp_input.jsp";
+//				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_emp_input.jsp
 //				successView.forward(req, res);
 //
 //				/***************************��L�i�઺���~�B�z**********************************/
 //			} catch (Exception e) {
-//				errorMsgs.add("�L�k���o�n�ק諸���:" + e.getMessage());
+//				errorMsgs.add("無法取得要修改的資料::" + e.getMessage());
 //				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/emp/listAllEmp.jsp");
+//						.getRequestDispatcher("/broadcast/listAllBrod.jsp");
 //				failureView.forward(req, res);
 //			}
 //		}
 //		
-//		
+//		///////////////////////////////////////////////
 //		if ("update".equals(action)) { // �Ӧ�update_emp_input.jsp���ШD
 //			
 //			List<String> errorMsgs = new LinkedList<String>();
@@ -195,18 +193,18 @@ public class BroadcastServlet extends HttpServlet {
 //				if (!errorMsgs.isEmpty()) {
 //					req.setAttribute("brodVO", brodVO); // �t����J�榡���~��empVO����,�]�s�Jreq
 //					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/emp/update_emp_input.jsp");
+//							.getRequestDispatcher("/broadcast/update_emp_input.jsp");
 //					failureView.forward(req, res);
 //					return; //�{�����_
 //				}
 //				
 //				/***************************2.�}�l�ק���*****************************************/
 //				BroadcastService brodSvc = new BroadcastService();
-//				brodVO = empSvc.updateEmp(empno, ename, job, hiredate, sal,comm, deptno);
+//				brodVO = brodSvc.updateEmp(empno, ename, job, hiredate, sal,comm, deptno);
 //				
 //				/***************************3.�ק粒��,�ǳ����(Send the Success view)*************/
 //				req.setAttribute("brodVO", brodVO); // ��Ʈwupdate���\��,���T����empVO����,�s�Jreq
-//				String url = "/emp/listOneEmp.jsp";
+//				String url = "/broadcast/listOneEmp.jsp";
 //				RequestDispatcher successView = req.getRequestDispatcher(url); // �ק令�\��,���listOneEmp.jsp
 //				successView.forward(req, res);
 //
@@ -214,11 +212,11 @@ public class BroadcastServlet extends HttpServlet {
 //			} catch (Exception e) {
 //				errorMsgs.add("�ק��ƥ���:"+e.getMessage());
 //				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/emp/update_emp_input.jsp");
+//						.getRequestDispatcher("/broadcast/update_emp_input.jsp");
 //				failureView.forward(req, res);
 //			}
 //		}
-//
+////////////////////////////////////////////////////////////////
 //        if ("insert".equals(action)) { // �Ӧ�addEmp.jsp���ШD  
 //			
 //			List<String> errorMsgs = new LinkedList<String>();
@@ -279,17 +277,17 @@ public class BroadcastServlet extends HttpServlet {
 //				if (!errorMsgs.isEmpty()) {
 //					req.setAttribute("brodVO", brodVO); // �t����J�榡���~��empVO����,�]�s�Jreq
 //					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/emp/addEmp.jsp");
+//							.getRequestDispatcher("/broadcast/addEmp.jsp");
 //					failureView.forward(req, res);
 //					return;
 //				}
 //				
 //				/***************************2.�}�l�s�W���***************************************/
 //				BroadcastService brodSvc = new BroadcastService();
-//				brodVO = empSvc.addEmp(ename, job, hiredate, sal, comm, deptno);
+//				brodVO = brodSvc.addEmp(ename, job, hiredate, sal, comm, deptno);
 //				
 //				/***************************3.�s�W����,�ǳ����(Send the Success view)***********/
-//				String url = "/emp/listAllEmp.jsp";
+//				String url = "/broadcast/listAllEmp.jsp";
 //				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
 //				successView.forward(req, res);				
 //				
@@ -297,12 +295,12 @@ public class BroadcastServlet extends HttpServlet {
 //			} catch (Exception e) {
 //				errorMsgs.add(e.getMessage());
 //				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/emp/addEmp.jsp");
+//						.getRequestDispatcher("/broadcast/addEmp.jsp");
 //				failureView.forward(req, res);
 //			}
 //		}
 //		
-//		
+//		//////////////////////////////////////////////////////
 //		if ("delete".equals(action)) { // �Ӧ�listAllEmp.jsp
 //
 //			List<String> errorMsgs = new LinkedList<String>();
@@ -316,10 +314,10 @@ public class BroadcastServlet extends HttpServlet {
 //				
 //				/***************************2.�}�l�R�����***************************************/
 //				BroadcastService brodSvc = new BroadcastService();
-//				empSvc.deleteEmp(empno);
+//				brodSvc.deleteEmp(empno);
 //				
 //				/***************************3.�R������,�ǳ����(Send the Success view)***********/								
-//				String url = "/emp/listAllEmp.jsp";
+//				String url = "/broadcast/listAllEmp.jsp";
 //				RequestDispatcher successView = req.getRequestDispatcher(url);// �R�����\��,���^�e�X�R�����ӷ����
 //				successView.forward(req, res);
 //				
@@ -327,7 +325,7 @@ public class BroadcastServlet extends HttpServlet {
 //			} catch (Exception e) {
 //				errorMsgs.add("�R����ƥ���:"+e.getMessage());
 //				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/emp/listAllEmp.jsp");
+//						.getRequestDispatcher("/broadcast/listAllEmp.jsp");
 //				failureView.forward(req, res);
 //			}
 //		}

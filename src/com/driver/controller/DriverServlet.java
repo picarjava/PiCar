@@ -38,172 +38,172 @@ public class DriverServlet extends HttpServlet {
 		doPost(req, res);
 	}
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setContentType("text/html;charset=UTF-8");
-		String action = req.getParameter("action");
-		RequestDispatcher requestDispatcher;
-		RequestDispatcher failurePage;
-		DriverService service = new DriverService(); // 以VO物件傳送參數
-
-		String memID ;
-		String driverID = "DR003";
-		String plateNum = "123";
-//		byte[] licence;
-//		byte[] criminal;
-//		byte[] trafficRecord;
-//		byte[] idNum;
-//		byte[] photo;
-		Integer verified= 1;
-		Integer banned= 1;
-//		Date deadline= null;
-		Integer onlineCar= 1;
-		Integer score= 60;
-		String carType= null;
-		Integer sharedCar = 1;
-		Integer pet= 1;
-		Integer smoke= 1;
-		Integer babySeat= 1;
-//參考241 insertgroup
-		if ("INSERT".equals(action)) { // 來自value=INSERT
-			List<String> errorMsgs = new LinkedList<String>();
-			// Store this set in the request scope, in case we need to send the ErrorPage
-			// view.
-			req.setAttribute("errorMsgs", errorMsgs);
-
-			try {
-				memID = req.getParameter("memID");
-				if (memID == null || memID.trim().length() == 0) {
-					errorMsgs.add("會員編號未填寫");
-				}
-				driverID = req.getParameter("driverID");
-				plateNum = req.getParameter("plateNum");
-//				licence = req.getParameter("licence");
-//				criminal = req.getParameter("criminal");
-//				trafficRecord = req.getParameter("trafficRecord");
-//				idNum = req.getParameter("idNum");
-//				photo = req.getParameter("photo");
-				verified = new Integer(req.getParameter("verified"));
-				banned = new Integer(req.getParameter("banned"));
-//				deadline = req.getParameter("deadline");
-				onlineCar = new Integer(req.getParameter("onlineCar"));
-				score = new Integer(req.getParameter("score"));
-				carType = req.getParameter("carType");
-				sharedCar = new Integer(req.getParameter("sharedCar"));
-				pet = new Integer(req.getParameter("pet"));
-				smoke = new Integer(req.getParameter("smoke"));
-				babySeat =new Integer(req.getParameter("babySeat"));
-
-				DriverVO driverVO = new DriverVO();
-				driverVO.setMemID(memID);//
-				driverVO.setDriverID(driverID);//
-				driverVO.setPlateNum(plateNum);
-//				driverVO.setLicence(licence);
-//				driverVO.setCriminal(criminal);
-//				driverVO.setTrafficRecord(trafficRecord);
-//				driverVO.setIdNum(idNum);
-//				driverVO.setPhoto(photo);
-				driverVO.setVerified(verified);//
-				driverVO.setBanned(banned);//
-//				driverVO.setDeadline(deadline);//
-				driverVO.setOnlineCar(onlineCar );//
-				driverVO.setScore(score );//
-				driverVO.setCarType(carType);
-				driverVO.setSharedCar(sharedCar);//
-				driverVO.setPet(pet);//
-				driverVO.setSmoke(smoke);//
-				driverVO.setBabySeat(babySeat);//
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("driverVO", driverVO);
-					failurePage = req.getRequestDispatcher("/driver/addDriver.jsp");
-					return;
-				}
-
-				/************** step2.開始新增資料 *****************/
-				/* 從addDriver.jsp取得的資料，透過DriverService操作DAO存進資料庫 */
-				DriverService driverService = new DriverService();
-				DriverVO addedDriverVO = driverService.addDriver(memID, driverID, plateNum, verified, banned, onlineCar, score, carType, sharedCar, pet,
-						smoke, babySeat);
-//				licence, criminal,	trafficRecord, idNum, photo, 
-//				deadline, 
-				if (addedDriverVO == null) {
-					errorMsgs.add("無法新增至DB");
-				}
-				/**************step3.開始新增完成，轉交ListAllDriver頁面*****************/
-				String url="/driver/listAllDriver.jsp";
-				RequestDispatcher successPage =req.getRequestDispatcher(url);
-				successPage.forward(req, res);
-			} catch (Exception e) {
-				/**************step4.處理其他可能的錯誤，轉交addDriver頁面*****************/
-				e.printStackTrace();
-				errorMsgs.add("無法取得修改資料"+e.getMessage());
-			}
-			failurePage=req.getRequestDispatcher("/driver/addDriver.jsp");
-			failurePage.forward(req, res);
-		}
-			
-			/////////////////////////////
-		
-		//來自homeDriver.jsp的請求
-
-		if("GET_ONE".equals(action)){
-			LinkedList<String> errorMsgs=new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			try {
-			/*************1.接收請求參數**************/
-			driverID=req.getParameter("driverID");
-						
-			/*************2查詢資料**************/
-			DriverService driverSvc=new DriverService();
-			DriverVO driverVO=driverSvc.getOneDriver(driverID);
-			if(driverVO==null) {
-				errorMsgs.add("查無此筆");
-				failurePage=req.getRequestDispatcher("/driver/listAllDriver.jsp");
-				failurePage.forward(req, res);
-				return;
-			}
-			/*************3.圖片資料處理**************/
-			String path1,path2,path3,path4,path5="";//給空字串 
-			if(driverVO.getLicence()!=null) {
-				path1=this.saveToGetPath(driverID,driverVO.getLicence(),req);
-			}
-			
-			path2="";//給空字串 
-			if(driverVO.getCriminal()!=null) {
-				path2=this.saveToGetPath(driverID,driverVO.getCriminal(),req);
-			}
-			path3="";//給空字串 
-			if(driverVO.getTrafficRecord()!=null) {
-				path3=this.saveToGetPath(driverID,driverVO.getTrafficRecord(),req);
-			}
-			path4="";//給空字串 
-			if(driverVO.getIdNum()!=null) {
-				path4=this.saveToGetPath(driverID,driverVO.getIdNum(),req);
-			}
-			path5="";//給空字串 
-			if(driverVO.getPhoto()!=null) {
-				path5=this.saveToGetPath(driverID,driverVO.getPhoto(),req);
-			}
-			 
-			
-			/*************4.得到資料存在scope=request，並送出VO給處理頁面**************/
-			//req.setAttribute("path", path);
-			req.setAttribute("driverVO", driverVO);
-//			readPicture(activityVO.getActivityPost(),"ActivityPost.jpg"); //把海報存在某名稱
-			String url="/driver/listOneDriver.jsp";
-			RequestDispatcher successPage=req.getRequestDispatcher(url);
-			successPage.forward(req, res);
-			/*************5.處理例外**************/
-		}catch(Exception e){
-			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
-			}
-			failurePage=req.getRequestDispatcher("/driver/listAllDriver.jsp");
-			failurePage.forward(req, res);
-		}
-		
-//		.equals(action)
-//		doGet(req, res);
-	}
+//	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+//		req.setCharacterEncoding("UTF-8");
+//		res.setContentType("text/html;charset=UTF-8");
+//		String action = req.getParameter("action");
+//		RequestDispatcher requestDispatcher;
+//		RequestDispatcher failurePage;
+//		DriverService service = new DriverService(); // 以VO物件傳送參數
+//
+//		String memID ;
+//		String driverID = "DR003";
+//		String plateNum = "123";
+////		byte[] licence;
+////		byte[] criminal;
+////		byte[] trafficRecord;
+////		byte[] idNum;
+////		byte[] photo;
+//		Integer verified= 1;
+//		Integer banned= 1;
+////		Date deadline= null;
+//		Integer onlineCar= 1;
+//		Integer score= 60;
+//		String carType= null;
+//		Integer sharedCar = 1;
+//		Integer pet= 1;
+//		Integer smoke= 1;
+//		Integer babySeat= 1;
+////參考241 insertgroup
+//		if ("INSERT".equals(action)) { // 來自value=INSERT
+//			List<String> errorMsgs = new LinkedList<String>();
+//			// Store this set in the request scope, in case we need to send the ErrorPage
+//			// view.
+//			req.setAttribute("errorMsgs", errorMsgs);
+//
+//			try {
+//				memID = req.getParameter("memID");
+//				if (memID == null || memID.trim().length() == 0) {
+//					errorMsgs.add("會員編號未填寫");
+//				}
+//				driverID = req.getParameter("driverID");
+//				plateNum = req.getParameter("plateNum");
+////				licence = req.getParameter("licence");
+////				criminal = req.getParameter("criminal");
+////				trafficRecord = req.getParameter("trafficRecord");
+////				idNum = req.getParameter("idNum");
+////				photo = req.getParameter("photo");
+//				verified = new Integer(req.getParameter("verified"));
+//				banned = new Integer(req.getParameter("banned"));
+////				deadline = req.getParameter("deadline");
+//				onlineCar = new Integer(req.getParameter("onlineCar"));
+//				score = new Integer(req.getParameter("score"));
+//				carType = req.getParameter("carType");
+//				sharedCar = new Integer(req.getParameter("sharedCar"));
+//				pet = new Integer(req.getParameter("pet"));
+//				smoke = new Integer(req.getParameter("smoke"));
+//				babySeat =new Integer(req.getParameter("babySeat"));
+//
+//				DriverVO driverVO = new DriverVO();
+//				driverVO.setMemID(memID);//
+//				driverVO.setDriverID(driverID);//
+//				driverVO.setPlateNum(plateNum);
+////				driverVO.setLicence(licence);
+////				driverVO.setCriminal(criminal);
+////				driverVO.setTrafficRecord(trafficRecord);
+////				driverVO.setIdNum(idNum);
+////				driverVO.setPhoto(photo);
+//				driverVO.setVerified(verified);//
+//				driverVO.setBanned(banned);//
+////				driverVO.setDeadline(deadline);//
+//				driverVO.setOnlineCar(onlineCar );//
+//				driverVO.setScore(score );//
+//				driverVO.setCarType(carType);
+//				driverVO.setSharedCar(sharedCar);//
+//				driverVO.setPet(pet);//
+//				driverVO.setSmoke(smoke);//
+//				driverVO.setBabySeat(babySeat);//
+//				if (!errorMsgs.isEmpty()) {
+//					req.setAttribute("driverVO", driverVO);
+//					failurePage = req.getRequestDispatcher("/driver/addDriver.jsp");
+//					return;
+//				}
+//
+//				/************** step2.開始新增資料 *****************/
+//				/* 從addDriver.jsp取得的資料，透過DriverService操作DAO存進資料庫 */
+////				DriverService driverService = new DriverService();
+////				DriverVO addedDriverVO = driverService.addDriver(memID, driverID, plateNum, verified, banned, onlineCar, score, carType, sharedCar, pet,
+////						smoke, babySeat);
+////				licence, criminal,	trafficRecord, idNum, photo, 
+////				deadline, 
+//				if (addedDriverVO == null) {
+//					errorMsgs.add("無法新增至DB");
+//				}
+//				/**************step3.開始新增完成，轉交ListAllDriver頁面*****************/
+//				String url="/driver/listAllDriver.jsp";
+//				RequestDispatcher successPage =req.getRequestDispatcher(url);
+//				successPage.forward(req, res);
+//			} catch (Exception e) {
+//				/**************step4.處理其他可能的錯誤，轉交addDriver頁面*****************/
+//				e.printStackTrace();
+//				errorMsgs.add("無法取得修改資料"+e.getMessage());
+//			}
+//			failurePage=req.getRequestDispatcher("/driver/addDriver.jsp");
+//			failurePage.forward(req, res);
+//		}
+//			
+//			/////////////////////////////
+//		
+//		//來自homeDriver.jsp的請求
+//
+//		if("GET_ONE".equals(action)){
+//			LinkedList<String> errorMsgs=new LinkedList<String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+//			try {
+//			/*************1.接收請求參數**************/
+//			driverID=req.getParameter("driverID");
+//						
+//			/*************2查詢資料**************/
+//			DriverService driverSvc=new DriverService();
+//			DriverVO driverVO=driverSvc.getOneDriver(driverID);
+//			if(driverVO==null) {
+//				errorMsgs.add("查無此筆");
+//				failurePage=req.getRequestDispatcher("/driver/listAllDriver.jsp");
+//				failurePage.forward(req, res);
+//				return;
+//			}
+//			/*************3.圖片資料處理**************/
+//			String path1,path2,path3,path4,path5="";//給空字串 
+//			if(driverVO.getLicence()!=null) {
+//				path1=this.saveToGetPath(driverID,driverVO.getLicence(),req);
+//			}
+//			
+//			path2="";//給空字串 
+//			if(driverVO.getCriminal()!=null) {
+//				path2=this.saveToGetPath(driverID,driverVO.getCriminal(),req);
+//			}
+//			path3="";//給空字串 
+//			if(driverVO.getTrafficRecord()!=null) {
+//				path3=this.saveToGetPath(driverID,driverVO.getTrafficRecord(),req);
+//			}
+//			path4="";//給空字串 
+//			if(driverVO.getIdNum()!=null) {
+//				path4=this.saveToGetPath(driverID,driverVO.getIdNum(),req);
+//			}
+//			path5="";//給空字串 
+//			if(driverVO.getPhoto()!=null) {
+//				path5=this.saveToGetPath(driverID,driverVO.getPhoto(),req);
+//			}
+//			 
+//			
+//			/*************4.得到資料存在scope=request，並送出VO給處理頁面**************/
+//			//req.setAttribute("path", path);
+//			req.setAttribute("driverVO", driverVO);
+////			readPicture(activityVO.getActivityPost(),"ActivityPost.jpg"); //把海報存在某名稱
+//			String url="/driver/listOneDriver.jsp";
+//			RequestDispatcher successPage=req.getRequestDispatcher(url);
+//			successPage.forward(req, res);
+//			/*************5.處理例外**************/
+//		}catch(Exception e){
+//			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
+//			}
+//			failurePage=req.getRequestDispatcher("/driver/listAllDriver.jsp");
+//			failurePage.forward(req, res);
+//		}
+//		
+////		.equals(action)
+////		doGet(req, res);
+//	}
 
 	/* 處理圖片存進資夾，以便以名稱顯示在網頁上 */
 	public static void readPicture(byte[] bytes, String picName) throws IOException {

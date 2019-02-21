@@ -3,13 +3,13 @@
 <%@ page import="com.broadcast.model.*"%>
 
 <%
-  EmpVO empVO = (EmpVO) request.getAttribute("empVO");
+BroadcastVO brodVO = (BroadcastVO) request.getAttribute("brodVO");
 %>
 
 <html>
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
-<title>員工資料新增 - addBrod.jsp</title>
+<title>推播資料新增 - addBrod.jsp</title>
 
 <style>
   table#table-1 {
@@ -48,7 +48,7 @@
 
 <table id="table-1">
 	<tr><td>
-		 <h3>推播資料新增 - addEmp.jsp</h3></td><td>
+		 <h3>推播資料新增 - addBrod.jsp</h3></td><td>
 		 <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
 	</td></tr>
 </table>
@@ -70,7 +70,7 @@
 	<tr>
 		<td>員工姓名:</td>
 		<td><input type="TEXT" name="ename" size="45" 
-			 value="<%= (empVO==null)? "吳永志" : empVO.getEname()%>" /></td>
+			 value="<%= (empVO==null)? "吳永志" : brodVO.getEname()%>" /></td>
 	</tr>
 	<tr>
 		<td>職位:</td>

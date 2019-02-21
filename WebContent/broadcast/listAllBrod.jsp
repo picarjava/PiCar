@@ -5,8 +5,8 @@
 <%-- 此頁練習採用 EL 的寫法取值 --%>
 
 <%
-    EmpService empSvc = new EmpService();
-    List<EmpVO> list = empSvc.getAll();
+    BroadcastService empSvc = new BroadcastService();
+    List<BroadcastVO> list = empSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
 
@@ -82,26 +82,30 @@
 		<th>刪除</th>
 	</tr>
 	<%@ include file="page1.file" %> 
-	<c:forEach var="empVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
+	<c:forEach var="brodVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		
 		<tr>
-			<td>${empVO.empno}</td>
-			<td>${empVO.ename}</td>
-			<td>${empVO.job}</td>
-			<td>${empVO.hiredate}</td>
-			<td>${empVO.sal}</td>
-			<td>${empVO.comm}</td> 
-			<td>${empVO.deptno}</td>
+			<td>${brodVO.empno}</td>
+			<td>${brodVO.ename}</td>
+			<td>${brodVO.job}</td>
+			<td>${brodVO.hiredate}</td>
+			<td>${brodVO.sal}</td>
+			<td>${brodVO.comm}</td> 
+			<td>${brodVO.deptno}</td>
+			
+			
+			
+			
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/broadcast/broadcast.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
-			     <input type="hidden" name="empno"  value="${empVO.empno}">
+			     <input type="hidden" name="empno"  value="${brodVO.empno}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/emp/emp.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/broadcast/broadcast.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
-			     <input type="hidden" name="empno"  value="${empVO.empno}">
+			     <input type="hidden" name="empno"  value="${brodVO.empno}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>
