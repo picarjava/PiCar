@@ -65,26 +65,26 @@ BroadcastVO brodVO = (BroadcastVO) request.getAttribute("brodVO"); //EmpServlet.
 	</ul>
 </c:if>
 
-<FORM METHOD="post" ACTION="emp.do" name="form1">
+<FORM METHOD="post" ACTION="broadcast.do" name="form1">
 <table>
 	<tr>
 		<td>推播編號:</td>
-		<td><input type="TEXT" name="ename" size="45" 
+		<td><input type="TEXT" name="msgID" size="45" 
 			 value="<%= (brodVO==null)? "吳永志" : brodVO.getMsgID()%>" /></td>
 	</tr>
 	<tr>
 		<td>會員編號:</td>
-		<td><input type="TEXT" name="job" size="45"
+		<td><input type="TEXT" name="memID" size="45"
 			 value="<%= (brodVO==null)? "MANAGER" : brodVO.getMemID()%>" /></td>
 	</tr>
 	<tr>
 		<td>訊息內容:</td>
-		<td><input type="TEXT" name="sal" size="45"
+		<td><input type="TEXT" name="message" size="45"
 			 value="<%= (brodVO==null)? "10000" : brodVO.getMessage()%>" /></td>
 	</tr>
 	<tr>
 		<td>是否已讀:</td>
-		<td><input type="TEXT" name="comm" size="45"
+		<td><input type="TEXT" name="confirmed" size="45"
 			 value="<%= (brodVO==null)? "100" : brodVO.getConfirmed()%>" /></td>
 	</tr>
 
@@ -93,6 +93,7 @@ BroadcastVO brodVO = (BroadcastVO) request.getAttribute("brodVO"); //EmpServlet.
 </table>
 <br>
 <input type="hidden" name="action" value="update"/>
+<input type="hidden" name="msgID" value="<%=brodVO.getMsgID()%>">
 <input type="submit" value="送出修改"></FORM>
 </body>
 

@@ -61,17 +61,16 @@
 		<th>訊息內容</th>
 		<th>已讀狀態</th>
 		
-
 	</tr>
 	<tr>
-		<td><%=brodVO.getMsgID()%></td>
-		<td><%=brodVO.getMemID()%></td>
-		<td><%=brodVO.getMessage()%></td>
-		<td><%=brodVO.getConfirmed()%></td>
-		
+<td>${brodVO.msgID}</td>
+		<td>${brodVO.memID}</td>
+		<td>${brodVO.message}</td>
+		<td>${brodVO.confirmed}</td>
 
 	</tr>
 </table>
-
+可參考老師寫法
+..%=empVO.getDeptno()..%..>
 </body>
 </html>

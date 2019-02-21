@@ -22,7 +22,7 @@ public BroadcastVO addBroadcast(String msgID,String memID , String message, Inte
 
 	return broadcastVO;
 }
-public BroadcastVO updateDriver(String msgID,String memID , String message, Integer confirmed ) {
+public BroadcastVO updateBroadcast(String msgID,String memID , String message, Integer confirmed ) {
 	
 	BroadcastVO broadcastVO = new BroadcastVO( );
 	broadcastVO.setMsgID(msgID);

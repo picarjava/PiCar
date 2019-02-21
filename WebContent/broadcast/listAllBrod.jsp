@@ -1,4 +1,5 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.broadcast.model.*"%>
@@ -13,7 +14,7 @@
 
 <html>
 <head>
-<title>所有員工資料 - listAllEmp.jsp</title>
+<title>所有員工資料 - listAllbrod.jsp</title>
 
 <style>
   table#table-1 {
@@ -71,41 +72,33 @@
 
 <table>
 	<tr>
-		<th>員工編號</th>
-		<th>員工姓名</th>
-		<th>職位</th>
-		<th>雇用日期</th>
-		<th>薪水</th>
-		<th>獎金</th>
-		<th>部門</th>
-		<th>修改</th>
-		<th>刪除</th>
+		<th>推播編號</th>
+		<th>會員</th>
+		<th>訊息內容</th>
+		<th>已讀狀態</th>
 	</tr>
 	<%@ include file="page1.jsp" %> 
 	<c:forEach var="brodVO" items="${list}" begin="<%=fromIndex%>" end="<%=toIndex%>">
 		
 		<tr>
-			<td>${brodVO.empno}</td>
-			<td>${brodVO.ename}</td>
-			<td>${brodVO.job}</td>
-			<td>${brodVO.hiredate}</td>
-			<td>${brodVO.sal}</td>
-			<td>${brodVO.comm}</td> 
-			<td>${brodVO.deptno}</td>
-			
-			
-			
+		
+		
+		<td>${brodVO.msgID}</td>
+		<td>${brodVO.memID}</td>
+		<td>${brodVO.message}</td>
+		<td>${brodVO.confirmed}</td>
+
 			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/broadcast/broadcast.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
-			     <input type="hidden" name="empno"  value="${brodVO.empno}">
+			     <input type="hidden" name="msgID"  value="${brodVO.msgID}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/broadcast/broadcast.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="刪除">
-			     <input type="hidden" name="empno"  value="${brodVO.empno}">
+			     <input type="hidden" name="msgID"  value="${brodVO.msgID}">
 			     <input type="hidden" name="action" value="delete"></FORM>
 			</td>
 		</tr>

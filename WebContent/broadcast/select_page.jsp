@@ -1,4 +1,4 @@
-<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language= "java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <html>
@@ -54,39 +54,28 @@
   <li>
     <FORM METHOD="post" ACTION="broadcast.do" >
         <b>輸入推播訊息編號 (如7001):</b>
-        <input type="text" name="empno">
+        <input type="text" name="msgID">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
     </FORM>
   </li>
 
-  <jsp:useBean id="brodSvc" scope="page" class="com.broadcast.model.BroadcastService" />
+  <jsp:useBean id="service" scope="page" class="com.broadcast.model.BroadcastService" />
    
   <li>
      <FORM METHOD="post" ACTION="broadcast.do" >
        <b>選擇推播訊息編號:</b>
-       <select size="1" name="empno">
-         <c:forEach var="empVO" items="${empSvc.all}" > 
-          <option value="${empVO.empno}">${empVO.empno}
+       <select size="1" name="msgID">
+         <c:forEach var="brod" items="${service.all}" > 
+          <option value="${broadcast.msgID}">${broadcast.msgID}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
        <input type="submit" value="送出">
     </FORM>
   </li>
-  
-  <li>
-     <FORM METHOD="post" ACTION="broadcast.do" >
-       <b>選擇員工姓名:</b>
-       <select size="1" name="empno">
-         <c:forEach var="empVO" items="${empSvc.all}" > 
-          <option value="${empVO.empno}">${empVO.ename}
-         </c:forEach>   
-       </select>
-       <input type="hidden" name="action" value="getOne_For_Display">
-       <input type="submit" value="送出">
-     </FORM>
-  </li>
+   
+
 </ul>
 
 

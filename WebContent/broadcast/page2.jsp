@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% if (whichPage > 1) {%>
 <a href="<%=request.getRequestURI()%>?whichPage=1">第一頁</a>
 <a href="<%=request.getRequestURI()%>?whichPage=<%=whichPage - 1%>">上一頁</a>
