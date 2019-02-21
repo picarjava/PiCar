@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="BIG5">
-<title>Insert title here</title>
+<title>update_member_input.jsp</title>
 </head>
 <style>
 table{
@@ -18,6 +18,8 @@ table{
 	MemberVO memberVO =  (MemberVO)request.getAttribute("memberVO");
 
 %>
+ <h3>update_member_input.jsp</h3>
+ 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
