@@ -237,7 +237,7 @@ public class MemberServlet extends HttpServlet {
 				
 				//開始修改資料
 				MemberService memberSvc = new MemberService();
-				memberVO = memberSvc.updateMember(memID, nameReg, email, password, phone, creditcard, pet, smoke, gender, token, activityToken, birthday, verified, babySeat);
+				memberVO = memberSvc.updateMember(memID, name, email, password, phone, creditcard, pet, smoke, gender, token, activityToken, birthday, verified, babySeat);
 				
 				
 				RequestDispatcher successView = req.getRequestDispatcher("/member/listAllmember_byDAO.jsp"); // 新增成功後轉交listAllmember_byDAO
@@ -258,7 +258,7 @@ public class MemberServlet extends HttpServlet {
 			try {
 //				String memID = new String(req.getParameter("memID"));
 				
-				String name = req.getParameter("name");
+				String name = req.getParameter("name").trim();
 				String nameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,20}$";
 				if (name ==null || name.trim().length() == 0) {
 					errorMsgs.add("員工姓名~請勿空白");
@@ -334,9 +334,9 @@ public class MemberServlet extends HttpServlet {
 					return; //程式中斷				
 				}							
 				
-				//開始修改資料
+				//開始新增資料
 				MemberService memberSvc = new MemberService();
-				memberVO = memberSvc.addMember(nameReg, email, password, phone, creditcard, pet, smoke, gender, token, activityToken, birthday, verified, babySeat);
+				memberVO = memberSvc.addMember(name, email, password, phone, creditcard, pet, smoke, gender, token, activityToken, birthday, verified, babySeat);
 				
 				
 				RequestDispatcher successView = req.getRequestDispatcher("/member/listAllmember_byDAO.jsp"); // 新增成功後轉交listAllmember_byDAO
