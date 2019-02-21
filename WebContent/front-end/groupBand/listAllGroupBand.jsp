@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="utf-8">
 <title>listAllGroupBand.jsp</title>
 <style>
   table#table-1 {
@@ -51,7 +51,7 @@
   }
 </style>
 </head>
-<body>
+<body align="center">
 
 
 <c:if test="${not empty errorMsgs}">
@@ -63,7 +63,7 @@
 	</ul>
 </c:if>
  <a href="SelectGroupBand.jsp" >查詢</a>
-<table>
+<table align="center">
 <tr>
 <th>揪團ID</th>
 <th>留言板內容</th>
