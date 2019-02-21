@@ -39,27 +39,27 @@ table{
 	
 		<tr>
 			<td>會員姓名：</td>
-			<td><input type="text" name="name" size="45" value="<%= (memberVO==null)? "綠毛蟲":memberVO.getName() %>" /></td>		
+			<td><input type="text" name="name" size="45" value="<%=memberVO.getName() %>" /></td>		
 	
 		</tr>
 		<tr>
 			<td>會員信箱：</td>
-			<td><input type="text" name="email" size="45" value="<%= (memberVO==null)? "綠毛蟲@gmail.com":memberVO.getEmail() %>" /></td>		
+			<td><input type="text" name="email" size="45" value="<%=memberVO.getEmail() %>" /></td>		
 		</tr>
 		
 		<tr>
 			<td>會員密碼：</td>
-			<td><input type="text" name="password" size="45" value="<%= (memberVO==null)? "greenmomo":memberVO.getPassword() %>" /></td>		
+			<td><input type="text" name="password" size="45" value="<%=memberVO.getPassword() %>" /></td>		
 		</tr>
 		
 		<tr>
 			<td>會員電話：</td>
-			<td><input type="text" name="phone" size="45" value="<%= (memberVO==null)? "綠毛蟲@gmail.com":memberVO.getPhone() %>" /></td>		
+			<td><input type="text" name="phone" size="45" value="<%=memberVO.getPhone() %>" /></td>		
 		</tr>
 		
 		<tr>
 			<td>會員信用卡：</td>
-			<td><input type="text" name="creditcard" size="45" value="<%= (memberVO==null)? "9898-5959-5959-4545":memberVO.getCreditcard() %>" /></td>		
+			<td><input type="text" name="creditcard" size="45" value="<%=memberVO.getCreditcard() %>" /></td>		
 		</tr>
 		
 		<tr>
@@ -85,12 +85,12 @@ table{
 		</tr>
 		<tr>
 			<td>會員代幣：</td>
-			<td><input type="text" name="token" size="45" value="<%= (memberVO==null)? "100":memberVO.getToken() %>" ></td>		
+			<td><input type="text" name="token" size="45" value="<%=memberVO.getToken() %>" ></td>		
 		</tr>
 		
 		<tr>
 			<td>會員活動代幣：</td>
-			<td><input type="text" name="activityToken" size="45" value="<%= (memberVO==null)? "1000":memberVO.getActivityToken() %>" /></td>		
+			<td><input type="text" name="activityToken" size="45" value="<%=memberVO.getActivityToken() %>" /></td>		
 		</tr>
 		<tr> 
 			<td>會員生日:</td>
