@@ -33,7 +33,15 @@
     <servlet-class>model.StateMap</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
-    <servlet>
+   <servlet>
+    <servlet-name>Broadcast</servlet-name>
+    <servlet-class>com.broadcast.controller.BroadcastServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Broadcast</servlet-name>
+    <url-pattern>/broadcast/broadcast.do</url-pattern>
+  </servlet-mapping>  
+  <servlet>
     <servlet-name>Driver</servlet-name>
     <servlet-class>com.driver.controller.DriverServlet</servlet-class>
   </servlet>
@@ -41,7 +49,6 @@
     <servlet-name>Driver</servlet-name>
     <url-pattern>/driver/driver.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>GroupMem</servlet-name>
     <servlet-class>com.groupMem.controller.GroupMemServlet</servlet-class>
@@ -50,8 +57,7 @@
     <servlet-name>GroupMem</servlet-name>
     <url-pattern>/GroupMem</url-pattern>
   </servlet-mapping>
-  
-    <servlet>
+  <servlet>
     <servlet-name>GroupBand</servlet-name>
     <servlet-class>com.groupBand.controller.GroupBandServlet</servlet-class>
   </servlet>
@@ -60,25 +66,20 @@
     <url-pattern>/GroupBand</url-pattern>
   </servlet-mapping>
   <servlet>
-	  <servlet-name>ActivServlet</servlet-name>
-	  <servlet-class>com.activity.controller.ActivServlet</servlet-class>
-	  <load-on-startup>3</load-on-startup>
+    <servlet-name>ActivServlet</servlet-name>
+    <servlet-class>com.activity.controller.ActivServlet</servlet-class>
+    <load-on-startup>3</load-on-startup>
   </servlet>
-	  <servlet-mapping>
-	  <servlet-name>ActivServlet</servlet-name>
-  <url-pattern>/activity/Activ_servlet.html</url-pattern>
+  <servlet-mapping>
+    <servlet-name>ActivServlet</servlet-name>
+    <url-pattern>/activity/Activ_servlet.html</url-pattern>
   </servlet-mapping>
-  
-	
-	<servlet>
-	<servlet-name>DriverReportServlet</servlet-name>
-		<servlet-class>com.driverReport.controller.DriverReportServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>DriverReportServlet</servlet-name>
-		<url-pattern>/driverReport/driverReport.do</url-pattern>
-	</servlet-mapping>
-  
-  
-  
+  <servlet>
+    <servlet-name>DriverReportServlet</servlet-name>
+    <servlet-class>com.driverReport.controller.DriverReportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DriverReportServlet</servlet-name>
+    <url-pattern>/driverReport/driverReport.do</url-pattern>
+  </servlet-mapping>
 </web-app>

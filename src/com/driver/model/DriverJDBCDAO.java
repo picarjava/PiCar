@@ -24,7 +24,7 @@ public class DriverJDBCDAO implements DriverDAO_interface {
 	private static final String GET_ALL_STMT =
 			"SELECT * FROM DRIVER ORDER BY DRIVER_ID";
 	private static final String GET_ONE_STMT = "SELECT MEM_ID, DRIVER_ID, PLATE_NUM, LICENCE, CRIMINAL, TRAFFIC_RECORD, ID_NUM, PHOTO, VERIFIED, BANNED, DEADLINE, ONLINE_CAR, SCORE, CAR_TYPE, SHARED_CAR, PET, SMOKE, BABY_SEAT FROM DRIVER WHERE DRIVER_ID=?";
-	private static final String DELETE = "DELETE FROM DRIVER where DRIVER_IDs  = ?";
+	private static final String DELETE = "DELETE FROM DRIVER where DRIVER_ID  = ?";
 	private static final String UPDATE = "UPDATE DRIVER SET PLATE_NUM=?, LICENCE=?, CRIMINAL=?, TRAFFIC_RECORD=?, PHOTO=?, VERIFIED=?, BANNED=?, DEADLINE=?, ONLINE_CAR=?, SCORE=?, CAR_TYPE=?, SHARED_CAR=?, PET=?, SMOKE=?, BABY_SEAT=? where DRIVER_ID=?";
 //insert update commit
 	@Override
@@ -64,6 +64,7 @@ public class DriverJDBCDAO implements DriverDAO_interface {
 			throw new RuntimeException("Couldn't load database driver. " + e.getMessage());
 			// Handle any SQL errors
 		} catch (SQLException se) {
+			se.printStackTrace();
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {

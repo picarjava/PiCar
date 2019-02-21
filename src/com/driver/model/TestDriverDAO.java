@@ -90,6 +90,8 @@ public class TestDriverDAO {
 //		search for all ok//
 //		List<DriverVO> list= DAO.getAll();
 //		for(DriverVO testall :list) {
+		
+//		int count=1;
 //		System.out.println(testall.getMemID());
 //		System.out.println(testall.getDriverID());
 //		System.out.println(testall.getPlateNum());
@@ -108,6 +110,8 @@ public class TestDriverDAO {
 //		System.out.println(testall.getPet());
 //		System.out.println(testall.getSmoke());
 //		System.out.println(testall.getBabySeat());
+		
+//		System.out.println("=====已查詢第"+ count++ +"筆活動====");
 //System.out.println("============================================");		
 //	}
 //		System.out.println("all of broadcast has searched");

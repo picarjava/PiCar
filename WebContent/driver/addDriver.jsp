@@ -111,12 +111,13 @@
 	                </div>
 	                
 	                <div class="text-center">
+	                	<input type="hidden" name="action" value="INSERT">
 	                <button type="submit" class="btn btn-dark">新增司機</button>
 	                </div>
 
    
 	                <!--隱藏的參數action讓controller抓-->
-	              	<input type="hidden" name="action" value="INSERT">
+	              
 	              </form>
 	            </div>
 	          </div>
