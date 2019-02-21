@@ -31,6 +31,7 @@ public class RateDAO implements RateDAO_interface {
 	private static final String DELETE = "DELETE FROM RATE WHERE RATE_ID = ? ";
 	private static final String GET_ONE_STMT = "SELECT RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC FROM RATE WHERE RATE_ID= ?";
 	private static final String GET_ALL_STMT = "SELECT RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC FROM RATE ORDER BY RATE_ID";
+//	private static final String GET_PIC = "SELECT PIC FROM RATE WHERE = ?";
 
 	@Override
 	public void insert(RateVO rateVO) {
