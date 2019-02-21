@@ -4,10 +4,12 @@ import java.util.List;
 
 public interface RateDAO_interface {
 
-	public abstract void insert(RateVO rateVO);
-	public abstract void update(RateVO rateVO);
-	public abstract void delete(Integer rateID);	
-	public abstract RateVO findByPrimaryKey(Integer rateID);
-	public abstract List<RateVO> getAll();
+	public void insert(RateVO rateVO);
+	public void update(RateVO rateVO);
+	public void delete(Integer rateID);	
+	public RateVO findByPrimaryKey(Integer rateID);
+	public List<RateVO> getAll();
+	public RateVO findPic(Integer rateID);
+	public void insertPic(RateVO rateVO);
 
 }
