@@ -14,23 +14,23 @@ public class TestActivityJDBCDAO {
 		ActivityJDBCDAO activityJDBCDAO=new ActivityJDBCDAO();
 		TestActivityJDBCDAO testJDBCDAO=new TestActivityJDBCDAO();
 		
-		/*新增*//*測試成功*/
-		ActivityVO activityVO1= new ActivityVO();
-		activityVO1.setActivityID("AC0011");
-		activityVO1.setActivityName("測試活動名稱");
-		activityVO1.setActivityInfo("測試活動資訊");
-		activityVO1.setActivityStart(testJDBCDAO.getSQLDate(2019,1,15,10,10));
-		activityVO1.setActivityEnd(testJDBCDAO.getSQLDate(2019,3,15,10,10));
-		activityVO1.setActivityCode("Picar");
-		activityVO1.setTokenAmount(500);
-		activityVO1.setActivityPost(testJDBCDAO.getBytePost("WebContent/activity/img/team-1.jpg"));
-		activityJDBCDAO.insert(activityVO1);
-		System.out.println("已新增一筆活動");
+//		/*新增*//*測試成功*/
+//		ActivityVO activityVO1= new ActivityVO();
+//
+//		activityVO1.setActivityName("測試活動名稱");
+//		activityVO1.setActivityInfo("測試活動資訊");
+//		activityVO1.setActivityStart(testJDBCDAO.getSQLDate(2019,1,15,10,10));
+//		activityVO1.setActivityEnd(testJDBCDAO.getSQLDate(2019,3,15,10,10));
+//		activityVO1.setActivityCode("Picar");
+//		activityVO1.setTokenAmount(500);
+//		activityVO1.setActivityPost(testJDBCDAO.getBytePost("WebContent/activity/img/team-1.jpg"));
+//		activityJDBCDAO.insert(activityVO1);
+//		System.out.println("已新增一筆活動");
 		
 		
-		/*修改*//*測試成功*/
+//		/*修改*//*測試成功*/
 //		ActivityVO activityVO2= new ActivityVO();
-//		activityVO2.setActivityID("AC007");
+//		activityVO2.setActivityID("AC001");
 //		activityVO2.setActivityName("測試活動名稱1");
 //		activityVO2.setActivityInfo("測試活動資訊1");
 //		activityVO2.setActivityStart(testJDBCDAO.getSQLDate(2019,4,15,10,10));
@@ -42,11 +42,11 @@ public class TestActivityJDBCDAO {
 //		System.out.println("已修改一筆活動");
 		
 		/*刪除*//*測試成功*/
-//		activityJDBCDAO.delete("AC007");
+//		activityJDBCDAO.delete("AC001");
 //		System.out.println("已刪除一筆活動");
 	
 //		/*查詢一筆*//*測試成功*/
-//		ActivityVO activityVO3=activityJDBCDAO.findByPrimaryKey("AC009");
+//		ActivityVO activityVO3=activityJDBCDAO.findByPrimaryKey("AC002");
 //		System.out.println(activityVO3.getActivityID());
 //		System.out.println(activityVO3.getActivityName());
 //		System.out.println(activityVO3.getActivityInfo());

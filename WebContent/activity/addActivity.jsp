@@ -73,10 +73,7 @@
 	            <div class="form">
 	              <!-- 活動表單開始 -->
 	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post"  enctype="multipart/form-data">
-	                <div class="form-group">
-	                  <p>活動編號</p> 
-	                 <input type="text" name="activityID" value="${activityVO.activityID}" class="form-control"  placeholder="請輸入1-10個英文或數字" />
-	  				</div>
+	                
 	                <div class="form-group">
 	                   <p>活動名稱</p>
 	                  <input type="text" name="activityName" class="form-control" value="${activityVO.activityName}"   placeholder="請輸入活動名稱" />

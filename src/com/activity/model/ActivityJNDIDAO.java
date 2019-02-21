@@ -10,7 +10,24 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 /*DAO功能是用SQL語法，透過VO物件傳遞資料庫資料  進行增刪改查*/
-public class ActivityJDBCDAO implements ActivityDAO_interface{
+
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
+
+public class ActivityJNDIDAO implements ActivityDAO_interface{
+	private static DataSource ds=null;
+	static {
+		try {
+			Context ctx= new InitialContext();
+			ds=(DataSource)ctx.lookup("java:comp/env/jdbc/TestDB");
+			
+		}catch(NamingException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	String driver="oracle.jdbc.driver.OracleDriver";
 	String url="jdbc:oracle:thin:@localhost:1521:XE";
 	String userid="CA106";
@@ -33,8 +50,8 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 		Connection con =null;
 		PreparedStatement pstmt= null;
 		try{
-			Class.forName(driver);
-			con=DriverManager.getConnection(url,userid,passwd);
+			con=ds.getConnection();
+			
 			pstmt=con.prepareStatement(INSERT_STMT);
 			/*根據SQL常數，用vo.getxxx去set pstmt需要的值*/
 //			pstmt.setString(1, activityVO.getActivityID());
@@ -47,9 +64,6 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 			pstmt.setBytes(7, activityVO.getActivityPost());
 			pstmt.executeUpdate();
 		/*處理driver errors*/
-		}catch(ClassNotFoundException e){
-			throw new RuntimeException("無法載入DB Driver"+e.getMessage());
-		/*處理SQL errors*/
 		}catch(SQLException se){
 			throw new RuntimeException ("發生SQL error"+se.getMessage());
 		/*清除JDBC資源*/
@@ -75,8 +89,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 		Connection con =null;
 		PreparedStatement pstmt= null;
 		try{
-			Class.forName(driver);
-			con=DriverManager.getConnection(url,userid,passwd);
+			con=ds.getConnection();
 			pstmt=con.prepareStatement(UPDATE);
 			/*根據SQL常數，用vo.getxxx去set pstmt需要的值*/
 			
@@ -91,8 +104,6 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 			
 			pstmt.executeUpdate();
 			
-		}catch(ClassNotFoundException e){
-			throw new RuntimeException("無法載入DB Driver"+e.getMessage());
 		}catch(SQLException se){
 			throw new RuntimeException ("發生SQL error"+se.getMessage());
 		}finally{
@@ -118,16 +129,13 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 		Connection con=null;
 		PreparedStatement pstmt=null;
 		try{
-			Class.forName(driver);
-			con=DriverManager.getConnection(url,userid,passwd);
+			con=ds.getConnection();
 			pstmt=con.prepareStatement(DELETE);
 			/*根據SQL常數，pstmt需要的值*/
 			/*parameterIndex 從1開始*/
 			pstmt.setString(1, activityID);
 			pstmt.executeUpdate();
 			
-		}catch(ClassNotFoundException e){
-			throw new RuntimeException("無法載入DB Driver"+e.getMessage());
 		}catch(SQLException se){
 			throw new RuntimeException("發生SQL error"+se.getMessage());
 		}finally{
@@ -156,8 +164,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 		PreparedStatement pstmt =null;
 		ResultSet rs= null;
 		try{
-			Class.forName(driver);
-			con=DriverManager.getConnection(url,userid,passwd);
+			con=ds.getConnection();
 			pstmt=con.prepareStatement(GET_ONE_STMT);
 			/*根據SQL常數，pstmt需要的值*/
 			/*parameterIndex 從1開始*/
@@ -178,8 +185,6 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 				activityVO.setActivityPost(rs.getBytes("ACTIVITY_POST"));
 			}
 		
-		}catch(ClassNotFoundException e){
-			throw new RuntimeException("無法載入BD driver"+e.getMessage());
 		}catch(SQLException se){
 			throw new RuntimeException("發生SQL errors"+se.getMessage());
 		}finally{
@@ -212,8 +217,7 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 		ResultSet rs= null;
 		
 		try{
-			Class.forName(driver);
-			con=DriverManager.getConnection(url,userid,passwd);
+			con=ds.getConnection();
 			pstmt=con.prepareStatement(GET_ALL_STMT);
 			/*進行全部資料的查詢*/
 			rs=pstmt.executeQuery();
@@ -234,8 +238,6 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 				activityVO.setActivityPost(rs.getBytes("ACTIVITY_POST"));
 				list.add(activityVO);
 			}
-		}catch(ClassNotFoundException e){
-			throw new RuntimeException("無法載入BD driver"+e.getMessage());
 		}catch(SQLException se){
 			throw new RuntimeException("發生SQL errors"+se.getMessage());
 		}finally{

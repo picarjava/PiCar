@@ -78,13 +78,13 @@ public class ActivServlet extends HttpServlet {
 			/**************step1.接收請求參數+錯誤處理*****************/
 			
 			try {
-				String engNum="^[(a-zA-Z0-9)]{1,10}$";
-				String activityID =(String) req.getParameter("activityID");
-				 if(activityID==null||activityID.trim().length()==0) {
-					 errorMsgs.add("活動編號未填寫");
-				 }else if(engNum.equals(activityID)){
-					 errorMsgs.add("活動編號需為1-10個英文或數字");
-				 }
+//				String engNum="^[(a-zA-Z0-9)]{1,10}$";
+//				String activityID =(String) req.getParameter("activityID");
+//				 if(activityID==null||activityID.trim().length()==0) {
+//					 errorMsgs.add("活動編號未填寫");
+//				 }else if(engNum.equals(activityID)){
+//					 errorMsgs.add("活動編號需為1-10個英文或數字");
+//				 }
 				 
 				 String activityName=(String) req.getParameter("activityName");
 				 String activityInfo=(String) req.getParameter("activityInfo");
@@ -122,7 +122,7 @@ public class ActivServlet extends HttpServlet {
 				 }
 				 
 				 ActivityVO activityVO=new ActivityVO();
-				 activityVO.setActivityID(activityID);
+				
 				 activityVO.setActivityName(activityName);
 				 activityVO.setActivityInfo(activityInfo);
 				 activityVO.setActivityStart(activityStart);
@@ -144,7 +144,7 @@ public class ActivServlet extends HttpServlet {
 			/**************step2.開始新增資料*****************/
 			 /*從addActiv.jsp取得的資料，透過ActivityService操作DAO存進資料庫*/
 			 ActivityService activityService=new ActivityService();
-			 ActivityVO addedActivityVO =activityService.addActivity(activityID,activityName,activityInfo,activityStart,activityEnd,activityCode,tokenAmount,activityPost);
+			 ActivityVO addedActivityVO =activityService.addActivity(activityName,activityInfo,activityStart,activityEnd,activityCode,tokenAmount,activityPost);
 			 if(addedActivityVO==null) {
 				 errorMsgs.add("無法新增至DB");
 			 }

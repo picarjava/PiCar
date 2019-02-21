@@ -13,8 +13,8 @@ import com.activity.model.TestActivityJDBCDAO;
 public class TestActivityTokenJDBCDAO {
 
 	public static void main(String[] args) {
-//		ActivityTokenJDBCDAO ActivityTokenJDBCDAO=new ActivityTokenJDBCDAO();
-//		TestActivityTokenJDBCDAO useMethod=new TestActivityTokenJDBCDAO();
+		ActivityTokenJDBCDAO ActivityTokenJDBCDAO=new ActivityTokenJDBCDAO();
+		TestActivityTokenJDBCDAO useMethod=new TestActivityTokenJDBCDAO();
 //		/*新增*//*測試成功*/
 //		ActivityTokenVO activityTokenVO1=new ActivityTokenVO();
 //		activityTokenVO1.setMemID("M002");
@@ -29,7 +29,7 @@ public class TestActivityTokenJDBCDAO {
 //		activityTokenVO2.setMemID("M002");
 //		activityTokenVO2.setActivityID("AC003");
 //		activityTokenVO2.setTokenAmount(500);
-//		activityTokenVO2.setDeadline(useMethod.getSQLDate(2019, 9, 16, 12, 12));
+//		activityTokenVO2.setDeadline(useMethod.getSQLDate(2018, 9, 16, 12, 12));
 //		ActivityTokenJDBCDAO.update(activityTokenVO2);
 //		System.out.println("已修改一筆活動代幣");
 		
@@ -39,7 +39,7 @@ public class TestActivityTokenJDBCDAO {
 		
 //		/*查詢一筆*//*測試成功*/
 //		ActivityTokenVO activityTokenVO3=new ActivityTokenVO();
-//		ActivityTokenVO3=ActivityTokenJDBCDAO.findByPrimaryKey("M005", "AC005");
+//		activityTokenVO3=ActivityTokenJDBCDAO.findByPrimaryKey("M005", "AC005");
 //		System.out.println(activityTokenVO3.getActivityID());
 //		System.out.println(activityTokenVO3.getActivityID());
 //		System.out.println(activityTokenVO3.getTokenAmount());
