@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta charset="BIG5">
-<title>ALL MEMBER</title>
+<title>listAllmember_byDAO.jsp</title>
 </head>
 
 <style>
@@ -39,7 +39,7 @@ table1, td {
 
 <body bgcolor="#11e1e9">
 
-
+ <h3>listAllmember_byDAO.jsp</h3>
 	<div id="errmsg">
 	<c:if test="${not empty errorMsgs}">
 	<ul>	

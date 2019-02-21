@@ -23,7 +23,8 @@
 
 </style>
 <body bgcolor="#11e1e9">
-
+<h3>listOneMember.jsp</h3>
+<a href="select_page.jsp">回主頁面</a>
 	<h1 align="center">Picar 員工資料 by 查詢單筆</h1>
 	<table align="center" border="1" id="table1">
 		<tr>
