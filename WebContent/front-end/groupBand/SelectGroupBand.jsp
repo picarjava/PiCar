@@ -3,7 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="utf-8">
 <title>SelectGroupBand.jsp</title>
 </head>
 
@@ -47,7 +47,7 @@
 </c:if>
 
 <ul>
-  <li><a href=' listAllGroupBand.jsp'>List</a> AllGroupBand  <br><br></li>
+  <li><a href='listAllGroupBand.jsp'>List</a> AllGroupBand  <br><br></li>
  
   
   <li>

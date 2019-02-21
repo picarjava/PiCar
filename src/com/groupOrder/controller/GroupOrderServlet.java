@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.groupBand.model.GroupBandService;
-import com.groupBand.model.GroupBandVO;
+
+import com.groupOrder.model.*;
 
 /**
  * Servlet implementation class GroupOrderServlet
@@ -48,28 +48,30 @@ public class GroupOrderServlet extends HttpServlet {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
-				String groupID = req.getParameter("groupID");
-				if (groupID == null || (groupID.trim()).length() == 0) {
+				String groupOrderno = req.getParameter("groupOrderno");
+				if (groupOrderno == null || (groupOrderno.trim()).length() == 0) {
 					errorMsgs.add("錯誤拉");
 				}
-				GroupBandService groupBandService = new GroupBandService();
-				GroupBandVO groupBandVO = groupBandService.getOneGroupBand(groupID);
-				if (groupBandVO == null) {
+				GroupOrderService groupOrderService = new GroupOrderService();
+				GroupOrderVO groupOrderVO = groupOrderService.getOneGroupOrder(groupOrderno);
+				if (groupOrderVO == null) {
 					errorMsgs.add("格式不正確");
 				}
 			
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/front-end/groupBand/SelectGroupBand.jsp");
+							.getRequestDispatcher("/front-end/groupOrder/SelectGroupOrder.jsp");
 					failureView.forward(req, res);
 					return;//�{�����_
 				}
-			
-			
+			req.setAttribute("groupOrderVO", groupOrderVO);
+			String url="/front-end/groupOrder/ListOneGroupBand.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
+			successView.forward(req, res);
 		} catch (Exception e) {
 			errorMsgs.add("無法取得資料:" + e.getMessage());
 			RequestDispatcher failureView = req
-					.getRequestDispatcher("/front-end/groupBand/SelectGroupBand.jsp");
+					.getRequestDispatcher("/front-end/groupOrder/SelectGroupOrder.jsp");
 			failureView.forward(req, res);
 		}
 		
