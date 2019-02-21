@@ -1,5 +1,6 @@
 package com.singleOrder.model;
 
+import javax.management.RuntimeErrorException;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -68,6 +69,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         } finally {
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
@@ -102,6 +104,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         } finally {
             closePreparedStatement(preparedStatement);
             closeConnection(connection);
@@ -133,6 +136,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         } finally {
             closePreparedStatement(preparedStatement);
             closeConnection(connection);
@@ -155,6 +159,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         } finally {
             closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
@@ -170,6 +175,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
                 resultSet.close();
             } catch (SQLException e) {
                 e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
             } // catch
         } // if
     } // closeResultSet()
@@ -203,6 +209,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
                 preparedStatement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
             } // catch
         } // if
     } // closePreparedStatement()
@@ -213,6 +220,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
                 connection.close();
             } catch (SQLException e) {
                 e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
             } //catch
         } // if
     } // closeConnection()

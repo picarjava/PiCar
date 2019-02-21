@@ -11,11 +11,9 @@
         <div>
             <c:if test="${not empty errorMsgs }">
                 <h3>資料未填或格式錯誤</h3>
-                <p>
-                    <c:forEach var="errorMsg" items="${errorMsgs}">
-                        ${errorMsg}
-                    </c:forEach>
-                </p>
+                <c:forEach var="errorMsg" items="${errorMsgs}">
+                <p>${errorMsg}</p>
+                </c:forEach>
             </c:if>
             <a href="listAllSingleOrder.jsp">列出全部</a>
             <form action="/PiCar/singleOrder" method="POST">
@@ -26,7 +24,7 @@
             </form>
         </div>
         <div>
-        <jsp:useBean id="service" scope="page" class="com.singleOrder.model.SingleOrderService"></jsp:useBean>
+        <jsp:useBean id="service" scope="page" class="com.singleOrder.model.SingleOrderService"/>
         <form action="/PiCar/singleOrder" method="POST">
             <label for="orderID">訂單編號</label>
             <select name="orderID">
@@ -38,6 +36,7 @@
             <input type="submit"/>
         </form>
         </div>
+        <a href="addSingleOrder.jsp">新增訂單</a>
     </div>
 </body>
 </html>
