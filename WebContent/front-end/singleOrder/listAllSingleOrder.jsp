@@ -61,7 +61,7 @@
             <td>${singleOrder.note}</td>
             <td>${singleOrder.launchTime}</td>
             <td>
-                <form action="/PiCar/singleOrder" method="POST">
+                <form action="<%=application.getContextPath()%>/singleOrder" method="POST">
                     <input type="hidden" name="orderID" value="${singleOrder.orderID}"/>
                     <input type="hidden" name="action" value="getUpdateID"/>
                     <button type="submit">修改</button>

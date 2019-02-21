@@ -16,7 +16,7 @@
                 </c:forEach>
             </c:if>
             <a href="listAllSingleOrder.jsp">列出全部</a>
-            <form action="/PiCar/singleOrder" method="POST">
+            <form action="<%=application.getContextPath()%>/singleOrder" method="POST">
                 <label for="orderID">訂單編號</label>
                 <input type="text" name="orderID" id="orderID"/>
                 <input type="hidden" name="action" value="select"/>
@@ -25,7 +25,7 @@
         </div>
         <div>
         <jsp:useBean id="service" scope="page" class="com.singleOrder.model.SingleOrderService"/>
-        <form action="/PiCar/singleOrder" method="POST">
+        <form action="<%=application.getContextPath()%>/singleOrder" method="POST">
             <label for="orderID">訂單編號</label>
             <select name="orderID">
                 <c:forEach var="singleOrder" items="${service.all}">

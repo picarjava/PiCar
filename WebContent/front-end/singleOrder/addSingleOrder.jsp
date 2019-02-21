@@ -27,7 +27,7 @@
             </c:forEach>
         </div>
     </c:if>
-    <form action="/PiCar/singleOrder" method="POST">
+    <form action="<%=application.getContextPath()%>/singleOrder" method="POST">
         <label for="memId">會員ID </label><input type="text" name="memID" id="memID" value="${singleOrder.memID}"/><br>
         <label for="startTime">上車時間 </label><input type="text" id="f_date1" name="startTime" id="startTime" value="${singleOrder.startTime}"/><br>
         <label for="startLoc">上車地點 </label><input type="text" name="startLoc" id="startLoc" value="${singleOrder.startLoc}"/><br>

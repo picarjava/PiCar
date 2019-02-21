@@ -18,7 +18,7 @@
     </div>
     </c:if>
     <c:if test="${not empty singleOrder}">
-    <form action="/PiCar/singleOrder" method="POST">
+    <form action="<%=application.getContextPath()%>/singleOrder" method="POST">
         <input type="hidden" name="orderID" value="${singleOrder.orderID}"/>
                     訂單ID ${singleOrder.orderID}<br>
         <label for="driverID">司機ID</label><input type="text" name="driverID" value="${singleOrder.driverID}" id="driverID"/><br>

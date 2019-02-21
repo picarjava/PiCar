@@ -159,8 +159,7 @@ public class SingleOrderServlet extends HttpServlet{
                         throw e;
                     } // catch
                     
-                    forwordURL = "/front-end/singleOrder/listAllSingleOrder.jsp";
-                    
+                    forwordURL = "/front-end/singleOrder/listAllSingleOrder.jsp";      
                 } // else
             } // else if
             
