@@ -90,4 +90,12 @@
     <servlet-name>DriverReportServlet</servlet-name>
     <url-pattern>/driverReport/driverReport.do</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <servlet-name>Location</servlet-name>
+    <servlet-class>com.location.controller.LocationServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Location</servlet-name>
+    <url-pattern>/location</url-pattern>
+  </servlet-mapping>
 </web-app>

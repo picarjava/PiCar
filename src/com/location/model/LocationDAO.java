@@ -43,7 +43,7 @@ public class LocationDAO implements LocationDAO_interface{
 //    } // main()
     
     @Override
-    public LocationVO findByPrimaryKey(String primaryKey1, String primaryKey2) {
+    public LocationVO findByPrimaryKey(String memID, String location) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -53,8 +53,8 @@ public class LocationDAO implements LocationDAO_interface{
           connection = dataSource.getConnection();
           int index = 1;
           preparedStatement = connection.prepareStatement(SELECT);
-          preparedStatement.setString(index++, primaryKey1);
-          preparedStatement.setString(index++, primaryKey2);
+          preparedStatement.setString(index++, memID);
+          preparedStatement.setString(index++, location);
           resultSet = preparedStatement.executeQuery();
           if (resultSet.next()) {
               locationVO = getLocationVO(resultSet);
@@ -81,7 +81,7 @@ public class LocationDAO implements LocationDAO_interface{
     } // update()
     
     @Override
-    public void delete(String memId, String location) {
+    public void delete(String memID, String location) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         try {
@@ -89,9 +89,10 @@ public class LocationDAO implements LocationDAO_interface{
           connection = dataSource.getConnection();
 //            connection = DriverManager.getConnection(URL, NAME, NAME);
             preparedStatement = connection.prepareStatement(DELETE);
-            preparedStatement.setString(index++, memId);
+            preparedStatement.setString(index++, memID);
             preparedStatement.setString(index++, location);
-            preparedStatement.executeUpdate();
+            int count = preparedStatement.executeUpdate();
+            System.out.println(count);
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {

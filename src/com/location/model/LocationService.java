@@ -9,29 +9,29 @@ public class LocationService {
         locationDAO = new LocationDAO();
     } // LocationService()
     
-    public LocationVO getOneLocation(String memId, String location) {
-        return locationDAO.findByPrimaryKey(memId, location);
+    public LocationVO getOneLocation(String memID, String location) {
+        return locationDAO.findByPrimaryKey(memID, location);
     } // getOneLocation()
     
-    public LocationVO addLocation(String memId, String location) {
+    public LocationVO addLocation(String memID, String location) {
         LocationVO locationVO = new LocationVO();
-        locationVO.setMemId(memId);
+        locationVO.setMemId(memID);
         locationVO.setLocation(location);
         locationDAO.insert(locationVO);
         return locationVO;
     } // addLocation()
     
-    public LocationVO updateLocation(String memId, String location, String newLocation) {
+    public LocationVO updateLocation(String memID, String location, String newLocation) {
         LocationVO locationVO = new LocationVO();
-        locationVO.setMemId(memId);
+        locationVO.setMemId(memID);
         locationVO.setLocation(location);
         locationDAO.update(locationVO, newLocation);
         locationVO.setLocation(newLocation);
         return locationVO;
     } // updateLocation()
     
-    public void deleteLocation(String memId, String location) {
-        locationDAO.delete(memId, location);
+    public void deleteLocation(String memID, String location) {
+        locationDAO.delete(memID, location);
     } // deleteLocation()
     
     public List<LocationVO> getAll() {
