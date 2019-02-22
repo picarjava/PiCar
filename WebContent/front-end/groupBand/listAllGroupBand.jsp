@@ -62,8 +62,9 @@
 		</c:forEach>
 	</ul>
 </c:if>
-<a href="insertGroupBand.jsp" >新增</a>
- <a href="SelectGroupBand.jsp" >查詢</a>
+<a href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/insertGroupBand.jsp" >發起揪團</a>
+<a href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/SelectGroupBand.jsp" >查詢單筆</a>
+
 <table >
 <tr>
 <th>揪團ID</th>

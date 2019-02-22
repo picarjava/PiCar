@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -440,8 +440,8 @@ public class GroupBandServlet extends HttpServlet {
 					java.sql.Timestamp startTime = null;
 //					try {
 					
-					String startTimes =null;
-					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//					String startTimes =null;
+//					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				
 				
 					if("1".equals(req.getParameter("orderT"))) {try {
