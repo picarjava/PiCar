@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -87,7 +87,7 @@ public class GroupBandServlet extends HttpServlet {
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/groupBand/SelectGroupBand.jsp");
 					failureView.forward(req, res);
-					return;//�{�����_
+					return;
 				}
 				
 				req.setAttribute("GroupBandVO", groupBandVO);
@@ -223,7 +223,7 @@ public class GroupBandServlet extends HttpServlet {
 				
 				photo = new byte[in.available()];							
 				if(in.available()!=0) {
-					in.read(photo); 
+					in.read(photo);                                                                                                                                                                                                                                                                                                             
 					in.close();		
 					}else {
 						errorMsgs.add("請上傳照片");
@@ -237,17 +237,17 @@ public class GroupBandServlet extends HttpServlet {
 				Integer totalAmout	=0;
 				
 			
-				java.sql.Date startTime = null;
-//				try {
+				java.sql.Timestamp startTime = null;
+				try {
 				String startTimes =null;
-				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			
 			
 				if("1".equals(req.getParameter("orderT"))) {
 					startTimes=req.getParameter("startTime");
 					if(startTimes==null || "".equals(startTimes)) {
 						errorMsgs.add("日期: 請勿空白");
-						
+						startTime=new java.sql.Timestamp(System.currentTimeMillis());
 						
 					}
 				}
@@ -255,14 +255,14 @@ public class GroupBandServlet extends HttpServlet {
 				    startTimes=req.getParameter("startTimes");
 				    if(startTimes==null || "".equals(startTimes)) {
 						errorMsgs.add("日期: 請勿空白");
-						
+						startTime=new java.sql.Timestamp(System.currentTimeMillis());
 						
 					}
 				}
-//				} catch (IllegalArgumentException e) {
-//					startTime=new java.sql.Date(System.currentTimeMillis());
-//					errorMsgs.add("請輸入日期!");
-//				}
+				} catch (IllegalArgumentException e) {
+					startTime=new java.sql.Timestamp(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期!");
+				}
 				
 				
 				Integer rate =5;
@@ -437,37 +437,85 @@ public class GroupBandServlet extends HttpServlet {
 					Integer totalAmout	=0;
 					
 				
-					java.sql.Date startTime = null;
+					java.sql.Timestamp startTime = null;
 //					try {
 					
-					String startTimes =null;
-					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//					String startTimes =null;
+//					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				
 				
-					if("1".equals(req.getParameter("orderT"))) {
-						startTimes=req.getParameter("startTime");
-						if(startTimes==null || "".equals(startTimes)) {
-							errorMsgs.add("日期: 請勿空白");
+					if("1".equals(req.getParameter("orderT"))) {try {
+					
+//						startTimes=req.getParameter("startTime");
+						startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
 							
 							
 						}
+						 catch (IllegalArgumentException e) {
+//								
+								errorMsgs.add("日期: 請勿空白");
+								startTime=new java.sql.Timestamp(System.currentTimeMillis());
+							}
 					}
-					else {
-					    startTimes=req.getParameter("startTimes");
-					    if(startTimes==null || "".equals(startTimes)) {
+					else {try {
+//					    startTimes=req.getParameter("startTimes");
+					    startTime = java.sql.Timestamp.valueOf(req.getParameter("startTimes").trim());
+					    	
+					}	
+							
+						
+					 catch (IllegalArgumentException e) {
+//							
 							errorMsgs.add("日期: 請勿空白");
-							
-							
+							startTime=new java.sql.Timestamp(System.currentTimeMillis());
 						}
 					}			
-					
-   				startTime = new Date(simpleDateFormat.parse(startTimes).getTime());
+				
+//   				startTime = new Timestamp(simpleDateFormat.parse(startTimes).getTime());
 //					} catch (IllegalArgumentException e) {
 //						startTime=new java.sql.Date(System.currentTimeMillis());
 //						errorMsgs.add("請輸入日期!");
 //					}
 					
 					
+					
+//					java.sql.Timestamp startTime = null;
+//					
+//					
+//					if("1".equals(req.getParameter("orderT"))) {
+//						try {	
+//					startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
+//		
+//						} catch (IllegalArgumentException e) {
+//							
+//							errorMsgs.add("日期: 請勿空白");
+//							startTime=new java.sql.Timestamp(System.currentTimeMillis());
+//						}
+//							
+//							
+//							
+//						}
+//					
+//					else {
+//						try {	
+//						startTime = java.sql.Timestamp.valueOf(req.getParameter("startTims").trim());
+//					
+//					   
+//						} catch (IllegalArgumentException e) {
+//							
+//							errorMsgs.add("日期: 請勿空白");
+//							startTime=new java.sql.Timestamp(System.currentTimeMillis());
+//						}
+//							
+//							
+//							
+//						}
+					
+				
+					
+				
+   				
+   				
 					Integer rate =5;
 					
 					
@@ -502,16 +550,30 @@ public class GroupBandServlet extends HttpServlet {
 					groupBandVO.setRate(rate);
 					groupBandVO.setNote(note);
 				
+					
+					/***************************2.�}�l�s�W���***************************************/
+					GroupBandService groupBandService = new GroupBandService();
+					groupBandVO = groupBandService.addGroupBand(content,introduction,groupStatus,currenTnum,
+							upperLimit,lowerLimit,groupName,groupLeader,startLoc,
+							endLoc,privates,photo,groupType,totalAmout,startTime,
+							rate,note);
+					
 					//產生訂單
+					
+					
+					
+					
+//		-------------------產生 (揪團訂單 )多筆------------------------------------------
+					
 					
 					String diverID =null;
 
 					String memID [];
-//					
+					
 					memID = new String[upperLimit];
-//					
+					
 				memID[0]=groupLeader;
-////					
+					
 				for(int x=1;x<upperLimit;x++)
 				{
 						memID[x]=null;	
@@ -558,7 +620,8 @@ public class GroupBandServlet extends HttpServlet {
 						 (diverID,memID[x],state,totalAmoutOr, startTimeOr, endTime,startLng, startLat, endLng, endLat, orderType, rateOr, noteOr);
 					
 					}
-								
+					
+//		------------------------------------------------------------------------------------
 					
 					// Send the use back to the form, if there were errors
 					if (!errorMsgs.isEmpty()) {
@@ -569,13 +632,7 @@ public class GroupBandServlet extends HttpServlet {
 						return;
 					}
 					
-					/***************************2.�}�l�s�W���***************************************/
-					GroupBandService groupBandService = new GroupBandService();
-					groupBandVO = groupBandService.addGroupBand(content,introduction,groupStatus,currenTnum,
-							upperLimit,lowerLimit,groupName,groupLeader,startLoc,
-							endLoc,privates,photo,groupType,totalAmout,startTime,
-							rate,note);
-					
+				
 
 					
 					

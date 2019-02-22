@@ -24,7 +24,7 @@ public class GroupBandVO implements java.io.Serializable {
 	private byte[] photo;
 	private String groupType;
 	private Integer totalAmout;
-	private Date startTime;
+	private Timestamp startTime;
 	private Integer rate;
 	private String note;
 	
@@ -124,10 +124,10 @@ public class GroupBandVO implements java.io.Serializable {
 	public void setTotalAmout(Integer totalAmout) {
 		this.totalAmout = totalAmout;
 	}
-	public Date getStartTime() {
+	public Timestamp getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(Date startTime) {
+	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
 	public Integer getRate() {

@@ -10,9 +10,9 @@
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
-	href="../../datetimepicker/jquery.datetimepicker.css" />
-<script src="../../datetimepicker/jquery.js"></script>
-<script src="../../datetimepicker/jquery.datetimepicker.full.js"></script>
+	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <meta charset="BIG5">
 <title>Insert title here</title>
 <style>
@@ -82,7 +82,7 @@ th, td {
 	<h3>發起揪團</h3>
 
 	<form action="/PiCar/GroupBand" method="POST" enctype="multipart/form-data">
-		<table>
+		<table border="1">
 
 			<tr>
 				<td><input type="radio" name="orderT" value="0" checked
@@ -118,8 +118,11 @@ th, td {
 			<tr>
 				<td>揪團圖片</td>
 
-				<td><input type="file" name="photo" size="25"
+
+  
+				<td><input type="file" id="progressbarTWInput" name="photo" size="25" accept="image/gif, image/jpeg, image/png"
 					value="<%=(groupBandVO == null) ? "" : groupBandVO.getPhoto()%>" />
+					 <img id="preview_progressbarTW_img" src="#"  width="100px"   height="100px"  style = "display:none"/>
 				</td>
 				
 			</tr>
@@ -148,7 +151,7 @@ th, td {
 						<%
 							for (int a = 2; a < 5; a++) {
 						%>
-						<option name="<%=a%>" value="<%=a%>"><%=a%></option>
+						<option  value="<%=a%>"><%=a%></option>
 						<%
 							}
 						%>
@@ -162,26 +165,12 @@ th, td {
 						<%
 							for (int a = 2; a < 5; a++) {
 						%>
-						<option name="<%=a%>" value="<%=a%>"><%=a%></option>
+						<option value="<%=a%>"><%=a%></option>
 						<%
 							}
 						%>
-						<script language="Javascript">
-							function pvalue(s) {
-
-								Lower = document.getElementById("Lower");
-
-								Lower.innerHTML = "";
-
-								for (x = s; x < 5; x++) {
-									Lower.innerHTML = Lower.innerHTML
-											+ '<option name="'+x+'" value="'+x+'">'
-											+ x + '</option>';
-
-								}
-
-							}
-						</script></td>
+					
+					</select></td>
 			</tr>
 
 
@@ -195,13 +184,14 @@ th, td {
 			</tr>
 
 			<tr>
-				<td><nobr id="enddate" style="display:none">結束日期:</nobr></td>
-
-				<td><input name="endtime" id="end_date" type="text"
+				<td id="enddate" style="display:none" >結束日期:</td>
+				<td id="enddate"  >
+<input name="endtime" id="end_date" type="text"
 					style="display: none"></td>
+				
 			</tr>
 
-
+<tr>
 			<td>備註:</td>
 
 			<td><textarea name="note" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "謝謝".trim() : groupBandVO.getNote().trim()%></textarea></td>
@@ -223,7 +213,30 @@ th, td {
 		</table>
 	</form>
 </body>
+<%
+java.sql.Timestamp startTime = null;
+try {
+	startTime = groupBandVO.getStartTime();
+ } catch (Exception e) {
+	 startTime = new java.sql.Timestamp(System.currentTimeMillis());
+ }
+%> 
+	<script>
+							function pvalue(s) {
 
+								Lower = document.getElementById("Lower");
+
+								Lower.innerHTML = "";
+
+								for (x = s; x < 5; x++) {
+									Lower.innerHTML = Lower.innerHTML
+											+ '<option name="'+x+'" value="'+x+'">'
+											+ x + '</option>';
+
+								}
+
+							}
+						</script>
 <script>
 	$.datetimepicker.setLocale('zh'); // kr ko ja en
 	$('#f_date1').datetimepicker({
@@ -231,7 +244,8 @@ th, td {
 		timepicker : true, //timepicker: false,
 		step : 1, //step: 60 (這是timepicker的預設間隔60分鐘)
 		format : 'Y-m-d H:i:s',
-		value : new Date(),
+		//value : new Date(),
+		value : '<%=startTime%>',
 	//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 	//startDate:	        '2017/07/10',  // 起始日
 	minDate:           '-1970-01-01', // 去除今日(不含)之前
@@ -241,18 +255,18 @@ th, td {
 
 <script>
 	$.datetimepicker.setLocale('zh'); // kr ko ja en
-	$(function() {
+	//$(function() {
 		$('#start_date').datetimepicker(
 				{
 					format : 'Y-m-d H:i:s',
 					onShow : function() {
 						this.setOptions({
 							maxDate : $('#end_date').val() ? $('#end_date')
-									.val() : false
+									.val() :  true
 						})
 					},
 					timepicker : true,
-					
+					value : '<%=startTime%>',
 					minDate:           '-1970-01-01', // 去除今日(不含)之前
 					maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 				});
@@ -263,14 +277,15 @@ th, td {
 					onShow : function() {
 						this.setOptions({
 							minDate : $('#start_date').val() ? $('#start_date')
-									.val() : false
+									.val() :  true
 						})
 					},
-					timepicker : false,
+					value : '<%=startTime%>',
+					timepicker : true,
 					minDate:           '-1970-01-01', // 去除今日(不含)之前
 					maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 				});
-	});
+//	});
 </script>
 
 <script>
@@ -292,5 +307,44 @@ th, td {
 
 		}
 	}
+</script>
+<!-- JavaScript & jQuery 版本-->
+
+<!-- HTML part -->
+
+
+
+
+
+<!-- JavaScript part -->
+
+<script>
+
+$("#progressbarTWInput").change(function(){
+
+  readURL(this);
+
+});
+
+
+
+function readURL(input){
+	
+  if(input.files && input.files[0]){
+
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+    	
+       $("#preview_progressbarTW_img").attr('src', e.target.result);
+       $("#preview_progressbarTW_img").removeAttr("style");
+    }
+
+    reader.readAsDataURL(input.files[0]);
+
+  }
+
+}
+
 </script>
 </html>

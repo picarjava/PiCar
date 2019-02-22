@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,10 +31,10 @@
 <body bgcolor='white'>
 
 <table id="table-1">
-   <tr><td><h3>IBM Emp: Home</h3><h4>( MVC )</h4></td></tr>
+   <tr><td><h3>揪團</h3><h4>( MVC )</h4></td></tr>
 </table>
 
-<p>This is the Home page for IBM Emp: Home</p>
+<p>揪團</p>
 
 <h3>揪團資料查詢:</h3>
 

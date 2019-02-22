@@ -2,6 +2,7 @@ package com.rate.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -26,13 +27,13 @@ public class RateDAO implements RateDAO_interface {
 	}
 
 	private static final String INSERT_STMT = "INSERT INTO RATE (RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC, PIC) VALUES"
-			+ "(?, ?, ?, ?, ?)";
+			+ "(RAT_SEQ.NEXTVAL, ?, ?, ?, ?)";
 	private static final String UPDATE_STMT = "UPDATE RATE SET  RATE_NAME = ?, RATE_PRICE = ?, RATE_BASIC = ?  "
 			+ "WHERE RATE_ID = ?";
 	private static final String DELETE = "DELETE FROM RATE WHERE RATE_ID = ? ";
-	private static final String GET_ONE_STMT = "SELECT RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC FROM RATE WHERE RATE_ID= ?";
-	private static final String GET_ALL_STMT = "SELECT RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC FROM RATE ORDER BY RATE_ID";
-	private static final String GET_PIC = "SELECT PIC FROM RATE WHERE = ?";
+	private static final String GET_ONE_STMT = "SELECT RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC, PIC FROM RATE WHERE RATE_ID= ?";
+	private static final String GET_ALL_STMT = "SELECT RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC, PIC FROM RATE ORDER BY RATE_ID";
+//	private static final String GET_PIC = "SELECT PIC FROM RATE WHERE = ?";
 //	private static final String INSER_PIC = "INSERT INTO RATE(PIC) VALUES (?)";
 	
 	@Override
@@ -45,14 +46,14 @@ public class RateDAO implements RateDAO_interface {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setInt(1, rateVO.getRateID());
-			pstmt.setString(2, rateVO.getRateName());
-			pstmt.setDouble(3, rateVO.getRatePrice());
-			pstmt.setInt(4, rateVO.getRateBasic());
+//			pstmt.setInt(1, rateVO.getRateID());
+			pstmt.setString(1, rateVO.getRateName());
+			pstmt.setDouble(2, rateVO.getRatePrice());
+			pstmt.setInt(3, rateVO.getRateBasic());
 			Blob blob = con.createBlob();
 			byte [] pic = rateVO.getPic();
 			blob.setBytes(1, pic);
-			pstmt.setBlob(5, blob);
+			pstmt.setBlob(4, blob);
 
 			pstmt.executeUpdate();
 
@@ -226,10 +227,15 @@ public class RateDAO implements RateDAO_interface {
 
 			while (rs.next()) {
 				rateVO = new RateVO();
-				rateVO.setRateID(rs.getInt("RATE_ID"));
-				rateVO.setRateName(rs.getString("RATE_NAME"));
-				rateVO.setRatePrice(rs.getDouble("RATE_PRICE"));
-				rateVO.setRateBasic(rs.getInt("RATE_BASIC"));
+				rateVO.setRateID(rs.getInt(1));
+				rateVO.setRateName(rs.getString(2));
+				rateVO.setRatePrice(rs.getDouble(3));
+				rateVO.setRateBasic(rs.getInt(4));
+				rateVO.setPic(rs.getBytes(5));
+//				InputStream is = rs.getBinaryStream("PIC");
+//				rateVO.setPic(rs.getBinaryStream("PIC"));
+				
+				
 				list.add(rateVO);
 			}
 

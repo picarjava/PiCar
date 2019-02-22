@@ -1,10 +1,10 @@
 package com.groupBand.model;
 
-import java.io.IOException;
-import java.sql.Date;
+//import java.io.IOException;
+//import java.sql.Date;
 import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
+//import java.text.ParseException;
+//import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class GroupBandService {
@@ -17,7 +17,7 @@ public class GroupBandService {
 
 	public GroupBandVO addGroupBand(String content, String introduction, Integer groupStatus, Integer currenTnum,
 			Integer upperLimit, Integer lowerLimit, String groupName, String groupLeader, String startLoc,
-			String endLoc, Integer privates, byte[] photo, String groupType, Integer totalAmout, Date startTime,
+			String endLoc, Integer privates, byte[] photo, String groupType, Integer totalAmout, Timestamp startTime,
 			Integer rate, String note) {
 
 		GroupBandVO groupBandVO = new GroupBandVO();
@@ -48,7 +48,7 @@ public class GroupBandService {
 			String groupID,Timestamp launchTime,
 			String content, String introduction, Integer groupStatus, Integer currenTnum, Integer upperLimit,
 			Integer lowerLimit, String groupName, String groupLeader, String startLoc, String endLoc, Integer privates,
-			byte[] photo, String groupType, Integer totalAmout, Date startTime, Integer rate, String note) {
+			byte[] photo, String groupType, Integer totalAmout, Timestamp startTime, Integer rate, String note) {
 
 		GroupBandVO groupBandVO = new GroupBandVO();
 		groupBandVO.setGroupID(groupID);

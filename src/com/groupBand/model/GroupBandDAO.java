@@ -1,10 +1,10 @@
 package com.groupBand.model;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+//import java.io.ByteArrayOutputStream;
+//import java.io.File;
+//import java.io.FileInputStream;
+//import java.io.IOException;
+//import java.io.InputStream;
 import java.sql.*;
 import java.util.*;
 
@@ -41,7 +41,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			con.setAutoCommit(true);
 			pstmt = con.prepareStatement(INSERT_STMT);
 
-			pstmt.setString(1, groupBandVO.getContent());		
+			pstmt.setString(1, groupBandVO.getContent());
 			pstmt.setString(2, groupBandVO.getIntroduction());
 			pstmt.setInt(3, groupBandVO.getGroupStatus());
 			pstmt.setInt(4, groupBandVO.getCurrenTnum());
@@ -55,10 +55,10 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			pstmt.setBytes(12, groupBandVO.getPhoto());
 			pstmt.setString(13, groupBandVO.getGroupType());
 			pstmt.setInt(14, groupBandVO.getTotalAmout());
-			pstmt.setDate(15, groupBandVO.getStartTime());
+			pstmt.setTimestamp(15, groupBandVO.getStartTime());
 			pstmt.setInt(16, groupBandVO.getRate());
 			pstmt.setString(17, groupBandVO.getNote());
-			
+
 			pstmt.executeUpdate();
 			con.commit();
 		} catch (SQLException se) {
@@ -108,7 +108,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			pstmt.setBytes(14, groupBandVO.getPhoto());
 			pstmt.setString(15, groupBandVO.getGroupType());
 			pstmt.setInt(16, groupBandVO.getTotalAmout());
-			pstmt.setDate(17, groupBandVO.getStartTime());
+			pstmt.setTimestamp(17, groupBandVO.getStartTime());
 			pstmt.setInt(18, groupBandVO.getRate());
 			pstmt.setString(19, groupBandVO.getNote());
 			pstmt.setString(20, groupBandVO.getGroupID());
@@ -199,7 +199,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 				groupBandVO.setPhoto(rs.getBytes("PHOTO"));
 				groupBandVO.setGroupType(rs.getString("GROUP_TYPE"));
 				groupBandVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
-				groupBandVO.setStartTime(rs.getDate("START_TIME"));
+				groupBandVO.setStartTime(rs.getTimestamp("START_TIME"));
 				groupBandVO.setRate(rs.getInt("RATE"));
 				groupBandVO.setNote(rs.getString("NOTE"));
 
@@ -261,11 +261,11 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 				groupBandVO.setGroupLeader(rs.getString("GROUP_LEADER"));
 				groupBandVO.setStartLoc(rs.getString("START_LOC"));
 				groupBandVO.setEndLoc(rs.getString("END_LOC"));
-				groupBandVO.setPrivates(rs.getInt("PRIVATES"));				
-				groupBandVO.setPhoto(rs.getBytes("PHOTO"));	 
+				groupBandVO.setPrivates(rs.getInt("PRIVATES"));
+				groupBandVO.setPhoto(rs.getBytes("PHOTO"));
 				groupBandVO.setGroupType(rs.getString("GROUP_TYPE"));
 				groupBandVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
-				groupBandVO.setStartTime(rs.getDate("START_TIME"));
+				groupBandVO.setStartTime(rs.getTimestamp("START_TIME"));
 				groupBandVO.setRate(rs.getInt("RATE"));
 				groupBandVO.setNote(rs.getString("NOTE"));
 				list.add(groupBandVO);

@@ -1,9 +1,7 @@
 package com.groupBand.model;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -58,7 +56,7 @@ public class GroupBandJDBCDAO implements GroupBandDAO_interface{
 			pstmt.setBytes(12, groupBandVO.getPhoto());
 			pstmt.setString(13, groupBandVO.getGroupType());
 			pstmt.setInt(14, groupBandVO.getTotalAmout());
-			pstmt.setDate(15, groupBandVO.getStartTime());
+			pstmt.setTimestamp(15, groupBandVO.getStartTime());
 			pstmt.setInt(16, groupBandVO.getRate());
 			pstmt.setString(17, groupBandVO.getNote());
 			
@@ -117,7 +115,7 @@ public class GroupBandJDBCDAO implements GroupBandDAO_interface{
 			pstmt.setBytes(14, groupBandVO.getPhoto());
 			pstmt.setString(15, groupBandVO.getGroupType());
 			pstmt.setInt(16, groupBandVO.getTotalAmout());
-			pstmt.setDate(17, groupBandVO.getStartTime());
+			pstmt.setTimestamp(17, groupBandVO.getStartTime());
 			pstmt.setInt(18, groupBandVO.getRate());
 			pstmt.setString(19, groupBandVO.getNote());
 			pstmt.setString(20, groupBandVO.getGroupID());
@@ -220,7 +218,7 @@ public class GroupBandJDBCDAO implements GroupBandDAO_interface{
 			groupBandVO.setPhoto(rs.getBytes("PHOTO"));
 			groupBandVO.setGroupType(rs.getString("GROUP_TYPE"));
 			groupBandVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
-			groupBandVO.setStartTime(rs.getDate("START_TIME"));
+			groupBandVO.setStartTime(rs.getTimestamp("START_TIME"));
 			groupBandVO.setRate(rs.getInt("RATE"));
 			groupBandVO.setNote(rs.getString("NOTE"));
 			
@@ -293,7 +291,7 @@ public class GroupBandJDBCDAO implements GroupBandDAO_interface{
 				groupBandVO.setPhoto(rs.getBytes("PHOTO"));
 				groupBandVO.setGroupType(rs.getString("GROUP_TYPE"));
 				groupBandVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
-				groupBandVO.setStartTime(rs.getDate("START_TIME"));
+				groupBandVO.setStartTime(rs.getTimestamp("START_TIME"));
 				groupBandVO.setRate(rs.getInt("RATE"));
 				groupBandVO.setNote(rs.getString("NOTE"));
 				list.add(groupBandVO);

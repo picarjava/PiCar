@@ -10,6 +10,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,14 +28,13 @@ import javax.servlet.http.Part;
 import com.driver.model.DriverJDBCDAO;
 import com.driver.model.DriverService;
 import com.driver.model.DriverVO;
-@MultipartConfig
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 50 * 1024 * 1024, maxRequestSize = 5 * 50 * 1024 * 1024)
 public class DriverServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public DriverServlet() {
 		super();
 	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("image/gif");
 		ServletOutputStream out = res.getOutputStream();
@@ -44,19 +44,66 @@ public class DriverServlet extends HttpServlet {
 	    DriverVO driverVO = (DriverVO)driverSvc.getOneDriver(driverID);
 		System.out.println(driverID);
 		
+		
+//		Collection<Part> parts = req.getParts();
+//		for (Part part : parts) {
+//			if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
+//			
+//				
+//				long size = part.getSize();
+//
+//				// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
+//				InputStream in = part.getInputStream();
+//				photo = new byte[in.available()];						
+//				in.close();						
+//			}
+//		}
+//		Part part =null;
+//		part = req.getPart("photo");
+//		System.out.println(part);
+//		
+//		long size = part.getSize();
+//		System.out.println(size);
+//		InputStream in = part.getInputStream();
+//		
+//		photo = new byte[in.available()];
+//		if(in.available()!=0) {
+//		in.read(photo); 
+//		in.close();		
+//		}else {
+//			errorMsgs.add("請上傳照片");
+//			
+//		}
+		
+		
+		byte[] licence = driverVO.getLicence();
+		if(licence !=null) {
+			out.write(licence);
+		}
+		byte[] criminal = driverVO.getCriminal();
+		if(criminal !=null) {
+			out.write(criminal);
+		}
+		byte[] trafficRecord = driverVO.getTrafficRecord();
+		if(trafficRecord !=null) {
+			out.write(trafficRecord);
+		}
+		byte[] idNum = driverVO.getIdNum();
+		if(idNum !=null) {
+			out.write(idNum);
+		}
 		byte[] photo = driverVO.getPhoto();
 		if(photo !=null) {
 			out.write(photo);
 		}
-		
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
-		RequestDispatcher requestDispatcher;
-		RequestDispatcher failurePage;
+//		RequestDispatcher requestDispatcher;
+//		RequestDispatcher failurePage;
 		DriverService driverSvc ; // 以VO物件傳送參數
 //
 
@@ -71,7 +118,7 @@ public class DriverServlet extends HttpServlet {
 		Integer babySeat= 0;
 	///////////////////////////////////////////////////////////////////////
 ////參考241 insertgroup 
-	if ("insert".equals(action)) { // 來自addBrod.jsp的請求 ok
+	if ("INSERT".equals(action)) { // 來自addBrod.jsp的請求 ok
 
 		List<String> errorMsgs = new LinkedList<String>();
 		// Store this set in the request scope, in case we need to
@@ -80,56 +127,92 @@ public class DriverServlet extends HttpServlet {
 
 
 //		try {
-		/************************ 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
-		String msgID = req.getParameter("msgID");//對應233行
+//		/************************ 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
+//		String msgID = req.getParameter("msgID");//對應233行
 //		String msgID = "MSG";//對應232行 注意解除。add.jsp。disabled="disabled"
-		String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-		if (msgID == null || msgID.trim().length() == 0) {
-			errorMsgs.add("推播編號: 請勿空白");
-		} else if (!msgID.trim().matches(enameReg)) { //// 以下練習正則(規)表示式(regular-expression)
-			errorMsgs.add("推播編號: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間�");
-		}
+//		String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
+//		if (msgID == null || msgID.trim().length() == 0) {
+//			errorMsgs.add("推播編號: 請勿空白");
+//		} else if (!msgID.trim().matches(enameReg)) { //// 以下練習正則(規)表示式(regular-expression)
+//			errorMsgs.add("推播編號: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間�");
+//		}
 
 
 //		String memID =req.getParameter("memID").trim();//注意:正是從session 抓下來
 		
-		String	message = new String(req.getParameter("message").trim()); //訊息做字串處理
-		
-			if (message == null || message.trim().length() == 0) {
-				errorMsgs.add("訊息內容: 請勿空白");
-			}
+//		String	message = new String(req.getParameter("message").trim()); //訊息做字串處理
+//			if (message == null || message.trim().length() == 0) {
+//				errorMsgs.add("訊息內容: 請勿空白");
+//			}
 			
 		String driverID = "D003";
 		//String driverID=req.getParameter("memID").trim();//注意:正是從session 抓下來
 		
-		String plateNum = "123";	
+		String plateNum = "ABC-1234";	
 		
 		/////////////////////////////////
-		byte[] licence= null;
-		byte[] criminal = null;
-		byte[] trafficRecord = null;
-		byte[] idNum = null;
-		byte[] photo = null;
+		
+		
+		
+
+		
 		///////////////////////////
 		
 		Part part =null;
 		part = req.getPart("photo");
 		System.out.println(part);
 		
+		byte[] licence= null;
+		byte[] criminal = null;
+		byte[] trafficRecord = null;
+		byte[] idNum = null;
+		byte[] photo = null;
+//		Collection<Part> xxx = req.getParts(licence,criminal,trafficRecord,idNum,photo);
+		
 		long size = part.getSize();
 		System.out.println(size);
 		InputStream in = part.getInputStream();
 		
-		photo = new byte[in.available()];
+		
+		licence = new byte[in.available()];
 		if(in.available()!=0) {
-		in.read(photo); 
+		in.read(licence); 
 		in.close();		
 		}else {
 			errorMsgs.add("請上傳照片");
 		}
-////////////////////////////////////////////照片
 		
-		///////////
+		criminal = new byte[in.available()];
+		if(in.available()!=0) {
+			in.read(criminal); 
+			in.close();		
+		}else {
+			errorMsgs.add("請上傳良民證");
+		}
+		
+		trafficRecord = new byte[in.available()];
+		if(in.available()!=0) {
+			in.read(trafficRecord); 
+			in.close();		
+		}else {
+			errorMsgs.add("請上傳肇事紀錄");
+		}
+		
+		idNum = new byte[in.available()];
+		if(in.available()!=0) {
+			in.read(idNum); 
+			in.close();		
+		}else {
+			errorMsgs.add("請上傳照片");
+		}
+		photo = new byte[in.available()];
+		if(in.available()!=0) {
+			in.read(photo); 
+			in.close();		
+		}else {
+			errorMsgs.add("請上傳照片");
+		}
+////////////////////////////////////////////照片
 		
 		String carType= " ";
 		carType = new String(req.getParameter("carType").trim()); //訊息做字串處理
@@ -138,6 +221,11 @@ public class DriverServlet extends HttpServlet {
 			errorMsgs.add("訊息內容: 請勿空白");
 		}
 		//////////////
+		sharedCar = new Integer(req.getParameter("sharedCar"));
+		pet = new Integer(req.getParameter("pet"));
+		smoke = new Integer(req.getParameter("smoke"));
+		babySeat =new Integer(req.getParameter("babySeat"));
+		/////////////////
 		DriverVO driverVO = new DriverVO();
 		
 		driverVO.setDriverID(driverID);//
@@ -158,7 +246,7 @@ public class DriverServlet extends HttpServlet {
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
 			req.setAttribute("driverVO", driverVO); // // 含有輸入格式錯誤的empVO物件,也存入req
-			RequestDispatcher failureView = req.getRequestDispatcher("/broadcast/addBrod.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("/driver/addDriver.jsp");
 			failureView.forward(req, res);
 			return;
 		}
@@ -211,11 +299,7 @@ public class DriverServlet extends HttpServlet {
 ////				deadline = req.getParameter("deadline");
 //				onlineCar = new Integer(req.getParameter("onlineCar"));
 //				score = new Integer(req.getParameter("score"));
-//				carType = req.getParameter("carType");
-//				sharedCar = new Integer(req.getParameter("sharedCar"));
-//				pet = new Integer(req.getParameter("pet"));
-//				smoke = new Integer(req.getParameter("smoke"));
-//				babySeat =new Integer(req.getParameter("babySeat"));
+
 //
 
 //				if (!errorMsgs.isEmpty()) {
@@ -387,5 +471,21 @@ public class DriverServlet extends HttpServlet {
 		fis.close();
 		return bytePost;
 	}
+
+	public String getFileNameFromPart(Part part) {
+		String header = part.getHeader("content-disposition");
+		System.out.println("header=" + header); // 測試用
+		String filename = new File(header.substring(header.lastIndexOf("=") + 2, header.length() - 1)).getName();
+		System.out.println("filename=" + filename); // 測試用
+		if (filename.length() == 0) {
+			return null;
+		}
+		return filename;
+	}
+
+
+
+
+
 }
 

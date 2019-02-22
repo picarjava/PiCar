@@ -55,7 +55,7 @@
          <div class="container wow fadeInUp">
             <div class="col-lg-12 col-md-12">
                 <div class="section-header">
-                  <h3 class="section-title">恭喜您成為PICAR一員</h3>
+                  <h3 class="section-title">請查看單筆司機資訊</h3>
                   <div class="text-center">
                   <!-- <form action="homeActivity.jsp">設返回頁面 -->
                   <form action="https://www.google.com">
@@ -130,28 +130,6 @@
                           <img src="${driverVO.photo}" width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
-                    
-                            <div class="form-group">
-                                <p>願意共乘載客</p>
-                                <input type="text" name="sharedCar"  readonly  value="${driverVO.sharedCar}" class="form-control"   />
-                           </div>
-
-                            <div class="form-group">
-                                <p>可載寵物</p>
-                                <input type="text" name="pet"  readonly  value="${driverVO.pet}" class="form-control"   />
-
-                            </div>
-
-                            <div class="form-group">
-                                <p>抽菸</p>
-                                <input type="text" name="smoke"  readonly  value="${driverVO.smoke}" class="form-control"   />
-
-                            </div>
-
-                            <div class="form-group">
-                                <p>提供嬰兒座椅</p>
-                                <input type="text" name="babySeat"  readonly  value="${driverVO.babySeat}" class="form-control"   />
-                            </div>
                     
                     
                   <!--  <div class="text-center"><button type="submit">確認修改</button></div>  -->

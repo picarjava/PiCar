@@ -4,15 +4,16 @@
 
 <%
 	GroupBandVO groupBandVO = (GroupBandVO) request.getAttribute("GroupBandVO");
+
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" type="text/css"
-	href="../../datetimepicker/jquery.datetimepicker.css" />
-<script src="../../datetimepicker/jquery.js"></script>
-<script src="../../datetimepicker/jquery.datetimepicker.full.js"></script>
+	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <meta charset="BIG5">
 <title>updateGroupBand.jsp</title>
 <style>
@@ -168,22 +169,7 @@ th, td {
 						<%
 							}
 						%>
-						<script language="Javascript">
-							function pvalue(s) {
-
-								Lower = document.getElementById("Lower");
-
-								Lower.innerHTML = "";
-
-								for (x = s; x < 5; x++) {
-									Lower.innerHTML = Lower.innerHTML
-											+ '<option name="'+x+'" value="'+x+'">'
-											+ x + '</option>';
-
-								}
-
-							}
-						</script></td>
+							</td>
 			</tr>
 
 
@@ -191,17 +177,19 @@ th, td {
 				<td>上車日期</td>
 
 				<td><input name="startTime" id="start_date" type="text"
-					style="display: none" value="<%=groupBandVO.getStartTime()%>"> 
+					style="display: none" > 
 					<input name="startTimes" id="f_date1"
 					type="text"></td>
 			</tr>
 
 			<tr>
-				<td><nobr id="enddate" style="display:none">結束日期:</nobr></td>
-
-				<td><input name="endtime" id="end_date" type="text"
+				<td id="enddate" style="display:none" >結束日期:</td>
+				<td id="enddate"  >
+<input name="endtime" id="end_date" type="text"
 					style="display: none"></td>
+				
 			</tr>
+	<tr>		
 
 
 			<td>備註:</td>
@@ -227,7 +215,22 @@ th, td {
 		</table>
 	</form>
 </body>
+<script>
+							function pvalue(s) {
 
+								Lower = document.getElementById("Lower");
+
+								Lower.innerHTML = "";
+
+								for (x = s; x < 5; x++) {
+									Lower.innerHTML = Lower.innerHTML
+											+ '<option name="'+x+'" value="'+x+'">'
+											+ x + '</option>';
+
+								}
+
+							}
+						</script>
 <script>
 	$.datetimepicker.setLocale('zh'); // kr ko ja en
 	$('#f_date1').datetimepicker({
@@ -235,7 +238,8 @@ th, td {
 		timepicker : true, //timepicker: false,
 		step : 1, //step: 60 (這是timepicker的預設間隔60分鐘)
 		format : 'Y-m-d H:i:s',
-		value : new Date(),
+		//value : new Date(),
+		value : '<%=groupBandVO.getStartTime()%>',
 	//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
 	//startDate:	        '2017/07/10',  // 起始日
 	minDate:           '-1970-01-01', // 去除今日(不含)之前
@@ -245,18 +249,18 @@ th, td {
 
 <script>
 	$.datetimepicker.setLocale('zh'); // kr ko ja en
-	$(function() {
+	//$(function() {
 		$('#start_date').datetimepicker(
 				{
 					format : 'Y-m-d H:i:s',
 					onShow : function() {
 						this.setOptions({
 							maxDate : $('#end_date').val() ? $('#end_date')
-									.val() : false
+									.val() :  true
 						})
 					},
 					timepicker : true,
-					
+					value : '<%=groupBandVO.getStartTime()%>',
 					minDate:           '-1970-01-01', // 去除今日(不含)之前
 					maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 				});
@@ -267,14 +271,15 @@ th, td {
 					onShow : function() {
 						this.setOptions({
 							minDate : $('#start_date').val() ? $('#start_date')
-									.val() : false
+									.val() :  true
 						})
 					},
-					timepicker : false,
+					value : '<%=groupBandVO.getStartTime()%>',
+					timepicker : true,
 					minDate:           '-1970-01-01', // 去除今日(不含)之前
 					maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 				});
-	});
+//	});
 </script>
 
 <script>
@@ -296,5 +301,5 @@ th, td {
 
 		}
 	}
-</script>
+	</script>
 </html>
