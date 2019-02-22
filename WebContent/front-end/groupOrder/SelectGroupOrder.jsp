@@ -1,9 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <style>
@@ -33,9 +33,9 @@
 
 <p>This is the Home</p>
 
-<h3>´ª¹Î­q³æ¬d¸ß</h3>
+<h3>æªåœ˜è¨‚å–®æŸ¥è©¢</h3>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -44,15 +44,15 @@
 </c:if>
 
 <ul>
-	<li><a href='ListAllGroupBand.jsp'></a>ALLGroupBand <br><br></li>
+	<li><a href='listAllGroupBand.jsp'></a> AllGroupOrder <br><br></li>
 	<li></li>
 
 	<li>
     <FORM METHOD="post" ACTION="/PiCar/GroupOrder"  enctype="multipart/form-data">
-        <b>¿é¤J´ª¹Î½s¸¹ </b>
-        <input type="text" name="groupOrderno">
+        <b>è¼¸å…¥æªåœ˜ç·¨è™Ÿ </b>
+        <input type="text" name="gorderID">
         <input type="hidden" name="action" value="getOne_For_Display">
-        <input type="submit" value="°e¥X">
+        <input type="submit" value="é€å‡º">
     </FORM>
   </li>
 

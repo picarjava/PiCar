@@ -12,7 +12,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>listOneGroupBand.jsp</title>
 <style>
   table#table-1 {
@@ -31,6 +31,7 @@
   }
 </style>
 <style>
+
   table {
 	width: 800px;
 	background-color: white;
@@ -50,7 +51,8 @@
 </style>
 </head>
 <body>
-
+<a href="insertGroupBand.jsp" >查詢全部</a>
+<a href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/insertGroupBand.jsp" >查詢全部</a>
 
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -101,7 +103,7 @@
 	<td><%=groupBandVO.getStartLoc()%></td>
 	<td><%=groupBandVO.getEndLoc()%></td>
 	<td><%=groupBandVO.getPrivates()%></td>
-	<td><%=groupBandVO.getPhoto()%></td>
+	<td><img src="/PiCar/GroupBand?groupID=<%=groupBandVO.getGroupID()%>" width="100px"   height="100px"></td>
 	<td><%=groupBandVO.getGroupType()%></td>
 	<td><%=groupBandVO.getTotalAmout()%></td>
 	<td><%=groupBandVO.getStartTime()%></td>
