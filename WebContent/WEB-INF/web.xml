@@ -66,13 +66,13 @@
     <url-pattern>/GroupBand</url-pattern>
   </servlet-mapping>
   <servlet>
-      <servlet-name>GroupOrder</servlet-name>
+    <servlet-name>GroupOrder</servlet-name>
     <servlet-class>com.groupOrder.controller.GroupOrderServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>GroupOrder</servlet-name>
     <url-pattern>/GroupOrder</url-pattern>
-  </servlet-mapping> 
+  </servlet-mapping>
   <servlet>
     <servlet-name>ImgServlet</servlet-name>
     <servlet-class>com.groupBand.controller.ImgServlet</servlet-class>
@@ -91,14 +91,14 @@
     <url-pattern>/activity/Activ_servlet.html</url-pattern>
   </servlet-mapping>
   
-  <servlet>
-    <servlet-name>PassbytePic</servlet-name>
-    <servlet-class>com.activity.controller.PassbytePic</servlet-class>
+   <servlet>
+    <servlet-name>ActivTokenServlet</servlet-name>
+    <servlet-class>com.activityToken.controller.ActivTokenServlet</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
   <servlet-mapping>
-    <servlet-name>PassbytePic</servlet-name>
-    <url-pattern>/activity/PassbytePic</url-pattern>
+    <servlet-name>ActivTokenServlet</servlet-name>
+    <url-pattern>/activityToken/ActivTokenServlet</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>DriverReportServlet</servlet-name>
@@ -109,7 +109,6 @@
     <url-pattern>/driverReport/driverReport.do</url-pattern>
   </servlet-mapping>
   <servlet>
-  
     <servlet-name>Location</servlet-name>
     <servlet-class>com.location.controller.LocationServlet</servlet-class>
   </servlet>
