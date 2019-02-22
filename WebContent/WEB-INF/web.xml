@@ -66,6 +66,15 @@
     <url-pattern>/GroupBand</url-pattern>
   </servlet-mapping>
     <servlet>
+      <servlet-name>GroupOrder</servlet-name>
+    <servlet-class>com.groupOrder.controller.GroupOrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GroupOrder</servlet-name>
+    <url-pattern>/GroupOrder</url-pattern>
+  </servlet-mapping>
+  
+    <servlet>
     <servlet-name>ImgServlet</servlet-name>
     <servlet-class>com.groupBand.controller.ImgServlet</servlet-class>
   </servlet>
@@ -97,5 +106,13 @@
   <servlet-mapping>
     <servlet-name>Location</servlet-name>
     <url-pattern>/location</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>memberApi</servlet-name>
+    <servlet-class>android.com.member.controller.memberServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>memberApi</servlet-name>
+    <url-pattern>/memberApi</url-pattern>
   </servlet-mapping>
 </web-app>

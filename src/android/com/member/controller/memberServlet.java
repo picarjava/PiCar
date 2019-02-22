@@ -35,18 +35,32 @@ public class memberServlet extends HttpServlet {
         System.out.println(stringBuilder.toString());
         Gson gson = new Gson();
         JsonObject json = gson.fromJson(stringBuilder.toString(), JsonObject.class);
-        String account = json.get("account").getAsString();
-        String password = json.get("password").getAsString();
+        String account = null;
+        String password = null;
+        if (json != null) {
+            if (json.has("account"))
+                account = json.get("account").getAsString();
+            if (json.has("password"))
+                password = json.get("password").getAsString();
+        }
+        
         resp.setCharacterEncoding("utf-8");
         PrintWriter writer = resp.getWriter();
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } // catch
+        
         if (isValidLogin(account, password))
-            writer.append(gson.toJson("Ok"));
+            writer.print(gson.toJson("OK"));
         else
-            writer.append(gson.toJson("Auth failed"));
+            writer.print(gson.toJson("Auth failed"));
     }
     
     private boolean isValidLogin(String account, String password) {
-        if (account.equals(password))
+        if (account != null && account.equals(password))
             return true;
         
         return false;
