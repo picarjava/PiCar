@@ -4,6 +4,7 @@
 
 <%
 DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverReportVO"); //DriverReportServlet.java (Concroller) 存入req的DriverReportVO物件 (包括幫忙取出的DriverReportVO, 也包括輸入資料錯誤時的DriverReportVO物件)
+
 %>
 
 <html>
@@ -49,7 +50,7 @@ DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverRep
 	#btn1 {
 		padding: 20px;
 		font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
-		margin-left:50%;
+		margin-left:48%;
 	}
 
 
@@ -63,7 +64,12 @@ DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverRep
 	    font-size: 14px;
 	    
 	}
-
+	
+	#s2 {
+	  font-size: 20px;
+	  }
+	
+	
  </style>
 
 </head>
@@ -92,12 +98,12 @@ DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverRep
 <FORM METHOD="post" ACTION="driverReport.do" name="form1">
 <table>
 	<tr>
-		<td>檢舉司機單號<font color=red><b>*</b></font></td>
+		<td>檢舉司機單號<font color=red></font></td>
 		<td><input class="form-control" type="text" size="45" value="<%=driverReportVO.getDreportID()%>" placeholder="Readonly input here..." readonly></td>
 	</tr>
 	<tr>
 		<td>會員編號</td>
-		<td><input type="TEXT" name="memID" size="45" value="<%=driverReportVO.getMemID()%>" /></td>
+		<td><input class="form-control" type="TEXT" name="memID" size="45" value="<%=driverReportVO.getMemID()%>" placeholder="Readonly input here..." readonly/></td>
 	</tr>
 	<tr>
 		<td>管理員編號</td>
@@ -117,7 +123,12 @@ DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverRep
 	</tr>
 	<tr>
 		<td>處理狀態</td>
-		<td><input type="TEXT" name="state" size="45" value="<%=driverReportVO.getState()%>" /></td>
+		<td>
+		<select name="state" class="form-control form-control-lg" id="s2">
+            <option value="1" ${(driverReportVO.state=='1') ? 'selected' : ''}>已處理
+            <option value="0" ${(driverReportVO.state=='0') ? 'selected' : ''}>未處理
+		</select>
+		</td>	
 	</tr>
 
 </table>

@@ -48,8 +48,8 @@ BroadcastVO brodVO = (BroadcastVO) request.getAttribute("brodVO"); //EmpServlet.
 
 <table id="table-1">
 	<tr><td>
-		 <h3>員工資料修改 - update_emp_input.jsp</h3>
-		 <h4><a href="select_page.jsp"><img src="images/back1.gif" width="100" height="32" border="0">回首頁</a></h4>
+		 <h3>推播資料修改 - update_brod_input.jsp</h3>
+		 <h4><a href="select_page.jsp">回首頁</a></h4>
 	</td></tr>
 </table>
 
@@ -70,22 +70,22 @@ BroadcastVO brodVO = (BroadcastVO) request.getAttribute("brodVO"); //EmpServlet.
 	<tr>
 		<td>推播編號:</td>
 		<td><input type="TEXT" name="msgID" size="45" 
-			 value="<%= (brodVO==null)? "吳永志" : brodVO.getMsgID()%>" /></td>
+			 value="<%= brodVO.getMsgID()%>" readonly="readonly"/></td>
 	</tr>
 	<tr>
 		<td>會員編號:</td>
 		<td><input type="TEXT" name="memID" size="45"
-			 value="<%= (brodVO==null)? "MANAGER" : brodVO.getMemID()%>" /></td>
+			 value="<%= brodVO.getMemID()%>" disabled="disabled"/></td>
 	</tr>
 	<tr>
 		<td>訊息內容:</td>
 		<td><input type="TEXT" name="message" size="45"
-			 value="<%= (brodVO==null)? "10000" : brodVO.getMessage()%>" /></td>
+			 value="<%= brodVO.getMessage()%>" /></td>
 	</tr>
 	<tr>
 		<td>是否已讀:</td>
 		<td><input type="TEXT" name="confirmed" size="45"
-			 value="<%= (brodVO==null)? "100" : brodVO.getConfirmed()%>" /></td>
+			 value="<%= brodVO.getConfirmed()%>" /></td>
 	</tr>
 
 

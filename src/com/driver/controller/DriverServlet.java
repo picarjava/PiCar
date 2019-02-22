@@ -64,6 +64,7 @@ public class DriverServlet extends HttpServlet {
 //		Integer pet= 1;
 //		Integer smoke= 1;
 //		Integer babySeat= 1;
+	//////////////////////////////////////////////////
 ////參考241 insertgroup
 //		if ("INSERT".equals(action)) { // 來自value=INSERT
 //			List<String> errorMsgs = new LinkedList<String>();
@@ -142,7 +143,7 @@ public class DriverServlet extends HttpServlet {
 //			failurePage.forward(req, res);
 //		}
 //			
-//			/////////////////////////////
+//	//////////////////////////////////////////////////
 //		
 //		//來自homeDriver.jsp的請求
 //

@@ -2,6 +2,7 @@ package com.rate.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -24,14 +25,16 @@ public class RateDAO implements RateDAO_interface {
 		}
 	}
 
-	private static final String INSERT_STMT = "INSERT INTO RATE (RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC) VALUES"
-			+ "(?, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO RATE (RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC, PIC) VALUES"
+			+ "(?, ?, ?, ?, ?)";
 	private static final String UPDATE_STMT = "UPDATE RATE SET  RATE_NAME = ?, RATE_PRICE = ?, RATE_BASIC = ?  "
 			+ "WHERE RATE_ID = ?";
 	private static final String DELETE = "DELETE FROM RATE WHERE RATE_ID = ? ";
 	private static final String GET_ONE_STMT = "SELECT RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC FROM RATE WHERE RATE_ID= ?";
 	private static final String GET_ALL_STMT = "SELECT RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC FROM RATE ORDER BY RATE_ID";
-
+	private static final String GET_PIC = "SELECT PIC FROM RATE WHERE = ?";
+//	private static final String INSER_PIC = "INSERT INTO RATE(PIC) VALUES (?)";
+	
 	@Override
 	public void insert(RateVO rateVO) {
 
@@ -46,6 +49,10 @@ public class RateDAO implements RateDAO_interface {
 			pstmt.setString(2, rateVO.getRateName());
 			pstmt.setDouble(3, rateVO.getRatePrice());
 			pstmt.setInt(4, rateVO.getRateBasic());
+			Blob blob = con.createBlob();
+			byte [] pic = rateVO.getPic();
+			blob.setBytes(1, pic);
+			pstmt.setBlob(5, blob);
 
 			pstmt.executeUpdate();
 
@@ -256,6 +263,35 @@ public class RateDAO implements RateDAO_interface {
 		}
 
 		return list;
+	}
+
+	@Override
+	public RateVO findPic(Integer rateID) {
+		
+		
+		
+		
+		return null;
+	}
+
+	@Override
+	public void insertPic(RateVO rateVO) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+//		try{
+//			con=ds.getConnection();
+//			pstmt=con.prepareStatement(sql)
+//		}
+			
+		
+		
+		
+		
+		
+		
+		
+		
 	}
 
 }

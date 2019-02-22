@@ -74,6 +74,14 @@
     <url-pattern>/GroupOrder</url-pattern>
   </servlet-mapping>
     <servlet>
+      <servlet-name>GroupOrder</servlet-name>
+    <servlet-class>com.groupOrder.controller.GroupOrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GroupOrder</servlet-name>
+    <url-pattern>/GroupOrder</url-pattern>
+  </servlet-mapping>
+    <servlet>
     <servlet-name>ImgServlet</servlet-name>
     <servlet-class>com.groupBand.controller.ImgServlet</servlet-class>
   </servlet>
@@ -90,6 +98,7 @@
     <servlet-name>ActivServlet</servlet-name>
     <url-pattern>/activity/Activ_servlet.html</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>PassbytePic</servlet-name>
     <servlet-class>com.activity.controller.PassbytePic</servlet-class>
@@ -108,6 +117,7 @@
     <url-pattern>/driverReport/driverReport.do</url-pattern>
   </servlet-mapping>
   <servlet>
+  
     <servlet-name>Location</servlet-name>
     <servlet-class>com.location.controller.LocationServlet</servlet-class>
   </servlet>
