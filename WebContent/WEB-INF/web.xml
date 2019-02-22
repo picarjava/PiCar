@@ -90,6 +90,7 @@
     <servlet-name>ActivServlet</servlet-name>
     <url-pattern>/activity/Activ_servlet.html</url-pattern>
   </servlet-mapping>
+  
   <servlet>
     <servlet-name>DriverReportServlet</servlet-name>
     <servlet-class>com.driverReport.controller.DriverReportServlet</servlet-class>
@@ -99,6 +100,7 @@
     <url-pattern>/driverReport/driverReport.do</url-pattern>
   </servlet-mapping>
   <servlet>
+  
     <servlet-name>Location</servlet-name>
     <servlet-class>com.location.controller.LocationServlet</servlet-class>
   </servlet>
