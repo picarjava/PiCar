@@ -70,92 +70,87 @@ DriverVO driverVO = (DriverVO) request.getAttribute("driverVO"); //EmpServlet.ja
 	<tr>
 		<td>會員編號:</td>
 		<td><input type="TEXT" name="memID" size="45" 
-			 value="<%= (driverVO==null)? "吳永志" : driverVO.getMsgID()%>" /></td>
+			 value="<%= (driverVO==null)? "吳永志" : driverVO.getMemID()%>" /></td>
 	</tr>
 	<tr>
 		<td>司機編號:</td>
 		<td><input type="TEXT" name="driverID" size="45"
-			 value="<%= (driverVO==null)? "MANAGER" : driverVO.getMemID()%>" /></td>
+			 value="<%= (driverVO==null)? "MANAGER" : driverVO.getDriverID()%>" /></td>
 	</tr>
 	<tr>
 		<td>車牌號碼:</td>
 		<td><input type="TEXT" name="plateNum" size="45"
-			 value="<%= (driverVO==null)? "10000" : driverVO.getMessage()%>" /></td>
+			 value="<%= (driverVO==null)? "10000" : driverVO.getPlateNum()%>" /></td>
 	</tr>
 	<tr>
 		<td>駕照:</td>
 		<td><input type="TEXT" name="licence" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+			 value="<%= (driverVO==null)? "100" : driverVO.getLicence()%>" /></td>
 	</tr>
 	<tr>
 		<td>良民證:</td>
 		<td><input type="TEXT" name="criminal" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+			 value="<%= (driverVO==null)? "100" : driverVO.getCriminal()%>" /></td>
 	</tr>
 	<tr>
 		<td>肇事紀錄:</td>
 		<td><input type="TEXT" name="trafficRecord" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+			 value="<%= (driverVO==null)? "100" : driverVO.getTrafficRecord()%>" /></td>
 	</tr>
 	<tr>
-		<td>是否已讀:</td>
+		<td>身分證:</td>
 		<td><input type="TEXT" name="idNum" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+			 value="<%= (driverVO==null)? "100" : driverVO.getIdNum()%>" /></td>
 	</tr>
 	<tr>
-		<td>是否已讀:</td>
-		<td><input type="TEXT" name="confirmed" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+		<td>大頭照:</td>
+		<td><input type="TEXT" name="photo" size="45"
+			 value="<%= (driverVO==null)? "100" : driverVO.getPhoto()%>" /></td>
 	</tr>
 	<tr>
-		<td>是否已讀:</td>
-		<td><input type="TEXT" name="confirmed" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+		<td>是被BAN:</td>
+		<td><input type="TEXT" name="banned" size="45"
+			 value="<%= (driverVO==null)? "100" : driverVO.getBanned()%>" /></td>
 	</tr>
 	<tr>
-		<td>是否已讀:</td>
-		<td><input type="TEXT" name="confirmed" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+		<td>截止期限:</td>
+		<td><input type="TEXT" name="deadline" size="45"
+			 value="<%= (driverVO==null)? "100" : driverVO.getDeadline()%>" /></td>
 	</tr>
 	<tr>
-		<td>是否已讀:</td>
-		<td><input type="TEXT" name="confirmed" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+		<td>顯示上線:</td>
+		<td><input type="TEXT" name="onlineCar" size="45"
+			 value="<%= (driverVO==null)? "100" : driverVO.getOnlineCar()%>" /></td>
 	</tr>
 	<tr>
-		<td>是否已讀:</td>
-		<td><input type="TEXT" name="confirmed" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+		<td>評價分數:</td>
+		<td><input type="TEXT" name="score" size="45"
+			 value="<%= (driverVO==null)? "100" : driverVO.getScore()%>" /></td>
 	</tr>
 	<tr>
-		<td>是否已讀:</td>
-		<td><input type="TEXT" name="confirmed" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+		<td>車型:</td>
+		<td><input type="TEXT" name="carType" size="45"
+			 value="<%= (driverVO==null)? "100" : driverVO.getCarType()%>" /></td>
 	</tr>
 	<tr>
-		<td>是否已讀:</td>
-		<td><input type="TEXT" name="confirmed" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+		<td>是否共享:</td>
+		<td><input type="TEXT" name="sharedCar" size="45"
+			 value="<%= (driverVO==null)? "100" : driverVO.getSharedCar()%>" /></td>
 	</tr>
 	<tr>
-		<td>是否已讀:</td>
-		<td><input type="TEXT" name="confirmed" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+		<td>接受寵物:</td>
+		<td><input type="TEXT" name="pet" size="45"
+			 value="<%= (driverVO==null)? "100" : driverVO.getPet()%>" /></td>
 	</tr>
 	<tr>
-		<td>是否已讀:</td>
-		<td><input type="TEXT" name="confirmed" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+		<td>接受抽菸:</td>
+		<td><input type="TEXT" name="smoke" size="45"
+			 value="<%= (driverVO==null)? "100" : driverVO.getSmoke()%>" /></td>
 	</tr>
 	<tr>
-		<td>是否已讀:</td>
-		<td><input type="TEXT" name="confirmed" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
-	</tr>
-	<tr>
-		<td>是否已讀:</td>
-		<td><input type="TEXT" name="confirmed" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getConfirmed()%>" /></td>
+		<td>提供嬰兒椅:</td>
+		<td><input type="TEXT" name="babySeat" size="45"
+			 value="<%= (driverVO==null)? "100" : driverVO.getBabySeat()%>" /></td>
 	</tr>
 
 
@@ -163,7 +158,7 @@ DriverVO driverVO = (DriverVO) request.getAttribute("driverVO"); //EmpServlet.ja
 </table>
 <br>
 <input type="hidden" name="action" value="update"/>
-<input type="hidden" name="msgID" value="<%=driverVO.getMsgID()%>">
+<input type="hidden" name="driverID" value="<%=driverVO.getDriverID()%>">
 <input type="submit" value="送出修改"></FORM>
 </body>
 

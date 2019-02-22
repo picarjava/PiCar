@@ -405,7 +405,7 @@ CREATE TABLE GROUP_BAND(
  PHOTO BLOB    ,
  GROUP_TYPE VARCHAR2 (30)   ,
  TOTAL_AMOUT NUMBER (5)   NOT NULL,
- START_TIME DATE    ,
+ START_TIME TIMESTAMP    ,
  RATE NUMBER (1)   ,
  NOTE VARCHAR2 (60),
  
@@ -420,8 +420,8 @@ CREATE SEQUENCE GROUP_BAND_SEQ
     NOMAXVALUE
     CACHE 10;
     
-INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp('2019/02/04','yyyy/mm/dd'),EMPTY_CLOB(),1,1,2,4,'五月天演唱會','M001','桃園火車站','中壢火車站',1,EMPTY_BLOB(),'演唱會',5000,to_date('2019/02/15','yyyy/mm/dd'),5,'不錯ㄟ');
-INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp('2019/02/05','yyyy/mm/dd'),EMPTY_CLOB(),1,1,2,4,'道地ㄟ美食','M001','台南火車站','高雄火車站',1,EMPTY_BLOB(),'美食',2500,to_date('2019/02/10','yyyy/mm/dd'),5,'好吃ㄟ');
+INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp('2019/02/04','yyyy/mm/dd'),EMPTY_CLOB(),1,1,2,4,'五月天演唱會','M001','桃園火車站','中壢火車站',1,EMPTY_BLOB(),'演唱會',5000,to_timestamp('2019/02/15','yyyy/mm/dd'),5,'不錯ㄟ');
+INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp('2019/02/05','yyyy/mm/dd'),EMPTY_CLOB(),1,1,2,4,'道地ㄟ美食','M001','台南火車站','高雄火車站',1,EMPTY_BLOB(),'美食',2500,to_timestamp ('2019/02/10','yyyy/mm/dd'),5,'好吃ㄟ');
 --揪團成員
 CREATE TABLE GROUP_MEM( 
 GROUP_ID VARCHAR2 (5)  PRIMARY KEY  NOT NULL,
@@ -492,3 +492,4 @@ INSERT INTO GROUP_REPORT (GREPORT_ID, MEM_ID, GROUP_ID, ADMIN_ID, STATE)
 VALUES ('GR'||LPAD(to_char(GREPORT_ID_SEQ.NEXTVAL),3,'0'), 'M002', 'G001' , 'A001', '1');
 
 --COMMIT;
+
