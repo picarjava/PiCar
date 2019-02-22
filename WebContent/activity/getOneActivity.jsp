@@ -106,7 +106,7 @@
 	                </div>
 	                <div class="form-group">
 	                  <p>活動海報</p> <!-- EL回傳空字串 -->
-	                  <input type="file" class="form-control" name="activityPost" readonly value="{activityVO.activityPost}" />
+	                  <input type="file" class="form-control" name="activityPost" readonly value="${activityVO.activityPost}" />
 		               <img src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報" '  />
 		            </div>
 	              <!--  <div class="text-center"><button type="submit">確認修改</button></div>  -->

@@ -78,14 +78,6 @@ public class ActivServlet extends HttpServlet {
 			/**************step1.接收請求參數+錯誤處理*****************/
 			
 			try {
-//				String engNum="^[(a-zA-Z0-9)]{1,10}$";
-//				String activityID =(String) req.getParameter("activityID");
-//				 if(activityID==null||activityID.trim().length()==0) {
-//					 errorMsgs.add("活動編號未填寫");
-//				 }else if(engNum.equals(activityID)){
-//					 errorMsgs.add("活動編號需為1-10個英文或數字");
-//				 }
-				 
 				 String activityName=(String) req.getParameter("activityName");
 				 String activityInfo=(String) req.getParameter("activityInfo");
 				 try {
@@ -97,13 +89,11 @@ public class ActivServlet extends HttpServlet {
 				 java.sql.Date activityEnd=java.sql.Date.valueOf(req.getParameter("activityEnd"));
 				 String activityCode=(String) req.getParameter("activityCode");
 				 Integer tokenAmount=new Integer(req.getParameter("tokenAmount")) ;
-				//此處由於參數取到的是檔案位置，因此需自訂方法，將請求參數得到的圖片路徑讀入並 寫出byte[]
-				 /*表單屬性設定為enctype="multipart/form-data" 即可使用getPart傳遞圖片*/ /*但是會跳白*/
-				 //寫一個writeInFileAndGetByet(Part part) 寫進本地、秀圖並回傳檔案位置，以指定給activityPost作為參數值
-//				 Collection<Part> activityPost= (Collection<Part>) req.getPart("activityPost");
+				 
 				 Part part = req.getPart("activityPost");
 				 byte[] activityPost=null;
-				
+				 
+				 
 				try { 
 					InputStream in = part.getInputStream();
 					activityPost = new byte[in.available()];
@@ -180,6 +170,10 @@ public class ActivServlet extends HttpServlet {
 				failurePage.forward(req, res);
 				return;
 			}
+			//如果原本無上傳圖片，則秀預設圖
+			if(activityVO.getActivityPost().length==0) {
+				
+			}
 			
 			/*************3.得到資料存在scope=reqest，並送出VO給處理頁面**************/
 			
@@ -207,6 +201,8 @@ public class ActivServlet extends HttpServlet {
 			/*************2查詢資料:調出某一筆的vo**************/
 			ActivityService activitySvc=new ActivityService();
 			ActivityVO activityVO=activitySvc.getOneActivity(activityID);
+
+			
 			
 			/*************3.得到資料和圖片轉換資料存在scope=reqest，並送出VO給處理頁面:getOneUpdate頁面**************/
 			
@@ -236,26 +232,31 @@ public class ActivServlet extends HttpServlet {
 				 }else if(engNum.equals(activityID)){
 					 errorMsgs.add("活動編號需為1-10個英文或數字");
 				 }
-				 
 				 String activityName=(String) req.getParameter("activityName");
 				 String activityInfo=(String) req.getParameter("activityInfo");
 				 java.sql.Date activityStart=java.sql.Date.valueOf(req.getParameter("activityStart"));
 				 java.sql.Date activityEnd=java.sql.Date.valueOf(req.getParameter("activityEnd"));
 				 String activityCode=(String) req.getParameter("activityCode");
 				 Integer tokenAmount=new Integer(req.getParameter("tokenAmount")) ;
+				 byte[]  activityPost=null; //準備包進VO的 activityPost
+				 
+				 ActivityService activitySvc1=new ActivityService();
+				 ActivityVO originActivityVO=activitySvc1.getOneActivity(activityID);
 				
+				 byte[] thisActivityPost=null; //從JSP撈回的thisActivityPost
 				 Part part = req.getPart("activityPost");
-				 byte[] activityPost=null;
-				
-				try { 
 					InputStream in = part.getInputStream();
-					activityPost = new byte[in.available()];
-					in.read(activityPost);
+					thisActivityPost = new byte[in.available()];
+					in.read(thisActivityPost);
 					in.close();
-				}catch(Exception e) {
-							 errorMsgs.add("無法取得圖片"+e.getMessage());
-						 }
-				
+					//有更新送新資料
+					if(thisActivityPost.length!=0) {
+						activityPost=thisActivityPost;
+					//沒更新送舊資料
+					}else {
+						activityPost=originActivityVO.getActivityPost();
+					}
+						
 				 if(activityName==null||activityName.trim().length()==0){
 					 errorMsgs.add("活動名稱未填寫");
 				 }else if(activityInfo==null||activityInfo.trim().length()==0){

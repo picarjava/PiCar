@@ -33,14 +33,14 @@
     <servlet-class>model.StateMap</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
-   <servlet>
+  <servlet>
     <servlet-name>Broadcast</servlet-name>
     <servlet-class>com.broadcast.controller.BroadcastServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Broadcast</servlet-name>
     <url-pattern>/broadcast/broadcast.do</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet>
     <servlet-name>Driver</servlet-name>
     <servlet-class>com.driver.controller.DriverServlet</servlet-class>
@@ -65,7 +65,7 @@
     <servlet-name>GroupBand</servlet-name>
     <url-pattern>/GroupBand</url-pattern>
   </servlet-mapping>
-    <servlet>
+  <servlet>
     <servlet-name>ImgServlet</servlet-name>
     <servlet-class>com.groupBand.controller.ImgServlet</servlet-class>
   </servlet>

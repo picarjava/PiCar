@@ -77,7 +77,7 @@
 		<th>訊息內容</th>
 		<th>已讀狀態</th>
 	</tr>
-	<%@ include file="page1.jsp" %> 
+	<%@ include file="page1.file" %> 
 	<c:forEach var="brodVO" items="${list}" begin="<%=fromIndex%>" end="<%=toIndex%>">
 		
 		<tr>
@@ -104,7 +104,7 @@
 		</tr>
 	</c:forEach>
 </table>
-<%@ include file="page2.jsp" %>
+<%@ include file="page2.file" %>
 
 </body>
 </html>
