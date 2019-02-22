@@ -172,7 +172,8 @@ public class ActivServlet extends HttpServlet {
 			}
 			//如果原本無上傳圖片，則秀預設圖
 			if(activityVO.getActivityPost().length==0) {
-				
+				String noFileUpdate="noFileUpdate";
+				req.setAttribute("noFileUpdate",noFileUpdate);
 			}
 			
 			/*************3.得到資料存在scope=reqest，並送出VO給處理頁面**************/
@@ -183,7 +184,7 @@ public class ActivServlet extends HttpServlet {
 			successPage.forward(req, res);
 			/*************4.處理例外**************/
 		}catch(Exception e){
-			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
+			errorMsgs.add("無法此筆資料:"+e.getMessage());
 			}
 			RequestDispatcher failurePage=req.getRequestDispatcher("/activity/listAllActivity.jsp");
 			failurePage.forward(req, res);
