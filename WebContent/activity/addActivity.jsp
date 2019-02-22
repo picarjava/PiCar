@@ -5,6 +5,7 @@
 <html>
 <head>
   <meta charset="UTF-8">  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
   <title>Regna Bootstrap Template</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
@@ -84,11 +85,11 @@
 	                </div>
 	                <div class="form-group">
 	                  <p>活動開始時間</p>
-	                  <input type="date" class="form-control" name="activityStart" value="${activityVO.activityStart}" placeholder="請輸入活動開始時間"  />
+	                  <input id="start_date" type="text" class="form-control" name="activityStart" value="${activityVO.activityStart}" placeholder="請輸入活動開始時間"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動結束時間</p>
-	                  <input type="date" class="form-control" name="activityEnd" value="${activityVO.activityEnd}" placeholder="請輸入活動結束時間"  />
+	                  <input id="end_date" type="text" class="form-control" name="activityEnd" value="${activityVO.activityEnd}" placeholder="請輸入活動結束時間"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動序號</p>
@@ -137,6 +138,66 @@
 
   <!-- Template Main Javascript File  -->
   <script src="js/main.js"></script>
+  
+  <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
+
+<!-- 參考網站: https://xdsoft.net/jqplugins/datetimepicker/ -->
+<link   rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css" />
+<script src="datetimepicker/jquery.js"></script>
+<script src="datetimepicker/jquery.datetimepicker.full.js"></script>
+
+<style>
+  .xdsoft_datetimepicker .xdsoft_datepicker {
+           width:  300px;   /* width:  300px; */
+  }
+  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+           height: 151px;   /* height:  151px; */
+  }
+</style>
+
+<!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
+
+<!-- 參考網站: https://xdsoft.net/jqplugins/datetimepicker/ -->
+<link   rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css" />
+<script src="datetimepicker/jquery.js"></script>
+<script src="datetimepicker/jquery.datetimepicker.full.js"></script>
+
+<style>
+  .xdsoft_datetimepicker .xdsoft_datepicker {
+           width:  300px;   /* width:  300px; */
+  }
+  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+           height: 151px;   /* height:  151px; */
+  }
+</style>
+
+<script>
+$.datetimepicker.setLocale('zh'); // kr ko ja en
+$(function(){
+	 $('#start_date').datetimepicker({
+	  format:'Y-m-d',
+	  onShow:function(){
+	   this.setOptions({
+	    maxDate:$('#end_date').val()?$('#end_date').val():false
+	   })
+	  },
+	  timepicker:false
+	 });
+	 
+	 $('#end_date').datetimepicker({
+	  format:'Y-m-d',
+	  onShow:function(){
+	   this.setOptions({
+	    minDate:$('#start_date').val()?$('#start_date').val():false
+	   })
+	  },
+	  timepicker:false
+	 });
+});
+
+</script>
+  
+  
 
 </body>
 </html>

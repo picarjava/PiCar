@@ -86,11 +86,11 @@
 	                </div>
 	                <div class="form-group">
 	                  <p>活動開始時間</p>
-	                  <input type="date" class="form-control" name="activityStart" value="${activityVO.activityStart}"  />
+	                  <input id="start_date" type="text" class="form-control" name="activityStart" value="${activityVO.activityStart}"  />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動結束時間</p>
-	                  <input type="date" class="form-control" name="activityEnd"  value="${activityVO.activityEnd}" />
+	                  <input id="end_date" type="text" class="form-control" name="activityEnd"  value="${activityVO.activityEnd}" />
 	                </div>
 	                <div class="form-group">
 	                  <p>活動序號</p>
@@ -101,9 +101,14 @@
 	                  <input type="text" class="form-control" name="tokenAmount" value="${activityVO.tokenAmount}"  />
 	                </div>
 	                <div class="form-group">
-	                  <p>活動海報${activityVO.activityPost}</p> <!-- EL回傳空字串 -->
+	                  <p>活動海報</p> <!-- EL回傳空字串 -->
 	                  <input type="file" class="form-control" name="activityPost" />
-		              <img src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報" '  />
+		               <c:if test="${empty activityVO.activityPost}" var="condition">
+		              <img src="<%=request.getContextPath()%>/activity/img/noFileUpdate.JPG" width='200' height='100'>
+		              </c:if>
+		              <c:if test="${not empty activityVO.activityPost}" var="condition">
+		              <img  src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/>
+		              </c:if>
 		      
 		            </div>
 	                <div class="text-center"><button type="submit" >確認修改</button></div>
@@ -140,6 +145,48 @@
 
   <!-- Template Main Javascript File -->
   <script src="js/main.js"></script>
+  
+  <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
+
+<!-- 參考網站: https://xdsoft.net/jqplugins/datetimepicker/ -->
+<link   rel="stylesheet" type="text/css" href="datetimepicker/jquery.datetimepicker.css" />
+<script src="datetimepicker/jquery.js"></script>
+<script src="datetimepicker/jquery.datetimepicker.full.js"></script>
+
+<style>
+  .xdsoft_datetimepicker .xdsoft_datepicker {
+           width:  300px;   /* width:  300px; */
+  }
+  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+           height: 151px;   /* height:  151px; */
+  }
+</style>
+
+<script>
+$.datetimepicker.setLocale('zh'); // kr ko ja en
+$(function(){
+	 $('#start_date').datetimepicker({
+	  format:'Y-m-d',
+	  onShow:function(){
+	   this.setOptions({
+	    maxDate:$('#end_date').val()?$('#end_date').val():false
+	   })
+	  },
+	  timepicker:false
+	 });
+	 
+	 $('#end_date').datetimepicker({
+	  format:'Y-m-d',
+	  onShow:function(){
+	   this.setOptions({
+	    minDate:$('#start_date').val()?$('#start_date').val():false
+	   })
+	  },
+	  timepicker:false
+	 });
+});
+  
+</script>
 
 </body>
 </html>

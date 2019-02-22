@@ -26,6 +26,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
+import javax.websocket.Session;
 
 import com.activity.model.ActivityJDBCDAO;
 import com.activity.model.ActivityService;
@@ -52,10 +53,12 @@ public class ActivServlet extends HttpServlet {
 		
     	ServletOutputStream out=res.getOutputStream();
     	
+    	byte[] printPost=null;
 		String activityID=req.getParameter("activityID");
 		ActivityService activityService=new ActivityService();
+
 		ActivityVO activityVO=activityService.getOneActivity(activityID);
-		byte[] printPost=activityVO.getActivityPost();
+		printPost=activityVO.getActivityPost();
 		if(printPost!=null) {
 			out.write(printPost);
 		}
@@ -82,6 +85,7 @@ public class ActivServlet extends HttpServlet {
 				 String activityInfo=(String) req.getParameter("activityInfo");
 				 try {
 					 activityStart=java.sql.Date.valueOf(req.getParameter("activityStart"));
+					 System.out.println("測試日期"+activityStart);
 				 }catch(IllegalArgumentException e) {
 					 errorMsgs.add("日期格式轉換錯誤");
 				 }
@@ -164,16 +168,19 @@ public class ActivServlet extends HttpServlet {
 			/*************2查詢資料**************/
 			ActivityService activitySvc=new ActivityService();
 			ActivityVO activityVO=activitySvc.getOneActivity(activityID);
+			
 			if(activityVO==null) {
 				errorMsgs.add("查無此筆");
 				RequestDispatcher failurePage=req.getRequestDispatcher("/activity/listAllActivity.jsp");
 				failurePage.forward(req, res);
 				return;
 			}
+			
 			//如果原本無上傳圖片，則秀預設圖
-			if(activityVO.getActivityPost().length==0) {
+			if(activityVO.getActivityPost()==null){
 				String noFileUpdate="noFileUpdate";
 				req.setAttribute("noFileUpdate",noFileUpdate);
+				System.out.println("===測試有沒有進來====");
 			}
 			
 			/*************3.得到資料存在scope=reqest，並送出VO給處理頁面**************/

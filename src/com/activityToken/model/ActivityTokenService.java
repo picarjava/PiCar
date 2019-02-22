@@ -6,7 +6,7 @@ public class ActivityTokenService {
 	private ActivityTokenDAO_interface dao;
 	
 	public ActivityTokenService() {
-		dao=new ActivityTokenJDBCDAO();
+		dao=new ActivityTokenJNDIDAO();
 	}
 	public ActivityTokenVO addActivityToken(String memID,String activityID,Integer tokenAmount, java.sql.Date deadline) {
 		ActivityTokenVO activityTokenVO=new ActivityTokenVO();

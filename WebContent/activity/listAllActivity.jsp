@@ -47,6 +47,7 @@
     
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <!-- 錯誤列表 -->
+    
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
 		  <li class="list-group-item active">Opps!錯誤訊息回報</li>
 		  <c:forEach var="massage" items="${errorMsgs}">
@@ -55,11 +56,12 @@
 		</ul>
 	</c:if>
    
-  
+ 
         <section id="contact">
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">所有活動列表</h3>
+                     
                     <form action="homeActivity.jsp">
 			          <div class="text-center"><button type="submit" class="btn btn-outline-success">返回</button>
 			         </form>
@@ -68,30 +70,32 @@
             <div class="container wow fadeInUp">
                         <table class="table">
 						  <thead class="thead-dark">
+						  	
 						    <tr>
-						      <th scope="col">活動ID	    </th>
 						      <th scope="col">活動名稱	</th>
 						      <th scope="col">開始時間	</th>
 						      <th scope="col">結束時間	</th>
 						      <th scope="col">活動海報	</th>
-						      <th scope="col"  colspan="2">  
-						      <Form METHOD="post" ACTION="addActivity.jsp" >
-							    <div class="text-center"><button type="submit" class="btn btn-light">新增活動</button>
-							    </div>
-							  </Form>
-						      </th>
+						      <th scope="col" colspan="3"><%@ include file="page1.file" %></th>
 						    </tr>
 						  </thead>
 						  <tbody>
 	
-	<c:forEach var="activityVO" items="${list}" >			  
-					 		
+	<c:forEach var="activityVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >			  
+		 	
 					 		<tr>	 
 						      <th scope="row">${activityVO.activityID}</th>
 						      <td>${activityVO.activityName}</td>
 						      <td>${activityVO.activityStart}</td>
 						      <td>${activityVO.activityEnd}</td>
-						      <td><img src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報" '  /></td>
+						      <td>
+						       	  <c:if test="${empty activityVO.activityPost}" var="condition">
+					              <img src="<%=request.getContextPath()%>/activity/img/noFileUpdate.JPG" width='200' height='100'>
+					              </c:if>
+					              <c:if test="${not empty activityVO.activityPost}" var="condition">
+					              <img  src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/>
+					              </c:if>
+						      </td>
 						      <td>
 						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/activity/Activ_servlet.html" >
 							    <div class="text-center"><button type="submit" class="btn btn-light">修改</button>
@@ -112,9 +116,10 @@
 						      </td>
 						    </tr>
 	</c:forEach>	
+							
  						</tbody>
 						</table>
-                    
+						<%@ include file="page2.file" %>
             </div>
         </section>
   
