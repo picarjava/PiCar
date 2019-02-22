@@ -72,18 +72,8 @@
   <servlet-mapping>
     <servlet-name>GroupOrder</servlet-name>
     <url-pattern>/GroupOrder</url-pattern>
-  </servlet-mapping>
-    
-    <servlet>
-      <servlet-name>GroupOrder</servlet-name>
-    <servlet-class>com.groupOrder.controller.GroupOrderServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>GroupOrder</servlet-name>
-    <url-pattern>/GroupOrder</url-pattern>
-  </servlet-mapping>
-  
-    <servlet>
+  </servlet-mapping> 
+  <servlet>
     <servlet-name>ImgServlet</servlet-name>
     <servlet-class>com.groupBand.controller.ImgServlet</servlet-class>
   </servlet>
