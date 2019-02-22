@@ -329,7 +329,7 @@ public class MemberServlet extends HttpServlet {
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/member/update_member_input.jsp");
+							.getRequestDispatcher("/member/addMember1.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷				
 				}							
@@ -343,8 +343,8 @@ public class MemberServlet extends HttpServlet {
 				successView.forward(req, res);
 				
 			}catch(Exception e) {
-				errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
-				RequestDispatcher successView = req.getRequestDispatcher("/member/update_member_input.jsp");
+				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
+				RequestDispatcher successView = req.getRequestDispatcher("/member/addMember1.jsp");
 				successView.forward(req, res);
 			
 			}
