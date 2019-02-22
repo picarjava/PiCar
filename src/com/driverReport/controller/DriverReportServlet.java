@@ -6,6 +6,7 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.admin.model.*;
 import com.driverReport.model.*;
 
 
@@ -126,8 +127,10 @@ public class DriverReportServlet extends HttpServlet {
 						errorMsgs.add("會員編號請勿空白");
 					} else if (!memID.trim().matches(memIDReg)) {
 						errorMsgs.add("輸入格式有誤");
-					} 
-
+					}
+					
+					
+				
 					String adminID = req.getParameter("adminID").trim();
 					String adminIDreg = "^[(A)(0-9)]{4}$";
 					if(adminID == null || adminID.trim().length() == 0) {
@@ -135,6 +138,15 @@ public class DriverReportServlet extends HttpServlet {
 					} else if (!adminID.trim().matches(adminIDreg)) {
 						errorMsgs.add("輸入格式有誤");
 					}
+					
+					//捕捉不到錯誤故用此方法抓?!
+					AdminService svc = new AdminService();
+					AdminVO vo = svc.getOneAdmin(adminID);
+					if (vo == null) {
+						errorMsgs.add("查無此管理員");
+					}
+					//
+
 
 					String orderID = req.getParameter("orderID").trim();
 					if(orderID == null || orderID.trim().length() == 0) {
@@ -157,12 +169,13 @@ public class DriverReportServlet extends HttpServlet {
 						errorMsgs.add("請輸入日期");
 					}
 						
-					Integer state = new Integer(req.getParameter("state"));
+					Integer state = null; 
 					try {
-					if (state>1) 
+						state = new Integer(req.getParameter("state").trim());
+					if (state>1 || state==null) 
 							errorMsgs.add("處理狀態只能0或1");
-					} catch (NullPointerException ne) {
-						ne.getMessage();
+					} catch (Exception e) {
+						errorMsgs.add("處理狀態錯誤" + e.getMessage());
 					}
 					
 					
@@ -187,7 +200,7 @@ public class DriverReportServlet extends HttpServlet {
 					/***************************2.開始修改資料*****************************************/
 					DriverReportService driverReportSvc = new DriverReportService();
 					driverReportVO = driverReportSvc.updateDriverReport(dreportID, memID, adminID, orderID, content,time, state);
-						
+					
 					/***************************3.修改完成,準備轉交(Send the Success view)*************/
 					req.setAttribute("driverReportVO", driverReportVO); // 資料庫update成功後,正確的的driverReportVO物件,存入req
 					String url = "/driverReport/select_page.jsp";
@@ -202,7 +215,7 @@ public class DriverReportServlet extends HttpServlet {
 				}
 			}
 						
-	        if ("insert".equals(action)) { //來自addDriverReport.jsp的請求  
+	        if ("insert".equals(action)) { 
 				
 				List<String> errorMsgs = new LinkedList<String>();
 				// Store this set in the request scope, in case we need to
@@ -231,7 +244,7 @@ public class DriverReportServlet extends HttpServlet {
 					}
 						
 					String content = req.getParameter("content");
-					String contentReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,100}$";
+					String contentReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{10,50}$";
 					if (content == null ||content.trim().length()==0) {
 						errorMsgs.add("檢舉內容請勿空白");
 					} else if (!content.trim().matches(contentReg)) {
@@ -284,7 +297,7 @@ public class DriverReportServlet extends HttpServlet {
 					
 					/***************************其他可能的錯誤處理**********************************/
 				} catch (Exception e) {
-					errorMsgs.add(e.getMessage());
+					errorMsgs.add("資料有誤請再次確認");
 					RequestDispatcher failureView = req.getRequestDispatcher("/driverReport/addDriverReport.jsp");
 					failureView.forward(req, res);
 				}

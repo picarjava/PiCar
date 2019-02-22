@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import com.groupBand.model.*;
+import com.groupOrder.model.*;
 
 
 
@@ -429,6 +430,7 @@ public class GroupBandServlet extends HttpServlet {
 						errorMsgs.add("請上傳照片");
 						
 					}
+					
 					String groupType = req.getParameter("groupType");
 					
 					
@@ -500,8 +502,64 @@ public class GroupBandServlet extends HttpServlet {
 					groupBandVO.setRate(rate);
 					groupBandVO.setNote(note);
 				
+					//產生訂單
 					
+					String diverID =null;
 
+					String memID [];
+//					
+					memID = new String[upperLimit];
+//					
+				memID[0]=groupLeader;
+////					
+				for(int x=1;x<upperLimit;x++)
+				{
+						memID[x]=null;	
+								
+					}
+					
+					Integer state =1;
+					
+					Integer totalAmoutOr =0;
+					
+					Date startTimeOr =null;
+					
+					
+					Date endTime =null;
+					
+					Double startLng = 0.1;
+					
+					Double startLat= 0.1;
+					
+					Double endLng= 0.1;
+					
+					
+					Double endLat= 0.1;
+					
+					Integer orderType=0; //0是揪團 1是長期揪團
+					
+					Integer rateOr =0;
+					
+					 String noteOr =null;
+					
+					
+					
+					
+			
+					 
+					GroupOrderService groupOrderService =new GroupOrderService();
+			
+					
+					GroupOrderVO groupOrderVO[];
+					groupOrderVO = new GroupOrderVO[upperLimit];
+					for(int x=0; x<upperLimit;x++) {
+						
+					groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder
+						 (diverID,memID[x],state,totalAmoutOr, startTimeOr, endTime,startLng, startLat, endLng, endLat, orderType, rateOr, noteOr);
+					
+					}
+								
+					
 					// Send the use back to the form, if there were errors
 					if (!errorMsgs.isEmpty()) {
 						req.setAttribute("GroupBandVO", groupBandVO); // �t����J�榡���~��GroupBandVO����,�]�s�Jreq

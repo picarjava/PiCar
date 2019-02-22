@@ -30,10 +30,10 @@
 <body bgcolor='white'>
 
 <table id="table-1">
-   <tr><td><h3>IBM Emp: Home</h3><h4>( MVC )</h4></td></tr>
+   <tr><td><h3>推播管理首頁 Broadcast: Home</h3><h4>( MVC )</h4></td></tr>
 </table>
 
-<p>This is the Home page for IBM Brod: Home</p>
+<p>This is the Home page for Broadcast: Home</p>
 
 <h3>資料查詢:</h3>
 	
@@ -53,7 +53,7 @@
   
   <li>
     <FORM METHOD="post" ACTION="broadcast.do" >
-        <b>輸入推播訊息編號 (如7001):</b>
+        <b>輸入推播訊息編號 (如MSG001):</b>
         <input type="text" name="msgID">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
@@ -67,7 +67,7 @@
        <b>選擇推播訊息編號:</b>
        <select size="1" name="msgID">
          <c:forEach var="brod" items="${service.all}" > 
-          <option value="${broadcast.msgID}">${broadcast.msgID}
+          <option value="${brod.msgID}">${brod.msgID}
          </c:forEach>   
        </select>
        <input type="hidden" name="action" value="getOne_For_Display">
@@ -82,7 +82,7 @@
 <h3>推播訊息管理</h3>
 
 <ul>
-  <li><a href='addBrod.jsp'>Add</a> a new Brod.</li>
+  <li><a href='addBrod.jsp'>新增</a> 一筆推播</li>
 </ul>
 
 </body>

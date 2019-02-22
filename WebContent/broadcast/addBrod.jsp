@@ -3,6 +3,7 @@
 <%@ page import="com.broadcast.model.*"%>
 
 <%
+String memID = "M001";//接session
 BroadcastVO brodVO = (BroadcastVO) request.getAttribute("brodVO");
 %>
 
@@ -70,17 +71,17 @@ BroadcastVO brodVO = (BroadcastVO) request.getAttribute("brodVO");
 	<tr>
 		<td>推播編號:</td>
 		<td><input type="TEXT" name="msgID" size="45" 
-			 value="<%= (brodVO==null)? "MSG003" : brodVO.getMsgID()%>" /></td>
+			 value="<%= (brodVO==null)? "MSG" : brodVO.getMsgID()%>"disabled="disabled" /></td>
 	</tr>
 	<tr>
 		<td>會員編號:</td>
 		<td><input type="TEXT" name="memID" size="45"
-			 value="<%= (brodVO==null)? "M001" : brodVO.getMemID()%>" /></td>
+			 value="<%= memID %>" disabled="disabled"/></td>
 	</tr>
 	<tr>
 		<td>訊息內容:</td>
 		<td><input type="TEXT" name="message" size="45"
-			 value="<%= (brodVO==null)? "10000" : brodVO.getMessage()%>" /></td>
+			 value="<%= (brodVO==null)? "自由發揮" : brodVO.getMessage()%>" /></td>
 	</tr>
 	<tr>
 		<td>是否已讀:</td>

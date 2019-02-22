@@ -19,6 +19,7 @@ public class GroupOrderVO {
 	private Integer orderType;
 	private Integer rate;
 	private String note;
+	
 	public String getGorderID() {
 		return gorderID;
 	}

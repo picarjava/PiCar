@@ -1,12 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=BIG5"
+    pageEncoding="BIG5"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
-<title>SelectGroupBand.jsp</title>
+<meta charset="BIG5">
+<title>Insert title here</title>
 </head>
-
 <style>
   table#table-1 {
 	width: 450px;
@@ -27,18 +26,16 @@
     display: inline;
   }
 </style>
-<body bgcolor='white'>
-
+<body>
 <table id="table-1">
-   <tr><td><h3>IBM Emp: Home</h3><h4>( MVC )</h4></td></tr>
+  <tr><td><h3>IBM Emp: Home</h3><h4>( MVC )</h4></td></tr>
 </table>
 
-<p>This is the Home page for IBM Emp: Home</p>
+<p>This is the Home</p>
 
-<h3>æªåœ˜è³‡æ–™æŸ¥è©¢:</h3>
-
+<h3>´ª¹Î­q³æ¬d¸ß</h3>
 <c:if test="${not empty errorMsgs}">
-	<font style="color:red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
+	<font style="color:red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
 	<ul>
 	    <c:forEach var="message" items="${errorMsgs}">
 			<li style="color:red">${message}</li>
@@ -47,18 +44,21 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllGroupBand.jsp'>List</a> AllGroupBand  <br><br></li>
- 
-  
-  <li>
-    <FORM METHOD="post" ACTION="/PiCar/GroupBand"  enctype="multipart/form-data">
-        <b>è¼¸å…¥æªåœ˜ç·¨è™Ÿ </b>
-        <input type="text" name="groupID">
+	<li><a href='ListAllGroupBand.jsp'></a>ALLGroupBand <br><br></li>
+	<li></li>
+
+	<li>
+    <FORM METHOD="post" ACTION="/PiCar/GroupOrder"  enctype="multipart/form-data">
+        <b>¿é¤J´ª¹Î½s¸¹ </b>
+        <input type="text" name="groupOrderno">
         <input type="hidden" name="action" value="getOne_For_Display">
-        <input type="submit" value="é€å‡º">
+        <input type="submit" value="°e¥X">
     </FORM>
   </li>
+
 </ul>
+
+
 
 </body>
 </html>

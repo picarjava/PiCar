@@ -14,7 +14,7 @@
 <html>
 <head>
 <meta charset="BIG5">
-<title>ALL MEMBER</title>
+<title>listAllmember_byDAO.jsp</title>
 </head>
 
 <style>
@@ -39,7 +39,7 @@ table1, td {
 
 <body bgcolor="#11e1e9">
 
-
+ <h3>listAllmember_byDAO.jsp</h3>
 	<div id="errmsg">
 	<c:if test="${not empty errorMsgs}">
 	<ul>	
@@ -88,14 +88,34 @@ table1, td {
 			<td>${memberVO.password}</td>
 			<td>${memberVO.phone}</td>
 			<td>${memberVO.creditcard}</td>
-			<td>${memberVO.pet}</td>
-			<td>${memberVO.smoke}</td>
-			<td>${memberVO.gender}</td>
+			<td><c:choose>
+			  <c:when test="${memberVO.pet == '1'}"> 喜好寵物  </c:when>
+			  <c:when test="${memberVO.pet == '0'}">  不喜好寵物  </c:when>			 
+			</c:choose></td>		
+				
+			<td><c:choose>
+			  <c:when test="${memberVO.smoke == '1'}">抽菸  </c:when>
+			  <c:when test="${memberVO.smoke == '0'}">  不抽菸  </c:when>			 
+			</c:choose></td>	
+			
+			<td><c:choose>
+			  <c:when test="${memberVO.gender == '1'}">男生  </c:when>
+			  <c:when test="${memberVO.gender == '0'}">女生  </c:when>			 
+			</c:choose></td>
+			
 			<td>${memberVO.token}</td>
 			<td>${memberVO.activityToken}</td>
 			<td>${memberVO.birthday}</td>
-			<td>${memberVO.verified}</td>
-			<td>${memberVO.babySeat}</td>
+			
+			<td><c:choose>
+			  <c:when test="${memberVO.verified == '1'}">已經驗證  </c:when>
+			  <c:when test="${memberVO.verified == '0'}">尚未驗證  </c:when>			 
+			</c:choose></td>
+			
+			<td><c:choose>
+			  <c:when test="${memberVO.babySeat == '1'}">需要  </c:when>
+			  <c:when test="${memberVO.babySeat == '0'}">不需要  </c:when>			 
+			</c:choose></td>
 			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do" style="margin-bottom: 0px;">
@@ -108,12 +128,11 @@ table1, td {
 				<input type="submit" value="刪除">
 				<input type="hidden" name="memID"  value="${memberVO.memID}">
 				<input type="hidden" name="action" value="delete">
-				</form>
-			
-			</td>
+				</form>		
+		
 		</tr>
 	</c:forEach>
-
+	
 	</table>
 	<div align="center"><%@ include file="page2.file"%></div>
 </body>

@@ -8,6 +8,7 @@
 	pageContext.setAttribute("list", list);
 %>
 
+   
 
 <!doctype html>
 <html lang="zh">
@@ -43,8 +44,12 @@
 	}
 	
 	#error {
-		margin-left:20px;
-		
+		margin-left:20px;	
+	}
+	
+	#s3 {
+	
+		width:186px;
 	}
 	
  </style>
@@ -164,11 +169,20 @@
 	                <input type="hidden" name="action" value="getOne_For_Display"> 
 	                <input type="submit" value="送出">
 	              </form>
+	             <jsp:useBean id="driverReportSvc1" scope="page" class="com.driverReport.model.DriverReportService" /> 
+	              <FORM METHOD="post" ACTION="driverReport.do" >
+			       <a>選擇檢舉司機單號</a>
+			       <select size="1" name="dreportID" id="s3">
+			         <c:forEach var="driverReportVO" items="${driverReportSvc1.all}" > 
+			          <option value="${driverReportVO.dreportID}">${driverReportVO.dreportID}
+			         </c:forEach>   
+			       </select>
+			       <input type="hidden" name="action" value="getOne_For_Display">
+			       <input type="submit" value="送出">
+			     </FORM>
 	              <ul><li><a href='addDriverReport.jsp'>(測試)新增檢舉司機單</a></li></ul>
             </ul> 
             
-            
-           
             
             </div>
   
@@ -196,7 +210,14 @@
                   <td>${driverReportVO.orderID}</td>
                   <td>${driverReportVO.content}</td>
                   <td>${driverReportVO.time}</td>
-                  <td>${driverReportVO.state}</td>
+                  <td>
+					<c:choose>
+					  <c:when test="${driverReportVO.state=='1'}">已處理</c:when>
+					  <c:when test="${driverReportVO.state=='0'}">未處理</c:when>
+					</c:choose>
+                  </td>
+                  
+                  
                   <td>
                     <FORM METHOD="post"
                       ACTION="<%=request.getContextPath()%>/driverReport/driverReport.do" style="margin-bottom: 0px;">
@@ -239,16 +260,12 @@
 
 	<!-- Optional JavaScript -->
 	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-		integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-		crossorigin="anonymous"></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script
 		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-		crossorigin="anonymous"></script>
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 	<script
 		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-		crossorigin="anonymous"></script>
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </body>
 </html>

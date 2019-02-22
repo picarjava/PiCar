@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="BIG5">
-<title>Insert title here</title>
+<title>update_member_input.jsp</title>
 </head>
 <style>
 table{
@@ -18,6 +18,8 @@ table{
 	MemberVO memberVO =  (MemberVO)request.getAttribute("memberVO");
 
 %>
+ <h3>update_member_input.jsp</h3>
+ 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -62,25 +64,26 @@ table{
 			<td><input type="text" name="creditcard" size="45" value="<%=memberVO.getCreditcard() %>" /></td>		
 		</tr>
 		
+		
 		<tr>
 			<td>會員寵物喜好設定：</td>
 			<td><select name="pet">
-			<option value="1">喜歡
-			<option value="0">不喜歡
+			<option value="1" ${(memberVO.pet == '1')?'selected':'' }>喜歡寵物
+			<option value="0" ${(memberVO.pet == '0')?'selected':'' }>不喜歡寵物
 			</select></td>		
 		</tr>
 		<tr>
 			<td>會員抽菸喜好設定：</td>
 			<td><select name="smoke">
-			<option value="1">喜歡
-			<option value="0">不喜歡
+			<option value="1" ${(memberVO.smoke == '1')?'selected':'' }>抽菸
+			<option value="0" ${(memberVO.smoke == '0')?'selected':'' }>不抽菸
 			</select></td>		
 		</tr>
 		<tr>
 			<td>會員性別設定：</td>
 			<td><select name="gender">
-			<option value="1">男人
-			<option value="0">女人
+			<option value="1" ${(memberVO.gender == '1')?'selected':'' }>男生
+			<option value="0" ${(memberVO.gender == '0')?'selected':'' }>女生
 			</select></td>		
 		</tr>
 		<tr>
@@ -99,15 +102,15 @@ table{
 		<tr>
 			<td>會員驗證狀態：</td>
 			<td><select name="verified">
-			<option value="1">已驗證
-			<option value="0">為驗證
+			<option value="1" ${(memberVO.verified == '1')?'selected':'' }>已經驗證
+			<option value="0" ${(memberVO.verified == '0')?'selected':'' }>尚未驗證
 			</select></td>		
 		</tr>
 		<tr>
 			<td>嬰兒座椅設定：</td>
 			<td><select name="babySeat">
-			<option value="1">需要
-			<option value="0">不需要
+			<option value="1" ${(memberVO.babySeat == '1')?'selected':'' }>需要
+			<option value="0" ${(memberVO.babySeat == '0')?'selected':'' }>不需要
 			</select></td>		
 		</tr>
 	</table>                          

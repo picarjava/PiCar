@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="BIG5">
-<title>Insert title here</title>
+<title>select_page.jsp</title>
 <style>
 #errmsg{
 	width:200px;
@@ -17,6 +17,7 @@
 
 </head>
 <body bgcolor="#c1ece9">
+<h3>select_page.jsp</h3>
 	<div id="errmsg">
 	<c:if test="${not empty errorMsgs}">
 	<ul>	

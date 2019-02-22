@@ -73,6 +73,7 @@
 						      <th scope="col">活動名稱	</th>
 						      <th scope="col">開始時間	</th>
 						      <th scope="col">結束時間	</th>
+						      <th scope="col">活動海報	</th>
 						      <th scope="col"  colspan="2">  
 						      <Form METHOD="post" ACTION="addActivity.jsp" >
 							    <div class="text-center"><button type="submit" class="btn btn-light">新增活動</button>
@@ -90,6 +91,7 @@
 						      <td>${activityVO.activityName}</td>
 						      <td>${activityVO.activityStart}</td>
 						      <td>${activityVO.activityEnd}</td>
+						      <td><img src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報" '  /></td>
 						      <td>
 						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/activity/Activ_servlet.html" >
 							    <div class="text-center"><button type="submit" class="btn btn-light">修改</button>

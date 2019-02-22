@@ -8,39 +8,56 @@
 
 <html>
 <head>
+<title>PICAR BACK-END</title>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!-- Material Kit CSS -->
+  <link href="assets/css/material-dashboard.css" rel="stylesheet" />
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
 <title>檢舉司機資料新增 - addDriverReport.jsp</title>
 
 <style>
-  table#table-1 {
-	background-color: #CCCCFF;
-    border: 2px solid black;
-    text-align: center;
-  }
-  table#table-1 h4 {
-    color: red;
-    display: block;
-    margin-bottom: 1px;
-  }
-  h4 {
-    color: blue;
-    display: inline;
-  }
-</style>
+ <style>
+ 	table, tr, td, th {
+		
+	    border: 1px solid #aaa;
+	    text-align: center;
+	    padding: 5px;
+	    text-align: center;
+	    font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
+	}
 
-<style>
-  table {
-	width: 800px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-  }
-  table, th, td {
-    border: 0px solid #CCCCFF;
-  }
-  th, td {
-    padding: 1px;
-  }
+	table {
+		width:100%;
+		width: 800px;
+		margin-top: 1px;
+		margin-bottom: 1px;
+	}
+	
+	#error {
+		margin-left:20px;	
+	}
+	
+	body {
+		font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
+		margin-left:150px;
+	}
+	
+	h4 {
+		font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
+		
+	
+	}
+	
+	h5 {
+		margin-left:20%;	
+		font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
+	}
+
 </style>
 
 </head>
@@ -49,11 +66,11 @@
 <table id="table-1">
 	<tr><td>
 		 <h3>檢舉司機資料新增 - addDriverReport.jsp</h3></td><td>
-		 <h4><a href="select_page.jsp"><img src="images/tomcat.png" width="100" height="100" border="0">回首頁</a></h4>
+		 <h5><a href="select_page.jsp"><img src="images/arrow.png" width="40" height="40" border="0">回首頁</a></h5>
 	</td></tr>
 </table>
 
-<h3>資料新增:</h3>
+<h4>資料新增</h4>
 
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -89,7 +106,7 @@
 	<tr>
 		<td>檢舉內容:</td>
 		<td><input type="TEXT" name="content" size="45"
-			 value="<%= (driverReportVO==null)? "司機大遲到阿傻眼" : driverReportVO.getContent()%>" /></td>
+			 value="<%= (driverReportVO==null)? "" : driverReportVO.getContent()%>" /></td>
 	</tr>
 	
 		<tr>
@@ -196,4 +213,14 @@
         //      }});
         
 </script>
+
+	<!-- Optional JavaScript -->
+	<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+		integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
+		integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </html>

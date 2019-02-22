@@ -33,14 +33,14 @@
     <servlet-class>model.StateMap</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
-   <servlet>
+  <servlet>
     <servlet-name>Broadcast</servlet-name>
     <servlet-class>com.broadcast.controller.BroadcastServlet</servlet-class>
   </servlet>
   <servlet-mapping>
     <servlet-name>Broadcast</servlet-name>
     <url-pattern>/broadcast/broadcast.do</url-pattern>
-  </servlet-mapping>  
+  </servlet-mapping>
   <servlet>
     <servlet-name>Driver</servlet-name>
     <servlet-class>com.driver.controller.DriverServlet</servlet-class>
@@ -65,6 +65,15 @@
     <servlet-name>GroupBand</servlet-name>
     <url-pattern>/GroupBand</url-pattern>
   </servlet-mapping>
+  <servlet>
+      <servlet-name>GroupOrder</servlet-name>
+    <servlet-class>com.groupOrder.controller.GroupOrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GroupOrder</servlet-name>
+    <url-pattern>/GroupOrder</url-pattern>
+  </servlet-mapping>
+    
     <servlet>
       <servlet-name>GroupOrder</servlet-name>
     <servlet-class>com.groupOrder.controller.GroupOrderServlet</servlet-class>
@@ -91,6 +100,16 @@
     <servlet-name>ActivServlet</servlet-name>
     <url-pattern>/activity/Activ_servlet.html</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>PassbytePic</servlet-name>
+    <servlet-class>com.activity.controller.PassbytePic</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PassbytePic</servlet-name>
+    <url-pattern>/activity/PassbytePic</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>DriverReportServlet</servlet-name>
     <servlet-class>com.driverReport.controller.DriverReportServlet</servlet-class>
@@ -100,6 +119,7 @@
     <url-pattern>/driverReport/driverReport.do</url-pattern>
   </servlet-mapping>
   <servlet>
+  
     <servlet-name>Location</servlet-name>
     <servlet-class>com.location.controller.LocationServlet</servlet-class>
   </servlet>
