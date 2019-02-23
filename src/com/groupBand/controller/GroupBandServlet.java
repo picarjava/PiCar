@@ -8,7 +8,7 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-
+import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -398,20 +398,21 @@ public class GroupBandServlet extends HttpServlet {
 						  }
 					
 					byte[] photo=null;
-					
-//					Collection<Part> parts = req.getParts();
-//					for (Part part : parts) {
-//						if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
-//						
-//							
-//							long size = part.getSize();
-//
-//							// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
-//							InputStream in = part.getInputStream();
-//							photo = new byte[in.available()];						
-//							in.close();						
-//						}
-//					}
+//					Collection<>=ima01,ima02;
+					Collection<Part> parts = req.getParts();
+					for (Part part : parts) {
+						if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
+						
+							
+							long size = part.getSize();
+
+							// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
+							InputStream in = part.getInputStream();
+							photo = new byte[in.available()];	
+					in.read(photo);
+							in.close();						
+						}
+					}
 					
 					
 					Part part =null;
@@ -419,7 +420,7 @@ public class GroupBandServlet extends HttpServlet {
 					System.out.println(part);
 					
 					long size = part.getSize();
-					System.out.println(size);
+				
 					InputStream in = part.getInputStream();
 					
 					photo = new byte[in.available()];

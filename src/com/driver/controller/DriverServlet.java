@@ -13,11 +13,13 @@ import java.sql.Date;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.ServletRequest;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -68,20 +70,20 @@ public class DriverServlet extends HttpServlet {
 
 		
 		//////////////
-		String realPath = getServletContext().getRealPath("/images_uploaded");
-		System.out.println(req.getContentType());
-
-		String[] xxx = req.getContentType().split(";"); // 分割前後兩段 xxx陣列
-		
-		if (xxx[0].equals("multipart/form-data")) {// 比字串內容.equals()
-			Collection<Part> parts = req.getParts();
-			//新增修改刪除先 顯示放最後
-			for (Part part : parts) {
-				if (part.getSubmittedFileName() != "") { // 未加此行 會filenotfoundexception
-					part.write(realPath + "/" + part.getSubmittedFileName());// 資料夾名 檔名
-				}
-			}
-		} 
+//		String realPath = getServletContext().getRealPath("/images_uploaded");
+//		System.out.println(req.getContentType());
+//
+//		String[] xxx = req.getContentType().split(";"); // 分割前後兩段 xxx陣列
+//		
+//		if (xxx[0].equals("multipart/form-data")) {// 比字串內容.equals()
+//			Collection<Part> parts = req.getParts();
+//			//新增修改刪除先 顯示放最後
+//			for (Part part : parts) {
+//				if (part.getSubmittedFileName() != "") { // 未加此行 會filenotfoundexception
+//					part.write(realPath + "/" + part.getSubmittedFileName());// 資料夾名 檔名
+//				}
+//			}
+//		} 
 //		Collection<Part> parts = req.getParts();
 //		for (Part part : parts) {
 //			if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
@@ -173,60 +175,96 @@ public class DriverServlet extends HttpServlet {
 		
 		///////////////////////////
 		
-		Part part =null;
-		part = req.getPart("photo");
-		System.out.println(part);
+		Collection<Part> parts =null;
+		parts = req.getParts();
+//		System.out.println(part);
 		
-		byte[] licence= null;
+		byte[] licence = null;
 		byte[] criminal = null;
 		byte[] trafficRecord = null;
 		byte[] idNum = null;
 		byte[] photo = null;
-//		Collection<Part> xxx = req.getParts(licence,criminal,trafficRecord,idNum,photo);
 		
-		long size = part.getSize();
-		System.out.println(size);
-		InputStream in = part.getInputStream();
+//		long size = part.getSize();
+//		System.out.println(size);
 		
 		
-		licence = new byte[in.available()];
-		if(in.available()!=0) {
-		in.read(licence); 
-		in.close();		
-		}else {
-			errorMsgs.add("請上傳照片");
+		
+		for (Part part : parts) {
+		if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
+	
+			part.getName();
+			long size = part.getSize();
+			// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
+			InputStream in = ((ServletRequest) parts).getInputStream();
+			in = part.getInputStream();
+			switch(part.getName()) {
+			case "licence":
+			
+				licence = new byte[in.available()];					
+				break;
+			case "criminal":
+				
+				criminal = new byte[in.available()];					
+				break;	
+			case "trafficRecord":				
+				trafficRecord = new byte[in.available()];					
+				break;	
+			case "idNum":				
+				idNum = new byte[in.available()];					
+				break;					
+			case "photo":				
+				photo = new byte[in.available()];					
+				break;					
+					}
+			if(in.available()==0) {
+				errorMsgs.add("請上傳圖片");				
+			}
+			in.read();
+			in.close();	
+			;
 		}
+	}
 		
-		criminal = new byte[in.available()];
-		if(in.available()!=0) {
-			in.read(criminal); 
-			in.close();		
-		}else {
-			errorMsgs.add("請上傳良民證");
-		}
 		
-		trafficRecord = new byte[in.available()];
-		if(in.available()!=0) {
-			in.read(trafficRecord); 
-			in.close();		
-		}else {
-			errorMsgs.add("請上傳肇事紀錄");
-		}
-		
-		idNum = new byte[in.available()];
-		if(in.available()!=0) {
-			in.read(idNum); 
-			in.close();		
-		}else {
-			errorMsgs.add("請上傳照片");
-		}
-		photo = new byte[in.available()];
-		if(in.available()!=0) {
-			in.read(photo); 
-			in.close();		
-		}else {
-			errorMsgs.add("請上傳照片");
-		}
+//		licence1 = new byte[in.available()];
+//		if(in.available()!=0) {
+//		in.read(licence1); 
+//		in.close();		
+//		}else {
+//			errorMsgs.add("請上傳照片");
+//		}
+//		
+//		criminal = new byte[in.available()];
+//		if(in.available()!=0) {
+//			in.read(criminal); 
+//			in.close();		
+//		}else {
+//			errorMsgs.add("請上傳良民證");
+//		}
+//		
+//		trafficRecord = new byte[in.available()];
+//		if(in.available()!=0) {
+//			in.read(trafficRecord); 
+//			in.close();		
+//		}else {
+//			errorMsgs.add("請上傳肇事紀錄");
+//		}
+//		
+//		idNum = new byte[in.available()];
+//		if(in.available()!=0) {
+//			in.read(idNum); 
+//			in.close();		
+//		}else {
+//			errorMsgs.add("請上傳照片");
+//		}
+//		photo = new byte[in.available()];
+//		if(in.available()!=0) {
+//			in.read(photo); 
+//			in.close();		
+//		}else {
+//			errorMsgs.add("請上傳照片");
+//		}
 ////////////////////////////////////////////照片
 		
 		String carType= " ";
