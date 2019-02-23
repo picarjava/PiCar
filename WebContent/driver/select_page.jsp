@@ -12,7 +12,7 @@
 	margin-top: 5px;
 	margin-bottom: 10px;
     border: 3px ridge Gray;
-    height: 80px;
+    height: 80px;z
     text-align: center;
   }
   table#table-1 h4 {
@@ -30,7 +30,7 @@
 <body bgcolor='white'>
 
 <table id="table-1">
-   <tr><td><h3>推播管理首頁 Broadcast: Home</h3><h4>( MVC )</h4></td></tr>
+   <tr><td><h3>司機管理首頁 Broadcast: Home</h3><h4>( MVC )</h4></td></tr>
 </table>
 
 <p>This is the Home page for Broadcast: Home</p>
@@ -82,7 +82,7 @@
 <h3>司機管理</h3>
 
 <ul>
-  <li><a href='addBrod.jsp'>新增</a> 一筆司機資料</li>
+  <li><a href='addDriver.jsp'>新增</a> 一筆司機資料</li>
 </ul>
 
 </body>

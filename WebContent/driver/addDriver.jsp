@@ -124,7 +124,7 @@
 							<div class="form-group">
 								<p>良民證</p>
 								<input type="file" class="form-control" name="criminal"
-									value="2019-03-29" placeholder="請輸入肇事紀錄" />
+									value="2019-03-29" />
 							</div>
 
 							<div class="form-group">
@@ -136,7 +136,7 @@
 							<div class="form-group">
 								<p>身分證</p>
 								<input type="file" class="form-control" name="idNum" value="200"
-									placeholder="請輸入身分證" />
+									placeholder="請上傳身分證" />
 							</div>
 
 							<div class="form-group">

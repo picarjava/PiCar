@@ -36,22 +36,56 @@ public class DriverServlet extends HttpServlet {
 	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
+		res.setCharacterEncoding("UTF-8");
 		res.setContentType("image/gif");
+		
 		ServletOutputStream out = res.getOutputStream();
-
 		String driverID =req.getParameter("driverID");
 		DriverService driverSvc = new DriverService();
-	    DriverVO driverVO = (DriverVO)driverSvc.getOneDriver(driverID);
+	    DriverVO driverVO = driverSvc.getOneDriver(driverID);
 		System.out.println(driverID);
+//		byte[] licence=null;
+		byte[] licence = driverVO.getLicence();
+		if(licence !=null) {
+			out.write(licence);
+		}
+		byte[] criminal = driverVO.getCriminal();
+		if(criminal !=null) {
+			out.write(criminal);
+		}
+		byte[] trafficRecord = driverVO.getTrafficRecord();
+		if(trafficRecord !=null) {
+			out.write(trafficRecord);
+		}
+		byte[] idNum = driverVO.getIdNum();
+		if(idNum !=null) {
+			out.write(idNum);
+		}
+		byte[] photo = driverVO.getPhoto();
+		if(photo !=null) {
+			out.write(photo);
+		}
+
 		
+		//////////////
+		String realPath = getServletContext().getRealPath("/images_uploaded");
+		System.out.println(req.getContentType());
+
+		String[] xxx = req.getContentType().split(";"); // 分割前後兩段 xxx陣列
 		
+		if (xxx[0].equals("multipart/form-data")) {// 比字串內容.equals()
+			Collection<Part> parts = req.getParts();
+			//新增修改刪除先 顯示放最後
+			for (Part part : parts) {
+				if (part.getSubmittedFileName() != "") { // 未加此行 會filenotfoundexception
+					part.write(realPath + "/" + part.getSubmittedFileName());// 資料夾名 檔名
+				}
+			}
+		} 
 //		Collection<Part> parts = req.getParts();
 //		for (Part part : parts) {
 //			if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
-//			
-//				
 //				long size = part.getSize();
-//
 //				// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
 //				InputStream in = part.getInputStream();
 //				photo = new byte[in.available()];						
@@ -76,26 +110,7 @@ public class DriverServlet extends HttpServlet {
 //		}
 		
 		
-		byte[] licence = driverVO.getLicence();
-		if(licence !=null) {
-			out.write(licence);
-		}
-		byte[] criminal = driverVO.getCriminal();
-		if(criminal !=null) {
-			out.write(criminal);
-		}
-		byte[] trafficRecord = driverVO.getTrafficRecord();
-		if(trafficRecord !=null) {
-			out.write(trafficRecord);
-		}
-		byte[] idNum = driverVO.getIdNum();
-		if(idNum !=null) {
-			out.write(idNum);
-		}
-		byte[] photo = driverVO.getPhoto();
-		if(photo !=null) {
-			out.write(photo);
-		}
+		
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
