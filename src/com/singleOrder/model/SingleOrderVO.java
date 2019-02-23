@@ -11,8 +11,8 @@ public class SingleOrderVO {
     private Integer totalAmount;
     private String startLoc;
     private String endLoc;
-    private Date startTime;
-    private Date endTime;
+    private Timestamp startTime;
+    private Timestamp endTime;
     private Double startLng;
     private Double startLat;
     private Double endLng;
@@ -80,19 +80,19 @@ public class SingleOrderVO {
         this.endLoc = endLoc;
     }
     
-    public Date getStartTime() {
+    public Timestamp getStartTime() {
         return startTime;
     }
     
-    public void setStartTime(Date startTime) {
+    public void setStartTime(Timestamp startTime) {
         this.startTime = startTime;
     }
     
-    public Date getEndTime() {
+    public Timestamp getEndTime() {
         return endTime;
     }
     
-    public void setEndTime(Date endTime) {
+    public void setEndTime(Timestamp endTime) {
         this.endTime = endTime;
     }
     

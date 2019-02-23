@@ -89,7 +89,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
             preparedStatement = connection.prepareStatement(INSERT_STMT);
             preparedStatement.setString(index++, singleOrderVO.getMemID());
             preparedStatement.setInt(index++, singleOrderVO.getState());
-            preparedStatement.setDate(index++, singleOrderVO.getStartTime());
+            preparedStatement.setTimestamp(index++, singleOrderVO.getStartTime());
             preparedStatement.setString(index++, singleOrderVO.getStartLoc());
             preparedStatement.setString(index++, singleOrderVO.getEndLoc());
             preparedStatement.setDouble(index++, singleOrderVO.getStartLng());
@@ -121,8 +121,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
             preparedStatement = connection.prepareStatement(UPDATE_STMT);
             preparedStatement.setString(index++, singleOrderVO.getDriverID());
             preparedStatement.setInt(index++, singleOrderVO.getState());
-            preparedStatement.setDate(index++, singleOrderVO.getStartTime());
-            preparedStatement.setDate(index++, singleOrderVO.getEndTime());
+            preparedStatement.setTimestamp(index++, singleOrderVO.getStartTime());
+            preparedStatement.setTimestamp(index++, singleOrderVO.getEndTime());
             preparedStatement.setString(index++, singleOrderVO.getStartLoc());
             preparedStatement.setString(index++, singleOrderVO.getEndLoc());
             preparedStatement.setDouble(index++, singleOrderVO.getStartLng());
@@ -186,8 +186,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
         singleOrderVO.setDriverID(resultSet.getString(index++));
         singleOrderVO.setMemID(resultSet.getString(index++));
         singleOrderVO.setState(resultSet.getInt(index++));
-        singleOrderVO.setStartTime(resultSet.getDate(index++));
-        singleOrderVO.setEndTime(resultSet.getDate(index++));
+        singleOrderVO.setStartTime(resultSet.getTimestamp(index++));
+        singleOrderVO.setEndTime(resultSet.getTimestamp(index++));
         singleOrderVO.setStartLoc(resultSet.getString(index++));
         singleOrderVO.setEndLoc(resultSet.getString(index++));
         singleOrderVO.setStartLng(resultSet.getDouble(index++));

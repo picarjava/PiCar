@@ -46,13 +46,6 @@ public class memberServlet extends HttpServlet {
         
         resp.setCharacterEncoding("utf-8");
         PrintWriter writer = resp.getWriter();
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } // catch
-        
         if (isValidLogin(account, password))
             writer.print(gson.toJson("OK"));
         else

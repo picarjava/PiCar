@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="java.util.HashMap" %>
+<%@ page import="java.sql.Timestamp"%>
+<%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="com.singleOrder.model.SingleOrderVO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -46,12 +48,10 @@
 </body>
 <% 
   SingleOrderVO singleOrderVO = (SingleOrderVO) request.getAttribute("singleOrder");
-  java.sql.Date startTime = null;
-  try {
-      startTime = singleOrderVO.getStartTime();
-   } catch (Exception e) {
-      startTime = new java.sql.Date(System.currentTimeMillis());
-   }
+  String startTime = null;
+  if (singleOrderVO != null)
+      if (singleOrderVO.getStartTime() != null)
+          startTime = new SimpleDateFormat("yyyy-MM-dd mm:ss").format(singleOrderVO.getStartTime());
 %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>

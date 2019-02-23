@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.singleOrder.model.SingleOrderService"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.singleOrder.model.SingleOrderVO"%>
@@ -51,8 +52,8 @@
             <td>${singleOrder.driverID}</td>
             <td>${singleOrder.memID}</td>
             <td>${stateMap[singleOrder.state]}</td>
-            <td>${singleOrder.startTime}</td>
-            <td>${singleOrder.endTime}</td>
+            <td><fmt:formatDate value="${singleOrder.startTime}" pattern="yyyy-MM-dd mm:ss"/></td>
+            <td><fmt:formatDate value="${singleOrder.endTime}" pattern="yyyy-MM-dd mm:ss"/></td>
             <td>${singleOrder.startLoc}</td>
             <td>${singleOrder.endLoc}</td>
             <td>${orderTypeMap[singleOrder.orderType]}</td>

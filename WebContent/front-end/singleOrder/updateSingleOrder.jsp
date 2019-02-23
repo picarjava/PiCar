@@ -1,6 +1,9 @@
+<%@page import="java.text.SimpleDateFormat"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="com.singleOrder.model.SingleOrderVO"%>
+<%@ page import="java.sql.Timestamp"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -28,8 +31,8 @@
                 <option value="${state.key}" ${state.key eq singleOrder.state? "selected" : ""}>${state.value}</option>
             </c:forEach>
         </select><br>
-        <label for="startTime">開始時間</label><input type="text" id="f_date1" name="startTime" value="${singleOrder.startTime}" id="startTime"/><br>
-        <label for="endTime">結束時間</label><input type="text" id="f_date2" name="endTime" value="${singleOrder.endTime}" id="endTime"/><br>
+        <label for="startTime">開始時間</label><input type="text" id="f_date1" name="startTime" value="<fmt:formatDate value="${singleOrder.startTime}" pattern="yyyy-MM-dd mm:ss"/>" id="startTime"/><br>
+        <label for="endTime">結束時間</label><input type="text" id="f_date2" name="endTime" value="<fmt:formatDate value="${singleOrder.endTime}" pattern="yyyy-MM-dd mm:ss"/>" id="endTime"/><br>
         <label for="startLoc">上車地點</label><input type="text" name="startLoc" value="${singleOrder.startLoc}" id="startLoc"/><br>
         <label for="endLoc">下車地點</label><input type="text" name="endLoc" value="${singleOrder.endLoc}" id="endLoc"/><br>
         ${orderTypeMap[singleOrde.orderType]}<br>
@@ -43,12 +46,14 @@
 </body>
 <% 
   SingleOrderVO singleOrderVO = (SingleOrderVO) request.getAttribute("singleOrder");
-  java.sql.Date startTime = null;
-  try {
-      startTime = singleOrderVO.getStartTime();
-   } catch (Exception e) {
-      startTime = new java.sql.Date(System.currentTimeMillis());
-   }
+  String startTime = "";
+  String endTime = "";
+  if (singleOrderVO != null) {
+      if (singleOrderVO.getStartTime() != null)
+          startTime = new SimpleDateFormat("yyyy-MM-dd mm:ss").format(singleOrderVO.getStartTime());
+      if (singleOrderVO.getEndTime() != null)
+          endTime = new SimpleDateFormat("yyyy-MM-dd mm:ss").format(singleOrderVO.getEndTime());
+  }
 %>
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
@@ -68,7 +73,7 @@
            timepicker:true,       //timepicker:true,
            step: 30,                //step: 60 (這是timepicker的預設間隔60分鐘)
            format:'Y-m-d H:i',         //format:'Y-m-d H:i:s',
-           value: '<%=startTime%>', // value:   new Date(),
+           value: '<%=startTime%>' // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:             '2017/07/10',  // 起始日
            //minDate:               '-1970-01-01', // 去除今日(不含)之前
@@ -81,7 +86,7 @@
            timepicker:true,       //timepicker:true,
            step: 30,                //step: 60 (這是timepicker的預設間隔60分鐘)
            format:'Y-m-d H:i',         //format:'Y-m-d H:i:s',
-           value: '<%=startTime%>', // value:   new Date(),
+           value: '<%=endTime%>' // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
            //startDate:             '2017/07/10',  // 起始日
            //minDate:               '-1970-01-01', // 去除今日(不含)之前

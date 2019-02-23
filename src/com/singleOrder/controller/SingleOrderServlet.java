@@ -1,7 +1,6 @@
 package com.singleOrder.controller;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -51,7 +50,7 @@ public class SingleOrderServlet extends HttpServlet{
             } else if ("insert".equals(action)) {
                 forwordURL = "/front-end/singleOrder/addSingleOrder.jsp";
                 String memID = req.getParameter("memID");
-                Date startTime = parseDate(req.getParameter("startTime"));
+                Timestamp startTime = parseTimestamp(req.getParameter("startTime"));
                 String startLoc = req.getParameter("startLoc");
                 String endLoc = req.getParameter("endLoc");
                 String note = req.getParameter("note");
@@ -112,14 +111,14 @@ public class SingleOrderServlet extends HttpServlet{
                 String orderID = req.getParameter("orderID");
                 String driverID = req.getParameter("driverID");
                 Integer state = parseInteger(req.getParameter("state"));
-                Date startTime = parseDate(req.getParameter("startTime"));
-                Date endTime = parseDate(req.getParameter("endTime"));
+                Timestamp startTime = parseTimestamp(req.getParameter("startTime"));
+                Timestamp endTime = parseTimestamp(req.getParameter("endTime"));
                 String startLoc = req.getParameter("startLoc");
                 String endLoc = req.getParameter("endLoc");
                 Integer rate = parseInteger(req.getParameter("rate"));
                 if (!isValidParameter(orderID, "^\\d+$"))
                     errorMsgs.add("訂單ID錯誤");
-                if (!isValidParameter(driverID, "^DR\\d+$"))
+                if (!isValidParameter(driverID, "^D\\d+$"))
                     errorMsgs.add("司機ID錯誤");
                 if (state == null || state < 0 || state > 9)
                     errorMsgs.add("狀態錯誤");
@@ -188,10 +187,10 @@ public class SingleOrderServlet extends HttpServlet{
         } // catch
     } // parseInteger()
     
-    private Date parseDate(String time) {
+    private Timestamp parseTimestamp(String time) {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd mm:ss");
         try {
-            return new Date(simpleDateFormat.parse(time.trim()).getTime());
+            return new Timestamp(simpleDateFormat.parse(time.trim()).getTime());
         } catch (ParseException e) {
             return null;
         } catch (NullPointerException e) {

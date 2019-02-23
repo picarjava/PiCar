@@ -15,7 +15,7 @@ public class SingleOrderService {
         return singleOrderDAO.findByPrimaryKey(orderID);
     } // getOneSingleOrder()
         
-    public SingleOrderVO addSingleOrder(String memID, Integer state, Date startTime, String startLoc,
+    public SingleOrderVO addSingleOrder(String memID, Integer state, Timestamp startTime, String startLoc,
                                         String endLoc, Double startLng, Double startLat, Double endLng,
                                         Double endLat, Integer totalAmount, Integer orderType, String note,
                                         Timestamp lauchTime) {
@@ -37,8 +37,8 @@ public class SingleOrderService {
         return singleOrderVO;
     } // addSingleOrder()
     
-    public SingleOrderVO updateSingleOrder(String orderID, String driverID, Integer state, Date startTime,
-                                           Date endTime, String startLoc, String endLoc, Double startLng,
+    public SingleOrderVO updateSingleOrder(String orderID, String driverID, Integer state, Timestamp startTime,
+                                           Timestamp endTime, String startLoc, String endLoc, Double startLng,
                                            Double startLat, Double endLng, Double endLat, Integer totalAmount,
                                            Integer rate) {
         SingleOrderVO singleOrderVO = new SingleOrderVO();
