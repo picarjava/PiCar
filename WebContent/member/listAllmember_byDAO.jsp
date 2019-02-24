@@ -128,7 +128,8 @@ table1, td {
 				<input type="submit" value="刪除">
 				<input type="hidden" name="memID"  value="${memberVO.memID}">
 				<input type="hidden" name="action" value="delete">
-				</form>		
+			</td>
+		</form>		
 		
 		</tr>
 	</c:forEach>
