@@ -92,7 +92,7 @@ public class ActivTokenServlet extends HttpServlet {
 				 /*如有錯誤，資料包進VO送至錯誤頁面*/
 				 if(!errorMsgs.isEmpty()) {
 					 req.setAttribute("activityTokenVO",activityTokenVO);
-					 RequestDispatcher failurePage =req.getRequestDispatcher("/activityToken/addActivityToken.jsp");
+					 RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/activityToken/addActivityToken.jsp");
 					 failurePage.forward(req, res);
 					 return;//程式中止
 				 }
@@ -107,14 +107,14 @@ public class ActivTokenServlet extends HttpServlet {
 			 }
 			
 			/**************step3.開始新增完成，轉交ListAllActivity頁面*****************/
-			String url="/activityToken/listAllActivityToken.jsp";
+			String url="/back-end/activityToken/listAllActivityToken.jsp";
 			RequestDispatcher successPage =req.getRequestDispatcher(url);
 			successPage.forward(req, res);
 		}
 			/**************step4.處理其他可能的錯誤，轉交addActivity頁面*****************/
 			catch(Exception e){
 				errorMsgs.add("無法新增此筆資料"+e.getMessage());
-				RequestDispatcher failurePage=req.getRequestDispatcher("/activityToken/addActivityToken.jsp");
+				RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/activityToken/addActivityToken.jsp");
 				failurePage.forward(req, res);
 			}
 			 

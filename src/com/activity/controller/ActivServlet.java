@@ -129,7 +129,7 @@ public class ActivServlet extends HttpServlet {
 				 /*如有錯誤，資料包進VO送至錯誤頁面*/
 				 if(!errorMsgs.isEmpty()) {
 					 req.setAttribute("activityVO",activityVO);
-					 RequestDispatcher failurePage =req.getRequestDispatcher("/activity/addActivity.jsp");
+					 RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/activity/addActivity.jsp");
 					 failurePage.forward(req, res);
 					 return;//程式中止
 				 }
@@ -144,14 +144,14 @@ public class ActivServlet extends HttpServlet {
 			 }
 			
 			/**************step3.開始新增完成，轉交ListAllActivity頁面*****************/
-			String url="/activity/listAllActivity.jsp";
+			String url="/back-end/activity/listAllActivity.jsp";
 			RequestDispatcher successPage =req.getRequestDispatcher(url);
 			successPage.forward(req, res);
 		}
 			/**************step4.處理其他可能的錯誤，轉交addActivity頁面*****************/
 			catch(Exception e){
 				errorMsgs.add("無法新增此筆資料"+e.getMessage());
-				RequestDispatcher failurePage=req.getRequestDispatcher("/activity/addActivity.jsp");
+				RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/activity/addActivity.jsp");
 				failurePage.forward(req, res);
 			}
 			 
@@ -171,7 +171,7 @@ public class ActivServlet extends HttpServlet {
 			
 			if(activityVO==null) {
 				errorMsgs.add("查無此筆");
-				RequestDispatcher failurePage=req.getRequestDispatcher("/activity/listAllActivity.jsp");
+				RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
 				failurePage.forward(req, res);
 				return;
 			}
@@ -186,14 +186,14 @@ public class ActivServlet extends HttpServlet {
 			/*************3.得到資料存在scope=reqest，並送出VO給處理頁面**************/
 			
 			req.setAttribute("activityVO", activityVO);
-			String url="/activity/getOneActivity.jsp";
+			String url="/back-end/activity/getOneActivity.jsp";
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
 			successPage.forward(req, res);
 			/*************4.處理例外**************/
 		}catch(Exception e){
 			errorMsgs.add("無法此筆資料:"+e.getMessage());
 			}
-			RequestDispatcher failurePage=req.getRequestDispatcher("/activity/listAllActivity.jsp");
+			RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
 			failurePage.forward(req, res);
 		}
 		
@@ -215,14 +215,14 @@ public class ActivServlet extends HttpServlet {
 			/*************3.得到資料和圖片轉換資料存在scope=reqest，並送出VO給處理頁面:getOneUpdate頁面**************/
 			
 			req.setAttribute("activityVO", activityVO);
-			String url="/activity/getOneUpdateActivity.jsp";
+			String url="/back-end/activity/getOneUpdateActivity.jsp";
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
 			successPage.forward(req, res);
 			/*************4.處理例外:回listALL原頁面**************/
 		}catch(Exception e){
 			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
 			}
-			RequestDispatcher failurePage=req.getRequestDispatcher("/activity/listAllActivity.jsp");
+			RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
 			failurePage.forward(req, res);
 		}
 		
@@ -285,7 +285,7 @@ public class ActivServlet extends HttpServlet {
 				 /*修改的資料如有錯誤，資料包進VO送回原頁面*/
 				 if(!errorMsgs.isEmpty()) {
 					 req.setAttribute("activityVO",activityVO);
-					 RequestDispatcher failurePage =req.getRequestDispatcher("/activity/getOneUpdateActivity.jsp");
+					 RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/activity/getOneUpdateActivity.jsp");
 					 failurePage.forward(req, res);
 					 return;//程式中止
 				 }
@@ -296,12 +296,12 @@ public class ActivServlet extends HttpServlet {
 				 
 				/*************3.修改完轉交頁面所有列表**************/
 				 req.setAttribute("activityVO", activityVO);
-				 RequestDispatcher seccessPage =req.getRequestDispatcher("/activity/listAllActivity.jsp");
+				 RequestDispatcher seccessPage =req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
 				 seccessPage.forward(req, res);
 				/*************4.處理例外轉交回原頁面**************/
 			}catch(Exception e) {
 				errorMsgs.add("修改資料失敗"+e.getMessage());
-				RequestDispatcher failurePage=req.getRequestDispatcher("/activity/getOneUpdateActivity.jsp");
+				RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/activity/getOneUpdateActivity.jsp");
 				failurePage.forward(req, res);
 			}
 			
@@ -321,12 +321,12 @@ public class ActivServlet extends HttpServlet {
 				ActivityService activitySvc=new ActivityService();
 				activitySvc.deleteActivity(activityID);
 				/*************3.轉交listALL頁面查看是否刪除**************/
-				RequestDispatcher successPage=req.getRequestDispatcher("/activity/listAllActivity.jsp");
+				RequestDispatcher successPage=req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
 				successPage.forward(req, res);
 				/*************4.處理例外**************/
 			}catch(Exception e) {
 				errorMsgs.add("無法刪除"+e.getMessage());
-				RequestDispatcher failurePage=req.getRequestDispatcher("/activity/listAllActivity.jsp");
+				RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
 				failurePage.forward(req, res);
 			}
 			
