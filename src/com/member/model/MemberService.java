@@ -1,7 +1,5 @@
 package com.member.model;
 
-
-
 public class MemberService {
 
 	private MemberDAO_interface dao;
@@ -10,8 +8,8 @@ public class MemberService {
 		dao = new MemberDAO();
 	}
 
-	public MemberVO addMember( String name, String email, String password, String phone, String creditcard,
-			Integer pet, Integer smoke, Integer gender, Integer token, Integer activityToken, java.sql.Date birthday,
+	public MemberVO addMember(String name, String email, String password, String phone, String creditcard, Integer pet,
+			Integer smoke, Integer gender, Integer token, Integer activityToken, java.sql.Date birthday,
 			Integer verified, Integer babySeat) {
 
 		MemberVO memberVO = new MemberVO();
