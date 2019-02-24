@@ -178,7 +178,7 @@ th, td {
 				<td>上車日期</td>
 
 				<td><input name="startTime" id="start_date" type="text"
-					style="display: none" > 
+					style="display: none" onchange="timestamps(this.value);"> 
 					<input name="startTimes" id="f_date1"
 					type="text"></td>
 			</tr>
@@ -221,6 +221,14 @@ try {
 	 startTime = new java.sql.Timestamp(System.currentTimeMillis());
  }
 %> 
+<script>
+function timestamps(s) {
+	end_date = document.getElementById("end_date");
+end_date.value=s;
+	
+}
+
+</script>
 	<script>
 							function pvalue(s) {
 
