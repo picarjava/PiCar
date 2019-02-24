@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-	pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -31,12 +31,12 @@
 	</div>
 
 	<ul>
-		<li><a href="listAllRate.jsp" >ÂI¿ïÅã¥Ü¥ş³¡­û¤u</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
+		<li><a href="listAllRate.jsp" >é»é¸é¡¯ç¤ºå…¨éƒ¨å“¡å·¥</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
 	
 				
 		<li>
 			<form method="post" action="rate.do">
-				<b>½Ğ¿é¤J·|­û½s¸¹(EX:M001) (¸ê®Æ®æ¦¡ÅçÃÒ  by Controller ):</b><br> 
+				<b>è«‹è¼¸å…¥æœƒå“¡ç·¨è™Ÿ(EX:M001) (è³‡æ–™æ ¼å¼é©—è­‰  by Controller ):</b><br> 
 				<input type="text" name="memID">
 				<input type="hidden" name="action" value="getOne_For_Display"><br>
 				<input type="submit" value="submit"> 
@@ -45,7 +45,7 @@
 		<br>
 		<li>
 			<form method="post" action="member.do">
-				<b>½Ğ¿é¤J·|­û½s¸¹(EX:M001) (¸ê®Æ®æ¦¡ÅçÃÒ  by Java Script):</b><br> 
+				<b>è«‹è¼¸å…¥æœƒå“¡ç·¨è™Ÿ(EX:M001) (è³‡æ–™æ ¼å¼é©—è­‰  by Java Script):</b><br> 
 				<input type="text" name="memID">
 				<input type="hidden" name="action" value="getOne_For_Display"><br>
 				<input type="button" value="submit" onlick="fun1()">  
@@ -58,7 +58,7 @@
 		<br><br>
 		<li>
 			<form method="post" action="member.do">
-				<b>½Ğ¿ï¾Ü­û¤u½s¸¹</b> <br>
+				<b>è«‹é¸æ“‡å“¡å·¥ç·¨è™Ÿ</b> <br>
 				<select size="1" name="memID">
 					<c:forEach var="memberVO" items="${memberdao.all}">
 						<option value="${memberVO.memID}">${memberVO.memID}
@@ -71,7 +71,7 @@
 		<br>
 		<li>
 			<form method="post" action="member.do">
-				<b>½Ğ¿ï¾Ü­û¤u©m¦W</b><br>
+				<b>è«‹é¸æ“‡å“¡å·¥å§“å</b><br>
 				<select size="1" name="memID">
 					<c:forEach var="memberVO" items="${memberdao.all}">
 						<option value="${memberVO.memID}">"${memberVO.name}" 					
@@ -86,7 +86,7 @@
 	</ul>
 	<ul>
 		<li>	
-		<a href="addRate.jsp">ÂI¿ï·s¼W­û¤u¸ê®Æ</a>
+		<a href="addRate.jsp">é»é¸æ–°å¢å“¡å·¥è³‡æ–™</a>
 		</li>
 	</ul>
 	
@@ -98,9 +98,9 @@
    function fun1(){
       with(document.form1){
          if (memID.value=="") 
-             alert("½Ğ¿é¤J­û¤u½s¸¹!");
+             alert("è«‹è¼¸å…¥å“¡å·¥ç·¨è™Ÿ!");
          else if (isNaN(memID.value)) 
-             alert("­û¤u½s¸¹®æ¦¡¤£¥¿½T!");
+             alert("å“¡å·¥ç·¨è™Ÿæ ¼å¼ä¸æ­£ç¢º!");
       
          else
              submit();
