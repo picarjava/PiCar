@@ -106,7 +106,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>DriverReportServlet</servlet-name>
-    <url-pattern>/driverReport/driverReport.do</url-pattern>
+    <url-pattern>/back-end/driverReport/driverReport.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Location</servlet-name>

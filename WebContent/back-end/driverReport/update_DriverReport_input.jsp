@@ -9,151 +9,171 @@ DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverRep
 
 <html>
 <head>
-  <title>PICAR BACK-END</title>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <!--     Fonts and icons     -->
-  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-  <!-- Material Kit CSS -->
-  <link href="assets/css/material-dashboard.css" rel="stylesheet" />
- <style>
- 	table, tr, td, th {
-		background-color: white;
-	    border: 1px solid #aaa;
-	    text-align: center;
-	    padding: 5px;
-		margin-left:10%;
-	    font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
-	}
+<title>PICAR BACK-END</title>
+<!-- Required meta tags -->
+<meta charset="utf-8">
+<meta
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
+	name="viewport" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<!--     Fonts and icons     -->
+<link rel="stylesheet" type="text/css"
+	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+<!-- Material Kit CSS -->
+<link href="assets/css/material-dashboard.css" rel="stylesheet" />
+<style>
+table, tr, td, th {
+	background-color: white;
+	border: 1px solid #aaa;
+	text-align: center;
+	padding: 5px;
+	margin-left: 10%;
+	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro',
+		'Noto Sans CJK SC', monospace;
+}
 
-	table {
-		width:80%;
-	}
-	.col-9 {
-    margin-top: -15px;
-  	margin-left: -55px;
-    margin-bottom: 1rem;
-	}
+table {
+	width: 80%;
+}
 
-	h4 {
-		padding-left: 50%;
-		font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
-	}
+.col-9 {
+	margin-top: -15px;
+	margin-left: -55px;
+	margin-bottom: 1rem;
+}
 
-	h3 {
-		font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
-	}
+h4 {
+	padding-left: 50%;
+	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro',
+		'Noto Sans CJK SC', monospace;
+}
 
-	#btn1 {
-		padding: 20px;
-		font-family:'Microsoft JhengHei', 'Fira Code', 'Source Code Pro','Noto Sans CJK SC', monospace;
-		margin-left:48%;
-	}
+h3 {
+	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro',
+		'Noto Sans CJK SC', monospace;
+}
 
+#btn1 {
+	padding: 20px;
+	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro',
+		'Noto Sans CJK SC', monospace;
+	margin-left: 48%;
+}
 
-	.form-control {
-	    background: no-repeat center bottom, center calc(100% - 1px);
-	    border: 0;
-	    transition: background 0s ease-out;
-	    padding-left: 480px;
-	    padding-right: 0;
-	    border-radius: 0;
-	    font-size: 14px;
-	    
-	}
-	
-	#s2 {
-	  font-size: 20px;
-	  }
-	
-	
- </style>
+.form-control {
+	background: no-repeat center bottom, center calc(100% - 1px);
+	border: 0;
+	transition: background 0s ease-out;
+	padding-left: 480px;
+	padding-right: 0;
+	border-radius: 0;
+	font-size: 14px;
+}
+
+#s2 {
+	font-size: 20px;
+}
+</style>
 
 </head>
 <body bgcolor='white'>
 
-<table id="table-1">
-	<tr><td>
-		 <h3>檢舉司機資料修改 - update_DriverReport_input.jsp</h3>
-		 <h4><a href="select_page.jsp">回首頁</a></h4>
-	</td></tr>
-</table>
-
-<h4>資料修改</h4>
-<%-- 錯誤表列 --%>
-	<table>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color:red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color:red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+	<table id="table-1">
+		<tr>
+			<td>
+				<h3>檢舉司機資料修改 - update_DriverReport_input.jsp</h3>
+				<h4>
+					<a href="select_page.jsp">回首頁</a>
+				</h4>
+			</td>
+		</tr>
 	</table>
-	
-<FORM METHOD="post" ACTION="driverReport.do" name="form1">
-<table>
-	<tr>
-		<td>檢舉司機單號<font color=red></font></td>
-		<td><input class="form-control" type="text" size="45" value="<%=driverReportVO.getDreportID()%>" placeholder="Readonly input here..." readonly></td>
-	</tr>
-	<tr>
-		<td>會員編號</td>
-		<td><input class="form-control" type="TEXT" name="memID" size="45" value="<%=driverReportVO.getMemID()%>" placeholder="Readonly input here..." readonly/></td>
-	</tr>
-	<tr>
-		<td>管理員編號</td>
-		<td><input type="TEXT" name="adminID" size="45"	value="<%=driverReportVO.getAdminID()%>" /></td>
-	</tr>
-	<tr>
-		<td>檢舉日期</td>
-		<td><input name="time" id="f_date1"  size="45" type="text" ></td>
-	</tr>
-	<tr>
-		<td>訂單編號</td>
-		<td><input type="TEXT" name="orderID" size="45"	value="<%=driverReportVO.getOrderID()%>" /></td>
-	</tr>
-	<tr>
-		<td>內容</td>
-		<td><input type="TEXT" name="content" size="45" value="<%=driverReportVO.getContent()%>" /></td>
-	</tr>
-	<tr>
-		<td>處理狀態</td>
-		<td>
-		<select name="state" class="form-control form-control-lg" id="s2">
-            <option value="1" ${(driverReportVO.state=='1') ? 'selected' : ''}>已處理
-            <option value="0" ${(driverReportVO.state=='0') ? 'selected' : ''}>未處理
-		</select>
-		</td>	
-	</tr>
 
-</table>
-<br>
-<input type="hidden" name="action" value="update">
-<input type="hidden" name="dreportID" value="<%=driverReportVO.getDreportID()%>">
-<input type="submit" value="送出修改" id="btn1">
-</FORM>
+	<h4>資料修改</h4>
+	<%-- 錯誤表列 --%>
+	<table>
+		<c:if test="${not empty errorMsgs}">
+			<font style="color: red">請修正以下錯誤:</font>
+			<ul>
+				<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+				</c:forEach>
+			</ul>
+		</c:if>
+	</table>
+
+	<FORM METHOD="post" ACTION="driverReport.do" name="form1">
+		<table>
+			<tr>
+				<td>檢舉司機單號<font color=red></font></td>
+				<td><input class="form-control" type="text" size="45"
+					value="<%=driverReportVO.getDreportID()%>"
+					placeholder="Readonly input here..." readonly></td>
+			</tr>
+			<tr>
+				<td>會員編號</td>
+				<td><input class="form-control" type="TEXT" name="memID"
+					size="45" value="<%=driverReportVO.getMemID()%>"
+					placeholder="Readonly input here..." readonly /></td>
+			</tr>
+			<tr>
+				<td>管理員編號</td>
+				<td><input type="TEXT" name="adminID" size="45"
+					value="<%=driverReportVO.getAdminID()%>" /></td>
+			</tr>
+			<tr>
+				<td>檢舉日期</td>
+				<td><input name="time" id="f_date1" size="45" type="text"></td>
+			</tr>
+			<tr>
+				<td>訂單編號</td>
+				<td><input type="TEXT" name="orderID" size="45"
+					value="<%=driverReportVO.getOrderID()%>" /></td>
+			</tr>
+			<tr>
+				<td>內容</td>
+				<td><input type="TEXT" name="content" size="45"
+					value="<%=driverReportVO.getContent()%>" /></td>
+			</tr>
+			<tr>
+				<td>處理狀態</td>
+				<td><select name="state" class="form-control form-control-lg"
+					id="s2">
+						<option value="1" ${(driverReportVO.state=='1') ? 'selected' : ''}>已處理
+						
+						<option value="0" ${(driverReportVO.state=='0') ? 'selected' : ''}>未處理
+						
+				</select></td>
+			</tr>
+
+		</table>
+		<br> <input type="hidden" name="action" value="update"> <input
+			type="hidden" name="dreportID"
+			value="<%=driverReportVO.getDreportID()%>"> <input
+			type="submit" value="送出修改" id="btn1">
+	</FORM>
 </body>
 
 
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
-<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<script
+	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <style>
-  .xdsoft_datetimepicker .xdsoft_datepicker {
-           width:  300px;   /* width:  300px; */
-  }
-  .xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-           height: 151px;   /* height:  151px; */
-  }
+.xdsoft_datetimepicker .xdsoft_datepicker {
+	width: 300px; /* width:  300px; */
+}
+
+.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+	height: 151px; /* height:  151px; */
+}
 </style>
 
 <script>
