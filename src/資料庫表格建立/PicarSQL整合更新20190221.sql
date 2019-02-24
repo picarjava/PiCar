@@ -448,8 +448,8 @@ CREATE TABLE GROUP_ORDER(
  STATE NUMBER (1)   NOT NULL,
  TOTAL_AMOUT NUMBER (5)   NOT NULL,
  LAUNCH_TIME TIMESTAMP    NOT NULL,
- START_TIME DATE    ,
- END_TIME DATE    ,
+ START_TIME TIMESTAMP    ,
+ END_TIME TIMESTAMP    ,
  START_LNG NUMBER (6,3)   NOT NULL,
  START_LAT NUMBER (6,3)   NOT NULL,
  END_LNG NUMBER (6,3)   NOT NULL,
@@ -469,9 +469,9 @@ CACHE 10;
 
 --
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'D001','M001',0,1500,to_timestamp ('2019/02/5 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),to_date('2019/02/08 09:20:25' , 'yyyy/mm/dd hh24:mi:ss'),to_date('2019/2/08 09:50:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無');
+,'D001','M001',0,1500,to_timestamp ('2019/02/5 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/08 09:20:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/08 09:50:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'D002','M002',0,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_date('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_date('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無');
+,'D002','M002',0,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無');
 --建立檢舉揪團TABLE--
 CREATE TABLE GROUP_REPORT(
     GREPORT_ID VARCHAR2(5) NOT NULL,
