@@ -49,8 +49,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			pstmt.setString(2, groupOrderVO.getMemID());
 			pstmt.setInt(3,groupOrderVO.getState());
 			pstmt.setInt(4,groupOrderVO.getTotalAmout());			
-			pstmt.setDate(5,groupOrderVO.getStartTime());
-			pstmt.setDate(6,groupOrderVO.getEndTime());
+			pstmt.setTimestamp(5,groupOrderVO.getStartTime());
+			pstmt.setTimestamp(6,groupOrderVO.getEndTime());
 			pstmt.setDouble(7,groupOrderVO.getStartLng());
 			pstmt.setDouble(8,groupOrderVO.getStartLat());
 			pstmt.setDouble(9,groupOrderVO.getEndLng());
@@ -92,8 +92,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			pstmt.setString(2, groupOrderVO.getMemID());
 			pstmt.setInt(3,groupOrderVO.getState());
 			pstmt.setInt(4,groupOrderVO.getTotalAmout());			
-			pstmt.setDate(5,groupOrderVO.getStartTime());
-			pstmt.setDate(6,groupOrderVO.getEndTime());
+			pstmt.setTimestamp(5,groupOrderVO.getStartTime());
+			pstmt.setTimestamp(6,groupOrderVO.getEndTime());
 			pstmt.setDouble(7,groupOrderVO.getStartLng());
 			pstmt.setDouble(8,groupOrderVO.getStartLat());
 			pstmt.setDouble(9,groupOrderVO.getEndLng());
@@ -182,8 +182,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			groupOrderVO.setState(rs.getInt("STATE"));
 			groupOrderVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
 			groupOrderVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
-			groupOrderVO.setStartTime(rs.getDate("START_TIME"));
-			groupOrderVO.setEndTime(rs.getDate("END_TIME"));
+			groupOrderVO.setStartTime(rs.getTimestamp("START_TIME"));
+			groupOrderVO.setEndTime(rs.getTimestamp("END_TIME"));
 			groupOrderVO.setStartLng(rs.getDouble("START_LNG"));
 			groupOrderVO.setStartLat(rs.getDouble("START_LAT"));
 			groupOrderVO.setEndLng(rs.getDouble("END_LNG"));
@@ -245,8 +245,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				groupOrderVO.setState(rs.getInt("STATE"));
 				groupOrderVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
 				groupOrderVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
-				groupOrderVO.setStartTime(rs.getDate("START_TIME"));
-				groupOrderVO.setEndTime(rs.getDate("END_TIME"));
+				groupOrderVO.setStartTime(rs.getTimestamp("START_TIME"));
+				groupOrderVO.setEndTime(rs.getTimestamp("END_TIME"));
 				groupOrderVO.setStartLng(rs.getDouble("START_LNG"));
 				groupOrderVO.setStartLat(rs.getDouble("START_LAT"));
 				groupOrderVO.setEndLng(rs.getDouble("END_LNG"));

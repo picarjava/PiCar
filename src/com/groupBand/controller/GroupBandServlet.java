@@ -472,45 +472,7 @@ public class GroupBandServlet extends HttpServlet {
 						}
 					}			
 				
-//   				startTime = new Timestamp(simpleDateFormat.parse(startTimes).getTime());
-//					} catch (IllegalArgumentException e) {
-//						startTime=new java.sql.Date(System.currentTimeMillis());
-//						errorMsgs.add("請輸入日期!");
-//					}
-					
-					
-					
-//					java.sql.Timestamp startTime = null;
-//					
-//					
-//					if("1".equals(req.getParameter("orderT"))) {
-//						try {	
-//					startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
-//		
-//						} catch (IllegalArgumentException e) {
-//							
-//							errorMsgs.add("日期: 請勿空白");
-//							startTime=new java.sql.Timestamp(System.currentTimeMillis());
-//						}
-//							
-//							
-//							
-//						}
-//					
-//					else {
-//						try {	
-//						startTime = java.sql.Timestamp.valueOf(req.getParameter("startTims").trim());
-//					
-//					   
-//						} catch (IllegalArgumentException e) {
-//							
-//							errorMsgs.add("日期: 請勿空白");
-//							startTime=new java.sql.Timestamp(System.currentTimeMillis());
-//						}
-//							
-//							
-//							
-//						}
+//   	
 					
 				
 					
@@ -585,10 +547,10 @@ public class GroupBandServlet extends HttpServlet {
 					
 					Integer totalAmoutOr =0;
 					
-					Date startTimeOr =null;
+					Timestamp startTimeOr =null;
 					
 					
-					Date endTime =null;
+					Timestamp endTime =null;
 					
 					Double startLng = 0.1;
 					

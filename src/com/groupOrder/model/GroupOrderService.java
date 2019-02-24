@@ -11,8 +11,8 @@ public class GroupOrderService {
 		dao = new GroupOrderDAO();
 	}
 
-	public GroupOrderVO addGroupOrder(String driverID, String memID, Integer state, Integer totalAmout, Date startTime,
-			Date endTime, Double startLng, Double startLat, Double endLng, Double endLat, Integer orderType,
+	public GroupOrderVO addGroupOrder(String driverID, String memID, Integer state, Integer totalAmout, Timestamp startTime,
+			Timestamp endTime, Double startLng, Double startLat, Double endLng, Double endLat, Integer orderType,
 			Integer rate, String note
 
 	) {
@@ -35,7 +35,7 @@ public class GroupOrderService {
 	}
 
 	public GroupOrderVO updategroupOrderVO(String driverID, String memID, Integer state, Integer totalAmout,
-			Date startTime, Date endTime, Double startLng, Double startLat, Double endLng, Double endLat,
+			Timestamp startTime, Timestamp endTime, Double startLng, Double startLat, Double endLng, Double endLat,
 			Integer orderType, Integer rate, String note) {
 		GroupOrderVO groupOrderVO = new GroupOrderVO();
 		groupOrderVO.setDriverID(driverID);

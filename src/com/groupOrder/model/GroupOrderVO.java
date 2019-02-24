@@ -10,8 +10,8 @@ public class GroupOrderVO {
 	private Integer state;
 	private Integer totalAmout;
 	private Timestamp launchTime;
-	private Date startTime;
-	private Date endTime;
+	private Timestamp startTime;
+	private Timestamp endTime;
 	private Double startLng;
 	private Double startLat; 
 	private Double endLng;
@@ -56,16 +56,16 @@ public class GroupOrderVO {
 	public void setLaunchTime(Timestamp launchTime) {
 		this.launchTime = launchTime;
 	}
-	public Date getStartTime() {
+	public Timestamp getStartTime() {
 		return startTime;
 	}
-	public void setStartTime(Date startTime) {
+	public void setStartTime(Timestamp startTime) {
 		this.startTime = startTime;
 	}
-	public Date getEndTime() {
+	public Timestamp getEndTime() {
 		return endTime;
 	}
-	public void setEndTime(Date endTime) {
+	public void setEndTime(Timestamp endTime) {
 		this.endTime = endTime;
 	}
 	public Double getStartLng() {

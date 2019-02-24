@@ -261,7 +261,7 @@ try {
 					format : 'Y-m-d H:i:s',
 					onShow : function() {
 						this.setOptions({
-							maxDate : $('#end_date').val() ? $('#end_date')
+							maxDate : $('#start_date').val() ? $('+1970-01-20')
 									.val() :  true
 						})
 					},
@@ -273,22 +273,24 @@ try {
 
 		$('#end_date').datetimepicker(
 				{
-					format : 'Y-m-d H:i:s',
+					format : 'Y-m-d',
 					onShow : function() {
 						this.setOptions({
 							minDate : $('#start_date').val() ? $('#start_date')
 									.val() :  true
 						})
 					},
-					value : '<%=startTime%>',
-					timepicker : true,
-					minDate:           '-1970-01-01', // 去除今日(不含)之前
+					value : $('#start_date').val(),
+					timepicker : false,
+					minDate:           '#start_date', // 去除今日(不含)之前
 					maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 				});
 //	});
+
 </script>
 
 <script>
+
 	function groupif(number) {
 		startdate = document.getElementById("start_date");
 		enddate = document.getElementById("end_date");
