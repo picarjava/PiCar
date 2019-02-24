@@ -30,89 +30,110 @@ import javax.servlet.http.Part;
 import com.driver.model.DriverJDBCDAO;
 import com.driver.model.DriverService;
 import com.driver.model.DriverVO;
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 50 * 1024 * 1024, maxRequestSize = 5 * 50 * 1024 * 1024)
-public class DriverServlet extends HttpServlet {
+@MultipartConfig
+//(fileSizeThreshold = 1024 * 1024, maxFileSize = 50 * 1024 * 1024, maxRequestSize = 5 * 50 * 1024 * 1024)
+public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖片 根據專ˋ pic跟後台講。show出哪一張
 	private static final long serialVersionUID = 1L;
 	public DriverServlet() {
 		super();
 	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
+//	顯示多張圖片
+req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("image/gif");
-		
+//		
 		ServletOutputStream out = res.getOutputStream();
 		String driverID =req.getParameter("driverID");
+		int pic = new Integer(req.getParameter("pic"));
+		
 		DriverService driverSvc = new DriverService();
 	    DriverVO driverVO = driverSvc.getOneDriver(driverID);
-		System.out.println(driverID);
-//		byte[] licence=null;
-		byte[] licence = driverVO.getLicence();
-		if(licence !=null) {
-			out.write(licence);
-		}
-		byte[] criminal = driverVO.getCriminal();
-		if(criminal !=null) {
-			out.write(criminal);
-		}
-		byte[] trafficRecord = driverVO.getTrafficRecord();
-		if(trafficRecord !=null) {
-			out.write(trafficRecord);
-		}
-		byte[] idNum = driverVO.getIdNum();
-		if(idNum !=null) {
-			out.write(idNum);
-		}
-		byte[] photo = driverVO.getPhoto();
-		if(photo !=null) {
-			out.write(photo);
-		}
-
-		
-		//////////////
-//		String realPath = getServletContext().getRealPath("/images_uploaded");
-//		System.out.println(req.getContentType());
-//
-//		String[] xxx = req.getContentType().split(";"); // 分割前後兩段 xxx陣列
-//		
-//		if (xxx[0].equals("multipart/form-data")) {// 比字串內容.equals()
-//			Collection<Part> parts = req.getParts();
-//			//新增修改刪除先 顯示放最後
-//			for (Part part : parts) {
-//				if (part.getSubmittedFileName() != "") { // 未加此行 會filenotfoundexception
-//					part.write(realPath + "/" + part.getSubmittedFileName());// 資料夾名 檔名
-//				}
-//			}
-//		} 
-//		Collection<Part> parts = req.getParts();
-//		for (Part part : parts) {
-//			if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
-//				long size = part.getSize();
-//				// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
-//				InputStream in = part.getInputStream();
-//				photo = new byte[in.available()];						
-//				in.close();						
-//			}
+	    
+	    if(pic == 1) {//jsp哪一個image呼叫
+	    	byte[] licence = driverVO.getLicence();
+	    	out.write(licence);//顯示在image src內 讀成二位元資料流
+	    }
+	    if(pic == 2) {//jsp哪一個image呼叫
+	    	byte[] criminal = driverVO.getCriminal();
+	    	out.write(criminal);//顯示在image src內 讀成二位元資料流
+	    }
+	    if(pic == 3) {//jsp哪一個image呼叫
+	    	byte[] trafficRecord= driverVO.getTrafficRecord();
+	    	out.write(trafficRecord);//顯示在image src內 讀成二位元資料流
+	    }
+	    if(pic == 4) {//jsp哪一個image呼叫
+	    	byte[] idNum = driverVO.getIdNum();
+	    	out.write(idNum);//顯示在image src內 讀成二位元資料流
+	    }
+	    if(pic == 5) {//jsp哪一個image呼叫
+	    	byte[] photo = driverVO.getPhoto();
+	    	out.write(photo);//顯示在image src內 讀成二位元資料流
+	    }
+	    
+//		System.out.println(driverID);
+////		byte[] licence=null;
+//		byte[] licence = driverVO.getLicence();
+//		if(licence !=null) {
+//			out.write(licence);
 //		}
-//		Part part =null;
-//		part = req.getPart("photo");
-//		System.out.println(part);
-//		
-//		long size = part.getSize();
-//		System.out.println(size);
-//		InputStream in = part.getInputStream();
-//		
-//		photo = new byte[in.available()];
-//		if(in.available()!=0) {
-//		in.read(photo); 
-//		in.close();		
-//		}else {
-//			errorMsgs.add("請上傳照片");
-//			
+//		byte[] criminal = driverVO.getCriminal();
+//		if(criminal !=null) {
+//			out.write(criminal);
 //		}
-		
-		
-		
+//		byte[] trafficRecord = driverVO.getTrafficRecord();
+//		if(trafficRecord !=null) {
+//			out.write(trafficRecord);
+//		}
+//		byte[] idNum = driverVO.getIdNum();
+//		if(idNum !=null) {
+//			out.write(idNum);
+//		}
+//		byte[] photo = driverVO.getPhoto();
+//		if(photo !=null) {
+//			out.write(photo);
+//		}
+//////////////
+////		String realPath = getServletContext().getRealPath("/images_uploaded");
+////		System.out.println(req.getContentType());
+////
+////		String[] xxx = req.getContentType().split(";"); // 分割前後兩段 xxx陣列
+////		
+////		if (xxx[0].equals("multipart/form-data")) {// 比字串內容.equals()
+////			Collection<Part> parts = req.getParts();
+////			//新增修改刪除先 顯示放最後
+////			for (Part part : parts) {
+////				if (part.getSubmittedFileName() != "") { // 未加此行 會filenotfoundexception
+////					part.write(realPath + "/" + part.getSubmittedFileName());// 資料夾名 檔名
+////				}
+////			}
+////		} 
+////		Collection<Part> parts = req.getParts();
+////		for (Part part : parts) {
+////			if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
+////				long size = part.getSize();
+////				// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
+////				InputStream in = part.getInputStream();
+////				photo = new byte[in.available()];						
+////				in.close();						
+////			}
+////		}
+////		Part part =null;
+////		part = req.getPart("photo");
+////		System.out.println(part);
+////		
+////		long size = part.getSize();
+////		System.out.println(size);
+////		InputStream in = part.getInputStream();
+////		
+////		photo = new byte[in.available()];
+////		if(in.available()!=0) {
+////		in.read(photo); 
+////		in.close();		
+////		}else {
+////			errorMsgs.add("請上傳照片");
+////			
+////		}
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -121,18 +142,6 @@ public class DriverServlet extends HttpServlet {
 		String action = req.getParameter("action");
 //		RequestDispatcher requestDispatcher;
 //		RequestDispatcher failurePage;
-		DriverService driverSvc ; // 以VO物件傳送參數
-//
-
-		Integer verified= 0;
-		Integer banned= 0;
-		Integer onlineCar= 0;//沒在線上
-		Integer score= 60;
-
-		Integer sharedCar = 0;
-		Integer pet= 0;
-		Integer smoke= 0;
-		Integer babySeat= 0;
 	///////////////////////////////////////////////////////////////////////
 ////參考241 insertgroup 
 	if ("INSERT".equals(action)) { // 來自addBrod.jsp的請求 ok
@@ -141,8 +150,6 @@ public class DriverServlet extends HttpServlet {
 		// Store this set in the request scope, in case we need to
 		// send the ErrorPage view.
 		req.setAttribute("errorMsgs", errorMsgs);
-
-
 //		try {
 //		/************************ 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 //		String msgID = req.getParameter("msgID");//對應233行
@@ -154,79 +161,73 @@ public class DriverServlet extends HttpServlet {
 //			errorMsgs.add("推播編號: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間�");
 //		}
 
-
 //		String memID =req.getParameter("memID").trim();//注意:正是從session 抓下來
 		
 //		String	message = new String(req.getParameter("message").trim()); //訊息做字串處理
 //			if (message == null || message.trim().length() == 0) {
 //				errorMsgs.add("訊息內容: 請勿空白");
 //			}
-			
-		String driverID = "D003";
+		String memID = "M003" ;//--
+		String driverID = "D003";//--
 		//String driverID=req.getParameter("memID").trim();//注意:正是從session 抓下來
 		
 		String plateNum = "ABC-1234";	
 		
 		/////////////////////////////////
-		
-		
-		
-
-		
-		///////////////////////////
-		
-		Collection<Part> parts =null;
-		parts = req.getParts();
-//		System.out.println(part);
-		
+		///////////////////////////區域變數給初始值
 		byte[] licence = null;
 		byte[] criminal = null;
 		byte[] trafficRecord = null;
 		byte[] idNum = null;
 		byte[] photo = null;
-		
+//		Part parts = req.getPart("licence");
+		Collection<Part> parts = req.getParts();
+//		System.out.println(part);
 //		long size = part.getSize();
 //		System.out.println(size);
-		
-		
-		
 		for (Part part : parts) {
 		if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
-	
 			part.getName();
-			long size = part.getSize();
+//			long size = part.getSize();//update用到
 			// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
-			InputStream in = ((ServletRequest) parts).getInputStream();
-			in = part.getInputStream();
+			InputStream 	in = part.getInputStream();
 			switch(part.getName()) {
 			case "licence":
-			
-				licence = new byte[in.available()];					
+				licence = new byte[in.available()];			
+				in.read(licence);
 				break;
 			case "criminal":
-				
-				criminal = new byte[in.available()];					
+				criminal = new byte[in.available()];
+				in.read(criminal);//讀進去陣列中
 				break;	
 			case "trafficRecord":				
 				trafficRecord = new byte[in.available()];					
+				in.read(trafficRecord);
 				break;	
 			case "idNum":				
-				idNum = new byte[in.available()];					
+				idNum = new byte[in.available()];	
+				in.read(idNum);
 				break;					
 			case "photo":				
 				photo = new byte[in.available()];					
+				in.read(photo);//inputstream獨到byte[] ，service存到資料庫 
 				break;					
 					}
-			if(in.available()==0) {
-				errorMsgs.add("請上傳圖片");				
-			}
-			in.read();
+//			if(in.available()==0) {
+//				errorMsgs.add("請上傳圖片");				
+//			}
+//			in.read();
+			//
 			in.close();	
 			;
 		}
 	}
-		
-		
+//		轉成byte[]; 先read進來 write出去
+		Integer verified= 0;//--
+		Integer banned= 0;//--
+		Date deadline = null;//--
+		Integer onlineCar= 0;//--沒在線上
+		Integer score= 60;//--
 //		licence1 = new byte[in.available()];
 //		if(in.available()!=0) {
 //		in.read(licence1); 
@@ -234,7 +235,6 @@ public class DriverServlet extends HttpServlet {
 //		}else {
 //			errorMsgs.add("請上傳照片");
 //		}
-//		
 //		criminal = new byte[in.available()];
 //		if(in.available()!=0) {
 //			in.read(criminal); 
@@ -274,13 +274,17 @@ public class DriverServlet extends HttpServlet {
 			errorMsgs.add("訊息內容: 請勿空白");
 		}
 		//////////////
+		Integer sharedCar = 0;
+		Integer pet= 0;
+		Integer smoke= 0;
+		Integer babySeat= 0;
 		sharedCar = new Integer(req.getParameter("sharedCar"));
 		pet = new Integer(req.getParameter("pet"));
 		smoke = new Integer(req.getParameter("smoke"));
 		babySeat =new Integer(req.getParameter("babySeat"));
 		/////////////////
 		DriverVO driverVO = new DriverVO();
-		
+		driverVO.setMemID(memID);
 		driverVO.setDriverID(driverID);//
 		driverVO.setPlateNum(plateNum);
 		driverVO.setLicence(licence);
@@ -288,13 +292,17 @@ public class DriverServlet extends HttpServlet {
 		driverVO.setTrafficRecord(trafficRecord);
 		driverVO.setIdNum(idNum);
 		driverVO.setPhoto(photo);
+		driverVO.setVerified(verified);
+		driverVO.setBanned(banned);
+		driverVO.setDeadline(deadline);
 		driverVO.setOnlineCar(onlineCar);//
+		driverVO.setScore(score);
 		driverVO.setCarType(carType);
 		driverVO.setSharedCar(sharedCar);//
 		driverVO.setPet(pet);
 		driverVO.setSmoke(smoke);
 		driverVO.setBabySeat(babySeat);//
-
+//		dao.insert(driverVO;ㄥ
 
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
@@ -303,17 +311,19 @@ public class DriverServlet extends HttpServlet {
 			failureView.forward(req, res);
 			return;
 		}
-
+		
 		/********************* *2.開始新增資料*****************************************/
 		/* 從addDriver.jsp取得的資料，透過DriverService操作DAO存進資料庫 */
+		DriverService driverSvc ; // 以VO物件傳送參數
 		driverSvc = new DriverService();
-		driverVO = driverSvc.addDriver( driverID, plateNum,
-				licence,criminal,trafficRecord,idNum,photo,
-				 carType, sharedCar, pet, smoke, babySeat);
+		driverVO = driverSvc.addDriver(memID, driverID, plateNum,
+				licence, criminal, trafficRecord, idNum, photo, 
+				verified, banned, deadline, onlineCar, score, carType, sharedCar, pet, smoke, babySeat);
 
 		/***************************
 		 **3.新增完成,準備轉交(Send the Success view)* Success view)
 		 ***********/
+		req.setAttribute("driverVO", driverVO);
 		String url = "/driver/listOneDriver.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllBrod.jsp
 		successView.forward(req, res);

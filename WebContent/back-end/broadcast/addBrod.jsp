@@ -71,7 +71,7 @@ BroadcastVO brodVO = (BroadcastVO) request.getAttribute("brodVO");
 	<tr>
 		<td>推播編號:</td>
 		<td><input type="TEXT" name="msgID" size="45" 
-			 value="<%= (brodVO==null)? "MSG" : brodVO.getMsgID()%>"disabled="disabled" /></td>
+			 value="<%= (brodVO==null)? "MSG007" : brodVO.getMsgID()%>"readonly="readonly" /></td>
 	</tr>
 	<tr>
 		<td>會員編號:</td>

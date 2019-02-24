@@ -214,6 +214,7 @@ public class BroadcastJNDIDAO implements BroadcastDAO_interface {
 				list.add(broadcastVO);
 			}
 		} catch (SQLException se) {
+			se.printStackTrace();
 			throw new RuntimeException("發生SQL errors" + se.getMessage());
 		} finally {
 			if (pstmt != null) {

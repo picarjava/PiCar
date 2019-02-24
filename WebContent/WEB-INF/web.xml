@@ -39,7 +39,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Broadcast</servlet-name>
-    <url-pattern>/broadcast/broadcast.do</url-pattern>
+    <url-pattern>/back-end/broadcast/broadcast.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>Driver</servlet-name>
@@ -48,6 +48,14 @@
   <servlet-mapping>
     <servlet-name>Driver</servlet-name>
     <url-pattern>/driver/driver.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>Driver2</servlet-name>
+    <servlet-class>com.driver.controller.DriverServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Driver2</servlet-name>
+    <url-pattern>/driverpic.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>GroupMem</servlet-name>

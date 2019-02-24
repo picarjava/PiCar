@@ -87,18 +87,12 @@
 							<div class="form-group">
 								<p>會員編號</p>
 								<input type="text" name="memID" value="M003"
-									class="form-control" placeholder="請輸入1-10個英文或數字"
-									disabled="disabled" />
+									class="form-control" disabled="disabled" />
 							</div>
 							<div class="form-group">
 								<p>車牌號碼</p>
 								<input type="text" name="plateNum" class="form-control"
 									value="PIC-0005" placeholder="請輸入車牌號碼" />
-							</div>
-							<div class="form-group">
-								<p>車型</p>
-								<input type="text" name="carType" class="form-control"
-									value="PICAR" placeholder="請輸入車型" />
 							</div>
 							<div class="form-group">
 								<p>車型</p>
@@ -119,12 +113,12 @@
 							<div class="form-group">
 								<p>駕照</p>
 								<input type="file" class="form-control" name="licence"
-									value="2018-10-08" placeholder="請輸入駕照" />
+									value="" placeholder="請輸入駕照" />
 							</div>
 							<div class="form-group">
 								<p>良民證</p>
 								<input type="file" class="form-control" name="criminal"
-									value="2019-03-29" />
+									value="" />
 							</div>
 
 							<div class="form-group">

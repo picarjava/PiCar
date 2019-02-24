@@ -8,7 +8,7 @@ public class BroadcastService {
 
 	//創建DAO 實體保存在DAO介面的實體變數
 public BroadcastService() {
-	dao = new BroadcastJNDIDAO();
+	dao = new BroadcastJDBCDAO();
 		}
 public BroadcastVO addBroadcast(String msgID,String memID , String message, Integer confirmed ) {
 	BroadcastVO broadcastVO = new BroadcastVO( );

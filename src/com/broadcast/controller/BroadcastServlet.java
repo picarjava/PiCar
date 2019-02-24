@@ -74,13 +74,13 @@ public class BroadcastServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/broadcast/select_page.jsp");
+							.getRequestDispatcher("/back-end/broadcast/select_page.jsp");
 					failureView.forward(req, res);
 					return;//�{�����_
 				}
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("brodVO", brodVO); // 資料庫取出的empVO物件,存入req
-				String url = "/broadcast/listOnebrod.jsp";
+				String url = "/back-end/broadcast/listOnebrod.jsp";
 				//指向該單筆頁面
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
 				successView.forward(req, res);
@@ -89,7 +89,7 @@ public class BroadcastServlet extends HttpServlet {
 //			} catch (Exception e) {
 //				errorMsgs.add("無法取得資料::" + e.getMessage());
 //				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/broadcast/select_page.jsp");
+//						.getRequestDispatcher("/back-end/broadcast/select_page.jsp");
 //				failureView.forward(req, res);
 //			}
 		}
@@ -116,7 +116,7 @@ public class BroadcastServlet extends HttpServlet {
 				 **3.查詢完成,準備轉交(Send the Success view)**
 				 ************/
 				req.setAttribute("brodVO", brodVO); // ��Ʈw���X��empVO����,�s�Jreq
-				String url = "/broadcast/update_brod_input.jsp";
+				String url = "/back-end/broadcast/update_brod_input.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_brod_input.jsp
 				successView.forward(req, res);
 
@@ -181,7 +181,7 @@ public class BroadcastServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("brodVO", brodVO); // �t����J�榡���~��empVO����,�]�s�Jreq
-					RequestDispatcher failureView = req.getRequestDispatcher("/broadcast/update_brod_input.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/broadcast/update_brod_input.jsp");
 					failureView.forward(req, res);
 					return; // �{�����_
 				}
@@ -196,7 +196,7 @@ public class BroadcastServlet extends HttpServlet {
 				 * 3.修改完成,準備轉交(Send the Success view)****
 				 *************/
 				req.setAttribute("brodVO", brodVO); //// 資料庫update成功後,正確的的brodVO物件,存入req
-				String url = "/broadcast/listAllBrod.jsp";
+				String url = "/back-end/broadcast/listAllBrod.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);  // 修改成功後,轉交listOneBrod.jsp
 				successView.forward(req, res);
 
@@ -228,15 +228,9 @@ public class BroadcastServlet extends HttpServlet {
 			} else if (!msgID.trim().matches(enameReg)) { //// 以下練習正則(規)表示式(regular-expression)
 				errorMsgs.add("推播編號: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間�");
 			}
-
-
 //			String memID =req.getParameter("memID").trim();//注意:正是從session 抓下來
 			String memID ="M001";
-				
-
-			
 			String	message = new String(req.getParameter("message").trim()); //訊息做字串處理
-			
 				if (message == null || message.trim().length() == 0) {
 					errorMsgs.add("訊息內容: 請勿空白");
 				}
@@ -256,11 +250,10 @@ public class BroadcastServlet extends HttpServlet {
 			// Send the use back to the form, if there were errors
 			if (!errorMsgs.isEmpty()) {
 				req.setAttribute("brodVO", brodVO); // // 含有輸入格式錯誤的empVO物件,也存入req
-				RequestDispatcher failureView = req.getRequestDispatcher("/broadcast/addBrod.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/broadcast/addBrod.jsp");
 				failureView.forward(req, res);
 				return;
 			}
-
 			/***************************
 			 *2.開始新增資料*********
 			 ***************************************/
@@ -270,7 +263,7 @@ public class BroadcastServlet extends HttpServlet {
 			/***************************
 			 **3.新增完成,準備轉交(Send the Success view)* Success view)
 			 ***********/
-			String url = "/broadcast/listAllBrod.jsp";
+			String url = "/back-end/broadcast/listAllBrod.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllBrod.jsp
 			successView.forward(req, res);
 
@@ -301,7 +294,7 @@ public class BroadcastServlet extends HttpServlet {
 				brodSvc.deleteBroadcast(msgID);
 				
 				/************************3.刪除完成,準備轉交(Send the Success view)**********/								
-				String url = "/broadcast/listAllBrod.jsp";
+				String url = "/back-end/broadcast/listAllBrod.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// �R�����\��,���^�e�X�R�����ӷ����
 				successView.forward(req, res);
 				
@@ -309,7 +302,7 @@ public class BroadcastServlet extends HttpServlet {
 			} catch (Exception e) {
 				errorMsgs.add("�R����ƥ���:"+e.getMessage());
 				RequestDispatcher failureView = req
-						.getRequestDispatcher("/broadcast/listAllBrod.jsp");
+						.getRequestDispatcher("/back-end/broadcast/listAllBrod.jsp");
 				failureView.forward(req, res);
 			}
 		}
