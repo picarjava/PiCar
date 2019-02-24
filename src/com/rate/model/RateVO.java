@@ -6,7 +6,7 @@ public class RateVO implements java.io.Serializable{
 	private String rateName;
 	private Double ratePrice;
 	private Integer rateBasic;
-	private byte[] pic;
+//	private byte[] pic;
 	
 	public Integer getRateID() {
 		return rateID;
@@ -40,13 +40,13 @@ public class RateVO implements java.io.Serializable{
 		this.rateBasic = rateBasic;
 	}
 
-	public byte[] getPic() {
-		return pic;
-	}
-
-	public void setPic(byte[] pic) {
-		this.pic = pic;
-	}
+//	public byte[] getPic() {
+//		return pic;
+//	}
+//
+//	public void setPic(byte[] pic) {
+//		this.pic = pic;
+//	}
 	
 	
 	
