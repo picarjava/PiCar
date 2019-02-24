@@ -1,12 +1,52 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ page import="com.rate.model.*"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
-
+	<%
+		RateVO rateVO = (RateVO) request.getAttribute("rateVO");
+	%>
+ <h3>update_member_input.jsp</h3>
+ 
+	<%-- 錯誤表列 --%>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color:red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color:red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
+	
+	<form method="post" action="rate.do" name="form1">
+	<a href="select_page.jsp">回主頁面</a>
+		
+	<table>
+	<tr>
+		<td>費率編號</td>
+		<td><%=rateVO.getRateID()%></td>
+	</tr>
+	<tr>
+		<td>費率名稱</td>	
+		<td><input type="text" value="<%=rateVO.getRateName() %>" ></td>
+	</tr>
+	<tr>
+		<td>費率(元/KM)</td>	
+		<td><input type="text" value="<%=rateVO.getRatePrice() %>" ></td>
+	</tr>	
+	<tr>
+		<td>基本費(元)</td>	
+		<td><input type="text" value="<%=rateVO.getRateBasic() %>" ></td>
+	</tr>
+	</table>
+	<input type="hidden" name="memID" value="<%=rateVO.getRateID() %> ">
+	<input type="hidden" name="action" value="update">
+	<input type="submit" value="submit">
+</form>
 </body>
 </html>
