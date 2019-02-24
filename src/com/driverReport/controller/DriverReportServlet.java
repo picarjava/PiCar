@@ -38,7 +38,7 @@ public class DriverReportServlet extends HttpServlet {
 				}
 				// Send the use back to the form, if there were errors
 				if(!errorMsgs.isEmpty()) { 
-					RequestDispatcher failureView = req.getRequestDispatcher("/driverReport/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driverReport/select_page.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -51,7 +51,7 @@ public class DriverReportServlet extends HttpServlet {
 				// Send the use back to the form, if there were errors
 				
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/driverReport/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driverReport/select_page.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
@@ -65,26 +65,26 @@ public class DriverReportServlet extends HttpServlet {
 				}
 				// Send the use back to the form, if there were errors
 				if(!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/driverReport/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driverReport/select_page.jsp");
 					failureView.forward(req, res);
 					return; //程式中斷
 				}
 				
 				/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 				req.setAttribute("driverReportVO", driverReportVO); //資料庫取出的VO物件,存入req
-				String url = "/driverReport/listOneDriverReport.jsp";
+				String url = "/back-end/driverReport/listOneDriverReport.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);  //成功轉交到listOneDriverReport.jsp
 				successView.forward(req, res);
 				/***************************其他可能的錯誤處理*************************************/
 							
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料"+e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/driverReport/select_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driverReport/select_page.jsp");
 				failureView.forward(req, res);
 			} 
 		}
 			
-			if("getOne_For_Update".equals(action)) { // 來自listAllDriverReport.jsp的請求
+			if("getOne_For_Update".equals(action)) { // 來自Select_page.jsp的請求
 				
 				List<String> errorMsgs = new LinkedList<String>();
 				// Store this set in the request scope, in case we need to
@@ -101,13 +101,13 @@ public class DriverReportServlet extends HttpServlet {
 					DriverReportVO driverReportVO = driverReportSvc.getOneDriverReport(dreportID);
 					/***************************3.查詢完成,準備轉交(Send the Success view)************/
 					req.setAttribute("driverReportVO", driverReportVO);
-					String url = "/driverReport/update_DriverReport_input.jsp";
+					String url = "/back-end/driverReport/update_DriverReport_input.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);// 成功轉交 update_DriverReport_input.jsp
 					successView.forward(req, res);
 					/***************************其他可能的錯誤處理**********************************/
 				} catch (Exception e) {
 					errorMsgs.add("無法取得要修改的資料"+e.getMessage());
-					RequestDispatcher failureView = req.getRequestDispatcher("/driverReport/listAllDriverReport.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driverReport/update_DriverReport_input.jsp");
 					failureView.forward(req, res);
 				}
 			}	
@@ -126,7 +126,7 @@ public class DriverReportServlet extends HttpServlet {
 					if(memID == null || memID.trim().length()==0) {
 						errorMsgs.add("會員編號請勿空白");
 					} else if (!memID.trim().matches(memIDReg)) {
-						errorMsgs.add("輸入格式有誤");
+						errorMsgs.add("會員編號輸入格式有誤");
 					}
 					
 					
@@ -136,7 +136,7 @@ public class DriverReportServlet extends HttpServlet {
 					if(adminID == null || adminID.trim().length() == 0) {
 						errorMsgs.add("管理員編號請勿空白");
 					} else if (!adminID.trim().matches(adminIDreg)) {
-						errorMsgs.add("輸入格式有誤");
+						errorMsgs.add("管理員編號輸入格式有誤");
 					}
 					
 					//捕捉不到錯誤故用此方法抓?!
@@ -154,7 +154,7 @@ public class DriverReportServlet extends HttpServlet {
 					}
 						
 					String content = req.getParameter("content");
-					String contentReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,100}$";
+					String contentReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{10,50}$";
 					if (content == null ||content.trim().length()==0) {
 						errorMsgs.add("檢舉內容請勿空白");
 					} else if (!content.trim().matches(contentReg)) {
@@ -192,7 +192,7 @@ public class DriverReportServlet extends HttpServlet {
 					// Send the use back to the form, if there were errors
 					if (!errorMsgs.isEmpty()) {
 						req.setAttribute("driverReportVO", driverReportVO); // 含有輸入格式錯誤的driverReportVO物件,也存入req
-						RequestDispatcher failureView = req.getRequestDispatcher("/driverReport/update_DriverReport_input.jsp");
+						RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driverReport/update_DriverReport_input.jsp");
 						failureView.forward(req, res);
 						return; //程式中斷
 					}
@@ -203,14 +203,14 @@ public class DriverReportServlet extends HttpServlet {
 					
 					/***************************3.修改完成,準備轉交(Send the Success view)*************/
 					req.setAttribute("driverReportVO", driverReportVO); // 資料庫update成功後,正確的的driverReportVO物件,存入req
-					String url = "/driverReport/select_page.jsp";
-					RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交listOneDriverReport.jsp
+					String url = "/back-end/driverReport/select_page.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); // 修改成功後,轉交select_page.jsp
 					successView.forward(req, res);
 
 					/***************************其他可能的錯誤處理*************************************/
 				} catch (Exception e) {
 					errorMsgs.add(e.getMessage());
-					RequestDispatcher failureView = req.getRequestDispatcher("/driverReport/update_DriverReport_input.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driverReport/update_DriverReport_input.jsp");
 					failureView.forward(req, res);
 				}
 			}
@@ -281,7 +281,7 @@ public class DriverReportServlet extends HttpServlet {
 					// Send the use back to the form, if there were errors
 					if (!errorMsgs.isEmpty()) {
 						req.setAttribute("driverReportVO", driverReportVO); // 含有輸入格式錯誤的driverReportVO物件,也存入req
-						RequestDispatcher failureView = req.getRequestDispatcher("/driverReport/addDriverReport.jsp");
+						RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driverReport/addDriverReport.jsp");
 						failureView.forward(req, res);
 						return; //程式中斷
 					}
@@ -291,14 +291,14 @@ public class DriverReportServlet extends HttpServlet {
 					driverReportVO = driverReportSvc.addDriverReport(memID, adminID, orderID, content, time, state);
 					
 					/***************************3.新增完成,準備轉交(Send the Success view)***********/
-					String url = "/driverReport/select_page.jsp";
-					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllDriverReport.jsp
+					String url = "/back-end/driverReport/select_page.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交select_page.jsp
 					successView.forward(req, res);				
 					
 					/***************************其他可能的錯誤處理**********************************/
 				} catch (Exception e) {
 					errorMsgs.add("資料有誤請再次確認");
-					RequestDispatcher failureView = req.getRequestDispatcher("/driverReport/addDriverReport.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driverReport/addDriverReport.jsp");
 					failureView.forward(req, res);
 				}
 			}
@@ -319,7 +319,7 @@ public class DriverReportServlet extends HttpServlet {
 					DriverReportService driverReportSvc = new DriverReportService();
 					driverReportSvc.deleteDriverReport(dreportID);
 					/***************************3.刪除完成,準備轉交(Send the Success view)***********/					
-					String url = "/driverReport/select_page.jsp";
+					String url = "/back-end/driverReport/select_page.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 					successView.forward(req, res);
 					
@@ -327,7 +327,7 @@ public class DriverReportServlet extends HttpServlet {
 				} catch (Exception e) {
 					errorMsgs.add("刪除資料失敗:"+e.getMessage());
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/driverReport/select_page.jsp");
+							.getRequestDispatcher("/back-end/driverReport/select_page.jsp");
 					failureView.forward(req, res);
 				}
 			}
