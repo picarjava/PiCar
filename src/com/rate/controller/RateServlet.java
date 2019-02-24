@@ -13,12 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import com.rate.model.RateDAO;
+import com.rate.model.RateService;
 import com.rate.model.RateVO;
 
 /**
  * Servlet implementation class MemberServlet
  */
-@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
+//@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class RateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -31,7 +32,27 @@ public class RateServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
-		PrintWriter out = res.getWriter();
+
+		if ("getOne_For_Update".equals(action)) {		
+			List<String> errorMsgs = new LinkedList();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				Integer rateID = new Integer(req.getParameter("rateID"));
+				RateService rateSvc = new RateService();
+				RateVO rateVO = rateSvc.getOneRate(rateID);
+				req.setAttribute("rateVO", rateVO);
+
+				RequestDispatcher succesView = req.getRequestDispatcher("/rate/update_rate_iuput.jsp");
+				succesView.forward(req, res);
+				
+			} catch (Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/rate/listAllrate.jsp");
+				failureView.forward(req, res);
+			}
+
+		}
 
 		if ("insert".equals(action)) {
 
@@ -63,19 +84,18 @@ public class RateServlet extends HttpServlet {
 
 //  			**************到時候記得要拿掉***鳩咪
 
-				Part part = req.getPart("pic");
-				InputStream in = part.getInputStream();
-				byte[] pic = new byte[in.available()];
-				in.read(pic);
-				in.close();
+//				Part part = req.getPart("pic");
+//				InputStream in = part.getInputStream();
+//				byte[] pic = new byte[in.available()];
+//				in.read(pic);
+//				in.close();
 
 				RateDAO rateDAO = new RateDAO();
 				RateVO rateVO = new RateVO();
 				rateVO.setRateName(rateName);
 				rateVO.setRatePrice(ratePrice);
 				rateVO.setRateBasic(rateBasic);
-				rateVO.setPic(pic);
-				
+//				rateVO.setPic(pic);
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("rateVO", rateVO);
@@ -83,10 +103,10 @@ public class RateServlet extends HttpServlet {
 					failView.forward(req, res);
 					return;
 				}
-				
-				//開始新增資料
+
+				// 開始新增資料
 				rateDAO.insert(rateVO);
-				
+
 				RequestDispatcher succesView = req.getRequestDispatcher("/rate/listAllRate.jsp");
 				succesView.forward(req, res);
 			} catch (Exception e) {
