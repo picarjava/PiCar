@@ -26,15 +26,14 @@ public class RateDAO implements RateDAO_interface {
 		}
 	}
 
-	private static final String INSERT_STMT = "INSERT INTO RATE (RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC, PIC) VALUES"
-			+ "(RAT_SEQ.NEXTVAL, ?, ?, ?, ?)";
+	private static final String INSERT_STMT = "INSERT INTO RATE (RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC) VALUES"
+			+ "(RAT_SEQ.NEXTVAL, ?, ?, ?)";
 	private static final String UPDATE_STMT = "UPDATE RATE SET  RATE_NAME = ?, RATE_PRICE = ?, RATE_BASIC = ?  "
 			+ "WHERE RATE_ID = ?";
 	private static final String DELETE = "DELETE FROM RATE WHERE RATE_ID = ? ";
-	private static final String GET_ONE_STMT = "SELECT RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC, PIC FROM RATE WHERE RATE_ID= ?";
-	private static final String GET_ALL_STMT = "SELECT RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC, PIC FROM RATE ORDER BY RATE_ID";
-//	private static final String GET_PIC = "SELECT PIC FROM RATE WHERE = ?";
-//	private static final String INSER_PIC = "INSERT INTO RATE(PIC) VALUES (?)";
+	private static final String GET_ONE_STMT = "SELECT RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC FROM RATE WHERE RATE_ID= ?";
+	private static final String GET_ALL_STMT = "SELECT RATE_ID, RATE_NAME, RATE_PRICE, RATE_BASIC FROM RATE ORDER BY RATE_ID";
+
 	
 	@Override
 	public void insert(RateVO rateVO) {
@@ -50,10 +49,10 @@ public class RateDAO implements RateDAO_interface {
 			pstmt.setString(1, rateVO.getRateName());
 			pstmt.setDouble(2, rateVO.getRatePrice());
 			pstmt.setInt(3, rateVO.getRateBasic());
-			Blob blob = con.createBlob();
-			byte [] pic = rateVO.getPic();
-			blob.setBytes(1, pic);
-			pstmt.setBlob(4, blob);
+//			Blob blob = con.createBlob();
+//			byte [] pic = rateVO.getPic();
+//			blob.setBytes(1, pic);
+//			pstmt.setBlob(4, blob);
 
 			pstmt.executeUpdate();
 
@@ -231,11 +230,12 @@ public class RateDAO implements RateDAO_interface {
 				rateVO.setRateName(rs.getString(2));
 				rateVO.setRatePrice(rs.getDouble(3));
 				rateVO.setRateBasic(rs.getInt(4));
-				rateVO.setPic(rs.getBytes(5));
+				
+//				blob練習   以下不需要 
+//				rateVO.setPic(rs.getBytes(5));
 //				InputStream is = rs.getBinaryStream("PIC");
 //				rateVO.setPic(rs.getBinaryStream("PIC"));
-				
-				
+								
 				list.add(rateVO);
 			}
 
@@ -271,33 +271,9 @@ public class RateDAO implements RateDAO_interface {
 		return list;
 	}
 
-	@Override
-	public RateVO findPic(Integer rateID) {
+	
 		
 		
-		
-		
-		return null;
-	}
-
-	@Override
-	public void insertPic(RateVO rateVO) {
-		
-		Connection con = null;
-		PreparedStatement pstmt = null;
-//		try{
-//			con=ds.getConnection();
-//			pstmt=con.prepareStatement(sql)
-//		}
-			
-		
-		
-		
-		
-		
-		
-		
-		
-	}
+	
 
 }
