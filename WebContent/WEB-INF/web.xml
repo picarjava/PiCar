@@ -98,8 +98,7 @@
     <servlet-name>ActivServlet</servlet-name>
     <url-pattern>/activity/Activ_servlet.html</url-pattern>
   </servlet-mapping>
-  
-   <servlet>
+  <servlet>
     <servlet-name>ActivTokenServlet</servlet-name>
     <servlet-class>com.activityToken.controller.ActivTokenServlet</servlet-class>
     <load-on-startup>3</load-on-startup>

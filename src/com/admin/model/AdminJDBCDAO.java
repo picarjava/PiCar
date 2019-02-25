@@ -285,7 +285,7 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 //		System.out.println("成功刪除一筆資料");
 		
 		//查詢
-		AdminVO adminVO3 = dao.findByPrimaryKey("A007");
+		AdminVO adminVO3 = dao.findByPrimaryKey("A001");
 		System.out.print(adminVO3.getAdminID() + ",");
 		System.out.print(adminVO3.getAdminName() + ",");
 		System.out.print(adminVO3.getPassword() + ",");	
