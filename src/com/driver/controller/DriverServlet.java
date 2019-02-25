@@ -170,9 +170,7 @@ req.setCharacterEncoding("UTF-8");
 		String memID = "M003" ;//--
 		String driverID = "D003";//--
 		//String driverID=req.getParameter("memID").trim();//注意:正是從session 抓下來
-		
 		String plateNum = "ABC-1234";	
-		
 		/////////////////////////////////
 		///////////////////////////區域變數給初始值
 		byte[] licence = null;
@@ -183,14 +181,15 @@ req.setCharacterEncoding("UTF-8");
 //		Part parts = req.getPart("licence");
 		Collection<Part> parts = req.getParts();
 //		System.out.println(part);
-//		long size = part.getSize();
-//		System.out.println(size);
+
 		for (Part part : parts) {
-		if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
 			part.getName();
+		if (getFileNameFromPart(part) != null && part.getContentType()!=null) {//這裡是已經非空值
+			
 //			long size = part.getSize();//update用到
+//			System.out.println(size);
 			// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
-			InputStream 	in = part.getInputStream();
+			InputStream in = part.getInputStream();//1603
 			switch(part.getName()) {
 			case "licence":
 				licence = new byte[in.available()];			
@@ -219,6 +218,27 @@ req.setCharacterEncoding("UTF-8");
 			in.close();	
 			;
 		}
+//		else {
+//			switch (part.getName()) {
+//			case "licence":
+//			errorMsgs.add("請上傳駕照");	
+//				break;
+//			case "criminal":
+//			errorMsgs.add("請上傳criminal");	
+//				break;
+//			case "trafficRecord":
+//			errorMsgs.add("請上傳trafficRecord");	
+//				break;
+//			case "idNum":
+//			errorMsgs.add("請上傳idNum");	
+//				break;
+//			case "photo":
+//			errorMsgs.add("請上傳photo");	
+//				break;
+////			default:
+////				break;
+//			}
+//		}
 	}
 //		轉成byte[]; 先read進來 write出去
 		Integer verified= 0;//--

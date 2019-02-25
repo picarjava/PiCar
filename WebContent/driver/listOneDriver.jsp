@@ -82,14 +82,12 @@
                        <p>車牌號碼</p>
                       <input type="text" name="plateNum" class="form-control" value="${driverVO.plateNum}"   placeholder="請輸入車牌號碼" />
                        <div class="card" style="width: 18rem;">
-                          <img src="<%= request.getContextPath() %>/driverpic.do?driverID=D003&pic=1" width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
                     <div class="form-group">
                        <p>車型</p>
                       <input type="text" name="carType" class="form-control" value="${driverVO.carType}"   placeholder="請輸入車型" />
                        <div class="card" style="width: 18rem;">
-                          <img src="<%= request.getContextPath() %>/driverpic.do?driverID=D003&pic=2" width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
                     <div class="form-group">
