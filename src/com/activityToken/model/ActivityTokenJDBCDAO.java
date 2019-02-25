@@ -26,6 +26,63 @@ public class ActivityTokenJDBCDAO implements ActivityTokenDAO_interface{
 			"DELETE FROM ACTIVITY_TOKEN WHERE MEM_ID=? AND ACTIVITY_ID= ?";
 	private static final String UPDATE=
 			"UPDATE ACTIVITY_TOKEN SET TOKEN_AMOUNT=?,DEADLINE=? WHERE MEM_ID=? AND ACTIVITY_ID=?" ;
+	/*新增單一會員查詢語法*/
+	private static final String GET_ONES_ALL_STMT=
+			"SELECT * FROM ACTIVITY_TOKEN WHERE MEM_ID=?";
+	
+	/*新增單一會員查詢所有代幣明細的方法*/
+	@Override
+	public List<ActivityTokenVO> getOnesALL(String memID) {
+		List<ActivityTokenVO> list=new ArrayList<ActivityTokenVO>();
+		ActivityTokenVO activityTokenVO;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+			pstmt = con.prepareStatement(GET_ONES_ALL_STMT);
+			pstmt.setString(1, memID);
+			
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				activityTokenVO=new ActivityTokenVO();
+				activityTokenVO.setMemID(rs.getString("mem_id"));
+				activityTokenVO.setActivityID(rs.getString("activity_id"));
+				activityTokenVO.setTokenAmount(rs.getInt("token_amount"));
+				activityTokenVO.setDeadline(rs.getDate("deadline"));
+				list.add(activityTokenVO);
+			}
+			
+		}catch (ClassNotFoundException e) {
+			throw new RuntimeException("無法載入DB Driver"
+					+ e.getMessage());
+		}
+		catch (SQLException se) {
+			throw new RuntimeException("SQL發生錯誤"
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+	
+	
 	@Override
 	public void insert(ActivityTokenVO activityTokenVO) {
 		Connection con = null;

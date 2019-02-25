@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="com.activity.model.*" %>
+<%@ page import="com.activityToken.model.*" %>
 <%@ page import="java.util.*" %>
 
 <!DOCTYPE html>
@@ -8,22 +8,22 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>活動列表</title>
+    <title>查詢活動代幣明細</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
     <!-- Favicons -->
-    <link href="<%=request.getContextPath()%>/back-end/activity/img/favicon.png" rel="icon">
-    <link href="<%=request.getContextPath()%>/back-end/activity/img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="<%=request.getContextPath()%>/front-end/activity/img/favicon.png" rel="icon">
+    <link href="<%=request.getContextPath()%>/front-end/activity/img/apple-touch-icon.png" rel="apple-touch-icon">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
     <!-- Bootstrap CSS File -->
-    <link href="<%=request.getContextPath()%>/back-end/activity/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/front-end/activity/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Libraries CSS Files -->
-    <link href="<%=request.getContextPath()%>/back-end/activity/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="<%=request.getContextPath()%>/back-end/activity/lib/animate/animate.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/front-end/activity/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/front-end/activity/lib/animate/animate.min.css" rel="stylesheet">
     <!-- Main Stylesheet File -->
-    <link href="<%=request.getContextPath()%>/back-end/activity/css/style.css" rel="stylesheet">
+    <link href="<%=request.getContextPath()%>/front-end/activity/css/style.css" rel="stylesheet">
    
 
     
@@ -40,9 +40,9 @@
       活動listALL
     ============================-->
    <!-- getAll再setAttribute存進pageContext 給forEach抓 -->
-    <% ActivityService activitySvc=new ActivityService();%>
-    <%List<ActivityVO> list=activitySvc.getALL();%>
-    <%request.setAttribute("list", list); %>
+    <% ActivityTokenService activityTokenSvc=new ActivityTokenService();%>
+    <%List<ActivityTokenVO> list=activityTokenSvc.getAll();%>
+    
     <%if(list!=null&&(list.size()>0)){ %>
     
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
@@ -62,7 +62,7 @@
                 <div class="section-header">
                     <h3 class="section-title">所有活動列表</h3>
                      
-                    <form action="<%=request.getContextPath()%>/back-end/activity/homeActivity.jsp">
+                    <form action="">
 			          <div class="text-center"><button type="submit" class="btn btn-outline-success">返回</button>
 			         </form>
                 </div>
@@ -130,20 +130,20 @@
     
     <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     <!-- JavaScript Libraries -->
-    <script src="<%=request.getContextPath()%>/back-end/activity/lib/jquery/jquery.min.js"></script>
-    <script src="<%=request.getContextPath()%>/back-end/activity/lib/jquery/jquery-migrate.min.js"></script>
-    <script src="<%=request.getContextPath()%>/back-end/activity/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="<%=request.getContextPath()%>/back-end/activity/lib/easing/easing.min.js"></script>
-    <script src="<%=request.getContextPath()%>/back-end/activity/lib/wow/wow.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/activity/lib/jquery/jquery.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/activity/lib/jquery/jquery-migrate.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/activity/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/activity/lib/easing/easing.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/activity/lib/wow/wow.min.js"></script>
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script> -->
-    <script src="<%=request.getContextPath()%>/back-end/activity/lib/waypoints/waypoints.min.js"></script>
-    <script src="<%=request.getContextPath()%>/back-end/activity/lib/counterup/counterup.min.js"></script>
-    <script src="<%=request.getContextPath()%>/back-end/activity/lib/superfish/hoverIntent.js"></script>
-    <script src="<%=request.getContextPath()%>/back-end/activity/lib/superfish/superfish.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/activity/lib/waypoints/waypoints.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/activity/lib/counterup/counterup.min.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/activity/lib/superfish/hoverIntent.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/activity/lib/superfish/superfish.min.js"></script>
     <!-- Contact Form JavaScript File -->
-    <script src="<%=request.getContextPath()%>/back-end/activity/contactform/contactform.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/activity/contactform/contactform.js"></script>
     <!-- Template Main Javascript File -->
-    <script src="<%=request.getContextPath()%>/back-end/activity/js/main.js"></script>
+    <script src="<%=request.getContextPath()%>/front-end/activity/js/main.js"></script>
 </body>
 
 </html>

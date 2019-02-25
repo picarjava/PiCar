@@ -26,6 +26,63 @@ public class ActivityJDBCDAO implements ActivityDAO_interface{
 			"DELETE FROM ACTIVITY WHERE ACTIVITY_ID=?";
 	private static final String UPDATE=
 			"UPDATE ACTIVITY SET ACTIVITY_NAME=?,ACTIVITY_INFO=?,ACTIVITY_START=?,ACTIVITY_END=?,ACTIVITY_CODE=?,TOKEN_AMOUNT=?,ACTIVITY_POST=? WHERE ACTIVITY_ID=?" ;
+	/*新增 透過活動序號找當筆活動資訊的STMT*/
+	private static final String GET_ONE_BY_CODE="SELECT * FROM ACTIVITY WHERE ACTIVITY_CODE=?";
+	
+	/*新增 findActicvityByCode()*/
+	@Override
+	public ActivityVO findActicvityByCode(String activityCode) {
+		ActivityVO activityVO=null;
+		Connection con= null;
+		PreparedStatement pstmt =null;
+		ResultSet rs= null;
+		try{
+			Class.forName(driver);
+			con=DriverManager.getConnection(url,userid,passwd);
+			pstmt=con.prepareStatement(GET_ONE_BY_CODE);
+			/*根據SQL常數，pstmt需要的值*/
+			/*parameterIndex 從1開始*/
+			pstmt.setString(1, activityCode);
+			/*進行一筆資料的查詢*/
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()){
+				
+				activityVO=new ActivityVO();
+				activityVO.setActivityID(rs.getString("ACTIVITY_ID"));
+				activityVO.setActivityName(rs.getString("ACTIVITY_NAME"));
+				activityVO.setActivityInfo(rs.getString("ACTIVITY_INFO"));
+				activityVO.setActivityStart(rs.getDate("ACTIVITY_START"));
+				activityVO.setActivityEnd(rs.getDate("ACTIVITY_END"));
+				activityVO.setActivityCode(rs.getString("ACTIVITY_CODE"));
+				activityVO.setTokenAmount(rs.getInt("TOKEN_AMOUNT"));
+				activityVO.setActivityPost(rs.getBytes("ACTIVITY_POST"));
+			}
+		
+		}catch(ClassNotFoundException e){
+			throw new RuntimeException("無法載入BD driver"+e.getMessage());
+		}catch(SQLException se){
+			throw new RuntimeException("發生SQL errors"+se.getMessage());
+		}finally{
+			if(pstmt!=null){
+				try{
+					pstmt.close();
+				}catch(SQLException se){
+					se.printStackTrace(System.err);
+				}
+			}
+			if(con!=null){
+				try{
+					con.close();
+				}catch(Exception e){
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return activityVO;
+	}
+	
+	
 	
 	/*增、改的code一樣，只差在(1)pstmt預先送出的SQL常數不同(2)改的PK放在parameterIndex=8的位置*/
 	@Override

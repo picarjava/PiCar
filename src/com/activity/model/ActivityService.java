@@ -11,6 +11,10 @@ public class ActivityService {
 		dao=new ActivityJNDIDAO();
 	}
 	
+	public ActivityVO findActicvityByCode(String activityCode) {
+		return dao.findActicvityByCode(activityCode);
+	}
+	
 	/*相較於ActivityJDBCDAO中的Insert()，根據SQL常數，用vo.getxxx 去set pstmt需要的值*/
 	/*此處寫一個方法，直接將 vo變數值 傳入參數，用vo. setxxx予以保存*/
 	public ActivityVO addActivity(String activity_Name,String activity_Info,Date activity_Start,Date activity_End,String activity_Code,Integer token_Amount,byte[]activity_Post){

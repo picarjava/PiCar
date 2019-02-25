@@ -2,7 +2,6 @@ package com.activityToken.model;
 
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -26,7 +25,10 @@ public class ActivityTokenJNDIDAO implements ActivityTokenDAO_interface{
 		}
 	}
 
-	
+	String driver="oracle.jdbc.driver.OracleDriver";
+	String url="jdbc:oracle:thin:@localhost:1521:XE";
+	String userid="CA106";
+	String passwd="123456";
 	
 	private static final String INSERT_STMT=
 			"INSERT INTO ACTIVITY_TOKEN(MEM_ID,ACTIVITY_ID,TOKEN_AMOUNT,DEADLINE) VALUES(?,?,?,?)"; 
@@ -38,6 +40,10 @@ public class ActivityTokenJNDIDAO implements ActivityTokenDAO_interface{
 			"DELETE FROM ACTIVITY_TOKEN WHERE MEM_ID=? AND ACTIVITY_ID= ?";
 	private static final String UPDATE=
 			"UPDATE ACTIVITY_TOKEN SET TOKEN_AMOUNT=?,DEADLINE=? WHERE MEM_ID=? AND ACTIVITY_ID=?" ;
+	/*新增單一會員查詢語法*/
+	private static final String GET_ONES_ALL_STMT=
+			"SELECT * FROM ACTIVITY_TOKEN WHERE MEM_ID=? ";
+	
 	@Override
 	public void insert(ActivityTokenVO activityTokenVO) {
 		Connection con = null;
@@ -46,7 +52,7 @@ public class ActivityTokenJNDIDAO implements ActivityTokenDAO_interface{
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
-
+			
 			pstmt.setString(1, activityTokenVO.getMemID());
 			pstmt.setString(2, activityTokenVO.getActivityID());
 			pstmt.setInt(3, activityTokenVO.getTokenAmount());
@@ -157,7 +163,6 @@ public class ActivityTokenJNDIDAO implements ActivityTokenDAO_interface{
 				}
 			}
 		}
-
 	}
 	@Override
 	public ActivityTokenVO findByPrimaryKey(String mem_id, String activity_id) {
@@ -172,17 +177,15 @@ public class ActivityTokenJNDIDAO implements ActivityTokenDAO_interface{
 
 			pstmt.setString(1, mem_id);
 			pstmt.setString(2, activity_id);
-
 			rs = pstmt.executeQuery();
-
+			
 			while (rs.next()) {
 				// arguments of methods which rs uesed should be same with ActivityTokenVO 
 				activityTokenVO = new ActivityTokenVO();
 				activityTokenVO.setMemID(rs.getString("mem_id"));
 				activityTokenVO.setActivityID(rs.getString("activity_id"));
 				activityTokenVO.setTokenAmount(rs.getInt("token_amount"));  
-				activityTokenVO.setDeadline(rs.getDate("deadline"));  
-				
+				activityTokenVO.setDeadline(rs.getDate("deadline")); 
 			}
 
 			// Handle any driver errors
@@ -272,4 +275,52 @@ public class ActivityTokenJNDIDAO implements ActivityTokenDAO_interface{
 		}
 		return list;
 	}
+	
+	/*新增單一會員查詢所有代幣明細的方法*/
+	@Override
+	public List<ActivityTokenVO> getOnesALL(String memID) {
+		List<ActivityTokenVO> list=new ArrayList<ActivityTokenVO>();
+		ActivityTokenVO activityTokenVO=new ActivityTokenVO();
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONES_ALL_STMT);
+			pstmt.setString(1, memID);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				activityTokenVO=new ActivityTokenVO();
+				activityTokenVO.setMemID(rs.getString("MEM_ID"));
+				activityTokenVO.setActivityID(rs.getString("ACTIVITY_ID"));
+				activityTokenVO.setTokenAmount(rs.getInt("TOKEN_AMOUNT"));
+				activityTokenVO.setDeadline(rs.getDate("DEADLINE"));
+				list.add(activityTokenVO);
+			}
+			
+		}catch (SQLException se) {
+			throw new RuntimeException("SQL發生錯誤"
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		return list;
+	}
+		
 }

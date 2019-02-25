@@ -14,7 +14,8 @@ public class TestActivityTokenJDBCDAO {
 
 	public static void main(String[] args) {
 		ActivityTokenJDBCDAO ActivityTokenJDBCDAO=new ActivityTokenJDBCDAO();
-		TestActivityTokenJDBCDAO useMethod=new TestActivityTokenJDBCDAO();
+		
+		
 //		/*新增*//*測試成功*/
 //		ActivityTokenVO activityTokenVO1=new ActivityTokenVO();
 //		activityTokenVO1.setMemID("M002");
@@ -51,7 +52,7 @@ public class TestActivityTokenJDBCDAO {
 //		 int count=1;
 //		 for(ActivityTokenVO activityTokenVO4:list) {
 //			 System.out.println(activityTokenVO4.getActivityID());
-//			 System.out.println(activityTokenVO4.getActivityID());
+//			 System.out.println(activityTokenVO4.getMemID());
 //			 System.out.println(activityTokenVO4.getTokenAmount());
 //			 System.out.println(activityTokenVO4.getDeadline());
 //			 System.out.println("已查詢一筆活動代幣");
@@ -59,7 +60,24 @@ public class TestActivityTokenJDBCDAO {
 //		 }
 //		 System.out.println("=====已查詢全部活動代幣====");
 		
+		/*測試/*查詢單一會員所有代幣明細*/
+		 List<ActivityTokenVO> list1=ActivityTokenJDBCDAO.getOnesALL("M001");
+		 int count=1;
+		 
+		 System.out.println(list1.isEmpty());
+		 for(ActivityTokenVO activityTokenVO5:list1) {
+			 System.out.println(activityTokenVO5.getActivityID());
+			 System.out.println(activityTokenVO5.getMemID());
+			 System.out.println(activityTokenVO5.getTokenAmount());
+			 System.out.println(activityTokenVO5.getDeadline());
+			 System.out.println("已查詢一筆活動代幣");
+			 System.out.println("=====已查詢第"+ count++ +"筆活動====");
+		 }
+		 System.out.println("=====已查詢全部活動代幣====");
+		 
+		 
 	}
+	
 	public java.sql.Date getSQLDate(int year, int month, int dayOfMonth, int hourOfDay, int minute) {
 		GregorianCalendar gc=new GregorianCalendar( year,  month, dayOfMonth,  hourOfDay,  minute);
 		long longDate=gc.getTime().getTime();

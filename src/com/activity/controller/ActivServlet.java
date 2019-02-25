@@ -68,8 +68,6 @@ public class ActivServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html; charset=UTF-8");
 		String action =((ServletRequest) req).getParameter("action");
-		PrintWriter out=res.getWriter();
-	
 		
 		// 來自addActivity.jsp的請求  
 		if("INSERT".equals(action)){
@@ -97,7 +95,6 @@ public class ActivServlet extends HttpServlet {
 				 Part part = req.getPart("activityPost");
 				 byte[] activityPost=null;
 				 
-				 
 				try { 
 					InputStream in = part.getInputStream();
 					activityPost = new byte[in.available()];
@@ -116,7 +113,6 @@ public class ActivServlet extends HttpServlet {
 				 }
 				 
 				 ActivityVO activityVO=new ActivityVO();
-				
 				 activityVO.setActivityName(activityName);
 				 activityVO.setActivityInfo(activityInfo);
 				 activityVO.setActivityStart(activityStart);
@@ -124,11 +120,10 @@ public class ActivServlet extends HttpServlet {
 				 activityVO.setActivityCode(activityCode);
 				 activityVO.setTokenAmount(tokenAmount);
 				 activityVO.setActivityPost(activityPost);
-				 
+				 req.setAttribute("activityVO",activityVO);
 				 
 				 /*如有錯誤，資料包進VO送至錯誤頁面*/
 				 if(!errorMsgs.isEmpty()) {
-					 req.setAttribute("activityVO",activityVO);
 					 RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/activity/addActivity.jsp");
 					 failurePage.forward(req, res);
 					 return;//程式中止
@@ -137,17 +132,18 @@ public class ActivServlet extends HttpServlet {
 		
 			/**************step2.開始新增資料*****************/
 			 /*從addActiv.jsp取得的資料，透過ActivityService操作DAO存進資料庫*/
-			 ActivityService activityService=new ActivityService();
-			 ActivityVO addedActivityVO =activityService.addActivity(activityName,activityInfo,activityStart,activityEnd,activityCode,tokenAmount,activityPost);
-			 if(addedActivityVO==null) {
-				 errorMsgs.add("無法新增至DB");
+			 try {
+				 ActivityService activityService=new ActivityService();
+				 activityService.addActivity(activityName,activityInfo,activityStart,activityEnd,activityCode,tokenAmount,activityPost);
+			 }catch(Exception e) {
+			 errorMsgs.add("無法新增至DB"+e.getMessage());
 			 }
 			
 			/**************step3.開始新增完成，轉交ListAllActivity頁面*****************/
 			String url="/back-end/activity/listAllActivity.jsp";
 			RequestDispatcher successPage =req.getRequestDispatcher(url);
 			successPage.forward(req, res);
-		}
+			}
 			/**************step4.處理其他可能的錯誤，轉交addActivity頁面*****************/
 			catch(Exception e){
 				errorMsgs.add("無法新增此筆資料"+e.getMessage());
@@ -282,6 +278,7 @@ public class ActivServlet extends HttpServlet {
 				 activityVO.setTokenAmount(tokenAmount);
 				 activityVO.setActivityPost(activityPost);
 				 
+				 
 				 /*修改的資料如有錯誤，資料包進VO送回原頁面*/
 				 if(!errorMsgs.isEmpty()) {
 					 req.setAttribute("activityVO",activityVO);
@@ -295,7 +292,7 @@ public class ActivServlet extends HttpServlet {
 				 activitySvc.updateActivity(activityVO);
 				 
 				/*************3.修改完轉交頁面所有列表**************/
-				 req.setAttribute("activityVO", activityVO);
+//				 req.setAttribute("activityVO", activityVO);
 				 RequestDispatcher seccessPage =req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
 				 seccessPage.forward(req, res);
 				/*************4.處理例外轉交回原頁面**************/

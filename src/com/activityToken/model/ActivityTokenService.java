@@ -8,6 +8,12 @@ public class ActivityTokenService {
 	public ActivityTokenService() {
 		dao=new ActivityTokenJNDIDAO();
 	}
+	
+	public List<ActivityTokenVO> findByMemID(String memID) {
+		
+		return dao.getOnesALL(memID);
+	};
+	
 	public ActivityTokenVO addActivityToken(String memID,String activityID,Integer tokenAmount, java.sql.Date deadline) {
 		ActivityTokenVO activityTokenVO=new ActivityTokenVO();
 		activityTokenVO.setMemID(memID);
@@ -36,6 +42,9 @@ public class ActivityTokenService {
 	
 	public List<ActivityTokenVO> getAll(){
 		return dao.getAll();
+	}
+	public List<ActivityTokenVO> getOnesALL(String memID) {
+		return dao.getOnesALL(memID);
 	}
 
 }

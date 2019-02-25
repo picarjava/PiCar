@@ -5,27 +5,27 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Regna Bootstrap Template</title>
+  <title>活動資訊管理</title>
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
   <meta content="" name="keywords">
   <meta content="" name="description">
 
   <!-- Favicons -->
-  <link href="img/favicon.png" rel="icon">
-  <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="<%=request.getContextPath()%>/back-end/activity/img/favicon.png" rel="icon">
+  <link href="<%=request.getContextPath()%>/back-end/activity/img/apple-touch-icon.png" rel="apple-touch-icon">
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
 
   <!-- Bootstrap CSS File -->
-  <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/back-end/activity/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
   <!-- Libraries CSS Files -->
-  <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-  <link href="lib/animate/animate.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/back-end/activity/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/back-end/activity/lib/animate/animate.min.css" rel="stylesheet">
 
   <!-- Main Stylesheet File -->
-  <link href="css/style.css" rel="stylesheet">
+  <link href="<%=request.getContextPath()%>/back-end/activity/css/style.css" rel="stylesheet">
 
 
 
@@ -54,7 +54,7 @@
 	     <div class="container wow fadeInUp">
 	      	<div class="col-lg-12 col-md-12">
 		        <div class="section-header">
-		          <h3 class="section-title">活動管理頁面 </h3>
+		          <h3 class="section-title">活動資訊管理 </h3>
 		        </div>	
 			</div>      
 	     </div>
@@ -65,19 +65,19 @@
 	          <nav class="navbar navbar-light bg-light">
 				<ul class="nav nav-tabs">
 				  <li class="nav-item">
-				    <form class="form-inline" action="Activ_servlet.html" method="post">
+				    <form class="form-inline" action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post">
 					   <input class="form-control mr-sm-2" name="activityID" type="search" placeholder="請輸入活動編號" aria-label="Search">
 					   <!--隱藏的參數action讓controller抓-->
 		              	<input type="hidden" name="action" value="GET_ONE">
 					   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查詢一筆活動</button>
 					</form>
 				  <li class="nav-item">
-				   <form class="form-inline" action="listAllActivity.jsp" method="post">
+				   <form class="form-inline" action="<%=request.getContextPath()%>/back-end/activity/listAllActivity.jsp" method="post">
 					   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查詢全部活動</button>
 					</form>
 				  </li>
 				  <li class="nav-item">
-				   <form class="form-inline" action="addActivity.jsp" method="post">
+				   <form class="form-inline" action="<%=request.getContextPath()%>/back-end/activity/addActivity.jsp" method="post">
 					   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">新增活動</button>
 					</form>
 				  </li> 
@@ -124,23 +124,23 @@
   <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
 
   <!-- JavaScript Libraries -->
-  <script src="lib/jquery/jquery.min.js"></script>
-  <script src="lib/jquery/jquery-migrate.min.js"></script>
-  <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="lib/easing/easing.min.js"></script>
-  <script src="lib/wow/wow.min.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/activity/lib/jquery/jquery.min.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/activity/lib/jquery/jquery-migrate.min.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/activity/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/activity/lib/easing/easing.min.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/activity/lib/wow/wow.min.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script>
 
-  <script src="lib/waypoints/waypoints.min.js"></script>
-  <script src="lib/counterup/counterup.min.js"></script>
-  <script src="lib/superfish/hoverIntent.js"></script>
-  <script src="lib/superfish/superfish.min.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/activity/lib/waypoints/waypoints.min.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/activity/lib/counterup/counterup.min.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/activity/lib/superfish/hoverIntent.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/activity/lib/superfish/superfish.min.js"></script>
 
   <!-- Contact Form JavaScript File -->
-  <script src="contactform/contactform.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/activity/contactform/contactform.js"></script>
 
   <!-- Template Main Javascript File -->
-  <script src="js/main.js"></script>
+  <script src="<%=request.getContextPath()%>/back-end/activity/js/main.js"></script>
 
 </body>
 </html>
