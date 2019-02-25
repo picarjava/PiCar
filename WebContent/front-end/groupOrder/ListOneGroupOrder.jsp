@@ -74,6 +74,8 @@
 <th>訂單種類</th>
 <th>評價分數</th>
 <th>備註</th>
+<th>修改資料</th>
+<th>刪除資料</th>
 </tr>
 <tr>
 <td><%=groupOrderVO.getGorderID()%></td>
@@ -82,7 +84,7 @@
 <td><%=groupOrderVO.getState()%></td>
 <td><%=groupOrderVO.getTotalAmout()%></td>
 <td><%=groupOrderVO.getLaunchTime()%></td>
-<td><%=groupOrderVO.getStartLng()%></td>
+<td><%=groupOrderVO.getStartTime()%></td>
 <td><%=groupOrderVO.getEndTime()%></td>
 <td><%=groupOrderVO.getStartLng()%></td>
 <td><%=groupOrderVO.getStartLat()%></td>
@@ -91,18 +93,19 @@
 <td><%=groupOrderVO.getOrderType()%></td>
 <td><%=groupOrderVO.getRate()%></td>
 <td><%=groupOrderVO.getNote()%></td>
-</tr>
 
-<form action="/PiCar/GroupOrder" method="POST" style="margin-bottom: 0px;">
+<td>
+<form action="<%=request.getServletContext().getContextPath()%>/GroupOrder" method="POST" style="margin-bottom: 0px;">
 	<input type="submit" value="修改">
-	<input type="hidden" name="gorderID()"  value="${GroupOrderVO.gorderID}">
+	 <input type="hidden" name="gorderID"  value="<%=groupOrderVO.getGorderID()%>">
 	<input type="hidden" name="action"	value="getOne_For_Update">
 </FORM>
 </td>
+
 <td>
 <FORM METHOD="post" ACTION="/PiCar/GroupOrder" style="margin-bottom: 0px;">
 	<input type="submit" value="刪除">
-	<input type="hidden" name="gorderID()"  value="${GroupOrderVO.gorderID}">
+	<input type="hidden" name="gorderID"  value="<%=groupOrderVO.getGorderID()%>">
 	<input type="hidden" name="action"	value="delete"></FORM>
 </td>
 </tr>

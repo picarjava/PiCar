@@ -52,7 +52,7 @@
  
   
   <li>
-    <FORM METHOD="post" ACTION="/PiCar/GroupBand"  enctype="multipart/form-data">
+    <FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"  enctype="multipart/form-data">
         <b>輸入揪團編號 </b>
         <input type="text" name="groupID">
         <input type="hidden" name="action" value="getOne_For_Display">

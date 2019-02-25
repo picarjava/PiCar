@@ -73,5 +73,38 @@ public class GroupOrderServlet extends HttpServlet {
 		}
 		
 	}
+		
+		if ("getOne_For_Update".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				String groupOrderno = req.getParameter("gorderID");
+				if (groupOrderno == null || (groupOrderno.trim()).length() == 0) {
+					errorMsgs.add("錯誤拉");
+				}
+				GroupOrderService groupOrderService = new GroupOrderService();
+				GroupOrderVO groupOrderVO = groupOrderService.getOneGroupOrder(groupOrderno);
+				if (groupOrderVO == null) {
+					errorMsgs.add("格式不正確");
+				}
+			
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/groupOrder/ListOneGroupOrder.jsp");
+					failureView.forward(req, res);
+					return;//�{�����_
+				}
+			req.setAttribute("groupOrderVO", groupOrderVO);
+			String url="/front-end/groupOrder/updateGroupOrder.jsp";
+			RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
+			successView.forward(req, res);
+		} catch (Exception e) {
+			errorMsgs.add("無法取得資料:" + e.getMessage());
+			RequestDispatcher failureView = req
+					.getRequestDispatcher("/front-end/groupOrder/ListOneGroupOrder.jsp");
+			failureView.forward(req, res);
+		}
+			
+		}
 	}
 }

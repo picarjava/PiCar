@@ -110,14 +110,14 @@
 	<td><%=groupBandVO.getRate()%></td>
 	<td><%=groupBandVO.getNote()%></td>
 <td>
-<form action="/PiCar/GroupBand" method="POST" enctype="multipart/form-data"style="margin-bottom: 0px;">
+<form action="<%=request.getServletContext().getContextPath()%>/GroupBand" method="POST" enctype="multipart/form-data"style="margin-bottom: 0px;">
 	<input type="submit" value="修改">
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
 	<input type="hidden" name="action"	value="getOne_For_Update">
 </FORM>
 </td>
 <td>
-<FORM METHOD="post" ACTION="/PiCar/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
+<FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
 	<input type="submit" value="刪除">
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
 	<input type="hidden" name="action"	value="delete"></FORM>

@@ -81,7 +81,7 @@ th, td {
 	</table>
 	<h3>發起揪團</h3>
 
-	<form action="/PiCar/GroupBand" method="POST" enctype="multipart/form-data">
+	<form action="<%=request.getServletContext().getContextPath()%>/GroupBand" method="POST" enctype="multipart/form-data">
 		<table border="1">
 
 			<tr>

@@ -60,7 +60,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			pstmt.setString(17, groupBandVO.getNote());
 
 			pstmt.executeUpdate();
-//			con.commit();
+			con.commit();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 //			 Clean up JDBC resources
