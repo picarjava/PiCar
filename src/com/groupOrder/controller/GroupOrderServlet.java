@@ -24,10 +24,7 @@ public class GroupOrderServlet extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GroupOrderServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -65,7 +62,7 @@ public class GroupOrderServlet extends HttpServlet {
 					return;//�{�����_
 				}
 			req.setAttribute("groupOrderVO", groupOrderVO);
-			String url="/front-end/groupOrder/ListOneGroupBand.jsp";
+			String url="/front-end/groupOrder/ListOneGroupOrder.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
 			successView.forward(req, res);
 		} catch (Exception e) {

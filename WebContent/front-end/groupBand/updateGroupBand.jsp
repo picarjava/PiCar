@@ -121,7 +121,7 @@ th, td {
 				<td>揪團圖片</td>
 
 				<td><input type="file" name="photo" size="25"
-					value="<%=(groupBandVO == null) ? "" : groupBandVO.getPhoto()%>" />
+					value="<%=groupBandVO.getPhoto()%>" />
 					<img src="/PiCar/GroupBand?groupID=${GroupBandVO.groupID}" width="100px"   height="100px">
 				</td>
 				

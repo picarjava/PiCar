@@ -58,6 +58,7 @@ public class GroupBandServlet extends HttpServlet {
 		if(pic !=null) {
 			out.write(pic);
 		}
+		doPost(req,res);
 		
 	}
 
@@ -153,10 +154,10 @@ public class GroupBandServlet extends HttpServlet {
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-
+			GroupBandService groupBandService = new GroupBandService();
 			try {
 				/***********************1.�����ШD�Ѽ� - ��J�榡�����~�B�z*************************/
-				
+				GroupBandVO groupBandVO = new GroupBandVO();
 				String content =" ";	
 				
 				
@@ -215,21 +216,32 @@ public class GroupBandServlet extends HttpServlet {
 				privates =0;	
 					  }
 				
+				
+				GroupBandVO groupBandVO1 = (GroupBandVO)groupBandService.getOneGroupBand(req.getParameter("groupID"));
+				
+				byte[] pice =groupBandVO1.getPhoto();//old
 				byte[] photo=null;
-				Part part = req.getPart("photo");
-				long size = part.getSize();
-				System.out.println(size);
-				InputStream in = part.getInputStream();
+				if(pice !=null) {
+					photo=pice;
+				}else {
+					Part part = req.getPart("photo");
+					long size = part.getSize();
+					
+					InputStream in = part.getInputStream();
+					
+					photo = new byte[in.available()];							
+					if(in.available()!=0) {
+						in.read(photo);                                                                                                                                                                                                                                                                                                             
+						in.close();		
+						}else {
+							errorMsgs.add("請上傳照片");
+							
+						}
+					
+				}
 				
-				photo = new byte[in.available()];							
-				if(in.available()!=0) {
-					in.read(photo);                                                                                                                                                                                                                                                                                                             
-					in.close();		
-					}else {
-						errorMsgs.add("請上傳照片");
-						
-					}
 				
+			
 				
 				String groupType = req.getParameter("groupType");
 				
@@ -278,7 +290,9 @@ public class GroupBandServlet extends HttpServlet {
 				
 				
 				
-				GroupBandVO groupBandVO = new GroupBandVO();
+				
+				
+				
 				groupBandVO.setGroupID(req.getParameter("groupID"));
 				groupBandVO.setContent(content);
 				groupBandVO.setLaunchTime(launchTime);
@@ -313,7 +327,7 @@ public class GroupBandServlet extends HttpServlet {
 				}
 				
 				/***************************2.�}�l�s�W���***************************************/
-				GroupBandService groupBandService = new GroupBandService();
+			
 				groupBandVO = groupBandService.updateGroupBand(req.getParameter("groupID"),launchTime,content,introduction,groupStatus,currenTnum,
 						upperLimit,lowerLimit,groupName,groupLeader,startLoc,
 						endLoc,privates,photo,groupType,totalAmout,startTime,

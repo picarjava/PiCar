@@ -44,13 +44,13 @@
 </c:if>
 
 <ul>
-	<li><a href='listAllGroupBand.jsp'></a> AllGroupOrder <br><br></li>
+	<li><a href='ListAllGroupOrder.jsp'></a> AllGroupOrder <br><br></li>
 	<li></li>
 
 	<li>
-    <FORM METHOD="post" ACTION="/PiCar/GroupOrder"  enctype="multipart/form-data">
+    <FORM METHOD="post" ACTION="/PiCar/GroupOrder">
         <b>輸入揪團編號 </b>
-        <input type="text" name="gorderID">
+        <input type="text" name="groupOrderno">
         <input type="hidden" name="action" value="getOne_For_Display">
         <input type="submit" value="送出">
     </FORM>
