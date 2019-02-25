@@ -29,7 +29,7 @@ table{
 	</ul>
 </c:if>
 
-<form method="post" action="rate.do" name="form1" enctype="multipart/form-data">
+<form method="post" action="rate.do" name="form1" >
 <a href="select_page.jsp">回主頁面</a>
 	<table >
 		
@@ -47,11 +47,8 @@ table{
 		<tr>
 			<td>基本費(元)：</td>
 			<td><input type="text" name="rateBasic" size="45" value="<%= (rateVO==null)? "0":rateVO.getRateBasic() %>" /></td>		
-		</tr>		
+		</tr>				
 		
-		<td>上傳圖片：</td>
-			<td><input type="file" name="pic" size="45"  /></td>		
-		</tr>
 		
 	</table>                          
 	

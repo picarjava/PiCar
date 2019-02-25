@@ -128,9 +128,11 @@ public class RateDAO implements RateDAO_interface {
 
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(DELETE);
-
-			pstmt.setInt(1, rateID);
-
+			
+			pstmt.setInt(1, rateID);		
+			
+			pstmt.executeUpdate();
+			
 		} catch (SQLException se) {
 			throw new RuntimeException("SQL錯誤: " + se.getMessage());
 

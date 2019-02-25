@@ -33,18 +33,18 @@
 	</tr>
 	<tr>
 		<td>費率名稱</td>	
-		<td><input type="text" value="<%=rateVO.getRateName() %>" ></td>
+		<td><input type="text" name="rateName" value="<%=rateVO.getRateName() %>" ></td>
 	</tr>
 	<tr>
 		<td>費率(元/KM)</td>	
-		<td><input type="text" value="<%=rateVO.getRatePrice() %>" ></td>
+		<td><input type="text" name="ratePrice" value="<%=rateVO.getRatePrice() %>" ></td>
 	</tr>	
 	<tr>
 		<td>基本費(元)</td>	
-		<td><input type="text" value="<%=rateVO.getRateBasic() %>" ></td>
+		<td><input type="text" name="rateBasic" value="<%=rateVO.getRateBasic() %>" ></td>
 	</tr>
 	</table>
-	<input type="hidden" name="memID" value="<%=rateVO.getRateID() %> ">
+	<input type="hidden" name="rateID" value="<%=rateVO.getRateID() %> ">
 	<input type="hidden" name="action" value="update">
 	<input type="submit" value="submit">
 </form>

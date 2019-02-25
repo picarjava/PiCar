@@ -36,7 +36,7 @@ table1, td {
 		List<RateVO> list = rateDAO.getAll();
 		pageContext.setAttribute("list", list);
 	%>
-
+	<a href="select_page.jsp">回主畫面</a>
 	<c:forEach var="rateVO" items="${list}">
 		<table border="1" id="table1">
 
