@@ -213,11 +213,9 @@ req.setCharacterEncoding("UTF-8");
 				in.read(photo);//inputstream獨到byte[] ，service存到資料庫 
 				break;					
 					}
-//			if(in.available()==0) {
+//			if(in.available()==0) { //每行會跑 共5次驗證 /////錯誤驗證圖片
 //				errorMsgs.add("請上傳圖片");				
 //			}
-//			in.read();
-			//
 			in.close();	
 			;
 		}
@@ -228,36 +226,6 @@ req.setCharacterEncoding("UTF-8");
 		Date deadline = null;//--
 		Integer onlineCar= 0;//--沒在線上
 		Integer score= 60;//--
-//		licence1 = new byte[in.available()];
-//		if(in.available()!=0) {
-//		in.read(licence1); 
-//		in.close();		
-//		}else {
-//			errorMsgs.add("請上傳照片");
-//		}
-//		criminal = new byte[in.available()];
-//		if(in.available()!=0) {
-//			in.read(criminal); 
-//			in.close();		
-//		}else {
-//			errorMsgs.add("請上傳良民證");
-//		}
-//		
-//		trafficRecord = new byte[in.available()];
-//		if(in.available()!=0) {
-//			in.read(trafficRecord); 
-//			in.close();		
-//		}else {
-//			errorMsgs.add("請上傳肇事紀錄");
-//		}
-//		
-//		idNum = new byte[in.available()];
-//		if(in.available()!=0) {
-//			in.read(idNum); 
-//			in.close();		
-//		}else {
-//			errorMsgs.add("請上傳照片");
-//		}
 //		photo = new byte[in.available()];
 //		if(in.available()!=0) {
 //			in.read(photo); 
@@ -340,11 +308,6 @@ req.setCharacterEncoding("UTF-8");
 ///////////////////////////////////////////////////////////	
 	//old insert
 //		if ("INSERT".equals(action)) { // 來自value=INSERT
-//			List<String> errorMsgs = new LinkedList<String>();
-//			// Store this set in the request scope, in case we need to send the ErrorPage
-//			// view.
-//			req.setAttribute("errorMsgs", errorMsgs);
-//
 //			try {
 //				memID = req.getParameter("memID");
 //				if (memID == null || memID.trim().length() == 0) {
@@ -362,9 +325,6 @@ req.setCharacterEncoding("UTF-8");
 ////				deadline = req.getParameter("deadline");
 //				onlineCar = new Integer(req.getParameter("onlineCar"));
 //				score = new Integer(req.getParameter("score"));
-
-//
-
 //				if (!errorMsgs.isEmpty()) {
 //					req.setAttribute("driverVO", driverVO);
 //					failurePage = req.getRequestDispatcher("/driver/addDriver.jsp");
@@ -410,28 +370,6 @@ req.setCharacterEncoding("UTF-8");
 //				return;
 //			}
 //			/*************3.圖片資料處理**************/
-//			String path1,path2,path3,path4,path5="";//給空字串 
-//			if(driverVO.getLicence()!=null) {
-//				path1=this.saveToGetPath(driverID,driverVO.getLicence(),req);
-//			}
-//			
-//			path2="";//給空字串 
-//			if(driverVO.getCriminal()!=null) {
-//				path2=this.saveToGetPath(driverID,driverVO.getCriminal(),req);
-//			}
-//			path3="";//給空字串 
-//			if(driverVO.getTrafficRecord()!=null) {
-//				path3=this.saveToGetPath(driverID,driverVO.getTrafficRecord(),req);
-//			}
-//			path4="";//給空字串 
-//			if(driverVO.getIdNum()!=null) {
-//				path4=this.saveToGetPath(driverID,driverVO.getIdNum(),req);
-//			}
-//			path5="";//給空字串 
-//			if(driverVO.getPhoto()!=null) {
-//				path5=this.saveToGetPath(driverID,driverVO.getPhoto(),req);
-//			}
-//			 
 //			
 //			/*************4.得到資料存在scope=request，並送出VO給處理頁面**************/
 //			//req.setAttribute("path", path);
@@ -447,7 +385,6 @@ req.setCharacterEncoding("UTF-8");
 //			failurePage=req.getRequestDispatcher("/driver/listAllDriver.jsp");
 //			failurePage.forward(req, res);
 //		}
-//		
 ////		.equals(action)
 ////		doGet(req, res);
 //	}
@@ -465,7 +402,6 @@ req.setCharacterEncoding("UTF-8");
 		fos.flush();
 		fos.close();
 	}
-
 	//byte[] 轉換真實相對路徑(才能秀圖)， 用acitivityID當檔名存入指定資料夾/img_saveFromDB
 		public String saveToGetPath(String driverID,byte[] driverPost,HttpServletRequest req ) {
 			/*取得相對路徑寫法*/
@@ -545,10 +481,5 @@ req.setCharacterEncoding("UTF-8");
 		}
 		return filename;
 	}
-
-
-
-
-
 }
 

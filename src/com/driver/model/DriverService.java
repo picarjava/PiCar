@@ -9,7 +9,7 @@ public class DriverService {
 
 	// 創建DAO 實體保存在DAO介面的實體變數
 	public DriverService() {
-		dao = new DriverJDBCDAO();
+		dao = new DriverJNDIDAO();
 	}
 
 	// 比較JDBCDAO。利用多型 將VO變數傳入參數 用VO.set存
