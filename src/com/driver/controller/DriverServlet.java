@@ -168,8 +168,8 @@ req.setCharacterEncoding("UTF-8");
 //				errorMsgs.add("訊息內容: 請勿空白");
 //			}
 		String memID = "M003" ;//--
-		String driverID = "D003";//--
-		//String driverID=req.getParameter("memID").trim();//注意:正是從session 抓下來
+//		String driverID = "D003";//--
+//		String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
 		String plateNum = "ABC-1234";	
 		/////////////////////////////////
 		///////////////////////////區域變數給初始值
@@ -189,57 +189,54 @@ req.setCharacterEncoding("UTF-8");
 //			long size = part.getSize();//update用到
 //			System.out.println(size);
 			// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
-			InputStream in = part.getInputStream();//1603
+//			InputStream in = part.getInputStream();//免除多一個連線 不用開水館
 			switch(part.getName()) {
 			case "licence":
-				licence = new byte[in.available()];			
-				in.read(licence);
+				licence = new byte[part.getInputStream().available()];			
+				part.getInputStream().read(licence);
 				break;
 			case "criminal":
-				criminal = new byte[in.available()];
-				in.read(criminal);//讀進去陣列中
+				criminal = new byte[part.getInputStream().available()];
+				part.getInputStream().read(criminal);//讀進去陣列中
 				break;	
 			case "trafficRecord":				
-				trafficRecord = new byte[in.available()];					
-				in.read(trafficRecord);
+				trafficRecord = new byte[part.getInputStream().available()];					
+				part.getInputStream().read(trafficRecord);
 				break;	
 			case "idNum":				
-				idNum = new byte[in.available()];	
-				in.read(idNum);
+				idNum = new byte[part.getInputStream().available()];	
+				part.getInputStream().read(idNum);
 				break;					
 			case "photo":				
-				photo = new byte[in.available()];					
-				in.read(photo);//inputstream獨到byte[] ，service存到資料庫 
+				photo = new byte[part.getInputStream().available()];					
+				part.getInputStream().read(photo);//inputstream獨到byte[] ，service存到資料庫 
 				break;					
 					}
-//			if(in.available()==0) { //每行會跑 共5次驗證 /////錯誤驗證圖片
-//				errorMsgs.add("請上傳圖片");				
-//			}
-			in.close();	
-			;
+//			in.close();	
+			}
+		else {//每行會跑 共5次驗證 /////錯誤驗證圖片
+			switch (part.getName()) {
+			case "licence":
+			errorMsgs.add("請上傳駕照");	
+				break;
+			case "criminal":
+			errorMsgs.add("請上傳criminal");	
+				break;
+			case "trafficRecord":
+			errorMsgs.add("請上傳trafficRecord");	
+				break;
+			case "idNum":
+			errorMsgs.add("請上傳idNum");	
+				break;
+			case "photo":
+			errorMsgs.add("請上傳photo");	
+				break;
+//			default:
+//				break;
+			}
 		}
-//		else {
-//			switch (part.getName()) {
-//			case "licence":
-//			errorMsgs.add("請上傳駕照");	
-//				break;
-//			case "criminal":
-//			errorMsgs.add("請上傳criminal");	
-//				break;
-//			case "trafficRecord":
-//			errorMsgs.add("請上傳trafficRecord");	
-//				break;
-//			case "idNum":
-//			errorMsgs.add("請上傳idNum");	
-//				break;
-//			case "photo":
-//			errorMsgs.add("請上傳photo");	
-//				break;
-////			default:
-////				break;
-//			}
-//		}
 	}
+	
 //		轉成byte[]; 先read進來 write出去
 		Integer verified= 0;//--
 		Integer banned= 0;//--
@@ -273,7 +270,7 @@ req.setCharacterEncoding("UTF-8");
 		/////////////////
 		DriverVO driverVO = new DriverVO();
 		driverVO.setMemID(memID);
-		driverVO.setDriverID(driverID);//
+//		driverVO.setDriverID(driverID);//
 		driverVO.setPlateNum(plateNum);
 		driverVO.setLicence(licence);
 		driverVO.setCriminal(criminal);
@@ -304,7 +301,9 @@ req.setCharacterEncoding("UTF-8");
 		/* 從addDriver.jsp取得的資料，透過DriverService操作DAO存進資料庫 */
 		DriverService driverSvc ; // 以VO物件傳送參數
 		driverSvc = new DriverService();
-		driverVO = driverSvc.addDriver(memID, driverID, plateNum,
+		driverVO = driverSvc.addDriver(memID, 
+//				driverID, 
+				plateNum,
 				licence, criminal, trafficRecord, idNum, photo, 
 				verified, banned, deadline, onlineCar, score, carType, sharedCar, pet, smoke, babySeat);
 
@@ -333,18 +332,6 @@ req.setCharacterEncoding("UTF-8");
 //				if (memID == null || memID.trim().length() == 0) {
 //					errorMsgs.add("會員編號未填寫");
 //				}
-//				driverID = req.getParameter("driverID");
-//				plateNum = req.getParameter("plateNum");
-////				licence = req.getParameter("licence");
-////				criminal = req.getParameter("criminal");
-////				trafficRecord = req.getParameter("trafficRecord");
-////				idNum = req.getParameter("idNum");
-////				photo = req.getParameter("photo");
-//				verified = new Integer(req.getParameter("verified"));
-//				banned = new Integer(req.getParameter("banned"));
-////				deadline = req.getParameter("deadline");
-//				onlineCar = new Integer(req.getParameter("onlineCar"));
-//				score = new Integer(req.getParameter("score"));
 //				if (!errorMsgs.isEmpty()) {
 //					req.setAttribute("driverVO", driverVO);
 //					failurePage = req.getRequestDispatcher("/driver/addDriver.jsp");

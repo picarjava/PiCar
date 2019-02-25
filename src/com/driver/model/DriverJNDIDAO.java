@@ -28,8 +28,8 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 			+ "TRAFFIC_RECORD, ID_NUM, PHOTO, VERIFIED, BANNED, DEADLINE, ONLINE_CAR, "
 			+ "SCORE, CAR_TYPE, SHARED_CAR, PET, SMOKE, BABY_SEAT) "
 			+ "VALUES (?,"
-//			+ "'D'||LPAD(to_char(DRIVER_ID_SEQ.NEXTVAL),3,'0'),3,'0')"
-			+"?"//自增主鍵的話。如何改善driverid的變數安排
+			+ "'D'||LPAD(to_char(DRIVER_ID_SEQ.NEXTVAL),3,'0')"
+//			+"?"//自增主鍵的話。如何改善driverid的變數安排
 			+ ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT =
 			"SELECT * FROM DRIVER ORDER BY DRIVER_ID";
@@ -49,23 +49,23 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 			pstmt = con.prepareStatement(INSERT_STMT);
 
 			pstmt.setString(1, driverVO.getMemID());
-			pstmt.setString(2, driverVO.getDriverID());
-			pstmt.setString(3, driverVO.getPlateNum());
-			pstmt.setBytes(4, driverVO.getLicence());
-			pstmt.setBytes(5, driverVO.getCriminal());
-			pstmt.setBytes(6, driverVO.getTrafficRecord());
-			pstmt.setBytes(7, driverVO.getIdNum());
-			pstmt.setBytes(8, driverVO.getPhoto());
-			pstmt.setInt(9, driverVO.getVerified());
-			pstmt.setInt(10, driverVO.getBanned());
-			pstmt.setDate(11, driverVO.getDeadline());
-			pstmt.setInt(12, driverVO.getOnlineCar());
-			pstmt.setInt(13, driverVO.getScore());
-			pstmt.setString(14, driverVO.getCarType());
-			pstmt.setInt(15, driverVO.getSharedCar());
-			pstmt.setInt(16, driverVO.getPet());
-			pstmt.setInt(17, driverVO.getSmoke());
-			pstmt.setInt(18, driverVO.getBabySeat());
+//			pstmt.setString(2, driverVO.getDriverID());
+			pstmt.setString(2, driverVO.getPlateNum());
+			pstmt.setBytes(3, driverVO.getLicence());
+			pstmt.setBytes(4, driverVO.getCriminal());
+			pstmt.setBytes(5, driverVO.getTrafficRecord());
+			pstmt.setBytes(6, driverVO.getIdNum());
+			pstmt.setBytes(7, driverVO.getPhoto());
+			pstmt.setInt(8, driverVO.getVerified());
+			pstmt.setInt(9, driverVO.getBanned());
+			pstmt.setDate(10, driverVO.getDeadline());
+			pstmt.setInt(11, driverVO.getOnlineCar());
+			pstmt.setInt(12, driverVO.getScore());
+			pstmt.setString(13, driverVO.getCarType());
+			pstmt.setInt(14, driverVO.getSharedCar());
+			pstmt.setInt(15, driverVO.getPet());
+			pstmt.setInt(16, driverVO.getSmoke());
+			pstmt.setInt(17, driverVO.getBabySeat());
 			
 
 			pstmt.executeUpdate();

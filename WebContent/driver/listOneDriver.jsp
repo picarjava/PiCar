@@ -80,7 +80,7 @@
                     </div>
                     <div class="form-group">
                        <p>車牌號碼</p>
-                      <input type="text" name="plateNum" class="form-control" value="${driverVO.plateNum}"   placeholder="請輸入車牌號碼" />
+                      <input type="text" name="plateNum" class="form-control" value="${driverVO.plateNum}" readonly  placeholder="請輸入車牌號碼" />
                        <div class="card" style="width: 18rem;">
                         </div>
                     </div>

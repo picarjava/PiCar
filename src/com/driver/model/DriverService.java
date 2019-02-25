@@ -13,7 +13,9 @@ public class DriverService {
 	}
 
 	// 比較JDBCDAO。利用多型 將VO變數傳入參數 用VO.set存
-	public DriverVO addDriver(String memID, String driverID,String plateNum, 
+	public DriverVO addDriver(String memID, 
+//			String driverID	,
+			String plateNum, 
 			byte[] licence, byte[] criminal, byte[] trafficRecord, byte[] idNum,byte[] photo, 
 			Integer verified,Integer banned,Date deadline,Integer onlineCar,Integer score,
 			String carType, Integer sharedCar, Integer pet, Integer smoke, Integer babySeat) {
@@ -21,7 +23,7 @@ public class DriverService {
 
 		
 		driverVO.setMemID(memID);
-		driverVO.setDriverID(driverID);
+//		driverVO.setDriverID(driverID);
 		driverVO.setPlateNum(plateNum);
 		driverVO.setLicence(licence);
 		driverVO.setCriminal(criminal);
