@@ -87,7 +87,9 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		Connection con =null;
 		PreparedStatement pstmt = null;
 		try {
-			con = ds.getConnection();pstmt = con.prepareStatement(UPDATE);
+			con = ds.getConnection();
+			con.setAutoCommit(true);
+			pstmt = con.prepareStatement(UPDATE);
 			pstmt.setString(1, groupOrderVO.getDriverID());
 			pstmt.setString(2, groupOrderVO.getMemID());
 			pstmt.setInt(3,groupOrderVO.getState());
@@ -103,6 +105,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			pstmt.setString(13,groupOrderVO.getNote());
 			pstmt.setString(14, groupOrderVO.getGorderID());
 			pstmt.executeUpdate();
+			con.commit();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
 					+ se.getMessage());

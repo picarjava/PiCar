@@ -6,9 +6,14 @@
      <%@ page import="java.util.*"%>
      <% GroupOrderVO groupOrderVO =(GroupOrderVO)  request.getAttribute("groupOrderVO"); %>
 <% String state[] = {"未成團","已成團","流團"}; %>
+<% String rate[] = {"0","1","2","3","4","5"}; %>
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <meta charset="BIG5">
 <title>updateGroupOrder.jsp</title>
 <style>
@@ -74,7 +79,7 @@ th, td {
 		</tr>
 	</table>
 <h3>修改揪團資料</h3>
-	<form action="<%=request.getServletContext().getContextPath()%>/GroupOrder" method="POST" enctype="multipart/form-data" name="form1">
+	<form action="<%=request.getServletContext().getContextPath()%>/GroupOrder" method="POST" name="form1">
 	<table>
 	<tr>
 	<td>司機ID</td>
@@ -92,10 +97,46 @@ th, td {
 	<option value="<%=a%>" <% if(a==groupOrderVO.getState()){out.print("selected='selected'");}%>><%=state[a]%></option>			
 	<%}	
 	%>
+
 	</select>
 	</td>
 	</tr>
+	<tr>
+		<td>總金額</td>
+	<td><input type="text" name="totalAmout" value="<%=(groupOrderVO == null) ? "" : groupOrderVO.getTotalAmout()%>"></td>
+	</tr>
+	<tr>
+	<td>評價</td>
+	<td>
+	<select name="rate">
+	<%for(int a=0; a<rate.length;a++)
+	{%>
+	<option value="<%=a%>" <% if(a==groupOrderVO.getRate()){out.print("selected='selected'");}%>><%=rate[a]%></option>			
+	<%}	
+	%>
+	</select>
+	</td>
+	</tr>
+	
+		<tr>
+		<td>備註</td>
+		<td><input type="text" name="note" value="<%=(groupOrderVO == null) ? "" : groupOrderVO.getNote()%>"></td>
+		</tr>
+
 	</table>
+	 
+	  <input type="hidden" name="gorderID" value="<%=groupOrderVO.getGorderID()%>">
+	  <input type="hidden" name="launchTime" value="<%=groupOrderVO.getLaunchTime()%>">
+	  <input type="hidden" name="startTime" value="<%=groupOrderVO.getStartTime()%>">
+	  <input type="hidden" name="endTime" value="<%=groupOrderVO.getEndTime()%>">
+	  <input type="hidden" name="startLng" value="<%=groupOrderVO.getStartLng()%>">
+	  <input type="hidden" name="startLat" value="<%=groupOrderVO.getStartLat()%>">
+	  <input type="hidden" name="endLng" value="<%=groupOrderVO.getEndLng()%>">
+	  <input type="hidden" name="endLat" value="<%=groupOrderVO.getEndLat()%>">
+	  <input type="hidden" name="orderType" value="<%=groupOrderVO.getOrderType()%>">	  	
+	  <input type="hidden" name="action" value="update" /> 
+	<input type="submit" value="送出"/>
+	<input type="reset" value="清除揪團" />
 	</form>
 </body>
 </html>
