@@ -1,5 +1,7 @@
 package com.member.model;
 
+import java.util.List;
+
 public class MemberService {
 
 	private MemberDAO_interface dao;
@@ -64,6 +66,10 @@ public class MemberService {
 
 	public void deleteEmp(String memID) {
 		dao.delete(memID);
+	}
+	
+	public List<MemberVO> getAll(){
+		return dao.getAll();
 	}
 
 }

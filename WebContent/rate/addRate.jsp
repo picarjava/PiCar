@@ -36,7 +36,7 @@ table{
 	
 		<tr>
 			<td>資費名稱：</td>
-			<td><input type="text" name="rateName" size="45" value="<%= (rateVO==null)? "匯率":rateVO.getRateName() %>" /></td>		
+			<td><input type="text" name="rateName" size="45" value="<%= (rateVO==null)? "費率名稱":rateVO.getRateName() %>" /></td>		
 	
 		</tr>
 		<tr>

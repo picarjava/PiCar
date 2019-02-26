@@ -119,16 +119,19 @@ public class RateServlet extends HttpServlet {
 				String rateName = req.getParameter("rateName").trim();
 				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
 				if (rateName == null || rateName.trim().length() == 0) {
-					rateName = "費率";
+					
 					errorMsgs.add("請輸入費率名稱");
 				} else if (!rateName.trim().matches(nameReg)) {
-					rateName = "費率";
+					
 					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \" 且長度必需在2到20之間");
 				}
 
 				Double ratePrice = null;
 				try {
 					ratePrice = new Double(req.getParameter("ratePrice").trim());
+					if (ratePrice == 0) {
+						errorMsgs.add("請輸入數字");
+					}
 				} catch (Exception e) {
 					ratePrice = 0.0;
 					errorMsgs.add("請輸入數字，可至小數點第一位");
@@ -154,14 +157,14 @@ public class RateServlet extends HttpServlet {
 					failView.forward(req, res);
 					return;
 				}
-				System.out.println("1");
+			
 				// 開始新增資料
 				RateService rateSvc = new RateService();
 				rateVO = rateSvc.updateRate(rateID, rateName, ratePrice, rateBasic);
 
 				RequestDispatcher succesView = req.getRequestDispatcher("/rate/listAllRate.jsp");
 				succesView.forward(req, res);
-				System.out.println("2");
+				
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
 				RequestDispatcher successView = req.getRequestDispatcher("/rate/update_rate_iuput.jsp");
@@ -179,10 +182,10 @@ public class RateServlet extends HttpServlet {
 				String rateName = req.getParameter("rateName").trim();
 				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
 				if (rateName == null || rateName.trim().length() == 0) {
-					rateName = "費率";
+					
 					errorMsgs.add("請輸入費率名稱");
 				} else if (!rateName.trim().matches(nameReg)) {
-					rateName = "費率";
+					
 					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \" 且長度必需在2到20之間");
 				}
 

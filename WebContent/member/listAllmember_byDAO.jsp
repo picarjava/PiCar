@@ -5,8 +5,8 @@
 <%@ page import="com.member.model.*"%>
 
 <%
-	MemberDAO memberDAO = new MemberDAO();
-	List<MemberVO> list = memberDAO.getAll();
+	MemberService memberSvc = new MemberService();
+	List<MemberVO> list = memberSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
 

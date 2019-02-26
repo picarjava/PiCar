@@ -32,8 +32,8 @@ table1, td {
 <body>
 	<h3>listALLRate.jsp</h3>
 	<%
-		RateDAO rateDAO = new RateDAO();
-		List<RateVO> list = rateDAO.getAll();
+		RateService rateSvc = new RateService();
+		List<RateVO> list = rateSvc.getAll();
 		pageContext.setAttribute("list", list);
 	%>
 	<a href="select_page.jsp">回主畫面</a>

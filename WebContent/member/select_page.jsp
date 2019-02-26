@@ -75,7 +75,7 @@
 				<b>請選擇員工姓名</b><br>
 				<select size="1" name="memID">
 					<c:forEach var="memberVO" items="${memberdao.all}">
-						<option value="${memberVO.memID}">"${memberVO.name}" 					
+						<option value="${memberVO.memID}">${memberVO.name}					
 					</c:forEach>
 				</select>
 				<br>	

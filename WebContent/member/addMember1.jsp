@@ -96,8 +96,8 @@ table{
 		<tr>
 			<td>會員驗證狀態：</td>
 			<td><select name="verified">
-			<option value="1">已驗證
-			<option value="0">為驗證
+			<option value="1">已經驗證
+			<option value="0">尚未驗證
 			</select></td>		
 		</tr>
 		<tr>

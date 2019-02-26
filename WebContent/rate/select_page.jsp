@@ -31,12 +31,12 @@
 	</div>
 
 	<ul>
-		<li><a href="listAllRate.jsp" >點選顯示全部員工</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
+		<li><a href="listAllRate.jsp" >點選顯示全部費率</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
 	
 				
 		<li>
 			<form method="post" action="rate.do">
-				<b>請輸入會員編號(EX:M001) (資料格式驗證  by Controller ):</b><br> 
+				<b>請輸入費率編號(EX:M001) (資料格式驗證  by Controller ):</b><br> 
 				<input type="text" name="rateID">
 				<input type="hidden" name="action" value="getOne_For_Display"><br>
 				<input type="submit" value="submit"> 
@@ -59,7 +59,7 @@
 		<br><br>
 		<li>
 			<form method="post" action="rate.do">
-				<b>請選擇員工編號</b> <br>
+				<b>請選擇費率編號</b> <br>
 				<select size="1" name="rateID">
 					<c:forEach var="rateVO" items="${ratedao.all}">
 						<option value="${rateVO.rateID}">${rateVO.rateID}
@@ -72,7 +72,7 @@
 		<br>
 		<li>
 			<form method="post" action="rate.do">
-				<b>請選擇員工姓名</b><br>
+				<b>請選擇費率名稱</b><br>
 				<select size="1" name="rateID">
 					<c:forEach var="rateVO" items="${ratedao.all}">
 						<option value="${rateVO.rateID}">"${rateVO.rateName}" 					

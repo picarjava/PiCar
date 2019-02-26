@@ -1,5 +1,7 @@
 package com.rate.model;
 
+import java.util.List;
+
 public class RateService {
 	
 	private RateDAO_interface dao ;
@@ -45,7 +47,9 @@ public class RateService {
 	
 	
 	
-	
+	public List<RateVO> getAll(){
+		return dao.getAll();
+	}
 	
 	
 	
