@@ -482,7 +482,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #about .about-container .background {
   min-height: 300px;
-  background: url(../img/about-img.png) center top no-repeat;
+  background: url(../img/about-img.jpg) center top no-repeat;
   margin-bottom: 10px;
 }
 
@@ -720,6 +720,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 
 #portfolio .portfolio-item {
   position: relative;
+  height: 200px;
   overflow: hidden !important;
   margin-bottom: 15px;
   transition: all 350ms ease;
