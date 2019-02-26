@@ -116,6 +116,14 @@
     <url-pattern>/back-end/driverReport/driverReport.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>GroupReportServlet</servlet-name>
+    <servlet-class>com.groupReport.controller.GroupReportServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GroupReportServlet</servlet-name>
+    <url-pattern>/back-end/groupReport/groupReport.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
     <servlet-name>Location</servlet-name>
     <servlet-class>com.location.controller.LocationServlet</servlet-class>
   </servlet>
