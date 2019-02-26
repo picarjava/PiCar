@@ -72,27 +72,6 @@ req.setCharacterEncoding("UTF-8");
 	    }
 	    
 //		System.out.println(driverID);
-////		byte[] licence=null;
-//		byte[] licence = driverVO.getLicence();
-//		if(licence !=null) {
-//			out.write(licence);
-//		}
-//		byte[] criminal = driverVO.getCriminal();
-//		if(criminal !=null) {
-//			out.write(criminal);
-//		}
-//		byte[] trafficRecord = driverVO.getTrafficRecord();
-//		if(trafficRecord !=null) {
-//			out.write(trafficRecord);
-//		}
-//		byte[] idNum = driverVO.getIdNum();
-//		if(idNum !=null) {
-//			out.write(idNum);
-//		}
-//		byte[] photo = driverVO.getPhoto();
-//		if(photo !=null) {
-//			out.write(photo);
-//		}
 //////////////
 ////		String realPath = getServletContext().getRealPath("/images_uploaded");
 ////		System.out.println(req.getContentType());
@@ -135,7 +114,6 @@ req.setCharacterEncoding("UTF-8");
 ////			
 ////		}
 	}
-
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
@@ -171,7 +149,6 @@ req.setCharacterEncoding("UTF-8");
 //		String driverID = "D003";//--
 //		String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
 		String plateNum = "ABC-1234";	
-		/////////////////////////////////
 		///////////////////////////區域變數給初始值
 		byte[] licence = null;
 		byte[] criminal = null;
@@ -243,13 +220,6 @@ req.setCharacterEncoding("UTF-8");
 		Date deadline = null;//--
 		Integer onlineCar= 0;//--沒在線上
 		Integer score= 60;//--
-//		photo = new byte[in.available()];
-//		if(in.available()!=0) {
-//			in.read(photo); 
-//			in.close();		
-//		}else {
-//			errorMsgs.add("請上傳照片");
-//		}
 ////////////////////////////////////////////照片
 		
 		String carType= " ";
@@ -288,15 +258,13 @@ req.setCharacterEncoding("UTF-8");
 		driverVO.setSmoke(smoke);
 		driverVO.setBabySeat(babySeat);//
 //		dao.insert(driverVO;ㄥ
-
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
 			req.setAttribute("driverVO", driverVO); // // 含有輸入格式錯誤的empVO物件,也存入req
-			RequestDispatcher failureView = req.getRequestDispatcher("/driver/addDriver.jsp");
+			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/driver/addDriver.jsp");
 			failureView.forward(req, res);
 			return;
 		}
-		
 		/********************* *2.開始新增資料*****************************************/
 		/* 從addDriver.jsp取得的資料，透過DriverService操作DAO存進資料庫 */
 		DriverService driverSvc ; // 以VO物件傳送參數
@@ -306,12 +274,11 @@ req.setCharacterEncoding("UTF-8");
 				plateNum,
 				licence, criminal, trafficRecord, idNum, photo, 
 				verified, banned, deadline, onlineCar, score, carType, sharedCar, pet, smoke, babySeat);
-
 		/***************************
 		 **3.新增完成,準備轉交(Send the Success view)* Success view)
 		 ***********/
 		req.setAttribute("driverVO", driverVO);
-		String url = "/driver/listOneDriver.jsp";
+		String url = "/front-end/driver/listOneDriver.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllBrod.jsp
 		successView.forward(req, res);
 
@@ -334,7 +301,7 @@ req.setCharacterEncoding("UTF-8");
 //				}
 //				if (!errorMsgs.isEmpty()) {
 //					req.setAttribute("driverVO", driverVO);
-//					failurePage = req.getRequestDispatcher("/driver/addDriver.jsp");
+//					failurePage = req.getRequestDispatcher("/front-end/driver/addDriver.jsp");
 //					return;
 //				}
 //
@@ -344,7 +311,7 @@ req.setCharacterEncoding("UTF-8");
 //					errorMsgs.add("無法新增至DB");
 //				}
 //				/**************step3.開始新增完成，轉交ListAllDriver頁面*****************/
-//				String url="/driver/listAllDriver.jsp";
+//				String url="/front-end/driver/listAllDriver.jsp";
 //				RequestDispatcher successPage =req.getRequestDispatcher(url);
 //				successPage.forward(req, res);
 //			} catch (Exception e) {
@@ -352,7 +319,7 @@ req.setCharacterEncoding("UTF-8");
 //				e.printStackTrace();
 //				errorMsgs.add("無法取得修改資料"+e.getMessage());
 //			}
-//			failurePage=req.getRequestDispatcher("/driver/addDriver.jsp");
+//			failurePage=req.getRequestDispatcher("/front-end/driver/addDriver.jsp");
 //			failurePage.forward(req, res);
 //		}
 //			
@@ -372,7 +339,7 @@ req.setCharacterEncoding("UTF-8");
 //			DriverVO driverVO=driverSvc.getOneDriver(driverID);
 //			if(driverVO==null) {
 //				errorMsgs.add("查無此筆");
-//				failurePage=req.getRequestDispatcher("/driver/listAllDriver.jsp");
+//				failurePage=req.getRequestDispatcher("/front-end/driver/listAllDriver.jsp");
 //				failurePage.forward(req, res);
 //				return;
 //			}
@@ -382,14 +349,14 @@ req.setCharacterEncoding("UTF-8");
 //			//req.setAttribute("path", path);
 //			req.setAttribute("driverVO", driverVO);
 ////			readPicture(activityVO.getActivityPost(),"ActivityPost.jpg"); //把海報存在某名稱
-//			String url="/driver/listOneDriver.jsp";
+//			String url="/front-end/driver/listOneDriver.jsp";
 //			RequestDispatcher successPage=req.getRequestDispatcher(url);
 //			successPage.forward(req, res);
 //			/*************5.處理例外**************/
 //		}catch(Exception e){
 //			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
 //			}
-//			failurePage=req.getRequestDispatcher("/driver/listAllDriver.jsp");
+//			failurePage=req.getRequestDispatcher("/front-end/driver/listAllDriver.jsp");
 //			failurePage.forward(req, res);
 //		}
 ////		.equals(action)
@@ -421,7 +388,7 @@ req.setCharacterEncoding("UTF-8");
 //			}
 			
 //			/*絕對路徑寫法 伺服器無法取讀本地端資料*/
-			String saveFile="/driver/img_saveFromDB"; /*指定儲存位置的資料夾名稱*/
+			String saveFile="/front-end/driver/img_saveFromDB"; /*指定儲存位置的資料夾名稱*/
 			String realPath=getServletContext().getRealPath(saveFile);//取得資料夾在ContextPath下的真實路徑
 			String relativePath=req.getContextPath()+saveFile; /*資料夾相對路徑*/
 			File relativeFile=new File(realPath);//ContextPath下自動建目錄

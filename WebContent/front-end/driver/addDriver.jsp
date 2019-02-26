@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Regna Bootstrap Template</title>
+<title>Be our Driver</title>
 <meta content="width=device-width, initial-scale=1.0" name="viewport">
 <meta content="" name="keywords">
 <meta content="" name="description">
@@ -170,13 +170,10 @@
 								</select>
 							</div>
 
-
-
 							<div class="text-center">
 								<input type="hidden" name="action" value="INSERT">
 								<button type="submit" class="btn btn-dark">成為司機</button>
 							</div>
-
 
 							<!--隱藏的參數action讓controller抓-->
 
