@@ -69,13 +69,13 @@
         	<div class="row" >
 		<c:forEach var="activityVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >			  
 		 			<!-- 卡片開始 -->
-					 		<div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s"> 
-					 		<div class="card" style="width: 18rem;">
+					 		<div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-delay="0.2s"> 
+					 		<div class="card" style="width: 65rem;height:35rem ">
 					 			  <c:if test="${empty activityVO.activityPost}" var="condition">
-					              <img src="<%=request.getContextPath()%>/back-end/activity/img/noFileUpdate.JPG" class='card-img-top' width='400' height='150'>
+					              <img src="<%=request.getContextPath()%>/back-end/activity/img/noFileUpdate.JPG" class='card-img-top' width='300' height='350'>
 					              </c:if>
 					              <c:if test="${not empty activityVO.activityPost}" var="condition">
-					              <img  src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' class='card-img-top' width='400' height='150' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/>
+					              <img  src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' class='card-img-top' width='400' height='350' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/>
 					              </c:if>
 							  <div class="card-body">
 							    <h5 class="card-title">${activityVO.activityName}</h5>

@@ -90,7 +90,7 @@
 						      <td>${activityVO.activityEnd}</td>
 						      <td>
 						       	  <c:if test="${empty activityVO.activityPost}" var="condition">
-					              <img src="<%=request.getContextPath()%>/activity/img/noFileUpdate.JPG" width='200' height='100'>
+					              <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" width='200' height='100'>
 					              </c:if>
 					              <c:if test="${not empty activityVO.activityPost}" var="condition">
 					              <img  src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/>

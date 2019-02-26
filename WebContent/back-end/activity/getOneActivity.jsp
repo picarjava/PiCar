@@ -72,7 +72,7 @@
 		          <div class="card mb-3">
 		             <div class="form-group">
 			              <c:if test="${empty activityVO.activityPost}" var="condition">
-			              <img class="card-img-top" src="<%=request.getContextPath()%>/activity/img/noFileUpdate.JPG" >
+			              <img class="card-img-top" src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" >
 			              </c:if>
 			              <c:if test="${not empty activityVO.activityPost}" var="condition">
 			              <img class="card-img-top" src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}'  alt='"這是"+${activityVO.activityID}+"的活動海報"  '/>
