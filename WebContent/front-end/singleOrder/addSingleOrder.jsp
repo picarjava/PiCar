@@ -4,6 +4,7 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="com.singleOrder.model.SingleOrderVO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,7 @@
         <label for="startLoc">上車地點 </label><input type="text" name="startLoc" id="startLoc" value="${singleOrder.startLoc}"/><br>
         <label for="endLoc">下車地點 </label><input type="text" name="endLoc" id="endLoc" value="${singleOrder.endLoc}"/><br>
         <label for="orderType">訂單種類 </label>
+        
         <select name="orderType" id="orderType">
             <c:forEach var="orderType" items="${orderTypeMap}">
                 <option value="${orderType.key}" ${orderType.key eq singleOrder.orderType ? "selected": ""}>${orderType.value}</option>

@@ -43,9 +43,9 @@
     <%List<ActivityVO> list=activitySvc.getALL();%>
     <%request.setAttribute("list", list); %>
     <%if(list!=null&&(list.size()>0)){ %>
-    <%List<String> errorMsgs=(List<String>)request.getAttribute("errorMsgs");%>
-    <!-- 錯誤列表 -->
     
+    <!-- 錯誤列表 -->
+    <%List<String> errorMsgs=(List<String>)request.getAttribute("errorMsgs");%>
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
 		  <li class="list-group-item active">Opps!錯誤訊息回報</li>
 		  <c:forEach var="massage" items="${errorMsgs}">
@@ -87,8 +87,9 @@
 	              				<button type="submit" class="btn btn-primary">查看詳情</button>
 							    </form>
 							  </div>
-							</div>
-							</div>
+							  </div>
+							  </div><!-- col -->
+							 
 							<!-- 卡片結束 -->
 		</c:forEach>	
 		</div>	<!-- row --> 				
