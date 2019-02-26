@@ -52,7 +52,6 @@ public class ActivTokenServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html; charset=UTF-8");
 		String action =((ServletRequest) req).getParameter("action");
-		PrintWriter out=res.getWriter();
 	
 		if("INSERT_F0R_GET_ONES_ALL".equals(action)) {
 			List<String> errorMsgs =new LinkedList<String>();
@@ -145,76 +144,57 @@ public class ActivTokenServlet extends HttpServlet {
 			}
 		}
 		
-		// 尚未使用到  
-		if("INSERT".equals(action)){
-			LinkedList<String> errorMsgs =new LinkedList<String>();
+		// 此處待小蔣請提供(1)memID參數(2)「查詢代幣明細」的jsp頁面 後即可串接
+		if("GET_ONES_ALL".equals(action)){
+			List<String> errorMsgs =new LinkedList<String>();
+			List<ActivityTokenVO> list=new LinkedList<ActivityTokenVO>();
 			/*將errorMsgs設定為request scope，以便送至errorPage view*/
 			req.setAttribute("errorMsgs", errorMsgs);
 			
-			
 			/**************step1.接收請求參數+錯誤處理*****************/
-			
+			//接收請求參數memID
 			try {
-				
 				 String memID=(String) req.getParameter("memID");
-				 String activityID=(String) req.getParameter("activityID");
-				 Integer tokenAmount=null;
-				 java.sql.Date deadline=null;
-				 
-				 ActivityService activityService=new ActivityService();
-				 ActivityVO activityVO=activityService.getOneActivity(activityID);
-				 tokenAmount=activityVO.getTokenAmount();
-				 deadline=activityVO.getActivityEnd();
-				 
 				 
 				 if(memID==null||memID.trim().length()==0){
-					 errorMsgs.add("未填寫");
-				 }else if(activityID==null||activityID.trim().length()==0){
-					 errorMsgs.add("活動代碼未填寫");
+					 errorMsgs.add("未取得會員編號");
 				 }
-				 
-				 ActivityTokenVO activityTokenVO=new ActivityTokenVO();
-				 activityTokenVO.setMemID(memID);
-				 activityTokenVO.setActivityID(activityID);
-				 activityTokenVO.setTokenAmount(tokenAmount);
-				 activityTokenVO.setDeadline(deadline);
-				 /*先送至下個頁面，錯誤頁面才能保留資料*/
-				 req.setAttribute("activityTokenVO",activityTokenVO);
-				 
 				 /*如有錯誤，資料包進VO送至錯誤頁面*/
 				 if(!errorMsgs.isEmpty()) {
 					 RequestDispatcher failurePage =req.getRequestDispatcher("/front-end/activityToken/addActivityToken.jsp");
 					 failurePage.forward(req, res);
 					 return;//程式中止
 				 }
-				 
-		
-			/**************step2.開始新增資料*****************/
-			 /*從addActiv.jsp取得的資料，透過ActivityService操作DAO存進資料庫*/
-			 try {
+				 /**************step2.開始取得資料*****************/
 				 ActivityTokenService activityTokenService=new ActivityTokenService();
-				  activityTokenVO =activityTokenService.addActivityToken(memID,activityID,tokenAmount,deadline);
-			 }catch(Exception e) {
-					 errorMsgs.add("無法新增至DB");
-				}
-			 
-			
-			/**************step3.開始新增完成，轉交ListAll頁面*****************/
-			 
-			 String url="/front-end/activityToken/listAllActivityToken.jsp";
+				 try {
+					 list=activityTokenService.getOnesALL(memID);
+				 }catch(Exception e){
+					 errorMsgs.add("無法得到此會員的所有活動代幣資訊");
+				 }
+				 
+				 int sum=0;
+				 //計算總額，送至listOnesAll.jsp
+				 for(int i=0;i<list.size();i++) {
+					 ActivityTokenVO activityTokenVO_forSum=list.get(i);
+					 sum+=activityTokenVO_forSum.getTokenAmount();
+				 }
+				 
+			/**************step3.開始查詢完成，轉交ListAll頁面*****************/
+			req.setAttribute("sum", sum);
+			req.setAttribute("list", list);
+			String url="/front-end/activityToken/listOnesAllActivityToken.jsp";
 			RequestDispatcher successPage =req.getRequestDispatcher(url);
 			successPage.forward(req, res);
 			}
-			/**************step4.處理其他可能的錯誤，轉交add頁面*****************/
+			/**************step4.處理其他可能的錯誤，此處先轉交add頁面，之後轉交「查詢代幣明細」頁面*****************/
 			catch(Exception e){
-				
-				errorMsgs.add("無法新增此筆資料"+e.getMessage());
+				errorMsgs.add("無法得到此會員活動代幣資料"+e.getMessage());
 				RequestDispatcher failurePage=req.getRequestDispatcher("/front-end/activityToken/addActivityToken.jsp");
 				failurePage.forward(req, res);
 			}
 			 
 		 }
 		
-	
 	}
 }
