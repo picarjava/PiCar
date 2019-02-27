@@ -30,7 +30,7 @@ table1, td {
 }
 </style>
 <body>
-	<h3>listALLRate.jsp</h3>
+	<h3>listAllPaymentRecord.jsp</h3>
 	<%
 		PaymentRecordService prSvc = new PaymentRecordService();
 		List<PaymentRecordVO> list = prSvc.getAll();

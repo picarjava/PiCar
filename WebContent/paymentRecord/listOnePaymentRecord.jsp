@@ -9,7 +9,7 @@
 <html>
 <head>
 <meta charset="BIG5">
-<title>listOneRate.jsp</title>
+<title>listOnePaymentRecord.jsp</title>
 </head>
 <style>
 #table1 {
@@ -23,7 +23,7 @@
 
 </style>
 <body bgcolor="#11e1e9">
-<h3>listOneRate.jsp</h3>
+<h3>listOnePaymentRecord.jsp</h3>
 <a href="select_page.jsp">回主頁面</a>
 	<h1 align="center">Picar 撥款紀錄 by 查詢單筆</h1>
 	<table align="center" border="1" id="table1">

@@ -31,25 +31,25 @@
 	</div>
 
 	<ul>
-		<li><a href="listAllPaymentRecord.jsp" >點選顯示全部費率</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
+		<li><a href="listAllPaymentRecord.jsp" >點選顯示全部撥款紀錄</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
 	
-				
-		<li>
-			<form method="post" action="paymentRecord.do">
-				<b>請輸入撥款編號(EX:M001) (資料格式驗證  by Controller 暫時不用):</b><br> 
-				<input type="text" name="paymentRecordID">
-				<input type="hidden" name="action" value="getOne_For_Display"><br>
-				<input type="submit" value="submit"> 
-			</form> 
-		</li>	
-		<br>
+			
+<!-- 		<li> -->
+<!-- 			<form method="post" action="paymentRecord.do"> -->
+<!-- 				<b>請輸入撥款編號(EX:M001) (資料格式驗證  by Controller 暫時不用):</b><br>  -->
+<!-- 				<input type="text" name="paymentRecordID"> -->
+<!-- 				<input type="hidden" name="action" value="getOne_For_Display"><br> -->
+<!-- 				<input type="submit" value="submit">  -->
+<!-- 			</form>  -->
+<!-- 		</li>	 -->
+<!-- 		<br> -->
 		
 		<% /*<li>
 			<form method="post" action="member.do">
 				<b>請輸入會員編號(EX:M001) (資料格式驗證  by Java Script):</b><br> 
 				<input type="text" name="memID">
 				<input type="hidden" name="action" value="getOne_For_Display"><br>
-				<input type="button" value="submit" onlick="fun1()">  
+				<input typ	e="button" value="submit" onlick="fun1()">  
 			</form> 
 		</li>*/	%>
 		

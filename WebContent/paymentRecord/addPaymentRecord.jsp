@@ -18,7 +18,7 @@ table{
 	PaymentRecordVO paymentRecordVO =  (PaymentRecordVO)request.getAttribute("paymentRecordVO");
 
 %>
- <h3>addRate.jsp</h3>
+ <h3>addPaymentRecord.jsp</h3>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
