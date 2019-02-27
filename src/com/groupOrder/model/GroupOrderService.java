@@ -34,10 +34,11 @@ public class GroupOrderService {
 		return groupOrderVO;
 	}
 
-	public GroupOrderVO updategroupOrderVO(String driverID, String memID, Integer state, Integer totalAmout,
+	public GroupOrderVO updategroupOrderVO(String gorderID,String driverID, String memID, Integer state, Integer totalAmout,
 			Timestamp startTime, Timestamp endTime, Double startLng, Double startLat, Double endLng, Double endLat,
 			Integer orderType, Integer rate, String note) {
 		GroupOrderVO groupOrderVO = new GroupOrderVO();
+		groupOrderVO.setGorderID(gorderID);
 		groupOrderVO.setDriverID(driverID);
 		groupOrderVO.setMemID(memID);
 		groupOrderVO.setState(state);

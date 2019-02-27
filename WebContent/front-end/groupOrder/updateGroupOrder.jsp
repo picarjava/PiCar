@@ -1,11 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+    pageEncoding="utf-8"%>
           <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ page import="com.groupOrder.model.*"%>
    
      <%@ page import="java.util.*"%>
      <% GroupOrderVO groupOrderVO =(GroupOrderVO)  request.getAttribute("groupOrderVO"); %>
-<% String state[] = {"¥¼¦¨¹Î","¤w¦¨¹Î","¬y¹Î"}; %>
+<% String state[] = {"æœªæˆåœ˜","å·²æˆåœ˜","æµåœ˜"}; %>
 <% String rate[] = {"0","1","2","3","4","5"}; %>
 <!DOCTYPE html>
 <html>
@@ -14,7 +14,7 @@
 	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.js"></script>
 <script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-<meta charset="BIG5">
+<meta charset="utf-8">
 <title>updateGroupOrder.jsp</title>
 <style>
 table#table-1 {
@@ -59,7 +59,7 @@ th, td {
 <body bgcolor=#FFEE99>
 
 	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">½Ğ­×¥¿¥H¤U¿ù»~:</font>
+		<font style="color: red">è«‹ä¿®æ­£ä»¥ä¸‹éŒ¯èª¤:</font>
 		<ul>
 			<c:forEach var="message" items="${errorMsgs}">
 				<li style="color: red">${message}</li>
@@ -69,28 +69,28 @@ th, td {
 	<table id="table-1">
 	<tr>
 			<td>
-				<h3>´ª¹Î¸ê®Æ­×§ï -updateGroupOrder.jsp</h3>
+				<h3>æªåœ˜è³‡æ–™ä¿®æ”¹ -updateGroupOrder.jsp</h3>
 			</td>
 			<td>
 				<h4>
-					<a href="ListAllGroupOrder.jsp">¦^­º­¶</a>
+					<a href="ListAllGroupOrder.jsp">å›é¦–é </a>
 				</h4>
 			</td>
 		</tr>
 	</table>
-<h3>­×§ï´ª¹Î¸ê®Æ</h3>
-	<form action="<%=request.getServletContext().getContextPath()%>/GroupOrder" method="POST" name="form1">
+<h3>ä¿®æ”¹æªåœ˜è³‡æ–™</h3>
+	<form action="<%=request.getServletContext().getContextPath()%>/GroupOrder" method="POST">
 	<table>
 	<tr>
-	<td>¥q¾÷ID</td>
+	<td>å¸æ©ŸID</td>
 	<td><input type="text" name="driverID" value="<%=(groupOrderVO == null) ? "" : groupOrderVO.getDriverID()%>"></td>
 	</tr>
 	<tr>
-	<td>·|­ûID</td>
+	<td>æœƒå“¡ID</td>
 	<td><input type="text" name="memID" value="<%=(groupOrderVO == null) ? "" : groupOrderVO.getMemID()%>"></td>
 	</tr>
 	<tr>
-	<td>ª¬ºA</td>
+	<td>ç‹€æ…‹</td>
 	<td><select name="state">
 	<%for(int a=0; a<state.length;a++)
 	{%>
@@ -102,11 +102,11 @@ th, td {
 	</td>
 	</tr>
 	<tr>
-		<td>Á`ª÷ÃB</td>
+		<td>ç¸½é‡‘é¡</td>
 	<td><input type="text" name="totalAmout" value="<%=(groupOrderVO == null) ? "" : groupOrderVO.getTotalAmout()%>"></td>
 	</tr>
 	<tr>
-	<td>µû»ù</td>
+	<td>è©•åƒ¹</td>
 	<td>
 	<select name="rate">
 	<%for(int a=0; a<rate.length;a++)
@@ -119,7 +119,7 @@ th, td {
 	</tr>
 	
 		<tr>
-		<td>³Æµù</td>
+		<td>å‚™è¨»</td>
 		<td><input type="text" name="note" value="<%=(groupOrderVO == null) ? "" : groupOrderVO.getNote()%>"></td>
 		</tr>
 
@@ -135,8 +135,8 @@ th, td {
 	  <input type="hidden" name="endLat" value="<%=groupOrderVO.getEndLat()%>">
 	  <input type="hidden" name="orderType" value="<%=groupOrderVO.getOrderType()%>">	  	
 	  <input type="hidden" name="action" value="update" /> 
-	<input type="submit" value="°e¥X"/>
-	<input type="reset" value="²M°£´ª¹Î" />
+	<input type="submit" value="é€å‡º"/>
+	<input type="reset" value="æ¸…é™¤æªåœ˜" />
 	</form>
 </body>
 </html>

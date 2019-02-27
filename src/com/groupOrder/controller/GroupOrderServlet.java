@@ -167,16 +167,16 @@ public class GroupOrderServlet extends HttpServlet {
 				groupOrderVO.setNote(note);
 				
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("GroupOrderVO", groupOrderVO); // �t����J�榡���~��GroupBandVO����,�]�s�Jreq
+					req.setAttribute("groupOrderVO", groupOrderVO); // �t����J�榡���~��GroupBandVO����,�]�s�Jreq
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/groupOrder/updateGroupOrder.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 				System.out.println("++++++++++++++++++");
-				groupOrderVO =groupOrderService.updategroupOrderVO(driverID, memID, state, totalAmout, startTime, endTime, startLng, startLat, endLng, endLat, orderType, rate, note);
+				groupOrderVO =groupOrderService.updategroupOrderVO(gorderID,driverID, memID, state, totalAmout, startTime, endTime, startLng, startLat, endLng, endLat, orderType, rate, note);
 
-				String url = "/front-end/groupOrder/ListAllGroupOrder.jsp";
+				String url = "/front-end/groupOrder/SelectGroupOrder.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
 				successView.forward(req, res);	
 				
