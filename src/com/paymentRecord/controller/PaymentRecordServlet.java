@@ -51,10 +51,10 @@ public class PaymentRecordServlet extends HttpServlet {
 					RequestDispatcher failureView = req.getRequestDispatcher("/paymentRecord/select_page.jsp");
 					failureView.forward(req, res);
 					return;
-				}			
+				}
 
 				PaymentRecordService prSvc = new PaymentRecordService();
-				PaymentRecordVO paymentRecordVO = prSvc.getOneRate(paymentRecordID);
+				PaymentRecordVO paymentRecordVO = prSvc.getOnePaymentRecord(paymentRecordID);
 				if (paymentRecordVO == null) {
 					errorMsgs.add("無此撥款紀錄編號");
 				}
@@ -67,6 +67,38 @@ public class PaymentRecordServlet extends HttpServlet {
 
 				req.setAttribute("paymentRecordVO", paymentRecordVO);
 				RequestDispatcher succesView = req.getRequestDispatcher("/paymentRecord/listOnePaymentRecord.jsp");
+				succesView.forward(req, res);
+
+			} catch (RuntimeException e) {
+				errorMsgs.add("無法取得資料" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/paymentRecord/selec_page.jsp");
+				failureView.forward(req, res);
+			}
+		}
+
+		// 查詢司機個人的紀錄
+		if ("getOne_For_Display_Drvier".equals(action)) {
+			List<String> errorMsgs = new LinkedList();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				String driverID = req.getParameter("driverID").trim();
+
+				PaymentRecordService prSvc = new PaymentRecordService();
+				List<PaymentRecordVO> list = prSvc.getDriverPaymentRecord(driverID);
+				if (list.isEmpty()) {
+					errorMsgs.add("無此撥款紀錄編號");
+				}
+
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/paymentRecord/select_page.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+
+				req.setAttribute("list", list);
+				RequestDispatcher succesView = req
+						.getRequestDispatcher("/paymentRecord/listOnePaymentRecordDriver.jsp");
 				succesView.forward(req, res);
 
 			} catch (RuntimeException e) {
@@ -163,59 +195,51 @@ public class PaymentRecordServlet extends HttpServlet {
 //		}
 //
 		if ("insert".equals(action)) {
-//司機編號坐下拉是選單
+            
+			//司機編號作下拉式選單
 			List<String> errorMsgs = new LinkedList();
 			req.setAttribute("errorMsgs", errorMsgs);
 
 			try {
 				String driverID = req.getParameter("driverID").trim();
 				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
-				if (driverID  == null || driverID .trim().length() == 0) {
+				if (driverID == null || driverID.trim().length() == 0) {
 
-					errorMsgs.add("請輸入費率名稱");
-				} else if (!driverID .trim().matches(nameReg)) {
+					errorMsgs.add("請輸入司機ID");
+				} else if (!driverID.trim().matches(nameReg)) {
 
 					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \" 且長度必需在2到20之間");
 				}
 
-				Double ratePrice = null;
+				Integer payAmount = null;
 				try {
-					ratePrice = new Double(req.getParameter("ratePrice").trim());
+					payAmount = new Integer(req.getParameter("payAmount").trim());
 				} catch (Exception e) {
-					ratePrice = 0.0;
-					errorMsgs.add("請輸入數字，可至小數點第一位");
-				}
-
-				Integer rateBasic = null;
-				try {
-					rateBasic = new Integer(req.getParameter("rateBasic").trim());
-				} catch (Exception e) {
-					rateBasic = 0;
+					payAmount = 0;
 					errorMsgs.add("請輸入數字");
-				}
+				}	
 
-				RateVO rateVO = new RateVO();
-				rateVO.setRateName(driverID );
-				rateVO.setRatePrice(ratePrice);
-				rateVO.setRateBasic(rateBasic);
+				PaymentRecordVO paymentRecordVO = new PaymentRecordVO();
+				paymentRecordVO.setDriverID(driverID);
+				paymentRecordVO.setPayAmount(payAmount);
 
 				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("rateVO", rateVO);
-					RequestDispatcher failView = req.getRequestDispatcher("/rate/addRate.jsp");
+					req.setAttribute("paymentRecordVO", paymentRecordVO);
+					RequestDispatcher failView = req.getRequestDispatcher("/paymentRecord/addPaymentRecord.jsp");
 					failView.forward(req, res);
 					return;
 				}
 
 				// 開始新增資料
-				RateService rateSvc = new RateService();
-				rateVO = rateSvc.addRate(driverID , ratePrice, rateBasic);
+				PaymentRecordService paymentRecordSvc = new PaymentRecordService();
+				paymentRecordVO = paymentRecordSvc.addPaymentRecord(driverID, payAmount);
 
-				RequestDispatcher succesView = req.getRequestDispatcher("/rate/listAllRate.jsp");
+				RequestDispatcher succesView = req.getRequestDispatcher("/paymentRecord/listAllPaymentRecord.jsp");
 				succesView.forward(req, res);
 
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
-				RequestDispatcher successView = req.getRequestDispatcher("/rate/addRate.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/paymentRecord/addPaymentRecord.jsp");
 				successView.forward(req, res);
 			}
 

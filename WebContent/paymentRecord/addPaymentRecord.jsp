@@ -29,7 +29,7 @@ table{
 	</ul>
 </c:if>
 
-<form method="post" action="rate.do" name="form1" >
+<form method="post" action="paymentRecord.do" name="form1" >
 <a href="select_page.jsp">回主頁面</a>
 	<table >
 		
@@ -44,11 +44,11 @@ table{
 			<td><input type="text" name="payAmount" size="45" value="<%= (paymentRecordVO==null)? "0":paymentRecordVO.getPayAmount() %>" /></td>		
 		</tr>
 		
-		<tr>
+		<%-- <tr>
 			<td>撥款日期：</td>
 			<td><input type="text" name="payTime"  id="f_date1" size="45" ></td>		
 		</tr>				
-		
+		--%>
 		
 	</table>                          
 	

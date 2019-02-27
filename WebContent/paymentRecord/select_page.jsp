@@ -31,12 +31,12 @@
 	</div>
 
 	<ul>
-		<li><a href="listAllRate.jsp" >點選顯示全部費率</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
+		<li><a href="listAllPaymentRecord.jsp" >點選顯示全部費率</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
 	
 				
 		<li>
 			<form method="post" action="paymentRecord.do">
-				<b>請輸入撥款編號(EX:M001) (資料格式驗證  by Controller ):</b><br> 
+				<b>請輸入撥款編號(EX:M001) (資料格式驗證  by Controller 暫時不用):</b><br> 
 				<input type="text" name="paymentRecordID">
 				<input type="hidden" name="action" value="getOne_For_Display"><br>
 				<input type="submit" value="submit"> 
@@ -72,14 +72,14 @@
 		<br>
 		<li>
 			<form method="post" action="paymentRecord.do">
-				<b>請選擇費率名稱</b><br>
-				<select size="1" name="paymentRecordID">
-					<c:forEach var="paymentRecordVO" items="${paymentdao.all}">
-						<option value="${paymentRecordVO.paymentID}">"${paymentRecordVO.driverID}" 					
+				<b>請選擇司機ID</b><br>
+				<select size="1" name="driverID">
+					<c:forEach var="paymentRecordVO" items="${paymentdao.distinctDriverID}">
+						<option value="${paymentRecordVO.driverID}">${paymentRecordVO.driverID} 					
 					</c:forEach>
 				</select>
 				<br>	
-				<input type="hidden" name="action" value="getOne_For_Display">
+				<input type="hidden" name="action" value="getOne_For_Display_Drvier">
 				<input type="submit" value="submit">			
 			</form>
 			
@@ -87,7 +87,7 @@
 	</ul>
 	<ul>
 		<li>	
-		<a href="addPaymentRecord.jsp">點選新增員工資料</a>
+		<a href="addPaymentRecord.jsp">點選新增撥款資料</a>
 		</li>
 	</ul>
 	

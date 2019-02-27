@@ -13,13 +13,13 @@ public class PaymentRecordService {
 		dao = new PaymentRecordDAO();
 	}
 
-	public PaymentRecordVO addPaymentRecord(String driverID, Integer payAmount, Date payTime) {
+	public PaymentRecordVO addPaymentRecord(String driverID, Integer payAmount) {
 
 		PaymentRecordVO paymentRecordVO = new PaymentRecordVO();
 
 		paymentRecordVO.setDriverID(driverID);
 		paymentRecordVO.setPayAmount(payAmount);
-		paymentRecordVO.setPayTime(payTime);
+//		paymentRecordVO.setPayTime(payTime); 日期自動產生 暫時註解
 
 		dao.insert(paymentRecordVO);
 
@@ -40,11 +40,15 @@ public class PaymentRecordService {
 		return paymentRecordVO;
 	}
 
-	public PaymentRecordVO getOneRate(String paymentID) {
+	public PaymentRecordVO getOnePaymentRecord(String paymentID) {
 		return dao.findByPrimaryKey(paymentID);
 	}
+	
+	public List<PaymentRecordVO> getDriverPaymentRecord(String driverID) {
+		return dao.findByDriverID(driverID);
+	}
 
-	public void deleteRate(String paymentID) {
+	public void deletePaymentRecord(String paymentID) {
 		dao.delete(paymentID);
 	}
 

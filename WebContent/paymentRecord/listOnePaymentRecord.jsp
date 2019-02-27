@@ -28,15 +28,15 @@
 	<h1 align="center">Picar 撥款紀錄 by 查詢單筆</h1>
 	<table align="center" border="1" id="table1">
 		<tr>
-			<td>撥款ID</td>
-			<td>司機ID</td>
+			<td>撥款ID</td>	
+			<td>司機ID</td>						
 			<td>撥款金額</td>
 			<td>撥款時間</td>			
 		</tr>
 
-		<tr>			
-			<td><%=paymentRecordVO.getPaymentID()%></td>
-			<td><%=paymentRecordVO.getDriverID()%></td>
+		<tr>		
+			<td><%=paymentRecordVO.getPaymentID()%></td>	
+			<td><%=paymentRecordVO.getDriverID()%></td>							
 			<td><%=paymentRecordVO.getPayAmount()%></td>
 			<td><%=paymentRecordVO.getPayTime()%></td>
 			
