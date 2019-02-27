@@ -480,7 +480,7 @@ function timestamps() {
 		dates="0"+dates;
 	}	
 	//用迴圈跑寫入資料庫
-	numd.innerHTML=numd.innerHTML+'<input type="note" name="numdays" value="'+da.getFullYear()+"-"+Months+"-"+dates+' '+totalAmount.getHours()+':'+totalAmount.getMinutes()+':'+totalAmount.getSeconds()+'0'+'" />';
+	numd.innerHTML=numd.innerHTML+'<input type="hidden" name="numdays" value="'+da.getFullYear()+"-"+Months+"-"+dates+' '+totalAmount.getHours()+':'+totalAmount.getMinutes()+':'+totalAmount.getSeconds()+'0'+'" />';
 	}
 }
 
