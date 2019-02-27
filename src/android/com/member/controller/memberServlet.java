@@ -44,6 +44,12 @@ public class memberServlet extends HttpServlet {
                 password = json.get("password").getAsString();
         }
         
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         resp.setCharacterEncoding("utf-8");
         PrintWriter writer = resp.getWriter();
         if (isValidLogin(account, password))
