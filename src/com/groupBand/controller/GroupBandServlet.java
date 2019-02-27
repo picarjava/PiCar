@@ -415,7 +415,7 @@ public class GroupBandServlet extends HttpServlet {
 
 				if ("0".equals(req.getParameter("orderT"))) {
 					try {
-
+					
 //						startTimes=req.getParameter("startTime");
 						startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
 
@@ -427,8 +427,9 @@ public class GroupBandServlet extends HttpServlet {
 				} else {
 					try {
 //					    startTimes=req.getParameter("startTimes");
+					
 						startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
-						endtime = java.sql.Timestamp.valueOf(req.getParameter("endtime").trim());
+//						endtime = java.sql.Timestamp.valueOf(req.getParameter("endTime").trim());
 
 					}
 
@@ -485,71 +486,71 @@ public class GroupBandServlet extends HttpServlet {
 //		-------------------產生 (揪團訂單 )多筆------------------------------------------
 			
 
-//					String diverID = null;
-//
-//					String memID[];
-//
-//					memID = new String[upperLimit];
-//
-//					memID[0] = groupLeader;
-//
-//					for (int x = 1; x < upperLimit; x++) {
-//						memID[x] = null;
-//
-//					}
-//
-//					Integer state = 1;
-//
-//					Integer totalAmoutOr = 0;
-//
-//					Timestamp startTimeOr = startTime;
-//
-//					Timestamp endTime = null;
-//
-//					Double startLng = 0.1;
-//
-//					Double startLat = 0.1;
-//
-//					Double endLng = 0.1;
-//
-//					Double endLat = 0.1;
-//
-//					Integer orderType = 0; // 0是揪團 1是長期揪團
-//
-//					Integer rateOr = 0;
-//
-//					String noteOr = null;
-//
-//					GroupOrderService groupOrderService = new GroupOrderService();
-//
-//					String numdays[] =req.getParameterValues("numdays");
-//					
-//				if ("0".equals(req.getParameter("orderT"))) {
-//					GroupOrderVO groupOrderVO[];
-//					groupOrderVO = new GroupOrderVO[upperLimit];
-//					for (int x = 0; x < upperLimit; x++) {
-//
-//						groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder(diverID, memID[x], state,
-//								totalAmoutOr, startTimeOr, endTime, startLng, startLat, endLng, endLat, orderType,
-//								rateOr, noteOr);
-//
-//					}
-//				} else {
-//					GroupOrderVO groupOrderVO[];
-//					groupOrderVO = new GroupOrderVO[upperLimit];
-//					for(int y = 0; y < numdays.length; y++) {
-//					for (int x = 0; x < upperLimit; x++) {
-//						java.sql.Timestamp startTimeOrs = null;
-//					
-//						startTimeOrs = java.sql.Timestamp.valueOf(numdays[y]);
-//						
-//						groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder(diverID, memID[x], state,
-//								totalAmoutOr, startTimeOrs, endTime, startLng, startLat, endLng, endLat, orderType,
-//								rateOr, noteOr);
-//
-//					}	
-//					}
-//				}
+					String diverID = null;
+
+					String memID[];
+
+					memID = new String[upperLimit];
+
+					memID[0] = groupLeader;
+
+					for (int x = 1; x < upperLimit; x++) {
+						memID[x] = null;
+
+					}
+
+					Integer state = 1;
+
+					Integer totalAmoutOr = 0;
+
+					Timestamp startTimeOr = startTime;
+
+					Timestamp endTime = null;
+
+					Double startLng = 0.1;
+
+					Double startLat = 0.1;
+
+					Double endLng = 0.1;
+
+					Double endLat = 0.1;
+
+					Integer orderType = 0; // 0是揪團 1是長期揪團
+
+					Integer rateOr = 0;
+
+					String noteOr = null;
+
+					GroupOrderService groupOrderService = new GroupOrderService();
+
+					String numdays[] =req.getParameterValues("numdays");
+					
+				if ("0".equals(req.getParameter("orderT"))) {
+					GroupOrderVO groupOrderVO[];
+					groupOrderVO = new GroupOrderVO[upperLimit];
+					for (int x = 0; x < upperLimit; x++) {
+
+						groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder(diverID, memID[x], state,
+								totalAmoutOr, startTimeOr, endTime, startLng, startLat, endLng, endLat, orderType,
+								rateOr, noteOr);
+
+					}
+				} else {
+					GroupOrderVO groupOrderVO[];
+					groupOrderVO = new GroupOrderVO[upperLimit];
+					for(int y = 0; y < numdays.length; y++) {
+					for (int x = 0; x < upperLimit; x++) {
+						java.sql.Timestamp startTimeOrs = null;
+					
+						startTimeOrs = java.sql.Timestamp.valueOf(numdays[y]);
+						
+						groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder(diverID, memID[x], state,
+								totalAmoutOr, startTimeOrs, endTime, startLng, startLat, endLng, endLat, orderType,
+								rateOr, noteOr);
+
+					}	
+					}
+				}
 
 //		------------------------------------------------------------------------------------
 

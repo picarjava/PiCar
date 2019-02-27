@@ -201,11 +201,11 @@ th, td {
 				<nobr id="datetime" >00:00</nobr> 
 				<nobr>   日期:</nobr> 
 				<input name="startTime" id="start_date" type="text"
-					 onchange="datestamps();" disabled="disabled" size="8">
+					 onchange="datestamps();" readonly="readonly" size="8">
 				<nobr id="brs"></nobr>  
 						
-<input name="endtime" id="end_date" type="text"
-					style="display: none" disabled="disabled" size="8">
+<input name="endTime" id="end_date" type="text"
+					style="display: none" readonly="readonly" size="8">
 					<nobr id="numd"></nobr>  
 				
 			</tr>
@@ -252,7 +252,7 @@ try {
 
 $('#buttons').datetimepicker(
 		{
-			format : 'Y-m-d H:i',
+			format : 'Y-m-d H:i:s',
 			onShow : function() {
 				this.setOptions({
 					maxDate : $('#buttons').val() ? $('+1970-01-20')
@@ -501,21 +501,7 @@ function timestamps() {
 
 							}
 						</script>
-<script>
-	$.datetimepicker.setLocale('zh'); // kr ko ja en
-	$('#f_date1').datetimepicker({
-		theme : '', //theme: 'dark',
-		timepicker : true, //timepicker: false,
-		step : 1, //step: 60 (這是timepicker的預設間隔60分鐘)
-		format : 'Y-m-d H:i',
-		//value : new Date(),
-		value : '<%=startTime%>',
-	//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-	//startDate:	        '2017/07/10',  // 起始日
-	minDate:           '-1970-01-01', // 去除今日(不含)之前
-	maxDate:           '+1970-01-20'  // 去除今日(不含)之後
-	});
-</script>
+
 
 <script>
 
