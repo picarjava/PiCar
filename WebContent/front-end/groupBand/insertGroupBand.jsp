@@ -181,13 +181,27 @@ th, td {
 					style="display: none" onchange="timestamps(this.value);"> 
 					<input name="startTimes" id="f_date1"
 					type="text"></td>
+							<td id="enddate" style="display:none" >	
+				<select id="days" name="days" style="display: none">
+		
+						<%
+							for (int a = 1; a < 20; a++) {
+						%>
+						<option value="<%=a%>"><%=a%></option>
+						<%
+							}
+						%>
+				</select>
+				</td>
 			</tr>
 
 			<tr>
-				<td id="enddate" style="display:none" >結束日期:</td>
+		
+<td >結束日期:</td>
+
 				<td id="enddate"  >
 <input name="endtime" id="end_date" type="text"
-					style="display: none"></td>
+					style="display: none" disabled="disabled"></td>
 				
 			</tr>
 
@@ -222,10 +236,14 @@ try {
  }
 %> 
 <script>
+
 function timestamps(s) {
 	end_date = document.getElementById("end_date");
+	days=document.getElementById("days");
+// 	s.split(" ",sa);
+// var d=new Data(s);
+// d.getYear()+days;
 end_date.value=s;
-	
 }
 
 </script>
@@ -279,20 +297,20 @@ end_date.value=s;
 					maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 				});
 
-		$('#end_date').datetimepicker(
-				{
-					format : 'Y-m-d',
-					onShow : function() {
-						this.setOptions({
-							minDate : $('#start_date').val() ? $('#start_date')
-									.val() :  true
-						})
-					},
-					value : $('#start_date').val(),
-					timepicker : false,
-					minDate:           '#start_date', // 去除今日(不含)之前
-					maxDate:           '+1970-01-20'  // 去除今日(不含)之後
-				});
+// 		$('#end_date').datetimepicker(
+// 				{
+// 					format : 'Y-m-d',
+// 					onShow : function() {
+// 						this.setOptions({
+// 							minDate : $('#start_date').val() ? $('#start_date')
+// 									.val() :  true
+// 						})
+// 					},
+// 					value : $('#start_date').val(),
+// 					timepicker : false,
+// 					minDate:           '#start_date', // 去除今日(不含)之前
+// 					maxDate:           '+1970-01-20'  // 去除今日(不含)之後
+// 				});
 //	});
 
 </script>
@@ -300,16 +318,19 @@ end_date.value=s;
 <script>
 
 	function groupif(number) {
+		days = document.getElementById("days");
 		startdate = document.getElementById("start_date");
 		enddate = document.getElementById("end_date");
 		fdate1 = document.getElementById("f_date1");
 		enddates = document.getElementById("enddate");
 		if (number == 1) {
+			days.style="";
 			startdate.style = "";
 			enddate.style = "";
 			fdate1.style = "display:none";
 			enddates.style = "";
 		} else {
+			days.style="display:none";
 			startdate.style = "display:none";
 			enddate.style = "display:none";
 			fdate1.style = "";
