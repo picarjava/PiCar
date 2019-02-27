@@ -182,16 +182,7 @@ th, td {
 					<input name="startTimes" id="f_date1"
 					type="text"></td>
 							<td id="enddate" style="display:none" >	
-				<select id="days" name="days" style="display: none" onchange="timestamps(this.value);">
-		
-						<%
-							for (int a = 1; a < 20; a++) {
-						%>
-						<option value="<%=a%>"><%=a%></option>
-						<%
-							}
-						%>
-				</select>
+				<select id="days" name="days" style="display: none" onchange="timestamps(this.value);"></select>
 				</td>
 			</tr>
 
@@ -241,84 +232,133 @@ function datestamps(dater){
 	end_date = document.getElementById("end_date");
 	days = document.getElementById("days");
 	
-	var todays = new Date(dater);
-	var todayss =todays.getTime();
+	//取得使用者輸入的日期 
+	var totalAmount = new Date(dater);
 	
-	var timers=parseInt(days.value)+1;
-	var ss = new Date(1970,0,timers);
+	//轉成毫秒
+	var totalAmounts =totalAmount.getTime();
 	
-	var day3=ss.getTime();
-	day3=day3+todayss;
+	//取得現在日期
+	var Today=new Date();
+	
+	//將現在日期 - 使用者輸入日期
+	var sunday =parseInt(totalAmount.getDate())-parseInt(Today.getDate());
+	
+	//取得當月最後一天
+	var LastOneDay=new Date(Today.getFullYear(),Today.getMonth()+1,0);
+	
+	//判段為正負數 執行不同方式
+	if(sunday<0)
+	{
+		//將當月最後一天減掉日期總和
+		sunday=parseInt(LastOneDay.getDate())+sunday;
+ 		sunday=19-sunday;
+ 		
+	}else
+	{
+		sunday=19-sunday;		
+	}
+	
+	
+	//將一開始顯示數字設為空值
+	days.innerHTML="";
+	
+	//位數字產生日期
+	for(a=1 ;a<=sunday ;a++){
+		days.innerHTML=days.innerHTML+"<option value="+a+">"+a+"</option>";
+	}
 
+	//將日期轉成數字做 +法
+	var timers=parseInt(days.value)+1;
+	
+	//宣告一個1970年的格式 ，為了計算目前日期+上天數，這段程式碼天數轉換
+	var dateAmount = new Date(1970,0,timers+1);
+	
+	//將1970年格式轉成毫秒
+	var day3=dateAmount.getTime();
+	
+	//將使用者入日期+天數 (用毫秒相加)
+	day3=day3+totalAmounts;
+
+	//將日前從毫秒轉換回來
 	var d = new Date();
 
 	d.setTime(day3);
 
-
-
-	qr =d.getDate();
+	//月份 日期 轉換
 	Month = d.getMonth()+1;
 	date = d.getDate();
 
 	//小於10的日期轉換 例01 02 03
 	if(parseInt(Month)<10)
-		{
-		Month="0"+Month;
-		
-		}
+	{
+		Month="0"+Month;		
+	}
 		
 	//小於10的日期轉換 例01 02 03
 	if(parseInt(date)<10)
 	{
 		date="0"+date;
-
 	}	
+	
 
+	
+	
+	//將日期月份轉換完顯示在畫面上
 	end_date.value=d.getFullYear()+"-"+Month+"-"+date;
+	
+	if(days.innerHTML=="")
+	{
+		if(days.innerHTML=="")
+		{
+			end_date.value="以超過揪團20天的準則，請洽公開說明書";		
+		}
 	}
+}
 
 function timestamps(timer) {
 	end_date = document.getElementById("end_date");
 	start_date =document.getElementById("start_date");
 	
 	//放入日期 日期時間轉換		
-	var todays = new Date(start_date.value);
-	var todayss =todays.getTime();
+	var totalAmount = new Date(start_date.value);
 	
-
+	//轉成毫秒
+	var totalAmounts =totalAmount.getTime();
+	
+	//將日期轉成數字做 +法
 	var timers=parseInt(timer)+1;
 	
- 	var ss = new Date(1970,0,timers);
+	//宣告一個1970年的格式 ，為了計算目前日期+上天數，這段程式碼天數轉換
+ 	var dateAmount = new Date(1970,0,timers+1);
 	
+ 	//將1970年格式轉成毫秒
+	var day3=dateAmount.getTime();
+ 	
+	//將使用者入日期+天數 (用毫秒相加)
+	day3=day3+totalAmounts;
 
-var day3=ss.getTime();
-day3=day3+todayss;
+	//將日前從毫秒轉換回來
+	var d = new Date();
+	d.setTime(day3);
 
-var d = new Date();
-
-d.setTime(day3);
-
-
-
-qr =d.getDate();
-Month = d.getMonth()+1;
-date = d.getDate();
-
-//小於10的日期轉換 例01 02 03
-if(parseInt(Month)<10)
+	//月份 日期 轉換
+	Month = d.getMonth()+1;
+	date = d.getDate();
+	//小於10的日期轉換 例01 02 03
+	if(parseInt(Month)<10)
 	{
-	Month="0"+Month;
-	
+		Month="0"+Month;
 	}
 	
-//小於10的日期轉換 例01 02 03
-if(parseInt(date)<10)
-{
-	date="0"+date;
+	//小於10的日期轉換 例01 02 03
+	if(parseInt(date)<10)
+	{
+		
+		date="0"+date;
+	}	
 
-}	
-
-end_date.value=d.getFullYear()+"-"+Month+"-"+date;
+	end_date.value=d.getFullYear()+"-"+Month+"-"+date;
 }
 
 </script>
