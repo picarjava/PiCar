@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -30,6 +32,8 @@ import javax.servlet.http.Part;
 import com.driver.model.DriverJDBCDAO;
 import com.driver.model.DriverService;
 import com.driver.model.DriverVO;
+import com.groupBand.model.GroupBandService;
+import com.groupBand.model.GroupBandVO;
 @MultipartConfig
 //(fileSizeThreshold = 1024 * 1024, maxFileSize = 50 * 1024 * 1024, maxRequestSize = 5 * 50 * 1024 * 1024)
 public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖片 根據專ˋ pic跟後台講。show出哪一張
@@ -44,7 +48,7 @@ req.setCharacterEncoding("UTF-8");
 		res.setContentType("image/gif");
 //		
 		ServletOutputStream out = res.getOutputStream();
-		String driverID =req.getParameter("driverID");
+		String driverID =req.getParameter("driverID");//從session抓driverID
 		int pic = new Integer(req.getParameter("pic"));
 		
 		DriverService driverSvc = new DriverService();
@@ -70,23 +74,8 @@ req.setCharacterEncoding("UTF-8");
 	    	byte[] photo = driverVO.getPhoto();
 	    	out.write(photo);//顯示在image src內 讀成二位元資料流
 	    }
-	    
 //		System.out.println(driverID);
 //////////////
-////		String realPath = getServletContext().getRealPath("/images_uploaded");
-////		System.out.println(req.getContentType());
-////
-////		String[] xxx = req.getContentType().split(";"); // 分割前後兩段 xxx陣列
-////		
-////		if (xxx[0].equals("multipart/form-data")) {// 比字串內容.equals()
-////			Collection<Part> parts = req.getParts();
-////			//新增修改刪除先 顯示放最後
-////			for (Part part : parts) {
-////				if (part.getSubmittedFileName() != "") { // 未加此行 會filenotfoundexception
-////					part.write(realPath + "/" + part.getSubmittedFileName());// 資料夾名 檔名
-////				}
-////			}
-////		} 
 ////		Collection<Part> parts = req.getParts();
 ////		for (Part part : parts) {
 ////			if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
@@ -103,16 +92,6 @@ req.setCharacterEncoding("UTF-8");
 ////		
 ////		long size = part.getSize();
 ////		System.out.println(size);
-////		InputStream in = part.getInputStream();
-////		
-////		photo = new byte[in.available()];
-////		if(in.available()!=0) {
-////		in.read(photo); 
-////		in.close();		
-////		}else {
-////			errorMsgs.add("請上傳照片");
-////			
-////		}
 	}
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
@@ -121,9 +100,7 @@ req.setCharacterEncoding("UTF-8");
 //		RequestDispatcher requestDispatcher;
 //		RequestDispatcher failurePage;
 	///////////////////////////////////////////////////////////////////////
-////參考241 insertgroup 
 	if ("INSERT".equals(action)) { // 來自addBrod.jsp的請求 ok
-
 		List<String> errorMsgs = new LinkedList<String>();
 		// Store this set in the request scope, in case we need to
 		// send the ErrorPage view.
@@ -138,9 +115,7 @@ req.setCharacterEncoding("UTF-8");
 //		} else if (!msgID.trim().matches(enameReg)) { //// 以下練習正則(規)表示式(regular-expression)
 //			errorMsgs.add("推播編號: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間�");
 //		}
-
 //		String memID =req.getParameter("memID").trim();//注意:正是從session 抓下來
-		
 //		String	message = new String(req.getParameter("message").trim()); //訊息做字串處理
 //			if (message == null || message.trim().length() == 0) {
 //				errorMsgs.add("訊息內容: 請勿空白");
@@ -149,7 +124,7 @@ req.setCharacterEncoding("UTF-8");
 //		String driverID = "D003";//--
 //		String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
 		String plateNum = "ABC-1234";	
-		///////////////////////////區域變數給初始值
+		///////////////////////////區域變數給初始值--圖片
 		byte[] licence = null;
 		byte[] criminal = null;
 		byte[] trafficRecord = null;
@@ -157,8 +132,6 @@ req.setCharacterEncoding("UTF-8");
 		byte[] photo = null;
 //		Part parts = req.getPart("licence");
 		Collection<Part> parts = req.getParts();
-//		System.out.println(part);
-
 		for (Part part : parts) {
 			part.getName();
 		if (getFileNameFromPart(part) != null && part.getContentType()!=null) {//這裡是已經非空值
@@ -213,26 +186,23 @@ req.setCharacterEncoding("UTF-8");
 			}
 		}
 	}
-	
 //		轉成byte[]; 先read進來 write出去
 		Integer verified= 0;//--
 		Integer banned= 0;//--
 		Date deadline = null;//--
-		Integer onlineCar= 0;//--沒在線上
+		Integer onlineCar= 0;//--沒在線上 由session判斷
 		Integer score= 60;//--
 ////////////////////////////////////////////照片
-		
 		String carType= " ";
 		carType = new String(req.getParameter("carType").trim()); //訊息做字串處理
-		
 		if (carType == null || carType.trim().length() == 0) {
-			errorMsgs.add("訊息內容: 請勿空白");
+			errorMsgs.add("車子品牌內容: 請勿空白");
 		}
 		//////////////
-		Integer sharedCar = 0;
-		Integer pet= 0;
-		Integer smoke= 0;
-		Integer babySeat= 0;
+		Integer sharedCar ;
+		Integer pet;
+		Integer smoke;
+		Integer babySeat;
 		sharedCar = new Integer(req.getParameter("sharedCar"));
 		pet = new Integer(req.getParameter("pet"));
 		smoke = new Integer(req.getParameter("smoke"));
@@ -257,7 +227,6 @@ req.setCharacterEncoding("UTF-8");
 		driverVO.setPet(pet);
 		driverVO.setSmoke(smoke);
 		driverVO.setBabySeat(babySeat);//
-//		dao.insert(driverVO;ㄥ
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
 			req.setAttribute("driverVO", driverVO); // // 含有輸入格式錯誤的empVO物件,也存入req
@@ -281,7 +250,6 @@ req.setCharacterEncoding("UTF-8");
 		String url = "/front-end/driver/listOneDriver.jsp";
 		RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllBrod.jsp
 		successView.forward(req, res);
-
 		/***************************其他可能的錯誤處理*****************************/
 		} 
 //    catch (Exception e) {
@@ -291,38 +259,6 @@ req.setCharacterEncoding("UTF-8");
 //			failureView.forward(req, res);
 //		}
 	}
-///////////////////////////////////////////////////////////	
-	//old insert
-//		if ("INSERT".equals(action)) { // 來自value=INSERT
-//			try {
-//				memID = req.getParameter("memID");
-//				if (memID == null || memID.trim().length() == 0) {
-//					errorMsgs.add("會員編號未填寫");
-//				}
-//				if (!errorMsgs.isEmpty()) {
-//					req.setAttribute("driverVO", driverVO);
-//					failurePage = req.getRequestDispatcher("/front-end/driver/addDriver.jsp");
-//					return;
-//				}
-//
-//				/************** step2.開始新增資料 *****************/
-
-//				if (addedDriverVO == null) {
-//					errorMsgs.add("無法新增至DB");
-//				}
-//				/**************step3.開始新增完成，轉交ListAllDriver頁面*****************/
-//				String url="/front-end/driver/listAllDriver.jsp";
-//				RequestDispatcher successPage =req.getRequestDispatcher(url);
-//				successPage.forward(req, res);
-//			} catch (Exception e) {
-//				/**************step4.處理其他可能的錯誤，轉交addDriver頁面*****************/
-//				e.printStackTrace();
-//				errorMsgs.add("無法取得修改資料"+e.getMessage());
-//			}
-//			failurePage=req.getRequestDispatcher("/front-end/driver/addDriver.jsp");
-//			failurePage.forward(req, res);
-//		}
-//			
 //	//////////////////////////////////////////////////
 //		
 //		//來自homeDriver.jsp的請求
@@ -366,6 +302,166 @@ req.setCharacterEncoding("UTF-8");
 //	update
 //	Date deadline = null;//被ban的時間
 //	driverVO.setDeadline(deadline);//修改時使用
+	//////////////////////////////////////
+//	if ("update".equals(action)) { //司機用(僅含喜好設定需改寫DAO)
+//		List<String> errorMsgs = new LinkedList<String>();
+//		// Store this set in the request scope, in case we need to
+//		// send the ErrorPage view.
+//		req.setAttribute("errorMsgs", errorMsgs);
+//		GroupBandService groupBandService = new GroupBandService();
+//		try {
+//			/***********************1.�����ШD�Ѽ� - ��J�榡�����~�B�z*************************/
+//			GroupBandVO groupBandVO = new GroupBandVO();
+//			String content =" ";	
+//			
+//			
+//			java.sql.Timestamp launchTime = null;
+////			try {
+//			String launchTimes =null;
+//			launchTimes = req.getParameter("LaunchTime");
+//			SimpleDateFormat simpleDateFormats = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//			
+//			launchTime = new Timestamp(simpleDateFormats.parse(launchTimes).getTime());
+//			
+//			String introduction = req.getParameter("introduction");
+//			String introduc = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{1,20}$";
+//			if (introduction == null || introduction.trim().length() == 0) {
+//				errorMsgs.add("簡介: 請勿空白");
+//			} else if(!introduction.trim().matches(introduc)) { //以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.add("簡介: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+//            }
+//			Integer groupStatus =1;
+//			
+//					
+//			Integer currenTnum  =1;
+//			
+//			
+//			Integer upperLimit = new Integer(req.getParameter("upperlimit").trim());
+//			
+//			
+//			Integer lowerLimit = new Integer(req.getParameter("lowerlimit").trim());
+//			
+//			
+//			String groupName =req.getParameter("groupName");
+//			String groupN = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
+//			if (groupName == null || groupName.trim().length() == 0) {
+//				errorMsgs.add("團名: 請勿空白");
+//			} else if(!groupName.trim().matches(groupN)) { //以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.add("團名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+//            }
+//			if("1".equals(req.getParameter("privates"))) {
+//			privates = new Integer(req.getParameter("privates").trim());	
+//			}else {
+//			privates =0;	
+//				  }
+//			
+//			
+//			GroupBandVO groupBandVO1 = (GroupBandVO)groupBandService.getOneGroupBand(req.getParameter("groupID"));
+//			
+//			String groupType = req.getParameter("groupType");
+//			
+//			
+//			Integer totalAmout	=0;
+//			
+//		
+//			java.sql.Timestamp startTime = null;
+//			try {
+//			String startTimes =null;
+////			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//		
+//			if("1".equals(req.getParameter("orderT"))) {
+//				startTimes=req.getParameter("startTime");
+//				if(startTimes==null || "".equals(startTimes)) {
+//					errorMsgs.add("日期: 請勿空白");
+//					startTime=new java.sql.Timestamp(System.currentTimeMillis());
+//					
+//				}
+//			}
+//			else {
+//			    startTimes=req.getParameter("startTimes");
+//			    if(startTimes==null || "".equals(startTimes)) {
+//					errorMsgs.add("日期: 請勿空白");
+//					startTime=new java.sql.Timestamp(System.currentTimeMillis());
+//					
+//				}
+//			}
+//			} catch (IllegalArgumentException e) {
+//				startTime=new java.sql.Timestamp(System.currentTimeMillis());
+//				errorMsgs.add("請輸入日期!");
+//			}
+//			Integer rate =5;
+//			
+//			String note =req.getParameter("note");
+//			String notes = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
+//			if (note == null || note.trim().length() == 0) {
+//				errorMsgs.add("備註: 請勿空白");
+//			} else if(!note.trim().matches(notes)) { //以下練習正則(規)表示式(regular-expression)
+//				errorMsgs.add("備註: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+//            }
+	/////////////////喜好設定 (司機)
+	String memID = "M003" ;//--
+//	String driverID = "D003";//--
+//	String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
+//	Integer sharedCar = 0;
+//	Integer pet= 0;
+//	Integer smoke= 0;
+//	Integer babySeat= 0;
+//	sharedCar = new Integer(req.getParameter("sharedCar"));
+//	pet = new Integer(req.getParameter("pet"));
+//	smoke = new Integer(req.getParameter("smoke"));
+//	babySeat =new Integer(req.getParameter("babySeat"));
+	/////////////////
+		//	DriverVO driverVO = new DriverVO();
+		//	driverVO.setMemID(memID);
+		////	driverVO.setDriverID(driverID);//
+		//	driverVO.setPlateNum(plateNum);
+		//	driverVO.setLicence(licence);
+		//	driverVO.setCriminal(criminal);
+		//	driverVO.setTrafficRecord(trafficRecord);
+		//	driverVO.setIdNum(idNum);
+		//	driverVO.setPhoto(photo);
+		//	driverVO.setVerified(verified);
+		//	driverVO.setBanned(banned);
+		//	driverVO.setDeadline(deadline);
+		//	driverVO.setOnlineCar(onlineCar);//
+		//	driverVO.setScore(score);
+		//	driverVO.setCarType(carType);
+		//	driverVO.setSharedCar(sharedCar);//
+		//	driverVO.setPet(pet);
+		//	driverVO.setSmoke(smoke);
+		//	driverVO.setBabySeat(babySeat);//
+	// Send the use back to the form, if there were errors
+//			if (!errorMsgs.isEmpty()) {
+//				req.setAttribute("driverVO", driverVO); // // 含有輸入格式錯誤的empVO物件,也存入req
+//	//			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/driver/----addDriver.jsp");//更新成功
+//				failureView.forward(req, res);
+//				return;
+//			}
+//			
+//			/********************* *2.開始新增資料*****************************************/
+	/* 從哪一個session取得的driverID所查到的---addDriver.jsp取得的資料，透過DriverService操作DAO存進資料庫 */
+//	DriverService driverSvc ; // 以VO物件傳送參數
+//	driverSvc = new DriverService();
+//	driverVO = driverSvc.addDriver(memID, 
+////			driverID, 
+//			plateNum,
+////			licence, criminal, trafficRecord, idNum, photo, 
+//			verified, banned, deadline, onlineCar, score, carType, sharedCar, pet, smoke, babySeat);
+//	/***************************
+//			/***************************3.�s�W����,�ǳ����(Send the Success view)***********/
+////			req.setAttribute("GroupBandVO", groupBandVO);
+//			String url = "/front-end/groupBand/listAllGroupBand.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
+//			successView.forward(req, res);				
+//			
+//			/***************************��L�i�઺���~�B�z**********************************/
+//		} catch (Exception e) {
+//			errorMsgs.add(e.getMessage());
+//			RequestDispatcher failureView = req
+//					.getRequestDispatcher("/front-end/groupBand/updateGroupBand.jsp");
+//			failureView.forward(req, res);
+//		}		
+//   	}
 	
 /////////////////	
 	/* 處理圖片存進資夾，以便以名稱顯示在網頁上 */
