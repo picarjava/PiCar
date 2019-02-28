@@ -1,20 +1,20 @@
 package com.storeRecord.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class StoreRecordVO implements java.io.Serializable{
 	
-	private String recordID;
+	private String storeID;
 	private String memID;
-	private Date saveDate;
+	private Timestamp saveDate;
 	private Integer amount;
 	
-	public String getRecordID() {
-		return recordID;
+	public String getStoreID() {
+		return storeID;
 	}
 	
-	public void setRecordID(String recordID) {
-		this.recordID = recordID;
+	public void setStoreID(String storeID) {
+		this.storeID = storeID;
 	}
 	
 	public String getMemID() {
@@ -25,11 +25,11 @@ public class StoreRecordVO implements java.io.Serializable{
 		this.memID = memID;
 	}
 	
-	public Date getSaveDate() {
+	public Timestamp getSaveDate() {
 		return saveDate;
 	}
 	
-	public void setSaveDate(Date saveDate) {
+	public void setSaveDate(Timestamp saveDate) {
 		this.saveDate = saveDate;
 	}
 	
