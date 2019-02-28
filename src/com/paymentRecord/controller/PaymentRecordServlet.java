@@ -21,7 +21,7 @@ import com.rate.model.RateService;
 import com.rate.model.RateVO;
 
 /**
- * Servlet implementation class MemberServlet
+ * Servlet implementation class PaymentRecordServlet
  */
 
 public class PaymentRecordServlet extends HttpServlet {
