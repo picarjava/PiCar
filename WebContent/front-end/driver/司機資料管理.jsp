@@ -182,7 +182,7 @@ photo-->
 								<%-- 								<input type="hidden" name="msgID"  value="${brodVO.msgID}"> --%>
 							</div>
 							<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
-							<input type="hidden" name="action" value="UPDATE">
+							<input type="hidden" name="action" value="UPDATE_DRI"">
 
 						</form>
 

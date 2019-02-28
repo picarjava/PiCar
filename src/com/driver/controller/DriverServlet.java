@@ -32,8 +32,6 @@ import javax.servlet.http.Part;
 import com.driver.model.DriverJDBCDAO;
 import com.driver.model.DriverService;
 import com.driver.model.DriverVO;
-import com.groupBand.model.GroupBandService;
-import com.groupBand.model.GroupBandVO;
 @MultipartConfig
 //(fileSizeThreshold = 1024 * 1024, maxFileSize = 50 * 1024 * 1024, maxRequestSize = 5 * 50 * 1024 * 1024)
 public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖片 根據專ˋ pic跟後台講。show出哪一張
@@ -303,18 +301,16 @@ req.setCharacterEncoding("UTF-8");
 //	Date deadline = null;//被ban的時間
 //	driverVO.setDeadline(deadline);//修改時使用
 	//////////////////////////////////////
-//	if ("update".equals(action)) { //司機用(僅含喜好設定需改寫DAO)
+//	if ("UPDATE_DRI".equals(action)) { //前端司機用(僅含喜好設定需改寫DAO)
 //		List<String> errorMsgs = new LinkedList<String>();
 //		// Store this set in the request scope, in case we need to
 //		// send the ErrorPage view.
 //		req.setAttribute("errorMsgs", errorMsgs);
 //		GroupBandService groupBandService = new GroupBandService();
 //		try {
-//			/***********************1.�����ШD�Ѽ� - ��J�榡�����~�B�z*************************/
-//			GroupBandVO groupBandVO = new GroupBandVO();
+//			/***********************1.接收請求參數*************************/
+//			DriverVO driverVO = new DriverVO();
 //			String content =" ";	
-//			
-//			
 //			java.sql.Timestamp launchTime = null;
 ////			try {
 //			String launchTimes =null;
@@ -332,15 +328,11 @@ req.setCharacterEncoding("UTF-8");
 //            }
 //			Integer groupStatus =1;
 //			
-//					
 //			Integer currenTnum  =1;
-//			
 //			
 //			Integer upperLimit = new Integer(req.getParameter("upperlimit").trim());
 //			
-//			
 //			Integer lowerLimit = new Integer(req.getParameter("lowerlimit").trim());
-//			
 //			
 //			String groupName =req.getParameter("groupName");
 //			String groupN = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
@@ -355,41 +347,9 @@ req.setCharacterEncoding("UTF-8");
 //			privates =0;	
 //				  }
 //			
-//			
 //			GroupBandVO groupBandVO1 = (GroupBandVO)groupBandService.getOneGroupBand(req.getParameter("groupID"));
 //			
 //			String groupType = req.getParameter("groupType");
-//			
-//			
-//			Integer totalAmout	=0;
-//			
-//		
-//			java.sql.Timestamp startTime = null;
-//			try {
-//			String startTimes =null;
-////			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//		
-//			if("1".equals(req.getParameter("orderT"))) {
-//				startTimes=req.getParameter("startTime");
-//				if(startTimes==null || "".equals(startTimes)) {
-//					errorMsgs.add("日期: 請勿空白");
-//					startTime=new java.sql.Timestamp(System.currentTimeMillis());
-//					
-//				}
-//			}
-//			else {
-//			    startTimes=req.getParameter("startTimes");
-//			    if(startTimes==null || "".equals(startTimes)) {
-//					errorMsgs.add("日期: 請勿空白");
-//					startTime=new java.sql.Timestamp(System.currentTimeMillis());
-//					
-//				}
-//			}
-//			} catch (IllegalArgumentException e) {
-//				startTime=new java.sql.Timestamp(System.currentTimeMillis());
-//				errorMsgs.add("請輸入日期!");
-//			}
-//			Integer rate =5;
 //			
 //			String note =req.getParameter("note");
 //			String notes = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
@@ -399,7 +359,7 @@ req.setCharacterEncoding("UTF-8");
 //				errorMsgs.add("備註: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 //            }
 	/////////////////喜好設定 (司機)
-	String memID = "M003" ;//--
+//	String memID = "M003" ;//--
 //	String driverID = "D003";//--
 //	String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
 //	Integer sharedCar = 0;
@@ -440,8 +400,8 @@ req.setCharacterEncoding("UTF-8");
 //			
 //			/********************* *2.開始新增資料*****************************************/
 	/* 從哪一個session取得的driverID所查到的---addDriver.jsp取得的資料，透過DriverService操作DAO存進資料庫 */
-//	DriverService driverSvc ; // 以VO物件傳送參數
-//	driverSvc = new DriverService();
+//	DriverService driverSvc1 ; // 以VO物件傳送參數
+//	driverSvc1 = new DriverService();
 //	driverVO = driverSvc.addDriver(memID, 
 ////			driverID, 
 //			plateNum,
@@ -462,6 +422,16 @@ req.setCharacterEncoding("UTF-8");
 //			failureView.forward(req, res);
 //		}		
 //   	}
+	/////////////////
+//	給後端update使用()可參考全寫法
+//	DEADLINE DATE
+//	java.sql.Date time = null;
+//	try {
+//		time = java.sql.Date.valueOf(req.getParameter("time").trim());		
+//	} catch (IllegalArgumentException e) {
+//		time = new java.sql.Date(System.currentTimeMillis());
+//		errorMsgs.add("請輸入日期");
+//	}
 	
 /////////////////	
 	/* 處理圖片存進資夾，以便以名稱顯示在網頁上 */
