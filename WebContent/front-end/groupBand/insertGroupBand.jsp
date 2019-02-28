@@ -178,7 +178,7 @@ th, td {
 				<td>上車日期</td>
 
 				<td><input name="startTime" id="start_date" type="text"
-					style="display: none" > 
+					style="display: none" onchange="datestamps(this.value);" > 
 					<input name="startTimes" id="f_date1"
 					type="text"></td>
 							<td id="enddate" style="display:none" >	
@@ -237,26 +237,88 @@ try {
 %> 
 <script>
 
-function timestamps(s) {
+function datestamps(dater){
+	end_date = document.getElementById("end_date");
+	days = document.getElementById("days");
+	
+	var todays = new Date(dater);
+	var todayss =todays.getTime();
+	
+	var timers=parseInt(days.value)+1;
+	var ss = new Date(1970,0,timers);
+	
+	var day3=ss.getTime();
+	day3=day3+todayss;
+
+	var d = new Date();
+
+	d.setTime(day3);
+
+
+
+	qr =d.getDate();
+	Month = d.getMonth()+1;
+	date = d.getDate();
+
+	//小於10的日期轉換 例01 02 03
+	if(parseInt(Month)<10)
+		{
+		Month="0"+Month;
+		
+		}
+		
+	//小於10的日期轉換 例01 02 03
+	if(parseInt(date)<10)
+	{
+		date="0"+date;
+
+	}	
+
+	end_date.value=d.getFullYear()+"-"+Month+"-"+date;
+	}
+
+function timestamps(timer) {
 	end_date = document.getElementById("end_date");
 	start_date =document.getElementById("start_date");
-	//放入日期 日期時間轉換
-		alert("++++");
-	var todays = new Date(start_date.value);
 	
-	 var date =todays.getDate();
-	 datenumber = parseInt(date);
-	 snumber = parseInt(s);
-	 datenumber =datenumber+snumber;
-	 var month =todays.getMonth()+1;
-	 var year = todays.getFullYear();
-	 
+	//放入日期 日期時間轉換		
+	var todays = new Date(start_date.value);
+	var todayss =todays.getTime();
+	
 
-//	alert(month);
-// 	s.split(" ",sa);
-// var d=new Data(s);
-// d.getYear()+days;
-end_date.value=datenumber;
+	var timers=parseInt(timer)+1;
+	
+ 	var ss = new Date(1970,0,timers);
+	
+
+var day3=ss.getTime();
+day3=day3+todayss;
+
+var d = new Date();
+
+d.setTime(day3);
+
+
+
+qr =d.getDate();
+Month = d.getMonth()+1;
+date = d.getDate();
+
+//小於10的日期轉換 例01 02 03
+if(parseInt(Month)<10)
+	{
+	Month="0"+Month;
+	
+	}
+	
+//小於10的日期轉換 例01 02 03
+if(parseInt(date)<10)
+{
+	date="0"+date;
+
+}	
+
+end_date.value=d.getFullYear()+"-"+Month+"-"+date;
 }
 
 </script>
