@@ -178,11 +178,11 @@ th, td {
 				<td>上車日期</td>
 
 				<td><input name="startTime" id="start_date" type="text"
-					style="display: none" onchange="timestamps(this.value);"> 
+					style="display: none" > 
 					<input name="startTimes" id="f_date1"
 					type="text"></td>
 							<td id="enddate" style="display:none" >	
-				<select id="days" name="days" style="display: none">
+				<select id="days" name="days" style="display: none" onchange="timestamps(this.value);">
 		
 						<%
 							for (int a = 1; a < 20; a++) {
@@ -239,16 +239,24 @@ try {
 
 function timestamps(s) {
 	end_date = document.getElementById("end_date");
-	days=document.getElementById("days");
+	start_date =document.getElementById("start_date");
 	//放入日期 日期時間轉換
-	var todays = new Date(s) ;
+		alert("++++");
+	var todays = new Date(start_date.value);
 	
-	alert(s);
-	alert(todays);
+	 var date =todays.getDate();
+	 datenumber = parseInt(date);
+	 snumber = parseInt(s);
+	 datenumber =datenumber+snumber;
+	 var month =todays.getMonth()+1;
+	 var year = todays.getFullYear();
+	 
+
+//	alert(month);
 // 	s.split(" ",sa);
 // var d=new Data(s);
 // d.getYear()+days;
-end_date.value=s;
+end_date.value=datenumber;
 }
 
 </script>
