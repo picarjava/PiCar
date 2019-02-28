@@ -315,7 +315,11 @@ public class DriverJDBCDAO implements DriverDAO_interface {
 
 	}
 
-
+	@Override
+	public void updatedri(DriverVO driverVO) {
+		// TODO Auto-generated method stub
+		
+	}
 
 
 }

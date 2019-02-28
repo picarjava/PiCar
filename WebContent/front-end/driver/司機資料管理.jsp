@@ -165,15 +165,17 @@ photo-->
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="basic-addon1">接單狀態碼(被ban後台)</span>
 								</div>
-								<input type="text" class="form-control" placeholder="1"
-									aria-label="Username" aria-describedby="basic-addon1" readonly>
+<!-- 								<input type="text" class="form-control" placeholder="1" -->
+<!-- 									aria-label="Username" aria-describedby="basic-addon1" readonly> -->
+								<font color="pink"><c:out value="${driverVO.Banned}" default="表現不錯，沒被BAN" /></font>
 							</div>
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="basic-addon1">到期日(被ban後台)</span>
 								</div>
-								<input type="text" class="form-control" placeholder="2018/01/02"
-									aria-label="Username" aria-describedby="basic-addon1" readonly>
+								<font color="pink"><c:out value="${driverVO.Deadline}" default="表現不錯，繼續開車" /></font>
+<!-- 								<input type="text" class="form-control" placeholder="2018/01/02" -->
+<!-- 									aria-label="Username" aria-describedby="basic-addon1" readonly> -->
 							</div>
 
 
