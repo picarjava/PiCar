@@ -178,7 +178,7 @@ th, td {
 				<td>上車日期</td>
 
 				<td><input name="startTime" id="start_date" type="text"
-					style="display: none" onchange="datestamps(this.value);" > 
+					style="display: none" onchange="datestamps(this.value);" ><nobr id="datetime"  style="display: none">我</nobr>  
 					<input name="startTimes" id="f_date1"
 					type="text"></td>
 							<td id="enddate" style="display:none" >	
@@ -231,7 +231,8 @@ try {
 function datestamps(dater){
 	end_date = document.getElementById("end_date");
 	days = document.getElementById("days");
-	
+	datetime =document.getElementById("datetime");
+	start_date =document.getElementById("start_date");
 	//取得使用者輸入的日期 
 	var totalAmount = new Date(dater);
 	
@@ -307,6 +308,27 @@ function datestamps(dater){
 	//將日期月份轉換完顯示在畫面上
 	end_date.value=d.getFullYear()+"-"+Month+"-"+date;
 	
+	//時間轉換
+	var hour=totalAmount.getHours();
+	var min=totalAmount.getMinutes();
+	
+	if(totalAmount.getHours()<10)
+	{
+		hour="0"+hour;		
+	}
+	
+	if(totalAmount.getMinutes()<10)
+	{
+		min="0"+min;		
+	}
+	
+	
+	
+	//將時間月份轉換完顯示在畫面上
+	datetime.innerHTML="";
+	datetime.innerHTML=hour+":"+min;
+	
+	
 	if(days.innerHTML=="")
 	{
 		if(days.innerHTML=="")
@@ -314,12 +336,14 @@ function datestamps(dater){
 			end_date.value="以超過揪團20天的準則，請洽公開說明書";		
 		}
 	}
+	
+// 	start_date.value=totalAmount.get;
 }
 
 function timestamps(timer) {
 	end_date = document.getElementById("end_date");
 	start_date =document.getElementById("start_date");
-	
+	datetime =document.getElementById("datetime");
 	//放入日期 日期時間轉換		
 	var totalAmount = new Date(start_date.value);
 	
@@ -358,7 +382,10 @@ function timestamps(timer) {
 		date="0"+date;
 	}	
 
+	//將日期月份轉換完顯示在畫面上
 	end_date.value=d.getFullYear()+"-"+Month+"-"+date;
+	
+	
 }
 
 </script>
@@ -438,19 +465,21 @@ function timestamps(timer) {
 		enddate = document.getElementById("end_date");
 		fdate1 = document.getElementById("f_date1");
 		enddates = document.getElementById("enddate");
+		datetime =	document.getElementById("datetime");
 		if (number == 1) {
 			days.style="";
 			startdate.style = "";
 			enddate.style = "";
 			fdate1.style = "display:none";
 			enddates.style = "";
+			datetime.style="";
 		} else {
 			days.style="display:none";
 			startdate.style = "display:none";
 			enddate.style = "display:none";
 			fdate1.style = "";
 			enddates.style = "display:none";
-
+			datetime.style="display:none";
 		}
 	}
 </script>
