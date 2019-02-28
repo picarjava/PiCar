@@ -3,6 +3,9 @@ package com.member.model;
 import java.util.ArrayList;
 import java.util.List;
 import javax.sql.DataSource;
+
+import com.storeRecord.model.StoreRecordVO;
+
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
@@ -37,6 +40,8 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String UPDATE_STMT = "UPDATE MEMBER SET  NAME=?, EMAIL=?, PASSWORD=?, PHONE=?, CREDIT_CARD=?, PET=?, SMOKE=?, GENDER=?, "
 			+ "TOKEN=?, ACTIVITY_TOKEN=?, BIRTHDAY=?, VERIFIED=?, BABY_SEAT=? WHERE MEM_ID=?";
 
+	private static final String GET_AMOUT_MEM = "SELECT SUM (AMOUNT) FROM STORE_RECORD WHERE MEM_ID=?";
+	
 	@Override
 	public void insert(MemberVO memberVO) {
 		Connection con = null;
@@ -316,5 +321,57 @@ public class MemberDAO implements MemberDAO_interface {
 
 		return list;
 	}
+	
+	//以下暫時沒使用
+	
+	public Integer getSumAmount(String memID) {
+		
+		Integer sumAmount = new Integer(0);		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
 
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_AMOUT_MEM);
+			pstmt.setString(1, memID);
+			rs = pstmt.executeQuery();
+			
+			rs.next();
+			sumAmount = rs.getInt(1);			
+			
+			
+
+		} catch (SQLException se) {
+			throw new RuntimeException("SQL錯誤: " + se.getMessage());
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return sumAmount;
+		
+	}
 }

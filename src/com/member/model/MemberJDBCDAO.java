@@ -12,7 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
 
-
 //測試完成
 public class MemberJDBCDAO implements MemberDAO_interface {
 
@@ -34,6 +33,8 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 	private static final String UPDATE_STMT = "UPDATE MEMBER SET  NAME=?, EMAIL=?, PASSWORD=?, PHONE=?, CREDIT_CARD=?, PET=?, SMOKE=?, GENDER=?, "
 			+ "TOKEN=?, ACTIVITY_TOKEN=?, BIRTHDAY=?, VERIFIED=?, BABY_SEAT=? WHERE MEM_ID=?";
+
+	private static final String GET_AMOUT_MEM = "SELECT SUM (AMOUNT) FROM STORE_RECORD WHERE MEM_ID=?";
 
 	@Override
 	public void insert(MemberVO memberVO) {
@@ -331,10 +332,63 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		return list;
 	}
 
+	public Integer getSumAmount(String memID) {
+
+		Integer sumAmount = 0;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			Class.forName(driver);
+			con = DriverManager.getConnection(url, userid, passwd);
+
+			pstmt = con.prepareStatement(GET_AMOUT_MEM);
+			pstmt.setString(1, memID);
+			rs = pstmt.executeQuery();
+			rs.next();
+			sumAmount = rs.getInt(1);
+			
+
+		} catch (ClassNotFoundException se) {
+			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
+
+		} catch (SQLException se) {
+			throw new RuntimeException("SQL錯誤: " + se.getMessage());
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return sumAmount;
+	}
+
 	public static void main(String[] args) {
 
 		MemberJDBCDAO memberDAOJBDC = new MemberJDBCDAO();
-
+		System.out.println(memberDAOJBDC.getSumAmount("M001"));
 //		MemberVO mbDAO = memberDAOJBDC.findByPrimaryKey("M003");
 //		System.out.println(mbDAO.getMemID());
 //		System.out.println(mbDAO.getName());
@@ -351,28 +405,28 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //		System.out.println(mbDAO.getVerified());
 //		System.out.println(mbDAO.getBabySeat());
 
-		MemberVO mbDAO1 = new MemberVO();
-		
-//		mbDAO1.setMemID("M111");
-		mbDAO1.setName("SS");
-		mbDAO1.setEmail("ZXX");
-		mbDAO1.setPassword("XX");
-		mbDAO1.setPhone("XXXX");
-		mbDAO1.setCreditcard("XXXX");
-		mbDAO1.setPet(0);
-		mbDAO1.setSmoke(0);
-		mbDAO1.setGender(1);
-		mbDAO1.setToken(33);
-		mbDAO1.setActivityToken(444);
-		mbDAO1.setBirthday(java.sql.Date.valueOf("1988-07-07"));
-		mbDAO1.setVerified(1);
-		mbDAO1.setBabySeat(1);//	
-		memberDAOJBDC.insert(mbDAO1);
-		System.out.println(" insert ok~");
+//		MemberVO mbDAO1 = new MemberVO();
+//
+////		mbDAO1.setMemID("M111");
+//		mbDAO1.setName("SS");
+//		mbDAO1.setEmail("ZXX");
+//		mbDAO1.setPassword("XX");
+//		mbDAO1.setPhone("XXXX");
+//		mbDAO1.setCreditcard("XXXX");
+//		mbDAO1.setPet(0);
+//		mbDAO1.setSmoke(0);
+//		mbDAO1.setGender(1);
+//		mbDAO1.setToken(33);
+//		mbDAO1.setActivityToken(444);
+//		mbDAO1.setBirthday(java.sql.Date.valueOf("1988-07-07"));
+//		mbDAO1.setVerified(1);
+//		mbDAO1.setBabySeat(1);//
+//		memberDAOJBDC.insert(mbDAO1);
+//		System.out.println(" insert ok~");
 
 //		memberDAOJBDC.delete("M111");
 //		System.out.println("delete ok~");
-		
+
 //		List<MemberVO> list = memberDAOJBDC.getAll();
 //		for(MemberVO mbDAO2 : list) {
 //			System.out.println(mbDAO2);
@@ -391,7 +445,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //			System.out.println(mbDAO2.getVerified());
 //			System.out.println(mbDAO2.getBabySeat());
 //			System.out.println("==============================");
-		
+
 //		MemberVO mbDAO1 = new MemberVO();
 //		
 //		mbDAO1.setMemID("M001");
@@ -411,7 +465,6 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 //		memberDAOJBDC.update(mbDAO1);
 //		System.out.println(" update ok~");
 //			
-		
 
 	}
 

@@ -157,8 +157,9 @@ public class MemberServlet extends HttpServlet {
 			req.setAttribute("errorMsgs", errorMsgs);
 			
 			try {
-				String memID = new String(req.getParameter("memID"));
+				String memID = new String(req.getParameter("memID").trim());
 				
+		
 				String name = req.getParameter("name");
 				String nameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,20}$";
 				if (name ==null || name.trim().length() == 0) {
@@ -185,7 +186,11 @@ public class MemberServlet extends HttpServlet {
 				}
 				Integer token = null;
 				try {
+					MemberDAO memberDAO = new MemberDAO();		
+					
+//					token = memberDAO.getSumAmount(memID);
 					token = new Integer(req.getParameter("token").trim());
+//					token = token + memberDAO.getSumAmount(memID);
 				} catch (NumberFormatException e) {
 					token = 0;
 					errorMsgs.add("代幣請填數字.");
