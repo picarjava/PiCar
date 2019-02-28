@@ -240,6 +240,11 @@ try {
 function timestamps(s) {
 	end_date = document.getElementById("end_date");
 	days=document.getElementById("days");
+	//放入日期 日期時間轉換
+	var todays = new Date(s) ;
+	
+	alert(s);
+	alert(todays);
 // 	s.split(" ",sa);
 // var d=new Data(s);
 // d.getYear()+days;
@@ -269,7 +274,7 @@ end_date.value=s;
 		theme : '', //theme: 'dark',
 		timepicker : true, //timepicker: false,
 		step : 1, //step: 60 (這是timepicker的預設間隔60分鐘)
-		format : 'Y-m-d H:i:s',
+		format : 'Y-m-d H:i',
 		//value : new Date(),
 		value : '<%=startTime%>',
 	//disabledDates:    ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
@@ -284,7 +289,7 @@ end_date.value=s;
 	//$(function() {
 		$('#start_date').datetimepicker(
 				{
-					format : 'Y-m-d H:i:s',
+					format : 'Y-m-d H:i',
 					onShow : function() {
 						this.setOptions({
 							maxDate : $('#start_date').val() ? $('+1970-01-20')
