@@ -12,6 +12,7 @@ import javax.servlet.RequestDispatcher;
 
 import com.member.model.*;
 import java.util.LinkedList;
+import com.storeRecord.model.*;
 
 /**
  * Servlet implementation class MemberServlet
@@ -32,8 +33,6 @@ public class MemberServlet extends HttpServlet {
 //		PrintWriter out = res.getWriter();
 
 		// getALL getALL getALL getALL getALL getALL getALL
-		
-		
 
 		if ("getAll".equals(action)) {
 
@@ -41,17 +40,16 @@ public class MemberServlet extends HttpServlet {
 			MemberDAO memberDAO = new MemberDAO();
 			List<MemberVO> list = memberDAO.getAll();
 
-			//將資料存於set於session
+			// 將資料存於set於session
 			HttpSession session = req.getSession();
 			session.setAttribute("list", list);
 
-			//將控制權轉送給listAllMember_getFormSession.jsp
+			// 將控制權轉送給listAllMember_getFormSession.jsp
 			String url = "/member/listAllMember_getFormSession.jsp";
 			RequestDispatcher successView = req.getRequestDispatcher(url);
 			successView.forward(req, res);
 			return;
 		}
-		
 
 		if ("getOne_For_Display".equals(action)) {
 
@@ -97,77 +95,72 @@ public class MemberServlet extends HttpServlet {
 //					failureView.forward(req, res);
 //					return;
 //				}
-				
+
 				// 開始查詢資料使用01，使用facade模式，新增sevice.java為DAO跟controller的橋樑
-				
+
 				MemberService memberSvc = new MemberService();
 				MemberVO memberVO = memberSvc.getOneMember(memID);
 				if (memberVO == null) {
 					errorMsgs.add("查無資料");
 				}
-				
+
 				if (!errorMsgs.isEmpty()) {
 					RequestDispatcher failureView = req.getRequestDispatcher("/member/select_page.jsp");
 					failureView.forward(req, res);
 					return;
 				}
-				
+
 				// 準備轉交
 				req.setAttribute("memberVO", memberVO);
-				String url = "/member/listOneMember.jsp";
-				RequestDispatcher successView = req.getRequestDispatcher(url);
+
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMember.jsp");
 				successView.forward(req, res);
 			} catch (Exception e) {
-				errorMsgs.add("無法取得資料:"+e.getMessage());
+				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/member/select_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
-		
-		
-		
-		
+
 		if ("getOne_For_Update".equals(action)) {
 			// 建立錯誤的collection
-				List<String> errorMsgs = new LinkedList<String>();
-				req.setAttribute("errorMsgs", errorMsgs);	
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
 			try {
-				//接收請求參數
+				// 接收請求參數
 				String memID = new String(req.getParameter("memID"));
-				//開始查詢
+				// 開始查詢
 				MemberService memberSvc = new MemberService();
 				MemberVO memberVO = memberSvc.getOneMember(memID);
 				req.setAttribute("memberVO", memberVO);
-				//查詢完成 轉交給update_member_input.jsp 可以顯示原始的資料值
-				
-				RequestDispatcher successView = req.getRequestDispatcher("/member/update_member_input.jsp");
+				// 查詢完成 轉交給update_member_input.jsp 可以顯示原始的資料值
+
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/update_member_input.jsp");
 				successView.forward(req, res);
-				
-			}catch(Exception e) {
+
+			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
-				RequestDispatcher successView = req.getRequestDispatcher("/member/listAllmember_byDAO");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOnemember");
 				successView.forward(req, res);
 			}
-		
-		
+
 		}
-		
+
 		if ("update".equals(action)) {
 			List<String> errorMsgs = new LinkedList();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+
 			try {
 				String memID = new String(req.getParameter("memID").trim());
-				
-		
+
 				String name = req.getParameter("name");
 				String nameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,20}$";
-				if (name ==null || name.trim().length() == 0) {
+				if (name == null || name.trim().length() == 0) {
 					errorMsgs.add("員工姓名~請勿空白");
-				}else if (!name.trim().matches(nameReg)) {
+				} else if (!name.trim().matches(nameReg)) {
 					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \"  , 且長度必需在2到20之間");
 				}
-				
+
 				String email = req.getParameter("email");
 				if (email == null || email.trim().length() == 0) {
 					errorMsgs.add("EMAI請勿空白");
@@ -175,7 +168,7 @@ public class MemberServlet extends HttpServlet {
 				String password = req.getParameter("password");
 				if (password == null || password.trim().length() == 0) {
 					errorMsgs.add("password請勿空白");
-				}	
+				}
 				String phone = req.getParameter("phone");
 				if (phone == null || phone.trim().length() == 0) {
 					errorMsgs.add("phone請勿空白");
@@ -186,8 +179,8 @@ public class MemberServlet extends HttpServlet {
 				}
 				Integer token = null;
 				try {
-					MemberDAO memberDAO = new MemberDAO();		
-					
+					MemberDAO memberDAO = new MemberDAO();
+
 //					token = memberDAO.getSumAmount(memID);
 					token = new Integer(req.getParameter("token").trim());
 //					token = token + memberDAO.getSumAmount(memID);
@@ -206,10 +199,10 @@ public class MemberServlet extends HttpServlet {
 				try {
 					birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
 				} catch (IllegalArgumentException e) {
-					birthday=new java.sql.Date(System.currentTimeMillis());
+					birthday = new java.sql.Date(System.currentTimeMillis());
 					errorMsgs.add("請輸入日期!");
 				}
-				
+
 				Integer pet = new Integer(req.getParameter("pet"));
 				Integer smoke = new Integer(req.getParameter("smoke"));
 				Integer gender = new Integer(req.getParameter("gender"));
@@ -217,7 +210,7 @@ public class MemberServlet extends HttpServlet {
 				Integer babySeat = new Integer(req.getParameter("babySeat"));
 //				
 				MemberVO memberVO = new MemberVO();
-				memberVO.setMemID(memID);				
+				memberVO.setMemID(memID);
 				memberVO.setName(name);
 				memberVO.setEmail(email);
 				memberVO.setPassword(password);
@@ -230,47 +223,47 @@ public class MemberServlet extends HttpServlet {
 				memberVO.setActivityToken(activityToken);
 				memberVO.setBirthday(birthday);
 				memberVO.setVerified(verified);
-				memberVO.setBabySeat(babySeat);	
-				
+				memberVO.setBabySeat(babySeat);
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
-							.getRequestDispatcher("/member/update_member_input.jsp");
+							.getRequestDispatcher("/front-end/member/update_member_input.jsp");
 					failureView.forward(req, res);
-					return; //程式中斷				
-				}							
-				
-				//開始修改資料
+					return; // 程式中斷
+				}
+
+				// 開始修改資料
 				MemberService memberSvc = new MemberService();
-				memberVO = memberSvc.updateMember(memID, name, email, password, phone, creditcard, pet, smoke, gender, token, activityToken, birthday, verified, babySeat);
-				
-				
-				RequestDispatcher successView = req.getRequestDispatcher("/member/listAllmember_byDAO.jsp"); // 新增成功後轉交listAllmember_byDAO
+				memberVO = memberSvc.updateMember(memID, name, email, password, phone, creditcard, pet, smoke, gender,
+						token, activityToken, birthday, verified, babySeat);
+				req.setAttribute("memberVO", memberVO);
+
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMember.jsp"); // 新增成功後轉交listAllmember_byDAO
 				successView.forward(req, res);
-				
-			}catch(Exception e) {
+
+			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
-				RequestDispatcher successView = req.getRequestDispatcher("/member/update_member_input.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/update_member_input.jsp");
 				successView.forward(req, res);
-			
+
 			}
 		}
-		
+
 		if ("insert".equals(action)) {
 			List<String> errorMsgs = new LinkedList();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+
 			try {
 //				String memID = new String(req.getParameter("memID"));
-				
+
 				String name = req.getParameter("name").trim();
 				String nameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,20}$";
-				if (name ==null || name.trim().length() == 0) {
+				if (name == null || name.trim().length() == 0) {
 					errorMsgs.add("員工姓名~請勿空白");
-				}else if (!name.trim().matches(nameReg)) {
+				} else if (!name.trim().matches(nameReg)) {
 					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \"  , 且長度必需在2到20之間");
 				}
-				
+
 				String email = req.getParameter("email");
 				if (email == null || email.trim().length() == 0) {
 					errorMsgs.add("EMAI請勿空白");
@@ -278,7 +271,7 @@ public class MemberServlet extends HttpServlet {
 				String password = req.getParameter("password");
 				if (password == null || password.trim().length() == 0) {
 					errorMsgs.add("password請勿空白");
-				}	
+				}
 				String phone = req.getParameter("phone");
 				if (phone == null || phone.trim().length() == 0) {
 					errorMsgs.add("phone請勿空白");
@@ -305,10 +298,10 @@ public class MemberServlet extends HttpServlet {
 				try {
 					birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
 				} catch (IllegalArgumentException e) {
-					birthday=new java.sql.Date(System.currentTimeMillis());
+					birthday = new java.sql.Date(System.currentTimeMillis());
 					errorMsgs.add("請輸入日期!");
 				}
-				
+
 				Integer pet = new Integer(req.getParameter("pet"));
 				Integer smoke = new Integer(req.getParameter("smoke"));
 				Integer gender = new Integer(req.getParameter("gender"));
@@ -329,77 +322,61 @@ public class MemberServlet extends HttpServlet {
 				memberVO.setActivityToken(activityToken);
 				memberVO.setBirthday(birthday);
 				memberVO.setVerified(verified);
-				memberVO.setBabySeat(babySeat);	
-				
+				memberVO.setBabySeat(babySeat);
+
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
-					RequestDispatcher failureView = req
-							.getRequestDispatcher("/member/addMember1.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/member/addMember.jsp");
 					failureView.forward(req, res);
-					return; //程式中斷				
-				}							
-				
-				//開始新增資料
+					return; // 程式中斷
+				}
+
+				// 開始新增資料
 				MemberService memberSvc = new MemberService();
-				memberVO = memberSvc.addMember(name, email, password, phone, creditcard, pet, smoke, gender, token, activityToken, birthday, verified, babySeat);
-				
-				
-				RequestDispatcher successView = req.getRequestDispatcher("/member/listAllmember_byDAO.jsp"); // 新增成功後轉交listAllmember_byDAO
+				memberVO = memberSvc.addMember(name, email, password, phone, creditcard, pet, smoke, gender, token,
+						activityToken, birthday, verified, babySeat);
+				req.setAttribute("memberVO", memberVO);
+
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMember1.jsp"); // 新增成功後轉交listAllmember_byDAO
 				successView.forward(req, res);
-				
-			}catch(Exception e) {
+
+			} catch (Exception e) {
 				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
-				RequestDispatcher successView = req.getRequestDispatcher("/member/addMember1.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/addMember.jsp");
 				successView.forward(req, res);
-			
+
 			}
 		}
-		
-		
-		
-		
+
 		if ("delete".equals(action)) { // 來自listAllEmp.jsp
 
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-	
+
 			try {
-				/***************************1.接收請求參數***************************************/
+				/*************************** 1.接收請求參數 ***************************************/
 				String empno = new String(req.getParameter("memID"));
-				
-				/***************************2.開始刪除資料***************************************/
+
+				/*************************** 2.開始刪除資料 ***************************************/
 				MemberService memberSvc = new MemberService();
 				memberSvc.deleteEmp(empno);
-				
-				/***************************3.刪除完成,準備轉交(Send the Success view)***********/								
+
+				/*************************** 3.刪除完成,準備轉交(Send the Success view) ***********/
 				String url = "listAllmember_byDAO.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url);// 刪除成功後,轉交回送出刪除的來源網頁
 				successView.forward(req, res);
-				
-				/***************************其他可能的錯誤處理**********************************/
+
+				/*************************** 其他可能的錯誤處理 **********************************/
 			} catch (Exception e) {
-				errorMsgs.add("刪除資料失敗:"+e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("listAllmember_byDAO.jsp");
+				errorMsgs.add("刪除資料失敗:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("listAllmember_byDAO.jsp");
 				failureView.forward(req, res);
 			}
 		}
-
-//		MemberDAO memberDAO = new MemberDAO();
-//		MemberVO memberVO = memberDAO.findByPrimaryKey(action);
-//		System.out.println(memberVO.getCreditcard());
-//		out.println(memberVO.getName());
-
-//		List<MemberVO> list = memberDAO.getAll();
-//		for(MemberVO memberVO2 : list) {
-//			out.println(memberVO2.getName());
-//			out.println(memberVO2.getActivityToken()); 
-//		}
-
-//		memberDAO.delete("ation");
-//		out.print("delete ok");
+		
+		
 
 	}
 
