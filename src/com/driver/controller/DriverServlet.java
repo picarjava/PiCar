@@ -256,46 +256,43 @@ req.setCharacterEncoding("UTF-8");
 //					.getRequestDispatcher("/broadcast/addBrod.jsp");
 //			failureView.forward(req, res);
 //		}
-	}
+//	}
 //	//////////////////////////////////////////////////
 //		
 //		//來自homeDriver.jsp的請求
 //
-//		if("GET_ONE".equals(action)){
-//			LinkedList<String> errorMsgs=new LinkedList<String>();
-//			req.setAttribute("errorMsgs", errorMsgs);
-//			try {
-//			/*************1.接收請求參數**************/
-//			driverID=req.getParameter("driverID");
-//						
-//			/*************2查詢資料**************/
-//			DriverService driverSvc=new DriverService();
-//			DriverVO driverVO=driverSvc.getOneDriver(driverID);
-//			if(driverVO==null) {
-//				errorMsgs.add("查無此筆");
-//				failurePage=req.getRequestDispatcher("/front-end/driver/listAllDriver.jsp");
-//				failurePage.forward(req, res);
-//				return;
-//			}
-//			/*************3.圖片資料處理**************/
-//			
-//			/*************4.得到資料存在scope=request，並送出VO給處理頁面**************/
-//			//req.setAttribute("path", path);
-//			req.setAttribute("driverVO", driverVO);
-////			readPicture(activityVO.getActivityPost(),"ActivityPost.jpg"); //把海報存在某名稱
-//			String url="/front-end/driver/listOneDriver.jsp";
-//			RequestDispatcher successPage=req.getRequestDispatcher(url);
-//			successPage.forward(req, res);
-//			/*************5.處理例外**************/
-//		}catch(Exception e){
-//			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
-//			}
+		if("GET_ONE".equals(action)){
+			LinkedList<String> errorMsgs=new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+			/*************1.接收請求參數**************/
+				String driverID=req.getParameter("driverID");
+						
+			/*************2查詢資料**************/
+			DriverService driverSvc=new DriverService();
+			DriverVO driverVO=driverSvc.getOneDriver(driverID);
+			if(driverVO==null) {
+				errorMsgs.add("查無此筆");
+				RequestDispatcher failureView =req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+				RequestDispatcher  failurePage = null;
+				failurePage.forward(req, res);
+				return;
+			}
+			/*************3.得到資料存在scope=request，並送出VO給處理頁面**************/
+			req.setAttribute("driverVO", driverVO);
+//			readPicture(activityVO.getActivityPost(),"ActivityPost.jpg"); //把海報存在某名稱
+			String url="/back-end/driver/listOneDriver.jsp";
+			RequestDispatcher successPage=req.getRequestDispatcher(url);
+			successPage.forward(req, res);
+			/*************4.處理例外**************/
+		}catch(Exception e){
+			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
+			}
 //			failurePage=req.getRequestDispatcher("/front-end/driver/listAllDriver.jsp");
 //			failurePage.forward(req, res);
-//		}
-////		.equals(action)
-////		doGet(req, res);
-//	}
+		}
+	}
+	
 ////////////////////////
 //	update
 //	Date deadline = null;//被ban的時間

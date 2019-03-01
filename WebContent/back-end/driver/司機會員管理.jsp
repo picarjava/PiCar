@@ -77,7 +77,7 @@
 								<form class="form-inline"
 									action="<%=request.getContextPath()%>/front-end/driver/listOneDriver.jsp"
 									method="post">
-									<input class="form-control mr-sm-2" name="activityID"
+									<input class="form-control mr-sm-2" name="driverID"
 										type="search" placeholder="請輸入司機編號" aria-label="Search">
 									<!--隱藏的參數action讓controller抓-->
 									<input type="hidden" name="action" value="GET_ONE">
