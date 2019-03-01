@@ -222,7 +222,7 @@ public class StoreRecordServlet extends HttpServlet {
 					
 				} catch (Exception e) {
 					amount = 0;
-					errorMsgs.add("請輸入數字");
+					errorMsgs.add("請點選金額");
 				}	
 				
 				
@@ -250,6 +250,16 @@ public class StoreRecordServlet extends HttpServlet {
 				successView.forward(req, res);
 			}
 
+		}
+		if ("addToken".equals(action)) {
+			
+			String memID = req.getParameter("memID");
+			StoreRecordVO storeRecordVO = new StoreRecordVO();
+			storeRecordVO.setMemID(memID);
+			System.out.println(memID);
+			req.setAttribute("storeRecordVO", storeRecordVO);
+			RequestDispatcher successView = req.getRequestDispatcher("/storeRecord/addStoreRecord.jsp");
+			successView.forward(req, res);
 		}
 
 //		--儲值紀錄不刪除--
