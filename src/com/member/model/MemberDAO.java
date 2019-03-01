@@ -65,7 +65,6 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setDate(11, memberVO.getBirthday());
 			pstmt.setInt(12, memberVO.getVerified());
 			pstmt.setInt(13, memberVO.getBabySeat());
-			System.out.println("i'm here");
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -120,7 +119,6 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setInt(13, memberVO.getBabySeat());
 			pstmt.setString(14, memberVO.getMemID().trim());
 			
-			System.out.println(memberVO.getMemID());
 
 			pstmt.executeUpdate();
 
