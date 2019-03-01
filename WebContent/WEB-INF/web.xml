@@ -147,13 +147,23 @@
 	<servlet-name>AdminServlet</servlet-name>
 	<url-pattern>/back-end/admin/admin.do</url-pattern>
   </servlet-mapping>
+  
   <servlet> 
 <servlet-name>MemberServlet</servlet-name> 
 <servlet-class>com.member.controller.MemberServlet</servlet-class> 
 </servlet> 
 <servlet-mapping> 
 <servlet-name>MemberServlet</servlet-name> 
-<url-pattern>/member/member.do</url-pattern>
+<url-pattern>/front-end/member/member.do</url-pattern>
+</servlet-mapping> 
+
+  <servlet> 
+<servlet-name>MemberServlet1</servlet-name> 
+<servlet-class>com.member.controller.MemberServlet1</servlet-class> 
+</servlet> 
+<servlet-mapping> 
+<servlet-name>MemberServlet1</servlet-name> 
+<url-pattern>/back-end/member/member.do</url-pattern>
 </servlet-mapping> 
 
 <servlet> 
