@@ -14,3 +14,4 @@
     
     <!-- Template Main Javascript File -->
     <script src="<%=request.getContextPath()%>/regna-master/js/main.js"></script>
+    

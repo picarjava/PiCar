@@ -9,7 +9,24 @@
     List<GroupBandVO> list = groupBandSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
-    
+    <link href="img/favicon.png" rel="icon">
+<link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700"
+	rel="stylesheet">
+
+<!-- Bootstrap CSS File -->
+<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Libraries CSS Files -->
+<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="lib/animate/animate.min.css" rel="stylesheet">
+
+<!-- Main Stylesheet File -->
+<link href="css/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css">
     
 <!DOCTYPE html>
 <html>
@@ -65,7 +82,7 @@
 <a href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/insertGroupBand.jsp" >發起揪團</a>
 <a href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/SelectGroupBand.jsp" >查詢單筆</a>
 
-<table >
+<table  class="table">
 <tr>
 <th>揪團ID</th>
 <th>留言板內容</th>

@@ -9,6 +9,23 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link href="img/favicon.png" rel="icon">
+<link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700"
+	rel="stylesheet">
+
+<!-- Bootstrap CSS File -->
+<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Libraries CSS Files -->
+<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="lib/animate/animate.min.css" rel="stylesheet">
+
+<!-- Main Stylesheet File -->
+<link href="css/style.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.js"></script>
@@ -55,7 +72,7 @@ th, td {
 }
 </style>
 </head>
-<body bgcolor=#aaaaaa>
+<body bgcolor="#aaaaaa">
 
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
@@ -82,7 +99,7 @@ th, td {
 	<h3>發起揪團</h3>
 
 	<form action="<%=request.getServletContext().getContextPath()%>/GroupBand" method="POST" enctype="multipart/form-data">
-		<table border="1">
+		<table border="1" class="table">
 
 			<tr>
 				<td><input type="radio" name="orderT" value="0" checked
@@ -273,7 +290,7 @@ function datestamps(dater){
 	var timers=parseInt(days.value)+1;
 	
 	//宣告一個1970年的格式 ，為了計算目前日期+上天數，這段程式碼天數轉換
-	var dateAmount = new Date(1970,0,timers+1);
+	var dateAmount = new Date(1970,0,timers);
 	
 	//將1970年格式轉成毫秒
 	var day3=dateAmount.getTime();
@@ -354,7 +371,7 @@ function timestamps(timer) {
 	var timers=parseInt(timer)+1;
 	
 	//宣告一個1970年的格式 ，為了計算目前日期+上天數，這段程式碼天數轉換
- 	var dateAmount = new Date(1970,0,timers+1);
+ 	var dateAmount = new Date(1970,0,timers);
 	
  	//將1970年格式轉成毫秒
 	var day3=dateAmount.getTime();
