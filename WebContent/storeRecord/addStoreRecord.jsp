@@ -6,7 +6,9 @@
 <html>
 <head>
 <meta charset="BIG5">
-<title>Insert title here</title>
+<title>addStoreRecord.jsp</title>
+
+
 </head>
 <style>
 table{
@@ -18,7 +20,7 @@ table{
 	StoreRecordVO storeRecordVO =  (StoreRecordVO)request.getAttribute("storeRecordVO");
 
 %>
- <h3>addPaymentRecord.jsp</h3>
+ <h3>addStoreRecord.jsp</h3>
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -41,9 +43,16 @@ table{
 		</tr>
 		<tr>
 			<td>儲值金額：</td>
-			<td><input type="text" name="amount" size="45" value="<%= (storeRecordVO==null)? "0":storeRecordVO.getAmount() %>" /></td>		
+			<td><input type="radio" name="amount" value="1000">1000 
+				<input type="radio" name="amount" value="500">500 
+				<input type="radio" name="amount" value="300">300
+			</td>					
 		</tr>
-		
+		<tr>
+			<td>輸入信用卡號：</td>
+			<td><input type="text"  size="45"  />
+			</td>					
+		</tr>
 		<%-- <tr>
 			<td>撥款日期：</td>
 			<td><input type="text" name="payTime"  id="f_date1" size="45" ></td>		
@@ -53,7 +62,7 @@ table{
 	</table>                          
 	
 	<input type="hidden" name="action" value="insert">
-	<input type="submit" value="送出新增">
+	<input type="submit" value="結帳">
 </form>
 
 
