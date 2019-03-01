@@ -190,5 +190,12 @@
 <servlet-name>StoreRecordServlet</servlet-name> 
 <url-pattern>/storeRecord/storeRecord.do</url-pattern> 
 </servlet-mapping>
-  
+<servlet>
+  <servlet-name>singleOrderApi</servlet-name>
+  <servlet-class>android.com.singleOrder.controller.SingleOrderServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>singleOrderApi</servlet-name>
+  <url-pattern>/singleOrderApi</url-pattern>
+</servlet-mapping>
 </web-app>
