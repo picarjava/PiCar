@@ -13,8 +13,11 @@
 <meta content="" name="description">
 
 <!-- Favicons -->
-<link href="<%=request.getContextPath()%>/regna-master/img/favicon.png" rel="icon">
-<link href="<%=request.getContextPath()%>/regna-master/img/apple-touch-icon.png" rel="apple-touch-icon">
+<link href="<%=request.getContextPath()%>/regna-master/img/favicon.png"
+	rel="icon">
+<link
+	href="<%=request.getContextPath()%>/regna-master/img/apple-touch-icon.png"
+	rel="apple-touch-icon">
 
 <!-- Google Fonts -->
 <link
@@ -22,14 +25,21 @@
 	rel="stylesheet">
 
 <!-- Bootstrap CSS File -->
-<link href="<%=request.getContextPath()%>/regna-master/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/regna-master/lib/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- Libraries CSS Files -->
-<link href="<%=request.getContextPath()%>/regna-master/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-<link href="<%=request.getContextPath()%>/regna-master/lib/animate/animate.min.css" rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/regna-master/lib/font-awesome/css/font-awesome.min.css"
+	rel="stylesheet">
+<link
+	href="<%=request.getContextPath()%>/regna-master/lib/animate/animate.min.css"
+	rel="stylesheet">
 
 <!-- Main Stylesheet File -->
-<link href="<%=request.getContextPath()%>/regna-master/css/style.css" rel="stylesheet">
+<link href="<%=request.getContextPath()%>/regna-master/css/style.css"
+	rel="stylesheet">
 
 <!-- =======================================================
     Theme Name: Regna
@@ -46,19 +56,68 @@
 	<!--==========================
       預約叫車
     ============================-->
+	//
 	<section id="contact">
 		<div class="container wow fadeInUp">
-			<div class="section-header">
-				<h3 class="section-title">司機會員管理(後端_更改司機)</h3>
-				<p class="section-description">請查看與修改資料</p>
+			<div class="col-lg-12 col-md-12">
+				<div class="section-header">
+					<h3 class="section-title">司機會員管理(後端_更改司機)</h3>
+					<p class="section-description">請查看與修改資料</p>
+				</div>
+				<button type="button" class="btn btn-dark ">返回</button>
 			</div>
-			<button type="button" class="btn btn-dark ">返回</button>
-			
-			
-			
-<!-- 			UPDATE DRIVER SET VERIFIED = '1', BANNED= '1' WHERE DRIVER_ID='D003'; -->
-<!-- 			BANNED人家使用 -->
-			
+		</div>
+		<div class="container wow fadeInUp">
+			<div class="row justify-content-center">
+				<div class="col-lg-12 col-md-12">
+					<!-- 查詢nav bar開始 -->
+					<nav class="navbar navbar-light bg-light">
+						<ul class="nav nav-tabs">
+							<li class="nav-item">
+								<form class="form-inline"
+									action="<%=request.getContextPath()%>/front-end/driver/listOneDriver.jsp"
+									method="post">
+									<input class="form-control mr-sm-2" name="activityID"
+										type="search" placeholder="請輸入司機編號" aria-label="Search">
+									<!--隱藏的參數action讓controller抓-->
+									<input type="hidden" name="action" value="GET_ONE">
+									<button class="btn btn-outline-success my-2 my-sm-0"
+										type="submit">查詢一筆司機</button>
+								</form>
+<!-- 							<li class="nav-item"> -->
+<!-- 								<form class="form-inline" -->
+<%-- 									action="<%=request.getContextPath()%>/back-end/activity/listAllActivity.jsp" --%>
+<!-- 									method="post"> -->
+<!-- 									<button class="btn btn-outline-success my-2 my-sm-0" -->
+<!-- 										type="submit">查詢全部活動</button> -->
+<!-- 								</form> -->
+<!-- 							</li> -->
+<!-- 							<li class="nav-item"> -->
+<!-- 								<form class="form-inline" -->
+<%-- 									action="<%=request.getContextPath()%>/back-end/activity/addActivity.jsp" --%>
+<!-- 									method="post"> -->
+<!-- 									<button class="btn btn-outline-success my-2 my-sm-0" -->
+<!-- 										type="submit">新增活動</button> -->
+<!-- 								</form> -->
+<!-- 							</li> -->
+						</ul>
+					</nav>
+					<!-- 查詢nav bar結束 -->
+				</div>
+				<div class="col-lg-12 col-md-12"></div>
+				<div class="col-lg-12 col-md-12"></div>
+			</div>
+			<!-- row結尾 -->
+		</div>
+	</section>
+	<!-- #contact -->
+	//
+
+
+
+	<!-- 			UPDATE DRIVER SET VERIFIED = '1', BANNED= '1' WHERE DRIVER_ID='D003'; -->
+	<!-- 			BANNED人家使用 -->
+
 	<!--==========================
     Footer
   ============================-->
@@ -100,9 +159,11 @@
 	<script src="lib/superfish/superfish.min.js"></script>
 
 	<!-- Contact Form JavaScript File -->
-	<script src="contactform/contactform.js"></script>
+	<script
+		src="<%=request.getContextPath()%>/regna-master/contactform/contactform.js"></script>
 
 	<!-- Template Main Javascript File -->
-	<script src="js/main.js"></script>
+	<script src="<%=request.getContextPath()%>/regna-master/js/main.js"></script>
+
 </body>
 </html>
