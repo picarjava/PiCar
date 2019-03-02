@@ -125,5 +125,8 @@ public class DriverService {
 	public void deleteDriver(String driverID) {
 		dao.delete(driverID);
 	}
-
+	
+	public DriverVO getOneDriverBymemID(String memID) {
+	    return dao.findByMemID(memID);
+	}
 }

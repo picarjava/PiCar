@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.member.model.MemberVO;
+
+import android.com.member.model.MemberService;
 
 public class memberServlet extends HttpServlet {
     
@@ -52,16 +55,16 @@ public class memberServlet extends HttpServlet {
         }
         resp.setCharacterEncoding("utf-8");
         PrintWriter writer = resp.getWriter();
-        if (isValidLogin(account, password))
-            writer.print(gson.toJson("OK"));
-        else
-            writer.print(gson.toJson("Auth failed"));
-    }
-    
-    private boolean isValidLogin(String account, String password) {
-        if (account != null && account.equals(password))
-            return true;
+        MemberService serivce = new MemberService();
+        MemberVO memberVO = serivce.getOneByEmailAndPassword(account, password);
+        JsonObject jsonObject = new JsonObject();
+        if (memberVO != null) {
+            jsonObject.addProperty("auth", "OK");
+            jsonObject.addProperty("member", gson.toJson(memberVO));
+        } else
+            jsonObject.addProperty("auth", "Failed");
         
-        return false;
+        writer.print(gson.toJson(jsonObject));
+        writer.close();
     }
 }
