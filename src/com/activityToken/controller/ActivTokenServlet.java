@@ -19,6 +19,8 @@ import com.activity.model.ActivityService;
 import com.activity.model.ActivityVO;
 import com.activityToken.model.ActivityTokenService;
 import com.activityToken.model.ActivityTokenVO;
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
 
 /**
  * Servlet implementation class ActivTokenServlet
@@ -93,6 +95,9 @@ public class ActivTokenServlet extends HttpServlet {
 				 activityTokenVO.setTokenAmount(tokenAmount);
 				 activityTokenVO.setDeadline(deadline);
 				 
+				 
+				 
+				 
 				 /*先送至下個頁面，錯誤頁面才能保留資料*/
 				 req.setAttribute("activityTokenVO",activityTokenVO);
 				 req.setAttribute("activityVO",activityVO);
@@ -130,6 +135,14 @@ public class ActivTokenServlet extends HttpServlet {
 			 }
 			 req.setAttribute("sum", sum);
 			 req.setAttribute("list", list);
+			 
+			 //同時將總額sum存進會員表格中
+			 MemberService  memberSvc=new MemberService();
+			 MemberVO memberVO =memberSvc.getOneMember(memID);
+			 memberVO.setActivityToken(sum);
+			 memberSvc.updateMember(memID, memberVO.getName(), memberVO.getEmail(), memberVO.getPassword(), memberVO.getPhone(),
+					 memberVO.getCreditcard(), memberVO.getPet(), memberVO.getSmoke(), memberVO.getGender(), memberVO.getToken(), memberVO.getActivityToken(),
+					 memberVO.getBirthday(), memberVO.getVerified(), memberVO.getBabySeat());
 			/**************step3.開始新增並listOnesAll完成，轉交ListAll頁面*****************/
 			String url="/front-end/activityToken/listOnesAllActivityToken.jsp";
 			RequestDispatcher successPage =req.getRequestDispatcher(url);
@@ -196,7 +209,6 @@ public class ActivTokenServlet extends HttpServlet {
 		 }
 		if("GET_ALL_STMT".equals(action)) {
 			List<String> errorMsgs =new LinkedList<String>();
-			List<ActivityTokenVO> list=new LinkedList<ActivityTokenVO>();
 			/*將errorMsgs設定為request scope，以便送至errorPage view*/
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {

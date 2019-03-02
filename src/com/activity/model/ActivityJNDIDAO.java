@@ -33,7 +33,7 @@ public class ActivityJNDIDAO implements ActivityDAO_interface{
 	private static final String INSERT_STMT=
 			"INSERT INTO ACTIVITY(ACTIVITY_ID,ACTIVITY_NAME,ACTIVITY_INFO,ACTIVITY_START,ACTIVITY_END,ACTIVITY_CODE,TOKEN_AMOUNT,ACTIVITY_POST) VALUES('AC'||LPAD(to_char(ACTIVITY_SEQ.NEXTVAL),3,'0'),?,?,?,?,?,?,?)"; 
 	private static final String GET_ALL_STMT=
-			"SELECT * FROM ACTIVITY ORDER BY ACTIVITY_ID";
+			"SELECT * FROM ACTIVITY ORDER BY ACTIVITY_ID DESC";
 	private static final String GET_ONE_STMT=
 			"SELECT * FROM ACTIVITY WHERE ACTIVITY_ID=?";
 	private static final String DELETE=

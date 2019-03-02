@@ -8,7 +8,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>查詢活動代幣明細</title>
+    <title>後台查詢活動代幣明細</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -84,7 +84,7 @@
 	<c:if test="${activityTokenVO.activityID==activityID}">
 					 		<tr>	 
 						      <th scope="row">${activityTokenVO.memID}</th>
-						      <td>${memberSvc.getOneMember(activityTokenVO.activityID).getName}</td>
+						      <td>${memberSvc.getOneMember(activityTokenVO.memID).name}</td>
 						      <td>${activityTokenVO.activityID}</td>
 						      <td>${activityTokenVO.tokenAmount}</td>
 						      <td>${activityTokenVO.deadline}</td>
