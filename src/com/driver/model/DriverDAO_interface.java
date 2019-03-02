@@ -13,7 +13,7 @@ public interface DriverDAO_interface {
     public void delete(String driver_id);
     public DriverVO findByPrimaryKey(String driverID);
     public List<DriverVO> getAll(); 
-
+    public DriverVO findByMemID(String memID);
 
 
 }

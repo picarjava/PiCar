@@ -29,7 +29,9 @@ public class DriverJDBCDAO implements DriverDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT MEM_ID, DRIVER_ID, PLATE_NUM, LICENCE, CRIMINAL, TRAFFIC_RECORD, ID_NUM, PHOTO, VERIFIED, BANNED, DEADLINE, ONLINE_CAR, SCORE, CAR_TYPE, SHARED_CAR, PET, SMOKE, BABY_SEAT FROM DRIVER WHERE DRIVER_ID=?";
 	private static final String DELETE = "DELETE FROM DRIVER where DRIVER_ID  = ?";
 	private static final String UPDATE = "UPDATE DRIVER SET PLATE_NUM=?, LICENCE=?, CRIMINAL=?, TRAFFIC_RECORD=?, PHOTO=?, VERIFIED=?, BANNED=?, DEADLINE=?, ONLINE_CAR=?, SCORE=?, CAR_TYPE=?, SHARED_CAR=?, PET=?, SMOKE=?, BABY_SEAT=? where DRIVER_ID=?";
-//insert update commit
+	private static final String GET_ONE_BY_MEMID_STMT = "SELECT * FROM DRIVER WHERE MEM_ID=?";
+	//insert update commit
+	
 	@Override
 	public void insert(DriverVO driverVO) {
 		Connection con = null;
@@ -321,7 +323,64 @@ public class DriverJDBCDAO implements DriverDAO_interface {
 		
 	}
 
+	public DriverVO findByMemID(String memID) {
+        DriverVO driverVO = null;
+        Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try{
+            con = DriverManager.getConnection(url, userid, passwd);
+            pstmt = con.prepareStatement(GET_ONE_BY_MEMID_STMT);
+            /*根據SQL常數，pstmt需要的值*/
+            /*parameterIndex 從1開始*////第一個?
+            pstmt.setString(1, memID);
+            /*進行一筆資料的查詢*/
+            rs=pstmt.executeQuery();
+            
+            while (rs.next()) {
+                driverVO = new DriverVO();
+                driverVO.setMemID(rs.getString("MEM_ID"));
+                driverVO.setDriverID(rs.getString("DRIVER_ID"));
+                driverVO.setPlateNum(rs.getString("PLATE_NUM"));
+                driverVO.setLicence(rs.getBytes("LICENCE"));
+                driverVO.setCriminal(rs.getBytes("CRIMINAL"));
+                driverVO.setTrafficRecord(rs.getBytes("TRAFFIC_RECORD"));
+                driverVO.setIdNum(rs.getBytes("ID_NUM"));
+                driverVO.setPhoto(rs.getBytes("PHOTO"));
+                driverVO.setVerified(rs.getInt("VERIFIED"));
+                driverVO.setBanned(rs.getInt("BANNED"));
+                driverVO.setDeadline(rs.getDate("DEADLINE"));
+                driverVO.setOnlineCar(rs.getInt("ONLINE_CAR"));
+                driverVO.setScore(rs.getInt("SCORE"));
+                driverVO.setCarType(rs.getString("CAR_TYPE"));
+                driverVO.setSharedCar(rs.getInt("SHARED_CAR"));
+                driverVO.setPet(rs.getInt("PET"));
+                driverVO.setSmoke(rs.getInt("SMOKE"));
+                driverVO.setBabySeat(rs.getInt("BABY_SEAT"));
+            }
+        
+        } catch (SQLException se) {
+            se.printStackTrace();
+//          throw new RuntimeException("發生SQL errors"+se.getMessage());
+        } finally {
+            if (pstmt != null) {
+                try {
+                    pstmt.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (con != null) {
+                try{
+                    con.close();
+                } catch(Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
 
+        return driverVO;
+    }
 }
 
 //}
