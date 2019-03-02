@@ -11,11 +11,10 @@
 <head>
 
     <jsp:include page="/regna-master/head.jsp" />
- 
- 
 </head>
 
 <body>
+<% Timestamp endTime=(Timestamp)request.getAttribute("endTime");%>
  <!-- 錯誤列表 -->
     <%List<String> errorMsgs=(List<String>)request.getAttribute("errorMsgs");%>
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
@@ -33,8 +32,8 @@
     <div class="hero-container">
       <h1>Welcome to Picar</h1>
       <h2>We are team of smart ridesharing </h2>
-      <a href="#contact" class="btn-get-started">單程預約</a>
-      <a href="<%=application.getContextPath()%>/front-end/singleOrder/addLongtermReservation.jsp#contact" class="btn-get-started">長期預約</a>
+      <a href="<%=application.getContextPath()%>/front-end/singleOrder/addReservation.jsp#contact" class="btn-get-started">單程預約</a>
+      <a href="#contact" class="btn-get-started">長期預約</a>
     </div>
   </section><!-- #hero -->
   <!--==========================
@@ -43,8 +42,8 @@
     <section id="contact">
       <div class="container wow fadeInUp">
         <div class="section-header">
-          <h3 class="section-title">單程預約</h3>
-          <p class="section-description"> 請新增一筆預約單程訂單</p>
+          <h3 class="section-title">長期預約</h3>
+          <p class="section-description">長期叫車需於三日前預約，且14天內預約天數需達7日以上</p>
         </div>
       </div>
 
@@ -92,16 +91,29 @@
 <!--                 <div class="alert alert-light"> -->
 <!--                   <p>上車時間</p> -->
 <%--                   <input type="text" id="f_date1" name="startTime"  value="${singleOrder.startTime}"/> --%>
-                  
 <!--                 </div> -->
-                <!-- 單次叫車+按鈕 -->
+                <!-- 長期叫車測試成功 -->
                 <div class="alert alert-light">
-	               <p>上車時間</p>
+	               <p>開始日期時間 / 結束日期</p>
 	               <div class="input-group mb-3">
-					  <input type="text" id="f_date1" name="startTime"  value="${singleOrder.startTime}" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-					  
+					  <input type="text" id="f_date1" name="startTime"  value="${singleOrder.startTime}" class="form-control" placeholder="請輸入開始日期與時間" aria-label="Recipient's username" aria-describedby="button-addon2">
+					  至<input type="text" id="f_date2" name="endTime"  value="${endTime}" class="form-control" placeholder="請輸入結束日期" aria-label="Recipient's username" aria-describedby="button-addon2">
 					</div>
 				</div>
+				
+				<!-- 測試jquery新增日期的HTML -->
+<!-- 		               <div class="alert alert-light"> -->
+<!-- 						  <p> 開始日期時間 / 結束日期</p>  -->
+<!-- 						  <div class="input-group mb-3"> -->
+<%-- 					      <input type="text" id="f_date1" name="startTime"  value="${singleOrder.startTime}" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"> --%>
+<!-- 						  <button onclick="appendText()" class="btn btn-outline-secondary" type="button" id="button-addon2">新增其他日期</button> -->
+<!-- 						  </div> -->
+						  
+<!-- 						  <div id="addOne"> -->
+<%-- 						  <input type="text" id="f_date2" name="endTime"  value="${endTime}" class="form-control" placeholder="請輸入結束日期" aria-label="Recipient's username" aria-describedby="button-addon2"> --%>
+<!-- 						  </div> -->
+<!-- 						</div> -->
+			    <!-- 測試新增日期結束 -->
 				
 				
                 <div class="form-group">
@@ -111,8 +123,8 @@
                 <div class="text-center"><button type="submit">送出</button></div>
 
                 <!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
-                <input type="hidden" name="action" value="insert">
-                <input type="hidden" name="orderType" value="3">
+                <input type="hidden" name="action" value="insertLongterm">
+                <input type="hidden" name="orderType" value="4">
                 <!-- 訂單種類:預約叫車3/長期預約叫車4-->
               </form>
             </div>
@@ -151,34 +163,78 @@
  <jsp:include page="/regna-master/body.jsp" />
  
 </body>
+ <!--測試用class註冊 -->
+<script> 
+//  var count=1;
+//  function appendText() {
+//   	var txt1 ='<input type="text" id="test'+count+'" name="endTime"  value="${endTime}" class="endTime form-control" placeholder="請輸入結束日期"  >'	;	
+//  		$("#addOne").append(txt1); // Append new elements
+//  	}
+ 
+ 
+//    $.datetimepicker.setLocale('zh');
+//    $("#test"+count).datetimepicker({
+//       theme: '',              //theme: 'dark',
+//       timepicker:true,       //timepicker:true,
+//      step: 30,                //step: 60 (這是timepicker的預設間隔60分鐘)
+//       format:'Y-m-d',         //format:'Y-m-d H:i:s',
+//  	   // value: ,        // value:   new Date(),
+//       //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+//       //startDate: '',            '2017/07/10',  // 起始日
+//       minDate:   minDateLong,            //'-1970-01-01', // 去除今日(不含)之前
+//       maxDate:   maxDate         //  '+1970-01-01'  // 去除今日(不含)之後
+//    });
+  
 
+   // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
 
-				<!-- 新增日期HTML -->
-<!-- 		                <div class="alert alert-light alert-dismissible fade show" role="alert"> -->
-<!-- 						  <strong></strong>  -->
-<!-- 						  <p>上車時間</p> -->
-<!-- 			               <div class="input-group mb-3"> -->
-<%-- 							  <input type="text" id="f_date1" name="startTime"  value="${singleOrder.startTime}" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2"> --%>
-<!-- 							  <div class="input-group-append"> -->
-<!-- 							    <button class="btn btn-outline-secondary" type="button" id="button-addon2">新增其他日期</button> -->
-<!-- 							  </div> -->
-<!-- 							</div> -->
-<!-- 						  <button type="button" class="close" data-dismiss="alert" aria-label="Close"> -->
-<!-- 						    <span aria-hidden="true">&times;</span> -->
-<!-- 						  </button> -->
-<!-- 						</div> -->
-			    <!-- 新增日期結束 -->
+   //      1.以下為某一天之前的日期無法選擇
+//    var somedate3 = minDateLong;    //new Date();
+//    $("#test"+count).datetimepicker({
+//        beforeShowDay: function(date) {
+//           if (date.getYear() <  somedate3.getYear())
+//       	   return [false, ""];
+//           else if (date.getYear() == somedate3.getYear())
+//       	   if (date.getMonth() <  somedate3.getMonth())
+//       		   return [false, ""];
+//               else if (date.getMonth() == somedate3.getMonth())
+//      		   if (date.getHours() < somedate3.getHours())
+//       			   return [false, ""];
+//        		   else if (date.getHours() == somedate3.getHours())
+//        			   if (date.getMinutes() < somedate3.getMinutes())
+//      				   return [false, ""];
+         
+//     if (date.getYear() <  somedate3.getYear() || 
+//           (date.getYear() == somedate3.getYear() && date.getMonth() <  somedate3.getMonth()) || 
+//           (date.getYear() == somedate3.getYear() && date.getMonth() == somedate3.getMonth() && date.getDate() < somedate3.getDate())) {
+//            return [false, ""];
+//        }
+      
+//        return [true, ""];
+//    }});
+
+  
+   //      2.以下為某一天之後的日期無法選擇
+//         var somedate4 = maxDate;    //new Date('2017-06-15');
+//         $("#test"+count).datetimepicker({
+//             beforeShowDay: function(date) {
+//               if (  date.getYear() >  somedate4.getYear() || 
+//                    (date.getYear() == somedate4.getYear() && date.getMonth() >  somedate4.getMonth()) || 
+//                    (date.getYear() == somedate4.getYear() && date.getMonth() == somedate4.getMonth() && date.getDate() > somedate4.getDate())
+//                 ) {
+//                      return [false, ""]
+//                 }
+//               return [true, ""];
+//         }});
+
+</script>
+<!-- 新增日期結束 -->
+				
 
 
 
  <!-- datetimepicker -->
-<% 
-  SingleOrderVO singleOrderVO = (SingleOrderVO) request.getAttribute("singleOrder");
-  String startTime = null;
-  if (singleOrderVO != null)
-      if (singleOrderVO.getStartTime() != null)
-          startTime = new SimpleDateFormat("yyyy-MM-dd mm:ss").format(singleOrderVO.getStartTime());
-%>
+
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
 <script src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
@@ -200,6 +256,7 @@ function getFutureDate(addDays) {
 	
 var minDate=getFutureDate(3);//須於三天前預約
 var maxDate=getFutureDate(16); //僅能下定未來三天後的14天
+var minDateLong=getFutureDate(9); //長期叫車需於三日前預約，且14天內預約天數需達7日以上
 
         $.datetimepicker.setLocale('zh');
         $('#f_date1').datetimepicker({
@@ -209,7 +266,7 @@ var maxDate=getFutureDate(16); //僅能下定未來三天後的14天
            format:'Y-m-d H:i',         //format:'Y-m-d H:i:s',
       	   value:  minDate,        // value:   new Date(),
            //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
-           //startDate: '<%=startTime%>',            '2017/07/10',  // 起始日
+           //startDate: '',            '2017/07/10',  // 起始日
            minDate:   minDate,            //'-1970-01-01', // 去除今日(不含)之前
            maxDate:   maxDate         //  '+1970-01-01'  // 去除今日(不含)之後
         });
@@ -274,6 +331,66 @@ var maxDate=getFutureDate(16); //僅能下定未來三天後的14天
         //              }
         //              return [true, ""];
         //      }});
+        
+        //第二個日曆註冊
+        $.datetimepicker.setLocale('zh');
+        $('#f_date2').datetimepicker({
+           theme: '',              //theme: 'dark',
+           timepicker:true,       //timepicker:true,
+           step: 30,                //step: 60 (這是timepicker的預設間隔60分鐘)
+           format:'Y-m-d',         //format:'Y-m-d H:i:s',
+      	   // value: ,        // value:   new Date(),
+           //disabledDates:        ['2017/06/08','2017/06/09','2017/06/10'], // 去除特定不含
+           //startDate: '',            '2017/07/10',  // 起始日
+           minDate:   minDateLong,            //'-1970-01-01', // 去除今日(不含)之前
+           maxDate:   maxDate         //  '+1970-01-01'  // 去除今日(不含)之後
+        });
+        
+   
+        // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
+
+        //      1.以下為某一天之前的日期無法選擇
+        var somedate3 = minDateLong;    //new Date();
+        $('#f_date2').datetimepicker({
+            beforeShowDay: function(date) {
+               if (date.getYear() <  somedate3.getYear())
+            	   return [false, ""];
+               else if (date.getYear() == somedate3.getYear())
+            	   if (date.getMonth() <  somedate3.getMonth())
+            		   return [false, ""];
+                   else if (date.getMonth() == somedate3.getMonth())
+            		   if (date.getHours() < somedate3.getHours())
+            			   return [false, ""];
+            		   else if (date.getHours() == somedate3.getHours())
+            			   if (date.getMinutes() < somedate3.getMinutes())
+            				   return [false, ""];
+               
+            if (date.getYear() <  somedate3.getYear() || 
+               (date.getYear() == somedate3.getYear() && date.getMonth() <  somedate3.getMonth()) || 
+               (date.getYear() == somedate3.getYear() && date.getMonth() == somedate3.getMonth() && date.getDate() < somedate3.getDate())) {
+                return [false, ""];
+            }
+            
+            return [true, ""];
+        }});
+
+        
+        //      2.以下為某一天之後的日期無法選擇
+             var somedate4 = maxDate;    //new Date('2017-06-15');
+             $('#f_date2').datetimepicker({
+                 beforeShowDay: function(date) {
+                   if (  date.getYear() >  somedate4.getYear() || 
+                        (date.getYear() == somedate4.getYear() && date.getMonth() >  somedate4.getMonth()) || 
+                        (date.getYear() == somedate4.getYear() && date.getMonth() == somedate4.getMonth() && date.getDate() > somedate4.getDate())
+                     ) {
+                          return [false, ""]
+                     }
+                     return [true, ""];
+             }});
+             
+            
+
+
         
 </script>
 
