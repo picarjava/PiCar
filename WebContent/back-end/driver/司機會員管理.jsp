@@ -64,7 +64,8 @@
 					<h3 class="section-title">司機會員管理(後端_更改司機)</h3>
 					<p class="section-description">請查看與修改資料</p>
 				</div>
-				<button type="button" class="btn btn-dark ">返回</button>
+				<button type="button" class="btn btn-dark "><a href="後台首頁.jsp">回首頁</a></button>
+			
 			</div>
 		</div>
 		<div class="container wow fadeInUp">
@@ -78,7 +79,7 @@
 									action="<%=request.getContextPath()%>/front-end/driver/listOneDriver.jsp"
 									method="post">
 									<input class="form-control mr-sm-2" name="driverID"
-										type="search" placeholder="請輸入司機編號" aria-label="Search">
+										type="search" placeholder="請輸入司機編號(eg.D001)" aria-label="Search">
 									<!--隱藏的參數action讓controller抓-->
 									<input type="hidden" name="action" value="GET_ONE">
 									<button class="btn btn-outline-success my-2 my-sm-0"
@@ -94,10 +95,10 @@
 <!-- 							</li> -->
 <!-- 							<li class="nav-item"> -->
 <!-- 								<form class="form-inline" -->
-<%-- 									action="<%=request.getContextPath()%>/back-end/activity/addActivity.jsp" --%>
+<%-- 									action="<%=request.getContextPath()%>/back-end/driver/addDriver.jsp" --%>
 <!-- 									method="post"> -->
 <!-- 									<button class="btn btn-outline-success my-2 my-sm-0" -->
-<!-- 										type="submit">新增活動</button> -->
+<!-- 										type="submit">驗證司機</button> -->
 <!-- 								</form> -->
 <!-- 							</li> -->
 						</ul>

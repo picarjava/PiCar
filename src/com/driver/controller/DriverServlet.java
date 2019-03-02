@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import com.driver.model.DriverJDBCDAO;
+import com.driver.model.DriverJNDIDAO;
 import com.driver.model.DriverService;
 import com.driver.model.DriverVO;
 @MultipartConfig
@@ -258,29 +258,24 @@ req.setCharacterEncoding("UTF-8");
 //		}
 //	}
 //	//////////////////////////////////////////////////
-//		
-//		//來自homeDriver.jsp的請求
-//
+//	//來自homeDriver.jsp的請求(後台_管理員查出單筆司機資料)
 		if("GET_ONE".equals(action)){
 			LinkedList<String> errorMsgs=new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
 			/*************1.接收請求參數**************/
 				String driverID=req.getParameter("driverID");
-						
 			/*************2查詢資料**************/
 			DriverService driverSvc=new DriverService();
 			DriverVO driverVO=driverSvc.getOneDriver(driverID);
 			if(driverVO==null) {
 				errorMsgs.add("查無此筆");
-				RequestDispatcher failureView =req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
-				RequestDispatcher  failurePage = null;
+				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
 				failurePage.forward(req, res);
 				return;
 			}
 			/*************3.得到資料存在scope=request，並送出VO給處理頁面**************/
 			req.setAttribute("driverVO", driverVO);
-//			readPicture(activityVO.getActivityPost(),"ActivityPost.jpg"); //把海報存在某名稱
 			String url="/back-end/driver/listOneDriver.jsp";
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
 			successPage.forward(req, res);
@@ -288,11 +283,10 @@ req.setCharacterEncoding("UTF-8");
 		}catch(Exception e){
 			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
 			}
-//			failurePage=req.getRequestDispatcher("/front-end/driver/listAllDriver.jsp");
-//			failurePage.forward(req, res);
+			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+			failurePage.forward(req, res);
 		}
 	}
-	
 ////////////////////////
 //	update
 //	Date deadline = null;//被ban的時間
@@ -324,11 +318,8 @@ req.setCharacterEncoding("UTF-8");
 //				errorMsgs.add("簡介: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 //            }
 //			Integer groupStatus =1;
-//			
 //			Integer currenTnum  =1;
-//			
 //			Integer upperLimit = new Integer(req.getParameter("upperlimit").trim());
-//			
 //			Integer lowerLimit = new Integer(req.getParameter("lowerlimit").trim());
 //			
 //			String groupName =req.getParameter("groupName");
@@ -394,7 +385,6 @@ req.setCharacterEncoding("UTF-8");
 //				failureView.forward(req, res);
 //				return;
 //			}
-//			
 //			/********************* *2.開始新增資料*****************************************/
 	/* 從哪一個session取得的driverID所查到的---addDriver.jsp取得的資料，透過DriverService操作DAO存進資料庫 */
 //	DriverService driverSvc1 ; // 以VO物件傳送參數
