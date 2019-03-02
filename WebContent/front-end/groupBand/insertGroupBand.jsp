@@ -194,24 +194,28 @@ th, td {
 			<tr>
 				<td>上車日期</td>
 
-				<td><input name="startTime" id="start_date" type="text"
-					style="display: none" onchange="datestamps(this.value);" ><nobr id="datetime"  style="display: none">我</nobr>  
-					<input name="startTimes" id="f_date1"
-					type="text"></td>
-							<td id="enddate" style="display:none" >	
-				<select id="days" name="days" style="display: none" onchange="timestamps(this.value);"></select>
-				</td>
-			</tr>
-
-			<tr>
-		
-<td >結束日期:</td>
-
-				<td id="enddate"  >
+				<td>
+				<button type="button" id="buttons" onchange="buttones();">請點選輸入日期</button>
+				<select id="days" name="days" style="display: none" onchange="timestamps();"></select>
+				<nobr>時間:</nobr> 
+				<nobr id="datetime" >00:00</nobr> 
+				<nobr>   日期:</nobr> 
+				<input name="startTime" id="start_date" type="text"
+					 onchange="datestamps();" disabled="disabled" size="8">
+				<nobr id="brs"></nobr>  
+						
 <input name="endtime" id="end_date" type="text"
-					style="display: none" disabled="disabled"></td>
+					style="display: none" disabled="disabled" size="8">
+					
 				
 			</tr>
+
+		
+		
+
+		
+				
+		
 
 <tr>
 			<td>備註:</td>
@@ -224,6 +228,7 @@ th, td {
 				<td><input type="checkbox" value="1" name="privates">隱私權<br>
 				</td>
 			</tr>
+
 
 
 			<tr>
@@ -245,13 +250,45 @@ try {
 %> 
 <script>
 
-function datestamps(dater){
+$('#buttons').datetimepicker(
+		{
+			format : 'Y-m-d H:i',
+			onShow : function() {
+				this.setOptions({
+					maxDate : $('#buttons').val() ? $('+1970-01-20')
+							.val() :  true
+				})
+			},
+			step: 5,
+			timepicker : true,
+					value : '<%=startTime%>',
+			minDate:           '-1970-01-01', // 去除今日(不含)之前
+			maxDate:           '+1970-01-20'  // 去除今日(不含)之後
+		});
+		
+function buttones(){
+	$.datetimepicker.setLocale('zh'); // kr ko ja en
+	buttons = document.getElementById("buttons");
+	start_date =document.getElementById("start_date");
+	//$(function() {
+		
+		
+
+	datestamps();
+	
+}
+
+function datestamps(){
+	buttons = document.getElementById("buttons");
 	end_date = document.getElementById("end_date");
 	days = document.getElementById("days");
 	datetime =document.getElementById("datetime");
 	start_date =document.getElementById("start_date");
+	
+// 	alert(buttons.value);
+	start_date.value=buttons.value;
 	//取得使用者輸入的日期 
-	var totalAmount = new Date(dater);
+	var totalAmount = new Date(start_date.value);
 	
 	//轉成毫秒
 	var totalAmounts =totalAmount.getTime();
@@ -357,10 +394,11 @@ function datestamps(dater){
 // 	start_date.value=totalAmount.get;
 }
 
-function timestamps(timer) {
+function timestamps() {
 	end_date = document.getElementById("end_date");
 	start_date =document.getElementById("start_date");
 	datetime =document.getElementById("datetime");
+	days =document.getElementById("days");
 	//放入日期 日期時間轉換		
 	var totalAmount = new Date(start_date.value);
 	
@@ -368,7 +406,7 @@ function timestamps(timer) {
 	var totalAmounts =totalAmount.getTime();
 	
 	//將日期轉成數字做 +法
-	var timers=parseInt(timer)+1;
+	var timers=parseInt(days.value)+1;
 	
 	//宣告一個1970年的格式 ，為了計算目前日期+上天數，這段程式碼天數轉換
  	var dateAmount = new Date(1970,0,timers);
@@ -439,22 +477,7 @@ function timestamps(timer) {
 </script>
 
 <script>
-	$.datetimepicker.setLocale('zh'); // kr ko ja en
-	//$(function() {
-		$('#start_date').datetimepicker(
-				{
-					format : 'Y-m-d H:i',
-					onShow : function() {
-						this.setOptions({
-							maxDate : $('#start_date').val() ? $('+1970-01-20')
-									.val() :  true
-						})
-					},
-					timepicker : true,
-					value : '<%=startTime%>',
-					minDate:           '-1970-01-01', // 去除今日(不含)之前
-					maxDate:           '+1970-01-20'  // 去除今日(不含)之後
-				});
+
 
 // 		$('#end_date').datetimepicker(
 // 				{
@@ -478,21 +501,21 @@ function timestamps(timer) {
 
 	function groupif(number) {
 		days = document.getElementById("days");
-		startdate = document.getElementById("start_date");
+		brs = document.getElementById("brs");
 		enddate = document.getElementById("end_date");
 		fdate1 = document.getElementById("f_date1");
 		enddates = document.getElementById("enddate");
 		datetime =	document.getElementById("datetime");
 		if (number == 1) {
 			days.style="";
-			startdate.style = "";
+			brs.innerHTML="~";
 			enddate.style = "";
 			fdate1.style = "display:none";
 			enddates.style = "";
 			datetime.style="";
 		} else {
 			days.style="display:none";
-			startdate.style = "display:none";
+			brs.innerHTML="";
 			enddate.style = "display:none";
 			fdate1.style = "";
 			enddates.style = "display:none";

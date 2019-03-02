@@ -453,13 +453,14 @@ public class GroupBandServlet extends HttpServlet {
 					
 				
 					java.sql.Timestamp startTime = null;
+					java.sql.Timestamp endtime = null;
 //					try {
 					
 //					String startTimes =null;
 //					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 				
 				
-					if("1".equals(req.getParameter("orderT"))) {try {
+					if("0".equals(req.getParameter("orderT"))) {try {
 					
 //						startTimes=req.getParameter("startTime");
 						startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
@@ -474,8 +475,9 @@ public class GroupBandServlet extends HttpServlet {
 					}
 					else {try {
 //					    startTimes=req.getParameter("startTimes");
-					    startTime = java.sql.Timestamp.valueOf(req.getParameter("startTimes").trim());
-					    	
+					    startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
+					    endtime = java.sql.Timestamp.valueOf(req.getParameter("endtime").trim());
+					    
 					}	
 							
 						
