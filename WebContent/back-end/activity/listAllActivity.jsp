@@ -72,11 +72,13 @@
 						  <thead class="thead-dark">
 						  	
 						    <tr>
+						      <th scope="col">活動代碼	</th>
 						      <th scope="col">活動名稱	</th>
 						      <th scope="col">開始時間	</th>
 						      <th scope="col">結束時間	</th>
 						      <th scope="col">活動海報	</th>
-						      <th scope="col" colspan="3"><%@ include file="page1.file" %></th>
+						      <th scope="col">活動代幣領取明細 </th>
+						      <th scope="col" colspan="2"><%@ include file="page1.file" %></th>
 						    </tr>
 						  </thead>
 						  <tbody>
@@ -95,6 +97,15 @@
 					              <c:if test="${not empty activityVO.activityPost}" var="condition">
 					              <img  src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/>
 					              </c:if>
+						      </td>
+						       <td>
+						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/activityToken/ActivTokenServlet" >
+							    <div class="text-center"><button type="submit" class="btn btn-light">查看領取名單</button>
+							      	<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
+	                				<input type="hidden" name="action" value="GET_ALL_STMT">
+	                				<input type="hidden" name="activityID" value="${activityVO.activityID}">
+							     </div>
+							  </Form>
 						      </td>
 						      <td>
 						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/activity/Activ_servlet.html" >

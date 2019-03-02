@@ -145,22 +145,7 @@ photo-->
 									aria-label="Username" aria-describedby="basic-addon1">
 							</div>
 
-							<!-- 							<div class="input-group mb-3"> -->
-							<!-- 								<div class="input-group-prepend"> -->
-							<!-- 									<span class="input-group-text" id="basic-addon1">審核狀態(驗證用)</span> -->
-							<!-- 								</div> -->
-							<!-- 								<input type="text" class="form-control" placeholder="1" -->
-							<!-- 									aria-label="Username" aria-describedby="basic-addon1" readonly> -->
-							<!-- 							</div> -->
-
-							<!-- 							<div class="input-group mb-3"> -->
-							<!-- 								<div class="input-group-prepend"> -->
-							<!-- 									<span class="input-group-text" id="basic-addon1">在線狀態(後台看的)</span> -->
-							<!-- 								</div> -->
-							<!-- 								<input type="text" class="form-control" placeholder="RAS-9958" -->
-							<!-- 									aria-label="Username" aria-describedby="basic-addon1" readonly> -->
-							<!-- 							</div> -->
-
+							
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
 									<span class="input-group-text" id="basic-addon1">接單狀態碼(被ban後台)</span>

@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -47,8 +49,9 @@ public class SingleOrderServlet extends HttpServlet{
                     req.setAttribute("errorMsgs", errorMsgs);
                 } else
                     req.setAttribute("singleOrder", serivce.getOneSingleOrder(orderID)); 
+            //單程預約
             } else if ("insert".equals(action)) {
-                forwordURL = "/front-end/singleOrder/addSingleOrder.jsp";
+                forwordURL = "/front-end/singleOrder/addReservation.jsp";
                 String memID = req.getParameter("memID");
                 Timestamp startTime = parseTimestamp(req.getParameter("startTime"));
                 String startLoc = req.getParameter("startLoc");
@@ -69,31 +72,129 @@ public class SingleOrderServlet extends HttpServlet{
                     errorMsgs.add("訂單種類錯誤");
                 if (!isValidParameter(note, ".+"))
                     errorMsgs.add("備註錯誤");
+               
                 
-                SingleOrderVO singleOrderVO = new SingleOrderVO();
-                singleOrderVO.setMemID(memID);
-                singleOrderVO.setStartTime(startTime);
-                singleOrderVO.setStartLoc(startLoc);
-                singleOrderVO.setEndLoc(endLoc);
-                singleOrderVO.setOrderType(orderType);
-                singleOrderVO.setNote(note);
+	                SingleOrderVO singleOrderVO = new SingleOrderVO();
+	                singleOrderVO.setMemID(memID);
+	                singleOrderVO.setStartTime(startTime);
+	                singleOrderVO.setStartLoc(startLoc);
+	                singleOrderVO.setEndLoc(endLoc);
+	                singleOrderVO.setOrderType(orderType);
+	                singleOrderVO.setNote(note);
+	                if (!errorMsgs.isEmpty()) {
+	                    req.setAttribute("singleOrder", singleOrderVO);
+	                    req.setAttribute("errorMsgs", errorMsgs);
+	                   
+	                } else {
+	                    try {
+	                        serivce.addSingleOrder(memID, 0, startTime, startLoc,
+	                                               endLoc, 0.0, 0.0, 0.0,
+	                                               0.0, totalAmount, orderType, note,
+	                                               launchTime);
+	                    } catch(RuntimeException e) {
+	                        req.setAttribute("singleOrder", singleOrderVO);
+	                        throw e;
+	                    } // catch
+	                    
+	                    forwordURL = "/front-end/singleOrder/listAllSingleOrder.jsp";
+	             
+	                } // else
+            //長期預約
+            }else if ("insertLongterm".equals(action)) {
+                forwordURL = "/front-end/singleOrder/addLongtermReservation.jsp";
+                String memID = req.getParameter("memID");
+                Timestamp startTime = parseTimestamp(req.getParameter("startTime"));
+                Date endTime=java.sql.Date.valueOf(req.getParameter("endTime")); //此處為Date型別
+                String startLoc = req.getParameter("startLoc");
+                String endLoc = req.getParameter("endLoc");
+                String note = req.getParameter("note");
+                int totalAmount = (int) (Math.random() * 1000) + 1;
+                Integer orderType = parseInteger(req.getParameter("orderType"));
+                Timestamp launchTime = new Timestamp(System.currentTimeMillis());
+                
+                if (!isValidParameter(memID, "^[Mm]\\d+$"))
+                    errorMsgs.add("會員ID錯誤");
+                if (startTime == null)
+                    errorMsgs.add("上車時間錯誤");
+                if (!isValidParameter(startLoc, ".+"))
+                    errorMsgs.add("上車地點錯誤");
+                if (!isValidParameter(endLoc, ".+"))
+                    errorMsgs.add("下車地點錯誤");
+                if (orderType == null || orderType < 0 || orderType > 7)
+                    errorMsgs.add("訂單種類錯誤");
+                if (!isValidParameter(note, ".+"))
+                    errorMsgs.add("備註錯誤");
+                if(endTime==null) {
+            		errorMsgs.add("長期預約叫車結束日期未填寫");
+            	}
                 if (!errorMsgs.isEmpty()) {
+                	SingleOrderVO singleOrderVO = new SingleOrderVO();
+                    singleOrderVO.setMemID(memID);
+                    singleOrderVO.setStartTime(startTime);
+                    singleOrderVO.setStartLoc(startLoc);
+                    singleOrderVO.setEndLoc(endLoc);
+                    singleOrderVO.setOrderType(orderType);
+                    singleOrderVO.setNote(note);
                     req.setAttribute("singleOrder", singleOrderVO);
                     req.setAttribute("errorMsgs", errorMsgs);
-                } else {
-                    try {
-                        serivce.addSingleOrder(memID, 0, startTime, startLoc,
-                                               endLoc, 0.0, 0.0, 0.0,
-                                               0.0, totalAmount, orderType, note,
-                                               launchTime);
-                    } catch(RuntimeException e) {
-                        req.setAttribute("singleOrder", singleOrderVO);
-                        throw e;
-                    } // catch
-                    
-                    forwordURL = "/front-end/singleOrder/listAllSingleOrder.jsp";
-                } // else
-            } else if ("getUpdateID".equals(action)) {
+                    req.setAttribute("endTime", endTime);//長期預約資訊送回錯誤頁面
+                }
+                //長期叫車
+                long startDay=0;
+                long endDay =0;
+                long oneDay=0;
+                long restOfstartDay=0;
+                int countsDay=0;
+                long everyDay=0;
+                Timestamp everyTimestamp=null;
+                
+                startDay=startTime.getTime();//得到第一天的long
+                endDay=endTime.getTime();//得到最後一天的long
+                GregorianCalendar gc= new GregorianCalendar(2019,03,01);//取得一天的long
+                GregorianCalendar gc1= new GregorianCalendar(2019,03,02);
+                oneDay=gc1.getTime().getTime()-gc.getTime().getTime();
+                restOfstartDay=(endDay-startDay)%oneDay;//得到第一天的時與分的long
+                countsDay=(int)(((endDay-(startDay-restOfstartDay))/oneDay)+1);//取得長期預約共幾天
+                System.out.println("共:"+countsDay+"天");
+                
+              //開始跑回圈生訂單 
+              //每天長期訂單的timestamp
+            	 for(int i=0;i<countsDay;i++) {
+            		synchronized(this) {
+            			everyTimestamp =new Timestamp(everyDay+startDay);
+            			everyDay+=oneDay;
+            		
+                	startTime=everyTimestamp; //將迴圈產生的長期預約日期時間 指定給startTime變數
+	                SingleOrderVO singleOrderVO = new SingleOrderVO();
+	                singleOrderVO.setMemID(memID);
+	                singleOrderVO.setStartTime(startTime);
+	                singleOrderVO.setStartLoc(startLoc);
+	                singleOrderVO.setEndLoc(endLoc);
+	                singleOrderVO.setOrderType(orderType);
+	                singleOrderVO.setNote(note);
+            		
+	                if (!errorMsgs.isEmpty()) {
+	                    req.setAttribute("singleOrder", singleOrderVO);
+	                    req.setAttribute("errorMsgs", errorMsgs);
+	                    req.setAttribute("endTime", endTime);//長期預約資訊送回錯誤頁面
+	                } else {
+	                	 try {
+	                		
+	                        serivce.addSingleOrder(memID, 0, startTime, startLoc,
+	                                               endLoc, 0.0, 0.0, 0.0,
+	                                               0.0, totalAmount, orderType, note,
+	                                               launchTime);
+	                		
+	                    } catch(RuntimeException e) {
+	                        req.setAttribute("singleOrder", singleOrderVO);
+	                        throw e;
+	                    } // catch
+	                	
+	                    forwordURL = "/front-end/singleOrder/listAllSingleOrder.jsp";
+	                } // else
+            		}//synchronized
+            	}//for迴圈
+            }  else if ("getUpdateID".equals(action)) {
                 forwordURL = "/front-end/singleOrder/listAllSingleOrder.jsp";
                 String orderID = req.getParameter("orderID");
                 if (!isValidParameter(orderID, "^\\d+$"))

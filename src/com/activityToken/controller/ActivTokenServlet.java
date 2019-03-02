@@ -193,8 +193,35 @@ public class ActivTokenServlet extends HttpServlet {
 				RequestDispatcher failurePage=req.getRequestDispatcher("/front-end/activityToken/addActivityToken.jsp");
 				failurePage.forward(req, res);
 			}
-			 
 		 }
-		
+		if("GET_ALL_STMT".equals(action)) {
+			List<String> errorMsgs =new LinkedList<String>();
+			List<ActivityTokenVO> list=new LinkedList<ActivityTokenVO>();
+			/*將errorMsgs設定為request scope，以便送至errorPage view*/
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				/*************1.接收請求參數**************/
+			String activityID =(String)req.getParameter("activityID");
+			if(activityID==null) {
+				errorMsgs.add("無法取得本活動編碼");
+			}
+			/*************2.先查詢全部list**************/
+			
+			ActivityTokenService activityTokenSvc =new ActivityTokenService(); 
+		    List<ActivityTokenVO> activityTokenlist= activityTokenSvc.getAll();
+		    
+			/*************3把 ID和活動list整包丟給頁面，再直接用el篩選條件查詢資料**************/
+		    req.setAttribute("activityTokenlist", activityTokenlist); 
+			req.setAttribute("activityID", activityID);
+			String url="/back-end/activityToken/listAllActivityTokenByActivitvity.jsp";
+			RequestDispatcher successPage=req.getRequestDispatcher(url);
+			successPage.forward(req, res);
+			/*************4.處理例外 回原頁面**************/
+			}catch(Exception e) {
+				errorMsgs.add("無法此筆資料:"+e.getMessage());
+			}
+			RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
+			failurePage.forward(req, res);
+		}//GET_ALL_STMT的if
 	}
 }
