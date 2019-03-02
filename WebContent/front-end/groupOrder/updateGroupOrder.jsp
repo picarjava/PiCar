@@ -111,6 +111,8 @@ th, td {
 	<select name="rate">
 	<%for(int a=0; a<rate.length;a++)
 	{%>
+	input chbox name="" value="rate[a]";
+	
 	<option value="<%=a%>" <% if(a==groupOrderVO.getRate()){out.print("selected='selected'");}%>><%=rate[a]%></option>			
 	<%}	
 	%>

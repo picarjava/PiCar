@@ -206,7 +206,7 @@ th, td {
 						
 <input name="endtime" id="end_date" type="text"
 					style="display: none" disabled="disabled" size="8">
-					
+					<nobr id="numd"></nobr>  
 				
 			</tr>
 
@@ -278,6 +278,11 @@ function buttones(){
 	
 }
 
+function numday(){
+	days = document.getElementById("days");
+
+}	
+	
 function datestamps(){
 	buttons = document.getElementById("buttons");
 	end_date = document.getElementById("end_date");
@@ -392,6 +397,9 @@ function datestamps(){
 	}
 	
 // 	start_date.value=totalAmount.get;
+//測試
+
+
 }
 
 function timestamps() {
@@ -440,7 +448,40 @@ function timestamps() {
 	//將日期月份轉換完顯示在畫面上
 	end_date.value=d.getFullYear()+"-"+Month+"-"+date;
 	
+	//測試
+	numd =document.getElementById("numd");
+	numd.innerHTML='';
+	for(a=1;a<=parseInt(days.value)+1;a++){
+		
+	//宣告一個1970年的格式 ，為了計算目前日期+上天數，這段程式碼天數轉換	
+	var dateAmo = new Date(1970,0,a);
 	
+	//將1970年格式轉成毫秒
+	var dayAmo=dateAmo.getTime();
+	
+	dayAmos=dayAmo+totalAmounts;
+	
+	//將日前從毫秒轉換回來
+	var da = new Date();
+	da.setTime(dayAmos);
+	
+	Months = da.getMonth()+1;
+	dates = da.getDate();
+	
+	if(parseInt(Months)<10)
+	{
+		Months="0"+Months;
+	}
+	
+	//小於10的日期轉換 例01 02 03
+	if(parseInt(dates)<10)
+	{
+		
+		dates="0"+dates;
+	}	
+	//用迴圈跑寫入資料庫
+	numd.innerHTML=numd.innerHTML+'<input type="note" name="numdays" value="'+da.getFullYear()+"-"+Months+"-"+dates+' '+totalAmount.getHours()+':'+totalAmount.getMinutes()+':'+totalAmount.getSeconds()+'0'+'" />';
+	}
 }
 
 </script>
