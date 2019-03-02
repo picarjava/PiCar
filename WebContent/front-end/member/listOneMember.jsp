@@ -2,9 +2,31 @@
 	pageEncoding="UTF-8" import="com.member.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
+
 <%
-	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+// 	此處為登入處理
+   String account = (String)session.getAttribute("account");                  // 從 session內取出 (key) account的值
+    
+//    使用濾器登入，以下程式碼可以省略------
+//    if (account == null) {                                             // 如為 null, 代表此user未登入過 , 才做以下工作
+//       session.setAttribute("location", request.getRequestURI());       //*工作1 : 同時記下目前位置 , 以便於login.html登入成功後 , 能夠直接導至此網頁(須配合LoginHandler.java)
+//       response.sendRedirect(request.getContextPath()+"/front-end/login/login.html");   //*工作2 : 請該user去登入網頁(login.html) , 進行登入
+//       return;
+//     }
+   
 %>
+
+<%
+// 	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+	
+		MemberService memberSvc = new MemberService();
+		MemberVO memberVO = memberSvc.getOneMember(account);
+		request.setAttribute("memberVO", memberVO);
+
+%>
+
+
+
 
 <!DOCTYPE html>
 <html>
