@@ -41,7 +41,7 @@ DROP SEQUENCE ADMIN_SEQ;
 DROP TABLE ADMIN;
 
 ------------------START------------------
-
+//
 ALTER SESSION SET NLS_DATE_FORMAT='YYYY-MM-DD HH24:MI:SS';
 
 --建立後臺管理員TABLE--
