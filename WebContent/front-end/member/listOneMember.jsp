@@ -2,10 +2,9 @@
 	pageEncoding="UTF-8" import="com.member.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-
 <%
 // 	此處為登入處理
-   String account = (String)session.getAttribute("account");                  // 從 session內取出 (key) account的值
+//    String account = (String)session.getAttribute("account");                  // 從 session內取出 (key) account的值
     
 //    使用濾器登入，以下程式碼可以省略------
 //    if (account == null) {                                             // 如為 null, 代表此user未登入過 , 才做以下工作
@@ -19,14 +18,11 @@
 <%
 // 	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 	
-		MemberService memberSvc = new MemberService();
-		MemberVO memberVO = memberSvc.getOneMember(account);
-		request.setAttribute("memberVO", memberVO);
+// 		MemberService memberSvc = new MemberService();
+// 		MemberVO memberVO = memberSvc.getOneMember(account);
+		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 
 %>
-
-
-
 
 <!DOCTYPE html>
 <html>
@@ -48,8 +44,10 @@
 <body bgcolor="#11e1e9">
 <h3>listOneMember.jsp</h3>
 <a href="select_page.jsp">回主頁面</a>
-	<h1 align="center">Hello!!<%=memberVO.getName()%>，這是你的個人資料</h1>
+	<h1 align="center">Hello!!${memberVO.name}，這是你的個人資料</h1>
 	<table align="center" border="1" id="table1">
+			
+<%=memberVO.getMemID()%>
 		<tr>
 			<td>memID</td>
 			<td>${memberVO.memID}</td>
@@ -146,6 +144,12 @@
 			     <input type="hidden" name="memID"  value="${memberVO.memID}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
+			
+			
+				<form method="post" action="logoutHandler.do">			
+				<td><input type="submit" value="登出"></td>	
+				 <input type="hidden" name="logout"	value="logout">	
+				</form>
 			
 
 </body>
