@@ -171,28 +171,29 @@
 // 		$("#BUTTON-ADDON2").ATTR("ONCLICK","'APPENDTEXT('+ INPUTNAME +')'");
 // 	});
 
+var count=3;
+var inputName;
 
  function appendText() {
-  	var txt1 ='<input type="text" id="'+inputName+'" name="endTime"  value="${endTime}" class="endTime form-control" placeholder="請輸入結束日期"  >'	;	
+	 inputName= "f_date"+ count;
+	 var txt1 ='<input type="text" id="'+inputName+'" name="endTime"  value="${endTime}" class="endTime form-control" placeholder="請輸入結束日期"  >'	;	
  		$("#addOne").append(txt1); // Append new elements
- 		alert("有沒有執行這行");
- 		register();
+		
+ 		alert("有執行這行count="+count);
  		
+ 		
+ 		
+ 		
+ 		count++; 
  }
  
-//  function init(){
-// 	  $id('button-addon2').onclick = register(inputName);
-// 	}
-// 	window.onload = init;
- 
+
 	
 //  var disabledDates;
-var count=3;
-var inputName= "f_date"+ count;
+
 
  //動態註冊日曆
- function register(){
-	
+ function register(inputName){
    $.datetimepicker.setLocale('zh');
    $('"#'+inputName+'"').datetimepicker({
       theme: '',              //theme: 'dark',
@@ -247,7 +248,7 @@ var inputName= "f_date"+ count;
                 }
               return [true, ""];
         }});
-        count++; 
+       
  }// register()     
 
 </script>
