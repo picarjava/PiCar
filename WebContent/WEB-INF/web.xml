@@ -198,4 +198,12 @@
   <servlet-name>singleOrderApi</servlet-name>
   <url-pattern>/singleOrderApi</url-pattern>
 </servlet-mapping>
+<servlet>
+  <servlet-name>driverApi</servlet-name>
+  <servlet-class>android.com.driver.controller.DriverServlet</servlet-class>
+</servlet>
+<servlet-mapping>
+  <servlet-name>driverApi</servlet-name>
+  <url-pattern>/driverApi</url-pattern>
+</servlet-mapping>
 </web-app>

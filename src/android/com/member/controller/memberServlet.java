@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.member.model.MemberVO;
 
@@ -29,6 +30,8 @@ public class memberServlet extends HttpServlet {
         req.setCharacterEncoding("utf-8");
         BufferedReader bufferedReader = req.getReader();
         StringBuilder stringBuilder = new StringBuilder();
+        resp.setCharacterEncoding("utf-8");
+        PrintWriter writer = resp.getWriter();
         String jsonIn;
         while ((jsonIn = bufferedReader.readLine()) != null) {
             stringBuilder.append(jsonIn);
@@ -37,34 +40,33 @@ public class memberServlet extends HttpServlet {
         bufferedReader.close();
         System.out.println(stringBuilder.toString());
         Gson gson = new Gson();
-        JsonObject json = gson.fromJson(stringBuilder.toString(), JsonObject.class);
-        String account = null;
-        String password = null;
-        if (json != null) {
-            if (json.has("account"))
-                account = json.get("account").getAsString();
-            if (json.has("password"))
-                password = json.get("password").getAsString();
-        }
-        
-        try {
-            Thread.sleep(1000);
-        } catch (InterruptedException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-        resp.setCharacterEncoding("utf-8");
-        PrintWriter writer = resp.getWriter();
-        MemberService serivce = new MemberService();
-        MemberVO memberVO = serivce.getOneByEmailAndPassword(account, password);
         JsonObject jsonObject = new JsonObject();
-        if (memberVO != null) {
-            jsonObject.addProperty("auth", "OK");
-            jsonObject.addProperty("member", gson.toJson(memberVO));
-        } else
-            jsonObject.addProperty("auth", "Failed");
-        
-        writer.print(gson.toJson(jsonObject));
-        writer.close();
+        JsonObject json = gson.fromJson(stringBuilder.toString(), JsonObject.class);
+        if (json != null && json.has("action")) {
+            if ("login".equals(json.get("action").getAsString())) {
+                String account = null;
+                String password = null;
+                if (json.has("account"))
+                    account = json.get("account").getAsString();
+                if (json.has("password"))
+                    password = json.get("password").getAsString();
+                
+                gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                MemberService serivce = new MemberService();
+                MemberVO memberVO = serivce.getOneByEmailAndPassword(account, password);
+                if (memberVO != null) {
+                    jsonObject.addProperty("auth", "OK");
+                    jsonObject.addProperty("member", gson.toJson(memberVO));
+                } else
+                    jsonObject.addProperty("auth", "Failed");
+                
+                writer.print(jsonObject);
+                writer.close();
+            }
+        } else {
+            jsonObject.addProperty("state", "failed");
+            writer.print(jsonObject.toString());
+            writer.close();
+        }
     }
 }
