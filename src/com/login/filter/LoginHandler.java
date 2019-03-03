@@ -5,6 +5,9 @@ import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
+
 public class LoginHandler extends HttpServlet {
 
 	/**
@@ -12,20 +15,20 @@ public class LoginHandler extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	protected boolean allowUser(String account, String password) {
-		if ("M001".equals(account) && "123".equals(password)
-			||"M002".equals(account) && "123".equals(password)
-			||"M003".equals(account) && "123".equals(password)
-			||"M004".equals(account) && "123".equals(password)
-			||"M005".equals(account) && "123".equals(password)
-			||"M006".equals(account) && "123".equals(password)
-			||"M007".equals(account) && "123".equals(password)) {
-
-			return true;
-		} else {
-			return false;
-		}
-	}
+//	protected boolean allowUser(String account, String password) {
+//		if ("M001".equals(account) && "123".equals(password)
+//			||"M002".equals(account) && "123".equals(password)
+//			||"M003".equals(account) && "123".equals(password)
+//			||"M004".equals(account) && "123".equals(password)
+//			||"M005".equals(account) && "123".equals(password)
+//			||"M006".equals(account) && "123".equals(password)
+//			||"M007".equals(account) && "123".equals(password)) {
+//
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
@@ -39,11 +42,13 @@ public class LoginHandler extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = res.getWriter();
-
+		
 		String account = req.getParameter("account").trim();
 		String password = req.getParameter("password").trim();
-
-		if (!allowUser(account, password)) {
+		
+		MemberService memberSvc = new  MemberService();
+		MemberVO memberVO = memberSvc.getOneMemberByPass(account, password);
+		if (memberVO == null) {
 			out.println("<HTML><HEAD><TITLE>登入畫面</TITLE></HEAD>");
 			out.println("<BODY>你的帳號，密碼無效<BR>");
 			out.println("<BODY>三秒後將自動跳轉回登入畫面<BR>");
@@ -55,8 +60,9 @@ public class LoginHandler extends HttpServlet {
 
 		} else {
 			HttpSession session = req.getSession();
-			session.setAttribute("account", account);
-
+//			session.setAttribute("account", account);
+			session.setAttribute("memberVO", memberVO);
+			
 			try {
 				String location = (String) req.getAttribute("location");
 				if (location != null) {
@@ -68,7 +74,11 @@ public class LoginHandler extends HttpServlet {
 			}
 			res.sendRedirect(req.getContextPath() + "/front-end/member/listOneMember.jsp"); // 從首頁登入成功的時候，要轉向的葉面
 		}
+		
+		
+		}
+		
 
-	}
+	
 
 }
