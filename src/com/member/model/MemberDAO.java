@@ -41,7 +41,8 @@ public class MemberDAO implements MemberDAO_interface {
 			+ "TOKEN=?, ACTIVITY_TOKEN=?, BIRTHDAY=?, VERIFIED=?, BABY_SEAT=? WHERE MEM_ID=?";
 
 	private static final String GET_AMOUT_MEM = "SELECT SUM (AMOUNT) FROM STORE_RECORD WHERE MEM_ID=?";
-	
+	private static final String LOGIN = "SELECT * FROM MEMBER WHERE MEM_ID=? AND PASSWORD=?";
+
 	@Override
 	public void insert(MemberVO memberVO) {
 		Connection con = null;
@@ -118,7 +119,6 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setInt(12, memberVO.getVerified());
 			pstmt.setInt(13, memberVO.getBabySeat());
 			pstmt.setString(14, memberVO.getMemID().trim());
-			
 
 			pstmt.executeUpdate();
 
@@ -319,12 +319,12 @@ public class MemberDAO implements MemberDAO_interface {
 
 		return list;
 	}
-	
-	//以下暫時沒使用
-	
+
+	// 以下暫時沒使用
+
 	public Integer getSumAmount(String memID) {
-		
-		Integer sumAmount = new Integer(0);		
+
+		Integer sumAmount = new Integer(0);
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -334,11 +334,9 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt = con.prepareStatement(GET_AMOUT_MEM);
 			pstmt.setString(1, memID);
 			rs = pstmt.executeQuery();
-			
+
 			rs.next();
-			sumAmount = rs.getInt(1);			
-			
-			
+			sumAmount = rs.getInt(1);
 
 		} catch (SQLException se) {
 			throw new RuntimeException("SQL錯誤: " + se.getMessage());
@@ -370,6 +368,74 @@ public class MemberDAO implements MemberDAO_interface {
 		}
 
 		return sumAmount;
-		
+
+	}
+
+	public MemberVO findByLoginPass(String memID, String password) {
+
+		MemberVO memberVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(LOGIN);
+
+			pstmt.setString(1, memID);
+			pstmt.setString(2, password);
+
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				memberVO = new MemberVO();
+
+				memberVO.setMemID(rs.getString("MEM_ID"));
+				memberVO.setName(rs.getString("NAME"));
+				memberVO.setEmail(rs.getString("EMAIL"));
+				memberVO.setPassword(rs.getString("PASSWORD"));
+				memberVO.setPhone(rs.getString("PHONE"));
+				memberVO.setCreditcard(rs.getString("CREDIT_CARD"));
+				memberVO.setPet(rs.getInt("PET"));
+				memberVO.setSmoke(rs.getInt("SMOKE"));
+				memberVO.setGender(rs.getInt("GENDER"));
+				memberVO.setToken(rs.getInt("TOKEN"));
+				memberVO.setActivityToken(rs.getInt("ACTIVITY_TOKEN"));
+				memberVO.setBirthday(rs.getDate("BIRTHDAY"));
+				memberVO.setVerified(rs.getInt("VERIFIED"));
+				memberVO.setBabySeat(rs.getInt("BABY_SEAT"));
+
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace();
+				}
+			}
+		}
+
+		return memberVO;
 	}
 }

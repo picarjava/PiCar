@@ -71,5 +71,9 @@ public class MemberService {
 	public List<MemberVO> getAll(){
 		return dao.getAll();
 	}
+	
+	public MemberVO getOneMemberByPass(String memID, String password) {
+		return dao.findByLoginPass(memID, password);
+	}
 
 }

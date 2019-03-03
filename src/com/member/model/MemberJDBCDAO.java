@@ -468,4 +468,10 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 	}
 
+	@Override
+	public MemberVO findByLoginPass(String memID, String password) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
