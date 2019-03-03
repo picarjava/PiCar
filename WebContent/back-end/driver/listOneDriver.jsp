@@ -4,40 +4,7 @@
 <%@ page import="java.util.*"%>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>driver searching for admin</title>
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<meta content="" name="keywords">
-<meta content="" name="description">
-
-<!-- Favicons -->
-<link href="<%=request.getContextPath()%>/regna-master/img/favicon.png"
-	rel="icon">
-<link
-	href="<%=request.getContextPath()%>/regna-master/img/apple-touch-icon.png"
-	rel="apple-touch-icon">
-
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700"
-	rel="stylesheet">
-
-<!-- Bootstrap CSS File -->
-<link
-	href="<%=request.getContextPath()%>/regna-master/lib/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-
-<!-- Libraries CSS Files -->
-<link
-	href="<%=request.getContextPath()%>/regna-master/lib/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getContextPath()%>/regna-master/lib/animate/animate.min.css"
-	rel="stylesheet">
-
-<!-- Main Stylesheet File -->
-<link href="<%=request.getContextPath()%>/regna-master/css/style.css"
-	rel="stylesheet">
+<jsp:include page="/regna-master/head.jsp" />
 
 <!-- =======================================================
     Theme Name: Regna
@@ -51,10 +18,14 @@
       Contact Section
     ============================-->
 	<!-- 先取出VO -->
-	<%DriverVO driverVO=(DriverVO)request.getAttribute("driverVO");%>
+	<%
+		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
+	%>
 
 	<!-- 錯誤列表 -->
-	<%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
+	<%
+		LinkedList errorMsgs = (LinkedList<String>) request.getAttribute("errorMsgs");
+	%>
 	<c:if test="${not empty errorMsgs}">
 		<ul class="list-group">
 			<li class="list-group-item active">Opps!錯誤訊息回報</li>
@@ -69,7 +40,8 @@
 				<div class="section-header">
 					<h3 class="section-title">司機資料查詢</h3>
 					<div class="text-center">
-						<form action="司機會員管理.jsp"><!-- 設返回頁面 -->
+						<form action="司機會員管理.jsp">
+							<!-- 設返回頁面 -->
 							<button type="submit">返回</button>
 						</form>
 					</div>
@@ -81,7 +53,8 @@
 				<div class="col-lg-12 col-md-12">
 					<div class="form">
 						<!-- 活動表單開始 -->
-						<form action="driver.do" method="post" role="form"	class="contactForm">
+						<form action="driver.do" method="post" role="form"
+							class="contactForm">
 							<!-- <form action="<.%=request.getContextPath()%.>/activity/Activ_servlet.html" method="post" role="form" class="contactForm"> -->
 
 							<div class="form-group">
@@ -212,35 +185,9 @@
 		</div>
 	</footer>
 	<!-- #footer -->
-	============================-->
+	<!-- 	============================-->
 
-	<a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
-
-	<!-- JavaScript Libraries -->
-	<script
-		src="<%=request.getContextPath()%>/regna-master/lib/jquery/jquery.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/regna-master/lib/jquery/jquery-migrate.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/regna-master/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/regna-master/lib/easing/easing.min.js"></script>
-	<script
-		src="<%=request.getContextPath()%>/regna-master/lib/wow/wow.min.js"></script>
-	<script
-		src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script>
-
-	<script src="<%=request.getContextPath()%>/regna-master/lib/waypoints/waypoints.min.js"></script>
-	<script src="<%=request.getContextPath()%>/regna-master/lib/counterup/counterup.min.js"></script>
-	<script src="<%=request.getContextPath()%>/regna-master/lib/superfish/hoverIntent.js"></script>
-	<script src="<%=request.getContextPath()%>/regna-master/lib/superfish/superfish.min.js"></script>
-
-	<!-- Contact Form JavaScript File -->
-	<script
-		src="<%=request.getContextPath()%>/regna-master/contactform/contactform.js"></script>
-
-	<!-- Template Main Javascript File -->
-	<script src="<%=request.getContextPath()%>/regna-master/js/main.js"></script>
+	<jsp:include page="/regna-master/body.jsp" />
 
 </body>
 </html>

@@ -58,8 +58,7 @@
                   <h3 class="section-title">恭喜您成為PICAR一員</h3>
                   <div class="text-center">
                   <!-- <form action="homeActivity.jsp">設返回頁面 -->
-                  <form action="https://www.google.com">
-
+                  <form action="司機資料管理.jsp">
                   <button type="submit" >返回</button>
                   </form>
                   </div>                
@@ -127,7 +126,6 @@
                           <img src="driver.do?driverID=D003&pic=5"  width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
-                    
                             <div class="form-group">
                                 <p>願意共乘載客</p>
                                 <input type="text" name="sharedCar"  readonly  value="${driverVO.sharedCar}" class="form-control"   />
@@ -147,8 +145,6 @@
                                 <p>提供嬰兒座椅</p>
                                 <input type="text" name="babySeat"  readonly  value="${driverVO.babySeat}" class="form-control"   />
                             </div>
-                    
-                    
                   <!--  <div class="text-center"><button type="submit">確認修改</button></div>  -->
                     <!--隱藏的參數action讓controller抓-->
                     <!-- <input type="hidden" name="action" value="UPTDATE"> -->
