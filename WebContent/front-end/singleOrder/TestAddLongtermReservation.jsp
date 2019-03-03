@@ -166,10 +166,18 @@
  <!--測試用class註冊 -->
 <script> 
 
+// $(DOCUMENT).READY(FUNCTION() {
+// 	$("#BUTTON-ADDON2").CLICK(FUNCTION() {
+// 		$("#BUTTON-ADDON2").ATTR("ONCLICK","'APPENDTEXT('+ INPUTNAME +')'");
+// 	});
+
+
  function appendText() {
   	var txt1 ='<input type="text" id="'+inputName+'" name="endTime"  value="${endTime}" class="endTime form-control" placeholder="請輸入結束日期"  >'	;	
  		$("#addOne").append(txt1); // Append new elements
- 		register( inputName);
+ 		alert("有沒有執行這行");
+ 		register();
+ 		
  }
  
 //  function init(){
@@ -183,10 +191,10 @@ var count=3;
 var inputName= "f_date"+ count;
 
  //動態註冊日曆
- function register(inputName){
-	 
+ function register(){
+	
    $.datetimepicker.setLocale('zh');
-   $('"#'+ inputName +'"').datetimepicker({
+   $('"#'+inputName+'"').datetimepicker({
       theme: '',              //theme: 'dark',
       timepicker:true,       //timepicker:true,
      step: 30,                //step: 60 (這是timepicker的預設間隔60分鐘)
@@ -203,7 +211,7 @@ var inputName= "f_date"+ count;
 
    //      1.以下為某一天之前的日期無法選擇
    var somedate3 = minDateLong;    //new Date();
-   $('"#'+ inputName +'"').datetimepicker({
+   $('"#'+inputName+'"').datetimepicker({
        beforeShowDay: function(date) {
           if (date.getYear() <  somedate3.getYear())
       	   return [false, ""];
@@ -229,7 +237,7 @@ var inputName= "f_date"+ count;
   
    //      2.以下為某一天之後的日期無法選擇
         var somedate4 = maxDate;    //new Date('2017-06-15');
-        $('"#'+ inputName +'"').datetimepicker({
+        $('"#'+inputName+'"').datetimepicker({
             beforeShowDay: function(date) {
               if (  date.getYear() >  somedate4.getYear() || 
                    (date.getYear() == somedate4.getYear() && date.getMonth() >  somedate4.getMonth()) || 
