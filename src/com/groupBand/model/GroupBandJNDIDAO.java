@@ -313,6 +313,12 @@ public class GroupBandJNDIDAO implements GroupBandDAO_interface{
 		return list;
 	}
 
+	@Override
+	public List<GroupBandVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 

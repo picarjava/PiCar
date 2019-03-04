@@ -25,11 +25,11 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 		}
 	}
 
-	private static final String INSERT_STMT = "INSERT INTO GROUP_BAND (GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE) VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-	private static final String GET_ALL_STMT = "SELECT GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE FROM GROUP_BAND";
-	private static final String GET_ONE_STMT = "SELECT GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE FROM GROUP_BAND where GROUP_ID = ?";
+	private static final String INSERT_STMT = "INSERT INTO GROUP_BAND (GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE,GROUP_KIND) VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+	private static final String GET_ALL_STMT = "SELECT GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE,GROUP_KIND FROM GROUP_BAND";
+	private static final String GET_ONE_STMT = "SELECT GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE,GROUP_KIND FROM GROUP_BAND where GROUP_ID = ?";
 	private static final String DELETE = "DELETE FROM GROUP_BAND where GROUP_ID = ?";
-	private static final String UPDATE = "UPDATE GROUP_BAND set GROUP_ID=?,CONTENT=?,LAUNCH_TIME=?,INTRODUCTION=?,GROUP_STATUS=?,CURRENT_NUM=?,UPPER_LIMIT=?,LOWER_LIMIT=?,GROUP_NAME=?,GROUP_LEADER=?,START_LOC=?,END_LOC=?,PRIVATES=?,PHOTO=?,GROUP_TYPE=?,TOTAL_AMOUT=?,START_TIME=?,RATE=?,NOTE=? where GROUP_ID= ?";
+	private static final String UPDATE = "UPDATE GROUP_BAND set GROUP_ID=?,CONTENT=?,LAUNCH_TIME=?,INTRODUCTION=?,GROUP_STATUS=?,CURRENT_NUM=?,UPPER_LIMIT=?,LOWER_LIMIT=?,GROUP_NAME=?,GROUP_LEADER=?,START_LOC=?,END_LOC=?,PRIVATES=?,PHOTO=?,GROUP_TYPE=?,TOTAL_AMOUT=?,START_TIME=?,RATE=?,NOTE=?,GROUP_KIND=? where GROUP_ID= ?";
 
 	@Override
 	public void insert(GroupBandVO groupBandVO) {
@@ -58,7 +58,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			pstmt.setTimestamp(15, groupBandVO.getStartTime());
 			pstmt.setInt(16, groupBandVO.getRate());
 			pstmt.setString(17, groupBandVO.getNote());
-
+			pstmt.setInt(18, groupBandVO.getGroupKind());
 			pstmt.executeUpdate();
 			con.commit();
 		} catch (SQLException se) {
@@ -111,7 +111,8 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			pstmt.setTimestamp(17, groupBandVO.getStartTime());
 			pstmt.setInt(18, groupBandVO.getRate());
 			pstmt.setString(19, groupBandVO.getNote());
-			pstmt.setString(20, groupBandVO.getGroupID());
+			pstmt.setInt(20, groupBandVO.getGroupKind());
+			pstmt.setString(21, groupBandVO.getGroupID());
 			pstmt.executeUpdate();
 			con.commit();
 
@@ -202,7 +203,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 				groupBandVO.setStartTime(rs.getTimestamp("START_TIME"));
 				groupBandVO.setRate(rs.getInt("RATE"));
 				groupBandVO.setNote(rs.getString("NOTE"));
-
+				groupBandVO.setGroupKind(rs.getInt("GROUP_KIND"));
 			}
 
 		} catch (SQLException se) {
@@ -268,6 +269,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 				groupBandVO.setStartTime(rs.getTimestamp("START_TIME"));
 				groupBandVO.setRate(rs.getInt("RATE"));
 				groupBandVO.setNote(rs.getString("NOTE"));
+				groupBandVO.setGroupKind(rs.getInt("GROUP_KIND"));
 				list.add(groupBandVO);
 
 			}
@@ -299,6 +301,79 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			}
 		}
 
+		return list;
+	}
+
+	@Override
+	public List<GroupBandVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		List<GroupBandVO> list = new ArrayList<GroupBandVO>();
+		GroupBandVO groupBandVO =null;
+		
+		Connection con = null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		try {
+			con =ds.getConnection();
+			String finalSQL = "select LAUNCH_TIME,INTRODUCTION,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC, END_LOC, PRIVATES, PHOTO, GROUP_TYPE, TOTAL_AMOUT, START_TIME,GROUP_KIND from GROUP_BAND"
+			+jdbcUtil_CompositeQuery_GROUP_BAND.get_WhereCondition(map)
+			+ " order by LAUNCH_TIME";
+			
+			pstmt = con.prepareStatement(finalSQL);
+			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				groupBandVO = new GroupBandVO();
+			
+				groupBandVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
+				groupBandVO.setIntroduction(rs.getString("INTRODUCTION"));				
+				groupBandVO.setCurrenTnum(rs.getInt("CURRENT_NUM"));
+				groupBandVO.setUpperLimit(rs.getInt("UPPER_LIMIT"));
+				groupBandVO.setLowerLimit(rs.getInt("LOWER_LIMIT"));
+				groupBandVO.setGroupName(rs.getString("GROUP_NAME"));
+				groupBandVO.setGroupLeader(rs.getString("GROUP_LEADER"));
+				groupBandVO.setStartLoc(rs.getString("START_LOC"));
+				groupBandVO.setEndLoc(rs.getString("END_LOC"));
+				groupBandVO.setPrivates(rs.getInt("PRIVATES"));
+				groupBandVO.setPhoto(rs.getBytes("PHOTO"));
+				groupBandVO.setGroupType(rs.getString("GROUP_TYPE"));
+				groupBandVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
+				groupBandVO.setStartTime(rs.getTimestamp("START_TIME"));
+				groupBandVO.setGroupKind(rs.getInt("GROUP_KIND"));
+				list.add(groupBandVO);
+			
+			}
+			
+			
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
 		return list;
 	}
 

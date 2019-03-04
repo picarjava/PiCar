@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 
 
@@ -331,6 +332,12 @@ public class GroupBandJDBCDAO implements GroupBandDAO_interface{
 		}
 		
 		return list;
+	}
+
+	@Override
+	public List<GroupBandVO> getAll(Map<String, String[]> map) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

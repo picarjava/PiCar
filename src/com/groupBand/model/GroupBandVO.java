@@ -27,6 +27,15 @@ public class GroupBandVO implements java.io.Serializable {
 	private Timestamp startTime;
 	private Integer rate;
 	private String note;
+	private Integer groupKind;
+	
+	public Integer getGroupKind() {
+		return groupKind;
+	}
+	public void setGroupKind(Integer groupKind) {
+		this.groupKind = groupKind;
+	}
+	
 	
 	public String getGroupID() {
 		return groupID;

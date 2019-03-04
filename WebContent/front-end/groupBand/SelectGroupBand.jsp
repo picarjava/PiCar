@@ -6,6 +6,11 @@
 <head>
 <meta charset="utf-8">
 <title>SelectGroupBand.jsp</title>
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
+<meta charset="BIG5">
 </head>
 
 <style>
@@ -27,6 +32,7 @@
     color: blue;
     display: inline;
   }
+
 </style>
 <body bgcolor='white'>
 
@@ -53,13 +59,48 @@
   
   <li>
     <FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"  enctype="multipart/form-data">
-        <b>輸入揪團編號 </b>
-        <input type="text" name="groupID">
-        <input type="hidden" name="action" value="getOne_For_Display">
+        <b>團名</b>
+         <input  type="TEXT" name="GROUP_NAME"><br><br>
+         <b>上車地點</b>
+         	  <select name="START_LOC">
+			<option value="台北">台北市</option>
+			<option value="桃園">桃園市</option>
+			</select><br><br>
+			<b>上車日期</b>
+			<input name="START_TIME" id="start_date" type="text"
+					 onchange="datestamps();" size="15"><br><br>
+        <b>揪團類別</b>
+        <select name="GROUP_TYPE">
+			<option value="演唱會">演唱會</option>
+			<option value="旅遊">旅遊</option>
+			<option value="美食">美食</option>
+			<option value="運動團">運動團</option>
+			<option value="展覽">展覽</option>
+			<option value="遊樂園">遊樂園</option>
+			</select><br><br>
+       
+       
+        <input type="hidden" name="action" value="listgroupBand_ByCompositeQuery">
         <input type="submit" value="送出">
     </FORM>
   </li>
 </ul>
-
+<script>
+$('#start_date').datetimepicker(
+		{
+			format : 'Y-m-d H:i:s',
+			onShow : function() {
+				this.setOptions({
+					maxDate : $('#start_date').val() ? $('+1970-01-20')
+							.val() :  true
+				})
+			},
+			step: 5,
+			timepicker : true,
+					value : 'new Date()',
+			minDate:           '-1970-01-01', // 去除今日(不含)之前
+			maxDate:           '+1970-01-20'  // 去除今日(不含)之後
+		});
+</script>
 </body>
 </html>

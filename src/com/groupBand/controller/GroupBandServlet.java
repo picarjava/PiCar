@@ -9,8 +9,10 @@ import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,6 +21,7 @@ import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 import com.groupBand.model.*;
@@ -253,6 +256,8 @@ public class GroupBandServlet extends HttpServlet {
 					errorMsgs.add("請輸入日期!");
 				}
 
+				Integer groupKind =new Integer(req.getParameter("orderT").trim());
+				
 				Integer rate = 5;
 
 				String note = req.getParameter("note");
@@ -284,7 +289,7 @@ public class GroupBandServlet extends HttpServlet {
 //				groupBandVO.setStartTime(new Date(simpleDateFormat.parse("2019-02-14").getTime()));
 				groupBandVO.setRate(rate);
 				groupBandVO.setNote(note);
-
+				groupBandVO.setGroupKind(groupKind);
 				// Send the use back to the form, if there were errors
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("GroupBandVO", groupBandVO); // �t����J�榡���~��GroupBandVO����,�]�s�Jreq
@@ -300,7 +305,7 @@ public class GroupBandServlet extends HttpServlet {
 
 				groupBandVO = groupBandService.updateGroupBand(req.getParameter("groupID"), launchTime, content,
 						introduction, groupStatus, currenTnum, upperLimit, lowerLimit, groupName, groupLeader, startLoc,
-						endLoc, privates, photo, groupType, totalAmout, startTime, rate, note);
+						endLoc, privates, photo, groupType, totalAmout, startTime, rate, note,groupKind);
 
 				/***************************
 				 * 3.�s�W����,�ǳ����(Send the Success view)
@@ -441,7 +446,8 @@ public class GroupBandServlet extends HttpServlet {
 				}
 
 //   	
-
+				Integer groupKind =new Integer(req.getParameter("orderT").trim());
+				
 				Integer rate = 5;
 
 				String note = req.getParameter("note");
@@ -479,7 +485,7 @@ public class GroupBandServlet extends HttpServlet {
 				GroupBandService groupBandService = new GroupBandService();
 				groupBandVO = groupBandService.addGroupBand(content, introduction, groupStatus, currenTnum, upperLimit,
 						lowerLimit, groupName, groupLeader, startLoc, endLoc, privates, photo, groupType, totalAmout,
-						startTime, rate, note);
+						startTime, rate, note,groupKind);
 
 				// 產生訂單
 
@@ -576,6 +582,37 @@ public class GroupBandServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/groupBand/insertGroupBand.jsp");
 				failureView.forward(req, res);
 			}
+		}
+		
+		if("listgroupBand_ByCompositeQuery".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			// Store this set in the request scope, in case we need to
+			// send the ErrorPage view.
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try{
+				HttpSession session = req.getSession();
+				Map<String, String[]> map = (Map<String, String[]>)session.getAttribute("map");	
+				if (req.getParameter("whichPage") == null){
+					{
+						HashMap<String, String[]> map1 = new HashMap<String, String[]>(req.getParameterMap());
+						session.setAttribute("map",map1);
+						map = map1;
+					}
+					GroupBandService groupBandService =new GroupBandService();
+					List<GroupBandVO> list = groupBandService.getAll(map);
+					req.setAttribute("listgroupBand_ByCompositeQuery", list); // 資料庫取出的list物件,存入request
+					RequestDispatcher successView = req.getRequestDispatcher("/front-end/groupBand/listgroupBand_ByCompositeQuery.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+					successView.forward(req, res);
+					
+					}
+			}catch(Exception e) {
+				errorMsgs.add(e.getMessage());
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/groupBand/SelectGroupBand.jsp");
+				failureView.forward(req, res);
+			}
+			
 		}
 
 	}

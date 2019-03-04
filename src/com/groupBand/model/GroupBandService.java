@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 //import java.text.ParseException;
 //import java.text.SimpleDateFormat;
 import java.util.List;
+import java.util.Map;
 
 public class GroupBandService {
 
@@ -18,7 +19,7 @@ public class GroupBandService {
 	public GroupBandVO addGroupBand(String content, String introduction, Integer groupStatus, Integer currenTnum,
 			Integer upperLimit, Integer lowerLimit, String groupName, String groupLeader, String startLoc,
 			String endLoc, Integer privates, byte[] photo, String groupType, Integer totalAmout, Timestamp startTime,
-			Integer rate, String note) {
+			Integer rate, String note,Integer groupKind) {
 
 		GroupBandVO groupBandVO = new GroupBandVO();
 
@@ -39,7 +40,7 @@ public class GroupBandService {
 		groupBandVO.setStartTime(startTime);
 		groupBandVO.setRate(rate);
 		groupBandVO.setNote(note);
-
+		groupBandVO.setGroupKind(groupKind);
 		dao.insert(groupBandVO);
 		return groupBandVO;
 	}
@@ -48,7 +49,7 @@ public class GroupBandService {
 			String groupID,Timestamp launchTime,
 			String content, String introduction, Integer groupStatus, Integer currenTnum, Integer upperLimit,
 			Integer lowerLimit, String groupName, String groupLeader, String startLoc, String endLoc, Integer privates,
-			byte[] photo, String groupType, Integer totalAmout, Timestamp startTime, Integer rate, String note) {
+			byte[] photo, String groupType, Integer totalAmout, Timestamp startTime, Integer rate, String note,Integer groupKind) {
 
 		GroupBandVO groupBandVO = new GroupBandVO();
 		groupBandVO.setGroupID(groupID);
@@ -70,7 +71,7 @@ public class GroupBandService {
 		groupBandVO.setStartTime(startTime);
 		groupBandVO.setRate(rate);
 		groupBandVO.setNote(note);
-
+		groupBandVO.setGroupKind(groupKind);
 		dao.update(groupBandVO);
 		return groupBandVO;
 
@@ -87,6 +88,8 @@ public class GroupBandService {
 	public void deleteGroupBand(String empno) {
 		dao.delete(empno);
 	}
-	
+	public List<GroupBandVO> getAll(Map<String, String[]> map) {
+		return dao.getAll(map);
+	}
 
 }

@@ -1,6 +1,6 @@
 package com.groupBand.model;
 
-import java.util.List;
+import java.util.*;
 
 
 
@@ -12,5 +12,5 @@ public void update(GroupBandVO groupBandVO);
 public void delete(String groupBandno);
 public GroupBandVO findByPrimaryKey(String groupBandno);
 public List<GroupBandVO> getAll();
-
+public List<GroupBandVO> getAll(Map<String, String[]> map); 
 }
