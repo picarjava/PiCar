@@ -43,9 +43,9 @@ table{
 		</tr>
 		<tr>
 			<td>儲值金額：</td>
-			<td><input type="radio" name="amount" value="1000">1000 
-				<input type="radio" name="amount" value="500">500 
-				<input type="radio" name="amount" value="300">300
+			<td><input type="radio" name="amount" value="3000">3000 
+				<input type="radio" name="amount" value="1000">1000 
+				<input type="radio" name="amount" value="500">500
 			</td>					
 		</tr>
 		<tr>
