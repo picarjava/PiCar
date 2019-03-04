@@ -474,4 +474,10 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		return null;
 	}
 
+	@Override
+	public void updateToken(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

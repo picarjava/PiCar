@@ -67,13 +67,25 @@ public class MemberService {
 	public void deleteEmp(String memID) {
 		dao.delete(memID);
 	}
-	
-	public List<MemberVO> getAll(){
+
+	public List<MemberVO> getAll() {
 		return dao.getAll();
 	}
-	
+
 	public MemberVO getOneMemberByPass(String memID, String password) {
 		return dao.findByLoginPass(memID, password);
+	}
+
+	public MemberVO updateToken(String memID, Integer token) {
+
+		MemberVO memberVO = new MemberVO();
+
+		memberVO.setMemID(memID);
+		memberVO.setToken(token);
+		dao.updateToken(memberVO);
+
+		return memberVO;
+
 	}
 
 }

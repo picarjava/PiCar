@@ -10,6 +10,7 @@ public interface MemberDAO_interface {
 	public MemberVO findByPrimaryKey(String memID);
 	public List<MemberVO> getAll();
 	public MemberVO findByLoginPass(String memID, String password);
+	public void updateToken(MemberVO memberVO);
 //	萬用複合查詢(傳入參數型別Map)(回傳List)
 	
 //	public List<MemberVO> getAll(Map<String, String> map);

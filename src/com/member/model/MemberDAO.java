@@ -41,7 +41,10 @@ public class MemberDAO implements MemberDAO_interface {
 			+ "TOKEN=?, ACTIVITY_TOKEN=?, BIRTHDAY=?, VERIFIED=?, BABY_SEAT=? WHERE MEM_ID=?";
 
 	private static final String GET_AMOUT_MEM = "SELECT SUM (AMOUNT) FROM STORE_RECORD WHERE MEM_ID=?";
+
 	private static final String LOGIN = "SELECT * FROM MEMBER WHERE MEM_ID=? AND PASSWORD=?";
+
+	private static final String UPDATE_TOKEN = "UPDATE MEMBER SET TOKEN=? WHERE MEM_ID=?";
 
 	@Override
 	public void insert(MemberVO memberVO) {
@@ -438,4 +441,43 @@ public class MemberDAO implements MemberDAO_interface {
 
 		return memberVO;
 	}
+
+	@Override
+	public void updateToken(MemberVO memberVO) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_TOKEN);
+
+			pstmt.setInt(1, memberVO.getToken());
+			pstmt.setString(2, memberVO.getMemID());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
+
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
 }
