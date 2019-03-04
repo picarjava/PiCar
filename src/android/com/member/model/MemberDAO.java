@@ -63,7 +63,6 @@ public class MemberDAO implements MemberDAO_Interface {
             closeConnection(connection);
         } // finally
         
-        System.out.println(memberVO);
         return memberVO;
     }
     

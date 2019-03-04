@@ -7,5 +7,5 @@ public interface SingleOrder_interface {
     void insert(SingleOrderVO singleOrderVO);
     void update(SingleOrderVO singleOrderVO);
     List<SingleOrderVO> getAll();
-
+    List<SingleOrderVO> getSingleOrdersByStateAndOrderType(Integer state, Integer orderType);
 } // interface SingleOrderInterface

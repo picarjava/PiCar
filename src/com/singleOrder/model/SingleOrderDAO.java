@@ -14,6 +14,7 @@ import java.util.List;
 
 public class SingleOrderDAO implements SingleOrder_interface {
 	private final static String SELECT_STMT = "SELECT * FROM SINGLE_ORDER WHERE ORDER_ID=?";
+	private final static String SELECT_BY_STATE_AND_ORDER_TYPE_STMT = "SELECT * FROM SINGLE_ORDER WHERE STATE=? AND ORDER_TYPE=?";
 	private final static String SELECT_ALL_STMT = "SELECT * FROM SINGLE_ORDER";
     private final static String UPDATE_STMT = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, STATE=?, START_TIME=?, END_TIME=?, " +
                                                                       "START_LOC=?, END_LOC=?, START_LNG=?, START_LAT=?, " +
@@ -168,6 +169,37 @@ public class SingleOrderDAO implements SingleOrder_interface {
         return list;
     } // getAll()
     
+    
+    
+    @Override
+    public List<SingleOrderVO> getSingleOrdersByStateAndOrderType(Integer state, Integer orderType) {
+        List<SingleOrderVO> list = new ArrayList<>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+//            connection = DriverManager.getConnection(URL, NAME, PASSWORD);
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(SELECT_BY_STATE_AND_ORDER_TYPE_STMT);
+            int index = 1;
+            preparedStatement.setInt(index++, state);
+            preparedStatement.setInt(index++, orderType);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                list.add(getSingleOrderVO(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        } // finally
+        
+        return list;
+    }
+
     private void closeResultSet(ResultSet resultSet) {
         if (resultSet != null) {
             try {
