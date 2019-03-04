@@ -35,7 +35,7 @@ public class StoreRecordServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		
+
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
@@ -58,7 +58,7 @@ public class StoreRecordServlet extends HttpServlet {
 
 				StoreRecordService srSvc = new StoreRecordService();
 				StoreRecordVO storeRecordVO = srSvc.getOneStoreRecord(storeRecordID);
-				if (storeRecordVO == null) {			
+				if (storeRecordVO == null) {
 					errorMsgs.add("無此撥款紀錄編號");
 				}
 
@@ -83,10 +83,10 @@ public class StoreRecordServlet extends HttpServlet {
 		if ("getOne_For_Display_Mem".equals(action)) {
 			List<String> errorMsgs = new LinkedList();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+
 			try {
 				String memID = req.getParameter("memID").trim();
-				
+
 				StoreRecordService srSvc = new StoreRecordService();
 				List<StoreRecordVO> list = srSvc.getMemStoreRecord(memID);
 				if (list.isEmpty()) {
@@ -100,10 +100,15 @@ public class StoreRecordServlet extends HttpServlet {
 				}
 
 				req.setAttribute("list", list);
-				RequestDispatcher succesView = req
-						.getRequestDispatcher("/storeRecord/listOneStoreRecordMember.jsp");
-				succesView.forward(req, res);
 				
+				//為了拿到加總金額
+				StoreRecordService storeRecordSvc = new StoreRecordService();
+				Integer sumCount = storeRecordSvc.getCount(memID);
+				req.setAttribute("sumCount", sumCount);
+				
+				RequestDispatcher succesView = req.getRequestDispatcher("/storeRecord/listOneStoreRecordMemberBack.jsp");
+				succesView.forward(req, res);
+
 			} catch (RuntimeException e) {
 				errorMsgs.add("無法取得資料" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/storeRecord/selec_page.jsp");
@@ -112,7 +117,7 @@ public class StoreRecordServlet extends HttpServlet {
 		}
 
 //		---儲值紀錄不修改--
-		
+
 //		if ("getOne_For_Update".equals(action)) {
 //			List<String> errorMsgs = new LinkedList();
 //			req.setAttribute("errorMsgs", errorMsgs);
@@ -200,8 +205,8 @@ public class StoreRecordServlet extends HttpServlet {
 //		}
 //
 		if ("insert".equals(action)) {
-            
-			//司機編號作下拉式選單
+
+			// 司機編號作下拉式選單
 			List<String> errorMsgs = new LinkedList();
 			req.setAttribute("errorMsgs", errorMsgs);
 
@@ -219,16 +224,16 @@ public class StoreRecordServlet extends HttpServlet {
 				Integer amount = null;
 				try {
 					amount = new Integer(req.getParameter("amount").trim());
-					
+
 				} catch (Exception e) {
 					amount = 0;
 					errorMsgs.add("請點選金額");
-				}	
-				
-				
+				}
+
 				StoreRecordVO storeRecordVO = new StoreRecordVO();
 				storeRecordVO.setMemID(memID);
-				storeRecordVO.setAmount(amount);	
+				storeRecordVO.setAmount(amount);
+				// 以上VO是為了錯誤時，原輸入資料保留
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("storeRecordVO", storeRecordVO);
@@ -240,8 +245,22 @@ public class StoreRecordServlet extends HttpServlet {
 				// 開始新增資料
 				StoreRecordService storeRecordSvc = new StoreRecordService();
 				storeRecordVO = storeRecordSvc.addStoreRecord(memID, amount);
+				req.setAttribute("storeRecordVO", storeRecordVO);
 
-				RequestDispatcher succesView = req.getRequestDispatcher("/storeRecord/listAllStoretRecord.jsp");
+				// 為了拿名子
+				List<StoreRecordVO> list = storeRecordSvc.getMemStoreRecord(memID);
+				req.setAttribute("list", list);
+
+				// 為了計算加總金額
+				Integer sumCount = storeRecordSvc.getCount(memID);
+				req.setAttribute("sumCount", sumCount);
+				
+				MemberService memberSvc = new MemberService();
+				 memberSvc.updateToken(memID, sumCount);
+				
+				
+				RequestDispatcher succesView = req
+						.getRequestDispatcher("/storeRecord/listOneStoreRecordMemberFront.jsp");
 				succesView.forward(req, res);
 
 			} catch (Exception e) {
@@ -252,7 +271,7 @@ public class StoreRecordServlet extends HttpServlet {
 
 		}
 		if ("addToken".equals(action)) {
-			
+
 			String memID = req.getParameter("memID");
 			StoreRecordVO storeRecordVO = new StoreRecordVO();
 			storeRecordVO.setMemID(memID);

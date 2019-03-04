@@ -56,5 +56,9 @@ public class StoreRecordService {
 		return dao.getAll();
 	}
 	
+	public Integer getCount(String memID) {
+		return dao.getSumAmount(memID);
+	}
+	
 	
 }
