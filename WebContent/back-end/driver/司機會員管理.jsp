@@ -52,14 +52,14 @@
 									<button class="btn btn-outline-success my-2 my-sm-0"
 										type="submit">查詢一筆司機</button>
 								</form>
-<!-- 							<li class="nav-item"> -->
-<!-- 								<form class="form-inline" -->
-<%-- 									action="<%=request.getContextPath()%>/back-end/activity/listAllActivity.jsp" --%>
-<!-- 									method="post"> -->
-<!-- 									<button class="btn btn-outline-success my-2 my-sm-0" -->
-<!-- 										type="submit">查詢全部活動</button> -->
-<!-- 								</form> -->
-<!-- 							</li> -->
+							<li class="nav-item">
+								<form class="form-inline"
+									action="<%=request.getContextPath()%>/back-end/driver/listAllDriver.jsp"
+									method="post">
+									<button class="btn btn-outline-success my-2 my-sm-0"
+										type="submit">查詢全部司機</button>
+								</form>
+							</li>
 <!-- 							<li class="nav-item"> -->
 <!-- 								<form class="form-inline" -->
 <%-- 									action="<%=request.getContextPath()%>/back-end/driver/addDriver.jsp" --%>

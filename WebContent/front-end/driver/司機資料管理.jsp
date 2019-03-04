@@ -27,8 +27,7 @@
 				<h3 class="section-title">司機資料管理(前端_已成為司機的)</h3>
 				<p class="section-description">請查看與修改資料</p>
 			</div>
-			<button type="button" class="btn btn-dark ">返回PICAR首頁</button>
-		</div>
+			</div>
 
 		<div class="container wow fadeInUp">
 			<div class="row justify-content-center">
@@ -170,9 +169,10 @@ photo-->
 							<div class="text-center">
 								<button type="submit" class="btn btn-block ">確認修改</button>
 								<%-- 	<input type="hidden" name="msgID"  value="${brodVO.msgID}"> --%>
+							<input type="hidden" name="action" value="UPDATE_DRI"/>
 							</div>
 							<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
-							<input type="hidden" name="action" value="UPDATE_DRI"/>
+                            <button type="button" class="btn btn-block ">返回PICAR首頁</button>
 						</form>
 					</div>
 				</div>

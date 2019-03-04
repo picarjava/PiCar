@@ -51,6 +51,7 @@ req.setCharacterEncoding("UTF-8");
 		
 		DriverService driverSvc = new DriverService();
 	    DriverVO driverVO = driverSvc.getOneDriver(driverID);
+	    System.out.println(driverID);
 	    
 	    if(pic == 1) {//jsp哪一個image呼叫
 	    	byte[] licence = driverVO.getLicence();
@@ -118,6 +119,7 @@ req.setCharacterEncoding("UTF-8");
 //			if (message == null || message.trim().length() == 0) {
 //				errorMsgs.add("訊息內容: 請勿空白");
 //			}
+		
 		String memID = "M003" ;//--
 //		String driverID = "D003";//--
 //		String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
@@ -206,9 +208,9 @@ req.setCharacterEncoding("UTF-8");
 		smoke = new Integer(req.getParameter("smoke"));
 		babySeat =new Integer(req.getParameter("babySeat"));
 		/////////////////
-		DriverVO driverVO = new DriverVO();
+		DriverVO driverVO = new DriverVO();//告訴下頁面
 		driverVO.setMemID(memID);
-//		driverVO.setDriverID(driverID);//
+//		driverVO.setDriverID(driverID);//  新增才能產生PK--> listall秀圖片--> 修改抓到driverID
 		driverVO.setPlateNum(plateNum);
 		driverVO.setLicence(licence);
 		driverVO.setCriminal(criminal);
@@ -234,7 +236,7 @@ req.setCharacterEncoding("UTF-8");
 		}
 		/********************* *2.開始新增資料*****************************************/
 		/* 從addDriver.jsp取得的資料，透過DriverService操作DAO存進資料庫 */
-		DriverService driverSvc ; // 以VO物件傳送參數
+		DriverService driverSvc ; // 以VO物件傳送參數 //資料庫產生PK
 		driverSvc = new DriverService();
 		driverVO = driverSvc.addDriver(memID, 
 //				driverID, 
@@ -286,8 +288,33 @@ req.setCharacterEncoding("UTF-8");
 			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
 			failurePage.forward(req, res);
 		}
-	}
 ////////////////////////
+//來自back-end/listAllDriver.jsp 修改某一筆的請求 後台驗證司機
+if("GET_ONE_FOR_CHECK".equals(action)){
+	LinkedList<String> errorMsgs=new LinkedList<String>();
+	req.setAttribute("errorMsgs", errorMsgs);
+	try {
+	/*************1.接收請求參數:某一筆活動ID**************/
+	String driverID=req.getParameter("driverID");
+	
+	/*************2查詢資料:調出某一筆的vo**************/
+	DriverService driverSvc=new DriverService();
+	DriverVO driverVO=driverSvc.getOneDriver(driverID);//從driverPK
+	/*************3.得到資料和圖片轉換資料存在scope=reqest，並送出VO給處理頁面:getOneUpdate頁面**************/
+	
+	req.setAttribute("driverVO", driverVO);
+//	String url="/back-end/driver/getOneUpdateActivity.jsp";  //
+	String url="/back-end/driver/getOneUpdateActivity.jsp";  //驗證成功頁面
+	RequestDispatcher successPage=req.getRequestDispatcher(url);
+	successPage.forward(req, res);
+	/*************4.處理例外:回listALL原頁面**************/
+}catch(Exception e){
+	errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
+	}
+	RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
+	failurePage.forward(req, res);
+}
+	//////////////
 //	update
 //	Date deadline = null;//被ban的時間
 //	driverVO.setDeadline(deadline);//修改時使用
@@ -419,7 +446,7 @@ req.setCharacterEncoding("UTF-8");
 //		time = new java.sql.Date(System.currentTimeMillis());
 //		errorMsgs.add("請輸入日期");
 //	}
-	
+	}
 /////////////////	
 	/* 處理圖片存進資夾，以便以名稱顯示在網頁上 */
 	public static void readPicture(byte[] bytes, String picName) throws IOException {

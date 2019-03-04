@@ -206,4 +206,9 @@
   <servlet-name>driverApi</servlet-name>
   <url-pattern>/driverApi</url-pattern>
 </servlet-mapping>
+  <servlet>
+    <servlet-name>DriverVerified</servlet-name>
+    <servlet-class>model.DriverVerified</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
 </web-app>

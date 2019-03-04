@@ -41,7 +41,6 @@
 					<h3 class="section-title">司機資料查詢</h3>
 					<div class="text-center">
 						<form action="司機會員管理.jsp">
-							<!-- 設返回頁面 -->
 							<button type="submit">返回</button>
 						</form>
 					</div>
@@ -59,7 +58,7 @@
 
 							<div class="form-group">
 								<p>會員編號</p>
-								<input type="text" name="memID" readonly
+								<input type="text" name="memID" readonly value="${driverVO.memID}"
 									value="${driverVO.memID}" class="form-control" />
 							</div>
 							<div class="form-group">
@@ -78,6 +77,7 @@
 								<p>駕照</p>
 								<div class="card" style="width: 18rem;">
 									<img src="driver.do?driverID=D003&pic=1" width="300"
+<%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=1" width="300" --%>
 										height="150" class="card-img-top" alt="...">
 								</div>
 							</div>
@@ -85,6 +85,7 @@
 								<p>良民證</p>
 								<div class="card" style="width: 18rem;">
 									<img src="driver.do?driverID=D003&pic=2" width="300"
+<%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=2" width="300" --%>
 										height="150" class="card-img-top" alt="...">
 								</div>
 							</div>
@@ -93,6 +94,7 @@
 								<p>肇事紀錄</p>
 								<div class="card" style="width: 18rem;">
 									<img src="driver.do?driverID=D003&pic=3" width="300"
+<%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=3" width="300" --%>
 										height="150" class="card-img-top" alt="...">
 								</div>
 							</div>
@@ -100,6 +102,7 @@
 								<p>身分證</p>
 								<div class="card" style="width: 18rem;">
 									<img src="driver.do?driverID=D003&pic=4" width="300"
+<%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=4" width="300" --%>
 										height="150" class="card-img-top" alt="...">
 								</div>
 							</div>
@@ -107,6 +110,7 @@
 							<div class="form-group">
 								<p>大頭照</p>
 								<div class="card" style="width: 18rem;">
+<%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=5" width="300" --%>
 									<img src="driver.do?driverID=D003&pic=5" width="300"
 										height="150" class="card-img-top" alt="...">
 								</div>
