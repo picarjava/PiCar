@@ -62,6 +62,8 @@ public class SingleOrderService {
     public List<SingleOrderVO> getAll() {
         return singleOrderDAO.getAll();
     } // getAll()
-
     
+    public List<SingleOrderVO> getByStateAndOrderType(Integer state, Integer orderType) {
+        return singleOrderDAO.getSingleOrdersByStateAndOrderType(state, orderType);
+    } // getByStateAndOrderType()
 } // class SingleOrderService
