@@ -98,7 +98,7 @@ req.setCharacterEncoding("UTF-8");
 //		RequestDispatcher requestDispatcher;
 //		RequestDispatcher failurePage;
 	///////////////////////////////////////////////////////////////////////
-	if ("INSERT".equals(action)) { // 來自addBrod.jsp的請求 ok
+	if ("INSERT".equals(action)) { // 來自addDriver.jsp的請求 ok
 		List<String> errorMsgs = new LinkedList<String>();
 		// Store this set in the request scope, in case we need to
 		// send the ErrorPage view.
