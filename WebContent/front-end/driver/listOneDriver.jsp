@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.driver.model.*" %>
+<%@ page import="com.member.model.*" %>
 <%@ page import="java.util.*" %>
 <html>
 <head>
@@ -22,6 +23,7 @@
     ============================-->
     <!-- 先取出VO -->
   <%DriverVO driverVO=(DriverVO)request.getAttribute("driverVO");%>
+  <%MemberVO memberVO=(MemberVO)request.getAttribute("memberVO");%>
   
     <!-- 錯誤列表 -->
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
@@ -109,7 +111,8 @@
                       <input type="file" class="form-control" name="photo" value="${driverVO.photo}" />
                        <div class="card" style="width: 18rem;">
 <%--                           <img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=5"  width="300" height="150" class="card-img-top" alt="..." > --%>
-                          <img src="driver.do?driverID=D003&pic=5"  width="300" height="150" class="card-img-top" alt="..." >
+<!--                           <img src="driver.do?driverID=D003&pic=5"  width="300" height="150" class="card-img-top" alt="..." > -->
+                               <img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200">                          
                         </div>
                     </div>
                             <div class="form-group">
