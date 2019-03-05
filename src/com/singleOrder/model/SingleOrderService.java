@@ -59,6 +59,12 @@ public class SingleOrderService {
         return singleOrderVO;
     } // updateSingleOrder()
     
+    //小編新增刪除方法
+    public void delete(String orderID) {
+    	singleOrderDAO.delete(orderID);
+    };
+  
+    
     public List<SingleOrderVO> getAll() {
         return singleOrderDAO.getAll();
     } // getAll()

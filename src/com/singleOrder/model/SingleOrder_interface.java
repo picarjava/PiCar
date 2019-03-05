@@ -8,4 +8,5 @@ public interface SingleOrder_interface {
     void update(SingleOrderVO singleOrderVO);
     List<SingleOrderVO> getAll();
     List<SingleOrderVO> getSingleOrdersByStateAndOrderType(Integer state, Integer orderType);
+    void delete(String orderID);
 } // interface SingleOrderInterface

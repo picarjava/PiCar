@@ -39,7 +39,7 @@ public class SingleOrderServlet extends HttpServlet{
         SingleOrderService serivce = new SingleOrderService();
         try {
             if ("select".equals(action)) {
-                forwordURL = "/front-end/singleOrder/selectSingleOrder.jsp";
+                forwordURL = "/front-end/singleOrder/listOneSingleOrder.jsp";
                 String orderID = req.getParameter("orderID");
                 if (!isValidParameter(orderID, "^\\d+$"))
                     errorMsgs.add("請輸入數字");
@@ -49,8 +49,29 @@ public class SingleOrderServlet extends HttpServlet{
                     req.setAttribute("errorMsgs", errorMsgs);
                 } else
                     req.setAttribute("singleOrder", serivce.getOneSingleOrder(orderID)); 
-            //單程預約
-            } else if ("insert".equals(action)) {
+            //刪除訂單
+            } else if("DELETE".equals(action)) {
+            	forwordURL = "/front-end/singleOrder/listAllfutureTrip.jsp";
+            	String orderID=req.getParameter("orderID");
+            	if(orderID==null||orderID.trim().length()==0) {
+            		errorMsgs.add("未取得訂單編號");
+            	}
+            	if (!errorMsgs.isEmpty()) {
+                    req.setAttribute("errorMsgs", errorMsgs);
+                } 
+            	try{
+            		serivce.delete(orderID);
+            	}catch(Exception e) {
+            		errorMsgs.add("您已過可取消行程時限"+e.getMessage());
+            	}
+            	
+            	if (!errorMsgs.isEmpty()) {
+                    req.setAttribute("errorMsgs", errorMsgs);
+                } 
+            }
+            
+          //新增單程預約
+            else if ("insert".equals(action)) {
                 forwordURL = "/front-end/singleOrder/addReservation.jsp";
                 String memID = req.getParameter("memID");
                 Timestamp startTime = parseTimestamp(req.getParameter("startTime"));
@@ -72,7 +93,6 @@ public class SingleOrderServlet extends HttpServlet{
                     errorMsgs.add("訂單種類錯誤");
                 if (!isValidParameter(note, ".+"))
                     errorMsgs.add("備註錯誤");
-               
                 
 	                SingleOrderVO singleOrderVO = new SingleOrderVO();
 	                singleOrderVO.setMemID(memID);
@@ -128,6 +148,7 @@ public class SingleOrderServlet extends HttpServlet{
             		errorMsgs.add("長期預約叫車結束日期未填寫");
             	}
                 if (!errorMsgs.isEmpty()) {
+                	forwordURL = "/front-end/singleOrder/addLongtermReservation.jsp";
                 	SingleOrderVO singleOrderVO = new SingleOrderVO();
                     singleOrderVO.setMemID(memID);
                     singleOrderVO.setStartTime(startTime);
@@ -139,7 +160,7 @@ public class SingleOrderServlet extends HttpServlet{
                     req.setAttribute("errorMsgs", errorMsgs);
                     req.setAttribute("endTime", endTime);//長期預約資訊送回錯誤頁面
                 }
-                //長期叫車
+                
                 long startDay=0;
                 long endDay =0;
                 long oneDay=0;
@@ -174,6 +195,7 @@ public class SingleOrderServlet extends HttpServlet{
 	                singleOrderVO.setNote(note);
             		
 	                if (!errorMsgs.isEmpty()) {
+	                	forwordURL = "/front-end/singleOrder/addLongtermReservation.jsp";
 	                    req.setAttribute("singleOrder", singleOrderVO);
 	                    req.setAttribute("errorMsgs", errorMsgs);
 	                    req.setAttribute("endTime", endTime);//長期預約資訊送回錯誤頁面
@@ -190,7 +212,7 @@ public class SingleOrderServlet extends HttpServlet{
 	                        throw e;
 	                    } // catch
 	                	
-	                    forwordURL = "/front-end/singleOrder/listAllSingleOrder.jsp";
+	                    forwordURL = "/front-end/singleOrder/listAllfutureTrip.jsp";
 	                } // else
             		}//synchronized
             	}//for迴圈
@@ -289,7 +311,7 @@ public class SingleOrderServlet extends HttpServlet{
     } // parseInteger()
     
     private Timestamp parseTimestamp(String time) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd mm:ss");
         try {
             return new Timestamp(simpleDateFormat.parse(time.trim()).getTime());
         } catch (ParseException e) {

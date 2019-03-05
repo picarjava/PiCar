@@ -24,7 +24,11 @@ public class SingleOrderDAO implements SingleOrder_interface {
                                                                   "START_LOC, END_LOC, START_LNG, START_LAT, " +
                                                                   "END_LNG, END_LAT, TOTAL_AMOUNT, ORDER_TYPE, " +
                                                                   "NOTE, LAUNCH_TIME) " + 
-                                                                  "VALUES (SEQ_SINGLE_ORDER.NEXTVAL, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                                                                  "VALUES ('SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    
+  //小編新增一個刪除語法
+    private static final String DELETE=
+			"DELETE FROM SINGLE_ORDER WHERE ORDER_ID=?";
     private static DataSource dataSource;
 //    private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 //    private final static String NAME = "PiCar";
@@ -51,6 +55,40 @@ public class SingleOrderDAO implements SingleOrder_interface {
 //        singleOrderDAO.insert(singleOrderVO);
 //        System.out.println(singleOrderDAO.getAll());
 //    } // main()
+    
+    //小編新增一個刪除方法
+    @Override
+    public void delete(String orderID) {
+		Connection con=null;
+		PreparedStatement pstmt=null;
+		try{
+			con=dataSource.getConnection();
+			pstmt=con.prepareStatement(DELETE);
+			/*根據SQL常數，pstmt需要的值*/
+			/*parameterIndex 從1開始*/
+			pstmt.setString(1, orderID);
+			pstmt.executeUpdate();
+			
+		}catch(SQLException se){
+			throw new RuntimeException("發生SQL error"+se.getMessage());
+		}finally{
+			if(pstmt!=null){
+				try{
+					pstmt.close();
+				}catch(SQLException se){
+					se.printStackTrace(System.err);
+				}
+			}
+			if(con!=null){
+				try{
+					con.close();
+				}catch(Exception e){
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+    
     
     @Override
     public SingleOrderVO findByPrimaryKey(String orderID) {
