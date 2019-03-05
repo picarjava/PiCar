@@ -29,7 +29,7 @@ table{
 	</ul>
 </c:if>
 
-<form method="post" action="member.do" name="form1">
+<form method="post" action="member.do" name="form1" enctype="multipart/form-data">
 <a href="select_page.jsp">回主頁面</a>
 	<table >
 		
@@ -61,10 +61,10 @@ table{
 		
 		<tr>
 			<td>會員寵物喜好設定：</td>
-			<td><select name="pet">
-			<option value="1">喜歡
-			<option value="0">不喜歡
-			</select></td>		
+			<td>
+			<input type="radio" name="pet" value="1"> 喜歡
+			<input type="radio" name="pet" value="0"> 不喜歡<br>
+			</td>		
 		</tr>
 		<tr>
 			<td>會員抽菸喜好設定：</td>
@@ -78,19 +78,20 @@ table{
 		</tr>
 		<tr>
 			<td>會員性別設定：</td>
-			<td><select name="gender">
-			<option value="1">男人
-			<option value="0">女人
-			</select></td>		
+			<td>
+			<input type="radio" name="gender" value="1"> 男生
+			<input type="radio" name="gender" value="0"> 女生<br></td>		
 		</tr>
 		<tr>
-			<td>會員代幣：</td>
-			<td><input type="text" name="token" size="45" value="<%= (memberVO==null)? "100":memberVO.getToken() %>" ></td>		
+<!-- 			<td>會員代幣：</td> -->
+<%-- 			<td><input type="text" name="token" size="45" value="<%= (memberVO==null)? "100":memberVO.getToken() %>" ></td>		 --%>
+				<td><input type="hidden" name="token" size="45" value="0" ></td>
 		</tr>
 		
 		<tr>
-			<td>會員活動代幣：</td>
-			<td><input type="text" name="activityToken" size="45" value="<%= (memberVO==null)? "1000":memberVO.getActivityToken() %>" /></td>		
+<!-- 			<td>會員活動代幣：</td> -->
+<%-- 			<td><input type="text" name="activityToken" size="45" value="<%= (memberVO==null)? "1000":memberVO.getActivityToken() %>" /></td>		 --%>
+				<td><input type="hidden" name="activityToken" size="45" value="0" /></td>
 		</tr>
 		<tr> 
 			<td>會員生日:</td>
@@ -102,11 +103,16 @@ table{
 		</tr>
 		<tr>
 			<td>嬰兒座椅設定：</td>
-			<td><select name="babySeat">
-			<option value="1">需要
-			<option value="0">不需要
-			</select></td>		
+			<td>
+			<input type="radio" name="babySeat" value="1"> 需要
+			<input type="radio" name="babySeat" value="0"> 不需要<br></td>		
 		</tr>
+		<tr>
+			<td>會員照片：</td>
+			<td>
+			<input type="file" name="pic" > <br></td>		
+		</tr>
+		
 	</table>                          
 	
 	<input type="hidden" name="action" value="insert">
