@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -459,6 +460,8 @@ public class GroupBandServlet extends HttpServlet {
 				}
 
 				GroupBandVO groupBandVO = new GroupBandVO();
+				GroupBandDAO groupBandDAO = new GroupBandDAO();
+				
 				groupBandVO.setContent(content);
 				groupBandVO.setIntroduction(introduction);
 				groupBandVO.setGroupStatus(groupStatus);
@@ -478,14 +481,14 @@ public class GroupBandServlet extends HttpServlet {
 //					groupBandVO.setStartTime(new Date(simpleDateFormat.parse("2019-02-14").getTime()));
 				groupBandVO.setRate(rate);
 				groupBandVO.setNote(note);
-
+				groupBandVO.setGroupKind(groupKind);
 				/***************************
 				 * 2.�}�l�s�W���
 				 ***************************************/
-				GroupBandService groupBandService = new GroupBandService();
-				groupBandVO = groupBandService.addGroupBand(content, introduction, groupStatus, currenTnum, upperLimit,
-						lowerLimit, groupName, groupLeader, startLoc, endLoc, privates, photo, groupType, totalAmout,
-						startTime, rate, note,groupKind);
+//				GroupBandService groupBandService = new GroupBandService();
+//				groupBandVO = groupBandService.addGroupBand(content, introduction, groupStatus, currenTnum, upperLimit,
+//						lowerLimit, groupName, groupLeader, startLoc, endLoc, privates, photo, groupType, totalAmout,
+//						startTime, rate, note,groupKind);
 
 				// 產生訂單
 
@@ -527,37 +530,71 @@ public class GroupBandServlet extends HttpServlet {
 
 					String noteOr = null;
 
-					GroupOrderService groupOrderService = new GroupOrderService();
-
+				
 					String numdays[] =req.getParameterValues("numdays");
 					
+					List<GroupOrderVO> testList = new ArrayList<GroupOrderVO>();
+					
 				if ("0".equals(req.getParameter("orderT"))) {
-					GroupOrderVO groupOrderVO[];
-					groupOrderVO = new GroupOrderVO[upperLimit];
+					GroupOrderVO groupOrderVO;
+					groupOrderVO = new GroupOrderVO();
 					for (int x = 0; x < upperLimit; x++) {
-
-						groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder(diverID, memID[x], state,
-								totalAmoutOr, startTimeOr, endTime, startLng, startLat, endLng, endLat, orderType,
-								rateOr, noteOr);
-
+						groupOrderVO.setDriverID(diverID);
+						groupOrderVO.setMemID(memID[x]);
+						groupOrderVO.setState(state);
+						groupOrderVO.setTotalAmout(totalAmoutOr);
+						groupOrderVO.setStartTime(startTimeOr);
+						groupOrderVO.setEndTime(endTime);
+						groupOrderVO.setStartLat(startLat);
+						groupOrderVO.setStartLng(startLng);
+						groupOrderVO.setEndLng(endLng);
+						groupOrderVO.setEndLat(endLat);
+						groupOrderVO.setOrderType(orderType);
+						groupOrderVO.setRate(rateOr);
+						groupOrderVO.setNote(noteOr);
+						
+						testList.add(groupOrderVO);
+						
+//						groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder(diverID, memID[x], state,
+//								totalAmoutOr, startTimeOr, endTime, startLng, startLat, endLng, endLat, orderType,
+//								rateOr, noteOr);
+							
+						
 					}
 				} else {
-					GroupOrderVO groupOrderVO[];
-					groupOrderVO = new GroupOrderVO[upperLimit];
+					GroupOrderVO groupOrderVO;
+					groupOrderVO = new GroupOrderVO();
+					
 					for(int y = 0; y < numdays.length; y++) {
 					for (int x = 0; x < upperLimit; x++) {
 						java.sql.Timestamp startTimeOrs = null;
 					
 						startTimeOrs = java.sql.Timestamp.valueOf(numdays[y]);
+						groupOrderVO.setDriverID(diverID);
+						groupOrderVO.setMemID(memID[x]);
+						groupOrderVO.setState(state);
+						groupOrderVO.setTotalAmout(totalAmoutOr);
+						groupOrderVO.setStartTime(startTimeOrs);
+						groupOrderVO.setEndTime(endTime);
+						groupOrderVO.setStartLat(startLat);
+						groupOrderVO.setStartLng(startLng);
+						groupOrderVO.setEndLng(endLng);
+						groupOrderVO.setEndLat(endLat);
+						groupOrderVO.setOrderType(orderType);
+						groupOrderVO.setRate(rateOr);
+						groupOrderVO.setNote(noteOr);
 						
-						groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder(diverID, memID[x], state,
-								totalAmoutOr, startTimeOrs, endTime, startLng, startLat, endLng, endLat, orderType,
-								rateOr, noteOr);
+						testList.add(groupOrderVO);
+						
+//						groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder(diverID, memID[x], state,
+//								totalAmoutOr, startTimeOrs, endTime, startLng, startLat, endLng, endLat, orderType,
+//								rateOr, noteOr);
 
-					}	
+					}					
 					}
+					
 				}
-
+				groupBandDAO.insertWithEmps(groupBandVO , testList);
 //		------------------------------------------------------------------------------------
 
 				// Send the use back to the form, if there were errors
@@ -572,7 +609,7 @@ public class GroupBandServlet extends HttpServlet {
 				/***************************
 				 * 3.�s�W����,�ǳ����(Send the Success view)
 				 ***********/
-				String url = "/front-end/groupBand/listAllGroupBand.jsp";
+				String url = "/front-end/groupBand/SelectGroupBand.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
 				successView.forward(req, res);
 

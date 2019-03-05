@@ -304,4 +304,55 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
 		
 	}
 
+	@Override
+	public void insert2(GroupOrderVO groupOrderVO, Connection con) {
+		// TODO Auto-generated method stub
+		PreparedStatement pstmt = null;
+		try {
+	
+			con = DriverManager.getConnection(url, userid, passwd);
+		
+			pstmt = con.prepareStatement(INSERT_STMT);
+			pstmt.setString(1, groupOrderVO.getDriverID());
+			pstmt.setString(2, groupOrderVO.getMemID());
+			pstmt.setInt(3,groupOrderVO.getState());
+			pstmt.setInt(4,groupOrderVO.getTotalAmout());			
+			pstmt.setTimestamp(5,groupOrderVO.getStartTime());
+			pstmt.setTimestamp(6,groupOrderVO.getEndTime());
+			pstmt.setDouble(7,groupOrderVO.getStartLng());
+			pstmt.setDouble(8,groupOrderVO.getStartLat());
+			pstmt.setDouble(9,groupOrderVO.getEndLng());
+			pstmt.setDouble(10,groupOrderVO.getEndLat());
+			pstmt.setInt(11,groupOrderVO.getOrderType());
+			pstmt.setInt(12,groupOrderVO.getRate());
+			pstmt.setString(13,groupOrderVO.getNote());
+			pstmt.setString(14,groupOrderVO.getGroupID());
+			pstmt.executeUpdate();
+			
+		}  catch (SQLException se) {
+			if (con != null) {
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-emp");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. "
+							+ excep.getMessage());
+				}
+			}
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+
 }

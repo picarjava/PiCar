@@ -19,6 +19,14 @@ public class GroupOrderVO {
 	private Integer orderType;
 	private Integer rate;
 	private String note;
+	private String groupID; 
+	
+	public String getGroupID() {
+		return groupID;
+	}
+	public void setGroupID(String groupId) {
+		this.groupID = groupId;
+	}
 	
 	public String getGorderID() {
 		return gorderID;

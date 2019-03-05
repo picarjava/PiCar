@@ -13,6 +13,9 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.groupOrder.model.GroupOrderDAO;
+import com.groupOrder.model.GroupOrderVO;
+
 public class GroupBandDAO implements GroupBandDAO_interface {
 
 	private static DataSource ds = null;
@@ -375,6 +378,80 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 		}
 		
 		return list;
+	}
+
+	@Override
+	public void insertWithEmps(GroupBandVO groupBandVO, List<GroupOrderVO> list) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+//			con.setAutoCommit(true);
+			con.setAutoCommit(true);
+			pstmt = con.prepareStatement(INSERT_STMT);
+			String cols[] = {"GROUP_ID"};
+			pstmt = con.prepareStatement(INSERT_STMT , cols);	
+			pstmt.setString(1, groupBandVO.getContent());
+			pstmt.setString(2, groupBandVO.getIntroduction());
+			pstmt.setInt(3, groupBandVO.getGroupStatus());
+			pstmt.setInt(4, groupBandVO.getCurrenTnum());
+			pstmt.setInt(5, groupBandVO.getUpperLimit());
+			pstmt.setInt(6, groupBandVO.getLowerLimit());
+			pstmt.setString(7, groupBandVO.getGroupName());
+			pstmt.setString(8, groupBandVO.getGroupLeader());
+			pstmt.setString(9, groupBandVO.getStartLoc());
+			pstmt.setString(10, groupBandVO.getEndLoc());
+			pstmt.setInt(11, groupBandVO.getPrivates());
+			pstmt.setBytes(12, groupBandVO.getPhoto());
+			pstmt.setString(13, groupBandVO.getGroupType());
+			pstmt.setInt(14, groupBandVO.getTotalAmout());
+			pstmt.setTimestamp(15, groupBandVO.getStartTime());
+			pstmt.setInt(16, groupBandVO.getRate());
+			pstmt.setString(17, groupBandVO.getNote());
+			pstmt.setInt(18, groupBandVO.getGroupKind());
+			pstmt.executeUpdate();
+			String next_deptno = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+			System.out.println("自增主鍵值= " + next_deptno +"(剛新增成功的部門編號)");
+			if (rs.next()) {
+				next_deptno = rs.getString(1);
+				System.out.println("自增主鍵值= " + next_deptno +"(剛新增成功的部門編號)");
+			} else {
+				System.out.println("未取得自增主鍵值");
+			}
+			GroupOrderDAO dao = new GroupOrderDAO();
+			System.out.println("list.size()-A="+list.size());
+			for (GroupOrderVO groupOrderVO : list) {
+				groupOrderVO.setGroupID(next_deptno) ;
+				dao.insert2(groupOrderVO,con);
+			}
+
+			// 2●設定於 pstm.executeUpdate()之後
+			
+			
+			
+			con.commit();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+//			 Clean up JDBC resources
+//			se.printStackTrace();
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 
 }
