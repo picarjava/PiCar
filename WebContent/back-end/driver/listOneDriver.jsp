@@ -81,8 +81,8 @@
 								<p>駕照</p>
 								<div class="card" style="width: 18rem;">
 <%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=1" width="300" --%>
-									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=1" width="300"
-										height="150" class="card-img-top" alt="...">
+<%-- 									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=1" width="300" --%>
+<!-- 										height="150" class="card-img-top" alt="..."> -->
 							<td>
 						      <c:set var="licence" value="${driverVO.licence}" />
 						      <%
@@ -95,12 +95,27 @@
 						      </td>
 								</div>
 							</div>
+<%-- <%-- 						      <td>${driverVO.criminal}</td> --%> 
+
+<%-- <%-- 						      <td>${driverVO.trafficRecord}</td> --%> 
+
+<%-- <%-- 						      <td>${driverVO.idNum}</td> --%> 
 							<div class="form-group">
 								<p>良民證</p>
 								<div class="card" style="width: 18rem;">
 <%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=2" width="300" --%>
-									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=2" width="300"
-										height="150" class="card-img-top" alt="...">
+<%-- 									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=2" width="300" --%>
+<!-- 										height="150" class="card-img-top" alt="..."> -->
+										<!-- 						      <td> -->
+						      <c:set var="criminal" value="${driverVO.criminal}" />
+						      <%
+ 						      byte[] criminal = (byte[])pageContext.getAttribute("criminal");
+ 						      String encodeImg2 = null;
+ 						      if(criminal!=null){
+						    	  encodeImg2 = Base64.encode(criminal);%> 
+						    	  <img src="data:image/jpg;base64,<%=encodeImg2 %>" id="img2">
+						      <% }%>
+						      </td>
 								</div>
 							</div>
 
@@ -108,8 +123,19 @@
 								<p>肇事紀錄</p>
 								<div class="card" style="width: 18rem;">
 <%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=3" width="300" --%>
-									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=3" width="300"
-										height="150" class="card-img-top" alt="...">
+<%-- 									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=3" width="300" --%>
+<!-- 										height="150" class="card-img-top" alt="..."> -->
+								
+						      <td>
+						      <c:set var="trafficRecord" value="${driverVO.trafficRecord}" />
+						      <%
+ 						      byte[] trafficRecord = (byte[])pageContext.getAttribute("trafficRecord");
+ 						      String encodeImg3 = null;
+ 						      if(trafficRecord!=null){
+						    	  encodeImg3 = Base64.encode(trafficRecord);%>
+						    	  <img src="data:image/jpg;base64,<%=encodeImg3 %>" id="img3">
+						      <% }%>
+						      </td>								
 								</div>
 							</div>
 							<div class="form-group">
@@ -117,8 +143,18 @@
 								<div class="card" style="width: 18rem;">
 <%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=4" width="300" --%>
 <%-- 									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=4" width="300" --%>
-									<img src="${driverVO.photo}" width="300"
-										height="150" class="card-img-top" alt="...">
+<%-- 									<img src="${driverVO.photo}" width="300" --%>
+<!-- 										height="150" class="card-img-top" alt="..."> -->
+						      <td>
+						      <c:set var="idNum" value="${driverVO.idNum}" /> 
+						      <%
+						      byte[] idNum = (byte[])pageContext.getAttribute("idNum");
+						      String encodeImg4 = null;
+						      if(idNum!=null){
+						    	  encodeImg4 = Base64.encode(idNum);%> 
+						    	  <img src="data:image/jpg;base64,<%=encodeImg4 %>" id="img4">
+						      <% }%>
+						      </td>
 								</div>
 							</div>
 
@@ -128,6 +164,17 @@
 <%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=5" width="300" 
 <%-- 									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=5" width="300" 
 										height="150" class="card-img-top" alt="...">--%>
+<%-- <%-- 						      <td>${driverVO.photo}</td> --%> 
+                              <td>
+						      <c:set var="photo" value="${driverVO.photo}" />
+						      <%
+ 						      byte[] photo = (byte[])pageContext.getAttribute("photo");
+ 						      String encodeImg5 = null;
+ 						      if(photo!=null){
+						    	  encodeImg5 = Base64.encode(photo);%>
+						    	  <img src="data:image/jpg;base64,<%=encodeImg5 %>" id="img5">
+						      <% }%>
+						      </td>
 								</div>
 							</div>
 

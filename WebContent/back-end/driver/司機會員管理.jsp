@@ -44,7 +44,7 @@
 							<li class="nav-item">
 								<form class="form-inline"
 <%-- 								action="<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp" --%>
-									action="<%=request.getContextPath()%>/driver.do"
+									action="<%=request.getServletContext().getContextPath()%>/back-end/driver/driver.do"
 									method="post">
 									<input class="form-control mr-sm-2" name="driverID"
 										type="text" placeholder="請輸入司機編號(eg.D001)" aria-label="Search">
@@ -70,7 +70,7 @@
 							</li>
 <jsp:useBean id="driversrV" scope="page" class="com.driver.model.DriverService" />
 		<li>
-			<form method="post" action="<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp">
+			<form method="post" action="<%=request.getServletContext().getContextPath()%>/back-end/driver/driver.do">
 				<b>請選擇編號</b> <br>
 				<select size="1" name="driverID">
 					<c:forEach var="driverVO" items="${driversrV.all}">
