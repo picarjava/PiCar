@@ -23,7 +23,6 @@ public class LogoutHandler extends HttpServlet {
 		doGet(req, res);
 		String logout = req.getParameter("logout");
 		if ("logout".equals(logout)) {
-			System.out.println("@@@");
 			HttpSession session = req.getSession();
 			session.invalidate();
 			

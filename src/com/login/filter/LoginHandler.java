@@ -42,11 +42,11 @@ public class LoginHandler extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = res.getWriter();
-		
+
 		String account = req.getParameter("account").trim();
 		String password = req.getParameter("password").trim();
-		
-		MemberService memberSvc = new  MemberService();
+
+		MemberService memberSvc = new MemberService();
 		MemberVO memberVO = memberSvc.getOneMemberByPass(account, password);
 		if (memberVO == null) {
 			out.println("<HTML><HEAD><TITLE>登入畫面</TITLE></HEAD>");
@@ -62,23 +62,22 @@ public class LoginHandler extends HttpServlet {
 			HttpSession session = req.getSession();
 //			session.setAttribute("account", account);
 			session.setAttribute("memberVO", memberVO);
-			
-			try {
-				String location = (String) req.getAttribute("location");
+
+			try {                                            
+				String location = (String) session.getAttribute("location");
+				System.out.println(location);
 				if (location != null) {
-					session.removeAttribute("location"); // 從其他頁面登入成功時候，要回到其他頁面
+//					session.removeAttribute("location"); // 從其他頁面登入成功時候，要回到其他頁面
+					System.out.println("123");
 					res.sendRedirect(location);
 					return;
 				}
 			} catch (Exception ignored) {
 			}
-			res.sendRedirect(req.getContextPath() + "/front-end/member/listOneMember.jsp"); // 從首頁登入成功的時候，要轉向的葉面
+			res.sendRedirect(req.getContextPath() + "/front-end/member/listOneMember.jsp"); // *工作2: 看看有無來源網頁
+																							// (-->如有來源網頁:則重導至來源網頁)
 		}
-		
-		
-		}
-		
 
-	
+	}
 
 }
