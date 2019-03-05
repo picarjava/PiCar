@@ -4,6 +4,7 @@ public class AdminVO implements java.io.Serializable{
 	
 	private String adminID;
 	private String adminName;
+	private String email;
 	private String password;
 	private Integer isEmp;
 	
@@ -23,6 +24,14 @@ public class AdminVO implements java.io.Serializable{
 
 	public void setAdminName(String adminName) {
 		this.adminName = adminName;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public String getPassword() {

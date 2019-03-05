@@ -100,10 +100,16 @@ h5 {
 				<td><input type="TEXT" name="adminName" size="45"
 					value="<%= (adminVO==null)? "Kev" : adminVO.getAdminName()%>" /></td>
 			</tr>
+			
+			<tr>
+				<td>電子信箱</td>
+				<td><input type="TEXT" name="email" size="45"
+					value="<%= (adminVO==null)? "123@gmail.com" : adminVO.getEmail()%>" /></td>
+			</tr>
 			<tr>
 				<td>密碼</td>
 				<td><input type="TEXT" name="password" size="45"
-					value="<%= (adminVO==null)? "" : adminVO.getPassword()%>" /></td>
+					value="<%= (adminVO==null)? "abc123456" : adminVO.getPassword()%>" /></td>
 			</tr>
 			<tr>
 				<td>在職狀態</td>
