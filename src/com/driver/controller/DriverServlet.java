@@ -261,12 +261,22 @@ req.setCharacterEncoding("UTF-8");
 //	}
 //	//////////////////////////////////////////////////
 //	//來自homeDriver.jsp的請求(後台_管理員查出單筆司機資料)
-		if("GET_ONE".equals(action)){
+		if("GET_ONE_BACK".equals(action)){
 			LinkedList<String> errorMsgs=new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			try {
 			/*************1.接收請求參數**************/
+			try {
 				String driverID=req.getParameter("driverID");
+				if (driverID == null || (driverID.trim()).length() == 0) {
+					errorMsgs.add("請輸入司機編號");
+				}
+				// Send the use back to the form, if there were errors
+//			//	if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
 			/*************2查詢資料**************/
 			DriverService driverSvc=new DriverService();
 			DriverVO driverVO=driverSvc.getOneDriver(driverID);
@@ -284,15 +294,14 @@ req.setCharacterEncoding("UTF-8");
 			/*************4.處理例外**************/
 		}catch(Exception e){
 			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
-			}
 			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
 			failurePage.forward(req, res);
 		}
 ////////////////////////
 //來自back-end/listAllDriver.jsp 修改某一筆的請求 後台驗證司機
 if("GET_ONE_FOR_CHECK".equals(action)){
-	LinkedList<String> errorMsgs=new LinkedList<String>();
-	req.setAttribute("errorMsgs", errorMsgs);
+   List<String> errorMsgs1=new LinkedList<String>();//?
+	req.setAttribute("errorMsgs", errorMsgs1);
 	try {
 	/*************1.接收請求參數:某一筆活動ID**************/
 	String driverID=req.getParameter("driverID");
@@ -309,11 +318,12 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	successPage.forward(req, res);
 	/*************4.處理例外:回listALL原頁面**************/
 }catch(Exception e){
-	errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
+	errorMsgs1.add("無法取得要修改的資料:"+e.getMessage());
 	}
 	RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
 	failurePage.forward(req, res);
 }
+		}
 	//////////////
 //	update
 //	Date deadline = null;//被ban的時間

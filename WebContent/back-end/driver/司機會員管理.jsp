@@ -48,7 +48,7 @@
 									<input class="form-control mr-sm-2" name="driverID"
 										type="search" placeholder="請輸入司機編號(eg.D001)" aria-label="Search">
 									<!--隱藏的參數action讓controller抓-->
-									<input type="hidden" name="action" value="GET_ONE">
+									<input type="hidden" name="action" value="GET_ONE_BACK">
 									<button class="btn btn-outline-success my-2 my-sm-0"
 										type="submit">查詢一筆司機</button>
 								</form>

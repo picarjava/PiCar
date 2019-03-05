@@ -38,7 +38,7 @@
 		<div class="container wow fadeInUp">
 			<div class="col-lg-12 col-md-12">
 				<div class="section-header">
-					<h3 class="section-title">司機資料查詢</h3>
+					<h3 class="section-title">司機會員查詢</h3>
 					<div class="text-center">
 						<form action="司機會員管理.jsp">
 							<button type="submit">返回</button>
@@ -51,7 +51,7 @@
 			<div class="row justify-content-center">
 				<div class="col-lg-12 col-md-12">
 					<div class="form">
-						<!-- 活動表單開始 -->
+						<!-- 司機表單開始 -->
 						<form action="driver.do" method="post" role="form"
 							class="contactForm">
 							<!-- <form action="<.%=request.getContextPath()%.>/activity/Activ_servlet.html" method="post" role="form" class="contactForm"> -->
@@ -60,6 +60,11 @@
 								<p>會員編號</p>
 								<input type="text" name="memID" readonly value="${driverVO.memID}"
 									value="${driverVO.memID}" class="form-control" />
+							</div>
+							<div class="form-group">
+								<p>司機編號</p>
+								<input type="text" name="driverID" readonly 
+									value="${driverVO.driverID}" class="form-control" />
 							</div>
 							<div class="form-group">
 								<p>車牌號碼</p>
