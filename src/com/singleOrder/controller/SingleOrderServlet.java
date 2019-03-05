@@ -289,7 +289,7 @@ public class SingleOrderServlet extends HttpServlet{
     } // parseInteger()
     
     private Timestamp parseTimestamp(String time) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             return new Timestamp(simpleDateFormat.parse(time.trim()).getTime());
         } catch (ParseException e) {

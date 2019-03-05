@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -20,6 +21,7 @@ import com.singleOrder.model.SingleOrderVO;
 public class SingleOrderServlet extends HttpServlet {
     private final static int NOT_ESTABLISHED = 0;
     private final static int ONE_TIME_RESERVE = 3;
+    private final static int LONG_TERM_RESERVE = 4;
     
     
     @Override
@@ -49,8 +51,40 @@ public class SingleOrderServlet extends HttpServlet {
             List<SingleOrderVO> singleOrderVOs = service.getByStateAndOrderType(NOT_ESTABLISHED, ONE_TIME_RESERVE);
             gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
             writer.print(gson.toJson(singleOrderVOs));
+            System.out.println(gson.toJson(singleOrderVOs));
             writer.close();
+        } else if ("getLongTermSingleOrder".equals(action)) {
+            List<SingleOrderVO> singleOrderVOs = service.getByStateAndOrderType(NOT_ESTABLISHED, LONG_TERM_RESERVE);
+            gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
+            writer.print(gson.toJson(convertToLongTermOrder(singleOrderVOs)));
+            System.out.println(gson.toJson(convertToLongTermOrder(singleOrderVOs)));
+            writer.close();
+        } else if ("NewSingleOrder".equals(action)) {
+            
         }
     }
     
+    private List<List<SingleOrderVO>> convertToLongTermOrder(List<SingleOrderVO> vos) {
+        List<List<SingleOrderVO>> vosLists = new ArrayList<>();
+        for (SingleOrderVO singleOrderVO: vos) {
+            boolean added = false;
+            for (List<SingleOrderVO> voslist: vosLists) {
+                SingleOrderVO first = voslist.get(0);
+                if (first.getLaunchTime().equals(singleOrderVO.getLaunchTime()) &&
+                    first.getMemID().equals(singleOrderVO.getMemID())) {
+                    voslist.add(singleOrderVO);
+                    added = true;
+                    break;
+                }
+            }
+            
+            if (!added) {
+                List<SingleOrderVO> singleOrderVOs = new ArrayList<>();
+                singleOrderVOs.add(singleOrderVO);
+                vosLists.add(singleOrderVOs);
+            }
+        }
+        
+        return vosLists;
+    }
 }
