@@ -211,4 +211,38 @@
     <servlet-class>model.DriverVerified</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
+  
+  <servlet>
+    <servlet-name>LoginHandlerBackEnd</servlet-name>
+    <servlet-class>com.login.filter.LoginHandlerBackEnd</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginHandlerBackEnd</servlet-name>
+    <url-pattern>/back-end/login/loginHandlerBackEnd.do</url-pattern>
+  </servlet-mapping>
+  
+  <filter>
+    <filter-name>LoginFilterBackEnd</filter-name>
+    <filter-class>com.login.filter.LoginFilterBackEnd</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginFilterBackEnd</filter-name>
+    <url-pattern>/back-end/index.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
+  
+  <servlet>
+    <servlet-name>LogoutHandlerBackEnd</servlet-name>
+    <servlet-class>com.login.filter.LogoutHandlerBackEnd</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutHandlerBackEnd</servlet-name>
+    <url-pattern>/back-end/logoutHandlerBackEnd.do</url-pattern>
+  </servlet-mapping>
+  
+  
 </web-app>
