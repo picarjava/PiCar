@@ -480,4 +480,11 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		
 	}
 
+	@Override
+	public void updateVerified(String memID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 }

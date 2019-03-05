@@ -1,13 +1,17 @@
 package com.member.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import javax.servlet.RequestDispatcher;
 
 import com.member.model.*;
@@ -17,11 +21,42 @@ import com.storeRecord.model.*;
 /**
  * Servlet implementation class MemberServlet
  */
-
+@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class MemberServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+
+		req.setCharacterEncoding("UTF-8");
+		res.setContentType("image/gif");
+		ServletOutputStream out = res.getOutputStream();
+
+		String memID = req.getParameter("memID");
+
+		MemberService memberSvc = new MemberService();
+		MemberVO memberVO = memberSvc.getOneMember(memID);
+
+		byte[] pic = memberVO.getPic();
+		if (pic != null) {
+			out.write(pic);
+		}
+
+		
+//		可能可以用，要測試，看GetURLConnectionContent_Ver6_getPicAsStream
+//		ByteArrayOutputStream out = new ByteArrayOutputStream(); // 或FileOutputStream out = new FileOutputStream("myPic.jpg");
+//
+//		byte b[] = new byte[4096];
+//		int bytesRead;
+//		while ((bytesRead = in.read(b)) != -1) {
+//			out.write(b, 0, bytesRead);
+//		}
+
+		
+		
+		
+		
+		
+		
 		doPost(req, res);
 	}
 
@@ -308,6 +343,12 @@ public class MemberServlet extends HttpServlet {
 				Integer verified = new Integer(req.getParameter("verified"));
 				Integer babySeat = new Integer(req.getParameter("babySeat"));
 //				
+				Part part = req.getPart("pic");
+				InputStream in = part.getInputStream();
+				byte[] pic = new byte[in.available()];
+				in.read(pic);
+				in.close();
+
 				MemberVO memberVO = new MemberVO();
 //				memberVO.setMemID(memID);				
 				memberVO.setName(name);
@@ -323,6 +364,7 @@ public class MemberServlet extends HttpServlet {
 				memberVO.setBirthday(birthday);
 				memberVO.setVerified(verified);
 				memberVO.setBabySeat(babySeat);
+				memberVO.setPic(pic);
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
@@ -334,7 +376,7 @@ public class MemberServlet extends HttpServlet {
 				// 開始新增資料
 				MemberService memberSvc = new MemberService();
 				memberVO = memberSvc.addMember(name, email, password, phone, creditcard, pet, smoke, gender, token,
-						activityToken, birthday, verified, babySeat);
+						activityToken, birthday, verified, babySeat, pic);
 				req.setAttribute("memberVO", memberVO);
 
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMember1.jsp"); // 新增成功後轉交listAllmember_byDAO
@@ -375,8 +417,6 @@ public class MemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
-		
 
 	}
 

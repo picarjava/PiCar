@@ -33,22 +33,22 @@ public class MemberServlet1 extends HttpServlet {
 
 		// getALL getALL getALL getALL getALL getALL getALL
 
-		if ("getAll".equals(action)) {
-
-			// 開始查詢資料
-			MemberDAO memberDAO = new MemberDAO();
-			List<MemberVO> list = memberDAO.getAll();
-
-			// 將資料存於set於session
-			HttpSession session = req.getSession();
-			session.setAttribute("list", list);
-
-			// 將控制權轉送給listAllMember_getFormSession.jsp
-			String url = "/member/listAllMember_getFormSession.jsp";
-			RequestDispatcher successView = req.getRequestDispatcher(url);
-			successView.forward(req, res);
-			return;
-		}
+//		if ("getAll".equals(action)) {
+//
+//			// 開始查詢資料
+//			MemberDAO memberDAO = new MemberDAO();
+//			List<MemberVO> list = memberDAO.getAll();
+//
+//			// 將資料存於set於session
+//			HttpSession session = req.getSession();
+//			session.setAttribute("list", list);
+//
+//			// 將控制權轉送給listAllMember_getFormSession.jsp
+//			String url = "/member/listAllMember_getFormSession.jsp";
+//			RequestDispatcher successView = req.getRequestDispatcher(url);
+//			successView.forward(req, res);
+//			return;
+//		}
 
 		if ("getOne_For_Display".equals(action)) {
 
@@ -128,7 +128,7 @@ public class MemberServlet1 extends HttpServlet {
 			try {
 				// 接收請求參數
 				String memID = new String(req.getParameter("memID"));
-				
+
 				// 開始查詢
 				MemberService memberSvc = new MemberService();
 				MemberVO memberVO = memberSvc.getOneMember(memID);
@@ -152,7 +152,7 @@ public class MemberServlet1 extends HttpServlet {
 
 			try {
 				String memID = new String(req.getParameter("memID").trim());
-				
+
 				String name = req.getParameter("name");
 				String nameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,20}$";
 				if (name == null || name.trim().length() == 0) {
@@ -224,7 +224,7 @@ public class MemberServlet1 extends HttpServlet {
 				memberVO.setBirthday(birthday);
 				memberVO.setVerified(verified);
 				memberVO.setBabySeat(babySeat);
-				
+
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
@@ -239,7 +239,7 @@ public class MemberServlet1 extends HttpServlet {
 						token, activityToken, birthday, verified, babySeat);
 				req.setAttribute("memberVO", memberVO);
 
-				RequestDispatcher successView = req.getRequestDispatcher("/back-end/member/listOneMember.jsp"); 
+				RequestDispatcher successView = req.getRequestDispatcher("/back-end/member/listOneMember.jsp");
 				successView.forward(req, res);
 
 			} catch (Exception e) {
@@ -248,6 +248,19 @@ public class MemberServlet1 extends HttpServlet {
 				successView.forward(req, res);
 
 			}
+		}
+
+		if ("verified".equals(action)) {
+			String memID = new String(req.getParameter("memID").trim());
+			MemberService memberSvc = new MemberService();
+			MemberVO memberVO = memberSvc.getOneMember(memID);
+			memberVO.getVerified();
+			if (memberVO.getVerified() == 0) {
+
+				memberSvc.updateVerified(memID);
+			} else {
+			}
+
 		}
 
 	}

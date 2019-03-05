@@ -9,10 +9,13 @@ import com.storeRecord.model.StoreRecordVO;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
+
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 
 public class MemberDAO implements MemberDAO_interface {
 
@@ -27,13 +30,13 @@ public class MemberDAO implements MemberDAO_interface {
 	}
 
 	private static final String INSERT_STMT = "INSERT INTO MEMBER (MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER, "
-			+ "TOKEN, ACTIVITY_TOKEN, BIRTHDAY, VERIFIED, BABY_SEAT) VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+			+ "TOKEN, ACTIVITY_TOKEN, BIRTHDAY, VERIFIED, BABY_SEAT, PIC) VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 	private static final String GET_ALL_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER,"
 			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER ORDER BY MEM_ID";
 
 	private static final String GET_ONE_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER,"
-			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER WHERE MEM_ID = ?";
+			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD')BIRTHDAY, VERIFIED, BABY_SEAT, PIC FROM MEMBER WHERE MEM_ID = ?";
 
 	private static final String DELETE = "DELETE FROM MEMBER WHERE MEM_ID = ?";
 
@@ -46,6 +49,8 @@ public class MemberDAO implements MemberDAO_interface {
 
 	private static final String UPDATE_TOKEN = "UPDATE MEMBER SET TOKEN=? WHERE MEM_ID=?";
 
+	private static final String UPDATE_VERIFIED = "UPDATE MEMBER SET VERIFIED='1' WHERE MEM_ID=?";
+
 	@Override
 	public void insert(MemberVO memberVO) {
 		Connection con = null;
@@ -53,7 +58,10 @@ public class MemberDAO implements MemberDAO_interface {
 
 		try {
 			con = ds.getConnection();
-			pstmt = con.prepareStatement(INSERT_STMT);
+
+//			String[] cols = { "MEM_ID" };
+			int cols[] = { 1 };
+			pstmt = con.prepareStatement(INSERT_STMT, cols);
 
 //			pstmt.setString(1, memberVO.getMemID());
 			pstmt.setString(1, memberVO.getName());
@@ -69,6 +77,28 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setDate(11, memberVO.getBirthday());
 			pstmt.setInt(12, memberVO.getVerified());
 			pstmt.setInt(13, memberVO.getBabySeat());
+
+			Blob blob = con.createBlob();
+			byte[] pic = memberVO.getPic();
+			blob.setBytes(1, pic);
+			pstmt.setBlob(14, blob);
+
+			ResultSet rs = pstmt.getGeneratedKeys();
+			ResultSetMetaData rsmd = rs.getMetaData();
+			int columnCount = rsmd.getColumnCount();
+//			
+
+			if (rs.next()) {
+				do {
+					for (int i = 1; i <= columnCount; i++) {
+						String key = rs.getString(i);
+						System.out.println("自增主鍵值 = " + key + "(剛新增成功的員工編號)");
+					}
+				} while (rs.next());
+			} else {
+				System.out.println("NO KEYS WERE GENERATED.");
+			}
+
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -92,6 +122,11 @@ public class MemberDAO implements MemberDAO_interface {
 			}
 		}
 
+	}
+
+	// 為了取的自增主鑑的值
+	public Integer getGeneratedKeys() {
+		return 0;
 	}
 
 //	用來對應pstmt的方法
@@ -224,6 +259,7 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setBirthday(rs.getDate("BIRTHDAY"));
 				memberVO.setVerified(rs.getInt("VERIFIED"));
 				memberVO.setBabySeat(rs.getInt("BABY_SEAT"));
+				memberVO.setPic(rs.getBytes("PIC"));
 
 			}
 
@@ -289,6 +325,7 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setBirthday(rs.getDate("BIRTHDAY"));
 				memberVO.setVerified(rs.getInt("VERIFIED"));
 				memberVO.setBabySeat(rs.getInt("BABY_SEAT"));
+//				memberVO.setPic(rs.getBytes("PIC"));
 				list.add(memberVO);
 			}
 
@@ -454,6 +491,43 @@ public class MemberDAO implements MemberDAO_interface {
 
 			pstmt.setInt(1, memberVO.getToken());
 			pstmt.setString(2, memberVO.getMemID());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
+
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+
+	@Override
+	public void updateVerified(String memID) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_VERIFIED);
+
+			pstmt.setString(1, memID);
 
 			pstmt.executeUpdate();
 
