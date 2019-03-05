@@ -319,7 +319,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 		
 		try {
 			con =ds.getConnection();
-			String finalSQL = "select LAUNCH_TIME,INTRODUCTION,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC, END_LOC, PRIVATES, PHOTO, GROUP_TYPE, TOTAL_AMOUT, START_TIME,GROUP_KIND from GROUP_BAND"
+			String finalSQL = "select GROUP_ID,LAUNCH_TIME,INTRODUCTION,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC, END_LOC, PRIVATES, PHOTO, GROUP_TYPE, TOTAL_AMOUT, START_TIME,GROUP_KIND from GROUP_BAND"
 			+jdbcUtil_CompositeQuery_GROUP_BAND.get_WhereCondition(map)
 			+ " order by LAUNCH_TIME";
 			
@@ -329,7 +329,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			
 			while (rs.next()) {
 				groupBandVO = new GroupBandVO();
-			
+				groupBandVO.setGroupID(rs.getString("GROUP_ID"));
 				groupBandVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
 				groupBandVO.setIntroduction(rs.getString("INTRODUCTION"));				
 				groupBandVO.setCurrenTnum(rs.getInt("CURRENT_NUM"));
@@ -388,7 +388,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 		try {
 			con = ds.getConnection();
 //			con.setAutoCommit(true);
-			con.setAutoCommit(true);
+			con.setAutoCommit(false);
 			pstmt = con.prepareStatement(INSERT_STMT);
 			String cols[] = {"GROUP_ID"};
 			pstmt = con.prepareStatement(INSERT_STMT , cols);	

@@ -59,6 +59,11 @@
   
   <li>
     <FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"  enctype="multipart/form-data">
+        <input type="radio" name="GROUP_KIND" value="0" checked
+					onclick="groupif(this.value)">揪團
+				<input type="radio" name="GROUP_KIND" value="1"
+					onclick="groupif(this.value)">長期揪團<br>
+        
         <b>團名</b>
          <input  type="TEXT" name="GROUP_NAME"><br><br>
          <b>上車地點</b>

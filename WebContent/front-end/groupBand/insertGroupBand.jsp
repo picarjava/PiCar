@@ -102,9 +102,9 @@ th, td {
 		<table border="1" class="table">
 
 			<tr>
-				<td><input type="radio" name="orderT" value="0" checked
+				<td><input type="radio" name="groupKind" value="0" checked
 					onclick="groupif(this.value)">揪團</td>
-				<td><input type="radio" name="orderT" value="1"
+				<td><input type="radio" name="groupKind" value="1"
 					onclick="groupif(this.value)">長期揪團<br></td>
 			</tr>
 			

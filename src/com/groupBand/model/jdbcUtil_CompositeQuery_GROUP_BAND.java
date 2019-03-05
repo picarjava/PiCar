@@ -12,6 +12,14 @@ public class jdbcUtil_CompositeQuery_GROUP_BAND {
 		
 		String aCondition = null;
 		
+		if("GROUP_KIND".equals(columnName))
+		{
+			aCondition = columnName + "=" + value;
+			
+		}
+		
+		
+		
 		if("GROUP_TYPE".equals(columnName))
 		{
 			aCondition = columnName + "=" + "'"+value+"'";
