@@ -68,6 +68,7 @@
          <input  type="TEXT" name="GROUP_NAME"><br><br>
          <b>上車地點</b>
          	  <select name="START_LOC">
+         	  <option value="">請選擇</option>
 			<option value="台北">台北市</option>
 			<option value="桃園">桃園市</option>
 			</select><br><br>
@@ -76,6 +77,7 @@
 					 onchange="datestamps();" size="15"><br><br>
         <b>揪團類別</b>
         <select name="GROUP_TYPE">
+         <option value="">請選擇</option>
 			<option value="演唱會">演唱會</option>
 			<option value="旅遊">旅遊</option>
 			<option value="美食">美食</option>

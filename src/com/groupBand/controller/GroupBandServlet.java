@@ -660,6 +660,37 @@ public class GroupBandServlet extends HttpServlet {
 			}
 			
 		}
+		if("GroupJoin".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				String groupID = req.getParameter("groupID");
+				if (groupID == null || (groupID.trim()).length() == 0) {
+					errorMsgs.add("錯誤拉");
+				}
+				GroupBandService groupBandService = new GroupBandService();
+				GroupBandVO groupBandVO = groupBandService.getOneGroupBand(groupID);
+				if (groupBandVO == null) {
+					errorMsgs.add("格式不正確");
+				}
+
+				if (!errorMsgs.isEmpty()) {
+					RequestDispatcher failureView = req
+							.getRequestDispatcher("/front-end/groupBand/listgroupBand_ByCompositeQuery.jsp");
+					failureView.forward(req, res);
+					return;
+				}
+
+				req.setAttribute("GroupBandVO", groupBandVO);
+				String url = "/front-end/groupBand/listOneGroupBand.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
+				successView.forward(req, res);
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/groupBand/listgroupBand_ByCompositeQuery.jsp");
+				failureView.forward(req, res);
+			}		
+		}
 
 	}
 
