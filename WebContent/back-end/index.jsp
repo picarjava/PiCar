@@ -164,7 +164,7 @@ table {
 							</a>
 							</li>
 				              <p id="p1"><font color=black> ${adminVO.adminName} </font>您好   </p>
-				                <FORM METHOD="post" ACTION="logoutHandler.do">
+				                <FORM METHOD="post" ACTION="logoutHandlerBackEnd.do">
 									<input type="hidden" name="action" value="logout">
 									<input type="submit" name="logout" value="登出">				
 								</FORM>
