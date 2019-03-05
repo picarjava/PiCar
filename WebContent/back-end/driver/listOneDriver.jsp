@@ -1,31 +1,30 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.driver.model.*"%>
+<%@ page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64" %>
 <%@ page import="java.util.*"%>
+	<%
+		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
+	%>
 <html>
 <head>
 <jsp:include page="/regna-master/head.jsp" />
-
-<!-- =======================================================
-    Theme Name: Regna
-    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
 </head>
 <body>
 	<!--==========================
       Contact Section
     ============================-->
 	<!-- 先取出VO -->
-	<%
-		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
-	%>
 
 	<!-- 錯誤列表 -->
 	<%
 		LinkedList errorMsgs = (LinkedList<String>) request.getAttribute("errorMsgs");
 	%>
+<%-- 	<% DriverService driverSvc=new DriverService();%> --%>
+<%--     <%List<DriverVO> list=driverSvc.getOneDriver();%> --%>
+<%--     <%request.setAttribute("list", list); %> --%>
+<%--     <%if(list!=null&&(list.size()>0)){ %> --%>
+    
 	<c:if test="${not empty errorMsgs}">
 		<ul class="list-group">
 			<li class="list-group-item active">Opps!錯誤訊息回報</li>
@@ -36,7 +35,7 @@
 	</c:if>
 	<section id="contact">
 		<div class="container wow fadeInUp">
-			<div class="col-lg-12 col-md-12">
+			<div class="col-lg-12 col-md-12">//
 				<div class="section-header">
 					<h3 class="section-title">司機會員查詢</h3>
 					<div class="text-center">
@@ -55,10 +54,10 @@
 						<form action="driver.do" method="post" role="form"
 							class="contactForm">
 							<!-- <form action="<.%=request.getContextPath()%.>/activity/Activ_servlet.html" method="post" role="form" class="contactForm"> -->
-
+<!--  176行 -->
 							<div class="form-group">
 								<p>會員編號</p>
-								<input type="text" name="memID" readonly value="${driverVO.memID}"
+								<input type="text" name="memID" readonly 
 									value="${driverVO.memID}" class="form-control" />
 							</div>
 							<div class="form-group">
@@ -81,16 +80,26 @@
 							<div class="form-group">
 								<p>駕照</p>
 								<div class="card" style="width: 18rem;">
-									<img src="driver.do?driverID=D003&pic=1" width="300"
 <%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=1" width="300" --%>
+									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=1" width="300"
 										height="150" class="card-img-top" alt="...">
+							<td>
+						      <c:set var="licence" value="${driverVO.licence}" />
+						      <%
+						      byte[] licence = (byte[])pageContext.getAttribute("licence");
+						      String encodeImg1 = null;
+						      if(licence!=null){
+						    	  encodeImg1 = Base64.encode(licence);%>
+						    	  <img src="data:image/jpg;base64,<%=encodeImg1 %>" id="img1">
+						      <% }%>
+						      </td>
 								</div>
 							</div>
 							<div class="form-group">
 								<p>良民證</p>
 								<div class="card" style="width: 18rem;">
-									<img src="driver.do?driverID=D003&pic=2" width="300"
 <%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=2" width="300" --%>
+									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=2" width="300"
 										height="150" class="card-img-top" alt="...">
 								</div>
 							</div>
@@ -98,16 +107,17 @@
 							<div class="form-group">
 								<p>肇事紀錄</p>
 								<div class="card" style="width: 18rem;">
-									<img src="driver.do?driverID=D003&pic=3" width="300"
 <%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=3" width="300" --%>
+									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=3" width="300"
 										height="150" class="card-img-top" alt="...">
 								</div>
 							</div>
 							<div class="form-group">
 								<p>身分證</p>
 								<div class="card" style="width: 18rem;">
-									<img src="driver.do?driverID=D003&pic=4" width="300"
 <%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=4" width="300" --%>
+<%-- 									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=4" width="300" --%>
+									<img src="${driverVO.photo}" width="300"
 										height="150" class="card-img-top" alt="...">
 								</div>
 							</div>
@@ -115,9 +125,9 @@
 							<div class="form-group">
 								<p>大頭照</p>
 								<div class="card" style="width: 18rem;">
-<%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=5" width="300" --%>
-									<img src="driver.do?driverID=D003&pic=5" width="300"
-										height="150" class="card-img-top" alt="...">
+<%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=5" width="300" 
+<%-- 									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=5" width="300" 
+										height="150" class="card-img-top" alt="...">--%>
 								</div>
 							</div>
 
@@ -165,6 +175,7 @@
 							<!-- <input type="hidden" name="action" value="UPTDATE"> -->
 						</form>
 					</div>
+<%-- 					<%} %> --%>
 				</div>
 			</div>
 			<!-- row結尾 -->

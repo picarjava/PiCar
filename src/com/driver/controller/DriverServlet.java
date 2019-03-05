@@ -261,42 +261,46 @@ req.setCharacterEncoding("UTF-8");
 //	}
 //	//////////////////////////////////////////////////
 //	//來自homeDriver.jsp的請求(後台_管理員查出單筆司機資料)
-		if("GET_ONE_BACK".equals(action)){
-			LinkedList<String> errorMsgs=new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			/*************1.接收請求參數**************/
-			try {
-				String driverID=req.getParameter("driverID");
-				if (driverID == null || (driverID.trim()).length() == 0) {
-					errorMsgs.add("請輸入司機編號");
-				}
-				// Send the use back to the form, if there were errors
-//			//	if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
+//		if("GET_ONE_BACK".equals(action)){ 264~298註解
+//			LinkedList<String> errorMsgs=new LinkedList<String>();
+//			req.setAttribute("errorMsgs", errorMsgs);
+//			/*************1.接收請求參數**************/
+////			try {
+//			System.out.println("1");
+//				String driverID=req.getParameter("driverID");
+//				if (driverID == null || (driverID.trim()).length() == 0) {
+//					errorMsgs.add("請輸入司機編號");
 //				}
-			/*************2查詢資料**************/
-			DriverService driverSvc=new DriverService();
-			DriverVO driverVO=driverSvc.getOneDriver(driverID);
-			if(driverVO==null) {
-				errorMsgs.add("查無此筆");
-				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
-				failurePage.forward(req, res);
-				return;
-			}
-			/*************3.得到資料存在scope=request，並送出VO給處理頁面**************/
-			req.setAttribute("driverVO", driverVO);
-			String url="/back-end/driver/listOneDriver.jsp";
-			RequestDispatcher successPage=req.getRequestDispatcher(url);
-			successPage.forward(req, res);
-			/*************4.處理例外**************/
-		}catch(Exception e){
-			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
-			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
-			failurePage.forward(req, res);
-		}
+//				// Send the use back to the form, if there were errors
+////			//	if (!errorMsgs.isEmpty()) {
+////					RequestDispatcher failureView = req
+////							.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+////					failureView.forward(req, res);
+////					return;//程式中斷
+////				}
+//			/*************2查詢資料**************/
+//			DriverService driverSvc=new DriverService();
+//			DriverVO driverVO=driverSvc.getOneDriver(driverID);
+//			System.out.println("2");
+//			if(driverVO==null) {
+//				errorMsgs.add("查無此筆");
+//				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+//				failurePage.forward(req, res);
+//				return;
+//			}
+//			/*************3.得到資料存在scope=request，並送出VO給處理頁面**************/
+//			req.setAttribute("driverVO", driverVO);
+//			String url="/back-end/driver/listOneDriver.jsp";
+//			RequestDispatcher successPage=req.getRequestDispatcher(url);
+//			successPage.forward(req, res);
+//			System.out.println("3");
+//			/*************4.處理例外**************/
+//		}
+//			catch(Exception e){
+//			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());}
+//			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+//			failurePage.forward(req, res);
+//		}
 ////////////////////////
 //來自back-end/listAllDriver.jsp 修改某一筆的請求 後台驗證司機
 if("GET_ONE_FOR_CHECK".equals(action)){
@@ -456,7 +460,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 //		time = new java.sql.Date(System.currentTimeMillis());
 //		errorMsgs.add("請輸入日期");
 //	}
-	}
+//	}
 /////////////////	
 	/* 處理圖片存進資夾，以便以名稱顯示在網頁上 */
 	public static void readPicture(byte[] bytes, String picName) throws IOException {

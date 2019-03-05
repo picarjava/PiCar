@@ -55,7 +55,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>Driver2</servlet-name>
-    <url-pattern>/front-end/driverpic.do</url-pattern>
+    <url-pattern>/back-end/driver/driver.do</url-pattern>
   </servlet-mapping>
   <servlet>
     <servlet-name>GroupMem</servlet-name>

@@ -15,7 +15,7 @@ public class DriverVerified extends HttpServlet {
     	VERIFIED.put(1, "通過");
     	VERIFIED.put(2, "未通過");
 
-    	VERIFIED = Collections.unmodifiableMap(VERIFIED); // let orderType map unmodified
+    	VERIFIED = Collections.unmodifiableMap(VERIFIED); // let orderType map unmodified 類似final
         getServletContext().setAttribute("DriverVerifiedMap", VERIFIED);
     }
     

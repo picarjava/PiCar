@@ -111,10 +111,10 @@
 									placeholder="請上傳身分證" />
 							</div>
 
-<!-- 							<div class="form-group"> -->
-<!-- 								<p>大頭照</p> -->
-<!-- 								<input type="file" class="form-control" name="photo"> -->
-<!-- 							</div> -->
+							<div class="form-group">
+								<p>大頭照</p>
+								<input type="file" class="form-control" name="photo">
+							</div>
 
 							<div class="form-group">
 								<p>願意共乘載客</p>

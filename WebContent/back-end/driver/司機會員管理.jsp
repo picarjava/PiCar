@@ -43,15 +43,23 @@
 						<ul class="nav nav-tabs">
 							<li class="nav-item">
 								<form class="form-inline"
-									action="<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp"
+<%-- 								action="<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp" --%>
+									action="<%=request.getContextPath()%>/driver.do"
 									method="post">
 									<input class="form-control mr-sm-2" name="driverID"
-										type="search" placeholder="請輸入司機編號(eg.D001)" aria-label="Search">
+										type="text" placeholder="請輸入司機編號(eg.D001)" aria-label="Search">
+<!-- 									type="search" placeholder="請輸入司機編號(eg.D001)" aria-label="Search"> -->
 									<!--隱藏的參數action讓controller抓-->
 									<input type="hidden" name="action" value="GET_ONE_BACK">
 									<button class="btn btn-outline-success my-2 my-sm-0"
 										type="submit">查詢一筆司機</button>
-								</form>
+								</form></li>
+<!-- 								  <li> -->
+<!--     <FORM METHOD="post" ACTION="broadcast.do" > -->
+<!--         <b>輸入推播訊息編號 (如MSG001):</b> -->
+<!--         <input type="text" name="msgID"> -->
+<!--         <input type="hidden" name="action" value="getOne_For_Display"> -->
+<!--         <input type="submit" value="送出"> -->
 							<li class="nav-item">
 								<form class="form-inline"
 									action="<%=request.getContextPath()%>/back-end/driver/listAllDriver.jsp"
@@ -60,6 +68,19 @@
 										type="submit">查詢全部司機</button>
 								</form>
 							</li>
+<jsp:useBean id="driversrV" scope="page" class="com.driver.model.DriverService" />
+		<li>
+			<form method="post" action="<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp">
+				<b>請選擇編號</b> <br>
+				<select size="1" name="driverID">
+					<c:forEach var="driverVO" items="${driversrV.all}">
+						<option value="${driverVO.driverID}">${driverVO.driverID}
+					</c:forEach>
+				</select> 
+				<input type="hidden" name="action" value="GET_ONE_BACK"><br>
+				<button class="btn btn-outline-success my-2 my-sm-0" type="submit">查詢一筆司機</button>
+			</form>
+		</li>
 <!-- 							<li class="nav-item"> -->
 <!-- 								<form class="form-inline" -->
 <%-- 									action="<%=request.getContextPath()%>/back-end/driver/addDriver.jsp" --%>
