@@ -119,7 +119,14 @@ h3 {
 					placeholder="Readonly input here..." readonly /></td>
 			</tr>
 			
-		
+			<tr>
+				<td>電子信箱</td>
+				<td><input class="form-control" type="TEXT" name="email"
+					size="45" value="<%=adminVO.getEmail()%>"
+					placeholder="Readonly input here..." readonly /></td>
+			</tr>
+			
+			
 				
 			<input type="hidden" name="password" size="45" value="<%=adminVO.getPassword()%>" />
 

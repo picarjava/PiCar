@@ -123,6 +123,15 @@ public class AdminServlet extends HttpServlet {
 						errorMsgs.add("管理員姓名只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 					}
 					
+					/*********************************************/
+					String email = req.getParameter("email");
+					String emailReg = "^[a-zA-Z0-9@.]{6,50}$";
+					if (email==null || (email.trim()).length()==0) {
+						errorMsgs.add("電子信箱請勿空白");
+					} else if (!email.trim().matches(emailReg)) {
+						errorMsgs.add("電子信箱長度須為6-50之間，且只能使用英文字或數字");
+					}
+					/*********************************************/
 					String password = req.getParameter("password");
 					String passwordReg = "^[a-zA-Z0-9]{6,10}$";
 					if (password==null || (password.trim()).length()==0) {
@@ -144,7 +153,8 @@ public class AdminServlet extends HttpServlet {
 					AdminVO adminVO = new AdminVO();
 					
 					adminVO.setAdminID(adminID);
-					adminVO.setAdminName(adminName);	
+					adminVO.setAdminName(adminName);
+					adminVO.setEmail(email);
 					adminVO.setPassword(password);	
 					adminVO.setIsEmp(isEmp);
 					
@@ -157,7 +167,7 @@ public class AdminServlet extends HttpServlet {
 					/***************************2.開始修改資料*****************************************/
 					
 					AdminService adminSvc = new AdminService();
-					adminVO = adminSvc.updateAdmin(adminID, adminName, password, isEmp);
+					adminVO = adminSvc.updateAdmin(adminID, adminName, email ,password, isEmp);
 					
 					/***************************3.修改完成,準備轉交(Send the Success view)*************/
 					req.setAttribute("adminVO", adminVO);
@@ -187,11 +197,23 @@ public class AdminServlet extends HttpServlet {
 						errorMsgs.add("管理員姓名只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 					}
 					
-					String password = req.getParameter("password");
-					String passwordReg = "^[a-zA-Z0-9]{6,10}$";
+					/*********************************************/
+					String email = req.getParameter("email").trim();
+					String emailReg = "^[a-zA-Z0-9@.]{6,50}$";
+					if (email==null || (email.trim()).length()==0) {
+						errorMsgs.add("信箱請勿空白");
+					} else if (!email.trim().matches(emailReg)) {
+						errorMsgs.add("信箱長度須為6-50之間，且只能使用英文字或數字");
+					}
+					/*********************************************/
+					
+
+					String password = req.getParameter("password").trim();
+					String passwordReg = "^[(a-zA-Z0-9_)]{2,10}$";
 					if (password==null || (password.trim()).length()==0) {
 						errorMsgs.add("密碼請勿空白");
-					} else if (!password.trim().matches(passwordReg)) {
+					} 
+					else if (!password.trim().matches(passwordReg)) {
 						errorMsgs.add("密碼長度須為6-10之間，且只能使用英文字或數字");
 					}
 							
@@ -207,6 +229,7 @@ public class AdminServlet extends HttpServlet {
 					AdminVO adminVO = new AdminVO();
 					
 					adminVO.setAdminName(adminName);
+					adminVO.setEmail(email);
 					adminVO.setPassword(password);
 					adminVO.setIsEmp(isEmp);
 					
@@ -219,7 +242,7 @@ public class AdminServlet extends HttpServlet {
 					
 					/***************************2.開始新增資料***************************************/
 					AdminService adminSvc = new AdminService();
-					adminVO = adminSvc.addAdmin(adminName, password, isEmp);
+					adminVO = adminSvc.addAdmin(adminName, email ,password, isEmp);
 					
 					/***************************3.新增完成,準備轉交(Send the Success view)***********/
 					String url = "/back-end/admin/admin_select_page.jsp";
