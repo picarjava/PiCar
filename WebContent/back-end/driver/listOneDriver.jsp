@@ -99,7 +99,6 @@
 
 <%-- <%-- 						      <td>${driverVO.trafficRecord}</td> --%> 
 
-<%-- <%-- 						      <td>${driverVO.idNum}</td> --%> 
 							<div class="form-group">
 								<p>良民證</p>
 								<div class="card" style="width: 18rem;">
@@ -139,6 +138,7 @@
 								</div>
 							</div>
 							<div class="form-group">
+<%-- <%-- 						      <td>${driverVO.idNum}</td> --%> 
 								<p>身分證</p>
 								<div class="card" style="width: 18rem;">
 <%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=4" width="300" --%>
