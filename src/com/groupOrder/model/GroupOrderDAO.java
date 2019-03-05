@@ -31,7 +31,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String GET_ALL_STMT = 
 			"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE FROM GROUP_ORDER";
 		private static final String GET_ONE_STMT = 
-			"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE FROM GROUP_ORDER where GORDER_ID = ?";
+			"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID FROM GROUP_ORDER where GORDER_ID = ?";
 		private static final String DELETE = 
 			"DELETE FROM GROUP_ORDER where GORDER_ID = ?";
 		private static final String UPDATE = 
@@ -194,6 +194,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			groupOrderVO.setOrderType(rs.getInt("ORDER_TYPE"));
 			groupOrderVO.setRate(rs.getInt("RATE"));
 			groupOrderVO.setNote(rs.getString("NOTE"));
+			groupOrderVO.setGroupID(rs.getString("GROUP_ID"));
+			
 		}
 		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
