@@ -244,5 +244,35 @@
     <url-pattern>/back-end/logoutHandlerBackEnd.do</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>LoginHandler</servlet-name>
+    <servlet-class>com.login.filter.LoginHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LoginHandler</servlet-name>
+    <url-pattern>/front-end/login/loginHandler.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>LogoutHandler</servlet-name>
+    <servlet-class>com.login.filter.LogoutHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutHandler</servlet-name>
+    <url-pattern>/front-end/member/logoutHandler.do</url-pattern>
+  </servlet-mapping>
+  <filter>
+    <filter-name>LoginFilter</filter-name>
+    <filter-class>com.login.filter.LoginFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LoginFilter</filter-name>
+    <url-pattern>/front-end/member/listOneMember.jsp</url-pattern>
+    <url-pattern>/back-end/member/pressToVerified.jsp</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
   
 </web-app>
