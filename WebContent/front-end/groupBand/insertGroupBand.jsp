@@ -96,7 +96,7 @@ th, td {
 			</td>
 		</tr>
 	</table>
-	<h3>發起揪團</h3>
+	<h3>發起揪團 ${memberVO.memID }</h3>
 
 	<form action="<%=request.getServletContext().getContextPath()%>/GroupBand" method="POST" enctype="multipart/form-data">
 		<table border="1" class="table">
@@ -232,7 +232,8 @@ th, td {
 
 
 			<tr>
-				<td><input type="hidden" name="action" value="insert" /> <input
+				<td><input type="hidden" name="memIDs" value="${memberVO.memID }" /> 
+				<input type="hidden" name="action" value="insert" /> <input
 					type="submit" value="發起揪團" /></td>
 				<td><input type="reset" value="清除揪團" /></td>
 
