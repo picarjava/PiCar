@@ -50,6 +50,7 @@
                         <table class="table">
 						  <thead class="thead-dark">
 						    <tr>
+						      <th scope="col">審核驗證	</th>
 						      <th scope="col">會員編號	</th>
 						      <th scope="col">司機編號	</th>
 						      <th scope="col">車牌號碼	</th>
@@ -58,7 +59,6 @@
 						      <th scope="col">肇事紀錄	</th>
 						      <th scope="col">身分證	</th>
 						      <th scope="col">大頭照	</th>
-						      <th scope="col">審核驗證	</th>
 						      <th scope="col">BAN	</th>
 						      <th scope="col">到期時間	</th>
 						      <th scope="col">是否線上	</th>
@@ -76,7 +76,8 @@
 	<c:forEach var="driverVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >			  
 		 	
 					 		<tr>	 
-						      <th scope="row">${driverVO.memID}</th>
+						      <th scope="row">${driverVO.verified}</th>
+						      <td>${driverVO.memID}</td>
 						      <td>${driverVO.driverID}</td>
 						      <td>${driverVO.plateNum}</td>
 <%-- 						      <td>${driverVO.licence}</td> --%>
@@ -143,7 +144,6 @@
 <%-- 					              <img  src='<%=request.getContextPath()%>/driver.do?driverID=${driverVO.driverID}' width='200' height='100' alt='"這是"+${driverVO.driverID}+"的活動海報"  '/> --%>
 <%-- 					              </c:if>  --%>
 <!-- 						      </td> -->
-						      <td>${driverVO.verified}</td>
 						      <td>${driverVO.banned}</td>
 						      <td>${driverVO.deadline}</td>
 						      <td>${driverVO.onlineCar}</td>

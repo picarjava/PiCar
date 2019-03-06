@@ -8,15 +8,7 @@
   <title>Be a part of PICAR</title>
 
 <jsp:include page="/regna-master/head.jsp" />
-  
-  <!-- =======================================================
-    Theme Name: Regna
-    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
 </head>
-
 <body>
     <!--==========================
       Contact Section
