@@ -349,7 +349,7 @@ public class GroupBandServlet extends HttpServlet {
 				} else if (!introduction.trim().matches(introduc)) { // 以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("簡介: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				}
-
+				
 				Integer groupStatus = 1;
 
 				Integer currenTnum = 1;
@@ -365,8 +365,10 @@ public class GroupBandServlet extends HttpServlet {
 				} else if (!groupName.trim().matches(groupN)) { // 以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("團名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				}
-
-				String groupLeader = "M001";
+				
+				
+				
+				String groupLeader =req.getParameter("memIDs");
 
 				String startLoc = req.getParameter("startLoc");
 
@@ -505,13 +507,13 @@ public class GroupBandServlet extends HttpServlet {
 
 					memID = new String[upperLimit];
 
-					memID[0] = groupLeader;
+			
 
-					for (int x = 1; x < upperLimit; x++) {
+					for (int x = 0; x < upperLimit; x++) {
 						memID[x] = null;
 
 					}
-
+					memID[0] = groupLeader;
 					Integer state = 1;
 
 					Integer totalAmoutOr = 0;
@@ -540,9 +542,11 @@ public class GroupBandServlet extends HttpServlet {
 					List<GroupOrderVO> testList = new ArrayList<GroupOrderVO>();
 					
 				if ("0".equals(req.getParameter("groupKind"))) {
-					GroupOrderVO groupOrderVO;
-					groupOrderVO = new GroupOrderVO();
+					
+					
 					for (int x = 0; x < upperLimit; x++) {
+						GroupOrderVO groupOrderVO;
+						groupOrderVO = new GroupOrderVO();
 						groupOrderVO.setDriverID(diverID);
 						groupOrderVO.setMemID(memID[x]);
 						groupOrderVO.setState(state);
@@ -566,14 +570,15 @@ public class GroupBandServlet extends HttpServlet {
 						
 					}
 				} else {
-					GroupOrderVO groupOrderVO;
-					groupOrderVO = new GroupOrderVO();
+					
+					
 					
 					for(int y = 0; y < numdays.length; y++) {
 					for (int x = 0; x < upperLimit; x++) {
 						java.sql.Timestamp startTimeOrs = null;
-					
+						GroupOrderVO groupOrderVO;
 						startTimeOrs = java.sql.Timestamp.valueOf(numdays[y]);
+						groupOrderVO = new GroupOrderVO();
 						groupOrderVO.setDriverID(diverID);
 						groupOrderVO.setMemID(memID[x]);
 						groupOrderVO.setState(state);
@@ -601,6 +606,7 @@ public class GroupBandServlet extends HttpServlet {
 					}
 					
 				}
+			
 				
 				groupBandDAO.insertWithEmps(groupBandVO , testList);
 //		------------------------------------------------------------------------------------
@@ -684,10 +690,22 @@ public class GroupBandServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
+				String memIDs ="M001";
 				
+				
+				if(memIDs.equals(groupBandVO.getGroupLeader())) //如果為團長會 有修改 和刪除 ""修改成目前的連線
+				{
+					req.setAttribute("GroupLeader","true");	
+					req.setAttribute("GroupBandVO", groupBandVO);	
+					
+					
+				}else {
+					req.setAttribute("GroupLeader","false");	
+					req.setAttribute("GroupBandVO", groupBandVO);
+				}
 				
 
-				req.setAttribute("GroupBandVO", groupBandVO);
+				
 				String url = "/front-end/groupBand/listOneGroupBand.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
 				successView.forward(req, res);
