@@ -68,7 +68,7 @@
 <th>留言板內容</th>
 <th>發起時間</th>
 <th>簡介</th>
-<th>成團狀態</th>
+<th>揪團種類</th>
 <th>現在人數</th>
 <th>上限人數</th>
 <th>下限人數</th>
@@ -93,7 +93,7 @@
 	<td><%=groupBandVO.getContent()%></td>
 	<td><%=groupBandVO.getLaunchTime()%></td>
 	<td><%=groupBandVO.getIntroduction()%></td>
-	<td><%=groupBandVO.getGroupStatus()%></td>
+	<td><%=groupBandVO.getGroupKind()%></td>
 	<td><%=groupBandVO.getCurrenTnum()%></td>
 	<td><%=groupBandVO.getUpperLimit()%></td>
 	<td><%=groupBandVO.getLowerLimit()%></td>
@@ -131,7 +131,9 @@
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
 	<input type="hidden" name="startTime"  value="<%=groupBandVO.getStartTime()%>">
 	<input type="hidden" name="memIDs" value="${memberVO.memID }" /> 
+	<input type="hidden" name="groupKind"  value="<%=groupBandVO.getGroupKind()%>">
 	<input type="hidden" name="action"	value="GroupAdd">
+	
 	</FORM>	
 
 

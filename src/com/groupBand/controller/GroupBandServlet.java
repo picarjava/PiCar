@@ -46,23 +46,23 @@ public class GroupBandServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		if(req.getParameter("groupID")!=null) {
-		req.setCharacterEncoding("utf-8");		
-		res.setContentType("image/gif");
-		ServletOutputStream out = res.getOutputStream();
+		if (req.getParameter("groupID") != null) {
+			req.setCharacterEncoding("utf-8");
+			res.setContentType("image/gif");
+			ServletOutputStream out = res.getOutputStream();
 
-		String groupID = req.getParameter("groupID");
+			String groupID = req.getParameter("groupID");
 
-		GroupBandService groupBandService = new GroupBandService();
-		GroupBandVO groupBandVO = (GroupBandVO) groupBandService.getOneGroupBand(groupID);
-		System.out.println(groupID);
+			GroupBandService groupBandService = new GroupBandService();
+			GroupBandVO groupBandVO = (GroupBandVO) groupBandService.getOneGroupBand(groupID);
+			System.out.println(groupID);
 
-		byte[] pic = groupBandVO.getPhoto();
-		if (pic != null) {
-			out.write(pic);
+			byte[] pic = groupBandVO.getPhoto();
+			if (pic != null) {
+				out.write(pic);
+			}
 		}
-		}
-		
+
 		doPost(req, res);
 
 	}
@@ -76,7 +76,7 @@ public class GroupBandServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
-	
+
 		if ("getOne_For_Display".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -261,8 +261,8 @@ public class GroupBandServlet extends HttpServlet {
 					errorMsgs.add("請輸入日期!");
 				}
 
-				Integer groupKind =new Integer(req.getParameter("groupKind").trim());
-				
+				Integer groupKind = new Integer(req.getParameter("groupKind").trim());
+
 				Integer rate = 5;
 
 				String note = req.getParameter("note");
@@ -310,7 +310,7 @@ public class GroupBandServlet extends HttpServlet {
 
 				groupBandVO = groupBandService.updateGroupBand(req.getParameter("groupID"), launchTime, content,
 						introduction, groupStatus, currenTnum, upperLimit, lowerLimit, groupName, groupLeader, startLoc,
-						endLoc, privates, photo, groupType, totalAmout, startTime, rate, note,groupKind);
+						endLoc, privates, photo, groupType, totalAmout, startTime, rate, note, groupKind);
 
 				/***************************
 				 * 3.�s�W����,�ǳ����(Send the Success view)
@@ -349,7 +349,7 @@ public class GroupBandServlet extends HttpServlet {
 				} else if (!introduction.trim().matches(introduc)) { // 以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("簡介: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				}
-				
+
 				Integer groupStatus = 1;
 
 				Integer currenTnum = 1;
@@ -365,10 +365,8 @@ public class GroupBandServlet extends HttpServlet {
 				} else if (!groupName.trim().matches(groupN)) { // 以下練習正則(規)表示式(regular-expression)
 					errorMsgs.add("團名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				}
-				
-				
-				
-				String groupLeader =req.getParameter("memIDs");
+
+				String groupLeader = req.getParameter("memIDs");
 
 				String startLoc = req.getParameter("startLoc");
 
@@ -427,7 +425,7 @@ public class GroupBandServlet extends HttpServlet {
 
 				if ("0".equals(req.getParameter("groupKind"))) {
 					try {
-					
+
 //						startTimes=req.getParameter("startTime");
 						startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
 
@@ -439,7 +437,7 @@ public class GroupBandServlet extends HttpServlet {
 				} else {
 					try {
 //					    startTimes=req.getParameter("startTimes");
-					
+
 						startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
 //						endtime = java.sql.Timestamp.valueOf(req.getParameter("endTime").trim());
 
@@ -453,8 +451,8 @@ public class GroupBandServlet extends HttpServlet {
 				}
 
 //   	
-				Integer groupKind =new Integer(req.getParameter("groupKind").trim());
-				
+				Integer groupKind = new Integer(req.getParameter("groupKind").trim());
+
 				Integer rate = 5;
 
 				String note = req.getParameter("note");
@@ -467,7 +465,7 @@ public class GroupBandServlet extends HttpServlet {
 
 				GroupBandVO groupBandVO = new GroupBandVO();
 				GroupBandDAO groupBandDAO = new GroupBandDAO();
-				
+
 				groupBandVO.setContent(content);
 				groupBandVO.setIntroduction(introduction);
 				groupBandVO.setGroupStatus(groupStatus);
@@ -482,7 +480,7 @@ public class GroupBandServlet extends HttpServlet {
 				groupBandVO.setPhoto(photo);
 				groupBandVO.setGroupType(groupType);
 				groupBandVO.setTotalAmout(totalAmout);
-				
+
 				groupBandVO.setStartTime(startTime);
 //					groupBandVO.setStartTime(new Date(simpleDateFormat.parse("2019-02-14").getTime()));
 				groupBandVO.setRate(rate);
@@ -499,53 +497,46 @@ public class GroupBandServlet extends HttpServlet {
 				// 產生訂單
 
 //		-------------------產生 (揪團訂單 )多筆------------------------------------------
-			
 
-					String diverID = null;
+				String diverID = null;
 
-					String memID[];
+				String memID[];
 
-					memID = new String[upperLimit];
+				memID = new String[upperLimit];
 
-			
+				for (int x = 0; x < upperLimit; x++) {
+					memID[x] = null;
 
-					for (int x = 0; x < upperLimit; x++) {
-						memID[x] = null;
+				}
+				memID[0] = groupLeader;
+				Integer state = 1;
 
-					}
-					memID[0] = groupLeader;
-					Integer state = 1;
+				Integer totalAmoutOr = 0;
 
-					Integer totalAmoutOr = 0;
+				Timestamp startTimeOr = startTime;
 
-					Timestamp startTimeOr = startTime;
+				Timestamp endTime = null;
 
-					Timestamp endTime = null;
+				Double startLng = 0.1;
 
-					Double startLng = 0.1;
+				Double startLat = 0.1;
 
-					Double startLat = 0.1;
+				Double endLng = 0.1;
 
-					Double endLng = 0.1;
+				Double endLat = 0.1;
 
-					Double endLat = 0.1;
+				Integer orderType = 0; // 0是揪團 1是長期揪團
 
-					Integer orderType = 0; // 0是揪團 1是長期揪團
+				Integer rateOr = 0;
 
-					Integer rateOr = 0;
+				String noteOr = null;
 
-					String noteOr = null;
+				String numdays[] = req.getParameterValues("numdays");
 
-				
-					String numdays[] =req.getParameterValues("numdays");
-					
-				
-					
-					List<GroupOrderVO> testList = new ArrayList<GroupOrderVO>();
-					
+				List<GroupOrderVO> testList = new ArrayList<GroupOrderVO>();
+
 				if ("0".equals(req.getParameter("groupKind"))) {
-					
-					
+
 					for (int x = 0; x < upperLimit; x++) {
 						GroupOrderVO groupOrderVO;
 						groupOrderVO = new GroupOrderVO();
@@ -565,54 +556,48 @@ public class GroupBandServlet extends HttpServlet {
 						groupOrderVO.setEndLoc(endLoc);
 						groupOrderVO.setStartLoc(startLoc);
 						testList.add(groupOrderVO);
-						
+
 //						groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder(diverID, memID[x], state,
 //								totalAmoutOr, startTimeOr, endTime, startLng, startLat, endLng, endLat, orderType,
 //								rateOr, noteOr);
-							
-						
+
 					}
 				} else {
-					
-					
-					
-					for(int y = 0; y < numdays.length; y++) {
-					for (int x = 0; x < upperLimit; x++) {
-						java.sql.Timestamp startTimeOrs = null;
-						GroupOrderVO groupOrderVO;
-						startTimeOrs = java.sql.Timestamp.valueOf(numdays[y]);
-						groupOrderVO = new GroupOrderVO();
-						groupOrderVO.setDriverID(diverID);
-						groupOrderVO.setMemID(memID[x]);
-						groupOrderVO.setState(state);
-						groupOrderVO.setTotalAmout(totalAmoutOr);
-						groupOrderVO.setStartTime(startTimeOrs);
-						groupOrderVO.setEndTime(endTime);
-						groupOrderVO.setStartLat(startLat);
-						groupOrderVO.setStartLng(startLng);
-						groupOrderVO.setEndLng(endLng);
-						groupOrderVO.setEndLat(endLat);
-						groupOrderVO.setOrderType(orderType);
-						groupOrderVO.setRate(rateOr);
-						groupOrderVO.setNote(noteOr);
-						groupOrderVO.setEndLoc(endLoc);
-						groupOrderVO.setStartLoc(startLoc);
-					
-						
-						
-						testList.add(groupOrderVO);
-						
+
+					for (int y = 0; y < numdays.length; y++) {
+						for (int x = 0; x < upperLimit; x++) {
+							java.sql.Timestamp startTimeOrs = null;
+							GroupOrderVO groupOrderVO;
+							startTimeOrs = java.sql.Timestamp.valueOf(numdays[y]);
+							groupOrderVO = new GroupOrderVO();
+							groupOrderVO.setDriverID(diverID);
+							groupOrderVO.setMemID(memID[x]);
+							groupOrderVO.setState(state);
+							groupOrderVO.setTotalAmout(totalAmoutOr);
+							groupOrderVO.setStartTime(startTimeOrs);
+							groupOrderVO.setEndTime(endTime);
+							groupOrderVO.setStartLat(startLat);
+							groupOrderVO.setStartLng(startLng);
+							groupOrderVO.setEndLng(endLng);
+							groupOrderVO.setEndLat(endLat);
+							groupOrderVO.setOrderType(orderType);
+							groupOrderVO.setRate(rateOr);
+							groupOrderVO.setNote(noteOr);
+							groupOrderVO.setEndLoc(endLoc);
+							groupOrderVO.setStartLoc(startLoc);
+
+							testList.add(groupOrderVO);
+
 //						groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder(diverID, memID[x], state,
 //								totalAmoutOr, startTimeOrs, endTime, startLng, startLat, endLng, endLat, orderType,
 //								rateOr, noteOr);
 
-					}					
+						}
 					}
-					
+
 				}
-			
-				
-				groupBandDAO.insertWithEmps(groupBandVO , testList);
+
+				groupBandDAO.insertWithEmps(groupBandVO, testList);
 //		------------------------------------------------------------------------------------
 
 				// Send the use back to the form, if there were errors
@@ -639,42 +624,40 @@ public class GroupBandServlet extends HttpServlet {
 			}
 		}
 
-		if("listgroupBand_ByCompositeQuery".equals(action)) {
-			
+		if ("listgroupBand_ByCompositeQuery".equals(action)) {
+
 			List<String> errorMsgs = new LinkedList<String>();
 			// Store this set in the request scope, in case we need to
 			// send the ErrorPage view.
 			req.setAttribute("errorMsgs", errorMsgs);
-		
-			try{
+
+			try {
 				HttpSession session = req.getSession();
-				Map<String, String[]> map = (Map<String, String[]>)session.getAttribute("map");	
-				
-				if (req.getParameter("whichPage") == null)
-					{
-						HashMap<String, String[]> map1 = new HashMap<String, String[]>(req.getParameterMap());
-						session.setAttribute("map",map1);
-						map = map1;
-						
-					}
-				
-					GroupBandService groupBandService =new GroupBandService();
-					List<GroupBandVO> list = groupBandService.getAll(map);
-					req.setAttribute("listgroupBand_ByCompositeQuery", list); // 資料庫取出的list物件,存入request
-					
-					RequestDispatcher successView = req.getRequestDispatcher("/front-end/groupBand/listgroupBand_ByCompositeQuery.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
-					successView.forward(req, res);
-					
-					
-			}catch(Exception e) {
+				Map<String, String[]> map = (Map<String, String[]>) session.getAttribute("map");
+
+				if (req.getParameter("whichPage") == null) {
+					HashMap<String, String[]> map1 = new HashMap<String, String[]>(req.getParameterMap());
+					session.setAttribute("map", map1);
+					map = map1;
+
+				}
+
+				GroupBandService groupBandService = new GroupBandService();
+				List<GroupBandVO> list = groupBandService.getAll(map);
+				req.setAttribute("listgroupBand_ByCompositeQuery", list); // 資料庫取出的list物件,存入request
+
+				RequestDispatcher successView = req
+						.getRequestDispatcher("/front-end/groupBand/listgroupBand_ByCompositeQuery.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+				successView.forward(req, res);
+
+			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req
-						.getRequestDispatcher("/front-end/groupBand/SelectGroupBand.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/groupBand/SelectGroupBand.jsp");
 				failureView.forward(req, res);
 			}
-			
+
 		}
-		if("GroupJoin".equals(action)) {
+		if ("GroupJoin".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
@@ -694,97 +677,122 @@ public class GroupBandServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
-				String memIDs =req.getParameter("memIDs");
-				
-				
-				if(memIDs.equals(groupBandVO.getGroupLeader())) //如果為團長會 有修改 和刪除 ""修改成目前的連線
+				String memIDs = req.getParameter("memIDs");
+
+				if (memIDs.equals(groupBandVO.getGroupLeader())) // 如果為團長會 有修改 和刪除 ""修改成目前的連線
 				{
-					req.setAttribute("GroupLeader","true");	
-					req.setAttribute("GroupBandVO", groupBandVO);	
-					
-					
-				}else {
-					req.setAttribute("GroupLeader","false");	
+					req.setAttribute("GroupLeader", "true");
+					req.setAttribute("GroupBandVO", groupBandVO);
+
+				} else {
+					req.setAttribute("GroupLeader", "false");
 					req.setAttribute("GroupBandVO", groupBandVO);
 				}
-				
 
-				
 				String url = "/front-end/groupBand/listOneGroupBand.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
 				successView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/groupBand/listgroupBand_ByCompositeQuery.jsp");
+				RequestDispatcher failureView = req
+						.getRequestDispatcher("/front-end/groupBand/listgroupBand_ByCompositeQuery.jsp");
 				failureView.forward(req, res);
-			}		
+			}
 		}
-		if("GroupAdd".equals(action)) {
+		if ("GroupAdd".equals(action)) {
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			String memID =req.getParameter("memIDs");
+			String memID = req.getParameter("memIDs");
 			GroupOrderDAO groupOrderDAO = new GroupOrderDAO();
 			try {
-			String groupID = req.getParameter("groupID");
-			java.sql.Timestamp startTime = null;
-			
-			startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
-			
-			
-			List<GroupOrderVO> list =  groupOrderDAO.findByALLGroupMemTime(groupID,startTime);		
-			
-			GroupBandDAO groupBandDAO = new GroupBandDAO();
-			
-			GroupBandVO groupBandV= groupBandDAO.findByPrimaryKey(groupID);
-			
-			;
-			
-			  for(GroupOrderVO element : list) {
-				  
-				  
-				  if(memID.equals(element.getMemID())) {
-					  errorMsgs.add("你已經在揪團中");	
-					 break;
-				  }else if(element.getMemID()==null) {//加入糾團完成
-					  groupOrderDAO.updateMem(memID,element.getGorderID()); 
-					 //長期揪團判斷要加
-					  groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum()+1,groupID);
-					  break;
-					 
-				  }else {
-					  
-					  				  
-			    }
-			  }
-			  	String memIDs =req.getParameter("memIDs");
-			  	
-			  	GroupBandService groupBandService = new GroupBandService();
+				String groupID = req.getParameter("groupID");
+				java.sql.Timestamp startTime = null;
+
+				startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
+
+				;
+				Integer groupKind = new Integer(req.getParameter("groupKind").trim());
+				
+				if (groupKind == 0) {
+					List<GroupOrderVO> list = groupOrderDAO.findByALLGroupMemTime(groupID, startTime);
+
+					GroupBandDAO groupBandDAO = new GroupBandDAO();
+
+					GroupBandVO groupBandV = groupBandDAO.findByPrimaryKey(groupID);
+
+					for (GroupOrderVO element : list) {
+
+						if (memID.equals(element.getMemID())) {
+							errorMsgs.add("你已經在揪團中");
+							break;
+						} else if (element.getMemID() == null) {// 加入糾團完成
+							groupOrderDAO.updateMem(memID, element.getGorderID());
+							// 長期揪團判斷要加
+							groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum() + 1, groupID);
+							break;
+
+						} else if (element.getMemID() != null && groupBandDAO.findByPrimaryKey(groupID)
+								.getCurrenTnum() == groupBandDAO.findByPrimaryKey(groupID).getUpperLimit()) {
+							errorMsgs.add("揪團人數已滿");
+							break;
+						}
+					}
+				} else {
+					
+					GroupBandDAO groupBandDAO = new GroupBandDAO();
+
+					GroupBandVO groupBandV = groupBandDAO.findByPrimaryKey(groupID);
+					
+					List<GroupOrderVO> lists = groupOrderDAO.getOneStntstartTimeMem(groupID,
+							groupBandV.getGroupLeader());
+					System.out.println("+++++++++++++++++++++");
+					for (GroupOrderVO elements : lists) {
+						List<GroupOrderVO> list = groupOrderDAO.findByALLGroupMemTime(groupID, elements.getStartTime());
+						for (GroupOrderVO element : list) {
+							if (memID.equals(element.getMemID())) {
+								errorMsgs.add("你已經在揪團中");
+								break;
+							} else if (element.getMemID() == null) {// 加入糾團完成
+								groupOrderDAO.updateMem(memID, element.getGorderID());
+								// 長期揪團判斷要加
+								groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum() + 1, groupID);
+								break;
+
+							} else if (element.getMemID() != null && groupBandDAO.findByPrimaryKey(groupID)
+									.getCurrenTnum() == groupBandDAO.findByPrimaryKey(groupID).getUpperLimit()) {
+								errorMsgs.add("揪團人數已滿");
+								break;
+							}
+						}
+					}
+				}
+				String memIDs = req.getParameter("memIDs");
+
+				GroupBandService groupBandService = new GroupBandService();
 				GroupBandVO groupBandVO = groupBandService.getOneGroupBand(groupID);
 				if (groupBandVO == null) {
 					errorMsgs.add("格式不正確");
 				}
-			  	
-				if(memIDs.equals(groupBandVO.getGroupLeader())) //如果為團長會 有修改 和刪除 ""修改成目前的連線
+
+				if (memIDs.equals(groupBandVO.getGroupLeader())) // 如果為團長會 有修改 和刪除 ""修改成目前的連線
 				{
-					req.setAttribute("GroupLeader","true");	
-					req.setAttribute("GroupBandVO", groupBandVO);	
-					
-					
-				}else {
-					req.setAttribute("GroupLeader","false");	
+					req.setAttribute("GroupLeader", "true");
+					req.setAttribute("GroupBandVO", groupBandVO);
+
+				} else {
+					req.setAttribute("GroupLeader", "false");
 					req.setAttribute("GroupBandVO", groupBandVO);
 				}
-			  
-			  String url = "/front-end/groupBand/listOneGroupBand.jsp";
+
+				String url = "/front-end/groupBand/listOneGroupBand.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
-				successView.forward(req, res);				
-			
-			 
-			}catch (Exception e) {
-					errorMsgs.add("無法取得資料:" + e.getMessage());
-					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/groupBand/listOneGroupBand.jsp");
-					failureView.forward(req, res);
-				}	
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				errorMsgs.add("無法取得資料:" + e.getMessage());
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/groupBand/listOneGroupBand.jsp");
+				failureView.forward(req, res);
+			}
 		}
 	}
 

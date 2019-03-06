@@ -9,7 +9,7 @@
     
     <jsp:useBean id="listgroupBand_ByCompositeQuery" scope="request" type="java.util.List<GroupBandVO>" /> 
 <%--     <jsp:useBean id="groupOrderService" scope="page" class="com.groupOrder.model.GroupOrderService" /> --%>
-
+<% String groupKind[] = {"揪團","長期揪團"}; %>
 <!DOCTYPE html>
 <html>
 <head>
