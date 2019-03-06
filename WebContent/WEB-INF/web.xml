@@ -278,6 +278,7 @@
     <url-pattern>/back-end/member/pressToVerified.jsp</url-pattern>
     <url-pattern>/front-end/groupBand/insertGroupBand.jsp</url-pattern>
     <url-pattern>/front-end/driver/司機資料管理.jsp</url-pattern>
+    <url-pattern>/front-end/groupBand/SelectGroupBand.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
