@@ -4,7 +4,8 @@
 <%@ page import="com.singleOrder.model.SingleOrderService"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.singleOrder.model.SingleOrderVO"%>
-<% SingleOrderService service = new SingleOrderService();
+<%
+    SingleOrderService service = new SingleOrderService();
    List<SingleOrderVO> list = service.getAll();
    pageContext.setAttribute("list", list);
 %>

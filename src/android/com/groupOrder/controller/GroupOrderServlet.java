@@ -1,4 +1,4 @@
-package android.com.singleOrder.controller;
+package android.com.groupOrder.controller;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -19,12 +19,11 @@ import com.google.gson.reflect.TypeToken;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 
-public class SingleOrderServlet extends HttpServlet {
+public class GroupOrderServlet extends HttpServlet {
     private final static int NOT_ESTABLISHED = 0;
     private final static int ESTABLISHED = 1;
-    private final static int ONE_TIME_RESERVE = 3;
-    private final static int LONG_TERM_RESERVE = 4;
-    
+    private final static int ONE_TIME_GROUP_RESERVE = 5;
+    private final static int LONG_TERM_GROUP_RESERVE = 6;
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -44,43 +43,38 @@ public class SingleOrderServlet extends HttpServlet {
         Gson gson = new Gson();
         JsonObject jsonIn = gson.fromJson(sBuilder.toString(), JsonObject.class);
         String action = jsonIn.get("action").getAsString();
-        if ("insert".equals(action)) {
-            SingleOrderVO singleOrderVO = gson.fromJson(jsonIn.get("singleOrder").getAsString(), SingleOrderVO.class);
-            service.addSingleOrder(singleOrderVO.getMemID(), singleOrderVO.getState(), null, singleOrderVO.getStartLoc(),
-                                   singleOrderVO.getEndLoc(), singleOrderVO.getEndLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(),
-                                   singleOrderVO.getEndLat(), 0, singleOrderVO.getOrderType(), singleOrderVO.getNote(), new Timestamp(System.currentTimeMillis()));
-        } else if ("getNewSingleOrder".equals(action)) {
-            List<SingleOrderVO> singleOrderVOs = service.getByStateAndOrderType(NOT_ESTABLISHED, ONE_TIME_RESERVE);
+        if ("getNewGroupOrder".equals(action)) {
+            List<SingleOrderVO> singleOrderVOs = service.getByStateAndOrderType(NOT_ESTABLISHED, ONE_TIME_GROUP_RESERVE);
             gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
-            writer.print(gson.toJson(singleOrderVOs));
-            System.out.println(gson.toJson(singleOrderVOs));
+            writer.print(gson.toJson(convertToGroupOrder(singleOrderVOs)));
+            System.out.println(gson.toJson(convertToGroupOrder(singleOrderVOs)));
             writer.close();
-        } else if ("getLongTermSingleOrder".equals(action)) {
-            List<SingleOrderVO> singleOrderVOs = service.getByStateAndOrderType(NOT_ESTABLISHED, LONG_TERM_RESERVE);
+        } else if ("getLongTermGroupOrder".equals(action)) {
+            List<SingleOrderVO> singleOrderVOs = service.getByStateAndOrderType(NOT_ESTABLISHED, LONG_TERM_GROUP_RESERVE);
             gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
-            writer.print(gson.toJson(convertToLongTermOrder(singleOrderVOs)));
-            System.out.println(gson.toJson(convertToLongTermOrder(singleOrderVOs)));
+            writer.print(gson.toJson(convertToLongTermGroupOrder(singleOrderVOs)));
+            System.out.println(gson.toJson(convertToLongTermGroupOrder(singleOrderVOs)));
             writer.close();
-        } else if ("takeSingleOrder".equals(action)) {
+        } else if ("takeGroupOrder".equals(action)) {
             String driverID = jsonIn.get("driverID").getAsString();
             String orderID = jsonIn.get("orderID").getAsString();
-            if (driverID != null)
-                service.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderID);
-        } else if ("takeLongTermOrder".equals(action)) {
+//            if (driverID != null)
+//                service.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderID);
+        } else if ("takeLongTermGroupOrder".equals(action)) {
             String driverID = jsonIn.get("driverID").getAsString();
             List<String> orderIDs = gson.fromJson(jsonIn.get("orderID").getAsString(), new TypeToken<List<String>>() {}.getType());
-            service.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderIDs);
+//            service.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderIDs);
         }
     }
     
-    private List<List<SingleOrderVO>> convertToLongTermOrder(List<SingleOrderVO> vos) {
+    private List<List<SingleOrderVO>> convertToGroupOrder(List<SingleOrderVO> vos) {
         List<List<SingleOrderVO>> vosLists = new ArrayList<>();
         for (SingleOrderVO singleOrderVO: vos) {
             boolean added = false;
             for (List<SingleOrderVO> voslist: vosLists) {
                 SingleOrderVO first = voslist.get(0);
                 if (first.getLaunchTime().equals(singleOrderVO.getLaunchTime()) &&
-                    first.getMemID().equals(singleOrderVO.getMemID())) {
+                    first.getStartTime().equals(singleOrderVO.getStartTime())) {
                     voslist.add(singleOrderVO);
                     added = true;
                     break;
@@ -96,4 +90,27 @@ public class SingleOrderServlet extends HttpServlet {
         
         return vosLists;
     }
+    
+    private List<List<List<SingleOrderVO>>> convertToLongTermGroupOrder(List<SingleOrderVO> groupOrder) {
+        List<List<SingleOrderVO>> groupOrders = convertToGroupOrder(groupOrder);
+        List<List<List<SingleOrderVO>>> longTermOrder = new ArrayList<>();
+        for (List<SingleOrderVO> gVO: groupOrders) {
+            boolean added = false;
+            for (List<List<SingleOrderVO>> gVOs: longTermOrder) {
+                if (gVO.get(0).getLaunchTime().equals(gVOs.get(0).get(0).getLaunchTime())) {
+                    gVOs.add(gVO);
+                    added = true;
+                } // if
+            }
+            
+            if (!added) {
+                List<List<SingleOrderVO>> gVOs = new ArrayList<>();
+                gVOs.add(gVO);
+                longTermOrder.add(gVOs);
+            }
+        }
+        
+        return longTermOrder;
+    }
+    
 }

@@ -6,6 +6,7 @@
     
     <%
     GroupBandVO groupBandVO =(GroupBandVO) request.getAttribute("GroupBandVO");
+    Object GroupLeader =request.getAttribute("GroupLeader");
 %>
     
     
@@ -84,8 +85,8 @@
 <th>上車時間</th>
 <th>評價分數</th>
 <th>備註</th>
-<th>修改資料</th>
-<th>刪除資料</th>
+
+
 </tr>
 
 
@@ -110,21 +111,27 @@
 	<td><%=groupBandVO.getRate()%></td>
 	<td><%=groupBandVO.getNote()%></td>
 <td>
+</td>
+</tr>
+</table>
+<%--判斷是否為團長 GroupBandServlet.java配合上689行--%>
+<%if("true".equals(GroupLeader)){ %>
+<h5>修改資料</h5>
 <form action="<%=request.getServletContext().getContextPath()%>/GroupBand" method="POST" enctype="multipart/form-data"style="margin-bottom: 0px;">
 	<input type="submit" value="修改">
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
 	<input type="hidden" name="action"	value="getOne_For_Update">
 </FORM>
-</td>
-<td>
+<h5>刪除資料</h5>
 <FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
 	<input type="submit" value="刪除">
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
 	<input type="hidden" name="action"	value="delete"></FORM>
-</td>
-</tr>
+<%}%>
 
-</table>
+
+
+
 
 
 

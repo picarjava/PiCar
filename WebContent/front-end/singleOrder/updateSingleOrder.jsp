@@ -44,8 +44,8 @@
     </form>
     </c:if>
 </body>
-<% 
-  SingleOrderVO singleOrderVO = (SingleOrderVO) request.getAttribute("singleOrder");
+<%
+    SingleOrderVO singleOrderVO = (SingleOrderVO) request.getAttribute("singleOrder");
   String startTime = "";
   String endTime = "";
   if (singleOrderVO != null) {

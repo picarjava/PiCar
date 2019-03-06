@@ -2,20 +2,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="com.singleOrder.model.SingleOrderService"%>
+<%@ page import="com.singleOrder.model.SingleOrderVO"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.sql.Date"%>
-<%@ page import="com.singleOrder.model.SingleOrderVO"%>
-<%@ page import="com.groupOrder.model.GroupOrderService"%>
 <%@ page import="com.groupOrder.model.GroupOrderVO"%>
+<%@ page import="com.groupOrder.model.GroupOrderService"%>
 
 
 <!-- 本頁面待與登入功能串接 此處先指定memID-->
 <%-- <%String memID=(String)session.getAttribute("memID"); %>  --%>
-<%! String memID="M001";  %>
-<% session.setAttribute("memID", memID);%>
+<%!String memID="M001";%>
+<%
+    session.setAttribute("memID", memID);
+%>
 
 <!-- 個人訂單 -->
-<% SingleOrderService service = new SingleOrderService();
+<%
+    SingleOrderService service = new SingleOrderService();
    List<SingleOrderVO> singleOrderlist = service.getAll();
    request.setAttribute("singleOrderlist", singleOrderlist);
 %>
