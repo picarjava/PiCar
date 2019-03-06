@@ -684,6 +684,8 @@ public class GroupBandServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
+				
+				
 
 				req.setAttribute("GroupBandVO", groupBandVO);
 				String url = "/front-end/groupBand/listOneGroupBand.jsp";
