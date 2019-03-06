@@ -4,19 +4,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 <body>
 
-<form method="post" action="/PiCar/back-end/member/member.do" >
+<form method="post" id="sub" action="/PiCar/front-end/member/member.do" >
 
 
 <input type="hidden" name="action" value="verified">
 <input type="hidden" name="memID" value="${memberVO.memID }" >
-<input type="submit" value="驗證">
+
 
 </form>
 
-
+	<script>
+	$(document).ready(function() {
+		 $('#sub').submit();
+	}); 
+	</script>
 
 
 

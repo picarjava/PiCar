@@ -71,14 +71,11 @@
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查詢一筆司機</button>
                                 </form>
                             </li>
-                            <!-- 							<li class="nav-item"> -->
-                            <!-- 								<form class="form-inline" -->
-                            <%-- 									action="<%=request.getContextPath()%>/back-end/driver/addDriver.jsp" --%>
-                            <!-- 									method="post"> -->
-                            <!-- 									<button class="btn btn-outline-success my-2 my-sm-0" -->
-                            <!-- 										type="submit">驗證司機</button> -->
-                            <!-- 								</form> -->
-                            <!-- 							</li> -->
+                            <li class="nav-item">
+                                <form class="form-inline" action="<%=request.getContextPath()%>/back-end/driver/listAllDriver.jsp" method="post">
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">驗證司機</button>
+                                </form>
+                            </li>
                         </ul>
                         <br>
                         <li class="nav-item">
@@ -90,7 +87,7 @@
                                 <!-- 									type="search" placeholder="請輸入司機編號(eg.D001)" aria-label="Search"> -->
                                 <!--隱藏的參數action讓controller抓-->
                                 <input type="hidden" name="action" value="GET_ONE_FRONT">
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">司機資料管理</button>
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">司機資料管理(前端首頁用)</button>
                             </form>
                         </li>
                     </nav>

@@ -4,8 +4,10 @@
 
 <%
 	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+	MemberDAO memberDAO = new MemberDAO();
+	memberDAO.getGeneratedKeys();
 %>
-
+<%= memberDAO.getGeneratedKeys()%>
 <!DOCTYPE html>
 <html>
 <head>

@@ -57,14 +57,14 @@ table1, td {
 
 
 				<td>
-					<form method="post"	action="<%=request.getContextPath()%>/rate/rate.do">
+					<form method="post"	action="<%=request.getContextPath()%>/back-end/rate/rate.do">
 						<input type="submit" value="修改"> 
 						<input type="hidden" name="rateID" value="${rateVO.rateID}"> 
 						<input type="hidden" name="action" value="getOne_For_Update">
 				</td>
 				    </form>
 				<td>
-					<form method="post" action="<%=request.getContextPath()%>/rate/rate.do">
+					<form method="post" action="<%=request.getContextPath()%>/back-end/rate/rate.do">
 						<input type="submit" value="刪除">
 						 <input type="hidden" name="rateID" value="${rateVO.rateID}"> 
 						 <input type="hidden" name="action" value="delete">

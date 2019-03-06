@@ -96,8 +96,6 @@ req.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
-//		RequestDispatcher requestDispatcher;
-//		RequestDispatcher failurePage;
 	///////////////////////////////////////////////////////////////////////
 	if ("INSERT".equals(action)) { // 來自addDriver.jsp的請求 ok
 		List<String> errorMsgs = new LinkedList<String>();
@@ -187,7 +185,7 @@ req.setCharacterEncoding("UTF-8");
 		}
 	}
 //		轉成byte[]; 先read進來 write出去
-		Integer verified= 0;//--
+		Integer verified= 0;//--預設為未通過
 		Integer banned= 0;//--
 		Date deadline = null;//--
 		Integer onlineCar= 0;//--沒在線上 由session判斷
@@ -252,6 +250,7 @@ req.setCharacterEncoding("UTF-8");
 		successView.forward(req, res);
 		/***************************其他可能的錯誤處理*****************************/
 		} 
+//	RequestDispatcher requestDispatcher;
 //    catch (Exception e) {
 //			errorMsgs.add(e.getMessage());
 //			RequestDispatcher failureView = req
@@ -260,7 +259,7 @@ req.setCharacterEncoding("UTF-8");
 //		}
 //	}
 ///////////////////	
-//	//來自首頁(eg.司機會員管理)的請求(從session查出單筆司機資料)
+//	//來自首頁(eg.司機會員管理)的請求(從session查出單筆司機資料)   ok
 		if("GET_ONE_FRONT".equals(action)){// 
 			LinkedList<String> errorMsgs=new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -345,7 +344,7 @@ req.setCharacterEncoding("UTF-8");
 //			failurePage.forward(req, res);
 //		}
 ////////////////////////
-//來自back-end/listAllDriver.jsp 修改  ban deadline verivfied==0 (後台驗證司機  )
+//來自back-end/listAllDriver.jsp 修改  ban deadline verivfied==0 (後台驗證司機  )//??
 if("GET_ONE_FOR_CHECK".equals(action)){
    List<String> errorMsgs1=new LinkedList<String>();//?
 	req.setAttribute("errorMsgs", errorMsgs1);
@@ -359,7 +358,6 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	/*************3.得到資料和圖片轉換資料存在scope=reqest，並送出VO給處理頁面:getOneUpdate頁面**************/
 	
 	req.setAttribute("driverVO", driverVO);
-//	String url="/back-end/driver/getOneUpdateActivity.jsp";  //
 	String url="/back-end/driver/getOneUpdateActivity.jsp";  //驗證成功頁面
 	RequestDispatcher successPage=req.getRequestDispatcher(url);
 	successPage.forward(req, res);
@@ -376,7 +374,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 //	Date deadline = null;//被ban的時間
 //	driverVO.setDeadline(deadline);//修改時使用
 	//////////////////////////////////////
-//	if ("UPDATE_DRI".equals(action)) { //前端司機用(僅含喜好設定需改寫DAO)
+//	if ("UPDATE_DRI".equals(action)) { //前端司機用(僅含喜好設定需改寫DAO) //?
 //		List<String> errorMsgs = new LinkedList<String>();
 //		// Store this set in the request scope, in case we need to
 //		// send the ErrorPage view.

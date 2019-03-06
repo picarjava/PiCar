@@ -18,7 +18,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
 public class MemberDAO implements MemberDAO_interface {
-
+	
+	private  String key ;
+	
 	private static DataSource ds = null;
 	static {
 		try {
@@ -59,8 +61,8 @@ public class MemberDAO implements MemberDAO_interface {
 		try {
 			con = ds.getConnection();
 
-//			String[] cols = { "MEM_ID" };
-			int cols[] = { 1 };
+			String[] cols = { "MEM_ID" };
+//			int cols[] = { 1 };
 			pstmt = con.prepareStatement(INSERT_STMT, cols);
 
 //			pstmt.setString(1, memberVO.getMemID());
@@ -83,23 +85,18 @@ public class MemberDAO implements MemberDAO_interface {
 			blob.setBytes(1, pic);
 			pstmt.setBlob(14, blob);
 
-			ResultSet rs = pstmt.getGeneratedKeys();
-			ResultSetMetaData rsmd = rs.getMetaData();
-			int columnCount = rsmd.getColumnCount();
-//			
+			pstmt.executeUpdate();
 
+			ResultSet rs = pstmt.getGeneratedKeys();			
+			
+			String  key = null;
 			if (rs.next()) {
-				do {
-					for (int i = 1; i <= columnCount; i++) {
-						String key = rs.getString(i);
-						System.out.println("自增主鍵值 = " + key + "(剛新增成功的員工編號)");
-					}
-				} while (rs.next());
+				  key = rs.getString(1);
+				  this.key = key;
+				System.out.println("自增主鍵值 = " + key + "(剛新增成功的員工編號)");
 			} else {
 				System.out.println("NO KEYS WERE GENERATED.");
 			}
-
-			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
 			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
@@ -125,8 +122,8 @@ public class MemberDAO implements MemberDAO_interface {
 	}
 
 	// 為了取的自增主鑑的值
-	public Integer getGeneratedKeys() {
-		return 0;
+	public String getGeneratedKeys() {
+		return key;
 	}
 
 //	用來對應pstmt的方法
@@ -491,7 +488,7 @@ public class MemberDAO implements MemberDAO_interface {
 
 			pstmt.setInt(1, memberVO.getToken());
 			pstmt.setString(2, memberVO.getMemID());
-
+			
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {

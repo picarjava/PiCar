@@ -21,7 +21,7 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 	public static final String passwd = "123456";
 
 	private static final String INSERT_STMT = "INSERT INTO MEMBER (MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER, "
-			+ "TOKEN, ACTIVITY_TOKEN, BIRTHDAY, VERIFIED, BABY_SEAT) VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
+			+ "TOKEN, ACTIVITY_TOKEN, BIRTHDAY, VERIFIED, BABY_SEAT) VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )";
 
 	private static final String GET_ALL_STMT = "SELECT MEM_ID, NAME, EMAIL, PASSWORD, PHONE, CREDIT_CARD, PET, SMOKE, GENDER,"
 			+ "TOKEN, ACTIVITY_TOKEN, TO_CHAR(BIRTHDAY, 'YYYY-MM-DD')BIRTHDAY, VERIFIED, BABY_SEAT FROM MEMBER ORDER BY MEM_ID";
@@ -44,7 +44,9 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		try {
 			Class.forName(driver);
 			con = DriverManager.getConnection(url, userid, passwd);
-			pstmt = con.prepareStatement(INSERT_STMT);
+			String[] cols = { "MEM_ID" };
+//			int cols[] = { 1 };
+			pstmt = con.prepareStatement(INSERT_STMT, cols);
 
 //			pstmt.setString(1, memberVO.getMemID());
 			pstmt.setString(1, memberVO.getName());

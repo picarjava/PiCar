@@ -21,7 +21,6 @@ import com.rate.model.RateVO;
 /**
  * Servlet implementation class MemberServlet
  */
-//@MultipartConfig(fileSizeThreshold = 1024 * 1024, maxFileSize = 5 * 1024 * 1024, maxRequestSize = 5 * 5 * 1024 * 1024)
 public class RateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -46,7 +45,7 @@ public class RateServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/rate/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rate/select_page.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -59,7 +58,7 @@ public class RateServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/rate/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rate/select_page.jsp");
 					failureView.forward(req, res);
 					return;
 				}
@@ -71,18 +70,18 @@ public class RateServlet extends HttpServlet {
 				}
 
 				if (!errorMsgs.isEmpty()) {
-					RequestDispatcher failureView = req.getRequestDispatcher("/rate/select_page.jsp");
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rate/select_page.jsp");
 					failureView.forward(req, res);
 					return;
 				}
 
 				req.setAttribute("rateVO", rateVO);
-				RequestDispatcher succesView = req.getRequestDispatcher("/rate/listOneRate.jsp");
+				RequestDispatcher succesView = req.getRequestDispatcher("/back-end/rate/listOneRate.jsp");
 				succesView.forward(req, res);
 
 			} catch (RuntimeException e) {
 				errorMsgs.add("無法取得資料" + e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/rate/selec_page.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rate/selec_page.jsp");
 				failureView.forward(req, res);
 			}
 		}
@@ -97,12 +96,12 @@ public class RateServlet extends HttpServlet {
 				RateVO rateVO = rateSvc.getOneRate(rateID);
 				req.setAttribute("rateVO", rateVO);
 
-				RequestDispatcher succesView = req.getRequestDispatcher("/rate/update_rate_iuput.jsp");
+				RequestDispatcher succesView = req.getRequestDispatcher("/back-end/rate/update_rate_iuput.jsp");
 				succesView.forward(req, res);
 
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/rate/listAllrate.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/back-end/rate/listAllrate.jsp");
 				failureView.forward(req, res);
 			}
 
@@ -119,10 +118,10 @@ public class RateServlet extends HttpServlet {
 				String rateName = req.getParameter("rateName").trim();
 				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
 				if (rateName == null || rateName.trim().length() == 0) {
-					
+
 					errorMsgs.add("請輸入費率名稱");
 				} else if (!rateName.trim().matches(nameReg)) {
-					
+
 					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \" 且長度必需在2到20之間");
 				}
 
@@ -153,21 +152,21 @@ public class RateServlet extends HttpServlet {
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("rateVO", rateVO);
-					RequestDispatcher failView = req.getRequestDispatcher("/rate/update_rate_iuput.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/rate/update_rate_iuput.jsp");
 					failView.forward(req, res);
 					return;
 				}
-			
+
 				// 開始新增資料
 				RateService rateSvc = new RateService();
 				rateVO = rateSvc.updateRate(rateID, rateName, ratePrice, rateBasic);
 
-				RequestDispatcher succesView = req.getRequestDispatcher("/rate/listAllRate.jsp");
+				RequestDispatcher succesView = req.getRequestDispatcher("/back-end/rate/listAllRate.jsp");
 				succesView.forward(req, res);
-				
+
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
-				RequestDispatcher successView = req.getRequestDispatcher("/rate/update_rate_iuput.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/back-end/rate/update_rate_iuput.jsp");
 				successView.forward(req, res);
 			}
 
@@ -182,10 +181,10 @@ public class RateServlet extends HttpServlet {
 				String rateName = req.getParameter("rateName").trim();
 				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
 				if (rateName == null || rateName.trim().length() == 0) {
-					
+
 					errorMsgs.add("請輸入費率名稱");
 				} else if (!rateName.trim().matches(nameReg)) {
-					
+
 					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \" 且長度必需在2到20之間");
 				}
 
@@ -205,23 +204,14 @@ public class RateServlet extends HttpServlet {
 					errorMsgs.add("請輸入數字");
 				}
 
-//  			**************到時候記得要拿掉***鳩咪
-
-//				Part part = req.getPart("pic");
-//				InputStream in = part.getInputStream();
-//				byte[] pic = new byte[in.available()];
-//				in.read(pic);
-//				in.close();
-
 				RateVO rateVO = new RateVO();
 				rateVO.setRateName(rateName);
 				rateVO.setRatePrice(ratePrice);
 				rateVO.setRateBasic(rateBasic);
-//				rateVO.setPic(pic);
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("rateVO", rateVO);
-					RequestDispatcher failView = req.getRequestDispatcher("/rate/addRate.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/back-end/rate/addRate.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -230,12 +220,12 @@ public class RateServlet extends HttpServlet {
 				RateService rateSvc = new RateService();
 				rateVO = rateSvc.addRate(rateName, ratePrice, rateBasic);
 
-				RequestDispatcher succesView = req.getRequestDispatcher("/rate/listAllRate.jsp");
+				RequestDispatcher succesView = req.getRequestDispatcher("/back-end/rate/listAllRate.jsp");
 				succesView.forward(req, res);
 
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
-				RequestDispatcher successView = req.getRequestDispatcher("/rate/addRate.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/back-end/rate/addRate.jsp");
 				successView.forward(req, res);
 			}
 

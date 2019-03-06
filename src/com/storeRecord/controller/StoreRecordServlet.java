@@ -100,13 +100,14 @@ public class StoreRecordServlet extends HttpServlet {
 				}
 
 				req.setAttribute("list", list);
-				
-				//為了拿到加總金額
-				StoreRecordService storeRecordSvc = new StoreRecordService();
-				Integer sumCount = storeRecordSvc.getCount(memID);
-				req.setAttribute("sumCount", sumCount);
-				
-				RequestDispatcher succesView = req.getRequestDispatcher("/storeRecord/listOneStoreRecordMemberBack.jsp");
+
+				// 為了拿到加總金額
+//				StoreRecordService storeRecordSvc = new StoreRecordService();
+//				Integer sumCount = storeRecordSvc.getCount(memID);
+//				req.setAttribute("sumCount", sumCount);
+
+				RequestDispatcher succesView = req
+						.getRequestDispatcher("/storeRecord/listOneStoreRecordMemberBack.jsp");
 				succesView.forward(req, res);
 
 			} catch (RuntimeException e) {
@@ -251,14 +252,14 @@ public class StoreRecordServlet extends HttpServlet {
 				List<StoreRecordVO> list = storeRecordSvc.getMemStoreRecord(memID);
 				req.setAttribute("list", list);
 
-				// 為了計算加總金額
-				Integer sumCount = storeRecordSvc.getCount(memID);
-				req.setAttribute("sumCount", sumCount);
-				
+				// 為了計算加總金額 用取得會員代幣替代
+//				Integer sumCount = storeRecordSvc.getCount(memID);
+//				req.setAttribute("sumCount", sumCount);
+
 				MemberService memberSvc = new MemberService();
-				 memberSvc.updateToken(memID, sumCount);
-				
-				
+				MemberVO memberVO = memberSvc.getOneMember(memID);
+				memberSvc.updateToken(memID, memberVO.getToken() + storeRecordVO.getAmount());
+
 				RequestDispatcher succesView = req
 						.getRequestDispatcher("/storeRecord/listOneStoreRecordMemberFront.jsp");
 				succesView.forward(req, res);

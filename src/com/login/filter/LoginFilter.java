@@ -37,8 +37,6 @@ public class LoginFilter implements Filter {
 		
 		if (memberVO == null) { // 沒有登入過
 			session.setAttribute("location", req.getRequestURI());
-			System.out.println("1235");
-			System.out.println(req.getRequestURI());
 			res.sendRedirect(req.getContextPath() + "/front-end/login/login.html");
 		} else {
 			chain.doFilter(request, response);

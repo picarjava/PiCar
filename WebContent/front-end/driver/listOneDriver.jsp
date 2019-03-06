@@ -5,7 +5,7 @@
 <%@ page import="java.util.*" %>
 <html>
 <head>
-  <title>Be a part of PICAR</title>
+  <title>司機資料管理</title>
 
 <jsp:include page="/regna-master/head.jsp" />
   
@@ -18,7 +18,6 @@
     <!-- 先取出VO -->
   <%DriverVO driverVO=(DriverVO)request.getAttribute("driverVO");%>
   <%MemberVO memberVO=(MemberVO)request.getAttribute("memberVO");%>
-  
     <!-- 錯誤列表 -->
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
@@ -49,7 +48,6 @@
                   <!-- 活動表單開始 -->
                   <form action="https://www.google.com" method="post" role="form" class="contactForm">
                     <!-- <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" role="form" class="contactForm"> -->
-
                      <div class="form-group">
                       <p>會員編號</p> 
                      <input type="text" name="memID"  readonly  value="${driverVO.memID}" class="form-control"   />
@@ -107,9 +105,6 @@
 <%--                                <img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200">                           --%>
                         </div>
                     </div>
-                    
-                    
-                    
                     <div class="form-group">
                        <p>評價分數</p>
                       <input type="text" name="Score" class="form-control" value="${driverVO.carType}"   placeholder="請輸入車型" />

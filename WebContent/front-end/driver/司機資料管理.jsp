@@ -2,8 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.driver.model.*"%>
+<%@ page import="com.member.model.*"%>
 <%@ page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64" %>
 <%@ page import="java.util.*"%>
+<%@ page import="javax.servlet.http.*"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +17,11 @@
 <body>
     <!-- 先取出VO -->
     <%
-		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
+// 		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
+    	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+    DriverService driSrc = new DriverService();
+    DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
+    session.setAttribute("driverVO",driverVO);
 	%>
     <section id="contact">
         <div class="container wow fadeInUp">
@@ -39,21 +45,20 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">會員編號</span>
                                 </div>
-                                <input type="text" class="form-control" placeholder="MEMID" value="${driverVO.memID}" aria-label="Username" aria-describedby="basic-addon1" disabled="disabled">
+                                <input type="text" class="form-control" placeholder="MEMID" value="<%=driverVO.getMemID() %>" aria-label="Username" aria-describedby="basic-addon1" disabled="disabled">
                             </div>
                             <div class="input-group mb-3 ">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text" id="basic-addon1">司機編號</span>
                                 </div>
                                 <input type="text" class="form-control" placeholder="DRIVER1" value="${driverVO.driverID}" aria-label="Username" aria-describedby="basic-addon1" readonly>
-                            </div>
+                            </div>																			
                             <div class="input-group mb-3 ">
                                 <div class="input-group-prepend ">
                                     <span class="input-group-text " id="basic-addon1">車牌號碼</span>
                                 </div>
                                 <input type="text" class="form-control" placeholder="RAS-9958" value="${driverVO.plateNum}" aria-label="Username" aria-describedby="basic-addon1" readonly>
                             </div>
-                 
                             <div class="form-group">
                                 <p>評價分數</p>
                                 <input type="text" name="Score" class="form-control" value="${driverVO.score}" placeholder="請輸入車型" />
@@ -69,7 +74,6 @@
 						    	  encodeImg1 = Base64.encode(licence);%>
                                     <img src="data:image/jpg;base64,<%=encodeImg1 %>" id="img1">
                                     <% }%>
-                                    <div class="card" style="width: 18rem;">
                                     </div>
                                     <%-- 						      <td>${driverVO.criminal}</td> --%>
                                     <div class="form-group">
