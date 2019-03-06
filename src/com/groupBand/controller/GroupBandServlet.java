@@ -733,6 +733,11 @@ public class GroupBandServlet extends HttpServlet {
 			
 			List<GroupOrderVO> list =  groupOrderDAO.findByALLGroupMemTime(groupID,startTime);		
 			
+			GroupBandDAO groupBandDAO = new GroupBandDAO();
+			
+			GroupBandVO groupBandV= groupBandDAO.findByPrimaryKey(groupID);
+			
+			;
 			
 			  for(GroupOrderVO element : list) {
 				  
@@ -740,10 +745,12 @@ public class GroupBandServlet extends HttpServlet {
 				  if(memID.equals(element.getMemID())) {
 					  errorMsgs.add("你已經在揪團中");	
 					 break;
-				  }else if(element.getMemID()==null) {
+				  }else if(element.getMemID()==null) {//加入糾團完成
 					  groupOrderDAO.updateMem(memID,element.getGorderID()); 
-					  
+					 //長期揪團判斷要加
+					  groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum()+1,groupID);
 					  break;
+					 
 				  }else {
 					  
 					  				  

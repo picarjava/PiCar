@@ -33,7 +33,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 	private static final String GET_ONE_STMT = "SELECT GROUP_ID,CONTENT,LAUNCH_TIME,INTRODUCTION,GROUP_STATUS,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC,END_LOC,PRIVATES,PHOTO,GROUP_TYPE,TOTAL_AMOUT,START_TIME,RATE,NOTE,GROUP_KIND FROM GROUP_BAND where GROUP_ID = ?";
 	private static final String DELETE = "DELETE FROM GROUP_BAND where GROUP_ID = ?";
 	private static final String UPDATE = "UPDATE GROUP_BAND set GROUP_ID=?,CONTENT=?,LAUNCH_TIME=?,INTRODUCTION=?,GROUP_STATUS=?,CURRENT_NUM=?,UPPER_LIMIT=?,LOWER_LIMIT=?,GROUP_NAME=?,GROUP_LEADER=?,START_LOC=?,END_LOC=?,PRIVATES=?,PHOTO=?,GROUP_TYPE=?,TOTAL_AMOUT=?,START_TIME=?,RATE=?,NOTE=?,GROUP_KIND=? where GROUP_ID= ?";
-
+	private static final String UPDATECURRENT = "UPDATE GROUP_BAND set CURRENT_NUM= ? where GROUP_ID= ?";
 	@Override
 	public void insert(GroupBandVO groupBandVO) {
 		// TODO Auto-generated method stub
@@ -453,5 +453,39 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			}
 		}
 	}
+	
+	public void UpdateCURRENT(Integer currenTnum,String groupBandno) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(true);
+			pstmt = con.prepareStatement(UPDATECURRENT);
+			pstmt.setInt(1,currenTnum);
+			pstmt.setString(2,groupBandno);
+			
+			pstmt.executeUpdate();
+			con.commit();
 
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 }
