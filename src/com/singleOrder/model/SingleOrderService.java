@@ -1,7 +1,7 @@
 package com.singleOrder.model;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SingleOrderService {
@@ -14,6 +14,11 @@ public class SingleOrderService {
     public SingleOrderVO getOneSingleOrder(String orderID) {
         return singleOrderDAO.findByPrimaryKey(orderID);
     } // getOneSingleOrder()
+    
+    //小編新增長期insert方法
+    public void insert(LinkedList<SingleOrderVO> singleOrderVOList) {
+    	singleOrderDAO.insert(singleOrderVOList);
+    }
         
     public SingleOrderVO addSingleOrder(String memID, Integer state, Timestamp startTime, String startLoc,
                                         String endLoc, Double startLng, Double startLat, Double endLng,
@@ -62,14 +67,21 @@ public class SingleOrderService {
     //小編新增刪除方法
     public void delete(String orderID) {
     	singleOrderDAO.delete(orderID);
-    };
+    } // delete()
   
-    
     public List<SingleOrderVO> getAll() {
         return singleOrderDAO.getAll();
     } // getAll()
     
     public List<SingleOrderVO> getByStateAndOrderType(Integer state, Integer orderType) {
-        return singleOrderDAO.getSingleOrdersByStateAndOrderType(state, orderType);
+        return singleOrderDAO.findByStateAndOrderType(state, orderType);
     } // getByStateAndOrderType()
+    
+    public void updateDriverIDAndStateByOrderID(String driverID, Integer state, String orderID) {
+        singleOrderDAO.updateDriverIDAndStateByOrderID(driverID, state, orderID);
+    } // updateDriverIDAndStateByOrderID()
+    
+    public void updateDriverIDAndStateByOrderID(String driverID, Integer state, List<String> orderIDs) {
+        singleOrderDAO.updateDriverIDAndStateByOrderID(driverID, state, orderIDs);
+    } // updateDriverIDAndStateByOrderID()
 } // class SingleOrderService
