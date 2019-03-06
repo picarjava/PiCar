@@ -2,6 +2,7 @@ package com.singleOrder.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SingleOrderService {
@@ -14,6 +15,11 @@ public class SingleOrderService {
     public SingleOrderVO getOneSingleOrder(String orderID) {
         return singleOrderDAO.findByPrimaryKey(orderID);
     } // getOneSingleOrder()
+    
+    //小編新增長期insert方法
+    public void insert(LinkedList<SingleOrderVO> singleOrderVOList) {
+    	singleOrderDAO.insert(singleOrderVOList);
+    }
         
     public SingleOrderVO addSingleOrder(String memID, Integer state, Timestamp startTime, String startLoc,
                                         String endLoc, Double startLng, Double startLat, Double endLng,

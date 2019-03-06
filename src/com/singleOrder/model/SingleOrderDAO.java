@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 //import java.sql.DriverManager;
 
@@ -116,6 +117,73 @@ public class SingleOrderDAO implements SingleOrder_interface {
         
         return newSingleOrderVO;
     } // findByPrimaryKey()
+    
+    
+    //小編新增長期訂單的insert方法
+    @Override
+    public void insert(LinkedList<SingleOrderVO> singleOrderVOList) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+       
+        try {
+        	connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(INSERT_STMT);
+			connection.setAutoCommit(false);//多筆訂單新增視為一筆交易
+		}  
+        catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+        //for迴圈取出每一筆並新增
+        for(SingleOrderVO singleOrderVO:singleOrderVOList){
+        	
+            try {
+            	int index = 1;
+                preparedStatement.setString(index++, singleOrderVO.getMemID());
+                preparedStatement.setInt(index++, singleOrderVO.getState());
+                preparedStatement.setTimestamp(index++, singleOrderVO.getStartTime());
+                preparedStatement.setString(index++, singleOrderVO.getStartLoc());
+                preparedStatement.setString(index++, singleOrderVO.getEndLoc());
+                preparedStatement.setDouble(index++, singleOrderVO.getStartLng());
+                preparedStatement.setDouble(index++, singleOrderVO.getStartLat());
+                preparedStatement.setDouble(index++, singleOrderVO.getEndLng());
+                preparedStatement.setDouble(index++, singleOrderVO.getEndLat());
+                preparedStatement.setInt(index++, singleOrderVO.getTotalAmount());
+                preparedStatement.setInt(index++, singleOrderVO.getOrderType());
+                preparedStatement.setString(index++, singleOrderVO.getNote());
+                preparedStatement.setTimestamp(index++, singleOrderVO.getLaunchTime());            
+                preparedStatement.addBatch(); //先將每筆置入batch中
+         
+            }catch (SQLException e) {
+            	try {
+					connection.rollback(); //每筆置入batch過程中有誤，則rollback
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
+            }
+        }//for迴圈
+            try {
+    			preparedStatement.executeBatch(); //批次新增，效能較佳
+    			connection.commit(); //新增過程無誤，則commit
+    			connection.setAutoCommit(true); //送進資料庫後調回setAutoCommit(true)
+    		} catch (SQLException e) {
+    			try {
+					connection.rollback(); //批次新增過程中有誤 ，則rollback
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				} 
+    			e.printStackTrace();
+    		}
+            finally {
+                closePreparedStatement(preparedStatement);
+                closeConnection(connection);
+            } // finally 
+        
+    } // insert()
+
+    
 
     @Override
     public void insert(SingleOrderVO singleOrderVO) {

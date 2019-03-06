@@ -119,7 +119,7 @@ public class SingleOrderServlet extends HttpServlet{
 	                    forwordURL = "/front-end/singleOrder/listAllSingleOrder.jsp";
 	             
 	                } // else
-            //長期預約
+            //新增長期預約訂單
             }else if ("insertLongterm".equals(action)) {
                 forwordURL = "/front-end/singleOrder/addLongtermReservation.jsp";
                 String memID = req.getParameter("memID");
@@ -178,13 +178,12 @@ public class SingleOrderServlet extends HttpServlet{
                 countsDay=(int)(((endDay-(startDay-restOfstartDay))/oneDay)+1);//取得長期預約共幾天
                 System.out.println("共:"+countsDay+"天");
                 
-              //開始跑回圈生訂單 
-              //每天長期訂單的timestamp
+                //開始跑迴圈將每一筆長期訂單資訊放進List
+                LinkedList<SingleOrderVO> singleOrderVOList=new LinkedList<SingleOrderVO>();
             	 for(int i=0;i<countsDay;i++) {
-            		synchronized(this) {
+            		
             			everyTimestamp =new Timestamp(everyDay+startDay);
             			everyDay+=oneDay;
-            		
                 	startTime=everyTimestamp; //將迴圈產生的長期預約日期時間 指定給startTime變數
 	                SingleOrderVO singleOrderVO = new SingleOrderVO();
 	                singleOrderVO.setMemID(memID);
@@ -193,29 +192,30 @@ public class SingleOrderServlet extends HttpServlet{
 	                singleOrderVO.setEndLoc(endLoc);
 	                singleOrderVO.setOrderType(orderType);
 	                singleOrderVO.setNote(note);
+	                //設定其他變數的初始值
+	                singleOrderVO.setState(0);
+	                singleOrderVO.setTotalAmount(totalAmount);
+	                singleOrderVO.setLaunchTime(launchTime);
+	                singleOrderVO.setEndLat(0.0);
+	                singleOrderVO.setEndLng(0.0);
+	                singleOrderVO.setStartLat(0.0);
+	                singleOrderVO.setStartLng(0.0);
+	                singleOrderVOList.add(singleOrderVO);//長期訂單資訊依序加入list
             		
 	                if (!errorMsgs.isEmpty()) {
 	                	forwordURL = "/front-end/singleOrder/addLongtermReservation.jsp";
 	                    req.setAttribute("singleOrder", singleOrderVO);
 	                    req.setAttribute("errorMsgs", errorMsgs);
 	                    req.setAttribute("endTime", endTime);//長期預約資訊送回錯誤頁面
-	                } else {
-	                	 try {
-	                		
-	                        serivce.addSingleOrder(memID, 0, startTime, startLoc,
-	                                               endLoc, 0.0, 0.0, 0.0,
-	                                               0.0, totalAmount, orderType, note,
-	                                               launchTime);
-	                		
-	                    } catch(RuntimeException e) {
-	                        req.setAttribute("singleOrder", singleOrderVO);
-	                        throw e;
-	                    } // catch
-	                	
-	                    forwordURL = "/front-end/singleOrder/listAllfutureTrip.jsp";
-	                } // else
-            		}//synchronized
+	                }
             	}//for迴圈
+                try {
+                    serivce.insert(singleOrderVOList); 
+                    forwordURL = "/front-end/singleOrder/listAllfutureTrip.jsp"; //新增成功，則回查看排定訂單頁面
+                } catch(RuntimeException e) {
+                	forwordURL = "/front-end/singleOrder/addLongtermReservation.jsp";//新增失敗，則回新增長期訂單頁面
+                    throw e;
+                } 
             }  else if ("getUpdateID".equals(action)) {
                 forwordURL = "/front-end/singleOrder/listAllSingleOrder.jsp";
                 String orderID = req.getParameter("orderID");
