@@ -57,7 +57,7 @@ public class GroupOrderServlet extends HttpServlet {
             writer.close();
         } else if ("takeGroupOrder".equals(action)) {
             String driverID = jsonIn.get("driverID").getAsString();
-            String orderID = jsonIn.get("orderID").getAsString();
+            List<String> orderIDs = gson.fromJson(jsonIn.get("orderID").getAsString(), new TypeToken<List<String>>() {}.getType());
 //            if (driverID != null)
 //                service.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderID);
         } else if ("takeLongTermGroupOrder".equals(action)) {
