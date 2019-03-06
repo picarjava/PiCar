@@ -29,7 +29,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 	private static final String INSERT_STMT = 
 			"INSERT INTO GROUP_ORDER (GORDER_ID,DRIVER_ID,MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID) VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0'),?,?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE FROM GROUP_ORDER";
+			"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID FROM GROUP_ORDER";
 		private static final String GET_ONE_STMT = 
 			"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID FROM GROUP_ORDER where GORDER_ID = ?";
 		private static final String DELETE = 
@@ -259,6 +259,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				groupOrderVO.setOrderType(rs.getInt("ORDER_TYPE"));
 				groupOrderVO.setRate(rs.getInt("RATE"));
 				groupOrderVO.setNote(rs.getString("NOTE"));
+				groupOrderVO.setGroupID(rs.getString("GROUP_ID"));
 				list.add(groupOrderVO);
 			}
 		} catch (SQLException se) {
