@@ -250,19 +250,6 @@ public class MemberServlet1 extends HttpServlet {
 			}
 		}
 
-		if ("verified".equals(action)) {
-			String memID = new String(req.getParameter("memID").trim());
-			MemberService memberSvc = new MemberService();
-			MemberVO memberVO = memberSvc.getOneMember(memID);
-			memberVO.getVerified();
-			if (memberVO.getVerified() == 0) {
-
-				memberSvc.updateVerified(memID);
-			} else {
-			}
-
-		}
-
 	}
 
 }

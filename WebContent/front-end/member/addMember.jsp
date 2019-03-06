@@ -51,7 +51,7 @@ table{
 		
 		<tr>
 			<td>會員電話：</td>
-			<td><input type="text" name="phone" size="45" value="<%= (memberVO==null)? "綠毛蟲@gmail.com":memberVO.getPhone() %>" /></td>		
+			<td><input type="text" name="phone" size="45" value="<%= (memberVO==null)? "0920-512-354":memberVO.getPhone() %>" /></td>		
 		</tr>
 		
 		<tr>
@@ -71,10 +71,8 @@ table{
 			<td>
 			<input type="radio" name="smoke" value="1"> 喜歡
 			<input type="radio" name="smoke" value="0"> 不喜歡<br>
-<!-- 			<select name="smoke"> -->
-<!-- 			<option value="1">喜歡 -->
-<!-- 			<option value="0">不喜歡 -->
-			</select></td>		
+
+			</td>		
 		</tr>
 		<tr>
 			<td>會員性別設定：</td>

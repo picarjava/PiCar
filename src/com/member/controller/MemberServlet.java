@@ -417,7 +417,21 @@ public class MemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
+		
+		if ("verified".equals(action)) {
+			String memID = new String(req.getParameter("memID").trim());
+			MemberService memberSvc = new MemberService();
+			MemberVO memberVO = memberSvc.getOneMember(memID);
+			if (memberVO.getVerified() == 0) {
 
+				memberSvc.updateVerified(memID);
+			} else {
+			}
+
+		}
+		
+		
+		
 	}
 
 }
