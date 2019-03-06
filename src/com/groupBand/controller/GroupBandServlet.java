@@ -690,7 +690,7 @@ public class GroupBandServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return;
 				}
-				String memIDs ="M001";
+				String memIDs =req.getParameter("memIDs");
 				
 				
 				if(memIDs.equals(groupBandVO.getGroupLeader())) //如果為團長會 有修改 和刪除 ""修改成目前的連線
@@ -715,7 +715,66 @@ public class GroupBandServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}		
 		}
-
+		if("GroupAdd".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			String memID =req.getParameter("memIDs");
+			GroupOrderDAO groupOrderDAO = new GroupOrderDAO();
+			try {
+			String groupID = req.getParameter("groupID");
+			java.sql.Timestamp startTime = null;
+			
+			startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
+			
+			
+			List<GroupOrderVO> list =  groupOrderDAO.findByALLGroupMemTime(groupID,startTime);		
+			
+			
+			  for(GroupOrderVO element : list) {
+				  
+				  
+				  if(memID.equals(element.getMemID())) {
+					  errorMsgs.add("你已經在揪團中");	
+					 break;
+				  }else if(element.getMemID()==null) {
+					  groupOrderDAO.updateMem(memID,element.getGorderID()); 
+					  
+					  break;
+				  }else {
+					  
+					  				  
+			    }
+			  }
+			  	String memIDs =req.getParameter("memIDs");
+			  	
+			  	GroupBandService groupBandService = new GroupBandService();
+				GroupBandVO groupBandVO = groupBandService.getOneGroupBand(groupID);
+				if (groupBandVO == null) {
+					errorMsgs.add("格式不正確");
+				}
+			  	
+				if(memIDs.equals(groupBandVO.getGroupLeader())) //如果為團長會 有修改 和刪除 ""修改成目前的連線
+				{
+					req.setAttribute("GroupLeader","true");	
+					req.setAttribute("GroupBandVO", groupBandVO);	
+					
+					
+				}else {
+					req.setAttribute("GroupLeader","false");	
+					req.setAttribute("GroupBandVO", groupBandVO);
+				}
+			  
+			  String url = "/front-end/groupBand/listOneGroupBand.jsp";
+				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
+				successView.forward(req, res);				
+			
+			 
+			}catch (Exception e) {
+					errorMsgs.add("無法取得資料:" + e.getMessage());
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/groupBand/listOneGroupBand.jsp");
+					failureView.forward(req, res);
+				}	
+		}
 	}
 
 	public static byte[] getPictureByteArray(String path) throws IOException {

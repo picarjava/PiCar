@@ -52,17 +52,15 @@
 </style>
 </head>
 <body>
-<a href="insertGroupBand.jsp" >查詢全部</a>
-<a href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/insertGroupBand.jsp" >查詢全部</a>
 
-<c:if test="${not empty errorMsgs}">
-	<font style="color:red">請修正以下錯誤:</font>
-	<ul>
-		<c:forEach var="message" items="${errorMsgs}">
-			<li style="color:red">${message}</li>
-		</c:forEach>
-	</ul>
-</c:if>
+	<c:if test="${not empty errorMsgs}">
+		<font style="color: red">請修正以下錯誤:</font>
+		<ul>
+			<c:forEach var="message" items="${errorMsgs}">
+				<li style="color: red">${message}</li>
+			</c:forEach>
+		</ul>
+	</c:if>
 
 <table>
 <tr>
@@ -110,8 +108,7 @@
 	<td><%=groupBandVO.getStartTime()%></td>
 	<td><%=groupBandVO.getRate()%></td>
 	<td><%=groupBandVO.getNote()%></td>
-<td>
-</td>
+
 </tr>
 </table>
 <%--判斷是否為團長 GroupBandServlet.java配合上689行--%>
@@ -127,7 +124,16 @@
 	<input type="submit" value="刪除">
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
 	<input type="hidden" name="action"	value="delete"></FORM>
-<%}%>
+	<%}%>
+<h5>加入揪團</h5>
+<FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
+	<input type="submit" value="加入">
+	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
+	<input type="hidden" name="startTime"  value="<%=groupBandVO.getStartTime()%>">
+	<input type="hidden" name="memIDs" value="${memberVO.memID }" /> 
+	<input type="hidden" name="action"	value="GroupAdd">
+	</FORM>	
+
 
 
 

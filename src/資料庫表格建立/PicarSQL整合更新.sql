@@ -489,6 +489,8 @@ CREATE TABLE GROUP_ORDER(
  ORDER_TYPE NUMBER (1)   NOT NULL,
  RATE NUMBER (1)   ,
  NOTE VARCHAR2 (60)   ,
+ START_LOC VARCHAR2 (100CHAR)   NOT NULL,
+ END_LOC   VARCHAR2 (100CHAR)   NOT NULL,
 CONSTRAINT DRIVER_ID_FK FOREIGN KEY (DRIVER_ID) REFERENCES DRIVER (DRIVER_ID),
 CONSTRAINT GROUP_ORDER_MEM_ID_FK FOREIGN KEY (MEM_ID)     REFERENCES MEMBER (MEM_ID),
 CONSTRAINT GROUP_ORDER_GROUP_ID_FK FOREIGN KEY (GROUP_ID) REFERENCES GROUP_BAND (GROUP_ID),
@@ -502,9 +504,9 @@ CACHE 10;
 
 --
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G001','D001','M001',0,1500,to_timestamp ('2019/02/5 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/08 09:20:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/08 09:50:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無');
+,'G001','D001','M001',0,1500,to_timestamp ('2019/02/5 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/08 09:20:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/08 09:50:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','桃園火車站','中壢火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002','D002','M002',0,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無');
+,'G002','D002','M002',0,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
 --建立檢舉揪團TABLE--
 CREATE TABLE GROUP_REPORT(
     GREPORT_ID VARCHAR2(5) NOT NULL,

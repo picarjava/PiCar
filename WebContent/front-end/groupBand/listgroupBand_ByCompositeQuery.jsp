@@ -75,8 +75,9 @@
 <th>上車時間</th><th>${GroupBandVO.startTime}</th>
 <th>揪團種類</th><th>${GroupBandVO.groupKind}</th>
 <th><FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
-	<input type="submit" value="加入">
+	<input type="submit" value="進入揪團">
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
+	<input type="hidden" name="memIDs" value="${memberVO.memID }" /> 
 	<input type="hidden" name="action"	value="GroupJoin"></FORM>
 </th>
 </tr>	
