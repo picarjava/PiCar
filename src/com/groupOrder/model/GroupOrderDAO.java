@@ -28,20 +28,20 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 	}
 	
 	private static final String INSERT_STMT = 
-			"INSERT INTO GROUP_ORDER (GORDER_ID,DRIVER_ID,MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID) VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0'),?,?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?)";
+			"INSERT INTO GROUP_ORDER (GORDER_ID,DRIVER_ID,MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID,START_LOC,END_LOC) VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0'),?,?,?,?,CURRENT_TIMESTAMP,?,?,?,?,?,?,?,?,?,?,?,?)";
 		private static final String GET_ALL_STMT = 
-			"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID FROM GROUP_ORDER";
+			"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID,START_LOC,END_LOC FROM GROUP_ORDER";
 		private static final String GET_ONE_STMT = 
-			"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID FROM GROUP_ORDER where GORDER_ID = ?";
+			"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID,START_LOC,END_LOC FROM GROUP_ORDER where GORDER_ID = ?";
 		private static final String GET_ALL_MemID = 
-				"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID FROM GROUP_ORDER where MEM_ID = ?";
+				"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID,START_LOC,END_LOC FROM GROUP_ORDER where MEM_ID = ?";
 		private static final String DELETE = 
 			"DELETE FROM GROUP_ORDER where GORDER_ID = ?";
 		private static final String UPDATE = 
 			"UPDATE GROUP_ORDER set DRIVER_ID=?,MEM_ID=?,STATE=?,TOTAL_AMOUT=?,START_TIME=?,END_TIME=?,START_LNG=?,START_LAT=?,END_LNG=?,END_LAT=?,ORDER_TYPE=?,RATE=?,NOTE=? where GORDER_ID = ?";
 
 		private static final String GET_ONE_STMTSTART_TIME = 
-				"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID FROM GROUP_ORDER where GROUP_ID = ? and START_TIME= ?";
+				"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID,START_LOC,END_LOC FROM GROUP_ORDER where GROUP_ID = ? and START_TIME= ?";
 		
 		private static final String UPDATEmem = 
 				"UPDATE GROUP_ORDER set MEM_ID=? where GORDER_ID = ?";
@@ -68,6 +68,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			pstmt.setInt(11,groupOrderVO.getOrderType());
 			pstmt.setInt(12,groupOrderVO.getRate());
 			pstmt.setString(13,groupOrderVO.getNote());
+			pstmt.setString(14,groupOrderVO.getStartLoc());
+			pstmt.setString(15,groupOrderVO.getEndLoc());
 			pstmt.executeUpdate();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -205,7 +207,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			groupOrderVO.setRate(rs.getInt("RATE"));
 			groupOrderVO.setNote(rs.getString("NOTE"));
 			groupOrderVO.setGroupID(rs.getString("GROUP_ID"));
-			
+			groupOrderVO.setStartLoc(rs.getString("START_LOC"));
+			groupOrderVO.setEndLoc(rs.getString("END_LOC"));
 		}
 		}catch (SQLException se) {
 			throw new RuntimeException("A database error occured. "
@@ -267,6 +270,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				groupOrderVO.setRate(rs.getInt("RATE"));
 				groupOrderVO.setNote(rs.getString("NOTE"));
 				groupOrderVO.setGroupID(rs.getString("GROUP_ID"));
+				groupOrderVO.setStartLoc(rs.getString("START_LOC"));
+				groupOrderVO.setEndLoc(rs.getString("END_LOC"));
 				
 			}
 		}catch (SQLException se) {
@@ -332,6 +337,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				groupOrderVO.setRate(rs.getInt("RATE"));
 				groupOrderVO.setNote(rs.getString("NOTE"));
 				groupOrderVO.setGroupID(rs.getString("GROUP_ID"));
+				groupOrderVO.setStartLoc(rs.getString("START_LOC"));
+				groupOrderVO.setEndLoc(rs.getString("END_LOC"));
 				list.add(groupOrderVO);
 			}
 		} catch (SQLException se) {
@@ -388,6 +395,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			pstmt.setInt(12,groupOrderVO.getRate());
 			pstmt.setString(13,groupOrderVO.getNote());
 			pstmt.setString(14,groupOrderVO.getGroupID());
+			pstmt.setString(15,groupOrderVO.getStartLoc());
+			pstmt.setString(16,groupOrderVO.getEndLoc());
 			pstmt.executeUpdate();
 
 		}  catch (SQLException se) {
@@ -449,6 +458,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			groupOrderVO.setRate(rs.getInt("RATE"));
 			groupOrderVO.setNote(rs.getString("NOTE"));
 			groupOrderVO.setGroupID(rs.getString("GROUP_ID"));
+			groupOrderVO.setStartLoc(rs.getString("START_LOC"));
+			groupOrderVO.setEndLoc(rs.getString("END_LOC"));
 			list.add(groupOrderVO);
 		}
 	}catch (SQLException se) {

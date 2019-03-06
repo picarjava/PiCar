@@ -482,7 +482,7 @@ public class GroupBandServlet extends HttpServlet {
 				groupBandVO.setPhoto(photo);
 				groupBandVO.setGroupType(groupType);
 				groupBandVO.setTotalAmout(totalAmout);
-
+				
 				groupBandVO.setStartTime(startTime);
 //					groupBandVO.setStartTime(new Date(simpleDateFormat.parse("2019-02-14").getTime()));
 				groupBandVO.setRate(rate);
@@ -539,6 +539,8 @@ public class GroupBandServlet extends HttpServlet {
 				
 					String numdays[] =req.getParameterValues("numdays");
 					
+				
+					
 					List<GroupOrderVO> testList = new ArrayList<GroupOrderVO>();
 					
 				if ("0".equals(req.getParameter("groupKind"))) {
@@ -560,7 +562,8 @@ public class GroupBandServlet extends HttpServlet {
 						groupOrderVO.setOrderType(orderType);
 						groupOrderVO.setRate(rateOr);
 						groupOrderVO.setNote(noteOr);
-						
+						groupOrderVO.setEndLoc(endLoc);
+						groupOrderVO.setStartLoc(startLoc);
 						testList.add(groupOrderVO);
 						
 //						groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder(diverID, memID[x], state,
@@ -592,7 +595,8 @@ public class GroupBandServlet extends HttpServlet {
 						groupOrderVO.setOrderType(orderType);
 						groupOrderVO.setRate(rateOr);
 						groupOrderVO.setNote(noteOr);
-						
+						groupOrderVO.setEndLoc(endLoc);
+						groupOrderVO.setStartLoc(startLoc);
 					
 						
 						

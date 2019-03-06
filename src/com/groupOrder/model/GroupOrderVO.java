@@ -20,7 +20,20 @@ public class GroupOrderVO {
 	private Integer rate;
 	private String note;
 	private String groupID; 
-	
+	private String startLoc;
+	private String endLoc;
+	public String getStartLoc() {
+		return startLoc;
+	}
+	public void setStartLoc(String startLoc) {
+		this.startLoc = startLoc;
+	}
+	public String getEndLoc() {
+		return endLoc;
+	}
+	public void setEndLoc(String endLoc) {
+		this.endLoc = endLoc;
+	}
 	public String getGroupID() {
 		return groupID;
 	}
