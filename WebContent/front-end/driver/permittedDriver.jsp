@@ -9,6 +9,12 @@
 
 <jsp:include page="/regna-master/head.jsp" />
   
+  <!-- =======================================================
+    Theme Name: Regna
+    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
+    Author: BootstrapMade.com
+    License: https://bootstrapmade.com/license/
+  ======================================================= -->
 </head>
 
 <body>
@@ -32,7 +38,7 @@
          <div class="container wow fadeInUp">
             <div class="col-lg-12 col-md-12">
                 <div class="section-header">
-                  <h3 class="section-title">司機個人資料</h3>
+                  <h3 class="section-title">恭喜您成為PICAR一員</h3>
                   <div class="text-center">
                   <!-- <form action="homeActivity.jsp">設返回頁面 -->
                   <form action="司機資料管理.jsp">
@@ -54,13 +60,15 @@
                       <p>會員編號</p> 
                      <input type="text" name="memID"  readonly  value="${driverVO.memID}" class="form-control"   />
                     </div>
-                     <div class="form-group">
-                      <p>司機編號</p> 
-                     <input type="text" name="driverID"  readonly  value="${driverVO.driverID}" class="form-control"   />
-                    </div>
                     <div class="form-group">
                        <p>車牌號碼</p>
                       <input type="text" name="plateNum" class="form-control" value="${driverVO.plateNum}" readonly  placeholder="請輸入車牌號碼" />
+                       <div class="card" style="width: 18rem;">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                       <p>車型</p>
+                      <input type="text" name="carType" class="form-control" value="${driverVO.carType}"   placeholder="請輸入車型" />
                        <div class="card" style="width: 18rem;">
                         </div>
                     </div>
@@ -105,21 +113,6 @@
 <%--                           <img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=5"  width="300" height="150" class="card-img-top" alt="..." > --%>
                           <img src="driver.do?driverID=D003&pic=5"  width="300" height="150" class="card-img-top" alt="..." >
 <%--                                <img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200">                           --%>
-                        </div>
-                    </div>
-                    
-                    
-                    
-                    <div class="form-group">
-                       <p>評價分數</p>
-                      <input type="text" name="Score" class="form-control" value="${driverVO.carType}"   placeholder="請輸入車型" />
-                       <div class="card" style="width: 18rem;">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                       <p>車型</p>
-                      <input type="text" name="carType" class="form-control" value="${driverVO.carType}"   placeholder="請輸入車型" />
-                       <div class="card" style="width: 18rem;">
                         </div>
                     </div>
                             <div class="form-group">

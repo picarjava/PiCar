@@ -210,7 +210,7 @@ req.setCharacterEncoding("UTF-8");
 		/////////////////
 		DriverVO driverVO = new DriverVO();//告訴下頁面
 		driverVO.setMemID(memID);
-//		driverVO.setDriverID(driverID);//  新增才能產生PK--> listall秀圖片--> 修改抓到driverID
+//		driverVO.setDriverID(driverID);//  1.新增才能產生PK--> listall秀圖片--> 修改抓到driverID 2.自增主見autogenerate
 		driverVO.setPlateNum(plateNum);
 		driverVO.setLicence(licence);
 		driverVO.setCriminal(criminal);
@@ -259,9 +259,52 @@ req.setCharacterEncoding("UTF-8");
 //			failureView.forward(req, res);
 //		}
 //	}
-//	//////////////////////////////////////////////////
-//	//來自homeDriver.jsp的請求(後台_管理員查出單筆司機資料)
-		if("GET_ONE_BACK".equals(action)){// 264~298註解
+///////////////////	
+//	//來自首頁(eg.司機會員管理)的請求(從session查出單筆司機資料)
+		if("GET_ONE_FRONT".equals(action)){// 
+			LinkedList<String> errorMsgs=new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			/*************1.接收請求參數**************/
+//			try {
+			System.out.println("1");
+				String driverID=req.getParameter("driverID"); //這裡抓的是session
+				if (driverID == null || (driverID.trim()).length() == 0) {
+					errorMsgs.add("請輸入司機編號");
+				}
+				// Send the use back to the form, if there were errors
+//			//	if (!errorMsgs.isEmpty()) {
+//					RequestDispatcher failureView = req
+//							.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+//					failureView.forward(req, res);
+//					return;//程式中斷
+//				}
+			/*************2查詢資料**************/
+			DriverService driverSvc=new DriverService();
+			DriverVO driverVO=driverSvc.getOneDriver(driverID);
+			System.out.println("2");
+			if(driverVO==null) {
+				errorMsgs.add("查無此筆");
+				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");//之後改成首頁
+				failurePage.forward(req, res);
+				return;
+			}
+			/*************3.得到資料存在scope=request，並送出VO給處理頁面**************/
+			req.setAttribute("driverVO", driverVO);
+			System.out.println("00");
+			String url="/front-end/driver/司機資料管理.jsp";
+			RequestDispatcher successPage=req.getRequestDispatcher(url);
+			successPage.forward(req, res);
+			System.out.println("11");
+			/*************4.處理例外**************/
+		}
+//			catch(Exception e){
+//			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());}
+//			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+//			failurePage.forward(req, res);
+//		}	
+///////////////////////////////////////////////////
+////來自homeDriver.jsp的請求(後台_管理員查出單筆司機資料) ok 
+		if("GET_ONE_BACK".equals(action)){// 註解
 			LinkedList<String> errorMsgs=new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			/*************1.接收請求參數**************/
@@ -302,7 +345,7 @@ req.setCharacterEncoding("UTF-8");
 //			failurePage.forward(req, res);
 //		}
 ////////////////////////
-//來自back-end/listAllDriver.jsp 修改某一筆的請求 後台驗證司機
+//來自back-end/listAllDriver.jsp 修改  ban deadline verivfied==0 (後台驗證司機  )
 if("GET_ONE_FOR_CHECK".equals(action)){
    List<String> errorMsgs1=new LinkedList<String>();//?
 	req.setAttribute("errorMsgs", errorMsgs1);
@@ -359,9 +402,6 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 //				errorMsgs.add("簡介: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 //            }
 //			Integer groupStatus =1;
-//			Integer currenTnum  =1;
-//			Integer upperLimit = new Integer(req.getParameter("upperlimit").trim());
-//			Integer lowerLimit = new Integer(req.getParameter("lowerlimit").trim());
 //			
 //			String groupName =req.getParameter("groupName");
 //			String groupN = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
@@ -450,7 +490,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 //			failureView.forward(req, res);
 //		}		
 //   	}
-	/////////////////
+	////////////////////////////////////////////////////////////////////////////////
 //	給後端update使用()可參考全寫法
 //	DEADLINE DATE
 //	java.sql.Date time = null;
@@ -461,7 +501,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 //		errorMsgs.add("請輸入日期");
 //	}
 //	}
-/////////////////	
+//////////////////////////////////////////////////////////////////////	
 	/* 處理圖片存進資夾，以便以名稱顯示在網頁上 */
 	public static void readPicture(byte[] bytes, String picName) throws IOException {
 //		Creates a file output stream to write to the file with the specified name. 
