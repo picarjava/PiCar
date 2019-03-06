@@ -588,6 +588,9 @@ public class GroupBandServlet extends HttpServlet {
 						groupOrderVO.setRate(rateOr);
 						groupOrderVO.setNote(noteOr);
 						
+					
+						
+						
 						testList.add(groupOrderVO);
 						
 //						groupOrderVO[x] = (GroupOrderVO) groupOrderService.addGroupOrder(diverID, memID[x], state,
@@ -598,6 +601,7 @@ public class GroupBandServlet extends HttpServlet {
 					}
 					
 				}
+				
 				groupBandDAO.insertWithEmps(groupBandVO , testList);
 //		------------------------------------------------------------------------------------
 

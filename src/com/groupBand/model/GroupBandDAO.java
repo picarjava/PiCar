@@ -388,7 +388,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 		try {
 			con = ds.getConnection();
 //			con.setAutoCommit(true);
-			con.setAutoCommit(false);
+			con.setAutoCommit(true);
 			pstmt = con.prepareStatement(INSERT_STMT);
 			String cols[] = {"GROUP_ID"};
 			pstmt = con.prepareStatement(INSERT_STMT , cols);	
@@ -428,9 +428,9 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			}
 
 			// 2●設定於 pstm.executeUpdate()之後
-			
-			
-			
+
+
+
 			con.commit();
 		} catch (SQLException se) {
 			throw new RuntimeException("A database error occured. " + se.getMessage());

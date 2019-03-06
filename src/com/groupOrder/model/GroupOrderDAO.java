@@ -361,7 +361,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 	@Override
 	public void insert2(GroupOrderVO groupOrderVO, Connection con) {
 		// TODO Auto-generated method stub
-		
+
 		PreparedStatement pstmt = null;
 		try {
 			con = ds.getConnection();
@@ -381,7 +381,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			pstmt.setString(13,groupOrderVO.getNote());
 			pstmt.setString(14,groupOrderVO.getGroupID());
 			pstmt.executeUpdate();
-			
+
 		}  catch (SQLException se) {
 			if (con != null) {
 				try {
@@ -406,7 +406,6 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				}
 			}
 		}
-		
 	}
 
 }
