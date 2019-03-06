@@ -83,7 +83,8 @@ CREATE TABLE MEMBER (
   ACTIVITY_TOKEN  NUMBER(7,0),
   BIRTHDAY        DATE          NOT NULL,
   VERIFIED        NUMBER(1,0)   NOT NULL,  
-  BABY_SEAT       NUMBER(1,0)   NOT NULL
+  BABY_SEAT       NUMBER(1,0)   NOT NULL,
+  PIC             BLOB
 );
 ----SEQ
 CREATE SEQUENCE MEM_SEQ
@@ -97,25 +98,25 @@ NOCACHE;
 --     MEM_ID,  EMAIL,               PASSWORD, PHONE        ,  CREDIT_CARD      PET, SMOKER, GENDER,                                    VERIFIED,  BABY_SEAT --
 
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '皮卡丘', 'Pikachu@gmail.com', 'Pikachu', '0915-523-698', '9593-9898-4545-2323', 1, 1, 1, 1000, 50, TO_DATE('1981-11-17','YYYY-MM-DD'), 1, 0);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '皮卡丘', 'Pikachu@gmail.com', 'Pikachu', '0915-523-698', '9593-9898-4545-2323', 1, 1, 1, 1000, 50, TO_DATE('1981-11-17','YYYY-MM-DD'), 1, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '妙蛙種子', 'Bulbasaur@gmail.com', 'Bulbasaur', '0912-628-817', '9593-9897-1950-1812', 0, 1, 0, NULL, 50, TO_DATE('1988-07-15','YYYY-MM-DD'), 1, 0);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '妙蛙種子', 'Bulbasaur@gmail.com', 'Bulbasaur', '0912-628-817', '9593-9897-1950-1812', 0, 1, 0, NULL, 50, TO_DATE('1988-07-15','YYYY-MM-DD'), 1, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '小火龍', 'Charmander@gmail.com', 'Charmander', '0928-951-477', '9593-9897-9451-1556', 1, 1, 1, 500, NULL, TO_DATE('1985-06-06','YYYY-MM-DD'), 0, 0);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '小火龍', 'Charmander@gmail.com', 'Charmander', '0928-951-477', '9593-9897-9451-1556', 1, 1, 1, 500, NULL, TO_DATE('1985-06-06','YYYY-MM-DD'), 0, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '傑尼龜', 'Squirtle@gmail.com', 'Squirtle', '0933-258-746', '9593-9897-1584-7845', 0, 0, 0, 1000, 55, TO_DATE('1995-02-09','YYYY-MM-DD'), 0, 0);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '傑尼龜', 'Squirtle@gmail.com', 'Squirtle', '0933-258-746', '9593-9897-1584-7845', 0, 0, 0, 1000, 55, TO_DATE('1995-02-09','YYYY-MM-DD'), 0, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '伊布', 'Eevee@gmail.com', 'Eevee', '0935-336-681', '9593-9897-9585-5541', 0, 0, 0, 2000, 10, TO_DATE('1986-11-23','YYYY-MM-DD'), 1, 1);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '伊布', 'Eevee@gmail.com', 'Eevee', '0935-336-681', '9593-9897-9585-5541', 0, 0, 0, 2000, 10, TO_DATE('1986-11-23','YYYY-MM-DD'), 1, 1, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '比比鳥', 'Pidgeotto@gmail.com', 'Pidgeotto', '0965-154-515', '9593-9897-6666-7777', 1, 1, 0, null, null, TO_DATE('1990-11-07','YYYY-MM-DD'), 0, 0);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '比比鳥', 'Pidgeotto@gmail.com', 'Pidgeotto', '0965-154-515', '9593-9897-6666-7777', 1, 1, 0, null, null, TO_DATE('1990-11-07','YYYY-MM-DD'), 0, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '可達鴨', 'Psyduck@gmail.com', 'Psyduck', '0935-333-515', '9593-9897-3322-1145', 1, 1, 0, null, null, TO_DATE('1990-05-20','YYYY-MM-DD'), 0, 0);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '可達鴨', 'Psyduck@gmail.com', 'Psyduck', '0935-333-515', '9593-9897-3322-1145', 1, 1, 0, null, null, TO_DATE('1990-05-20','YYYY-MM-DD'), 0, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '卡蒂狗', 'Growlithe@gmail.com', 'Growlithe', '0974-154-212', '9593-9897-1010-0302', 1, 1, 0, null, null, TO_DATE('1984-12-25','YYYY-MM-DD'), 0, 0);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '卡蒂狗', 'Growlithe@gmail.com', 'Growlithe', '0974-154-212', '9593-9897-1010-0302', 1, 1, 0, null, null, TO_DATE('1984-12-25','YYYY-MM-DD'), 0, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '鬼斯', 'Gastly@gmail.com', 'Gastly', '0965-858-454', '9593-9897-2018-7885', 1, 1, 0, null, null, TO_DATE('1984-03-01','YYYY-MM-DD'), 0, 0);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '鬼斯', 'Gastly@gmail.com', 'Gastly', '0965-858-454', '9593-9897-2018-7885', 1, 1, 0, null, null, TO_DATE('1984-03-01','YYYY-MM-DD'), 0, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '超夢', 'Mewtwo@gmail.com', 'Mewtwo', '0965-154-515', '9593-9897-5848-0290', 1, 1, 0, null, null, TO_DATE('1990-12-15','YYYY-MM-DD'), 0, 0);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '超夢', 'Mewtwo@gmail.com', 'Mewtwo', '0965-154-515', '9593-9897-5848-0290', 1, 1, 0, null, null, TO_DATE('1990-12-15','YYYY-MM-DD'), 0, 0, NULL);
 --------------------
 
 CREATE TABLE DRIVER(
