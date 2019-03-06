@@ -35,8 +35,6 @@
 		  </c:forEach>
 		</ul>
 	</c:if>
-   
- 
         <section id="contact">
             <div class="container wow fadeInUp">
                 <div class="section-header">

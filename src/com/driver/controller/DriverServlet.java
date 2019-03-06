@@ -121,7 +121,10 @@ req.setCharacterEncoding("UTF-8");
 		String memID = "M003" ;//--
 //		String driverID = "D003";//--
 //		String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
-		String plateNum = "ABC-1234";	
+		String plateNum = "ABC-1234";
+		if (plateNum == null || plateNum.trim().length() == 0) {
+			errorMsgs.add("車牌號碼請勿空白");
+		}
 		///////////////////////////區域變數給初始值--圖片
 		byte[] licence = null;
 		byte[] criminal = null;
@@ -198,12 +201,12 @@ req.setCharacterEncoding("UTF-8");
 		}
 		//////////////
 		Integer sharedCar ;
-		Integer pet;
-		Integer smoke;
-		Integer babySeat;
 		sharedCar = new Integer(req.getParameter("sharedCar"));
+		Integer pet;
 		pet = new Integer(req.getParameter("pet"));
+		Integer smoke;
 		smoke = new Integer(req.getParameter("smoke"));
+		Integer babySeat;
 		babySeat =new Integer(req.getParameter("babySeat"));
 		/////////////////
 		DriverVO driverVO = new DriverVO();//告訴下頁面
@@ -246,7 +249,7 @@ req.setCharacterEncoding("UTF-8");
 		 ***********/
 		req.setAttribute("driverVO", driverVO);
 		String url = "/front-end/driver/listOneDriver.jsp";
-		RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listAllBrod.jsp
+		RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listOneDriver.jsp
 		successView.forward(req, res);
 		/***************************其他可能的錯誤處理*****************************/
 		} 
@@ -265,7 +268,6 @@ req.setCharacterEncoding("UTF-8");
 			req.setAttribute("errorMsgs", errorMsgs);
 			/*************1.接收請求參數**************/
 //			try {
-			System.out.println("1");
 				String driverID=req.getParameter("driverID"); //這裡抓的是session
 				if (driverID == null || (driverID.trim()).length() == 0) {
 					errorMsgs.add("請輸入司機編號");
@@ -280,7 +282,6 @@ req.setCharacterEncoding("UTF-8");
 			/*************2查詢資料**************/
 			DriverService driverSvc=new DriverService();
 			DriverVO driverVO=driverSvc.getOneDriver(driverID);
-			System.out.println("2");
 			if(driverVO==null) {
 				errorMsgs.add("查無此筆");
 				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");//之後改成首頁
@@ -293,7 +294,6 @@ req.setCharacterEncoding("UTF-8");
 			String url="/front-end/driver/司機資料管理.jsp";
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
 			successPage.forward(req, res);
-			System.out.println("11");
 			/*************4.處理例外**************/
 		}
 //			catch(Exception e){
@@ -308,7 +308,6 @@ req.setCharacterEncoding("UTF-8");
 			req.setAttribute("errorMsgs", errorMsgs);
 			/*************1.接收請求參數**************/
 //			try {
-			System.out.println("1");
 				String driverID=req.getParameter("driverID");
 				if (driverID == null || (driverID.trim()).length() == 0) {
 					errorMsgs.add("請輸入司機編號");
@@ -323,7 +322,6 @@ req.setCharacterEncoding("UTF-8");
 			/*************2查詢資料**************/
 			DriverService driverSvc=new DriverService();
 			DriverVO driverVO=driverSvc.getOneDriver(driverID);
-			System.out.println("2");
 			if(driverVO==null) {
 				errorMsgs.add("查無此筆");
 				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
@@ -335,7 +333,6 @@ req.setCharacterEncoding("UTF-8");
 			String url="/back-end/driver/listOneDriver.jsp";
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
 			successPage.forward(req, res);
-			System.out.println("3");
 			/*************4.處理例外**************/
 		}
 //			catch(Exception e){
@@ -345,6 +342,7 @@ req.setCharacterEncoding("UTF-8");
 //		}
 ////////////////////////
 //來自back-end/listAllDriver.jsp 修改  ban deadline verivfied==0 (後台驗證司機  )//??
+		//SELECT * FROM Driver ORDER BY VERIFIED ASC, DRIVER_ID ASC; 先挑出驗證再牌號碼
 if("GET_ONE_FOR_CHECK".equals(action)){
    List<String> errorMsgs1=new LinkedList<String>();//?
 	req.setAttribute("errorMsgs", errorMsgs1);

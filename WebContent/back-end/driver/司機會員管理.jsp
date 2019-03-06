@@ -72,10 +72,20 @@
                                 </form>
                             </li>
                             <li class="nav-item">
-                                <form class="form-inline" action="<%=request.getContextPath()%>/back-end/driver/listAllDriver.jsp" method="post">
+                            <form class="form-inline" <%-- action="<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp" --%>
+                                    action="<%=request.getServletContext().getContextPath()%>/back-end/driver/driver.do"
+                                    method="post">
+                                    <input class="form-control mr-sm-2" name="driverID" type="text" placeholder="請輸入司機編號(eg.D001)" aria-label="Search">
+                                    <!--type="search" placeholder="請輸入司機編號(eg.D001)" aria-label="Search"> -->
+                                    <!--隱藏的參數action讓controller抓-->
+                                    <input type="hidden" name="action" value="GET_ONE_FOR_CHECK">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">驗證司機</button>
                                 </form>
                             </li>
+                            
+<%--                             <%=request.getContextPath()%>/back-end/driver/listAllDriver.jsp --%>
+                            
+                            
                         </ul>
                         <br>
                         <li class="nav-item">
