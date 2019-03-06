@@ -7,11 +7,14 @@
 
 <!-- 本頁面待與登入功能串接 此處先指定memID-->
 <%-- <%String memID=(String)session.getAttribute("memID"); %>  --%>
-<%! String memID="M001";  %>
-<% session.setAttribute("memID", memID);%>
+<%!String memID="M001";%>
+<%
+    session.setAttribute("memID", memID);
+%>
 
 <!-- 個人訂單 -->
-<% SingleOrderService service = new SingleOrderService();
+<%
+    SingleOrderService service = new SingleOrderService();
    List<SingleOrderVO> singleOrderlist = service.getAll();
    request.setAttribute("singleOrderlist", singleOrderlist);
 %>

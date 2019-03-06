@@ -17,7 +17,9 @@
 
 <body>
  <!-- 錯誤列表 -->
-    <%List<String> errorMsgs=(List<String>)request.getAttribute("errorMsgs");%>
+    <%
+        List<String> errorMsgs=(List<String>)request.getAttribute("errorMsgs");
+    %>
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
 		  <li class="list-group-item active">Opps!錯誤訊息回報</li>
 		  <c:forEach var="massage" items="${errorMsgs}">
@@ -172,8 +174,8 @@
 
 
  <!-- datetimepicker -->
-<% 
-  SingleOrderVO singleOrderVO = (SingleOrderVO) request.getAttribute("singleOrder");
+<%
+    SingleOrderVO singleOrderVO = (SingleOrderVO) request.getAttribute("singleOrder");
   String startTime = null;
   if (singleOrderVO != null)
       if (singleOrderVO.getStartTime() != null)

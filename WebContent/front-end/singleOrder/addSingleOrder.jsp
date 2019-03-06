@@ -48,8 +48,8 @@
         <input type="submit"/>
     </form>
 </body>
-<% 
-  SingleOrderVO singleOrderVO = (SingleOrderVO) request.getAttribute("singleOrder");
+<%
+    SingleOrderVO singleOrderVO = (SingleOrderVO) request.getAttribute("singleOrder");
   String startTime = null;
   if (singleOrderVO != null)
       if (singleOrderVO.getStartTime() != null)
