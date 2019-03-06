@@ -50,8 +50,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String UPDATEmem = 
 				"UPDATE GROUP_ORDER set MEM_ID=? where GORDER_ID = ?";
 
-		private static final String UPDATETimemem = 
-				"UPDATE GROUP_ORDER set MEM_ID=? where GROUP_ID = ? and START_TIME= ? ";
+
 
 		
 	@Override
@@ -587,38 +586,6 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 	return list;
 }
 
-	public void UPDATETimemem(String memid,String gorderID) {
-		// TODO Auto-generated method stub
-		Connection con =null;
-		PreparedStatement pstmt = null;
-		try {
-			con = ds.getConnection();
-			con.setAutoCommit(true);
-			pstmt = con.prepareStatement(UPDATETimemem);
-			pstmt.setString(1, memid);
-			pstmt.setString(2, gorderID);			
-			pstmt.executeUpdate();
-			con.commit();
-		} catch (SQLException se) {
-			throw new RuntimeException("A database error occured. "
-					+ se.getMessage());
-			// Clean up JDBC resources
-		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
-		}
-	}
+
 	
 }
