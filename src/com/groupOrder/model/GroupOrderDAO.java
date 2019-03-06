@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,13 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String UPDATE = 
 			"UPDATE GROUP_ORDER set DRIVER_ID=?,MEM_ID=?,STATE=?,TOTAL_AMOUT=?,START_TIME=?,END_TIME=?,START_LNG=?,START_LAT=?,END_LNG=?,END_LAT=?,ORDER_TYPE=?,RATE=?,NOTE=? where GORDER_ID = ?";
 
+		private static final String GET_ONE_STMTSTART_TIME = 
+				"SELECT GORDER_ID ,DRIVER_ID, MEM_ID,STATE,TOTAL_AMOUT,LAUNCH_TIME,START_TIME,END_TIME,START_LNG,START_LAT,END_LNG,END_LAT,ORDER_TYPE,RATE,NOTE,GROUP_ID FROM GROUP_ORDER where GROUP_ID = ? and START_TIME= ?";
+		
+		private static final String UPDATEmem = 
+				"UPDATE GROUP_ORDER set MEM_ID=? where GORDER_ID = ?";
+
+		
 	@Override
 	public void insert(GroupOrderVO groupOrderVO) {
 		// TODO Auto-generated method stub
@@ -408,4 +416,103 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		}
 	}
 
+	public List<GroupOrderVO> findByALLGroupMemTime(String groupid,Timestamp staerTime) {
+		// TODO Auto-generated method stub
+		List<GroupOrderVO> list =new ArrayList<GroupOrderVO>();
+		GroupOrderVO groupOrderVO =null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(GET_ONE_STMTSTART_TIME);
+		pstmt.setString(1, groupid);
+		pstmt.setTimestamp(2,staerTime);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			
+		
+			groupOrderVO = new GroupOrderVO();
+			groupOrderVO.setGorderID(rs.getString("GORDER_ID"));
+			groupOrderVO.setDriverID(rs.getString("DRIVER_ID"));
+			groupOrderVO.setMemID(rs.getString("MEM_ID"));
+			groupOrderVO.setState(rs.getInt("STATE"));
+			groupOrderVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
+			groupOrderVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
+			groupOrderVO.setStartTime(rs.getTimestamp("START_TIME"));
+			groupOrderVO.setEndTime(rs.getTimestamp("END_TIME"));
+			groupOrderVO.setStartLng(rs.getDouble("START_LNG"));
+			groupOrderVO.setStartLat(rs.getDouble("START_LAT"));
+			groupOrderVO.setEndLng(rs.getDouble("END_LNG"));
+			groupOrderVO.setEndLat(rs.getDouble("END_LAT"));
+			groupOrderVO.setOrderType(rs.getInt("ORDER_TYPE"));
+			groupOrderVO.setRate(rs.getInt("RATE"));
+			groupOrderVO.setNote(rs.getString("NOTE"));
+			groupOrderVO.setGroupID(rs.getString("GROUP_ID"));
+			list.add(groupOrderVO);
+		}
+	}catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return list;
+}
+	
+	public void updateMem(String memid,String gorderID) {
+		// TODO Auto-generated method stub
+		Connection con =null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(true);
+			pstmt = con.prepareStatement(UPDATEmem);
+			pstmt.setString(1, memid);
+			pstmt.setString(2, gorderID);			
+			pstmt.executeUpdate();
+			con.commit();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
 }
