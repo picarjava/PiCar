@@ -195,6 +195,14 @@
   <servlet-class>android.com.singleOrder.controller.SingleOrderServlet</servlet-class>
 </servlet>
 <servlet-mapping>
+  <servlet-name>groupOrderApi</servlet-name>
+  <url-pattern>/groupOrderApi</url-pattern>
+</servlet-mapping>
+<servlet>
+  <servlet-name>groupOrderApi</servlet-name>
+  <servlet-class>android.com.groupOrder.controller.GroupOrderServlet</servlet-class>
+</servlet>
+<servlet-mapping>
   <servlet-name>singleOrderApi</servlet-name>
   <url-pattern>/singleOrderApi</url-pattern>
 </servlet-mapping>
