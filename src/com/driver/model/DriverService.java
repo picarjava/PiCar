@@ -129,4 +129,8 @@ public class DriverService {
 	public DriverVO getOneDriverBymemID(String memID) {
 	    return dao.findByMemID(memID);
 	}
+	
+	public DriverVO updateBanned(String driverID) {
+		return dao.updateBanned(driverID);
+	}
 }

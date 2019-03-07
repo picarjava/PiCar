@@ -35,9 +35,9 @@
                     <nav class="navbar navbar-light bg-light">
                         <ul class="nav nav-tabs">
                             <li class="nav-item">
-                                <form class="form-inline" <%-- action="<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp" --%>
-                                    action="
-                                    <%=request.getServletContext().getContextPath()%>/back-end/driver/driver.do"
+                                <form class="form-inline" 
+                                <%-- action="<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp" --%>
+                                    action="<%=request.getServletContext().getContextPath()%>/back-end/driver/driver.do"
                                     method="post">
                                     <input class="form-control mr-sm-2" name="driverID" type="text" placeholder="請輸入司機編號(eg.D001)" aria-label="Search">
                                     <!-- 									type="search" placeholder="請輸入司機編號(eg.D001)" aria-label="Search"> -->
@@ -56,6 +56,12 @@
                             <li class="nav-item">
                                 <form class="form-inline" action="<%=request.getContextPath()%>/back-end/driver/listAllDriver.jsp" method="post">
                                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查詢全部司機</button>
+                                </form>
+                            </li>
+                            <li class="nav-item">
+                                <form class="form-inline" action="<%=request.getServletContext().getContextPath()%>/back-end/driver/bannedDriver.jsp" method="post">
+                                    <input type="hidden" name="action" value="GET_ONE_FOR_BANNED"><br>
+                                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Banned司機</button>
                                 </form>
                             </li>
                             <jsp:useBean id="driversrV" scope="page" class="com.driver.model.DriverService" />

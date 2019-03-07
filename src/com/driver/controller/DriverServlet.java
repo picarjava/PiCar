@@ -290,7 +290,6 @@ req.setCharacterEncoding("UTF-8");
 			}
 			/*************3.得到資料存在scope=request，並送出VO給處理頁面**************/
 			req.setAttribute("driverVO", driverVO);
-			System.out.println("00");
 			String url="/front-end/driver/司機資料管理.jsp";
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
 			successPage.forward(req, res);
@@ -366,11 +365,51 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
 	failurePage.forward(req, res);
 }
+//////////////////////////////////////////////////
+//來自back-end/listAllDriver.jsp 修改  ban deadline ==0 (後台banned司機  )//??
+if("GET_ONE_FOR_BANNED".equals(action)){
+	List<String> errorMsgs1=new LinkedList<String>();//剩下1.跳轉畫面2.設定DEADLINE3.
+	req.setAttribute("errorMsgs", errorMsgs1);
+//	try {
+		/*************1.接收請求參數:某一筆司機ID**************/
+		String driverID=req.getParameter("driverID");
+		java.sql.Date deadline = null;//--
+//		deadline
+		/*************2查詢資料:調出某一筆的vo**************/
+		DriverService driverSvc=new DriverService();
+		DriverVO driverVO=driverSvc.getOneDriver(driverID);//從driverPK
+		/*************3.得到資料和圖片轉換資料存在scope=reqest，並送出VO給處理頁面:getOneUpdate頁面**************/
+		if(driverVO.getBanned() == 0) {
+			driverSvc.updateBanned(driverID);
+		}else {
 		}
-	//////////////
+		req.setAttribute("driverVO", driverVO);
+		String url="/back-end/driver/listAllDriver.jsp";  //驗證成功頁面
+		RequestDispatcher successPage=req.getRequestDispatcher(url);
+		successPage.forward(req, res);
+		/*************4.處理例外:回listALL原頁面**************/
+//	}catch(Exception e){
+//		errorMsgs1.add("無法取得要修改的資料:"+e.getMessage());
+//	}
+	RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
+	failurePage.forward(req, res);
+}
+////////////////////////////////////////////////////////////////////////////////
+//	給後端update使用()可參考全寫法
+//	DEADLINE DATE
+//	java.sql.Date time = null;
+//	try {
+//		time = java.sql.Date.valueOf(req.getParameter("time").trim());		
+//	} catch (IllegalArgumentException e) {
+//		time = new java.sql.Date(System.currentTimeMillis());
+//		errorMsgs.add("請輸入日期");
+//	}
+//	}
+//////////////
 //	update
 //	Date deadline = null;//被ban的時間
 //	driverVO.setDeadline(deadline);//修改時使用
+		}
 	//////////////////////////////////////
 //	if ("UPDATE_DRI".equals(action)) { //前端司機用(僅含喜好設定需改寫DAO) //?
 //		List<String> errorMsgs = new LinkedList<String>();
@@ -486,17 +525,6 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 //			failureView.forward(req, res);
 //		}		
 //   	}
-	////////////////////////////////////////////////////////////////////////////////
-//	給後端update使用()可參考全寫法
-//	DEADLINE DATE
-//	java.sql.Date time = null;
-//	try {
-//		time = java.sql.Date.valueOf(req.getParameter("time").trim());		
-//	} catch (IllegalArgumentException e) {
-//		time = new java.sql.Date(System.currentTimeMillis());
-//		errorMsgs.add("請輸入日期");
-//	}
-//	}
 //////////////////////////////////////////////////////////////////////	
 	/* 處理圖片存進資夾，以便以名稱顯示在網頁上 */
 	public static void readPicture(byte[] bytes, String picName) throws IOException {

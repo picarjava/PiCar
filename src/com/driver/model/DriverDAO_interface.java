@@ -14,6 +14,10 @@ public interface DriverDAO_interface {
     public DriverVO findByPrimaryKey(String driverID);
     public List<DriverVO> getAll(); 
     public DriverVO findByMemID(String memID);
+    public DriverVO updateBanned(String driverID);
+//	萬用複合查詢(傳入參數型別Map)(回傳List)
+	
+//	public List<DriverVO> getAll(Map<String, String> map);
 
 
 }
