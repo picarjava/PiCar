@@ -13,7 +13,7 @@
 <body>
 	<!-- 先get 再set -->
 	<%
-// 	印出是否拿到ID//
+// 	印出是否拿到ID////
 // 		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
 MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 DriverService driSrc = new DriverService();
