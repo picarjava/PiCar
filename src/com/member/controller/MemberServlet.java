@@ -41,7 +41,6 @@ public class MemberServlet extends HttpServlet {
 			out.write(pic);
 		}
 
-		
 //		可能可以用，要測試，看GetURLConnectionContent_Ver6_getPicAsStream
 //		ByteArrayOutputStream out = new ByteArrayOutputStream(); // 或FileOutputStream out = new FileOutputStream("myPic.jpg");
 //
@@ -51,12 +50,6 @@ public class MemberServlet extends HttpServlet {
 //			out.write(b, 0, bytesRead);
 //		}
 
-		
-		
-		
-		
-		
-		
 		doPost(req, res);
 	}
 
@@ -417,7 +410,7 @@ public class MemberServlet extends HttpServlet {
 				failureView.forward(req, res);
 			}
 		}
-		
+
 		if ("verified".equals(action)) {
 			String memID = new String(req.getParameter("memID").trim());
 			MemberService memberSvc = new MemberService();
@@ -429,9 +422,7 @@ public class MemberServlet extends HttpServlet {
 			}
 
 		}
-		
-		
-		
+
 	}
 
 }
