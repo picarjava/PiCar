@@ -17,7 +17,6 @@
     <%
 		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
 	%>
-    <!-- 	// -->
     <section id="contact">
         <div class="container wow fadeInUp">
             <div class="col-lg-12 col-md-12">
@@ -91,7 +90,6 @@
                             
 <%--                             <%=request.getContextPath()%>/back-end/driver/listAllDriver.jsp --%>
                             
-                            
                         </ul>
                         <br>
                         <li>
@@ -107,12 +105,8 @@
                             </form>
                         </li>
                         <li>
-                            <form class="form-inline" <%-- action="<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp" --%>
-                                action="<%=request.getServletContext().getContextPath()%>/front-end/driver/addDriver.jsp"
-                                method="post">
-                                <input class="form-control mr-sm-2" name="memberID" type="text" placeholder="請輸入會員編號(eg.D001)" aria-label="Search">
-                                <!-- 									type="search" placeholder="請輸入司機編號(eg.D001)" aria-label="Search"> -->
-                                <!--隱藏的參數action讓controller抓-->
+                            <form class="form-inline" method="post"
+                                action="<%=request.getServletContext().getContextPath()%>/front-end/driver/addDriver.jsp"    >
                                 <input type="hidden" name="action" value="BE_DRIVER">
                                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">成為司機</button>
                             </form>

@@ -68,7 +68,7 @@ session.setAttribute("driverVO",driverVO);
 							<div class="form-group">
 								<p>車牌號碼</p>
 								<input type="text" name="plateNum" class="form-control"
-									value="PIC-0005" placeholder="請輸入車牌號碼" />
+									 placeholder="請輸入車牌號碼" />
 							</div>
 							<div class="form-group">
 								<p>車型</p>
