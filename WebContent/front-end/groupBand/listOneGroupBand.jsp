@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ page import="com.groupBand.model.*"%>
@@ -12,8 +12,31 @@
 
     
 <!DOCTYPE html>
+
 <html>
 <head>
+<link href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/favicon.png" rel="icon">
+<link href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<!-- <link -->
+<!-- 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" -->
+<!-- 	rel="stylesheet"> -->
+
+<!-- Bootstrap CSS File -->
+<link href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+<!-- Libraries CSS Files -->
+<link href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/animate/animate.min.css" rel="stylesheet">
+
+<!-- Main Stylesheet File -->
+<!-- <link href="css/style.css" rel="stylesheet"> -->
+<!-- <link rel="stylesheet" type="text/css" -->
+<%-- 	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.datetimepicker.css" /> --%>
+<%-- <script src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.js"></script> --%>
+<%-- <script src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.datetimepicker.full.js"></script> --%>
+   
 <meta charset="UTF-8">
 <title>listOneGroupBand.jsp</title>
 <style>
@@ -27,9 +50,27 @@
     display: block;
     margin-bottom: 1px;
   }
-  h4 {
-    color: blue;
-    display: inline;
+  div {
+    color: #fff;
+  }
+  .p-2 {
+   margin: auto;
+      width: 200px;
+    height: 300px;
+  }
+  .marrgin{
+     width: 150px;
+    height: 200px;
+    color: #fff;
+    background-color: #fff;
+    margin: auto;
+
+  }
+  .tentcenter{
+      text-align: center;
+       font-family: Microsoft JhengHei;
+        font-weight: bold;
+  
   }
 </style>
 <style>
@@ -62,15 +103,17 @@
 			</c:forEach>
 		</ul>
 	</c:if>
-
+	
+<div class="row">
 <c:forEach var="MemberVO" items="${testList}" >
-<table>
-<tr>
-<th></th><th>${MemberVO.name}</th>
-</tr>
-</table>
-</c:forEach>
+<div class="d-inline p-2 bg-primary text-white">
+<div class="marrgin"><img src="/PiCar/GroupBand?MEM_ID=${MemberVO.memID}"></div>
+<div class="tentcenter"><h4>${MemberVO.name}</h4></div>
+<div class="tentcenter">${MemberVO.name}</div>
+</div>
 
+</c:forEach>
+</div>
 <table>
 <tr>
 <th>揪團ID</th>

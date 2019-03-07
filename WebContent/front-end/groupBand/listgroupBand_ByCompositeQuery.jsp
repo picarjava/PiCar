@@ -77,9 +77,9 @@
 
 
 
-<th>揪團種類</th><c:forEach var="mypurstatus" items="${groupKinds}" varStatus="s">
+<th>揪團種類</th><c:forEach var="mypurstatus" items="${groupKind}" varStatus="s">
 		 <c:choose>
-		 <c:when test="${GroupBandVO.startTime == s.index}">
+		 <c:when test="${GroupBandVO.groupKind == s.index}">
 		 <th>${mypurstatus}</th>
 		 </c:when>
 		 </c:choose>
