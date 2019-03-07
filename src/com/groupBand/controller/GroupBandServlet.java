@@ -848,18 +848,21 @@ public class GroupBandServlet extends HttpServlet {
 				}
 				
 				List<MemberVO> testList = new ArrayList<MemberVO>();
+				System.out.println(startTime+"+++++++");
+				System.out.println(groupID+"+++++++");
 				List<GroupOrderVO> list = groupOrderDAO.getALL_GroupID_StArtTime(groupID,startTime);
 				for (GroupOrderVO elements : list) {
-					
+					if(elements.getMemID()!=null) {
 						MemberService memberService =new MemberService();
 						MemberVO memberVO =new MemberVO();
 						memberVO =memberService.getOneMember(elements.getMemID());
+						
 						testList.add(memberVO);
-					
+					}
 				}
 				req.setAttribute("testList",testList);
+				System.out.println(testList.size());
 				
-
 				String url = "/front-end/groupBand/listOneGroupBand.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
 				successView.forward(req, res);
