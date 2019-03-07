@@ -17,7 +17,7 @@ import com.groupOrder.model.GroupOrderDAO;
 import com.groupOrder.model.GroupOrderVO;
 
 public class DriverJNDIDAO implements DriverDAO_interface{
-	
+	//
 	private static DataSource ds = null;
 	static {
 		try {
