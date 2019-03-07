@@ -193,12 +193,13 @@ CREATE SEQUENCE ACTIVITY_SEQ
     NOMAXVALUE
     CACHE 10;
 
-
-INSERT INTO ACTIVITY VALUES('AC'||LPAD(to_char(ACTIVITY_SEQ.NEXTVAL),3,'0'),'白色情人節',EMPTY_CLOB(),'2019-02-01','2019-03-14','FREE1',50,EMPTY_BLOB());
-INSERT INTO ACTIVITY VALUES('AC'||LPAD(to_char(ACTIVITY_SEQ.NEXTVAL),3,'0'),'清明返鄉優惠',EMPTY_CLOB(),'2019-03-29','2019-04-08','FREE2',100,EMPTY_BLOB());
-INSERT INTO ACTIVITY VALUES('AC'||LPAD(to_char(ACTIVITY_SEQ.NEXTVAL),3,'0'),'勞動節優惠',EMPTY_CLOB(),'2019-04-28','2019-05-04','FREE3',50,EMPTY_BLOB());
-INSERT INTO ACTIVITY VALUES('AC'||LPAD(to_char(ACTIVITY_SEQ.NEXTVAL),3,'0'),'母親節優惠',EMPTY_CLOB(),'2019-05-05','2019-05-19','FREE4',100,EMPTY_BLOB());
-INSERT INTO ACTIVITY VALUES('AC'||LPAD(to_char(ACTIVITY_SEQ.NEXTVAL),3,'0'),'端午返鄉優惠',EMPTY_CLOB(),'2019-06-01','2019-06-10','FREE5',100,EMPTY_BLOB());
+INSERT INTO ACTIVITY VALUES('AC'||LPAD(to_char(ACTIVITY_SEQ.NEXTVAL),3,'0'),'白色情人節','浪漫來襲白色情人節看展傳情意PICAR APP拿好禮_白色情人節(3/14)即將到來，源自日本的白色情人節為回應心意的重要日子。全台首創共乘叫車PICAR APP，一鍵下載即可享用簡單、方便、省車資的智慧交通系統，將於當日推出「情人節框住最愛的你」活動，邀請民眾攜伴看展拍照上傳臉書，不僅能傳達甜蜜情意，還能獲得活動代幣。立即領取活動代幣>>','2019-02-01','2019-03-14','FREE1',50,null);
+INSERT INTO ACTIVITY VALUES('AC'||LPAD(to_char(ACTIVITY_SEQ.NEXTVAL),3,'0'),'清明返鄉優惠','2019清明節四天連假，為服務旅客返鄉掃墓及出外旅遊的需求，Picar 即時叫車獨家結合「共乘機制」，線上預約叫車更提供超省錢「揪團
+」功能，一起共乘搭車，環保節能、經濟又實惠! 疏運期間提供「清明返鄉優惠」，立即領取活動代幣>>','2019-03-29','2019-04-08','FREE2',100,null);
+INSERT INTO ACTIVITY VALUES('AC'||LPAD(to_char(ACTIVITY_SEQ.NEXTVAL),3,'0'),'勞動節優惠','2019勞動節不容錯過的Picar 即時叫車優惠!五一勞動節連假即將要來啦！全台首創共乘叫車APP，簡單、方便、省車資的智慧交通系統為讓勞工們玩得開心，又能減少負擔，推出勞動節「全民同享FUN鬆價」，體恤勞工朋友的辛苦，輕鬆帶著家人作伙出遊放鬆。立即領取活動代幣>>','2019-04-28','2019-05-04','FREE3',50,null);
+INSERT INTO ACTIVITY VALUES('AC'||LPAD(to_char(ACTIVITY_SEQ.NEXTVAL),3,'0'),'母親節優惠','2019母親節即將到來，為體貼媽媽的辛勞，許多家庭會安排聚餐、出遊等活動，全台首創共乘叫車PICAR APP，一鍵下載即可享用簡單、方便、省車資的智慧交通系統。立即領取活動代幣>>','2019-05-05','2019-05-19','FREE4',100,null);
+INSERT INTO ACTIVITY VALUES('AC'||LPAD(to_char(ACTIVITY_SEQ.NEXTVAL),3,'0'),'端午返鄉優惠','2019端午節四天連假，為服務旅客端午返鄉及出外旅遊的需求，Picar 即時叫車獨家結合「共乘機制」，線上預約叫車更提供超省錢「揪團
+」功能，一起共乘搭車，環保節能、經濟又實惠! 疏運期間提供「端午返鄉優惠」，立即領取活動代幣>>','2019-06-01','2019-06-10','FREE5',100,null);
 
 --
 
@@ -373,6 +374,108 @@ INSERT INTO SINGLE_ORDER(
     5, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'),
     '台北火車站', '台北101', 245.568, 245.568, 245.568, 245.568, 100,
     0, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'));
+--新增10筆單人訂單假資料--
+    INSERT INTO SINGLE_ORDER(
+    ORDER_ID, DRIVER_ID, MEM_ID, 
+    STATE, START_TIME, END_TIME,
+    START_LOC, END_LOC, START_LNG,
+        START_LAT, END_LNG, END_LAT,
+    TOTAL_AMOUNT, ORDER_TYPE, LAUNCH_TIME) VALUES (
+    'SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), 'D001', 'M001',
+    0, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'),
+    '台北火車站', '台北101', 245.568, 245.568, 245.568, 245.568, 100,
+    0, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'));
+    INSERT INTO SINGLE_ORDER(
+    ORDER_ID, DRIVER_ID, MEM_ID, 
+    STATE, START_TIME, END_TIME,
+    START_LOC, END_LOC, START_LNG,
+        START_LAT, END_LNG, END_LAT,
+    TOTAL_AMOUNT, ORDER_TYPE, LAUNCH_TIME) VALUES (
+    'SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), 'D001', 'M001',
+    1, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'),
+    '台北火車站', '台北101', 245.568, 245.568, 245.568, 245.568, 100,
+    1, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'));
+    INSERT INTO SINGLE_ORDER(
+    ORDER_ID, DRIVER_ID, MEM_ID, 
+    STATE, START_TIME, END_TIME,
+    START_LOC, END_LOC, START_LNG,
+        START_LAT, END_LNG, END_LAT,
+    TOTAL_AMOUNT, ORDER_TYPE, LAUNCH_TIME) VALUES (
+    'SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), 'D001', 'M001',
+    2, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'),
+    '台北火車站', '台北101', 245.568, 245.568, 245.568, 245.568, 100,
+    2, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'));
+    INSERT INTO SINGLE_ORDER(
+    ORDER_ID, DRIVER_ID, MEM_ID, 
+    STATE, START_TIME, END_TIME,
+    START_LOC, END_LOC, START_LNG,
+        START_LAT, END_LNG, END_LAT,
+    TOTAL_AMOUNT, ORDER_TYPE, LAUNCH_TIME) VALUES (
+    'SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), 'D001', 'M001',
+    3, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'),
+    '台北火車站', '台北101', 245.568, 245.568, 245.568, 245.568, 100,
+    3, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'));
+    INSERT INTO SINGLE_ORDER(
+    ORDER_ID, DRIVER_ID, MEM_ID, 
+    STATE, START_TIME, END_TIME,
+    START_LOC, END_LOC, START_LNG,
+        START_LAT, END_LNG, END_LAT,
+    TOTAL_AMOUNT, ORDER_TYPE, LAUNCH_TIME) VALUES (
+    'SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), 'D001', 'M001',
+    4, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'),
+    '台北火車站', '台北101', 245.568, 245.568, 245.568, 245.568, 100,
+    4, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'));
+    INSERT INTO SINGLE_ORDER(
+    ORDER_ID, DRIVER_ID, MEM_ID, 
+    STATE, START_TIME, END_TIME,
+    START_LOC, END_LOC, START_LNG,
+        START_LAT, END_LNG, END_LAT,
+    TOTAL_AMOUNT, ORDER_TYPE, LAUNCH_TIME) VALUES (
+    'SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), 'D001', 'M001',
+    5, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'),
+    '台北火車站', '台北101', 245.568, 245.568, 245.568, 245.568, 100,
+    5, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'));
+    INSERT INTO SINGLE_ORDER(
+    ORDER_ID, DRIVER_ID, MEM_ID, 
+    STATE, START_TIME, END_TIME,
+    START_LOC, END_LOC, START_LNG,
+        START_LAT, END_LNG, END_LAT,
+    TOTAL_AMOUNT, ORDER_TYPE, LAUNCH_TIME) VALUES (
+    'SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), 'D001', 'M001',
+    6, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'),
+    '台北火車站', '台北101', 245.568, 245.568, 245.568, 245.568, 100,
+    0, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'));
+    INSERT INTO SINGLE_ORDER(
+    ORDER_ID, DRIVER_ID, MEM_ID, 
+    STATE, START_TIME, END_TIME,
+    START_LOC, END_LOC, START_LNG,
+        START_LAT, END_LNG, END_LAT,
+    TOTAL_AMOUNT, ORDER_TYPE, LAUNCH_TIME) VALUES (
+    'SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), 'D001', 'M001',
+    7, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'),
+    '台北火車站', '台北101', 245.568, 245.568, 245.568, 245.568, 100,
+    1, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'));
+    INSERT INTO SINGLE_ORDER(
+    ORDER_ID, DRIVER_ID, MEM_ID, 
+    STATE, START_TIME, END_TIME,
+    START_LOC, END_LOC, START_LNG,
+        START_LAT, END_LNG, END_LAT,
+    TOTAL_AMOUNT, ORDER_TYPE, LAUNCH_TIME) VALUES (
+    'SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), null, 'M001',
+    8, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'),
+    '台北火車站', '台北101', 245.568, 245.568, 245.568, 245.568, 100,
+    2, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'));
+    INSERT INTO SINGLE_ORDER(
+    ORDER_ID, DRIVER_ID, MEM_ID, 
+    STATE, START_TIME, END_TIME,
+    START_LOC, END_LOC, START_LNG,
+        START_LAT, END_LNG, END_LAT,
+    TOTAL_AMOUNT, ORDER_TYPE, LAUNCH_TIME) VALUES (
+    'SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), 'D001', 'M001',
+    9, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'), TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'),
+    '台北火車站', '台北101', 245.568, 245.568, 245.568, 245.568, 100,
+    3, TO_TIMESTAMP ('2019-02-14 05:20:00', 'YYYY-MM-DD HH24:MI:SS'));
+    
 
 --
 -- 建立付款紀錄PAYMENT_RECORD的表格
@@ -507,6 +610,28 @@ INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
 ,'G001','D001','M001',0,1500,to_timestamp ('2019/02/5 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/08 09:20:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/08 09:50:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','桃園火車站','中壢火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
 ,'G002','D002','M002',0,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
+--新增10筆揪團訂單假資料--
+INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
+,'G002','D001','M001',0,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
+INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
+,'G002','D001','M001',1,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,1,0,'無','台南火車站','高雄火車站');
+INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
+,'G002','D001','M001',2,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
+INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
+,'G002','D001','M001',3,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,1,0,'無','台南火車站','高雄火車站');
+INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
+,'G002','D001','M001',4,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
+INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
+,'G002','D001','M001',5,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,1,0,'無','台南火車站','高雄火車站');
+INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
+,'G002','D001','M001',6,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
+INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
+,'G002','D001','M001',7,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,1,0,'無','台南火車站','高雄火車站');
+INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
+,'G002',null,'M001',8,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
+INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
+,'G002','D001','M001',9,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,1,0,'無','台南火車站','高雄火車站');
+
 --建立檢舉揪團TABLE--
 CREATE TABLE GROUP_REPORT(
     GREPORT_ID VARCHAR2(5) NOT NULL,
