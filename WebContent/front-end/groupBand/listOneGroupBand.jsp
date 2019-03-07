@@ -70,12 +70,22 @@
       text-align: center;
        font-family: Microsoft JhengHei;
         font-weight: bold;
-  
+      margin-top: 25px;
+  }
+  .mar{
+      margin-left: 5px;
+  }
+  .color1{
+      background-color: #008ccc!important;
+  }
+    .color0{
+      background-color: #FFB7DD!important;
   }
 </style>
 <style>
 
   table {
+   margin: auto;
 	width: 800px;
 	background-color: white;
 	margin-top: 5px;
@@ -106,10 +116,10 @@
 	
 <div class="row">
 <c:forEach var="MemberVO" items="${testList}" >
-<div class="d-inline p-2 bg-primary text-white">
+<div class="d-inline p-2 bg-primary text-white color${MemberVO.gender}">
 <div class="marrgin"><img src="/PiCar/GroupBand?MEM_ID=${MemberVO.memID}"></div>
-<div class="tentcenter"><h4>${MemberVO.name}</h4></div>
-<div class="tentcenter">${MemberVO.name}</div>
+<div class="tentcenter" id="gender"><h4 >${MemberVO.name}<img class="mar" src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/${MemberVO.gender}.png"  width="20px"   height="25px" ></h4></div>
+<div class="tentcenter"></div>
 </div>
 
 </c:forEach>
