@@ -850,12 +850,12 @@ public class GroupBandServlet extends HttpServlet {
 				List<MemberVO> testList = new ArrayList<MemberVO>();
 				List<GroupOrderVO> list = groupOrderDAO.getALL_GroupID_StArtTime(groupID,startTime);
 				for (GroupOrderVO elements : list) {
-					if(elements.getMemID()!=null) {
+					
 						MemberService memberService =new MemberService();
 						MemberVO memberVO =new MemberVO();
 						memberVO =memberService.getOneMember(elements.getMemID());
 						testList.add(memberVO);
-					}
+					
 				}
 				req.setAttribute("testList",testList);
 				
