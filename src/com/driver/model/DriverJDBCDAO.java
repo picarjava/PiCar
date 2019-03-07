@@ -381,6 +381,12 @@ public class DriverJDBCDAO implements DriverDAO_interface {
 
         return driverVO;
     }
+
+	@Override
+	public void updateBanned(String driverID) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 //}

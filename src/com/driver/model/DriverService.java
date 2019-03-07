@@ -130,7 +130,7 @@ public class DriverService {
 	    return dao.findByMemID(memID);
 	}
 	
-	public DriverVO updateBanned(String driverID) {
-		return dao.updateBanned(driverID);
+	public void updateBanned(String driverID) {
+//		return dao.updateBanned(driverID);
 	}
 }
