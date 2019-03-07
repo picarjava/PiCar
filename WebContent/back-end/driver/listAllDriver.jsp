@@ -5,8 +5,7 @@
 <%@ page import="com.driver.model.*" %>
 <%@ page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64" %>
 <%@ page import="java.util.*" %>
-
-
+	
 <!DOCTYPE html>
 <html lang="zh">
 
@@ -27,7 +26,6 @@
     
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <!-- 錯誤列表 -->
-    
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
 		  <li class="list-group-item active">Opps!錯誤訊息回報</li>
 		  <c:forEach var="massage" items="${errorMsgs}">
@@ -70,16 +68,18 @@
 						    </tr>
 						  </thead>
 						  <tbody>
-	
 	<c:forEach var="driverVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >			  
-		 	
 					 		<tr>	 
-						      <th scope="row">${driverVO.verified}</th>
+						      <th scope="row">
+						      <c:if test="${driverVO.verified == 0}">未審核</c:if>
+						      <c:if test="${driverVO.verified == 1}">審核通過</c:if>
+						      <c:if test="${driverVO.verified == 2}">未通過</c:if>
+						      </th>
 						      <td>${driverVO.memID}</td>
 						      <td>${driverVO.driverID}</td>
 						      <td>${driverVO.plateNum}</td>
 <%-- 						      <td>${driverVO.licence}</td> --%>
-						      <td>
+						      <td >
 						      <c:set var="licence" value="${driverVO.licence}" />
 						      <%
 						      byte[] licence = (byte[])pageContext.getAttribute("licence");
@@ -142,16 +142,33 @@
 <%-- 					              <img  src='<%=request.getContextPath()%>/driver.do?driverID=${driverVO.driverID}' width='200' height='100' alt='"這是"+${driverVO.driverID}+"的活動海報"  '/> --%>
 <%-- 					              </c:if>  --%>
 <!-- 						      </td> -->
-						      <td>${driverVO.banned}</td>
+						      <td>
+						      <c:if test="${driverVO.banned == 0}">禁止接單</c:if>
+						      <c:if test="${driverVO.banned == 1}">可以接單</c:if>
+						      </td>
 						      <td>${driverVO.deadline}</td>
-						      <td>${driverVO.onlineCar}</td>
+						      <td>
+						      <c:if test="${driverVO.onlineCar == 0}">不在線</c:if>
+						      <c:if test="${driverVO.onlineCar == 1}">在線</c:if>
+						      </td>
 						      <td>${driverVO.score}</td>
 						      <td>${driverVO.carType}</td>
-						      <td>${driverVO.sharedCar}</td>
-						      <td>${driverVO.pet}</td>
-						      <td>${driverVO.smoke}</td>
-						      <td>${driverVO.babySeat}</td>
-
+						      <td>
+						      <c:if test="${driverVO.sharedCar == 0}">不接受共享</c:if>
+						      <c:if test="${driverVO.sharedCar == 1}">接受共享</c:if>
+						      </td>
+						      <td>
+						      <c:if test="${driverVO.pet == 0}">不要寵物</c:if>
+						      <c:if test="${driverVO.pet == 1}">寵物我可以</c:if>
+						      </td>
+						      <td>
+						      <c:if test="${driverVO.smoke == 0}">不接受抽菸</c:if>
+						      <c:if test="${driverVO.smoke == 1}">接受抽菸</c:if>
+						      </td>
+						      <td>
+						      <c:if test="${driverVO.babySeat == 0}">不提供嬰兒座椅</c:if>
+						      <c:if test="${driverVO.babySeat == 1}">提供嬰兒座椅</c:if>
+						      </td>
 <!-- 						       <td> -->
 <%-- 						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/activityToken/ActivTokenServlet" > --%>
 <!-- 							    <div class="text-center"><button type="submit" class="btn btn-light">查看領取名單</button> -->
@@ -177,7 +194,6 @@
 						<%@ include file="page2.file" %>
             </div>
         </section>
-  
     <%}%>
     <!--==========================
     底部
