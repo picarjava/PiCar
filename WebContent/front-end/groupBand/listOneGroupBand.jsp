@@ -3,12 +3,13 @@
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ page import="com.groupBand.model.*"%>
     <%@ page import="java.util.*"%>
-    
+    <%@ page import="com.member.model.*"%>
     <%
     GroupBandVO groupBandVO =(GroupBandVO) request.getAttribute("GroupBandVO");
-    Object GroupLeader =request.getAttribute("GroupLeader");
+    Object GroupLeader =request.getAttribute("GroupLeader");  
+    List<MemberVO> testList =(List)request.getAttribute("testList"); 
 %>
-    
+
     
 <!DOCTYPE html>
 <html>
@@ -61,6 +62,14 @@
 			</c:forEach>
 		</ul>
 	</c:if>
+
+<c:forEach var="MemberVO" items="${testList}" >
+<table>
+<tr>
+<th></th><th>${MemberVO.name}</th>
+</tr>
+</table>
+</c:forEach>
 
 <table>
 <tr>

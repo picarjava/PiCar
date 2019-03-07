@@ -50,7 +50,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String UPDATEmem = 
 				"UPDATE GROUP_ORDER set MEM_ID=? where GORDER_ID = ?";
 
-
+		private static final String GET_ONE_GROUP_ID_START_TIME = 
+				"SELECT * FROM GROUP_ORDER where GROUP_ID = ?  and START_TIME= ?";
 
 		
 	@Override
@@ -593,7 +594,75 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 	}
 	return list;
 }
+	
+	
 
+	public List<GroupOrderVO> getALL_GroupID_StArtTime(String groupid,Timestamp staerTime) {
+		// TODO Auto-generated method stub
+		List<GroupOrderVO> list =new ArrayList<GroupOrderVO>();
+		GroupOrderVO groupOrderVO =null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(GET_ONE_GROUP_ID_START_TIME);
+		pstmt.setString(1, groupid);
+		pstmt.setTimestamp(2,staerTime);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			
+		
+			groupOrderVO = new GroupOrderVO();
+			groupOrderVO.setGorderID(rs.getString("GORDER_ID"));
+			groupOrderVO.setDriverID(rs.getString("DRIVER_ID"));
+			groupOrderVO.setMemID(rs.getString("MEM_ID"));
+			groupOrderVO.setState(rs.getInt("STATE"));
+			groupOrderVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
+			groupOrderVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
+			groupOrderVO.setStartTime(rs.getTimestamp("START_TIME"));
+			groupOrderVO.setEndTime(rs.getTimestamp("END_TIME"));
+			groupOrderVO.setStartLng(rs.getDouble("START_LNG"));
+			groupOrderVO.setStartLat(rs.getDouble("START_LAT"));
+			groupOrderVO.setEndLng(rs.getDouble("END_LNG"));
+			groupOrderVO.setEndLat(rs.getDouble("END_LAT"));
+			groupOrderVO.setOrderType(rs.getInt("ORDER_TYPE"));
+			groupOrderVO.setRate(rs.getInt("RATE"));
+			groupOrderVO.setNote(rs.getString("NOTE"));
+			groupOrderVO.setGroupID(rs.getString("GROUP_ID"));
+			groupOrderVO.setStartLoc(rs.getString("START_LOC"));
+			groupOrderVO.setEndLoc(rs.getString("END_LOC"));
+			list.add(groupOrderVO);
+		}
+	}catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return list;
+}
 
 	
 }

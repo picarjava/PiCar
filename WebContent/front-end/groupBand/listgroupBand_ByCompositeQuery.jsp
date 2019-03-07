@@ -10,6 +10,7 @@
     <jsp:useBean id="listgroupBand_ByCompositeQuery" scope="request" type="java.util.List<GroupBandVO>" /> 
 <%--     <jsp:useBean id="groupOrderService" scope="page" class="com.groupOrder.model.GroupOrderService" /> --%>
 <% String groupKind[] = {"揪團","長期揪團"}; %>
+<%request.setAttribute("groupKind", groupKind);%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,11 +74,21 @@
 </tr>
 	<tr>
 <th>上車時間</th><th>${GroupBandVO.startTime}</th>
-<th>揪團種類</th><th>${GroupBandVO.groupKind}</th>
+
+
+
+<th>揪團種類</th><c:forEach var="mypurstatus" items="${groupKinds}" varStatus="s">
+		 <c:choose>
+		 <c:when test="${GroupBandVO.startTime == s.index}">
+		 <th>${mypurstatus}</th>
+		 </c:when>
+		 </c:choose>
+		 </c:forEach>
 <th><FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
 	<input type="submit" value="進入揪團">
+	<input type="hidden" name="startTime"  value="${GroupBandVO.startTime}">
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
-	<input type="hidden" name="memIDs" value="${memberVO.memID }" /> 
+	<input type="hidden" name="memIDs" value="${memberVO.memID}" /> 
 	<input type="hidden" name="action"	value="GroupJoin"></FORM>
 </th>
 </tr>	

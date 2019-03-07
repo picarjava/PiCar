@@ -27,6 +27,7 @@ import javax.servlet.http.Part;
 
 import com.groupBand.model.*;
 import com.groupOrder.model.*;
+import com.member.model.*;
 
 /**
  * Servlet implementation class GroupBandServlet
@@ -688,7 +689,26 @@ public class GroupBandServlet extends HttpServlet {
 					req.setAttribute("GroupLeader", "false");
 					req.setAttribute("GroupBandVO", groupBandVO);
 				}
-
+				java.sql.Timestamp startTime = null;
+				startTime = java.sql.Timestamp.valueOf(req.getParameter("startTime").trim());
+				GroupOrderDAO groupOrderDAO = new GroupOrderDAO();
+				List<MemberVO> testList = new ArrayList<MemberVO>();
+				System.out.println(startTime+"+++++++");
+				System.out.println(groupID+"+++++++");
+				List<GroupOrderVO> list = groupOrderDAO.getALL_GroupID_StArtTime(groupID,startTime);
+				for (GroupOrderVO elements : list) {
+					if(elements.getMemID()!=null) {
+						MemberService memberService =new MemberService();
+						MemberVO memberVO =new MemberVO();
+						memberVO =memberService.getOneMember(elements.getMemID());
+						System.out.println(memberVO.getMemID()+"+++++++");
+						testList.add(memberVO);
+						
+					}
+				}
+				req.setAttribute("testList",testList);
+				System.out.println(testList.size());
+				
 				String url = "/front-end/groupBand/listOneGroupBand.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
 				successView.forward(req, res);
@@ -700,6 +720,7 @@ public class GroupBandServlet extends HttpServlet {
 			}
 		}
 		if ("GroupAdd".equals(action)) {
+			
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			String memID = req.getParameter("memIDs");
@@ -810,7 +831,19 @@ public class GroupBandServlet extends HttpServlet {
 						
 					}
 				}
-	
+				
+				List<MemberVO> testList = new ArrayList<MemberVO>();
+				List<GroupOrderVO> list = groupOrderDAO.getALL_GroupID_StArtTime(groupID,startTime);
+				for (GroupOrderVO elements : list) {
+					if(elements.getMemID()!=null) {
+						MemberService memberService =new MemberService();
+						MemberVO memberVO =new MemberVO();
+						memberVO =memberService.getOneMember(elements.getMemID());
+						testList.add(memberVO);
+					}
+				}
+				req.setAttribute("testList",testList);
+				
 
 				String url = "/front-end/groupBand/listOneGroupBand.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
