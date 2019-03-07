@@ -94,7 +94,7 @@
                             
                         </ul>
                         <br>
-                        <li class="nav-item">
+                        <li>
                             <form class="form-inline" <%-- action="<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp" --%>
                                 action="
                                 <%=request.getServletContext().getContextPath()%>/front-end/driver/driver.do"
@@ -104,6 +104,17 @@
                                 <!--隱藏的參數action讓controller抓-->
                                 <input type="hidden" name="action" value="GET_ONE_FRONT">
                                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">司機資料管理(前端首頁用)</button>
+                            </form>
+                        </li>
+                        <li>
+                            <form class="form-inline" <%-- action="<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp" --%>
+                                action="<%=request.getServletContext().getContextPath()%>/front-end/driver/addDriver.jsp"
+                                method="post">
+                                <input class="form-control mr-sm-2" name="memberID" type="text" placeholder="請輸入會員編號(eg.D001)" aria-label="Search">
+                                <!-- 									type="search" placeholder="請輸入司機編號(eg.D001)" aria-label="Search"> -->
+                                <!--隱藏的參數action讓controller抓-->
+                                <input type="hidden" name="action" value="BE_DRIVER">
+                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">成為司機</button>
                             </form>
                         </li>
                     </nav>

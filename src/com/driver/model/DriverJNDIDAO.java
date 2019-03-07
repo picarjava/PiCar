@@ -13,8 +13,6 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
-import com.groupOrder.model.GroupOrderDAO;
-import com.groupOrder.model.GroupOrderVO;
 
 public class DriverJNDIDAO implements DriverDAO_interface{
 	//

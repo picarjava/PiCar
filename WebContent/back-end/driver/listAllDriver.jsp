@@ -24,7 +24,7 @@
     <%request.setAttribute("list", list); %>
     <%if(list!=null&&(list.size()>0)){ %>
     
-    <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
+    <%LinkedList<String> errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <!-- 錯誤列表 -->
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
 		  <li class="list-group-item active">Opps!錯誤訊息回報</li>
@@ -74,6 +74,7 @@
 						      <c:if test="${driverVO.verified == 0}">未審核</c:if>
 						      <c:if test="${driverVO.verified == 1}">審核通過</c:if>
 						      <c:if test="${driverVO.verified == 2}">未通過</c:if>
+						      <button  type="submit" action="/bannedDriver.jsp">驗證按鈕</button>
 						      </th>
 						      <td>${driverVO.memID}</td>
 						      <td>${driverVO.driverID}</td>

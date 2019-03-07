@@ -1,27 +1,25 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
->
 <%@ page import="com.driver.model.*"%>
->
+<%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
->
+<%@ page import="javax.servlet.http.*"%>
 <html>
 <head>
 
 <jsp:include page="/regna-master/head.jsp" />
-
-<!-- =======================================================
-    Theme Name: Regna
-    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
 </head>
 
 <body>
 	<!-- 先get 再set -->
 	<%
-		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
+// 	印出是否拿到ID//
+// 		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
+MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+DriverService driSrc = new DriverService();
+DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
+session.setAttribute("driverVO",driverVO);
+
 	%>
 
 	<%
@@ -44,7 +42,7 @@
 		<div class="container wow fadeInUp">
 			<div class="col-lg-12 col-md-12">
 				<div class="section-header">
-					<h3 class="section-title">成為司機</h3>
+					<h3 class="section-title">成為司機(上傳檢附文件)</h3>
 					<div class="text-center">
 						<form action="">
 							<!-- 以上請寫成為司機的人 action="寫上上一頁的畫面" -->
@@ -64,7 +62,7 @@
 
 							<div class="form-group">
 								<p>會員編號</p>
-								<input type="text" name="memID" value="${driverVO.memID}"
+								<input type="text" name="memID" value="${memberVO.memID}"
 									class="form-control" disabled="disabled" />
 							</div>
 							<div class="form-group">
@@ -152,9 +150,7 @@
 								<input type="hidden" name="action" value="INSERT">
 								<button type="submit" class="btn btn-dark">成為司機</button>
 							</div>
-
 							<!--隱藏的參數action讓controller抓-->
-
 						</form>
 					</div>
 				</div>
