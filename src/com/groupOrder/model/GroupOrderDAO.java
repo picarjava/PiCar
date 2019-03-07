@@ -543,6 +543,58 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		}
 	}
 	
+	public GroupOrderVO getOneStntstartTimeMems(String groupid,String memid ) {
+		// TODO Auto-generated method stub
+
+		GroupOrderVO groupOrderVO =null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(GET_ONE_STMTSTART_TIME_Mem);
+		pstmt.setString(1, groupid);
+		pstmt.setString(2,memid);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			
+		
+			groupOrderVO = new GroupOrderVO();
+
+			groupOrderVO.setStartTime(rs.getTimestamp("START_TIME"));
+			
+			
+		}
+	}catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return groupOrderVO;
+}
+	
 	public List<GroupOrderVO> getOneStntstartTimeMem(String groupid,String memid ) {
 		// TODO Auto-generated method stub
 		List<GroupOrderVO> list =new ArrayList<GroupOrderVO>();

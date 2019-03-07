@@ -190,6 +190,8 @@
 <h5>加入揪團</h5>
 <FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
 	<input type="submit" value="加入">
+	
+	<input type="hidden" name="groupLeader"  value="<%=groupBandVO.getGroupLeader()%>">
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
 	<input type="hidden" name="startTime"  value="<%=groupBandVO.getStartTime()%>">
 	<input type="hidden" name="memIDs" value="${memberVO.memID }" /> 

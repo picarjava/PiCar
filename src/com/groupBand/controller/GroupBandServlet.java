@@ -711,7 +711,11 @@ public class GroupBandServlet extends HttpServlet {
 				List<MemberVO> testList = new ArrayList<MemberVO>();
 				System.out.println(startTime+"+++++++");
 				System.out.println(groupID+"+++++++");
-				List<GroupOrderVO> list = groupOrderDAO.getALL_GroupID_StArtTime(groupID,startTime);
+				String groupLeader =req.getParameter("groupLeader");
+				GroupOrderVO groupOrderVO = groupOrderDAO.getOneStntstartTimeMems(groupID,groupLeader);
+				
+				List<GroupOrderVO> list = groupOrderDAO.getALL_GroupID_StArtTime(groupID,groupOrderVO.getStartTime());
+				
 				for (GroupOrderVO elements : list) {
 					if(elements.getMemID()!=null) {
 						MemberService memberService =new MemberService();
@@ -811,28 +815,23 @@ public class GroupBandServlet extends HttpServlet {
 					//判斷人數有沒有滿的判斷
 						boolean numberpeople =false;
 						
+						//判斷跳出錯誤訊息之後將不在進入程式
+						boolean numberpeoples =false;
 						//外層以揪團訂單 日期 包住內層產生訂單  每一次都會填入不同日期 
 					for (GroupOrderVO elements : lists) {
 						List<GroupOrderVO> list = groupOrderDAO.findByALLGroupMemTime(groupID, elements.getStartTime());//不同日期
 						for (GroupOrderVO element : list) {
 							
 							//揪團訂單：比對 資料庫乘客ID 還 連線乘客ID 比對如果發現已在揪團中直接導走
-							if (memID.equals(element.getMemID())) {
+							if (memID.equals(element.getMemID())&&numberpeoples==false) {
 								errorMsgs.add("你已經在揪團中");
-								String url = "/front-end/groupBand/listOneGroupBand.jsp";
-								RequestDispatcher successView = req.getRequestDispatcher(url); 
-								successView.forward(req, res);
-								return;
-								
+								numberpeoples=true;
 								//揪團訂單：比對 資料庫乘客ID 不為空值  && 資料庫現在人數  比對 資料庫上限 人數   && 判斷人數有沒有滿的判斷，滿的話不進入
 							} else if (element.getMemID() != null && groupBandDAO.findByPrimaryKey(groupID)
-									.getCurrenTnum() == groupBandDAO.findByPrimaryKey(groupID).getUpperLimit()&&numberpeople==false) {
+									.getCurrenTnum() == groupBandDAO.findByPrimaryKey(groupID).getUpperLimit()&&numberpeople==false&&numberpeoples==false) {
 								errorMsgs.add("揪團人數已滿");
-								String url = "/front-end/groupBand/listOneGroupBand.jsp";
-								RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
-								successView.forward(req, res);
-								return;
-							} else if (element.getMemID() == null) {// 加入糾團完成
+								numberpeoples=true;
+							} else if (element.getMemID() == null&&numberpeoples==false) {// 加入糾團完成
 								groupOrderDAO.updateMem(memID, element.getGorderID());
 								// 長期揪團判斷要加
 								groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum() + 1, groupID);
@@ -846,11 +845,14 @@ public class GroupBandServlet extends HttpServlet {
 						
 					}
 				}
+				String groupLeader =req.getParameter("groupLeader");
 				
 				List<MemberVO> testList = new ArrayList<MemberVO>();
 				System.out.println(startTime+"+++++++");
 				System.out.println(groupID+"+++++++");
-				List<GroupOrderVO> list = groupOrderDAO.getALL_GroupID_StArtTime(groupID,startTime);
+				GroupOrderVO groupOrderVO = groupOrderDAO.getOneStntstartTimeMems(groupID,groupLeader);
+				
+				List<GroupOrderVO> list = groupOrderDAO.getALL_GroupID_StArtTime(groupID,groupOrderVO.getStartTime());
 				for (GroupOrderVO elements : list) {
 					if(elements.getMemID()!=null) {
 						MemberService memberService =new MemberService();
@@ -875,6 +877,7 @@ public class GroupBandServlet extends HttpServlet {
 		}
 	}
 
+	
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		File file = new File(path);
 		FileInputStream fis = new FileInputStream(file);

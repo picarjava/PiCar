@@ -86,6 +86,7 @@
 		 </c:forEach>
 <th><FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
 	<input type="submit" value="進入揪團">
+	<input type="hidden" name="groupLeader"  value="${GroupBandVO.groupLeader}">
 	<input type="hidden" name="startTime"  value="${GroupBandVO.startTime}">
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
 	<input type="hidden" name="memIDs" value="${memberVO.memID}" /> 
