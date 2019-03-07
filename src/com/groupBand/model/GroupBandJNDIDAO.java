@@ -16,6 +16,7 @@ import javax.sql.DataSource;
 import com.groupOrder.model.GroupOrderDAO;
 import com.groupOrder.model.GroupOrderVO;
 
+//要再改 不能用
 public class GroupBandJNDIDAO implements GroupBandDAO_interface {
 
 	private static DataSource ds = null;
@@ -424,7 +425,7 @@ public class GroupBandJNDIDAO implements GroupBandDAO_interface {
 			System.out.println("list.size()-A="+list.size());
 			for (GroupOrderVO groupOrderVO : list) {
 				groupOrderVO.setGroupID(next_deptno) ;
-				dao.insert2(groupOrderVO,con);
+				dao.insert2(list,con);
 			}
 
 			// 2●設定於 pstm.executeUpdate()之後

@@ -380,13 +380,16 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 	}
 
 	@Override
-	public void insert2(GroupOrderVO groupOrderVO, Connection con) {
+	public void insert2(List<GroupOrderVO> list, Connection con) {
 		// TODO Auto-generated method stub
 
 		PreparedStatement pstmt = null;
 		try {
-			con = ds.getConnection();
+			
 			pstmt = con.prepareStatement(INSERT_STMT);
+			int conn=0;
+			for (GroupOrderVO groupOrderVO : list) {
+			System.out.println(conn++);
 			pstmt.setString(1, groupOrderVO.getDriverID());
 			pstmt.setString(2, groupOrderVO.getMemID());
 			pstmt.setInt(3,groupOrderVO.getState());
@@ -403,8 +406,13 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			pstmt.setString(14,groupOrderVO.getGroupID());
 			pstmt.setString(15,groupOrderVO.getStartLoc());
 			pstmt.setString(16,groupOrderVO.getEndLoc());
-			pstmt.executeUpdate();
-
+			
+			pstmt.addBatch();
+			}
+			System.out.println("=====================================");
+			
+			pstmt.executeBatch();
+			System.out.println("========+++++++++++++=============================");
 		}  catch (SQLException se) {
 			if (con != null) {
 				try {

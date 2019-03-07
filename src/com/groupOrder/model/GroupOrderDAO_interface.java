@@ -13,5 +13,5 @@ public void delete(String groupOrderno);
 public GroupOrderVO findByPrimaryKey(String groupOrderno);
 public List<GroupOrderVO> getAll();
 //public Set<> getEmpsByDeptno(Integer groupOrderno);
-public void insert2 (GroupOrderVO groupOrderVO , java.sql.Connection con);
+public void insert2 (List<GroupOrderVO> list , java.sql.Connection con);
 }

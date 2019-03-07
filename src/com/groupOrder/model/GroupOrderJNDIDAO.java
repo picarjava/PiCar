@@ -14,7 +14,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 
-
+//要再改 不能用
 public class GroupOrderJNDIDAO implements GroupOrderDAO_interface {
 	private static DataSource ds = null;
 	static {
@@ -291,7 +291,7 @@ public class GroupOrderJNDIDAO implements GroupOrderDAO_interface {
 		
 	}
 
-	@Override
+
 	public void insert2(GroupOrderVO groupOrderVO, Connection con) {
 		// TODO Auto-generated method stub
 		
@@ -339,6 +339,12 @@ public class GroupOrderJNDIDAO implements GroupOrderDAO_interface {
 				}
 			}
 		}
+		
+	}
+
+	@Override
+	public void insert2(List<GroupOrderVO> list, Connection con) {
+		// TODO Auto-generated method stub
 		
 	}
 

@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-
+// 要再改 不能用
 public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -304,7 +304,7 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
 		
 	}
 
-	@Override
+
 	public void insert2(GroupOrderVO groupOrderVO, Connection con) {
 		// TODO Auto-generated method stub
 		PreparedStatement pstmt = null;
@@ -353,6 +353,12 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
 				}
 			}
 		}
+	}
+
+	@Override
+	public void insert2(List<GroupOrderVO> list, Connection con) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

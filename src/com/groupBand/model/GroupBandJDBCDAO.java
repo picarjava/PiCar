@@ -15,7 +15,7 @@ import com.groupOrder.model.GroupOrderDAO;
 import com.groupOrder.model.GroupOrderVO;
 
 
-
+//要再改 不能用
 public class GroupBandJDBCDAO implements GroupBandDAO_interface{
 	String driver = "oracle.jdbc.driver.OracleDriver";
 	String url = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -383,7 +383,7 @@ public class GroupBandJDBCDAO implements GroupBandDAO_interface{
 		System.out.println("list.size()-A="+list.size());
 		for (GroupOrderVO groupOrderVO : list) {
 			groupOrderVO.setGroupID(next_deptno) ;
-			dao.insert2(groupOrderVO,con);
+			dao.insert2(list,con);
 		}
 
 		// 2●設定於 pstm.executeUpdate()之後

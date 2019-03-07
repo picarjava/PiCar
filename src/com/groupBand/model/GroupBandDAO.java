@@ -388,7 +388,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 		try {
 			con = ds.getConnection();
 //			con.setAutoCommit(true);
-			con.setAutoCommit(true);
+			con.setAutoCommit(false);
 			pstmt = con.prepareStatement(INSERT_STMT);
 			String cols[] = {"GROUP_ID"};
 			pstmt = con.prepareStatement(INSERT_STMT , cols);	
@@ -422,11 +422,14 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			}
 			GroupOrderDAO dao = new GroupOrderDAO();
 			System.out.println("list.size()-A="+list.size());
-			for (GroupOrderVO groupOrderVO : list) {
-				groupOrderVO.setGroupID(next_deptno) ;
-				dao.insert2(groupOrderVO,con);
+			
+			for (GroupOrderVO groupOrderVO : list) {				
+				groupOrderVO.setGroupID(next_deptno) ;				
+						
 			}
-
+			dao.insert2(list,con);		
+			System.out.println("++++++++++++++++++++++++++++++++++++++++");
+				
 			// 2●設定於 pstm.executeUpdate()之後
 
 
