@@ -285,5 +285,17 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
-  
+  <filter>
+    <filter-name>LocationWebSocket</filter-name>
+    <filter-class>android.com.location.filter.LocationWebSockerFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>LocationWebSocket</filter-name>
+    <url-pattern>/locationWebSocket/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
 </web-app>

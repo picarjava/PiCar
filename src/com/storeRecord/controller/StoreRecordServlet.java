@@ -276,7 +276,7 @@ public class StoreRecordServlet extends HttpServlet {
 			String memID = req.getParameter("memID");
 			StoreRecordVO storeRecordVO = new StoreRecordVO();
 			storeRecordVO.setMemID(memID);
-			System.out.println(memID);
+			
 			req.setAttribute("storeRecordVO", storeRecordVO);
 			RequestDispatcher successView = req.getRequestDispatcher("/storeRecord/addStoreRecord.jsp");
 			successView.forward(req, res);
