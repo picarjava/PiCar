@@ -53,12 +53,28 @@ public class GroupBandServlet extends HttpServlet {
 			ServletOutputStream out = res.getOutputStream();
 
 			String groupID = req.getParameter("groupID");
-
+			
 			GroupBandService groupBandService = new GroupBandService();
 			GroupBandVO groupBandVO = (GroupBandVO) groupBandService.getOneGroupBand(groupID);
 			System.out.println(groupID);
 
 			byte[] pic = groupBandVO.getPhoto();
+			if (pic != null) {
+				out.write(pic);
+			}
+		}
+		if (req.getParameter("MEM_ID") != null) {
+			req.setCharacterEncoding("utf-8");
+			res.setContentType("image/gif");
+			ServletOutputStream out = res.getOutputStream();
+
+			String memID = req.getParameter("MEM_ID");
+			
+			MemberService memberService =new MemberService();
+			MemberVO memberVO =new MemberVO();
+			memberVO =memberService.getOneMember(memID);
+			
+			byte[] pic = memberVO.getPic();
 			if (pic != null) {
 				out.write(pic);
 			}
@@ -701,9 +717,8 @@ public class GroupBandServlet extends HttpServlet {
 						MemberService memberService =new MemberService();
 						MemberVO memberVO =new MemberVO();
 						memberVO =memberService.getOneMember(elements.getMemID());
-						System.out.println(memberVO.getMemID()+"+++++++");
-						testList.add(memberVO);
 						
+						testList.add(memberVO);
 					}
 				}
 				req.setAttribute("testList",testList);
