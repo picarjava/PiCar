@@ -36,6 +36,8 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 	private static final String UPDATECURRENT = "UPDATE GROUP_BAND set CURRENT_NUM= ? where GROUP_ID= ?";
 	private static final String GET_ALL = "SELECT * FROM GROUP_BAND where GROUP_STATUS = ?";
 	private static final String UPDATE_GROUP_STATUS__GROUP_ID = "UPDATE  GROUP_BAND set  GROUP_STATUS= ?  where GROUP_ID = ?";
+	
+	private static final String UPDATE_GROUP_TYPE_GROUP_NAME_INTRODUCTION_NOTE_PHOTO__GROUP_ID= "UPDATE GROUP_BAND set GROUP_TYPE= ? , GROUP_NAME=? , INTRODUCTION=? , NOTE=?, PHOTO=? where GROUP_ID= ?";
 	@Override
 	public void insert(GroupBandVO groupBandVO) {
 		// TODO Auto-generated method stub
@@ -141,6 +143,9 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			}
 		}
 	}
+	
+	
+	
 
 	@Override
 	public void delete(String groupBandno) {
@@ -461,6 +466,47 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			}
 		}
 	}
+	
+	public void UPDATE_GROUP_TYPE_GROUP_NAME_INTRODUCTION_NOTE_PHOTO__GROUP_ID(String groupID,String GROUP_TYPE,String GROUP_NAME,String INTRODUCTION,String NOTE,byte[] PHOTO ) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(true);
+			pstmt = con.prepareStatement(UPDATE_GROUP_TYPE_GROUP_NAME_INTRODUCTION_NOTE_PHOTO__GROUP_ID);
+			
+			pstmt.setString(1,GROUP_TYPE);
+			pstmt.setString(2,GROUP_NAME);
+			pstmt.setString(3,INTRODUCTION);
+			pstmt.setString(4,NOTE);
+			pstmt.setBytes(5,PHOTO);
+			pstmt.setString(6,groupID);
+			
+			pstmt.executeUpdate();
+			con.commit();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
 	
 	public void UpdateCURRENT(Integer currenTnum,String groupBandno) {
 		// TODO Auto-generated method stub
