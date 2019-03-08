@@ -35,6 +35,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 	private static final String UPDATE = "UPDATE GROUP_BAND set GROUP_ID=?,CONTENT=?,LAUNCH_TIME=?,INTRODUCTION=?,GROUP_STATUS=?,CURRENT_NUM=?,UPPER_LIMIT=?,LOWER_LIMIT=?,GROUP_NAME=?,GROUP_LEADER=?,START_LOC=?,END_LOC=?,PRIVATES=?,PHOTO=?,GROUP_TYPE=?,TOTAL_AMOUT=?,START_TIME=?,RATE=?,NOTE=?,GROUP_KIND=? where GROUP_ID= ?";
 	private static final String UPDATECURRENT = "UPDATE GROUP_BAND set CURRENT_NUM= ? where GROUP_ID= ?";
 	private static final String GET_ALL = "SELECT * FROM GROUP_BAND where GROUP_STATUS = ?";
+	private static final String UPDATE_GROUP_STATUS__GROUP_ID = "UPDATE  GROUP_BAND set  GROUP_STATUS= ?  where GROUP_ID = ?";
 	@Override
 	public void insert(GroupBandVO groupBandVO) {
 		// TODO Auto-generated method stub
@@ -325,7 +326,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			con =ds.getConnection();
 			String finalSQL = "select GROUP_ID,LAUNCH_TIME,INTRODUCTION,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC, END_LOC, PRIVATES, PHOTO, GROUP_TYPE, TOTAL_AMOUT, START_TIME,GROUP_KIND from GROUP_BAND"
 			+jdbcUtil_CompositeQuery_GROUP_BAND.get_WhereCondition(map)
-			+ " order by LAUNCH_TIME";
+			+ " and GROUP_STATUS=0 order by LAUNCH_TIME";
 			
 			pstmt = con.prepareStatement(finalSQL);
 			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
@@ -565,4 +566,37 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 		return list;
 	}
 	
+	public void UPDATE_GROUP_STATUS__GROUP_ID(Integer groupStatus,String groupID) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(true);
+			pstmt = con.prepareStatement(UPDATE_GROUP_STATUS__GROUP_ID);
+			pstmt.setInt(1,groupStatus);
+			pstmt.setString(2,groupID);
+			pstmt.executeUpdate();
+			con.commit();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 }
