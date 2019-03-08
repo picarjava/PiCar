@@ -88,6 +88,7 @@
        
        
         <input type="hidden" name="action" value="listgroupBand_ByCompositeQuery">
+        <input type="hidden" name="action" value="listgroupBand_ByCompositeQuery">
         <input type="submit" value="送出">
     </FORM>
   </li>
