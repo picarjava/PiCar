@@ -366,7 +366,7 @@ public class GroupBandServlet extends HttpServlet {
 					errorMsgs.add("簡介: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 				}
 
-				Integer groupStatus = 1;
+				Integer groupStatus = 0;
 
 				Integer currenTnum = 1;
 
@@ -655,10 +655,14 @@ public class GroupBandServlet extends HttpServlet {
 					session.setAttribute("map", map1);
 					map = map1;
 
+					
+					
 				}
-
-				GroupBandService groupBandService = new GroupBandService();
-				List<GroupBandVO> list = groupBandService.getAll(map);
+				
+				
+				
+				GroupBandDAO groupBandDAO = new GroupBandDAO();
+				List<GroupBandVO> list = groupBandDAO.GETALL(0);
 				req.setAttribute("listgroupBand_ByCompositeQuery", list); // 資料庫取出的list物件,存入request
 
 				RequestDispatcher successView = req
