@@ -216,9 +216,19 @@ public class GroupBandServlet extends HttpServlet {
 					errorMsgs.add("請上傳照片");
 
 				}
+				
+				
 
 				GroupBandDAO groupBandDAO = new GroupBandDAO();
 				groupBandDAO.UPDATE_GROUP_TYPE_GROUP_NAME_INTRODUCTION_NOTE_PHOTO__GROUP_ID(groupID, groupType, groupName, introduction, note, photo);
+				
+				GroupBandVO groupBandVO =groupBandDAO.findByPrimaryKey(groupID);
+				req.setAttribute("GroupBandVO",groupBandVO);
+				
+				req.setAttribute("GroupLeader","true");
+				
+				req.setAttribute("dropOut",true);
+				
 				
 				
 				String url = "/front-end/groupBand/listOneGroupBand.jsp";
@@ -616,7 +626,8 @@ public class GroupBandServlet extends HttpServlet {
 						testList.add(memberVO);
 					}
 				}
-				req.setAttribute("testList", testList);
+				HttpSession session = req.getSession();
+				session.setAttribute("testList", testList);
 
 				req.setAttribute("dropOut", dropOut);
 
@@ -765,7 +776,8 @@ public class GroupBandServlet extends HttpServlet {
 				}
 
 				req.setAttribute("dropOut", dropOut);
-				req.setAttribute("testList", testList);
+				HttpSession session = req.getSession();
+				session.setAttribute("testList", testList);
 
 				if (groupBandVO == null) {
 					errorMsgs.add("格式不正確");

@@ -5,9 +5,10 @@
     <%@ page import="java.util.*"%>
     <%@ page import="com.member.model.*"%>
     <%
+    
     GroupBandVO groupBandVO =(GroupBandVO) request.getAttribute("GroupBandVO");
     Object GroupLeader =request.getAttribute("GroupLeader");  
-    List<MemberVO> testList =(List)request.getAttribute("testList"); 
+    List<MemberVO> testList =(List)session.getAttribute("testList"); 
     boolean dropOut =(boolean)request.getAttribute("dropOut");
 %>
 
@@ -181,6 +182,7 @@
 <%--判斷是否為團長 GroupBandServlet.java配合上689行--%>
 <%if("true".equals(GroupLeader)){ %>
 <h5>修改資料</h5>
+\
 <form action="<%=request.getServletContext().getContextPath()%>/GroupBand" method="POST" enctype="multipart/form-data"style="margin-bottom: 0px;">
 	<input type="submit" value="修改">
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
