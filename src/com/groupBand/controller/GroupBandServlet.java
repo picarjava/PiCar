@@ -221,14 +221,14 @@ public class GroupBandServlet extends HttpServlet {
 				groupBandDAO.UPDATE_GROUP_TYPE_GROUP_NAME_INTRODUCTION_NOTE_PHOTO__GROUP_ID(groupID, groupType, groupName, introduction, note, photo);
 				
 				
-				String url = "/front-end/groupBand/SelectGroupBand.jsp";
+				String url = "/front-end/groupBand/listOneGroupBand.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
 				successView.forward(req, res);
 
 				/*************************** ��L�i�઺���~�B�z **********************************/
 			} catch (Exception e) {
 				errorMsgs.add(e.getMessage());
-				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/groupBand/insertGroupBand.jsp");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/groupBand/SelectGroupBand.jsp");
 				failureView.forward(req, res);
 			}
 		}

@@ -9,6 +9,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script
@@ -144,10 +145,9 @@ th, td {
 			<tr>
 				<td>揪團圖片</td>
 
-				<td><input type="file" name="photo" size="25"
-					value="<%=groupBandVO.getPhoto()%>" /> <img
-					src="/PiCar/GroupBand?groupID=${GroupBandVO.groupID}" width="100px"
-					height="100px"></td>
+				<td><input id="progressbarTWInput" type="file" name="photo" size="25"
+					value="<%=groupBandVO.getPhoto()%>" /> <img id="preview_img" src="/PiCar/GroupBand?groupID=${GroupBandVO.groupID}" width="100px" height="100px">
+					<img id="preview_progressbarTW_img" src="#"  width="100px"   height="100px" style = "display:none" /></td>
 				<td><i class="fas fa-pen"></i></td>
 			</tr>
 
@@ -171,5 +171,36 @@ th, td {
 		</table>
 	</form>
 </body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+<script>
 
+$("#progressbarTWInput").change(function(){
+
+  readURL(this);
+
+});
+
+
+
+function readURL(input){
+	
+  if(input.files && input.files[0]){
+
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+    	
+       $("#preview_progressbarTW_img").attr('src', e.target.result);
+       $("#preview_progressbarTW_img").removeAttr("style");
+       $("#preview_img").hide();
+      
+    }
+
+    reader.readAsDataURL(input.files[0]);
+
+  }
+
+}
+
+</script>
 </html>
