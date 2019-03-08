@@ -1,4 +1,4 @@
-package controller;
+package Timer;
 
 	import java.io.IOException;
 	import java.io.PrintWriter;
@@ -41,7 +41,7 @@ package controller;
 //			java.util.Date today = null;
 			
 			timer=new Timer();
-			TimerTask task=new TimerTask(){//想做的事情
+			TimerTask task=new TimerTask(){//想做的事情 置入timertask
 				 int i = 1;
 	//主控台印出時間
 				 public void run(){
@@ -76,7 +76,7 @@ package controller;
 			//取得當天00:00:00的GregorianCalendar物件，getTime()取得date物件
 				GregorianCalendar gcToday=new GregorianCalendar(year, month-1, day, 0, 0, 0);
 				java.util.Date today=gcToday.getTime();
-				timer.scheduleAtFixedRate(task, today, 60*60*1000);
+				timer.scheduleAtFixedRate(task, today, 60*60*1000); //第一個參數放入想要執行的結果
 				
 		}
 			public void destroy() {
