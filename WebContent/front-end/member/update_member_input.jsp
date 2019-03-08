@@ -30,7 +30,7 @@ table{
 	</ul>
 </c:if>
 
-<form method="post" action="member.do" name="form1">
+<form method="post" action="member.do" name="form1" enctype="multipart/form-data">
 <a href="select_page.jsp">回主頁面</a>
 	<table >
 		<tr>
@@ -121,15 +121,50 @@ table{
 			<option value="0" ${(memberVO.babySeat == '0')?'selected':'' }>不需要
 			</select></td>		
 		</tr>
+		<tr>
+			<td>會員照片：</td>
+			<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200" id="preview_progressbarTW_img"></td>
+			<td><img id="preview_progressbarTW_img" src="#" width='200' height="200"/></td>
+			<td>
+			<input type="file" name="pic" onchange="readURL(this)" targetID="preview_progressbarTW_img"> <br></td>		
+		
+			 
+		</tr>
 	</table>                          
 	<input type="hidden" name="memID" value="<%=memberVO.getMemID() %> ">
 	<input type="hidden" name="action" value="update">
 	<input type="submit" value="submit">
 </form>
+<script>
 
+function readURL(input){
+
+  if(input.files && input.files[0]){
+
+    var imageTagID = input.getAttribute("targetID");
+
+    var reader = new FileReader();
+
+    reader.onload = function (e) {
+
+       var img = document.getElementById(imageTagID);
+
+       img.setAttribute("src", e.target.result);
+
+    }
+
+    reader.readAsDataURL(input.files[0]);
+
+  }
+
+}
+
+</script>
 
 
 </body>
+
+
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
 <link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
