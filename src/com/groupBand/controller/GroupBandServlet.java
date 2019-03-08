@@ -257,7 +257,7 @@ public class GroupBandServlet extends HttpServlet {
 					String startTimes = null;
 //				SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-					if ("1".equals(req.getParameter("groupKind"))) {
+					if ("5".equals(req.getParameter("groupKind"))) {
 						startTimes = req.getParameter("startTime");
 						if (startTimes == null || "".equals(startTimes)) {
 							errorMsgs.add("日期: 請勿空白");
@@ -438,7 +438,7 @@ public class GroupBandServlet extends HttpServlet {
 //					String startTimes =null;
 //					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-				if ("0".equals(req.getParameter("groupKind"))) {
+				if ("5".equals(req.getParameter("groupKind"))) {
 					try {
 
 //						startTimes=req.getParameter("startTime");
@@ -550,7 +550,7 @@ public class GroupBandServlet extends HttpServlet {
 
 				List<GroupOrderVO> testList = new ArrayList<GroupOrderVO>();
 
-				if ("0".equals(req.getParameter("groupKind"))) {
+				if ("5".equals(req.getParameter("groupKind"))) {
 
 					for (int x = 0; x < upperLimit; x++) {
 						GroupOrderVO groupOrderVO;
@@ -769,7 +769,7 @@ public class GroupBandServlet extends HttpServlet {
 					groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum() - 1, groupID);
 
 					// 判斷揪團還長期揪團
-				} else if (groupKind == 0 && !"dropOutbutton".equals(dropOutbutton)) {
+				} else if (groupKind == 5 && !"dropOutbutton".equals(dropOutbutton)) {
 
 					// 揪團訂單： 單查 抓出所有資料 ，以 揪團和上車時間下判斷
 					List<GroupOrderVO> list = groupOrderDAO.findByALLGroupMemTime(groupID, startTime);

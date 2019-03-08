@@ -562,8 +562,8 @@ CREATE SEQUENCE GROUP_BAND_SEQ
     NOMAXVALUE
     CACHE 10;
     
-INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp('2019/02/04','yyyy/mm/dd'),EMPTY_CLOB(),1,1,2,4,'五月天演唱會','M001','桃園火車站','中壢火車站',1,EMPTY_BLOB(),'演唱會',5000,to_timestamp('2019/02/15','yyyy/mm/dd'),5,'不錯ㄟ',0);
-INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp('2019/02/05','yyyy/mm/dd'),EMPTY_CLOB(),1,1,2,4,'道地ㄟ美食','M001','台南火車站','高雄火車站',1,EMPTY_BLOB(),'美食',2500,to_timestamp ('2019/02/10','yyyy/mm/dd'),5,'好吃ㄟ',1);
+INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp('2019/02/04','yyyy/mm/dd'),EMPTY_CLOB(),1,1,4,2,'五月天演唱會','M001','桃園火車站','中壢火車站',1,EMPTY_BLOB(),'演唱會',5000,to_timestamp('2019/02/15','yyyy/mm/dd'),5,'不錯ㄟ',5);
+INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp('2019/02/05','yyyy/mm/dd'),EMPTY_CLOB(),1,1,4,2,'道地ㄟ美食','M001','台南火車站','高雄火車站',1,EMPTY_BLOB(),'美食',2500,to_timestamp ('2019/02/10','yyyy/mm/dd'),5,'好吃ㄟ',6);
 --揪團成員
 CREATE TABLE GROUP_MEM( 
 GROUP_ID VARCHAR2 (5)  PRIMARY KEY  NOT NULL,
@@ -607,30 +607,30 @@ CACHE 10;
 
 --
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G001','D001','M001',0,1500,to_timestamp ('2019/02/5 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/08 09:20:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/08 09:50:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','桃園火車站','中壢火車站');
+,'G001','D001','M001',0,1500,to_timestamp ('2019/02/5 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/08 09:20:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/08 09:50:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,5,0,'無','桃園火車站','中壢火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002','D002','M002',0,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
+,'G002','D002','M002',0,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,5,0,'無','台南火車站','高雄火車站');
 --新增10筆揪團訂單假資料--
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002','D001','M001',0,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
+,'G002','D001','M001',0,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,5,0,'無','台南火車站','高雄火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002','D001','M001',1,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,1,0,'無','台南火車站','高雄火車站');
+,'G002','D001','M001',1,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,5,0,'無','台南火車站','高雄火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002','D001','M001',2,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
+,'G002','D001','M001',2,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,5,0,'無','台南火車站','高雄火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002','D001','M001',3,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,1,0,'無','台南火車站','高雄火車站');
+,'G002','D001','M001',3,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,5,0,'無','台南火車站','高雄火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002','D001','M001',4,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
+,'G002','D001','M001',4,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,6,0,'無','台南火車站','高雄火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002','D001','M001',5,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,1,0,'無','台南火車站','高雄火車站');
+,'G002','D001','M001',5,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,6,0,'無','台南火車站','高雄火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002','D001','M001',6,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
+,'G002','D001','M001',6,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,6,0,'無','台南火車站','高雄火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002','D001','M001',7,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,1,0,'無','台南火車站','高雄火車站');
+,'G002','D001','M001',7,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,6,0,'無','台南火車站','高雄火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002',null,'M001',8,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,0,0,'無','台南火車站','高雄火車站');
+,'G002',null,'M001',8,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,6,0,'無','台南火車站','高雄火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002','D001','M001',9,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,1,0,'無','台南火車站','高雄火車站');
+,'G002','D001','M001',9,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,6,0,'無','台南火車站','高雄火車站');
 
 --建立檢舉揪團TABLE--
 CREATE TABLE GROUP_REPORT(
