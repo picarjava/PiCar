@@ -534,7 +534,7 @@ function timestamps() {
 		fdate1 = document.getElementById("f_date1");
 		enddates = document.getElementById("enddate");
 		datetime =	document.getElementById("datetime");
-		if (number == 1) {
+		if (number == 6) {
 			days.style="";
 			brs.innerHTML="~";
 			enddate.style = "";

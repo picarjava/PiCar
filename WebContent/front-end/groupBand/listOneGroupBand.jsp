@@ -76,12 +76,17 @@
   .mar{
       margin-left: 5px;
   }
+  .imgss{
+      width: 150px;
+    height: 200px;
+  }
   .color1{
       background-color: #008ccc!important;
   }
     .color0{
       background-color: #FFB7DD!important;
   }
+  
 </style>
 <style>
 
@@ -118,7 +123,7 @@
 <div class="row">
 <c:forEach var="MemberVO" items="${testList}" >
 <div class="d-inline p-2 bg-primary text-white color${MemberVO.gender}">
-<div class="marrgin"><img src="/PiCar/GroupBand?MEM_ID=${MemberVO.memID}"></div>
+<div class="marrgin"><img class="imgss"  src="/PiCar/GroupBand?MEM_ID=${MemberVO.memID}"></div>
 <div class="tentcenter" id="gender"><h4 >${MemberVO.name}<img class="mar" src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/${MemberVO.gender}.png"  width="20px"   height="25px" ></h4></div>
 <div class="tentcenter"></div>
 </div>
@@ -181,11 +186,7 @@
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
 	<input type="hidden" name="action"	value="getOne_For_Update">
 </FORM>
-<h5>刪除資料</h5>
-<FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
-	<input type="submit" value="刪除">
-	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
-	<input type="hidden" name="action"	value="delete"></FORM>
+
 	<%}%>
 <%if(false==dropOut){%>
 <h5>加入揪團</h5>
