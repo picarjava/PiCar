@@ -193,21 +193,25 @@ public class MemberServlet extends HttpServlet {
 				if (email == null || email.trim().length() == 0) {
 					errorMsgs.add("EMAI請勿空白");
 				}
+
 				String password = req.getParameter("password");
 				if (password == null || password.trim().length() == 0) {
 					errorMsgs.add("password請勿空白");
 				}
+
 				String phone = req.getParameter("phone");
 				if (phone == null || phone.trim().length() == 0) {
 					errorMsgs.add("phone請勿空白");
 				}
+
 				String creditcard = req.getParameter("creditcard");
 				if (creditcard == null || creditcard.trim().length() == 0) {
 					errorMsgs.add("creditcard請勿空白");
 				}
+
 				Integer token = null;
 				try {
-					MemberDAO memberDAO = new MemberDAO();
+//					MemberDAO memberDAO = new MemberDAO();
 
 //					token = memberDAO.getSumAmount(memID);
 					token = new Integer(req.getParameter("token").trim());
@@ -216,6 +220,7 @@ public class MemberServlet extends HttpServlet {
 					token = 0;
 					errorMsgs.add("代幣請填數字.");
 				}
+
 				Integer activityToken = null;
 				try {
 					activityToken = new Integer(req.getParameter("activityToken").trim());
@@ -223,6 +228,7 @@ public class MemberServlet extends HttpServlet {
 					activityToken = 100;
 					errorMsgs.add("活動代幣請填數字.");
 				}
+
 				java.sql.Date birthday = null;
 				try {
 					birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
@@ -236,7 +242,28 @@ public class MemberServlet extends HttpServlet {
 				Integer gender = new Integer(req.getParameter("gender"));
 				Integer verified = new Integer(req.getParameter("verified"));
 				Integer babySeat = new Integer(req.getParameter("babySeat"));
-//				
+
+				MemberService memberSvc1 = new MemberService();
+				MemberVO memberVO1 = memberSvc1.getOneMember(memID);
+				byte[] picnow = memberVO1.getPic();
+
+				byte[] pic = null;
+
+				Part part = req.getPart("pic");
+				long size = part.getSize();
+				InputStream in = part.getInputStream();
+				pic = new byte[in.available()];
+
+				if (size != 0) {
+					in.read(pic);
+//					in.close();
+				} else if (size == 0 && picnow == null) {
+					errorMsgs.add("請輸入照片");
+				} else if (picnow != null && size == 0) {
+					pic = picnow;
+				}
+				in.close();
+
 				MemberVO memberVO = new MemberVO();
 				memberVO.setMemID(memID);
 				memberVO.setName(name);
@@ -252,7 +279,10 @@ public class MemberServlet extends HttpServlet {
 				memberVO.setBirthday(birthday);
 				memberVO.setVerified(verified);
 				memberVO.setBabySeat(babySeat);
+				memberVO.setPic(pic);
+
 				if (!errorMsgs.isEmpty()) {
+
 					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
 					RequestDispatcher failureView = req
 							.getRequestDispatcher("/front-end/member/update_member_input.jsp");
@@ -263,7 +293,7 @@ public class MemberServlet extends HttpServlet {
 				// 開始修改資料
 				MemberService memberSvc = new MemberService();
 				memberVO = memberSvc.updateMember(memID, name, email, password, phone, creditcard, pet, smoke, gender,
-						token, activityToken, birthday, verified, babySeat);
+						token, activityToken, birthday, verified, babySeat, pic);
 				req.setAttribute("memberVO", memberVO);
 
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMember.jsp"); // 新增成功後轉交listAllmember_byDAO

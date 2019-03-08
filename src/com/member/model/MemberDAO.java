@@ -43,7 +43,7 @@ public class MemberDAO implements MemberDAO_interface {
 	private static final String DELETE = "DELETE FROM MEMBER WHERE MEM_ID = ?";
 
 	private static final String UPDATE_STMT = "UPDATE MEMBER SET  NAME=?, EMAIL=?, PASSWORD=?, PHONE=?, CREDIT_CARD=?, PET=?, SMOKE=?, GENDER=?, "
-			+ "TOKEN=?, ACTIVITY_TOKEN=?, BIRTHDAY=?, VERIFIED=?, BABY_SEAT=? WHERE MEM_ID=?";
+			+ "TOKEN=?, ACTIVITY_TOKEN=?, BIRTHDAY=?, VERIFIED=?, BABY_SEAT=?, PIC=? WHERE MEM_ID=?";
 
 	private static final String GET_AMOUT_MEM = "SELECT SUM (AMOUNT) FROM STORE_RECORD WHERE MEM_ID=?";
 
@@ -153,7 +153,13 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setDate(11, memberVO.getBirthday());
 			pstmt.setInt(12, memberVO.getVerified());
 			pstmt.setInt(13, memberVO.getBabySeat());
-			pstmt.setString(14, memberVO.getMemID().trim());
+			
+			Blob blob = con.createBlob();
+			byte[] pic = memberVO.getPic();
+			blob.setBytes(1, pic);
+			pstmt.setBlob(14, blob);
+			
+			pstmt.setString(15, memberVO.getMemID().trim());
 
 			pstmt.executeUpdate();
 

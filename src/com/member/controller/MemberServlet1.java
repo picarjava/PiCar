@@ -1,6 +1,7 @@
 package com.member.controller;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 import javax.servlet.RequestDispatcher;
 
 import com.member.model.*;
@@ -208,6 +210,12 @@ public class MemberServlet1 extends HttpServlet {
 				Integer gender = new Integer(req.getParameter("gender"));
 				Integer verified = new Integer(req.getParameter("verified"));
 				Integer babySeat = new Integer(req.getParameter("babySeat"));
+				
+				Part part = req.getPart("pic");
+				InputStream in = part.getInputStream();
+				byte[] pic = new byte[in.available()];
+				in.read(pic);
+				in.close();
 //				
 				MemberVO memberVO = new MemberVO();
 				memberVO.setMemID(memID);
@@ -236,7 +244,7 @@ public class MemberServlet1 extends HttpServlet {
 				// 開始修改資料
 				MemberService memberSvc = new MemberService();
 				memberVO = memberSvc.updateMember(memID, name, email, password, phone, creditcard, pet, smoke, gender,
-						token, activityToken, birthday, verified, babySeat);
+						token, activityToken, birthday, verified, babySeat, pic);
 				req.setAttribute("memberVO", memberVO);
 
 				RequestDispatcher successView = req.getRequestDispatcher("/back-end/member/listOneMember.jsp");

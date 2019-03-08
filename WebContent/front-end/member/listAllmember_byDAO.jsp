@@ -77,8 +77,8 @@ table1, td {
 			<td>verified</td>
 			<td>babySeat</td>
 			<td>個人照片</td>
-			<td>修改</td>
-			<td>刪除</td>
+			<td>修改(此為前端畫面，無此功能)</td>
+			<td>刪除(此為前端畫面，無此功能)</td>
 		</tr>
 
 	<c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">

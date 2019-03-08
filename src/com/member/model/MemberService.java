@@ -12,7 +12,7 @@ public class MemberService {
 
 	public MemberVO addMember(String name, String email, String password, String phone, String creditcard, Integer pet,
 			Integer smoke, Integer gender, Integer token, Integer activityToken, java.sql.Date birthday,
-			Integer verified, Integer babySeat,byte[] pic) {
+			Integer verified, Integer babySeat, byte[] pic) {
 
 		MemberVO memberVO = new MemberVO();
 
@@ -38,7 +38,7 @@ public class MemberService {
 
 	public MemberVO updateMember(String memID, String name, String email, String password, String phone,
 			String creditcard, Integer pet, Integer smoke, Integer gender, Integer token, Integer activityToken,
-			java.sql.Date birthday, Integer verified, Integer babySeat) {
+			java.sql.Date birthday, Integer verified, Integer babySeat, byte[] pic) {
 
 		MemberVO memberVO = new MemberVO();
 
@@ -56,6 +56,7 @@ public class MemberService {
 		memberVO.setBirthday(birthday);
 		memberVO.setVerified(verified);
 		memberVO.setBabySeat(babySeat);
+		memberVO.setPic(pic);
 		dao.update(memberVO);
 
 		return memberVO;
