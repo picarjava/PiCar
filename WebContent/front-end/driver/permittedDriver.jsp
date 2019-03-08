@@ -33,7 +33,7 @@
                   <h3 class="section-title">恭喜您成為PICAR一員</h3>
                   <div class="text-center">
                   <!-- <form action="homeActivity.jsp">設返回頁面 -->
-                  <form action="司機資料管理.jsp">
+                  <form action="homeDriverDataManagment.jsp">
                   <button type="submit" >返回</button>
                   </form>
                   </div>                

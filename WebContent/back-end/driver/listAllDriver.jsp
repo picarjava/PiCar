@@ -80,7 +80,7 @@
 <%-- 						       	  <c:if test="${empty driverVO.photo}" var="condition"> --%>
 <%-- 					              <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" width="200" height="100"/> --%>
 <%-- 					              </c:if> --%>
-<%-- <%-- 					              <img  src='<%=request.getContextPath()%>/driver/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/> --%> --%>
+<%-- <%-- 					              <img  src='<%=request.getContextPath()%>/driver/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/> --%> 
 <%-- 					              <c:if test="${not empty driverVO.photo}" var="condition"> --%>
 <%-- 					              <img  src='<%=request.getContextPath()%>/driver.do?driverID=${driverVO.driverID}' width='200' height='100' alt='"這是"+${driverVO.driverID}+"的"  '/> --%>
 <%-- 					              </c:if>  --%>

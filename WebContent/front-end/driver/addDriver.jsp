@@ -1,5 +1,5 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.driver.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
@@ -12,13 +12,13 @@
 
 <body>
 	<!-- 先get 再set -->
+<!-- 	http://localhost:8081/PiCar/front-end/driver/addDriver.jsp -->
 	<%
 // 	印出是否拿到ID////
 // 		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
 MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 DriverService driSrc = new DriverService();
 DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
-session.setAttribute("driverVO",driverVO);
 
 	%>
 
@@ -44,7 +44,7 @@ session.setAttribute("driverVO",driverVO);
 				<div class="section-header">
 					<h3 class="section-title">成為司機(上傳檢附文件)</h3>
 					<div class="text-center">
-						<form action="">
+						<form action="<%=request.getServletContext().getContextPath()%>/front-end/driver/homeDriverDataManagment.jsp">
 							<!-- 以上請寫成為司機的人 action="寫上上一頁的畫面" -->
 							<button type="submit" class="btn btn-outline-success"">返回</button>
 						</form>
@@ -63,7 +63,7 @@ session.setAttribute("driverVO",driverVO);
 							<div class="form-group">
 								<p>會員編號</p>
 								<input type="text" name="memID" value="${memberVO.memID}"
-									class="form-control" disabled="disabled" />
+									class="form-control"  />
 							</div>
 							<div class="form-group">
 								<p>車牌號碼</p>

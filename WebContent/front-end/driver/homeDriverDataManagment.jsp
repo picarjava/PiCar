@@ -10,7 +10,7 @@
 <html lang="en">
 
 <head>
-    <title>司機資料管理</title>
+    <title>homeDriverDataManagment.jsp</title>
     <jsp:include page="/regna-master/head.jsp" />
 </head>
 
@@ -22,6 +22,7 @@
     DriverService driSrc = new DriverService();
     DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
     session.setAttribute("driverVO",driverVO);
+    	DriverVO drixx = (DriverVO)session.getAttribute("driverVO");
 	%>
     <section id="contact">
         <div class="container wow fadeInUp">
@@ -54,16 +55,17 @@
                                 <input type="text" class="form-control" placeholder="DRIVER1" value="${driverVO.driverID}" aria-label="Username" aria-describedby="basic-addon1" readonly>
                             </div>																			
                             <div class="input-group mb-3 ">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="basic-addon1">名字</span>
+                                </div>
+                                <input type="text" class="form-control" placeholder="DRIVER1" value="${memberVO.name}" aria-label="Username" aria-describedby="basic-addon1" readonly>
+                            </div>																			
+                            <div class="input-group mb-3 ">
                                 <div class="input-group-prepend ">
                                     <span class="input-group-text " id="basic-addon1">車牌號碼</span>
                                 </div>
                                 <input type="text" class="form-control" placeholder="RAS-9958" value="${driverVO.plateNum}" aria-label="Username" aria-describedby="basic-addon1" readonly>
                             </div>
-                            <div class="form-group">
-                                <p>評價分數</p>
-                                <input type="text" name="Score" class="form-control" value="${driverVO.score}" placeholder="請輸入車型" />
-                                <div class="card" style="width: 18rem;">
-                                </div>
                                 <div class="form-group">
                                     <p>駕照</p>
                                     <c:set var="licence" value="${driverVO.licence}" />
@@ -138,7 +140,9 @@
                                                 <option value="1">有</option>
                                             </select>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="3" name="sharedCar" value="${driverVO.sharedCar}" aria-label="Username" aria-describedby="basic-addon1" readonly>
+                                        <div class="form-control" aria-label="Username" aria-describedby="basic-addon1"><font color="red">
+											<c:if test="${driverVO.sharedCar == 0}">不接受共乘</c:if>
+						      				<c:if test="${driverVO.sharedCar == 1}">接受共乘</c:if></font></div>	
                                     </div>
                                     <!-- 					<div class="form-group"> -->
                                     <!-- 								<p>願意共乘載客</p> -->
@@ -147,7 +151,9 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">可載寵物</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="3" name="pet" value="${driverVO.pet}" readonly aria-label="Username" aria-describedby="basic-addon1">
+                                        <div class="form-control" aria-label="Username" aria-describedby="basic-addon1"><font color="red">
+                                        <c:if test="${driverVO.pet == 0}">不要寵物</c:if>
+						    			 <c:if test="${driverVO.pet == 1}">寵物我可以</c:if></font></div>	
                                     </div>
                                     <!-- 							<div class="form-group"> -->
                                     <!-- 								<p>可載寵物</p> -->
@@ -160,8 +166,19 @@
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">抽菸</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="3" name="smoke" value="${driverVO.smoke}" readonly aria-label="Username" aria-describedby="basic-addon1">
+                                        <input type="text" class="form-control" placeholder="3" name="smoke" value="${driverVO.smoke}" readonly  aria-label="Username" aria-describedby="basic-addon1">
                                     </div>
+                                    
+						      
+						      <c:if test="${driverVO.pet == 0}">不要寵物</c:if>
+						      <c:if test="${driverVO.pet == 1}">寵物我可以</c:if>
+						      <c:if test="${driverVO.smoke == 0}">不接受抽菸</c:if>
+						      <c:if test="${driverVO.smoke == 1}">接受抽菸</c:if>
+						      <c:if test="${driverVO.babySeat == 0}">不提供嬰兒座椅</c:if>
+						      <c:if test="${driverVO.babySeat == 1}">提供嬰兒座椅</c:if>
+                                    
+                                    
+                                    
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">提供嬰兒座椅</span>

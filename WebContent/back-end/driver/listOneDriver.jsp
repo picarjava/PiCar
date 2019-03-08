@@ -96,10 +96,6 @@
 						      </td>			
 								</div>
 							</div>
-<%-- <%-- 						      <td>${driverVO.criminal}</td> --%> 
-
-<%-- <%-- 						      <td>${driverVO.trafficRecord}</td> --%> 
-
 							<div class="form-group">
 								<p>良民證</p>
 								<div class="card" style="width: 18rem;">
