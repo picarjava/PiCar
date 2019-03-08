@@ -72,7 +72,7 @@ public class DriverServlet extends HttpServlet {
         } // if
     }
     
-    private android.com.driver.model.DriverVO downDriverVO(DriverVO driverVO) {
+    public static android.com.driver.model.DriverVO downDriverVO(DriverVO driverVO) {
         android.com.driver.model.DriverVO vo = new android.com.driver.model.DriverVO();
         vo.setMemID(driverVO.getMemID());
         vo.setDriverID(driverVO.getDriverID());
