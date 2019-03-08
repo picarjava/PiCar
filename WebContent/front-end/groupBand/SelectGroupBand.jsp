@@ -59,9 +59,9 @@
   
   <li>
     <FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"  enctype="multipart/form-data">
-        <input type="radio" name="GROUP_KIND" value="0" checked
+        <input type="radio" name="GROUP_KIND" value="5" checked
 					onclick="groupif(this.value)">揪團
-				<input type="radio" name="GROUP_KIND" value="1"
+				<input type="radio" name="GROUP_KIND" value="6"
 					onclick="groupif(this.value)">長期揪團<br>
         
         <b>團名</b>
@@ -87,6 +87,7 @@
 			</select><br><br>
        
        
+        <input type="hidden" name="action" value="listgroupBand_ByCompositeQuery">
         <input type="hidden" name="action" value="listgroupBand_ByCompositeQuery">
         <input type="submit" value="送出">
     </FORM>

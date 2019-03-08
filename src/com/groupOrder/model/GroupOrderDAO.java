@@ -50,6 +50,10 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String UPDATEmem = 
 				"UPDATE GROUP_ORDER set MEM_ID=? where GORDER_ID = ?";
 
+		private static final String UPDATEmemGROUP_ID__MEM_ID = 
+				"UPDATE GROUP_ORDER set MEM_ID=null where GROUP_ID = ? and MEM_ID=?";
+		
+		
 		private static final String GET_ONE_GROUP_ID_START_TIME = 
 				"SELECT * FROM GROUP_ORDER where GROUP_ID = ?  and START_TIME= ?";
 
@@ -542,6 +546,41 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			}
 		}
 	}
+	
+	public void UPDATEmemGROUP_ID__MEM_ID(String GROUP_ID,String MEM_ID) {
+		// TODO Auto-generated method stub
+		Connection con =null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(true);
+			pstmt = con.prepareStatement(UPDATEmemGROUP_ID__MEM_ID);
+			pstmt.setString(1, GROUP_ID);
+			pstmt.setString(2, MEM_ID);			
+			pstmt.executeUpdate();
+			con.commit();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
 	
 	public GroupOrderVO getOneStntstartTimeMems(String groupid,String memid ) {
 		// TODO Auto-generated method stub

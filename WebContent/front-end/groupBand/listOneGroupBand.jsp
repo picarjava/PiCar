@@ -8,6 +8,7 @@
     GroupBandVO groupBandVO =(GroupBandVO) request.getAttribute("GroupBandVO");
     Object GroupLeader =request.getAttribute("GroupLeader");  
     List<MemberVO> testList =(List)request.getAttribute("testList"); 
+    boolean dropOut =(boolean)request.getAttribute("dropOut");
 %>
 
     
@@ -121,7 +122,6 @@
 <div class="tentcenter" id="gender"><h4 >${MemberVO.name}<img class="mar" src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/${MemberVO.gender}.png"  width="20px"   height="25px" ></h4></div>
 <div class="tentcenter"></div>
 </div>
-
 </c:forEach>
 </div>
 <table>
@@ -187,6 +187,7 @@
 	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
 	<input type="hidden" name="action"	value="delete"></FORM>
 	<%}%>
+<%if(false==dropOut){%>
 <h5>加入揪團</h5>
 <FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
 	<input type="submit" value="加入">
@@ -199,9 +200,19 @@
 	<input type="hidden" name="action"	value="GroupAdd">
 	
 	</FORM>	
-
-
-
+<%}else{%>
+<FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
+	<input type="submit" value="退出">
+	
+	<input type="hidden" name="groupLeader"  value="<%=groupBandVO.getGroupLeader()%>">
+	<input type="hidden" name="groupID"  value="${GroupBandVO.groupID}">
+	<input type="hidden" name="startTime"  value="<%=groupBandVO.getStartTime()%>">
+	<input type="hidden" name="memIDs" value="${memberVO.memID }" /> 
+	<input type="hidden" name="groupKind"  value="<%=groupBandVO.getGroupKind()%>">
+	<input type="hidden" name="action"	value="GroupAdd">
+	<input type="hidden" name="dropOutbutton"	value="dropOutbutton">
+	</FORM>	
+<%}%>
 
 
 
