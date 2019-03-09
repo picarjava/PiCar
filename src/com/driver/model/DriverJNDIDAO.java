@@ -41,6 +41,7 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 	private static final String GET_ONE_BY_MEMID_STMT = "SELECT * FROM DRIVER WHERE MEM_ID=?";
 	private static final String GET_DRIVERID_BY_MEMID_STMT = "SELECT DRIVER_ID FROM DRIVER WHERE MEM_ID=?";
 	private static final String UPDATE_BANNED = "UPDATE DRIVER SET BANNED='1' WHERE DRIVER_ID=?";
+	private static final String UPDATE_PERMITTED ="UPDATE DRIVER SET VERIFIED=? WHERE DRIVER_ID=?";
 	
 	@Override
 	public void insert(DriverVO driverVO) {
@@ -149,7 +150,6 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 		}
 	}
 
-	
 	@Override
 	public void delete(String driverID) {
 
@@ -436,6 +436,46 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 //讀的時候dirtyread 避免 寫一個方法
 	@Override
 	public void updateBanned(String driverID) {
+	}
+
+	@Override
+	public void updatePermitted(DriverVO driverVO) {
+//		UPDATE_PERMITTED		
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_PERMITTED);
+			/* 根據SQL常數，pstmt需要的值 */
+			/* parameterIndex 從1=?開始 */
+			pstmt.setInt(1, driverVO.getVerified());
+			pstmt.setString(2, driverVO.getDriverID());
+			
+			/* 根據SQL常數，用vo.getxxx去set pstmt需要的值 */
+			pstmt.executeUpdate();
+
+		}catch (SQLException se) {
+			se.printStackTrace();
+//			throw new RuntimeException("發生SQL error" + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	
 	}
 
 //	@Override

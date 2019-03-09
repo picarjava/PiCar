@@ -109,6 +109,15 @@ public class DriverService {
 
 	}
 
+	public DriverVO updatePermitted(Integer verified, String driverID) {
+		DriverVO driverVO = new DriverVO();
+		driverVO.setDriverID(driverID);
+		driverVO.setVerified(verified);
+		dao.updatePermitted(driverVO);
+		
+		return driverVO;
+		
+	}
 //	//keep for Struts2
 //	public void updateDriver(DriverVO driverVO) {
 //		dao.update(driverVO);
