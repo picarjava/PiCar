@@ -19,10 +19,18 @@
     <%
 // 		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
     	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+    MemberService xxx = new MemberService();
+    List<MemberVO> yyy =xxx.getAll();
     DriverService driSrc = new DriverService();
     DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
     session.setAttribute("driverVO",driverVO);
     	DriverVO drixx = (DriverVO)session.getAttribute("driverVO");
+    	System.out.println(yyy);
+    	System.out.println(memberVO.getMemID());
+    	System.out.println(memberVO.getPic());////
+    	System.out.println(memberVO.getBirthday());
+    	
+    	
 	%>
     <section id="contact">
         <div class="container wow fadeInUp">
@@ -116,7 +124,7 @@
                                     <%-- 						      <td>${driverVO.photo}</td> --%>
                                     <div class="form-group">
                                         <p>大頭照</p>
-                                        <c:set var="photo" value="${driverVO.photo}" />
+                                        <c:set var="photo" value="${memberVO.pic}" />
                                         <%
 						      byte[] photo = (byte[])pageContext.getAttribute("photo");
 						      String encodeImg5 = null;
