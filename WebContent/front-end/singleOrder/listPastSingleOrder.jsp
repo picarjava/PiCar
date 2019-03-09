@@ -4,7 +4,7 @@
 <%@ page import="com.singleOrder.model.SingleOrderService"%>
 <%@ page import="java.util.List"%>
 <%@ page import="com.singleOrder.model.SingleOrderVO"%>
-
+<%@ page import="com.driverReport.model.DriverReportVO"%>
 <!-- 本頁面待與登入功能串接 此處先指定memID-->
 <%-- <%String memID=(String)session.getAttribute("memID"); %>  --%>
 <%!String memID="M001";%>
@@ -18,6 +18,11 @@
    List<SingleOrderVO> singleOrderlist = service.getAll();
    request.setAttribute("singleOrderlist", singleOrderlist);
 %>
+
+<!-- driver Report  -->
+<%DriverReportVO driverReportVO=(DriverReportVO)request.getAttribute("driverReportVO");%>
+
+
 
 <!DOCTYPE html>
 <html>
@@ -93,8 +98,9 @@
 								  </Form>
 				                  </td>
 								 <td>
-							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
-								    <div class="text-center"><button type="submit" class="btn btn-light">檢舉司機</button>
+							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do" >
+								    <jsp:useBean id="driberReportSvc" class="com.driverReport.model.DriverReportService"/>
+									 <div class="text-center"><button type="submit" class="btn btn-light" id="driberReport">${empty driberReportSvc.getOneByOrderID(singleOrder.orderID).content?"檢舉司機": "已檢舉"}</button>
 								      	<!--  orderID 與 memID 需透過controller傳遞至addGroupOrderDriverReport.jsp -->
 		                				<input type="hidden" name="orderID" value="${singleOrder.orderID}">
 		                				<input type="hidden" name="memID" value="${singleOrder.memID}">
@@ -116,6 +122,16 @@
     <!--==========================
     底部
   ============================-->
+  <!-- 已檢舉按鈕不可按 -->
+  <script>
+//   $("#driberReport").click(function() {
+// 		if(${not empty driberReportSvc.getOneByOrderID(singleOrder.orderID).content}){
+// 			$("#driberReport").css({"disabled":"disabled"});
+// 		}
+	  
+// 	});
+  
+  </script>
     <!--==========================
     測試modal失敗，modal無法用於TABEL中的資料傳遞
   ============================-->

@@ -52,63 +52,6 @@ public class SingleOrderServlet extends HttpServlet{
                     req.setAttribute("singleOrder", serivce.getOneSingleOrder(orderID)); 
             
             }
-          //來自單程檢舉司機
-            else if("insertDriverReport".equals(action)) {
-            	String orderID=req.getParameter("orderID");
-            	String memID=req.getParameter("memID");
-            	Integer state=new Integer(req.getParameter("state"));
-            	String content=req.getParameter("content");
-            	
-            	//設定其他變數初值
-            	String adminID="";
-            	java.sql.Date time =new java.sql.Date(new GregorianCalendar().getTime().getTime()); 
-            	if(orderID==null||orderID.trim().length()==0) {
-            		errorMsgs.add("未取得訂單編號");
-            	}
-            	if(memID==null||memID.trim().length()==0) {
-            		errorMsgs.add("未取得會員編號");
-            	}
-            	if(req.getParameter("state")==null||req.getParameter("state").trim().length()==0) {
-            		errorMsgs.add("未取得檢舉單狀態碼");
-            	}
-            	if(content==null||content.trim().length()==0) {
-            		errorMsgs.add("檢舉內容不得為空");
-            		
-            	}//若有誤傳遞回原頁面
-            	if (!errorMsgs.isEmpty()) {
-            		forwordURL = "/front-end/singleOrder/addSingleOrderDriverReport.jsp";
-                    req.setAttribute("errorMsgs", errorMsgs);
-                  //若無誤傳遞則新增一筆司機檢舉，並送回個人歷史訂單頁面
-            	}else{
-            		DriverReportService driverReportSvc=new DriverReportService();
-            		System.out.println("memID:"+memID+"adminID:"+adminID+"orderID:"+orderID+"content:"+content+"time:"+time+"state:"+state);
-            		driverReportSvc.addDriverReport(memID,adminID,orderID,content,time,state);
-            		System.out.println("測試沒有走到86行");
-            		forwordURL ="/front-end/singleOrder/listPastSingleOrder.jsp";
-            		
-            	}
-            }
-            //來自單程歷史訂單，傳遞orderID 與 memID給addrSingleOrderDriverReport.jsp
-            else if("passID".equals(action)){
-            	String orderID=req.getParameter("orderID");
-            	String memID=req.getParameter("memID");
-            	if(orderID==null||orderID.trim().length()==0) {
-            		errorMsgs.add("未取得訂單編號");
-            	}
-            	if(memID==null||memID.trim().length()==0) {
-            		errorMsgs.add("未取得會員編號");
-            	}
-            	  //若有誤傳遞回原頁面
-            	if (!errorMsgs.isEmpty()) {
-            		forwordURL = "/front-end/singleOrder/listPastSingleOrder.jsp";
-                    req.setAttribute("errorMsgs", errorMsgs);
-                  //若無誤傳遞給檢舉司機頁面
-                }else { 
-                	req.setAttribute("orderID",orderID);
-                	req.setAttribute("memID",memID);
-                	forwordURL = "/front-end/singleOrder/addSingleOrderDriverReport.jsp";
-                }  
-            } 
             //刪除訂單
             else if("DELETE".equals(action)) {
             	forwordURL = "/front-end/singleOrder/listAllfutureTrip.jsp";

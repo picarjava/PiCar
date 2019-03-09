@@ -83,11 +83,13 @@
 							       ${groupOrder.rate==0? "尚未評價": groupOrder.rate}
 							      </td>
 							      <td>
-							      <!-- 此處與評價司機串接 -->
-							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>" >
-								    <div class="text-center"><button type="submit" class="btn btn-light">評價司機</button>
-								      	<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
-		                				<input type="hidden" name="groupOrder" value="${groupOrder.gorderID}">
+								   <Form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do" >
+								    <jsp:useBean id="driberReportSvc" class="com.driverReport.model.DriverReportService"/>
+									 <div class="text-center"><button type="submit" class="btn btn-light" id="driberReport">${empty driberReportSvc.getOneByOrderID(groupOrder.gorderID).content?"檢舉司機": "已檢舉"}</button>
+								      	<!--  orderID 與 memID 需透過controller傳遞至addGroupOrderDriverReport.jsp -->
+		                				<input type="hidden" name="orderID" value="${groupOrder.gorderID}">
+		                				<input type="hidden" name="memID" value="${groupOrder.memID}">
+		                				<input type="hidden" name="action" value="passID_GODR">
 								     </div>
 								  </Form>
 							      </td>
