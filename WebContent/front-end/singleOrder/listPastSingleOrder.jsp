@@ -67,6 +67,7 @@
 							      <th scope="col">總金額	    </th>
 							      <th scope="col">評價分數	</th>
 							      <th scope="col">評價司機	</th>
+							      <th scope="col">檢舉司機	</th>
 							    </tr>
 							  </thead>
 							  <tbody>
@@ -84,14 +85,25 @@
 							       ${singleOrder.rate==0? "尚未評價": singleOrder.rate}
 							      </td>
 							      <td>
-							      <!-- 此處與評價司機串接 -->
 							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>" >
 								    <div class="text-center"><button type="submit" class="btn btn-light">評價司機</button>
-								      	<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
+								      	<!-- 放隱藏的標籤，讓Controller抓到參數進行操作 -->
+		                				<input type="hidden" name="orderID" value="">
+								     </div>
+								  </Form>
+				                  </td>
+								 <td>
+							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
+								    <div class="text-center"><button type="submit" class="btn btn-light">檢舉司機</button>
+								      	<!--  orderID 與 memID 需透過controller傳遞至addGroupOrderDriverReport.jsp -->
 		                				<input type="hidden" name="orderID" value="${singleOrder.orderID}">
+		                				<input type="hidden" name="memID" value="${singleOrder.memID}">
+		                				<input type="hidden" name="action" value="passID">
 								     </div>
 								  </Form>
 							      </td>
+								  <td>			   
+								  </td>
 							    </tr>
 		</c:if>
 		</c:forEach>
@@ -101,35 +113,46 @@
             	</div>  <!-- row-->
             </div> <!-- container -->
         </section>
-         <!--==========================
-		    處理include 未使用到
-		  ============================-->
-        <!-- Button trigger modal 查看個人單筆詳情 開始-->
-		<!-- Modal -->
-		<div class="modal fade" id="listOneGroupOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
-		      <div class="modal-header">
-		        <h5 class="modal-title" id="exampleModalLabel">訂單編號${singleOrder.orderID}</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		          <span aria-hidden="true">&times;</span>
-		        </button>
-		      </div>
-		      <div class="modal-body">
-		      
-		      </div>
-		      <div class="modal-footer">
-		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-		      </div>
-		    </div>
-		  </div>
-		</div>
-       <!-- Button trigger modal 查看個人單筆詳情 結束-->
     <!--==========================
     底部
   ============================-->
-    
-    <jsp:include page="/regna-master/body.jsp" />
+    <!--==========================
+    測試modal失敗，modal無法用於TABEL中的資料傳遞
+  ============================-->
+   <!-- modal按鈕開始-->
+<!-- 								  <button type="button" class="btn btn-primary" -->
+<!-- 												data-toggle="modal" data-target="#exampleModal"> -->
+<!-- 												檢舉司機</button> -->
+								  <!-- modal按鈕結束 -->
+		    <!-- Modal開始 -->
+
+<!-- 	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" -->
+<!-- 		aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
+<!-- 		<div class="modal-dialog" role="document"> -->
+<!-- 			<div class="modal-content"> -->
+<!-- 				<div class="modal-header"> -->
+<!-- 					<h5 class="modal-title" id="exampleModalLabel">Modal title</h5> -->
+<!-- 					<button type="button" class="close" data-dismiss="modal" -->
+<!-- 						aria-label="Close"> -->
+<!-- 						<span aria-hidden="true">&times;</span> -->
+<!-- 					</button> -->
+<!-- 				</div> -->
+<!-- 				<div class="modal-body"> -->
+<%-- 					<jsp:include --%>
+<%-- 						page="/front-end/singleOrder/addSingleOrderDriverReport.jsp" />  --%>
+<!-- 				</div> -->
+<!-- 				<div class="modal-footer"> -->
+<!-- 					<button type="button" class="btn btn-secondary" -->
+<!-- 						data-dismiss="modal">Close</button> -->
+<!-- 					<button type="button" class="btn btn-primary">Save changes</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+	<!-- Modal結束 -->
+
+
+	<jsp:include page="/regna-master/body.jsp" />
 </body>
 
 </html>
