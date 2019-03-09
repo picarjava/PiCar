@@ -124,11 +124,19 @@ req.setCharacterEncoding("UTF-8");
 		
 //		session.getAttribute("list");
 //		MemberVO memberVO = (MemberVO)session1.getAttribute("memberVO");
-//		DriverService driSrc = new DriverService();
-//		DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
-		String memID =(String)(req.getParameter("memID"));//注意:正是從session 抓下來
-		
 //		String memID = "M003" ;//--假資料
+		String memID =(String)(req.getParameter("memID"));//注意:正是從session 抓下來'
+		DriverService drimem = new DriverService();
+		DriverVO  driverd =drimem.getOneDriverBymemID(memID);
+//		DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
+		
+//	    session.setAttribute("driverVO",driverVO);
+		
+		if(driverd != null ) {//只能註冊一次司機
+			String url = "/front-end/driver/homeDriverDataManagment.jsp";//比對是否為司機
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listOneDriver.jsp
+			successView.forward(req, res);
+		}
 //		HttpSession session1 = req.getSession();
 //		String memID = (String)(session1.getAttribute("MEM_ID"));
 		
