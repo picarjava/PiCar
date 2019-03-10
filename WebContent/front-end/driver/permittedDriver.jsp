@@ -14,8 +14,8 @@
       Contact Section
     ============================-->
     <!-- 先取出VO -->
-  <%DriverVO driverVO=(DriverVO)request.getAttribute("driverVO");%>
-  <%MemberVO memberVO=(MemberVO)request.getAttribute("memberVO");%>
+  <%DriverVO driverVO=(DriverVO)request.getAttribute("driverVO");
+  MemberVO memberVO=(MemberVO)request.getAttribute("memberVO");%>
   
     <!-- 錯誤列表 -->
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>

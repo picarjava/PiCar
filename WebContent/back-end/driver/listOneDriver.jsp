@@ -10,7 +10,7 @@
 	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
     DriverService driSrc = new DriverService();
 // 	DriverVO driverVO = (DriverVO) session.getAttribute("driverVO");
-//     DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());	
+    DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());	
     List<DriverVO> list  = driSrc.getAll();	
 // 	System.out.println(driverVO.getPlateNum());
 	%>

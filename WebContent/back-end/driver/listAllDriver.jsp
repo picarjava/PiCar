@@ -87,13 +87,13 @@
 <%-- 					              </c:if>  --%>
 <!-- 						      </td> -->
 						      <td>
-						      <c:if test="${driverVO.banned == 0}">禁止接單</c:if>
-						      <c:if test="${driverVO.banned == 1}">可以接單</c:if>
+						      <c:if test="${driverVO.banned == 0}">可以接單</c:if>
+						      <c:if test="${driverVO.banned == 1}">禁止接單</c:if>
 						      </td>
 						      <td>
 <%-- 						      <c:if test="${driverVO.deadline != null}">${driverVO.deadline}</c:if> --%>
 <%-- 						      <c:if test="${driverVO.deadline == null}">沒有到期日</c:if> --%>
-							<c:out value="${driverVO.deadline}" default="沒有到期日"/>
+								<c:out value="${driverVO.deadline}" default="沒有到期日"/>
 						      </td>
 						      <td>
 						      <c:if test="${driverVO.onlineCar == 0}">不在線</c:if>
@@ -114,8 +114,8 @@
 						      <c:if test="${driverVO.smoke == 1}">接受抽菸</c:if>
 						      </td>
 						      <td>
-						      <c:if test="${driverVO.babySeat == 0}">不提供嬰兒座椅</c:if>
-						      <c:if test="${driverVO.babySeat == 1}">提供嬰兒座椅</c:if>
+						      <c:if test="${driverVO.babySeat == 0}">不提供</c:if>
+						      <c:if test="${driverVO.babySeat == 1}">提供</c:if>
 						      </td>
 <!-- 						       <td> -->
 <%-- 						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/activityToken/ActivTokenServlet" > --%>

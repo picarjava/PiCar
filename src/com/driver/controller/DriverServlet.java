@@ -33,6 +33,7 @@ import javax.servlet.http.Part;
 import com.driver.model.DriverJNDIDAO;
 import com.driver.model.DriverService;
 import com.driver.model.DriverVO;
+import com.member.model.MemberService;
 import com.member.model.MemberVO;
 @MultipartConfig
 //(fileSizeThreshold = 1024 * 1024, maxFileSize = 50 * 1024 * 1024, maxRequestSize = 5 * 50 * 1024 * 1024)
@@ -142,7 +143,6 @@ req.setCharacterEncoding("UTF-8");
 		
 //		String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
 		String plateNum = (String)req.getParameter("plateNum").trim();
-		
 		if (plateNum == null || plateNum.trim().length() == 0) {
 			errorMsgs.add("車牌號碼請勿空白");
 		}
@@ -156,7 +156,6 @@ req.setCharacterEncoding("UTF-8");
 		for (Part part : parts) {
 			part.getName();
 		if (getFileNameFromPart(part) != null && part.getContentType()!=null) {//這裡是已經非空值
-			
 //			long size = part.getSize();//update用到
 //			System.out.println(size);
 			// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
@@ -456,7 +455,7 @@ if("GET_ONE_FOR_BANNED".equals(action)){
 	RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
 	failurePage.forward(req, res);
 }
-}
+
 ////////////////////////////////////////////////////////////////////////////////
 //	給後端update使用()可參考全寫法
 //	DEADLINE DATE
@@ -479,8 +478,8 @@ if("GET_ONE_FOR_BANNED".equals(action)){
 //		// Store this set in the request scope, in case we need to
 //		// send the ErrorPage view.
 //		req.setAttribute("errorMsgs", errorMsgs);
-//		GroupBandService groupBandService = new GroupBandService();
-//		try {
+//		DriverService driverService = new DriverService();
+////		try {
 //			/***********************1.接收請求參數*************************/
 //			DriverVO driverVO = new DriverVO();
 //			String content =" ";	
@@ -493,21 +492,13 @@ if("GET_ONE_FOR_BANNED".equals(action)){
 //			launchTime = new Timestamp(simpleDateFormats.parse(launchTimes).getTime());
 //			
 //			String introduction = req.getParameter("introduction");
-//			String introduc = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{1,20}$";
-//			if (introduction == null || introduction.trim().length() == 0) {
-//				errorMsgs.add("簡介: 請勿空白");
-//			} else if(!introduction.trim().matches(introduc)) { //以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("簡介: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-//            }
-//			Integer groupStatus =1;
+//
+//			Integer sharedCar = new Integer(req.getParameter("sharedCar"));
+//			Integer pet = new Integer(req.getParameter("pet"));
+//			Integer smoke = new Integer(req.getParameter("smoke"));
+//			Integer babySeat =new Integer(req.getParameter("babySeat"));
 //			
 //			String groupName =req.getParameter("groupName");
-//			String groupN = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
-//			if (groupName == null || groupName.trim().length() == 0) {
-//				errorMsgs.add("團名: 請勿空白");
-//			} else if(!groupName.trim().matches(groupN)) { //以下練習正則(規)表示式(regular-expression)
-//				errorMsgs.add("團名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-//            }
 //			if("1".equals(req.getParameter("privates"))) {
 //			privates = new Integer(req.getParameter("privates").trim());	
 //			}else {
@@ -525,6 +516,118 @@ if("GET_ONE_FOR_BANNED".equals(action)){
 //			} else if(!note.trim().matches(notes)) { //以下練習正則(規)表示式(regular-expression)
 //				errorMsgs.add("備註: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 //            }
+//		}
+		
+//			String memID = new String(req.getParameter("memID").trim());
+//
+//			String name = req.getParameter("name");
+//			String nameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+//			if (name == null || name.trim().length() == 0) {
+//				errorMsgs.add("員工姓名~請勿空白");
+//			} else if (!name.trim().matches(nameReg)) {
+//				errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \"  , 且長度必需在2到20之間");
+//			}
+//
+//			Integer token = null;
+//			try {
+////				MemberDAO memberDAO = new MemberDAO();
+//
+////				token = memberDAO.getSumAmount(memID);
+//				token = new Integer(req.getParameter("token").trim());
+////				token = token + memberDAO.getSumAmount(memID);
+//			} catch (NumberFormatException e) {
+//				token = 0;
+//				errorMsgs.add("代幣請填數字.");
+//			}
+//
+//			Integer activityToken = null;
+//			try {
+//				activityToken = new Integer(req.getParameter("activityToken").trim());
+//			} catch (NumberFormatException e) {
+//				activityToken = 100;
+//				errorMsgs.add("活動代幣請填數字.");
+//			}
+//
+//			java.sql.Date birthday = null;
+//			try {
+//				birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
+//			} catch (IllegalArgumentException e) {
+//				birthday = new java.sql.Date(System.currentTimeMillis());
+//				errorMsgs.add("請輸入日期!");
+//			}
+//
+//			Integer pet = new Integer(req.getParameter("pet"));
+//			Integer smoke = new Integer(req.getParameter("smoke"));
+//			Integer gender = new Integer(req.getParameter("gender"));
+//			Integer verified = new Integer(req.getParameter("verified"));
+//			Integer babySeat = new Integer(req.getParameter("babySeat"));
+//
+//			MemberService memberSvc1 = new MemberService();
+//			MemberVO memberVO1 = memberSvc1.getOneMember(memID);
+//			byte[] picnow = memberVO1.getPic();
+//
+//			byte[] pic = null;
+//
+//			Part part = req.getPart("pic");
+//			long size = part.getSize();
+//			InputStream in = part.getInputStream();
+//			pic = new byte[in.available()];
+//
+//			if (size != 0) {
+//				in.read(pic);
+////				in.close();
+//			} else if (size == 0 && picnow == null) {
+//				errorMsgs.add("請輸入照片");
+//			} else if (picnow != null && size == 0) {
+//				pic = picnow;
+//			}
+//			in.close();
+//
+//			MemberVO memberVO = new MemberVO();
+//			memberVO.setMemID(memID);
+//			memberVO.setName(name);
+//			memberVO.setEmail(email);
+//			memberVO.setPassword(password);
+//			memberVO.setPhone(phone);
+//			memberVO.setCreditcard(creditcard);
+//			memberVO.setPet(pet);
+//			memberVO.setSmoke(smoke);
+//			memberVO.setGender(gender);
+//			memberVO.setToken(token);
+//			memberVO.setActivityToken(activityToken);
+//			memberVO.setBirthday(birthday);
+//			memberVO.setVerified(verified);
+//			memberVO.setBabySeat(babySeat);
+//			memberVO.setPic(pic);
+//
+//			if (!errorMsgs.isEmpty()) {
+//
+//				req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
+//				RequestDispatcher failureView = req
+//						.getRequestDispatcher("/front-end/member/update_member_input.jsp");
+//				failureView.forward(req, res);
+//				return; // 程式中斷
+//			}
+//
+//			// 開始修改資料
+//			MemberService memberSvc = new MemberService();
+//			memberVO = memberSvc.updateMember(memID, name, email, password, phone, creditcard, pet, smoke, gender,
+//					token, activityToken, birthday, verified, babySeat, pic);
+//			req.setAttribute("memberVO", memberVO);
+//
+//			RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMember.jsp"); // 新增成功後轉交listAllmember_byDAO
+//			successView.forward(req, res);
+//
+//		} catch (Exception e) {
+//			errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
+//			RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/update_member_input.jsp");
+//			successView.forward(req, res);
+//
+//		}
+//	
+		
+		
+	}
 	/////////////////喜好設定 (司機)
 //	String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
 //	Integer sharedCar = 0;
