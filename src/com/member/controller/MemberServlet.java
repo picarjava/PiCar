@@ -41,15 +41,6 @@ public class MemberServlet extends HttpServlet {
 			out.write(pic);
 		}
 
-//		可能可以用，要測試，看GetURLConnectionContent_Ver6_getPicAsStream
-//		ByteArrayOutputStream out = new ByteArrayOutputStream(); // 或FileOutputStream out = new FileOutputStream("myPic.jpg");
-//
-//		byte b[] = new byte[4096];
-//		int bytesRead;
-//		while ((bytesRead = in.read(b)) != -1) {
-//			out.write(b, 0, bytesRead);
-//		}
-
 		doPost(req, res);
 	}
 
@@ -442,13 +433,21 @@ public class MemberServlet extends HttpServlet {
 		}
 
 		if ("verified".equals(action)) {
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+
 			String memID = new String(req.getParameter("memID").trim());
 			MemberService memberSvc = new MemberService();
 			MemberVO memberVO = memberSvc.getOneMember(memID);
 			if (memberVO.getVerified() == 0) {
 
 				memberSvc.updateVerified(memID);
+
 			} else {
+				errorMsgs.add("你已驗證，等首頁出來倒回首頁");
+				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/member/pressToVerified.jsp");
+				failureView.forward(req, res);
+				return; // 程式中斷
 			}
 
 		}

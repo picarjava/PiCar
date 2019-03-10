@@ -37,7 +37,9 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 //	private static final String GET_ONE_STMT = "SELECT MEM_ID, DRIVER_ID, PLATE_NUM, LICENCE, CRIMINAL, TRAFFIC_RECORD, ID_NUM, PHOTO, VERIFIED, BANNED, DEADLINE, ONLINE_CAR, SCORE, CAR_TYPE, SHARED_CAR, PET, SMOKE, BABY_SEAT FROM DRIVER WHERE DRIVER_ID=?";
 	private static final String GET_ONE_STMT = "SELECT * FROM DRIVER WHERE DRIVER_ID=?";
 	private static final String DELETE = "DELETE FROM DRIVER where DRIVER_IDs  = ?";
-	private static final String UPDATE = "UPDATE DRIVER SET PLATE_NUM=?, LICENCE=?, CRIMINAL=?, TRAFFIC_RECORD=?, PHOTO=?, VERIFIED=?, BANNED=?, DEADLINE=?, ONLINE_CAR=?, SCORE=?, CAR_TYPE=?, SHARED_CAR=?, PET=?, SMOKE=?, BABY_SEAT=? where DRIVER_ID=?";
+	private static final String UPDATE = "UPDATE DRIVER SET PLATE_NUM=?, LICENCE=?, CRIMINAL=?, TRAFFIC_RECORD=?, PHOTO=?, "
+										+ "VERIFIED=?, BANNED=?, DEADLINE=?, ONLINE_CAR=?, "
+										+ "SCORE=?, CAR_TYPE=?, SHARED_CAR=?, PET=?, SMOKE=?, BABY_SEAT=? where DRIVER_ID=?";
 	private static final String GET_ONE_BY_MEMID_STMT = "SELECT * FROM DRIVER WHERE MEM_ID=?";
 	private static final String GET_DRIVERID_BY_MEMID_STMT = "SELECT DRIVER_ID FROM DRIVER WHERE MEM_ID=?";
 	private static final String UPDATE_BANNED = "UPDATE DRIVER SET BANNED='1' WHERE DRIVER_ID=?";
@@ -313,7 +315,54 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 
 	@Override
 	public void updatedri(DriverVO driverVO) {
-		
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE);
+			/* 根據SQL常數，用vo.getxxx去set pstmt需要的值 */
+
+
+			pstmt.setString(1, driverVO.getPlateNum());
+			pstmt.setBytes(2, driverVO.getLicence());
+			pstmt.setBytes(3, driverVO.getCriminal());
+			pstmt.setBytes(4, driverVO.getTrafficRecord());
+			pstmt.setBytes(5, driverVO.getPhoto());
+			pstmt.setInt(6, driverVO.getVerified());
+			pstmt.setInt(7, driverVO.getBanned());
+			pstmt.setDate(8, driverVO.getDeadline());
+			pstmt.setInt(9, driverVO.getOnlineCar());
+			pstmt.setInt(10, driverVO.getScore());
+			pstmt.setString(11, driverVO.getCarType());
+			pstmt.setInt(12, driverVO.getSharedCar());
+			pstmt.setInt(13, driverVO.getPet());
+			pstmt.setInt(14, driverVO.getSmoke());
+			pstmt.setInt(15, driverVO.getBabySeat());
+			pstmt.setString(16, driverVO.getDriverID());
+
+			pstmt.executeUpdate();
+
+		}catch (SQLException se) {
+			se.printStackTrace();
+//			throw new RuntimeException("發生SQL error" + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
 	}
 	
 	public DriverVO findByMemID(String memID) {

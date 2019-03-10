@@ -46,38 +46,39 @@ public class LoginHandler extends HttpServlet {
 		String account = req.getParameter("account").trim();
 		String password = req.getParameter("password").trim();
 
-		MemberService memberSvc = new MemberService();
-		MemberVO memberVO = memberSvc.getOneMemberByPass(account, password);
-		if (memberVO == null) {
-			out.println("<HTML><HEAD><TITLE>登入畫面</TITLE></HEAD>");
-			out.println("<BODY>你的帳號，密碼無效<BR>");
-			out.println("<BODY>三秒後將自動跳轉回登入畫面<BR>");
+		HttpSession session = req.getSession();
+		MemberVO memebrVO1 = (MemberVO) session.getAttribute("memberVO");
+		if (memebrVO1 == null) {
+			MemberService memberSvc = new MemberService();
+			MemberVO memberVO = memberSvc.getOneMemberByPass(account, password);
+			if (memberVO == null) {
+				out.println("<HTML><HEAD><TITLE>登入畫面</TITLE></HEAD>");
+				out.println("<BODY>你的帳號，密碼無效<BR>");
+				out.println("<BODY>三秒後將自動跳轉回登入畫面<BR>");
 
-			// 加入計時器自動跳轉
-			res.setHeader("Refresh", "7; URL=" + req.getContextPath() + "/front-end/login/login.html");
-			out.println("請按此重新登入<a href=" + req.getContextPath() + "/front-end/login/login.html> 重新登入 </a>"); // 密碼錯誤的時候要去的地方
-			out.println("</BODY></HTML>");
+				// 加入計時器自動跳轉
+				res.setHeader("Refresh", "5; URL=" + req.getContextPath() + "/front-end/login/login.html");
+				out.println("請按此重新登入<a href=" + req.getContextPath() + "/front-end/login/login.html> 重新登入 </a>"); // 密碼錯誤的時候要去的地方
+				out.println("</BODY></HTML>");
 
-		} else {
-			HttpSession session = req.getSession();
+			} else {
+//			HttpSession session = req.getSession();
 //			session.setAttribute("account", account);
-			session.setAttribute("memberVO", memberVO);
+				session.setAttribute("memberVO", memberVO);
 
-			try {                                            
-				String location = (String) session.getAttribute("location");
-				System.out.println(location);
-				if (location != null) {
+				try {
+					String location = (String) session.getAttribute("location");
+					if (location != null) {
 //					session.removeAttribute("location"); // 從其他頁面登入成功時候，要回到其他頁面
-					System.out.println("123");
-					res.sendRedirect(location);
-					return;
+						res.sendRedirect(location);
+						return;
+					}
+				} catch (Exception ignored) {
 				}
-			} catch (Exception ignored) {
+				res.sendRedirect(req.getContextPath() + "/front-end/member/listOneMember.jsp"); // *工作2: 看看有無來源網頁
+																								// (-->如有來源網頁:則重導至來源網頁)
 			}
-			res.sendRedirect(req.getContextPath() + "/front-end/member/listOneMember.jsp"); // *工作2: 看看有無來源網頁
-																							// (-->如有來源網頁:則重導至來源網頁)
 		}
-
 	}
 
 }
