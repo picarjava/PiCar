@@ -64,8 +64,8 @@
 							      <th scope="col">乘車地點	</th>
 							      <th scope="col">乘車目的地	</th>
 							      <th scope="col">總金額	    </th>
-							      <th scope="col">評價分數	</th>
 							      <th scope="col">評價司機	</th>
+							      <th scope="col">檢舉司機	</th>
 							    </tr>
 							  </thead>
 							  <tbody>
@@ -79,9 +79,22 @@
 							      <td>${groupBandSvc.getOneGroupBand(groupOrder.groupID).startLoc}</td>
 							      <td>${groupBandSvc.getOneGroupBand(groupOrder.groupID).endLoc}</td>
 							      <td>${groupOrder.totalAmout}</td>
+							      <c:if test="${groupOrder.rate!=0}">
 							      <td>
-							       ${groupOrder.rate==0? "尚未評價": groupOrder.rate}
+							          您的評價分數:${groupOrder.rate}
 							      </td>
+							      </c:if>
+							      <c:if test="${groupOrder.rate==0}">
+							      <td>
+							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/GroupOrder" >
+								    <div class="text-center"><button type="submit" class="btn btn-light">尚未評價</button>
+<!-- 								      	放隱藏的標籤，讓Controller抓到參數進行操作 -->
+		                				<input type="hidden" name="orderID" value="${groupOrder.gorderID}">
+		                				<input type="hidden" name="action" value="passID">
+								     </div>
+								  </Form>
+				                  </td>
+							      </c:if>
 							      <td>
 								   <Form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do" >
 								    <jsp:useBean id="driberReportSvc" class="com.driverReport.model.DriverReportService"/>

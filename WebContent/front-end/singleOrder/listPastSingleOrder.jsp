@@ -70,7 +70,6 @@
 							      <th scope="col">乘車地點	</th>
 							      <th scope="col">乘車目的地	</th>
 							      <th scope="col">總金額	    </th>
-							      <th scope="col">評價分數	</th>
 							      <th scope="col">評價司機	</th>
 							      <th scope="col">檢舉司機	</th>
 							    </tr>
@@ -86,17 +85,23 @@
 							      <td>${singleOrder.startLoc}</td>
 							      <td>${singleOrder.endLoc}</td>
 							      <td>${singleOrder.totalAmount}</td>
+							      
+							       <c:if test="${singleOrder.rate!=0}">
+							       <td>
+							       您的評價:${singleOrder.rate} 分
+							       </td>
+							       </c:if>
+							      <c:if test="${singleOrder.rate==0}">
 							      <td>
-							       ${singleOrder.rate==0? "尚未評價": singleOrder.rate}
-							      </td>
-							      <td>
-							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>" >
-								    <div class="text-center"><button type="submit" class="btn btn-light">評價司機</button>
-								      	<!-- 放隱藏的標籤，讓Controller抓到參數進行操作 -->
-		                				<input type="hidden" name="orderID" value="">
+							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
+								    <div class="text-center"><button type="submit" class="btn btn-light">尚未評價</button>
+<!-- 								      	放隱藏的標籤，讓Controller抓到參數進行操作 -->
+		                				<input type="hidden" name="orderID" value="${singleOrder.orderID}">
+		                				<input type="hidden" name="action" value="passID">
 								     </div>
 								  </Form>
 				                  </td>
+				                  </c:if>
 								 <td>
 							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do" >
 								    <jsp:useBean id="driberReportSvc" class="com.driverReport.model.DriverReportService"/>
@@ -122,6 +127,35 @@
     <!--==========================
     底部
   ============================-->
+    <!-- modal 開始-->
+								     <!-- Button trigger modal -->
+									<input type="hidden" name="orderID" value="">
+									<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+									  評價司機
+									</button>
+									<!-- Modal -->
+									<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									  <div class="modal-dialog" role="document">
+									    <div class="modal-content">
+									      <div class="modal-header">
+									        <h5 class="modal-title" id="exampleModalLabel">訂單編號:${singleOrder.orderID} 的評價</h5>
+									        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									          <span aria-hidden="true">&times;</span>
+									        </button>
+									      </div>
+									      <div class="modal-body">
+									        <jsp:include page="/front-end/singleOrder/rating.jsp"/>
+									      </div>
+									      <div class="modal-footer">
+									        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+<!-- 									        <button type="button" class="btn btn-primary">Save changes</button> -->
+									      </div>
+									    </div>
+									  </div>
+									</div>
+								     <!-- modal結束 -->
+  
+  
   <!-- 已檢舉按鈕不可按 -->
   <script>
 //   $("#driberReport").click(function() {

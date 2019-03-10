@@ -34,7 +34,7 @@ String memID=(String)request.getAttribute("memID");
             <div class="section-header">
             <h3 class="section-title">檢舉司機單</h3>
             </div>
-            <form action='<%=request.getContextPath()%>/front-end/singleOrder/${orderID.substring(0,1) eq "S"?"listPastSingleOrder.jsp":"listPastGroupOrder.jsp"}'  >
+            <form action='<%=request.getContextPath()%>/front-end${orderID.substring(0,1) eq "S"?"/singleOrder/listPastSingleOrder.jsp":"/groupOrder/listPastGroupOrder.jsp"}'  >
 					 <div class="text-center"><button type="submit" class="btn btn-outline-success">返回</button></div>
 			</form>
 			<Form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do">

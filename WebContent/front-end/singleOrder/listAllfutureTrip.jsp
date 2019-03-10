@@ -158,7 +158,7 @@
 	</c:forEach>
  						</tbody>
 						</table>
-						<Form ACTION="<%=request.getContextPath()%>/front-end/singleOrder/listPastGroupOrder.jsp">
+						<Form ACTION="<%=request.getContextPath()%>/front-end/groupOrder/listPastGroupOrder.jsp">
 						<button type="submit" class="btn btn-secondary btn-lg btn-block">查看揪團歷史紀錄</button>
 						</Form>
 						</div>

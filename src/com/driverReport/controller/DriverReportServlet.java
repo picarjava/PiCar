@@ -55,7 +55,7 @@ public class DriverReportServlet extends HttpServlet {
         			driverReportSvc.addDriverReport(memID,adminID,orderID,content,time,state);
 	     		System.out.println(orderID.substring(0,1));
         			if(orderID.substring(0,1).equals("G")) {
-	     			forwordURL ="/front-end/singleOrder/listPastGroupOrder.jsp";
+	     			forwordURL ="/front-end/groupOrder/listPastGroupOrder.jsp";
 	     		}else {
 	     			forwordURL ="/front-end/singleOrder/listPastSingleOrder.jsp";
 	     		}
@@ -80,7 +80,7 @@ public class DriverReportServlet extends HttpServlet {
         	  //若有誤傳遞回原頁面
         	if (!errorMsgs.isEmpty()) {
         		if("passID_GODR".equals(action)) {
-        		 forwordURL = "/front-end/driverReport/listPastGroupOrder.jsp";
+        		 forwordURL = "/front-end/groupOrder/listPastGroupOrder.jsp";
         		}
                 req.setAttribute("errorMsgs", errorMsgs);
               //若無誤傳遞給檢舉司機頁面
