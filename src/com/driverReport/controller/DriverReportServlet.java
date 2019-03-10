@@ -1,6 +1,7 @@
 package com.driverReport.controller;
 
 import java.io.*;
+import java.sql.SQLException;
 import java.util.*;
 
 import javax.servlet.*;
@@ -23,6 +24,76 @@ public class DriverReportServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		String action = req.getParameter("action");
 			
+		 //來自addDriverReport.jsp 新增檢舉司機單
+         if("insertDriverReport".equals(action)) {
+        	List<String> errorMsgs = new LinkedList<String>();
+         	String forwordURL = "/front-end/driverReport/addDriverReport.jsp";
+        	String orderID=req.getParameter("orderID");
+        	String memID=req.getParameter("memID");
+        	Integer state=new Integer(req.getParameter("state"));
+        	String content=req.getParameter("content");
+        	
+        	//設定其他變數初值
+        	String adminID="";
+        	java.sql.Date time =new java.sql.Date(new GregorianCalendar().getTime().getTime()); 
+        	if(orderID==null||orderID.trim().length()==0) {
+        		errorMsgs.add("未取得訂單編號");
+        	}
+        	if(req.getParameter("state")==null||req.getParameter("state").trim().length()==0) {
+        		errorMsgs.add("未取得檢舉單狀態碼");
+        	}
+        	if(content==null||content.trim().length()==0) {
+        		errorMsgs.add("檢舉內容不得為空");
+        		
+        	}//若有誤傳遞回原頁面
+        	if (!errorMsgs.isEmpty()) {
+                req.setAttribute("errorMsgs", errorMsgs);
+              //若無誤傳遞則新增一筆司機檢舉，並送回個人歷史訂單頁面
+        	}else{
+        		DriverReportService driverReportSvc=new DriverReportService();
+        		System.out.println("memID:"+memID+"adminID:"+adminID+"orderID:"+orderID+"content:"+content+"time:"+time+"state:"+state);
+        			driverReportSvc.addDriverReport(memID,adminID,orderID,content,time,state);
+	     		System.out.println(orderID.substring(0,1));
+        			if(orderID.substring(0,1).equals("G")) {
+	     			forwordURL ="/front-end/groupOrder/listPastGroupOrder.jsp";
+	     		}else {
+	     			forwordURL ="/front-end/singleOrder/listPastSingleOrder.jsp";
+	     		}
+        	}
+        	RequestDispatcher failureView = req.getRequestDispatcher(forwordURL);
+			failureView.forward(req, res);
+        }
+		
+		//小編新增檢舉
+		//來自單程歷史訂單listPastSingleOrder或 單程歷史訂單揪團歷史訂單listPastGroupOrder.jsp ，傳遞orderID 與 memID給addDriverReport.jsp
+         if("passID".equals(action)||"passID_GODR".equals(action)){
+        	List<String> errorMsgs = new LinkedList<String>();
+        	String forwordURL = "/front-end/driverReport/listPastSingleOrder.jsp";
+        	String orderID=req.getParameter("orderID");
+        	String memID=req.getParameter("memID");
+        	if(orderID==null||orderID.trim().length()==0) {
+        		errorMsgs.add("未取得訂單編號");
+        	}
+        	if(memID==null||memID.trim().length()==0) {
+        		errorMsgs.add("未取得會員編號");
+        	}
+        	  //若有誤傳遞回原頁面
+        	if (!errorMsgs.isEmpty()) {
+        		if("passID_GODR".equals(action)) {
+        		 forwordURL = "/front-end/groupOrder/listPastGroupOrder.jsp";
+        		}
+                req.setAttribute("errorMsgs", errorMsgs);
+              //若無誤傳遞給檢舉司機頁面
+            }else { 
+            	req.setAttribute("orderID",orderID);
+            	req.setAttribute("memID",memID);
+            	forwordURL = "/front-end/driverReport/addDriverReport.jsp";
+            }  
+        	RequestDispatcher failureView = req.getRequestDispatcher(forwordURL);
+			failureView.forward(req, res);
+        } 
+		
+		
 		if("getOne_For_Display".equals(action)) { //來自select_page.jsp的請求
 			
 			List<String> errorMsgs = new LinkedList<String>();

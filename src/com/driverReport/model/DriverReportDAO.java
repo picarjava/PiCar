@@ -31,7 +31,63 @@ public class DriverReportDAO implements DriverReportDAO_interface{
 		"DELETE FROM DRIVER_REPORT WHERE DREPORT_ID = ?";
 	private static final String UPDATE =
 		"UPDATE DRIVER_REPORT SET MEM_ID=?, ADMIN_ID=?, ORDER_ID=?, CONTENT=?, TIME=?, STATE=? WHERE DREPORT_ID=?";
-
+    //小編新增 GET_ONE_BY_ORDER_ID
+	private static final String GET_ONE_BY_ORDER_ID =
+			"SELECT DREPORT_ID, MEM_ID, ADMIN_ID, ORDER_ID,CONTENT, TIME, STATE FROM DRIVER_REPORT WHERE ORDER_ID = ?";
+	//小編新增  findByOrderID方法
+		@Override
+		public DriverReportVO findByOrderID(String orderID){
+			
+			DriverReportVO driverReportVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_ONE_BY_ORDER_ID);
+				
+				pstmt.setString(1, orderID);
+				
+				rs = pstmt.executeQuery();
+				
+				while(rs.next()) {
+					driverReportVO = new DriverReportVO();
+					driverReportVO.setDreportID(rs.getString("dreport_Id"));
+					driverReportVO.setMemID(rs.getString("mem_Id"));
+					driverReportVO.setAdminID(rs.getString("admin_Id"));
+					driverReportVO.setOrderID(rs.getString("order_Id"));
+					driverReportVO.setContent(rs.getString("content"));
+					driverReportVO.setTime(rs.getDate("time"));
+					driverReportVO.setState(rs.getInt("state"));
+				}
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured."+ se.getMessage());
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			return driverReportVO;
+		}
 	@Override
 	public void insert(DriverReportVO driverReportVO) {
 		

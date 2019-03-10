@@ -17,7 +17,9 @@
 <body>
     <!--=====     司機listALL========-->
    <!-- getAll再setAttribute存進pageContext 給forEach抓 -->
-    <% DriverService driverSvc=new DriverService();%>
+    <%
+    MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+    DriverService driverSvc=new DriverService();%>
     <%List<DriverVO> list=driverSvc.getAll();%>
     <%request.setAttribute("list", list); %>
     <%if(list!=null&&(list.size()>0)){ %>
@@ -65,10 +67,9 @@
 	<c:forEach var="driverVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >			  
 					 		<tr>	 
 						      <th scope="row">
-						      <c:if test="${driverVO.verified == 0}">未審核</c:if>
+						      <c:if test="${driverVO.verified == 0}"><a href='<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp' data-role='button'>未審核</a></c:if>
 						      <c:if test="${driverVO.verified == 1}">審核通過</c:if>
 						      <c:if test="${driverVO.verified == 2}">未通過</c:if>
-						      <button id="permit" type="submit" action="/bannedDriver.jsp">驗證按鈕</button>
 						      </th>
 						      <td>${driverVO.memID}</td>
 						      <td>${driverVO.driverID}</td>
@@ -80,7 +81,7 @@
 <%-- 						       	  <c:if test="${empty driverVO.photo}" var="condition"> --%>
 <%-- 					              <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" width="200" height="100"/> --%>
 <%-- 					              </c:if> --%>
-<%-- <%-- 					              <img  src='<%=request.getContextPath()%>/driver/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/> --%> --%>
+<%-- <%-- 					              <img  src='<%=request.getContextPath()%>/driver/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/> --%> 
 <%-- 					              <c:if test="${not empty driverVO.photo}" var="condition"> --%>
 <%-- 					              <img  src='<%=request.getContextPath()%>/driver.do?driverID=${driverVO.driverID}' width='200' height='100' alt='"這是"+${driverVO.driverID}+"的"  '/> --%>
 <%-- 					              </c:if>  --%>
@@ -126,7 +127,7 @@
 <!-- 							  </Form> -->
 <!-- 						      </td> -->
 						      <td>
-						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/activity/Activ_servlet.html" >
+						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/driver.do" >
 							    <div class="text-center"><button type="submit" class="btn btn-light">修改</button>
 							      	<!-- /*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ -->
 	                				<input type="hidden" name="action" value="GET_ONE_FOR_CHECK">

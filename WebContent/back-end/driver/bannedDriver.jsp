@@ -15,12 +15,6 @@
 <%
 	DriverVO driverVO =  (DriverVO)request.getAttribute("driverVO");
 %>
-<!-- 	<script> -->
-// 	$(document).ready(function() {
-// 		 $('#sub').submit();
-// 	}); 
-<!-- 	</script> -->
-	
 <form method="post" id="sub" action="<%=request.getServletContext().getContextPath()%>/back-end/driver/driver.do" >
 
 <input type="hidden" name="action" value="GET_ONE_FOR_BANNED">

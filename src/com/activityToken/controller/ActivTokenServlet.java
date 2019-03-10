@@ -139,10 +139,10 @@ public class ActivTokenServlet extends HttpServlet {
 			 //同時將總額sum存進會員表格中
 			 MemberService  memberSvc=new MemberService();
 			 MemberVO memberVO =memberSvc.getOneMember(memID);
-			 memberVO.setActivityToken(sum);
-			 memberSvc.updateMember(memID, memberVO.getName(), memberVO.getEmail(), memberVO.getPassword(), memberVO.getPhone(),
-					 memberVO.getCreditcard(), memberVO.getPet(), memberVO.getSmoke(), memberVO.getGender(), memberVO.getToken(), memberVO.getActivityToken(),
-					 memberVO.getBirthday(), memberVO.getVerified(), memberVO.getBabySeat());
+//		尚未處理交易問題	 memberVO.setActivityToken(sum);
+//			 memberSvc.updateMember(memID, memberVO.getName(), memberVO.getEmail(), memberVO.getPassword(), memberVO.getPhone(),
+//					 memberVO.getCreditcard(), memberVO.getPet(), memberVO.getSmoke(), memberVO.getGender(), memberVO.getToken(), memberVO.getActivityToken(),
+//					 memberVO.getBirthday(), memberVO.getVerified(), memberVO.getBabySeat());
 			/**************step3.開始新增並listOnesAll完成，轉交ListAll頁面*****************/
 			String url="/front-end/activityToken/listOnesAllActivityToken.jsp";
 			RequestDispatcher successPage =req.getRequestDispatcher(url);

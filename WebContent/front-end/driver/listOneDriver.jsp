@@ -3,6 +3,7 @@
 <%@ page import="com.driver.model.*" %>
 <%@ page import="com.member.model.*" %>
 <%@ page import="java.util.*" %>
+<%@ page import="javax.servlet.http.*"%>
 <html>
 <head>
   <title>司機資料管理</title>
@@ -16,8 +17,22 @@
       Contact Section
     ============================-->
     <!-- 先取出VO -->
-  <%DriverVO driverVO=(DriverVO)request.getAttribute("driverVO");%>
-  <%MemberVO memberVO=(MemberVO)request.getAttribute("memberVO");%>
+    
+<!--       DriverVO driverVO=(DriverVO)request.getAttribute("driverVO"); -->
+<!-- DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID()); -->
+    
+  <%
+  
+MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+DriverService driSrc = new DriverService();
+DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
+System.out.print(driverVO);
+DriverVO xxx  = driSrc.getfindDriverByMemID(memberVO.getMemID());
+session.setAttribute("xxx", xxx);
+
+  
+  %>
+  
     <!-- 錯誤列表 -->
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
@@ -34,7 +49,7 @@
                   <h3 class="section-title">司機個人資料</h3>
                   <div class="text-center">
                   <!-- <form action="homeActivity.jsp">設返回頁面 -->
-                  <form action="司機資料管理.jsp">
+                  <form action="homeDriverDataManagment.jsp">
                   <button type="submit" >返回</button>
                   </form>
                   </div>                
@@ -52,6 +67,9 @@
                       <p>會員編號</p> 
                      <input type="text" name="memID"  readonly  value="${driverVO.memID}" class="form-control"   />
                     </div>
+                    <% 
+                    System.out.println(xxx);
+                    %>
                      <div class="form-group">
                       <p>司機編號</p> 
                      <input type="text" name="driverID"  readonly  value="${driverVO.driverID}" class="form-control"   />
@@ -67,7 +85,7 @@
                       <input type="file" class="form-control" name="licence" value="${driverVO.licence}" placeholder="請輸入駕照"  /> 
                        <div class="card" style="width: 18rem;">
 <%--                           <img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=1" width="300" height="150" class="card-img-top" alt="..." > --%>
-                          <img src="driver.do?driverID=D003&pic=1" width="300" height="150" class="card-img-top" alt="..." >
+                          <img src="driver.do?driverID=${driverVO.driverID}&pic=1" width="300" height="150" class="card-img-top" alt="..." >
                         </div>      
                    </div>
                     <div class="form-group">
@@ -107,35 +125,50 @@
                     </div>
                     <div class="form-group">
                        <p>評價分數</p>
-                      <input type="text" name="Score" class="form-control" value="${driverVO.carType}"   placeholder="請輸入車型" />
+                      <input type="text" name="Score" class="form-control" value="${driverVO.score}"  disabled="disabled"/>
                        <div class="card" style="width: 18rem;">
                         </div>
                     </div>
                     <div class="form-group">
                        <p>車型</p>
-                      <input type="text" name="carType" class="form-control" value="${driverVO.carType}"   placeholder="請輸入車型" />
+                      <input type="text" name="carType" class="form-control" value="${driverVO.carType}"  disabled="disabled" />
                        <div class="card" style="width: 18rem;">
                         </div>
                     </div>
                             <div class="form-group">
                                 <p>願意共乘載客</p>
-                                <input type="text" name="sharedCar"  readonly  value="${driverVO.sharedCar}" class="form-control"   />
+                                <div class="form-control" style="width: 18rem;">
+                                <c:if test="${driverVO.sharedCar == 0}">不接受共享</c:if>
+						      	<c:if test="${driverVO.sharedCar == 1}">接受共享</c:if>
+						      	</div>
                            </div>
 
                             <div class="form-group">
                                 <p>可載寵物</p>
-                                <input type="text" name="pet"  readonly  value="${driverVO.pet}" class="form-control"   />
+                                <div class="form-control" style="width: 18rem;">
+                                <c:if test="${driverVO.pet == 0}">不要寵物</c:if>
+						      	<c:if test="${driverVO.pet == 1}">寵物我可以</c:if>
+						      	</div>
                             </div>
+<%--                                 <input type="text" name="pet"  readonly  value="${driverVO.pet}" class="form-control"   /> --%>
 
                             <div class="form-group">
                                 <p>抽菸</p>
-                                <input type="text" name="smoke"  readonly  value="${driverVO.smoke}" class="form-control"   />
+                                <div class="form-control" style="width: 18rem;">
+                                <c:if test="${driverVO.smoke == 0}">不接受抽菸</c:if>
+						      	<c:if test="${driverVO.smoke == 1}">接受抽菸</c:if>
+						      	</div>
                             </div>
 
                             <div class="form-group">
                                 <p>提供嬰兒座椅</p>
-                                <input type="text" name="babySeat"  readonly  value="${driverVO.babySeat}" class="form-control"   />
+                                <div class="form-control" style="width: 18rem;">
+                                <c:if test="${driverVO.babySeat == 0}">不提供嬰兒座椅</c:if>
+						        <c:if test="${driverVO.babySeat == 1}">提供嬰兒座椅</c:if>
+						        </div>
                             </div>
+						      
+						      
                   <!--  <div class="text-center"><button type="submit">確認修改</button></div>  -->
                     <!--隱藏的參數action讓controller抓-->
                     <!-- <input type="hidden" name="action" value="UPTDATE"> -->

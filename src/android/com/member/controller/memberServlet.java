@@ -3,6 +3,7 @@ package android.com.member.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Base64;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,12 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import com.member.model.MemberVO;
+import android.com.member.model.MemberVO;
 
 import android.com.member.model.MemberService;
 
 public class memberServlet extends HttpServlet {
-    
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -32,28 +32,29 @@ public class memberServlet extends HttpServlet {
         StringBuilder stringBuilder = new StringBuilder();
         resp.setCharacterEncoding("utf-8");
         PrintWriter writer = resp.getWriter();
-        String jsonIn;
-        while ((jsonIn = bufferedReader.readLine()) != null) {
-            stringBuilder.append(jsonIn);
+        String line;
+        while ((line = bufferedReader.readLine()) != null) {
+            stringBuilder.append(line);
         }
         
         bufferedReader.close();
         System.out.println(stringBuilder.toString());
         Gson gson = new Gson();
         JsonObject jsonObject = new JsonObject();
-        JsonObject json = gson.fromJson(stringBuilder.toString(), JsonObject.class);
-        if (json != null && json.has("action")) {
-            if ("login".equals(json.get("action").getAsString())) {
+        JsonObject jsonIn = gson.fromJson(stringBuilder.toString(), JsonObject.class);
+        if (jsonIn != null && jsonIn.has("action")) {
+            MemberService serivce = new MemberService();
+            String action = jsonIn.get("action").getAsString();
+            if ("login".equals(action)) {
                 String account = null;
                 String password = null;
-                if (json.has("account"))
-                    account = json.get("account").getAsString();
-                if (json.has("password"))
-                    password = json.get("password").getAsString();
+                if (jsonIn.has("account"))
+                    account = jsonIn.get("account").getAsString();
+                if (jsonIn.has("password"))
+                    password = jsonIn.get("password").getAsString();
                 
                 gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-                MemberService serivce = new MemberService();
-                MemberVO memberVO = serivce.getOneByEmailAndPassword(account, password);
+                MemberVO memberVO = MemberVO.castToAndroidMemberVO(serivce.getOneByEmailAndPassword(account, password));
                 if (memberVO != null) {
                     jsonObject.addProperty("auth", "OK");
                     jsonObject.addProperty("member", gson.toJson(memberVO));
@@ -62,6 +63,20 @@ public class memberServlet extends HttpServlet {
                 
                 writer.print(jsonObject);
                 writer.close();
+            } else if ("getPicture".equals(action)) {
+                String memID = jsonIn.get("memID").getAsString();
+                byte[] picture = serivce.getPictureByMemID(memID);
+                if (picture != null) {
+                    String encodePicture = Base64.getEncoder().encodeToString(picture);
+                    System.out.println(encodePicture);
+                    writer.print(encodePicture);
+                }
+            } else if ("updatePreference".equals(action)) {
+                int pet = jsonIn.get("pet").getAsInt();
+                int smoke = jsonIn.get("smoke").getAsInt();
+                int babySeat = jsonIn.get("babySeat").getAsInt();
+                String memID = jsonIn.get("memID").getAsString();
+                serivce.updatePrefenceByMemID(pet, smoke, babySeat, memID);
             }
         } else {
             jsonObject.addProperty("state", "failed");

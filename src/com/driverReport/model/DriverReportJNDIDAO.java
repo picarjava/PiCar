@@ -41,14 +41,12 @@ public class DriverReportJNDIDAO implements DriverReportDAO_interface{
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(INSERT_STMT);
-			
 			pstmt.setString(1, driverReportVO.getMemID());
 			pstmt.setString(2, driverReportVO.getAdminID());
 			pstmt.setString(3, driverReportVO.getOrderID());
 			pstmt.setString(4, driverReportVO.getContent());
 			pstmt.setDate(5, driverReportVO.getTime());
 			pstmt.setInt(6, driverReportVO.getState());
-			
 			pstmt.executeUpdate();
 			System.out.println("成功增加一筆資料");
 	
@@ -268,6 +266,12 @@ public class DriverReportJNDIDAO implements DriverReportDAO_interface{
 			}
 		}
 		return list;
+	}
+
+	@Override
+	public DriverReportVO findByOrderID(String orderID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 		
 }

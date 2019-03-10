@@ -12,12 +12,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.driver.model.DriverService;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.member.model.MemberVO;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
+
+import android.com.driver.controller.DriverServlet;
+import com.driver.model.DriverVO;
+import com.member.model.MemberService;
 
 public class SingleOrderServlet extends HttpServlet {
     private final static int NOT_ESTABLISHED = 0;
@@ -40,37 +46,47 @@ public class SingleOrderServlet extends HttpServlet {
         resp.setCharacterEncoding("utf-8");
         PrintWriter writer = resp.getWriter();
         System.out.println(sBuilder.toString());
-        SingleOrderService service = new SingleOrderService();
+        SingleOrderService singleOrderService = new SingleOrderService();
         Gson gson = new Gson();
         JsonObject jsonIn = gson.fromJson(sBuilder.toString(), JsonObject.class);
         String action = jsonIn.get("action").getAsString();
         if ("insert".equals(action)) {
             SingleOrderVO singleOrderVO = gson.fromJson(jsonIn.get("singleOrder").getAsString(), SingleOrderVO.class);
-            service.addSingleOrder(singleOrderVO.getMemID(), singleOrderVO.getState(), null, singleOrderVO.getStartLoc(),
+            singleOrderService.addSingleOrder(singleOrderVO.getMemID(), singleOrderVO.getState(), null, singleOrderVO.getStartLoc(),
                                    singleOrderVO.getEndLoc(), singleOrderVO.getEndLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(),
                                    singleOrderVO.getEndLat(), 0, singleOrderVO.getOrderType(), singleOrderVO.getNote(), new Timestamp(System.currentTimeMillis()));
+            // simulate driver accept order
+            DriverService driverService = new DriverService();
+            MemberService memberService = new MemberService();
+            DriverVO driver = driverService.getOneDriver("D001");
+            MemberVO memberVO = memberService.getOneMember(driver.getMemID());
+            JsonObject jsonOut = new JsonObject();
+            jsonOut.addProperty("driverName", memberVO.getName());
+            jsonOut.addProperty("plateNum", driver.getPlateNum());
+            jsonOut.addProperty("carType", driver.getCarType());
+            writer.write(jsonOut.toString());
         } else if ("getNewSingleOrder".equals(action)) {
-            List<SingleOrderVO> singleOrderVOs = service.getByStateAndOrderType(NOT_ESTABLISHED, ONE_TIME_RESERVE);
+            List<SingleOrderVO> singleOrderVOs = singleOrderService.getByStateAndOrderType(NOT_ESTABLISHED, ONE_TIME_RESERVE);
             gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
             writer.print(gson.toJson(singleOrderVOs));
             System.out.println(gson.toJson(singleOrderVOs));
-            writer.close();
         } else if ("getLongTermSingleOrder".equals(action)) {
-            List<SingleOrderVO> singleOrderVOs = service.getByStateAndOrderType(NOT_ESTABLISHED, LONG_TERM_RESERVE);
+            List<SingleOrderVO> singleOrderVOs = singleOrderService.getByStateAndOrderType(NOT_ESTABLISHED, LONG_TERM_RESERVE);
             gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
             writer.print(gson.toJson(convertToLongTermOrder(singleOrderVOs)));
             System.out.println(gson.toJson(convertToLongTermOrder(singleOrderVOs)));
-            writer.close();
         } else if ("takeSingleOrder".equals(action)) {
             String driverID = jsonIn.get("driverID").getAsString();
             String orderID = jsonIn.get("orderID").getAsString();
             if (driverID != null)
-                service.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderID);
+                singleOrderService.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderID);
         } else if ("takeLongTermOrder".equals(action)) {
             String driverID = jsonIn.get("driverID").getAsString();
             List<String> orderIDs = gson.fromJson(jsonIn.get("orderID").getAsString(), new TypeToken<List<String>>() {}.getType());
-            service.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderIDs);
+            singleOrderService.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderIDs);
         }
+        
+        writer.close();
     }
     
     private List<List<SingleOrderVO>> convertToLongTermOrder(List<SingleOrderVO> vos) {

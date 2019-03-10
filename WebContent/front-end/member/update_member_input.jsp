@@ -140,7 +140,8 @@ table{
 	<input type="submit" value="submit">
 </form>
 <script>
-
+input.getAttribute("targetID")
+getElementById(preview_progressbarTW_img)
 function readURL(input){
 
   if(input.files && input.files[0]){

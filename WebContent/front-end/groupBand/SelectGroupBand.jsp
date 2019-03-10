@@ -86,8 +86,7 @@
 			<option value="遊樂園">遊樂園</option>
 			</select><br><br>
        
-       
-        <input type="hidden" name="action" value="listgroupBand_ByCompositeQuery">
+ 
         <input type="hidden" name="action" value="listgroupBand_ByCompositeQuery">
         <input type="submit" value="送出">
     </FORM>

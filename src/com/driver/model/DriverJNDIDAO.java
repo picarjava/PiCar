@@ -39,7 +39,9 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 	private static final String DELETE = "DELETE FROM DRIVER where DRIVER_IDs  = ?";
 	private static final String UPDATE = "UPDATE DRIVER SET PLATE_NUM=?, LICENCE=?, CRIMINAL=?, TRAFFIC_RECORD=?, PHOTO=?, VERIFIED=?, BANNED=?, DEADLINE=?, ONLINE_CAR=?, SCORE=?, CAR_TYPE=?, SHARED_CAR=?, PET=?, SMOKE=?, BABY_SEAT=? where DRIVER_ID=?";
 	private static final String GET_ONE_BY_MEMID_STMT = "SELECT * FROM DRIVER WHERE MEM_ID=?";
+	private static final String GET_DRIVERID_BY_MEMID_STMT = "SELECT DRIVER_ID FROM DRIVER WHERE MEM_ID=?";
 	private static final String UPDATE_BANNED = "UPDATE DRIVER SET BANNED='1' WHERE DRIVER_ID=?";
+	private static final String UPDATE_PERMITTED ="UPDATE DRIVER SET VERIFIED=? WHERE DRIVER_ID=?";
 	
 	@Override
 	public void insert(DriverVO driverVO) {
@@ -148,7 +150,6 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 		}
 	}
 
-	
 	@Override
 	public void delete(String driverID) {
 
@@ -373,9 +374,108 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 
         return driverVO;
 	}
-
+	public DriverVO findDriverByMemID(String memID) {
+		DriverVO driverVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+			pstmt = con.prepareStatement(GET_DRIVERID_BY_MEMID_STMT);
+			/*根據SQL常數，pstmt需要的值*/
+			/*parameterIndex 從1開始*////第一個?
+			pstmt.setString(1, memID);
+			/*進行一筆資料的查詢*/
+			rs=pstmt.executeQuery();
+			
+			while (rs.next()) {
+				driverVO = new DriverVO();
+				driverVO.setMemID(rs.getString("MEM_ID"));
+				driverVO.setDriverID(rs.getString("DRIVER_ID"));
+				driverVO.setPlateNum(rs.getString("PLATE_NUM"));
+				driverVO.setLicence(rs.getBytes("LICENCE"));
+				driverVO.setCriminal(rs.getBytes("CRIMINAL"));
+				driverVO.setTrafficRecord(rs.getBytes("TRAFFIC_RECORD"));
+				driverVO.setIdNum(rs.getBytes("ID_NUM"));
+				driverVO.setPhoto(rs.getBytes("PHOTO"));
+				driverVO.setVerified(rs.getInt("VERIFIED"));
+				driverVO.setBanned(rs.getInt("BANNED"));
+				driverVO.setDeadline(rs.getDate("DEADLINE"));
+				driverVO.setOnlineCar(rs.getInt("ONLINE_CAR"));
+				driverVO.setScore(rs.getInt("SCORE"));
+				driverVO.setCarType(rs.getString("CAR_TYPE"));
+				driverVO.setSharedCar(rs.getInt("SHARED_CAR"));
+				driverVO.setPet(rs.getInt("PET"));
+				driverVO.setSmoke(rs.getInt("SMOKE"));
+				driverVO.setBabySeat(rs.getInt("BABY_SEAT"));
+			}
+			con.commit();
+		} catch (SQLException se) {
+			se.printStackTrace();
+//          throw new RuntimeException("發生SQL errors"+se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try{
+					con.close();
+				} catch(Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
+		return driverVO;
+	}
+//讀的時候dirtyread 避免 寫一個方法
 	@Override
 	public void updateBanned(String driverID) {
+	}
+
+	@Override
+	public void updatePermitted(DriverVO driverVO) {
+//		UPDATE_PERMITTED		
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_PERMITTED);
+			/* 根據SQL常數，pstmt需要的值 */
+			/* parameterIndex 從1=?開始 */
+			pstmt.setInt(1, driverVO.getVerified());
+			pstmt.setString(2, driverVO.getDriverID());
+			
+			/* 根據SQL常數，用vo.getxxx去set pstmt需要的值 */
+			pstmt.executeUpdate();
+
+		}catch (SQLException se) {
+			se.printStackTrace();
+//			throw new RuntimeException("發生SQL error" + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	
 	}
 
 //	@Override

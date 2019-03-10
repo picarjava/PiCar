@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.driverReport.model.DriverReportService;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 
@@ -49,9 +50,48 @@ public class SingleOrderServlet extends HttpServlet{
                     req.setAttribute("errorMsgs", errorMsgs);
                 } else
                     req.setAttribute("singleOrder", serivce.getOneSingleOrder(orderID)); 
+            
+            }
+            //來自rating
+            else if("addRate".equals(action)) {
+            forwordURL ="/front-end/singleOrder/rating.jsp";
+            Integer rate=new Integer(req.getParameter("rate")) ;
+            String orderID=req.getParameter("orderID");
+            SingleOrderVO singleOrderVO=serivce.getOneSingleOrder(orderID);
+            try {
+            	 serivce.updateSingleOrder(orderID, singleOrderVO.getDriverID(), singleOrderVO.getState(), singleOrderVO.getStartTime(),
+                 		singleOrderVO.getEndTime(), singleOrderVO.getStartLoc(), singleOrderVO.getEndLoc(), singleOrderVO.getStartLng(),
+                 		singleOrderVO.getStartLat(), singleOrderVO.getEndLng(), singleOrderVO.getEndLat(), singleOrderVO.getTotalAmount(),
+                         rate);
+            }catch(RuntimeException e) {
+            	errorMsgs.add("無法更新至資料庫");
+            }
+            forwordURL ="/front-end/singleOrder/listPastSingleOrder.jsp";//成功則回歷史頁面
+            }
+            
+            //來自 listPastSingleOrder.jsp  passID to rating
+            else if("passID".equals(action)){
+            	String orderID=req.getParameter("orderID");
+            	forwordURL ="/front-end/singleOrder/listPastSingleOrder.jsp";
+            	if(orderID==null||orderID.trim().length()==0) {
+            		errorMsgs.add("未取得此筆訂單編號");
+            	}
+            	if (!errorMsgs.isEmpty()) {
+                    req.setAttribute("errorMsgs", errorMsgs);
+                }
+            	SingleOrderService singleOrderSvc=new SingleOrderService();
+            	try {
+            		SingleOrderVO singleOrderVO=singleOrderSvc.getOneSingleOrder(orderID);
+                	req.setAttribute("singleOrderVO", singleOrderVO);
+            	}catch(Exception e) {
+            		errorMsgs.add("無法取得orderID"+e.getMessage());
+            		req.setAttribute("errorMsgs", errorMsgs);
+            	}
+            	forwordURL="/front-end/singleOrder/rating.jsp"; //成功則送至rating頁面
+            }
             //刪除訂單
-            } else if("DELETE".equals(action)) {
-            	forwordURL = "/front-end/singleOrder/listAllfutureTrip.jsp";
+            else if("DELETE".equals(action)) {
+            	forwordURL ="/front-end/singleOrder/listAllfutureTrip.jsp";
             	String orderID=req.getParameter("orderID");
             	if(orderID==null||orderID.trim().length()==0) {
             		errorMsgs.add("未取得訂單編號");
@@ -67,7 +107,7 @@ public class SingleOrderServlet extends HttpServlet{
             	
             	if (!errorMsgs.isEmpty()) {
                     req.setAttribute("errorMsgs", errorMsgs);
-                } 
+                }
             }
             
           //新增單程預約

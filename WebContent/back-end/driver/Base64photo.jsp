@@ -64,5 +64,12 @@
 						    	  <img src="data:image/jpg;base64,<%=encodeImg5 %>" id="img5">
 						      <% }%>
 						      </td>
+<!-- 網址驗證						       -->
+						      <!-- 	<script> -->
+// 	$(document).ready(function() {
+// 		 $('#sub').submit();
+// 	}); 
+<!-- 	</script> -->
+						      
 </body>
 </html>

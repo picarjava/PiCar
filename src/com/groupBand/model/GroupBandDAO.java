@@ -34,6 +34,10 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 	private static final String DELETE = "DELETE FROM GROUP_BAND where GROUP_ID = ?";
 	private static final String UPDATE = "UPDATE GROUP_BAND set GROUP_ID=?,CONTENT=?,LAUNCH_TIME=?,INTRODUCTION=?,GROUP_STATUS=?,CURRENT_NUM=?,UPPER_LIMIT=?,LOWER_LIMIT=?,GROUP_NAME=?,GROUP_LEADER=?,START_LOC=?,END_LOC=?,PRIVATES=?,PHOTO=?,GROUP_TYPE=?,TOTAL_AMOUT=?,START_TIME=?,RATE=?,NOTE=?,GROUP_KIND=? where GROUP_ID= ?";
 	private static final String UPDATECURRENT = "UPDATE GROUP_BAND set CURRENT_NUM= ? where GROUP_ID= ?";
+	private static final String GET_ALL = "SELECT * FROM GROUP_BAND where GROUP_STATUS = ?";
+	private static final String UPDATE_GROUP_STATUS__GROUP_ID = "UPDATE  GROUP_BAND set  GROUP_STATUS= ?  where GROUP_ID = ?";
+	
+	private static final String UPDATE_GROUP_TYPE_GROUP_NAME_INTRODUCTION_NOTE_PHOTO__GROUP_ID= "UPDATE GROUP_BAND set GROUP_TYPE= ? , GROUP_NAME=? , INTRODUCTION=? , NOTE=?, PHOTO=? where GROUP_ID= ?";
 	@Override
 	public void insert(GroupBandVO groupBandVO) {
 		// TODO Auto-generated method stub
@@ -139,6 +143,9 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			}
 		}
 	}
+	
+	
+	
 
 	@Override
 	public void delete(String groupBandno) {
@@ -307,6 +314,9 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 		return list;
 	}
 
+	
+	
+	
 	@Override
 	public List<GroupBandVO> getAll(Map<String, String[]> map) {
 		// TODO Auto-generated method stub
@@ -321,7 +331,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			con =ds.getConnection();
 			String finalSQL = "select GROUP_ID,LAUNCH_TIME,INTRODUCTION,CURRENT_NUM,UPPER_LIMIT,LOWER_LIMIT,GROUP_NAME,GROUP_LEADER,START_LOC, END_LOC, PRIVATES, PHOTO, GROUP_TYPE, TOTAL_AMOUT, START_TIME,GROUP_KIND from GROUP_BAND"
 			+jdbcUtil_CompositeQuery_GROUP_BAND.get_WhereCondition(map)
-			+ " order by LAUNCH_TIME";
+			+ " and GROUP_STATUS=0 order by LAUNCH_TIME";
 			
 			pstmt = con.prepareStatement(finalSQL);
 			System.out.println("●●finalSQL(by DAO) = "+finalSQL);
@@ -457,6 +467,47 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 		}
 	}
 	
+	public void UPDATE_GROUP_TYPE_GROUP_NAME_INTRODUCTION_NOTE_PHOTO__GROUP_ID(String groupID,String GROUP_TYPE,String GROUP_NAME,String INTRODUCTION,String NOTE,byte[] PHOTO ) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(true);
+			pstmt = con.prepareStatement(UPDATE_GROUP_TYPE_GROUP_NAME_INTRODUCTION_NOTE_PHOTO__GROUP_ID);
+			
+			pstmt.setString(1,GROUP_TYPE);
+			pstmt.setString(2,GROUP_NAME);
+			pstmt.setString(3,INTRODUCTION);
+			pstmt.setString(4,NOTE);
+			pstmt.setBytes(5,PHOTO);
+			pstmt.setString(6,groupID);
+			
+			pstmt.executeUpdate();
+			con.commit();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	
 	public void UpdateCURRENT(Integer currenTnum,String groupBandno) {
 		// TODO Auto-generated method stub
 		Connection con = null;
@@ -468,6 +519,109 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			pstmt.setInt(1,currenTnum);
 			pstmt.setString(2,groupBandno);
 			
+			pstmt.executeUpdate();
+			con.commit();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	
+	public List<GroupBandVO> GETALL(Integer groupStatus) {
+		// TODO Auto-generated method stub
+		List<GroupBandVO> list = new ArrayList<GroupBandVO>();
+		GroupBandVO groupBandVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ALL);
+			pstmt.setInt(1, groupStatus);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				groupBandVO = new GroupBandVO();
+				groupBandVO.setGroupID(rs.getString("GROUP_ID"));
+				groupBandVO.setContent(rs.getString("CONTENT"));
+				groupBandVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
+				groupBandVO.setIntroduction(rs.getString("INTRODUCTION"));
+				groupBandVO.setGroupStatus(rs.getInt("GROUP_STATUS"));
+				groupBandVO.setCurrenTnum(rs.getInt("CURRENT_NUM"));
+				groupBandVO.setUpperLimit(rs.getInt("UPPER_LIMIT"));
+				groupBandVO.setLowerLimit(rs.getInt("LOWER_LIMIT"));
+				groupBandVO.setGroupName(rs.getString("GROUP_NAME"));
+				groupBandVO.setGroupLeader(rs.getString("GROUP_LEADER"));
+				groupBandVO.setStartLoc(rs.getString("START_LOC"));
+				groupBandVO.setEndLoc(rs.getString("END_LOC"));
+				groupBandVO.setPrivates(rs.getInt("PRIVATES"));
+				groupBandVO.setPhoto(rs.getBytes("PHOTO"));
+				groupBandVO.setGroupType(rs.getString("GROUP_TYPE"));
+				groupBandVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
+				groupBandVO.setStartTime(rs.getTimestamp("START_TIME"));
+				groupBandVO.setRate(rs.getInt("RATE"));
+				groupBandVO.setNote(rs.getString("NOTE"));
+				groupBandVO.setGroupKind(rs.getInt("GROUP_KIND"));
+				list.add(groupBandVO);
+
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return list;
+	}
+	
+	public void UPDATE_GROUP_STATUS__GROUP_ID(Integer groupStatus,String groupID) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(true);
+			pstmt = con.prepareStatement(UPDATE_GROUP_STATUS__GROUP_ID);
+			pstmt.setInt(1,groupStatus);
+			pstmt.setString(2,groupID);
 			pstmt.executeUpdate();
 			con.commit();
 

@@ -448,6 +448,7 @@ public class MemberDAO implements MemberDAO_interface {
 				memberVO.setBirthday(rs.getDate("BIRTHDAY"));
 				memberVO.setVerified(rs.getInt("VERIFIED"));
 				memberVO.setBabySeat(rs.getInt("BABY_SEAT"));
+				memberVO.setPic(rs.getBytes("PIC"));
 
 			}
 

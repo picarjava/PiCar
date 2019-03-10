@@ -43,6 +43,7 @@ public class GroupOrderServlet extends HttpServlet {
 		String action = req.getParameter("action");
 		
 		
+		
 		if("update".equals(action)) {
 		
 			List<String> errorMsgs = new LinkedList<String>();
