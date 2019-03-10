@@ -123,13 +123,17 @@ table{
 		</tr>
 		<tr>
 			<td>會員照片：</td>
-			<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200" id="preview_progressbarTW_img"></td>
-			<td><img id="preview_progressbarTW_img" src="#" width='200' height="200"/></td>
+			<td></td>
+			<td></td>
 			<td>
-			<input type="file" name="pic" onchange="readURL(this)" targetID="preview_progressbarTW_img"> <br></td>		
+			 <br></td>		
 		
 			 
 		</tr>
+		
+		<img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}" alt="這是圖片替代文字" onerror="this.src='cat.jpg'" width='200' height="200" id="preview_progressbarTW_img">
+		<input type="file" name="pic" onchange="readURL(this)" targetID="preview_progressbarTW_img">
+		
 	</table>                          
 	<input type="hidden" name="memID" value="<%=memberVO.getMemID() %> ">
 	<input type="hidden" name="action" value="update">
