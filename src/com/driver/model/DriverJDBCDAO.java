@@ -387,6 +387,19 @@ public class DriverJDBCDAO implements DriverDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public DriverVO findDriverByMemID(String memID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+	@Override
+	public void updatePermitted(DriverVO driverVO) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 //}

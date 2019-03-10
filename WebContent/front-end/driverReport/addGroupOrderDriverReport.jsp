@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>個人訂單檢舉司機</title>
+	<title>揪團訂單檢舉司機</title>
 	<jsp:include page="/regna-master/head.jsp" />  
 </head>
 <body>
@@ -27,11 +27,12 @@ String memID=(String)request.getAttribute("memID");
 <!-- 錯誤列表結束 -->
 
        <!-- 內容開始 -->
-            <h3 class="section-title">新增單程訂單檢舉司機</h3>
-			<Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder">
+            <h3 class="section-title">新增揪團訂單檢舉司機</h3>
+			<Form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do">
 				<div class="text-center">
-				<input  name="orderID" readonly  value="${orderID}">
-				<input  name="memID" readonly  value="${memID}">
+				揪團編號<input  name="orderID" readonly  value="${groupID}">
+				訂單編號<input  name="orderID" readonly  value="${orderID}">
+				會員編號<input  name="memID" readonly  value="${memID}">
 				<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
 				<input type="hidden" name="state" value="0">
 				<input type="hidden" name="action" value="insertDriverReport">

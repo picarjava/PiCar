@@ -11,6 +11,11 @@ public class DriverReportService {
 		dao = new DriverReportDAO();
 	}
 	
+	//小編新增getOneByOrderID方法
+	public DriverReportVO getOneByOrderID(String orderID) {
+		return dao.findByOrderID(orderID);
+	}
+	
 	public DriverReportVO addDriverReport(String memID, String adminID, String orderID,String content, Date time,Integer state) {
 		
 		DriverReportVO driverReportVO = new DriverReportVO();

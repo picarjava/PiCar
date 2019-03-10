@@ -124,11 +124,19 @@ req.setCharacterEncoding("UTF-8");
 		
 //		session.getAttribute("list");
 //		MemberVO memberVO = (MemberVO)session1.getAttribute("memberVO");
-//		DriverService driSrc = new DriverService();
-//		DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
-		String memID =(String)(req.getParameter("memID"));//注意:正是從session 抓下來
-		
 //		String memID = "M003" ;//--假資料
+		String memID =(String)(req.getParameter("memID"));//注意:正是從session 抓下來'
+		DriverService drimem = new DriverService();
+		DriverVO  driverd =drimem.getOneDriverBymemID(memID);
+//		DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
+		
+//	    session.setAttribute("driverVO",driverVO);
+		
+		if(driverd != null ) {//只能註冊一次司機
+			String url = "/front-end/driver/homeDriverDataManagment.jsp";//比對是否為司機
+			RequestDispatcher successView = req.getRequestDispatcher(url); // 新增成功後轉交listOneDriver.jsp
+			successView.forward(req, res);
+		}
 //		HttpSession session1 = req.getSession();
 //		String memID = (String)(session1.getAttribute("MEM_ID"));
 		
@@ -399,27 +407,23 @@ req.setCharacterEncoding("UTF-8");
 //來自back-end/listAllDriver.jsp 修改  ban deadline verivfied==0 (後台驗證司機  )//??
 		//SELECT * FROM Driver ORDER BY VERIFIED ASC, DRIVER_ID ASC; 先挑出驗證再牌號碼
 if("GET_ONE_FOR_CHECK".equals(action)){
-   List<String> errorMsgs1=new LinkedList<String>();//?
-	req.setAttribute("errorMsgs", errorMsgs1);
 	try {
 	/*************1.接收請求參數:某一筆活動ID**************/
-	String driverID=req.getParameter("driverID");
+	String driverID=new String(req.getParameter("driverID").trim());
 	
 	/*************2查詢資料:調出某一筆的vo**************/
 	DriverService driverSvc=new DriverService();
 	DriverVO driverVO=driverSvc.getOneDriver(driverID);//從driverPK
 	/*************3.得到資料和圖片轉換資料存在scope=reqest，並送出VO給處理頁面:getOneUpdate頁面**************/
-	
+	if(driverVO.getVerified()==0) {
+		
+	}
 	req.setAttribute("driverVO", driverVO);
 	String url="/back-end/driver/getOneUpdateActivity.jsp";  //驗證成功頁面
 	RequestDispatcher successPage=req.getRequestDispatcher(url);
 	successPage.forward(req, res);
 	/*************4.處理例外:回listALL原頁面**************/
 }catch(Exception e){
-	errorMsgs1.add("無法取得要修改的資料:"+e.getMessage());
-	}
-	RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
-	failurePage.forward(req, res);
 }
 //////////////////////////////////////////////////
 //來自back-end/listAllDriver.jsp 修改  ban deadline ==0 (後台banned司機  )//??
@@ -439,6 +443,8 @@ if("GET_ONE_FOR_BANNED".equals(action)){
 			driverSvc.updateBanned(driverID);
 		}else {
 		}
+//		執行排程器計時&&到時轉回
+		
 		req.setAttribute("driverVO", driverVO);
 		String url="/back-end/driver/listAllDriver.jsp";  //banned成功頁面
 		RequestDispatcher successPage=req.getRequestDispatcher(url);
@@ -449,6 +455,7 @@ if("GET_ONE_FOR_BANNED".equals(action)){
 //	}
 	RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
 	failurePage.forward(req, res);
+}
 }
 ////////////////////////////////////////////////////////////////////////////////
 //	給後端update使用()可參考全寫法
@@ -519,8 +526,6 @@ if("GET_ONE_FOR_BANNED".equals(action)){
 //				errorMsgs.add("備註: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
 //            }
 	/////////////////喜好設定 (司機)
-//	String memID = "M003" ;//--
-//	String driverID = "D003";//--
 //	String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
 //	Integer sharedCar = 0;
 //	Integer pet= 0;
