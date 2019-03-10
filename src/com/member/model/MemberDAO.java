@@ -53,7 +53,35 @@ public class MemberDAO implements MemberDAO_interface {
 
 	private static final String UPDATE_VERIFIED = "UPDATE MEMBER SET VERIFIED='1' WHERE MEM_ID=?";
 
-	@Override
+	//小編新增for活動代幣
+    private static final String UPDATE_ACTIVITY_TOKEN="UPDATE MEMBER SET ACTIVITY_TOKEN=? WHERE MEM_ID=?";
+    //小編新增for活動代幣-處理交易問題
+    public void updateActivityToken(Integer activityTokenSum,String memID,Connection con){
+    	PreparedStatement pstmt = null;
+    	try {
+    		pstmt=con.prepareStatement(UPDATE_ACTIVITY_TOKEN);
+    		pstmt.setInt(1, activityTokenSum);
+    		pstmt.setString(2, memID);
+    		pstmt.executeUpdate();
+    		
+    	}catch (SQLException se) {
+			throw new RuntimeException("SQL發生錯誤 "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+    }
+    
+    
+    
+    @Override
 	public void insert(MemberVO memberVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;

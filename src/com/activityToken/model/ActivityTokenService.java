@@ -5,13 +5,23 @@ import java.util.List;
 public class ActivityTokenService {
 	private ActivityTokenDAO_interface dao;
 	
+	 
+	
 	public ActivityTokenService() {
 		dao=new ActivityTokenJNDIDAO();
+	}
+	
+	public void update(ActivityTokenVO activityTokenVO, Integer sum) {
+		dao.update(activityTokenVO,sum);
 	}
 	
 	public List<ActivityTokenVO> findByMemID(String memID) {
 		
 		return dao.getOnesALL(memID);
+	};
+	
+	public void addActivityToken(ActivityTokenVO activityTokenVO,Integer sum) {
+		dao.insert(activityTokenVO, sum);
 	};
 	
 	public ActivityTokenVO addActivityToken(String memID,String activityID,Integer tokenAmount, java.sql.Date deadline) {

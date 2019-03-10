@@ -10,14 +10,12 @@
  
   <jsp:include page="/regna-master/head.jsp" />
 
-	
+<!-- 本頁面待與登入功能串接 此處先指定memID-->
+<%-- <%String memID=(String)session.getAttribute("memID"); %>  --%>
+<%! String memID="M001";  %>
+<% session.setAttribute("memID", memID);%>
 
-  <!-- =======================================================
-    Theme Name: Regna
-    Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
-    Author: BootstrapMade.com
-    License: https://bootstrapmade.com/license/
-  ======================================================= -->
+ 
 </head>
 
 <body>
@@ -39,7 +37,9 @@
 	     <div class="container wow fadeInUp">
 	      	<div class="col-lg-12 col-md-12">
 		        <div class="section-header">
-		          <h3 class="section-title">請輸入活動代碼 </h3>
+		          <h3 class="section-title">請輸入活動序號 </h3>
+		          <jsp:useBean id="memberSvc" class="android.com.member.model.MemberService"/>
+		          <p class="section-description">會員編號 ${memID} </p>
 		        </div>	
 			</div>      
 	     </div>
@@ -47,15 +47,6 @@
 	          <nav class="navbar navbar-light bg-light justify-content-center" >
 	          <form class="form-inline" action="<%=request.getContextPath()%>/activityToken/ActivTokenServlet" method="post">
 				<ul class="nav nav-tabs">
-					<li class="nav-item">
-					<p>會員編號</p>
-					</li>
-					<li class="nav-item">
-					<input type="text" class="form-control mr-sm-2" name="memID" value="${activityTokenVO.memID}" placeholder="請輸入會員編號" >
-					</li>
-					<li class="nav-item">
-					<p>活動序號</p>
-					</li>
 					<li class="nav-item">
 					<input type="text" class="form-control mr-sm-2" name="activityCode" value="${activityVO.activityCode}" placeholder="請輸入活動序號" >
 					</li>
@@ -65,6 +56,7 @@
 				  </ul>
 				  <!--隱藏的參數action讓controller抓-->
 				   <input type="hidden" name="action" value="INSERT_F0R_GET_ONES_ALL">
+				   <input type="hidden" name="memID" value="${memID}">
 				</form>
 				
 			  </nav>

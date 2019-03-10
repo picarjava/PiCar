@@ -13,6 +13,8 @@ import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.sql.DataSource;
 
+import com.member.model.MemberDAO;
+
 
 public class ActivityTokenJNDIDAO implements ActivityTokenDAO_interface{
 	private static DataSource ds = null;
@@ -84,7 +86,92 @@ public class ActivityTokenJNDIDAO implements ActivityTokenDAO_interface{
 		}
 
 	}
-		
+	//領取代幣 安全交易用
+	public void insert(ActivityTokenVO activityTokenVO,Integer sum) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT_STMT);
+			con.setAutoCommit(false);//多筆訂單新增視為一筆交易
+			
+			pstmt.setString(1, activityTokenVO.getMemID());
+			pstmt.setString(2, activityTokenVO.getActivityID());
+			pstmt.setInt(3, activityTokenVO.getTokenAmount());
+			pstmt.setDate(4, activityTokenVO.getDeadline());
+			pstmt.executeUpdate();
+			MemberDAO memberDAO=new MemberDAO();
+			memberDAO.updateActivityToken(sum, activityTokenVO.getMemID(), con); //同一個連線更新活動代幣
+			con.commit();  //新增過程無誤，則commit
+			// Handle any driver errors
+		} catch (SQLException se) {
+			try {
+				con.rollback(); //新增過程中若有誤，則rollback
+			}catch (SQLException e) {
+				e.printStackTrace();
+			}
+			throw new RuntimeException("SQL發生錯誤"
+					+ se.getMessage());
+			// Clean up JDBC resources
+		}
+		finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
+	
+	//update for transaction 代幣扣除用 尚未完成 
+	public void update(ActivityTokenVO activityTokenVO, Integer sum){
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE);
+
+			pstmt.setInt(1, activityTokenVO.getTokenAmount());
+			pstmt.setDate(2, activityTokenVO.getDeadline());
+			pstmt.setString(3, activityTokenVO.getMemID());
+			pstmt.setString(4, activityTokenVO.getActivityID());
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("SQL發生錯誤 "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
 		
 	
 	@Override

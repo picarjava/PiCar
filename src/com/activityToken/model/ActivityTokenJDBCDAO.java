@@ -342,4 +342,18 @@ public class ActivityTokenJDBCDAO implements ActivityTokenDAO_interface{
 		}
 		return list;
 	}
+
+
+	@Override
+	public void update(ActivityTokenVO activityTokenVO, Integer sum) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void insert(ActivityTokenVO activityTokenVO, Integer sum) {
+		// TODO Auto-generated method stub
+		
+	}
 }
