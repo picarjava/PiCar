@@ -25,20 +25,18 @@ import android.com.location.model.StoredInfo;
 @ServerEndpoint(value="/locationWebSocket/{driverID}", configurator=LocationWebSocketConfig.class)
 public class LocationWebSocket {
     private final static Map<String, StoredInfo> driver = new ConcurrentHashMap<>();
-    private EndpointConfig config;
     private ServletContext servletContext;
     
     @OnOpen
     public void onOpen(@PathParam("driverID") String driverID, Session driverSession, EndpointConfig config) {
         driver.put(driverID, new StoredInfo(driverSession));
         System.out.println(driverID + " is connected Session: " + driverSession);
-        this.config = config;
+        servletContext = ((HttpSession) config.getUserProperties().get("httpSession")).getServletContext();
+        servletContext.setAttribute("driverLocation", driver);
     } // onOpen()
     
     @OnMessage
     public void onMessage(Session session, String message) {
-        servletContext = ((HttpSession) config.getUserProperties().get("httpSession")).getServletContext();
-        servletContext.setAttribute("driverLocation", driver);
         InputInfo inputInfo = new Gson().fromJson(message, InputInfo.class);
         driver.put(inputInfo.getDriverID(), new StoredInfo(session, inputInfo.getLatLng()));
         JsonObject jsonOut = new JsonObject();

@@ -8,4 +8,12 @@ public class MemberService {
     public MemberVO getOneByEmailAndPassword(String email, String password) {
         return memberDAO.findByEmailAndPassword(email, password);
     }
+    
+    public byte[] getPictureByMemID(String memID) {
+        return memberDAO.getPictureByMemID(memID);
+    }
+    
+    public void updatePrefenceByMemID(Integer pet, Integer smoke, Integer babySeat, String memID) {
+        memberDAO.updatePreferenceByMemID(pet, smoke, babySeat, memID);
+    }
 }
