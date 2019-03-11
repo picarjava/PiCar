@@ -13,6 +13,35 @@
     <title>homeDriverDataManagment.jsp</title>
     <jsp:include page="/regna-master/head.jsp" />
 </head>
+<style>
+table, tr, td, th {
+	background-color: white;
+	border: 1px solid #aaa;
+	text-align: center;
+	padding: 5px;
+	text-align: center;
+	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro',
+		'Noto Sans CJK SC', monospace;
+}
+
+table {
+	width: 100%;
+}
+
+.col-9 {
+	margin-top: -15px;
+	margin-left: -55px;
+	margin-bottom: 1rem;
+}
+
+#error {
+	margin-left: 20px;
+}
+
+#s3 {
+	width: 186px;
+}
+</style>
 
 <body>
     <!-- 先取出VO -->
