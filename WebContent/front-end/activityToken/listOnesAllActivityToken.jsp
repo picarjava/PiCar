@@ -1,7 +1,24 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.activityToken.model.*" %>
+
+<%@ page import="com.member.model.*" %>
 <%@ page import="java.util.*" %>
+
+<!-- 本頁面待與登入功能串接 此處先指定memID-->
+<%-- <%String memID=(String)session.getAttribute("memID"); %>  --%>
+<%! String memID="M001"; %>
+<% session.setAttribute("memID", memID);%>
+<!-- 得到此會員的list和sum  -->
+
+<% ActivityTokenService activityTokenSvc=new ActivityTokenService();
+  List<ActivityTokenVO> list=activityTokenSvc.getOnesALL(memID); 
+  MemberService memberSvc=new MemberService();
+  int sum=memberSvc.getOneMember(memID).getActivityToken();
+  request.setAttribute("sum", sum);
+  request.setAttribute("list", list);
+  %> 
+
 
 <!DOCTYPE html>
 <html lang="zh">
@@ -27,8 +44,13 @@
     <!--==========================
      listOnesALL
     ============================-->
-    <%int sum=(int)request.getAttribute("sum");%>
-    <%List<ActivityTokenVO> list=(List<ActivityTokenVO>)request.getAttribute("list");%>
+<%--     <%int sum=(int)request.getAttribute("sum");%> --%>
+<%--     <%List<ActivityTokenVO> list=(List<ActivityTokenVO>)request.getAttribute("list");%> --%>
+   
+    
+    <c:if test="">
+    </c:if>
+    
     <%if(list!=null&&(list.size()>0)){ %>
         <section id="contact">
             <div class="container wow fadeInUp">

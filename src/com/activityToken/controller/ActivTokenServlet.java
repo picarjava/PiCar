@@ -131,14 +131,14 @@ public class ActivTokenServlet extends HttpServlet {
 			 }catch(Exception e){
 				 errorMsgs.add("無法得到此會員的所有活動代幣資訊");
 			 }
-			 int sum=0;
+//			 int sum=0;
 			 //計算總額，送至listOnesAll.jsp
-			 for(int i=0;i<list.size();i++) {
-				 ActivityTokenVO activityTokenVO_forSum=list.get(i);
-				 sum+=activityTokenVO_forSum.getTokenAmount();
-			 }
-			 req.setAttribute("sum", sum);
-			 req.setAttribute("list", list);
+//			 for(int i=0;i<list.size();i++) {
+//				 ActivityTokenVO activityTokenVO_forSum=list.get(i);
+//				 sum+=activityTokenVO_forSum.getTokenAmount();
+//			 }
+//			 req.setAttribute("sum", sum);
+//			 req.setAttribute("list", list);
 			 
 			 
 			/**************step3.開始新增並listOnesAll完成，轉交ListAll頁面*****************/
