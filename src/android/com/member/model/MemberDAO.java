@@ -16,6 +16,7 @@ public class MemberDAO implements MemberDAO_Interface {
     private final static String GET_ONE_BY_EMAIL_PASSWORD_STMT = "SELECT * FROM MEMBER WHERE EMAIL=? AND PASSWORD=?";
     private final static String GET_PICTURE_BY_MEM_ID = "SELECT PIC FROM MEMBER WHERE MEM_ID=?";
     private final static String UPDATE_PREFENCE_BY_MEM_ID = "UPDATE MEMBER SET PET=?, SMOKE=?, BABY_SEAT=? WHERE MEM_ID=?";
+    private final static String UPDATE_CREDIT_CARD_BY_MEM_ID = "UPDATE MEMBER SET CREDIT_CARD=? WHERE MEM_ID=?";
     private static DataSource dataSource;
     
     static {
@@ -82,7 +83,6 @@ public class MemberDAO implements MemberDAO_Interface {
                 picture = resultSet.getBytes(1);
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } finally {
             closeResultSet(resultSet);
@@ -106,7 +106,24 @@ public class MemberDAO implements MemberDAO_Interface {
             preparedStatement.setString(index++, memID);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        } // finally
+    }
+    
+    public void updateCreditCardByMemID(String creditCard, String memID) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            int index = 1;
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_CREDIT_CARD_BY_MEM_ID);
+            preparedStatement.setString(index++, creditCard);
+            preparedStatement.setString(index++, memID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
             e.printStackTrace();
         } finally {
             closePreparedStatement(preparedStatement);

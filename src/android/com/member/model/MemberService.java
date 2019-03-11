@@ -16,4 +16,8 @@ public class MemberService {
     public void updatePrefenceByMemID(Integer pet, Integer smoke, Integer babySeat, String memID) {
         memberDAO.updatePreferenceByMemID(pet, smoke, babySeat, memID);
     }
+    
+    public void updateCreditCardByMemID(String creditCard, String memID) {
+        memberDAO.updateCreditCardByMemID(creditCard, memID);
+    }
 }

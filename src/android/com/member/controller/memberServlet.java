@@ -77,6 +77,12 @@ public class memberServlet extends HttpServlet {
                 int babySeat = jsonIn.get("babySeat").getAsInt();
                 String memID = jsonIn.get("memID").getAsString();
                 serivce.updatePrefenceByMemID(pet, smoke, babySeat, memID);
+            } else if ("updateCreditCard".equals(action)) {
+                String creditCard = jsonIn.get("creditCard").getAsString();
+                String memID = jsonIn.get("memID").getAsString();
+                if (creditCard.matches("\\d{4}-\\d{4}-\\d{4}-\\d{4}")) {
+                    serivce.updateCreditCardByMemID(creditCard, memID);
+                }
             }
         } else {
             jsonObject.addProperty("state", "failed");
