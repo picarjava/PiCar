@@ -424,7 +424,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			String next_deptno = null;
 			ResultSet rs = pstmt.getGeneratedKeys();
 			System.out.println("自增主鍵值= " + next_deptno +"(剛新增成功的部門編號)");
-			if (rs.next()) {
+			if (rs.next()) {//下一筆
 				next_deptno = rs.getString(1);
 				System.out.println("自增主鍵值= " + next_deptno +"(剛新增成功的部門編號)");
 			} else {

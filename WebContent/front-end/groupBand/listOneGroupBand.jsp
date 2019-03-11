@@ -52,9 +52,7 @@
     display: block;
     margin-bottom: 1px;
   }
-  div {
-    color: #fff;
-  }
+
   .p-2 {
    margin: auto;
       width: 200px;
@@ -87,8 +85,11 @@
     .color0{
       background-color: #FFB7DD!important;
   }
-  .tentce{
-
+textarea {
+    overflow: auto;
+    resize: vertical;
+    width: 500px;
+    height: 300px;
 }
   
 </style>
@@ -133,7 +134,7 @@
 <div class="tentce" id="${MemberVO.memID}"></div>
 </div>
 <script>
-var MyPoint = "/webSocket/peter/309/${MemberVO.memID}";
+var MyPoint = "/webSocket/${MemberVO.memID}/309";
 var ${MemberVO.memID} = document.getElementById("${MemberVO.memID}");
 
 ${MemberVO.memID}.innerHTML="${MemberVO.memID}";
@@ -141,7 +142,7 @@ ${MemberVO.memID}.innerHTML="${MemberVO.memID}";
 if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 	//jsp+javascript
 // 	取得木遣使用者跟揪團裡的人比對
-	${MemberVO.memID}.innerHTML="${MemberVO.memID}"+"555";
+	${MemberVO.memID}.innerHTML="${MemberVO.memID}";
 	
 	
 }
@@ -244,8 +245,13 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
         <h1> Chat Room </h1>
 	    <h3 id="statusOutput" class="statusOutput"></h3>
         <textarea id="messagesArea" class="panel message-area text-right" readonly ></textarea>
+        
+        <div id="messa" ></div>
+        
+        <div id="but"></div>
         <div class="panel input-area">
-            <input id="userName" class="text-field" type="text" placeholder="使用者名稱"/>
+        	
+            <input id="userName" class="text-field" type="text" placeholder="使用者名稱" value="${memberVO.name}"disabled="disabled"/>
             <input id="message"  class="text-field" type="text" placeholder="訊息" onkeydown="if (event.keyCode == 13) sendMessage();"/>
             <input type="submit" id="sendMessage" class="button" value="送出" onclick="sendMessage();"/>
 		    <input type="button" id="connect"     class="button" value="連線" onclick="connect();"/>
@@ -254,7 +260,7 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
  
     
 <script>
-    
+var btn = document.createElement("BUTTON");//放甚麼就創甚麼
    
     var host = window.location.host;
     var path = window.location.pathname;
@@ -269,18 +275,35 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 		webSocket = new WebSocket(endPointURL);
 		
 		webSocket.onopen = function(event) {
-			updateStatus("WebSocket 成功連線");
+			updateStatus("${memberVO.name} 成功連線");
 			document.getElementById('sendMessage').disabled = false;
 			document.getElementById('connect').disabled = true;
 			document.getElementById('disconnect').disabled = false;
+	        var jsonObj = {"userName" : "${memberVO.name}", "message" : "以連線","scanners" : "scannerq","userID" : "${memberVO.memID}"};
+	        webSocket.send(JSON.stringify(jsonObj));
 		};
 
 		webSocket.onmessage = function(event) {
+			
+			var messa = document.getElementById("messa");
+			
 			var messagesArea = document.getElementById("messagesArea");
 	        var jsonObj = JSON.parse(event.data);
 	        var message = jsonObj.userName + ": " + jsonObj.message + "\r\n";
+	      
+	        //判斷是誰的連線
+	        if(jsonObj.scanners=="scannerq"){
+	        	 var newDiv = document.createElement("div");
+	        	 newDiv.id=jsonObj.userID;
+	        	 newDiv.innerHTML=jsonObj.userName+"  :已連線";
+	        	 messa.appendChild(newDiv);
+	        	 DZ
+	        }else{
+	        
 	        messagesArea.value = messagesArea.value + message;
+	        
 	        messagesArea.scrollTop = messagesArea.scrollHeight;
+	        }
 		};
 
 		webSocket.onclose = function(event) {
