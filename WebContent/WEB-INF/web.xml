@@ -172,7 +172,7 @@
 </servlet> 
 <servlet-mapping> 
 <servlet-name>RateServlet</servlet-name> 
-<url-pattern>/rate/rate.do</url-pattern> 
+<url-pattern>/back-end/rate/rate.do</url-pattern> 
 </servlet-mapping> 
 <servlet> 
 <servlet-name>PaymentRecordServlet</servlet-name> 
