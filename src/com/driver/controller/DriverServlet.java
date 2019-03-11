@@ -299,7 +299,7 @@ req.setCharacterEncoding("UTF-8");
 				// Send the use back to the form, if there were errors
 //			//	if (!errorMsgs.isEmpty()) {
 //					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+//							.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //					failureView.forward(req, res);
 //					return;//程式中斷
 //				}
@@ -308,7 +308,7 @@ req.setCharacterEncoding("UTF-8");
 			DriverVO driverVO=driverSvc.getOneDriver(driverID);
 			if(driverVO==null) {
 				errorMsgs.add("查無此筆");
-				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");//之後改成首頁
+				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");//之後改成首頁
 				failurePage.forward(req, res);
 				return;
 			}
@@ -321,7 +321,7 @@ req.setCharacterEncoding("UTF-8");
 		}
 //			catch(Exception e){
 //			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());}
-//			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+//			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //			failurePage.forward(req, res);
 //		}	
 ///////////////////////////////////////////////////
@@ -338,7 +338,7 @@ req.setCharacterEncoding("UTF-8");
 			// Send the use back to the form, if there were errors
 //			//	if (!errorMsgs.isEmpty()) {
 //					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+//							.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //					failureView.forward(req, res);
 //					return;//程式中斷
 //				}
@@ -347,7 +347,7 @@ req.setCharacterEncoding("UTF-8");
 			DriverVO driverVO=driverSvc.getOneDriverBymemID(memberID);
 			if(driverVO==null) {
 				errorMsgs.add("查無此筆");
-				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");//之後改成首頁
+				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");//之後改成首頁
 				failurePage.forward(req, res);
 				return;
 			}
@@ -360,7 +360,7 @@ req.setCharacterEncoding("UTF-8");
 		}
 //			catch(Exception e){
 //			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());}
-//			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+//			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //			failurePage.forward(req, res);
 //		}	
 /////////////////////////////////////////////////////
@@ -377,7 +377,7 @@ req.setCharacterEncoding("UTF-8");
 				// Send the use back to the form, if there were errors
 //			//	if (!errorMsgs.isEmpty()) {
 //					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+//							.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //					failureView.forward(req, res);
 //					return;//程式中斷
 //				}
@@ -386,7 +386,7 @@ req.setCharacterEncoding("UTF-8");
 			DriverVO driverVO=driverSvc.getOneDriver(driverID);
 			if(driverVO==null) {
 				errorMsgs.add("查無此筆");
-				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 				failurePage.forward(req, res);
 				return;
 			}
@@ -399,7 +399,7 @@ req.setCharacterEncoding("UTF-8");
 		}
 //			catch(Exception e){
 //			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());}
-//			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/司機會員管理.jsp");
+//			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //			failurePage.forward(req, res);
 //		}
 ////////////////////////

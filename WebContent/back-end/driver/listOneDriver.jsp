@@ -45,8 +45,8 @@
 				<div class="section-header">
 					<h3 class="section-title">司機會員查詢</h3>
 					<div class="text-center">
-						<form action="司機會員管理.jsp">
-							<button type="submit">返回</button>
+						<form action="driverMemberManagement.jsp">
+							<button type="submit">司機會員管理</button>
 						</form>
 					</div>
 				</div>
@@ -224,9 +224,9 @@
 								<input type="text" class="form-control" placeholder="RAS-9958"
 									aria-label="Username" aria-describedby="basic-addon1" readonly>
 							</div>
-							<!--  <div class="text-center"><button type="submit">確認修改</button></div>  -->
+							 <div class="text-center"><button type="submit">確認修改</button></div> 
 							<!--隱藏的參數action讓controller抓-->
-							<!-- <input type="hidden" name="action" value="UPTDATE"> -->
+							<input type="hidden" name="action" value="GET_ONE_FOR_CHECK">
 						</form>
 					</div>
 <%-- 					<%} %> --%>

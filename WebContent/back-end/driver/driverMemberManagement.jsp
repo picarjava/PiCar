@@ -7,11 +7,11 @@
 <html lang="en">
 
 <head>
-    <jsp:include page="/regna-master/head.jsp" />
+<%--     <jsp:include page="/regna-master/head.jsp" /> --%>
     <title>司機會員管理</title>
 
 </head>
-<!-- http://localhost:8081/PiCar/back-end/driver/司機會員管理.jsp -->
+<!-- http://localhost:8081/PiCar/back-end/driver/driverMemberManagement.jsp -->
 <body>
     <!-- 先取出Driver_VO -->
     <%
@@ -24,7 +24,7 @@
                     <h3 class="section-title">司機會員管理(後端_更改司機)</h3>
                     <p class="section-description">請查看與修改資料</p>
                 </div>
-                <button type="button" class="btn btn-dark "><a href="後台首頁.jsp">回首頁</a></button>
+                <button type="button" class="btn btn-dark "><a href="<%=request.getServletContext().getContextPath()%>/back-end/indexTest.jsp">回首頁</a></button>
             </div>
         </div>
         <div class="container wow fadeInUp">
@@ -147,7 +147,7 @@
         </div>
     </footer>
     <!-- #footer -->
-    <jsp:include page="/regna-master/body.jsp" />
+<%--     <jsp:include page="/regna-master/body.jsp" /> --%>
 </body>
 
 </html>
