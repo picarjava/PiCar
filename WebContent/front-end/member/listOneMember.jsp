@@ -122,10 +122,13 @@
 		</tr>
 		<tr>
 		<td>個人照片</td>
-		<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"></td>
+		<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
+		onerror="this.src='cat.jpg'"></td>
 		</tr>	
 	</table>
 	
+	<table>
+	<tr>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改個人資料">
@@ -153,6 +156,7 @@
 				 <input type="hidden" name="logout"	value="logout">	
 				</form>
 			
-
+	</tr>
+	</table>
 </body>
 </html>

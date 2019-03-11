@@ -211,12 +211,35 @@ public class MemberServlet1 extends HttpServlet {
 				Integer verified = new Integer(req.getParameter("verified"));
 				Integer babySeat = new Integer(req.getParameter("babySeat"));
 				
-				Part part = req.getPart("pic");
-				InputStream in = part.getInputStream();
-				byte[] pic = new byte[in.available()];
-				in.read(pic);
-				in.close();
+				MemberService memberSvc1 = new MemberService();
+				MemberVO memberVO1 = memberSvc1.getOneMember(memID);
+				byte[] picnow = memberVO1.getPic();
+
+				byte[] pic = null;
+
+//				Part part = req.getPart("pic");
+//				long size = part.getSize();
+//				InputStream in = part.getInputStream();
+//				pic = new byte[in.available()];
+//
+//				if (size != 0) {
+//					in.read(pic);
+////					in.close();
+//				} else if (size == 0 && picnow == null) {
+//					errorMsgs.add("請輸入照片");
+//				} else if (picnow != null && size == 0) {
+					pic = picnow;
+//				}
+//				in.close();
+				
+//				Part part = req.getPart("pic");
+//				InputStream in = part.getInputStream();
+//				byte[] pic = new byte[in.available()];
+//				in.read(pic);
+//				in.close();
 //				
+				
+				
 				MemberVO memberVO = new MemberVO();
 				memberVO.setMemID(memID);
 				memberVO.setName(name);
@@ -232,6 +255,7 @@ public class MemberServlet1 extends HttpServlet {
 				memberVO.setBirthday(birthday);
 				memberVO.setVerified(verified);
 				memberVO.setBabySeat(babySeat);
+				memberVO.setPic(pic);
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req

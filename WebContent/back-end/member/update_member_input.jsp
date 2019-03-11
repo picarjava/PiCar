@@ -146,6 +146,12 @@ table{
 			</td>		
 		</tr>
 		
+		<tr>
+		<td>個人照片</td>
+		<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
+		onerror="this.src='cat.jpg'"></td>
+		</tr>	
+		
 	</table>        
 	
 	         
