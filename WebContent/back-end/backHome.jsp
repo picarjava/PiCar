@@ -114,12 +114,6 @@ table {
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="../back-end/activity/homeActivity.jsp">
-              <i class="material-icons">content_paste</i>
-              <p>活動資訊管理</p>
-            </a>
-          </li>
-          <li class="nav-item ">
             <a class="nav-link" href="../back-end/rate/select_page.jsp">
               <i class="material-icons">content_paste</i>
               <p>資費管理</p>
@@ -144,9 +138,9 @@ table {
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="./icons.html">
+            <a class="nav-link" href="../back-end/activity/homeActivity.jsp">
               <i class="material-icons">bubble_chart</i>
-              <p>Icons</p>
+              <p>活動資訊管理</p>
             </a>
           </li>
           <li class="nav-item ">
