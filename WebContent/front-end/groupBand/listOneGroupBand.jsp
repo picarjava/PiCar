@@ -87,6 +87,9 @@
     .color0{
       background-color: #FFB7DD!important;
   }
+  .tentce{
+
+}
   
 </style>
 <style>
@@ -117,6 +120,7 @@
 		<ul>
 			<c:forEach var="message" items="${errorMsgs}">
 				<li style="color: red">${message}</li>
+				
 			</c:forEach>
 		</ul>
 	</c:if>
@@ -126,8 +130,23 @@
 <div class="d-inline p-2 bg-primary text-white color${MemberVO.gender}">
 <div class="marrgin"><img class="imgss"  src="/PiCar/GroupBand?MEM_ID=${MemberVO.memID}"></div>
 <div class="tentcenter" id="gender"><h4 >${MemberVO.name}<img class="mar" src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/${MemberVO.gender}.png"  width="20px"   height="25px" ></h4></div>
-<div class="tentcenter"></div>
+<div class="tentce" id="${MemberVO.memID}"></div>
 </div>
+<script>
+var MyPoint = "/webSocket/peter/309/${MemberVO.memID}";
+var ${MemberVO.memID} = document.getElementById("${MemberVO.memID}");
+
+${MemberVO.memID}.innerHTML="${MemberVO.memID}";
+
+if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
+	
+// 	取得木遣使用者跟揪團裡的人比對
+	${MemberVO.memID}.innerHTML="${MemberVO.memID}"+"555";
+	
+	
+}
+
+</script>
 </c:forEach>
 </div>
 <table>
@@ -236,7 +255,7 @@
     
 <script>
     
-    var MyPoint = "/webSocket/peter/309";
+   
     var host = window.location.host;
     var path = window.location.pathname;
     var webCtx = path.substring(0, path.indexOf('/', 1));
