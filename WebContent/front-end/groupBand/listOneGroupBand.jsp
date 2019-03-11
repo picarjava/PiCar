@@ -139,7 +139,7 @@ var ${MemberVO.memID} = document.getElementById("${MemberVO.memID}");
 ${MemberVO.memID}.innerHTML="${MemberVO.memID}";
 
 if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
-	
+	//jsp+javascript
 // 	取得木遣使用者跟揪團裡的人比對
 	${MemberVO.memID}.innerHTML="${MemberVO.memID}"+"555";
 	

@@ -38,7 +38,7 @@
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">查看最新消息</h3>
-                    <form action="">
+                    <form action="<%=request.getContextPath()%>/regna-master/homeindex.jsp">
 			          <div class="text-center"><button type="submit" class="btn btn-outline-success">返回</button></div>
 			         </form>
                 </div>
@@ -51,7 +51,7 @@
 					 		<div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-delay="0.2s"> 
 					 		<div class="card" style="width: 65rem;height:35rem ">
 					 			  <c:if test="${empty activityVO.activityPost}" var="condition">
-					              <img src="<%=request.getContextPath()%>/back-end/activity/img/noFileUpdate.JPG" class='card-img-top' width='300' height='350'>
+					              <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" class='card-img-top' width='300' height='350'>
 					              </c:if>
 					              <c:if test="${not empty activityVO.activityPost}" var="condition">
 					              <img  src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' class='card-img-top' width='400' height='350' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/>

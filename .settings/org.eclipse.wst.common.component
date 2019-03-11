@@ -2,6 +2,7 @@
     <wb-module deploy-name="PiCar">
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/WebContent/memberHome"/>
         <property name="java-output-path" value="/PiCar/build/classes"/>
         <property name="context-root" value="PiCar"/>
     </wb-module>

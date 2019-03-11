@@ -1,3 +1,6 @@
+<%@ page contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -227,8 +230,8 @@ margin-top: -20px;
                     <li class="portfolio"><a href="#team">搭乘方案</a>
                     <li><a href="#QA">Q&A</a></li>
                     </li>
-                    <li class="sig"><a href="#contact" class="Signin "><i class="fas fa-user-plus"></i>註冊</a></li>
-                    <li><a href="#contact" class="Signin sift"><i class="fas fa-child"></i>登入</a></li>
+                    <li class="sig"><a href="<%=request.getServletContext().getContextPath()%>/front-end/member/addMember.jsp" class="Signin "><i class="fas fa-user-plus"></i>註冊</a></li>
+                    <li><a href="<%=request.getServletContext().getContextPath()%>/front-end/login/login.html" class="Signin sift"><i class="fas fa-child"></i>登入</a></li>
         </div>
         </ul>
         <ul class="justify-content-center">
@@ -243,7 +246,7 @@ margin-top: -20px;
         <div class="hero-container">
             <h1>Welcome to Regna</h1>
             <h2>We are team of talanted designers making websites with Bootstrap</h2>
-            <a href="#about" class="btn-get-started">Get Started</a>
+            <a href="<%=request.getServletContext().getContextPath()%>/front-end/activity/listAllActivity.jsp" class="btn-get-started">Get Started</a>
         </div>
     </section><!-- #hero -->
     <main id="main">
