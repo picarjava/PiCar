@@ -1,11 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=BIG5"
 	pageEncoding="UTF-8" import="com.storeRecord.model.*"
-	import="java.util.List"%>
+	import="java.util.List" import="com.member.model.*"%>
+	
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%
 	List<StoreRecordVO> list = (List) request.getAttribute("list");
 	Integer sumCount = (Integer)request.getAttribute("sumCount");
+	MemberVO memberVO = (MemberVO)session.getAttribute("memeberVO");
 %>
 
 <jsp:useBean id="storeRecordDAO" scope="page"

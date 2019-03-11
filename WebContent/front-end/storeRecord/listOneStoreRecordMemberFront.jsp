@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.storeRecord.model.*"
 	import="java.util.List"%>
 <%@ page import="com.member.model.*" %>
@@ -8,6 +8,7 @@
 
 
 <%	
+	//給會員儲值用的
 	//以下為了用迴圈將儲值紀錄列出
 	List<StoreRecordVO> list = (List) request.getAttribute("list");
 	StoreRecordVO storeRecordVO = (StoreRecordVO)request.getAttribute("storeRecordVO");
@@ -16,6 +17,7 @@
 	MemberVO memberVO = memberSvc.getOneMember(storeRecordVO.getMemID());
 	//以下為了得到加總金額
 	Integer sumCount = (Integer)request.getAttribute("sumCount");
+// 	MemberVO memberVO = (MemberVO)session.getAttribute("memeberVO");
 	
 %>
 
@@ -24,7 +26,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>listOneRate.jsp</title>
 </head>
 <style>
@@ -61,8 +63,8 @@
 			</tr>
 		</c:forEach>
 		<tr>
-			<td colspan="1">總儲值金額</td>	
-			<td>${sumCount}</td>	
+			<td colspan="1">總儲值金額555</td>	
+<%-- 			<td><%=memberVO.getToken() %></td>	 --%>
 <%-- 			<c:forEach var="storeRecordVO" items="${list}" begin="0" end="0" --%>
 <%-- 				step="1"> --%>
 <%-- 				<td>${storeRecordDAO.getSumAmount(storeRecordVO.memID)}</td> --%>

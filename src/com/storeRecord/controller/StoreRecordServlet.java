@@ -238,7 +238,7 @@ public class StoreRecordServlet extends HttpServlet {
 
 				if (!errorMsgs.isEmpty()) {
 					req.setAttribute("storeRecordVO", storeRecordVO);
-					RequestDispatcher failView = req.getRequestDispatcher("/storeRecord/addStoreRecord.jsp");
+					RequestDispatcher failView = req.getRequestDispatcher("/front-end/storeRecord/addStoreRecord.jsp");
 					failView.forward(req, res);
 					return;
 				}
@@ -261,12 +261,12 @@ public class StoreRecordServlet extends HttpServlet {
 				memberSvc.updateToken(memID, memberVO.getToken() + storeRecordVO.getAmount());
 
 				RequestDispatcher succesView = req
-						.getRequestDispatcher("/storeRecord/listOneStoreRecordMemberFront.jsp");
+						.getRequestDispatcher("/front-end/storeRecord/listOneStoreRecordMemberFront.jsp");
 				succesView.forward(req, res);
 
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
-				RequestDispatcher successView = req.getRequestDispatcher("/storeRecord/addStoreRecord.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/storeRecord/addStoreRecord.jsp");
 				successView.forward(req, res);
 			}
 
@@ -278,7 +278,7 @@ public class StoreRecordServlet extends HttpServlet {
 			storeRecordVO.setMemID(memID);
 			
 			req.setAttribute("storeRecordVO", storeRecordVO);
-			RequestDispatcher successView = req.getRequestDispatcher("/storeRecord/addStoreRecord.jsp");
+			RequestDispatcher successView = req.getRequestDispatcher("/front-end/storeRecord/addStoreRecord.jsp");
 			successView.forward(req, res);
 		}
 
