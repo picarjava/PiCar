@@ -9,7 +9,7 @@
 <head>
 <%--     <jsp:include page="/regna-master/head.jsp" /> --%>
     <title>司機會員管理</title>
-
+<jsp:include page="/back-end/head_back.jsp" />
 </head>
 <!-- http://localhost:8081/PiCar/back-end/driver/driverMemberManagement.jsp -->
 <body>
@@ -148,6 +148,7 @@
     </footer>
     <!-- #footer -->
 <%--     <jsp:include page="/regna-master/body.jsp" /> --%>
+<jsp:include page="/back-end/head_back.jsp" />
 </body>
 
 </html>
