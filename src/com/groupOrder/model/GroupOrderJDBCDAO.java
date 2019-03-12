@@ -361,4 +361,10 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
 		
 	}
 
+	@Override
+	public List<GroupOrderVO> GET_ONE_groupid__state_men_id(String memid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

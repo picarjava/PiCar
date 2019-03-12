@@ -193,6 +193,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 			rs = pstmt.executeQuery();
 
 			while (rs.next()) {
+				
 				groupBandVO = new GroupBandVO();
 				groupBandVO.setGroupID(rs.getString("GROUP_ID"));
 				groupBandVO.setContent(rs.getString("CONTENT"));
@@ -214,6 +215,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 				groupBandVO.setRate(rs.getInt("RATE"));
 				groupBandVO.setNote(rs.getString("NOTE"));
 				groupBandVO.setGroupKind(rs.getInt("GROUP_KIND"));
+			
 			}
 
 		} catch (SQLException se) {
@@ -242,7 +244,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 				}
 			}
 		}
-
+	
 		return groupBandVO;
 	}
 

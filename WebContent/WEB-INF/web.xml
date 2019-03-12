@@ -299,6 +299,7 @@
     <url-pattern>/front-end/groupBand/insertGroupBand.jsp</url-pattern>
     <url-pattern>/front-end/driver/homeDriverDataManagment.jsp</url-pattern>
     <url-pattern>/front-end/groupBand/SelectGroupBand.jsp</url-pattern>
+     <url-pattern>/front-end/groupBand/listAllOneGroupBand.jsp</url-pattern>
     <url-pattern>/front-end/storeRecord/listOneStoreRecordMemberFront1.jsp</url-pattern>
     
     <dispatcher>REQUEST</dispatcher>
