@@ -132,7 +132,7 @@ public class MemberServlet extends HttpServlet {
 				// 準備轉交
 				req.setAttribute("memberVO", memberVO);
 
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMember.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByUpdate.jsp");
 				successView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
@@ -159,7 +159,7 @@ public class MemberServlet extends HttpServlet {
 
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOnemember");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByUpdate.jsp");
 				successView.forward(req, res);
 			}
 
@@ -287,7 +287,7 @@ public class MemberServlet extends HttpServlet {
 						token, activityToken, birthday, verified, babySeat, pic);
 				req.setAttribute("memberVO", memberVO);
 
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMember.jsp"); // 新增成功後轉交listAllmember_byDAO
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByUpdate.jsp"); // 新增成功後轉交listAllmember_byDAO
 				successView.forward(req, res);
 
 			} catch (Exception e) {
@@ -393,7 +393,7 @@ public class MemberServlet extends HttpServlet {
 						activityToken, birthday, verified, babySeat, pic);
 				req.setAttribute("memberVO", memberVO);
 
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMember1.jsp"); // 新增成功後轉交listAllmember_byDAO
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByInsert.jsp"); // 新增成功後轉交listAllmember_byDAO
 				successView.forward(req, res);
 
 			} catch (Exception e) {
