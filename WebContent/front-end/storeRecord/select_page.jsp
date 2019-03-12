@@ -31,7 +31,7 @@
 	</div>
 
 	<ul>
-		<li><a href="listAllStoretRecord.jsp" >點選顯示全部儲值紀錄</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
+<!-- 		<li><a href="listAllStoretRecord.jsp" >點選顯示全部儲值紀錄</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br> -->
 	
 			
 <!-- 		<li> -->
@@ -56,34 +56,34 @@
 		
 			<jsp:useBean id="storedao" scope="page" class="com.storeRecord.model.StoreRecordDAO" />
 		
-		<br><br>
-		<li>
-			<form method="post" action="storeRecord.do">
-				<b>請選擇儲值編號</b> <br>
-				<select size="1" name="storeRecordID">
-					<c:forEach var="storeRecordVO" items="${storedao.all}">
-						<option value="${storeRecordVO.storeID}">${storeRecordVO.storeID}
-					</c:forEach>
-				</select> 
-				<input type="hidden" name="action" value="getOne_For_Display"><br>
-				<input type="submit" value="submit">
-			</form>
-		</li>
-		<br>
-		<li>
-			<form method="post" action="storeRecord.do">
-				<b>請選擇會員ID</b><br>
-				<select size="1" name="memID">
-					<c:forEach var="storeRecordVO" items="${storedao.distinctMemID}">
-						<option value="${storeRecordVO.memID}">${storeRecordVO.memID} 					
-					</c:forEach>
-				</select>
-				<br>	
-				<input type="hidden" name="action" value="getOne_For_Display_Mem"><br>
-				<input type="submit" value="submit">			
-			</form>
+		
+<!-- 		<li> -->
+<!-- 			<form method="post" action="storeRecord.do"> -->
+<!-- 				<b>請選擇儲值編號</b> <br> -->
+<!-- 				<select size="1" name="storeRecordID"> -->
+<%-- 					<c:forEach var="storeRecordVO" items="${storedao.all}"> --%>
+<%-- 						<option value="${storeRecordVO.storeID}">${storeRecordVO.storeID} --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</select>  -->
+<!-- 				<input type="hidden" name="action" value="getOne_For_Display"><br> -->
+<!-- 				<input type="submit" value="submit"> -->
+<!-- 			</form> -->
+<!-- 		</li> -->
+		
+<!-- 		<li> -->
+<!-- 			<form method="post" action="storeRecord.do"> -->
+<!-- 				<b>請選擇會員ID</b><br> -->
+<!-- 				<select size="1" name="memID"> -->
+<%-- 					<c:forEach var="storeRecordVO" items="${storedao.distinctMemID}"> --%>
+<%-- 						<option value="${storeRecordVO.memID}">${storeRecordVO.memID} 					 --%>
+<%-- 					</c:forEach> --%>
+<!-- 				</select> -->
+<!-- 				<br>	 -->
+<!-- 				<input type="hidden" name="action" value="getOne_For_Display_Mem"><br> -->
+<!-- 				<input type="submit" value="submit">			 -->
+<!-- 			</form> -->
 			
-		</li>
+<!-- 		</li> -->
 	</ul>
 	<ul>
 		<li>	
