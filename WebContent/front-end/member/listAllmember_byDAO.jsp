@@ -119,7 +119,7 @@ table1, td {
 			</c:choose></td>
 			
 			
-			<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"></td>
+			<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200" onerror="this.src='cat.jpg'"></td>
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do" style="margin-bottom: 0px;">
 			     <input type="submit" value="修改">
