@@ -4,7 +4,7 @@
     <%@ page import="com.groupBand.model.*"%>
     <%@ page import="com.groupOrder.model.*"%>
     <%@ page import="java.util.*"%>
-    
+    ${memberVO.memID}
     <%
     GroupOrderService groupOrderService =new GroupOrderService();
     List<GroupOrderVO> lists = groupOrderService.GET_one_groupid__state_men_id("M004");
