@@ -21,7 +21,7 @@ import javax.websocket.CloseReason;
 public class webSocket {
 	
 private static final Set<Session> allSessions = Collections.synchronizedSet(new HashSet<Session>());
-public List<String> list =new ArrayList<String>();
+//public List<String> list =new ArrayList<String>();
 	@OnOpen
 	public void onOpen(@PathParam("myName") String myName, @PathParam("myRoom") int myRoom, Session userSession) throws IOException {
 		allSessions.add(userSession);
@@ -36,24 +36,23 @@ public List<String> list =new ArrayList<String>();
 	@OnMessage
 	public void onMessage(Session userSession, String message) {
 		
-		this.list.add(message);
-		
-		for(String elements : list) {		
+//		this.list.add(message);
+//		
+//		for(String elements : list) {		
 			
 			
 
 		for (Session session : allSessions) {//轉傳
 			
 			if (session.isOpen()) 
-		session.getAsyncRemote().sendText(elements);
+		session.getAsyncRemote().sendText(message);
 		
 		}
-		System.out.println(list+"00000");
-		System.out.println("Message received: " + message);
+	
 		
 		
 		}
-			}
+			
 	
 	@OnError
 	public void onError(Session userSession, Throwable e){
