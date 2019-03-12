@@ -76,6 +76,7 @@ table1, td {
 			<td>birthday</td>
 			<td>verified</td>
 			<td>babySeat</td>
+			<td>個人照片</td>
 			<td>修改</td>
 			<td>刪除</td>
 		</tr>
@@ -117,6 +118,7 @@ table1, td {
 			  <c:when test="${memberVO.babySeat == '1'}">需要  </c:when>
 			  <c:when test="${memberVO.babySeat == '0'}">不需要  </c:when>			 
 			</c:choose></td>
+			<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200" onerror="this.src='cat.jpg'"></td>
 			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/member/member.do" style="margin-bottom: 0px;">

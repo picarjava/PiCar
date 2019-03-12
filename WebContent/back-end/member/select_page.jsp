@@ -33,7 +33,7 @@
 	<ul>
 		<li><a href="listAllmember_byDAO.jsp" >點選顯示全部會員</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
 	
-		<li><a href="member.do?action=getAll" >點選顯示全部會員</a>  <font color="blue" face="DFKai-sb">All members getFormSession</font> <br><br>
+<!-- 		<li><a href="member.do?action=getAll" >點選顯示全部會員</a>  <font color="blue" face="DFKai-sb">All members getFormSession</font> <br><br> -->
 		
 		<li>
 			<form method="post" action="member.do">
@@ -49,14 +49,14 @@
 				<b>請輸入會員編號(EX:M001) (資料格式驗證  by Java Script):</b><br> 
 				<input type="text" name="memID">
 				<input type="hidden" name="action" value="getOne_For_Display"><br>
-				<input type="button" value="submit" onlick="fun1()">  
+				<input type="button" value="submit" onclick="fun1()">  
 			</form> 
 		</li>	
-		
+		<br>
 		
 			<jsp:useBean id="memberdao" scope="page" class="com.member.model.MemberDAO" />
 		
-		<br><br>
+		
 		<li>
 			<form method="post" action="member.do">
 				<b>請選擇會員編號</b> <br>
