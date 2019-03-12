@@ -79,7 +79,7 @@ public class StoreRecordServlet extends HttpServlet {
 			}
 		}
 
-		// 查詢司機個人的紀錄
+		// 查詢會員個人的紀錄
 		if ("getOne_For_Display_Mem".equals(action)) {
 			List<String> errorMsgs = new LinkedList();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -205,6 +205,8 @@ public class StoreRecordServlet extends HttpServlet {
 //
 //		}
 //
+		
+		//從自己addStoreRecord.jsp來的請求
 		if ("insert".equals(action)) {
 
 			// 司機編號作下拉式選單
@@ -261,7 +263,7 @@ public class StoreRecordServlet extends HttpServlet {
 				memberSvc.updateToken(memID, memberVO.getToken() + storeRecordVO.getAmount());
 
 				RequestDispatcher succesView = req
-						.getRequestDispatcher("/front-end/storeRecord/listOneStoreRecordMemberFront.jsp");
+						.getRequestDispatcher("/front-end/storeRecord/listOneStoreRecordByMem.jsp");
 				succesView.forward(req, res);
 
 			} catch (Exception e) {
@@ -271,6 +273,8 @@ public class StoreRecordServlet extends HttpServlet {
 			}
 
 		}
+		
+		//從Front-end/Member/listOneMember.jsp來的請求
 		if ("addToken".equals(action)) {
 
 			String memID = req.getParameter("memID");
