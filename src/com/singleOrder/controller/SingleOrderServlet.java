@@ -121,6 +121,11 @@ public class SingleOrderServlet extends HttpServlet{
                 int totalAmount = (int) (Math.random() * 1000) + 1;
                 Integer orderType = parseInteger(req.getParameter("orderType"));
                 Timestamp launchTime = new Timestamp(System.currentTimeMillis());
+                Double startLng=new Double(req.getParameter("startLng"));
+                Double startLat=new Double(req.getParameter("startLat"));
+                Double endLng=new Double(req.getParameter("endLng"));
+                Double endLat=new Double(req.getParameter("endLat"));
+                System.out.println(startLng+"===="+startLat+"===="+endLng+"===="+endLat);
                 if (!isValidParameter(memID, "^[Mm]\\d+$"))
                     errorMsgs.add("會員ID錯誤");
                 if (startTime == null)
@@ -133,6 +138,9 @@ public class SingleOrderServlet extends HttpServlet{
                     errorMsgs.add("訂單種類錯誤");
                 if (!isValidParameter(note, ".+"))
                     errorMsgs.add("備註錯誤");
+                if (req.getParameter("startLng")== null)
+                    errorMsgs.add("未取得經緯度");
+                
                 
 	                SingleOrderVO singleOrderVO = new SingleOrderVO();
 	                singleOrderVO.setMemID(memID);
@@ -148,15 +156,15 @@ public class SingleOrderServlet extends HttpServlet{
 	                } else {
 	                    try {
 	                        serivce.addSingleOrder(memID, 0, startTime, startLoc,
-	                                               endLoc, 0.0, 0.0, 0.0,
-	                                               0.0, totalAmount, orderType, note,
+	                                               endLoc, startLng, startLat,  endLng,
+	                                               endLat, totalAmount, orderType, note,
 	                                               launchTime);
 	                    } catch(RuntimeException e) {
 	                        req.setAttribute("singleOrder", singleOrderVO);
 	                        throw e;
 	                    } // catch
 	                    
-	                    forwordURL = "/front-end/singleOrder/listAllSingleOrder.jsp";
+	                    forwordURL = "/front-end/singleOrder/listAllfutureTrip.jsp";
 	             
 	                } // else
             //新增長期預約訂單

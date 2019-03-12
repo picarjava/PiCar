@@ -9,11 +9,36 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-
     <jsp:include page="/regna-master/head.jsp" />
+    <style>
+	#map { 
+         height: 500px;  
+         width: 850px;
+      } 
+        #origin-input, 
+       #destination-input { 
+         background-color: #fff; 
+         font-family: Roboto;  
+         font-size: 15px; 
+         font-weight: 300; 
+         margin-left: 12px; 
+         padding: 1 11px 1 13px; 
+         text-overflow: ellipsis; 
+         width: 350px; 
+       } 
+       
+</style>
 </head>
+<!-- 本頁面待與登入功能串接 此處先指定memID-->
+<%-- <%String memID=(String)session.getAttribute("memID"); %>  --%>
+<%!String memID="M001";%>
+<%
+ session.setAttribute("memID", memID);
+%>
 
 <body>
+
+
 <% Timestamp endTime=(Timestamp)request.getAttribute("endTime");%>
  <!-- 錯誤列表 -->
     <%List<String> errorMsgs=(List<String>)request.getAttribute("errorMsgs");%>
@@ -61,29 +86,31 @@
               <form action="<%=application.getContextPath()%>/singleOrder" method="post" role="form" class="contactForm">
  					<div class="form-group">
 	                   <p>會員編號</p>
-	                  <input type="text" name="memID" class="form-control" value="${singleOrder.memID}"   placeholder="請輸入會員編號" />
+	                  <input type="text" name="memID" class="form-control" value="${memID}"   placeholder="請輸入會員編號" />
 	       			</div>
  					<div class="form-row">
                       <div class="col">
-                        <p>上車地點</p> 
-                        <input type="text" name="startLoc" value="${singleOrder.startLoc}" class="form-control" placeholder="請輸入上車地點">
+                        <p>上車地點/下車地點</p> 
+                        <input id="origin-input" type="text" name="startLoc" value="${singleOrder.startLoc}" class="form-control" placeholder="請輸入上車地點">
                       </div>
                       <div class="col">
-                        <p>下車地點</p>
-                        <input type="text" name="endLoc" value="${singleOrder.endLoc}" class="form-control" placeholder="請輸入下車地點">
+                        <input id="destination-input" type="text" name="endLoc" value="${singleOrder.endLoc}" class="form-control" placeholder="請輸入下車地點">
                       </div>
+                      <div  id="map" class="col12">
+                     </div>
                     </div>
+                      
                       <!--==========================
                     google地圖開始
                     ============================-->
-					 <iframe 
-					      width="600" 
-					      height="450" 
-					      frameborder="0" 
-					      style="border:0" 
-					      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCWL8JxUOY0dQZ01M4rCgDU-oHLkP5BORI&q=高雄市政府" 
-					      allowfullscreen>
-					  </iframe>
+<!-- 					 <iframe  -->
+<!-- 					      width="600"  -->
+<!-- 					      height="450"  -->
+<!-- 					      frameborder="0"  -->
+<!-- 					      style="border:0"  -->
+<!-- 					      src="https://www.google.com/maps/embed/v1/place?key=AIzaSyCWL8JxUOY0dQZ01M4rCgDU-oHLkP5BORI&q=高雄市政府"  -->
+<!-- 					      allowfullscreen> -->
+<!-- 					  </iframe> -->
 
                  <!--==========================
                      google地圖結束
@@ -125,6 +152,10 @@
                 <!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
                 <input type="hidden" name="action" value="insertLongterm">
                 <input type="hidden" name="orderType" value="4">
+<!--                 <input type="hidden" id="startLng" name="startLng" value=""> -->
+<!--                 <input type="hidden" id="startLat" name="startLat" value=""> -->
+<!--                 <input type="hidden" id="endLng" name="endLng" value=""> -->
+<!--                 <input type="hidden" id="endLat" name="endLat" value=""> -->
                 <!-- 訂單種類:預約叫車3/長期預約叫車4-->
               </form>
             </div>
@@ -163,6 +194,121 @@
  <jsp:include page="/regna-master/body.jsp" />
  
 </body>
+<!-- auto place complete 開始 -->
+  <script>
+// This example requires the Places library. Include the libraries=places
+// parameter when you first load the API. For example:
+// <script
+// src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    mapTypeControl: false,
+    center: {lat: 23.914626, lng: 121.060895},
+    zoom: 7.5
+  });
+
+  new AutocompleteDirectionsHandler(map);
+}
+
+/**
+ * @constructor
+ */
+function AutocompleteDirectionsHandler(map) {
+  this.map = map;
+  this.originPlaceId = null;
+  this.destinationPlaceId = null;
+  this.travelMode = 'DRIVING';
+  this.directionsService = new google.maps.DirectionsService;
+  this.directionsDisplay = new google.maps.DirectionsRenderer;
+  this.directionsDisplay.setMap(map);
+
+  var originInput = document.getElementById('origin-input');
+  var destinationInput = document.getElementById('destination-input');
+
+  var originAutocomplete = new google.maps.places.Autocomplete(originInput);
+  // Specify just the place data fields that you need.
+  originAutocomplete.setFields(['place_id']);
+
+  var destinationAutocomplete =
+      new google.maps.places.Autocomplete(destinationInput);
+  // Specify just the place data fields that you need.
+  destinationAutocomplete.setFields(['place_id']);
+
+
+  this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+  this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
+      destinationInput);
+
+}
+
+// Sets a listener on a radio button to change the filter type on Places
+// Autocomplete.
+AutocompleteDirectionsHandler.prototype.setupClickListener = function(
+    id, mode) {
+  var radioButton = document.getElementById(id);
+  var me = this;
+
+  radioButton.addEventListener('click', function() {
+    me.travelMode = mode;
+    me.route();
+  });
+};
+
+AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(
+    autocomplete, mode) {
+  var me = this;
+  autocomplete.bindTo('bounds', this.map);
+
+  autocomplete.addListener('place_changed', function() {
+    var place = autocomplete.getPlace();
+
+    if (!place.place_id) {
+      window.alert('Please select an option from the dropdown list.');
+      return;
+    }
+    if (mode === 'ORIG') {
+      me.originPlaceId = place.place_id;
+    } else {
+      me.destinationPlaceId = place.place_id;
+    }
+    me.route();
+  });
+};
+
+
+
+
+AutocompleteDirectionsHandler.prototype.route = function() {
+  if (!this.originPlaceId || !this.destinationPlaceId) {
+    return;
+  }
+  var me = this;
+
+  this.directionsService.route(
+      {
+        origin: {'placeId': this.originPlaceId},
+        destination: {'placeId': this.destinationPlaceId},
+        travelMode: this.travelMode
+      },
+      function(response, status) {
+        if (status === 'OK') {
+          me.directionsDisplay.setDirections(response);
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
+};
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWL8JxUOY0dQZ01M4rCgDU-oHLkP5BORI&libraries=places&callback=initMap"
+        async defer></script>
+<!-- auto complete結束 -->
+
+
  <!--測試用class註冊 -->
 <script> 
 //  var count=1;
