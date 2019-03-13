@@ -21,6 +21,7 @@
 <!-- DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID()); -->
     
     <!-- 先取出VO -->
+    <% String driverID = "D012" ;%>
   <%
   
 MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");

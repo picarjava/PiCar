@@ -149,17 +149,22 @@ table {
                                         <% }%>
                                     </div>
                                     <%-- 						      <td>${driverVO.photo}</td> --%>
-                                    <div class="form-group">
-                                        <p>大頭照</p>
-                                        <c:set var="photo" value="${memberVO.pic}" />
-                                        <%
-						      byte[] photo = (byte[])pageContext.getAttribute("photo");
-						      String encodeImg5 = null;
-						      if(photo!=null){
-						    	  encodeImg5 = Base64.encode(photo);%>
-                                        <img src="data:image/jpg;base64,<%=encodeImg5 %>" id="img5" width='200' height="200">
-                                        <% }%>
-                                    </div>
+<!--                                     <div class="form-group"> -->
+<!--                                         <p>大頭照</p> -->
+<%--                                         <c:set var="photo" value="${memberVO.pic}" /> --%>
+<%--                                         <% --%>
+<!-- // 						      byte[] photo = (byte[])pageContext.getAttribute("photo"); -->
+<!-- // 						      String encodeImg5 = null; -->
+<!-- // 						      if(photo!=null){ -->
+<%-- 						    	  encodeImg5 = Base64.encode(photo);%> --%>
+<%--                                         <img src="data:image/jpg;base64,<%=encodeImg5 %>" id="img5" width='200' height="200"> --%>
+<%--                                         <% }%> --%>
+<!--                                     </div> -->
+							<div class="form-group">
+                      <p>會員照片</p>
+							<img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
+		          onerror="this.src='cat.jpg'">
+                    </div>	
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">評價分數</span>
