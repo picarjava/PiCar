@@ -59,7 +59,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String GET_ONE_GROUP_ID_START_TIME = 
 				"SELECT * FROM GROUP_ORDER where GROUP_ID = ?  and START_TIME= ?";
 		private static final String GET_ONE_GROUP_ID__STATE_MEM_ID = 
-		"select DISTINCT GROUP_ID from GROUP_ORDER where STATE=1 and MEM_ID=?";
+		"select DISTINCT GROUP_ID from GROUP_ORDER where STATE=0 and MEM_ID=?";
 		
 	@Override
 	public void insert(GroupOrderVO groupOrderVO) {
