@@ -70,6 +70,7 @@ public class memberServlet extends HttpServlet {
                     String encodePicture = Base64.getEncoder().encodeToString(picture);
                     System.out.println(encodePicture);
                     writer.print(encodePicture);
+                    writer.close();
                 }
             } else if ("updatePreference".equals(action)) {
                 int pet = jsonIn.get("pet").getAsInt();

@@ -10,12 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.driver.model.DriverService;
-import com.driver.model.DriverVO;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.member.model.MemberVO;
 
+import android.com.driver.model.DriverVO;
 import android.com.member.model.MemberService;
 
 public class DriverServlet extends HttpServlet {
@@ -44,36 +44,33 @@ public class DriverServlet extends HttpServlet {
                 if (jsonIn.has("password"))
                     password = jsonIn.get("password").getAsString();
                 
-                System.out.println(account + " " + password);
                 System.out.println(jsonIn);
                 MemberVO memberVO = new MemberService().getOneByEmailAndPassword(account, password);
-                DriverVO driverVO = null;
-                android.com.driver.model.DriverVO vo = null;
+                com.driver.model.DriverVO driverVO = null;
+                DriverVO vo = null;
                 if (memberVO != null) {
                     DriverService driverService = new DriverService();
                     driverVO = driverService.getOneDriverBymemID(memberVO.getMemID());
                     if (driverVO != null)
                        vo = downDriverVO(driverVO);
+                    
+                    if (vo != null) {
+                       gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+                       jsonOut.addProperty("auth", "OK");
+                       jsonOut.addProperty("driverName", memberVO.getName());
+                       jsonOut.addProperty("driver", gson.toJson(vo));
+                    } else
+                       jsonOut.addProperty("auth", "Failed");
+                    
+                    writer.print(jsonOut);
+                    writer.close();
                 } // if
-                
-                if (vo != null) {
-                   gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-                   jsonOut.addProperty("auth", "OK");
-                   System.out.println(vo);
-                   jsonOut.addProperty("driver", gson.toJson(vo));
-                } else {
-                   jsonOut.addProperty("auth", "Failed");
-                }
-                
-                System.out.println(jsonOut);
-                writer.print(jsonOut);
-                writer.close();
             } // if
         } // if
     }
     
-    public static android.com.driver.model.DriverVO downDriverVO(DriverVO driverVO) {
-        android.com.driver.model.DriverVO vo = new android.com.driver.model.DriverVO();
+    public static DriverVO downDriverVO(com.driver.model.DriverVO driverVO) {
+        DriverVO vo = new DriverVO();
         vo.setMemID(driverVO.getMemID());
         vo.setDriverID(driverVO.getDriverID());
         vo.setVerified(driverVO.getVerified());      
