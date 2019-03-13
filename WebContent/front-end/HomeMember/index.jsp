@@ -46,6 +46,10 @@
 width: 100px;
 
 }
+.header .navbar-inner {
+  left: 50px;
+    right: 50px;
+}
 </style>
 
     </head>

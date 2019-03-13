@@ -4,10 +4,12 @@
     <%@ page import="com.groupBand.model.*"%>
     <%@ page import="com.groupOrder.model.*"%>
     <%@ page import="java.util.*"%>
-    ${memberVO.memID}
+    <%@ page import="com.member.model.*"%>
+
     <%
+    MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
     GroupOrderService groupOrderService =new GroupOrderService();
-    List<GroupOrderVO> lists = groupOrderService.GET_one_groupid__state_men_id("M004");
+    List<GroupOrderVO> lists = groupOrderService.GET_one_groupid__state_men_id(memberVO.getMemID());
     GroupBandService groupBandSvc = new GroupBandService();
     List<GroupBandVO> list=new ArrayList<GroupBandVO>();
 
@@ -43,7 +45,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>listAllGroupBand.jsp</title>
+<title>listAllGroupBand.jsp  ${memberVO.memID}</title>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
