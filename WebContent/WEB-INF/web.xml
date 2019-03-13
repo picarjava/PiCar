@@ -278,6 +278,17 @@
     <servlet-name>ScheduleTimer</servlet-name>
     <url-pattern>/ScheduleServlet</url-pattern>
   </servlet-mapping>
+  
+    <servlet>
+    <servlet-name>GroupTimer</servlet-name>
+    <servlet-class>Timer.GroupTimer</servlet-class>
+    <load-on-startup>9</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GroupTimer</servlet-name>
+    <url-pattern>/GroupTimer</url-pattern>
+  </servlet-mapping>
+  
   <filter>
     <filter-name>LoginFilter</filter-name>
     <filter-class>com.login.filter.LoginFilter</filter-class>
