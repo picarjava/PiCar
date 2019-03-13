@@ -67,12 +67,16 @@
 	<c:forEach var="driverVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>" >			  
 					 		<tr>	 
 						      <th scope="row">
-						      <c:if test="${driverVO.verified == 0}"><a href='<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp' data-role='button'>未審核</a></c:if>
+						      <c:if test="${driverVO.verified == 0}">
+						      <a href='<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp' data-role='button'>未審核</a>
+						      </c:if>
 						      <c:if test="${driverVO.verified == 1}">審核通過</c:if>
 						      <c:if test="${driverVO.verified == 2}">未通過</c:if>
 						      </th>
 						      <td>${driverVO.memID}</td>
+						      
 						      <td>${driverVO.driverID}</td>
+						      
 <%-- 						      <td>${memberVO.name}</td> --%>
 						      <td>${driverVO.plateNum}</td>
 <%-- 						      <td>${driverVO.licence}</td> --%>
