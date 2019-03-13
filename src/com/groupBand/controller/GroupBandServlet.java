@@ -422,7 +422,7 @@ public class GroupBandServlet extends HttpServlet {
 
 				}
 				memID[0] = groupLeader;
-				Integer state = 1;
+				Integer state = 0;
 
 				Integer totalAmoutOr = 0;
 
