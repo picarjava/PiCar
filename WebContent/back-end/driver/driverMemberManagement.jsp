@@ -104,13 +104,6 @@
                                 <button class="btn btn-outline-success my-2 my-sm-0" type="submit">司機資料管理(前端首頁用)</button>
                             </form>
                         </li>
-                        <li>
-                            <form class="form-inline" method="post"
-                                action="<%=request.getServletContext().getContextPath()%>/front-end/driver/addDriver.jsp"    >
-                                <input type="hidden" name="action" value="BE_DRIVER">
-                                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">成為司機</button>
-                            </form>
-                        </li>
                     </nav>
                     <!-- 查詢nav bar結束 -->
                 </div>

@@ -324,45 +324,6 @@ req.setCharacterEncoding("UTF-8");
 //			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //			failurePage.forward(req, res);
 //		}	
-///////////////////////////////////////////////////
-//	//來自首頁(eg.司機會員管理)的請求(從session取出並新增司機)   //?
-		if("BE_DRIVER".equals(action)){// 
-			LinkedList<String> errorMsgs=new LinkedList<String>();
-			req.setAttribute("errorMsgs", errorMsgs);
-			/*************1.接收請求參數**************/
-//			try {
-			String memberID=req.getParameter("memberID"); //這裡抓的是session/////在session
-			if (memberID == null || (memberID.trim()).length() == 0) {
-				errorMsgs.add("請輸入司機編號");
-			}
-			// Send the use back to the form, if there were errors
-//			//	if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
-			/*************2查詢資料**************/
-			DriverService driverSvc=new DriverService();
-			DriverVO driverVO=driverSvc.getOneDriverBymemID(memberID);
-			if(driverVO==null) {
-				errorMsgs.add("查無此筆");
-				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");//之後改成首頁
-				failurePage.forward(req, res);
-				return;
-			}
-			/*************3.得到資料存在scope=request，並送出VO給處理頁面**************/
-			req.setAttribute("driverVO", driverVO);
-			String url="/front-end/driver/addDriver.jsp";
-			RequestDispatcher successPage=req.getRequestDispatcher(url);
-			successPage.forward(req, res);
-			/*************4.處理例外**************/
-		}
-//			catch(Exception e){
-//			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());}
-//			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
-//			failurePage.forward(req, res);
-//		}	
 /////////////////////////////////////////////////////
 ////來自homeDriver.jsp的請求(後台_管理員查出單筆司機資料) ok 
 		if("GET_ONE_BACK".equals(action)){// 註解
