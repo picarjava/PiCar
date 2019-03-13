@@ -46,27 +46,24 @@ public class Calculate extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = res.getWriter();
+//		PrintWriter out = res.getWriter();
 		String action = req.getParameter("action");
-
-		Double lon1 = 0.0;
-		Double lat1 = 0.0;
-		Double lon2 = 0.0;
+		 Double  lat1 = Double.valueOf(req.getParameter("lon"));
+		 Double lon1 = Double.valueOf(req.getParameter("lat"));
 		Double lat2 = 0.0;
+		Double lon2 = 0.0;
+		
 		String driverID = null;
 		Session session = null;
-		List<Map.Entry<Session, Double>> list = null;
+		Map<Session, Double> map = null;
+		Map<String, StoredInfo> map1 = null;
+		List<Map.Entry<String, StoredInfo>> list = null;
 //		List<Double> list = new ArrayList();
 
-		if ("singleorder".equals(action)) {
 
-			lon1 = Double.valueOf(req.getParameter("lon"));
-			lat1 = Double.valueOf(req.getParameter("lat"));
-
-		}
 
 		ServletContext sc = getServletContext();
-		Map<String, StoredInfo> driver = (ConcurrentHashMap<String, StoredInfo>) sc.getAttribute("driverLocation");
+		Map<String, StoredInfo> driver = (ConcurrentHashMap<String, StoredInfo>)sc.getAttribute("driverLocation");
 
 		for (Entry<String, StoredInfo> storedInfo : driver.entrySet()) {
 
@@ -76,31 +73,58 @@ public class Calculate extends HttpServlet {
 			lon2 = storedInfo.getValue().getLatlng().getLongitude();
 
 			Double result = DistanceUtil.algorithm(lon1, lat1, lon2, lat2);
+			
+			
 
-			Map<Session, Double> map = new HashMap<Session, Double>();
+			map = new HashMap<Session, Double>();
+			map1 = new HashMap<String, StoredInfo>();
+			new Comparator<Map.Entry<String, StoredInfo>>() {
+				public int compare(Entry<String, StoredInfo> o1, Entry<String, StoredInfo> o2) {
+					// TODO Auto-generated method stub
+					Double lat3 = o1.getValue().getLatlng().getLatitude();
+					Double lon3 = o1.getValue().getLatlng().getLongitude();
+					Double lat4 = o2.getValue().getLatlng().getLatitude();
+					Double lon4 = o2.getValue().getLatlng().getLongitude();
+					
+					Double result2 = DistanceUtil.algorithm(lon1, lat1, lon3, lat3);
+					Double result3 = DistanceUtil.algorithm(lon1, lat1, lon4, lat4);
+					
+					return (int) (result2 - result3);
+				}
+			};
 			map.put(session, result);
 
-			list = new ArrayList<Map.Entry<Session, Double>>(map.entrySet());
-
-			Collections.sort(list, new Comparator<Map.Entry<Session, Double>>() {
-
-				@Override
-				public int compare(Entry<Session, Double> o1, Entry<Session, Double> o2) {
-					// TODO Auto-generated method stub
-					return (int) (o2.getValue() - o1.getValue());
-				}
-
-			});
+			
 
 			System.out.println(storedInfo.getKey());
 			System.out.println(storedInfo.getValue().getLatlng().getLatitude());
 			System.out.println(storedInfo.getValue().getLatlng().getLongitude());
 			System.out.println(list);
 		}
-
-		for (Entry<Session, Double> o : list) {
+		
+		list = new ArrayList<Map.Entry<String, StoredInfo> >(map1.entrySet());
+//		list = new ArrayList<Map.Entry<Session, Double>>(map.entrySet());
+		
+		Collections.sort(list, new Comparator<Map.Entry<String, StoredInfo>>() {
+			public int compare(Entry<String, StoredInfo> o1, Entry<String, StoredInfo> o2) {
+				// TODO Auto-generated method stub
+				Double lat3 = o1.getValue().getLatlng().getLatitude();
+				Double lon3 = o1.getValue().getLatlng().getLongitude();
+				Double lat4 = o2.getValue().getLatlng().getLatitude();
+				Double lon4 = o2.getValue().getLatlng().getLongitude();
+				
+				Double result2 = DistanceUtil.algorithm(lon1, lat1, lon3, lat3);
+				Double result3 = DistanceUtil.algorithm(lon1, lat1, lon4, lat4);
+				
+				return (int) (result2 - result3);
+			}
+		
+		});
+		
+		
+		for (Entry<String, StoredInfo> o : list) {
 			System.out.println(o.getKey());
-			System.out.println(o.getValue());
+			System.out.println(o.getValue().getSession());
 		}
 
 //		Set set = driver.keySet();
