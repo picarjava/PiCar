@@ -88,6 +88,14 @@
 	                   <p>會員編號</p>
 	                  <input type="text" name="memID" class="form-control" value="${memID}"   placeholder="請輸入會員編號" />
 	       			</div>
+	       			<div class="form-row">
+		       			<div class="col">
+						<p id="distance"></p>
+						</div>
+						<div class="col">
+		       			<p id="duration"></p>
+		       			</div>
+	       			</div>
  					<div class="form-row">
                       <div class="col">
                         <p>上車地點/下車地點</p> 
@@ -147,15 +155,15 @@
 	            <p>備註</p>
 	            <textarea class="form-control" name="note"  placeholder="請輸入備註">${singleOrder.note}</textarea>
 	            </div>
-                <div class="text-center"><button type="submit">送出</button></div>
+                <div class="text-center"><button id="submitAutocomplete" type="submit">送出</button></div>
 
                 <!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
                 <input type="hidden" name="action" value="insertLongterm">
                 <input type="hidden" name="orderType" value="4">
-<!--                 <input type="hidden" id="startLng" name="startLng" value=""> -->
-<!--                 <input type="hidden" id="startLat" name="startLat" value=""> -->
-<!--                 <input type="hidden" id="endLng" name="endLng" value=""> -->
-<!--                 <input type="hidden" id="endLat" name="endLat" value=""> -->
+                <input type="hidden" id="startLng" name="startLng" value="">
+                <input type="hidden" id="startLat" name="startLat" value="">
+                <input type="hidden" id="endLng" name="endLng" value="">
+                <input type="hidden" id="endLat" name="endLat" value="">
                 <!-- 訂單種類:預約叫車3/長期預約叫車4-->
               </form>
             </div>
@@ -259,7 +267,7 @@ AutocompleteDirectionsHandler.prototype.setupClickListener = function(
 };
 
 AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(
-    autocomplete, mode) {
+    autocomplete,mode) {
   var me = this;
   autocomplete.bindTo('bounds', this.map);
 
@@ -297,10 +305,48 @@ AutocompleteDirectionsHandler.prototype.route = function() {
       function(response, status) {
         if (status === 'OK') {
           me.directionsDisplay.setDirections(response);
+        //呈現預估時間與距離
+          var distance =response.routes[0].legs[0].distance.value;
+    	  var duration=response.routes[0].legs[0].duration.value;
+    	  
+    	  document.getElementById('distance').innerHTML = 
+             "<h3>預估距離</h3>"+ parseInt(distance/1000) + "公里"+distance%1000+"公尺" ;
+    	  document.getElementById('duration').innerHTML = 
+              "<h3>預估時間</h3>"+parseInt(duration/60/60)+"時"+parseInt(duration/60%60) + "分";
+          
+          
         } else {
           window.alert('Directions request failed due to ' + status);
         }
       });
+  
+     //     將資料轉緯經度存入表格value
+	  var startLngInput = document.getElementById('startLng');
+	  var startLatInput = document.getElementById('startLat');
+	  var endLngInput = document.getElementById('endLng');
+	  var endLatInput = document.getElementById('endLat');
+	  
+	  var geocoder = new google.maps.Geocoder();
+	  geocoder.geocode({'placeId':this.originPlaceId},function(results,status){
+		 
+		  if (status === 'OK') {
+	  			  startLatInput.value =results[0].geometry.location.lat();//得到起點緯經度資料Object
+	  			  startLngInput.value=results[0].geometry.location.lng();
+	  	  }else{
+	  		  window.alert('No results found');
+	  	  }
+	  });
+	  
+	  geocoder.geocode({'placeId':this.destinationPlaceId},function(results,status){
+		 
+		  if (status === 'OK') {
+	  			  endLatInput.value=results[0].geometry.location.lat();//得到迄點緯經度資料Object
+	  			  endLngInput.value=results[0].geometry.location.lng();
+	  	  }else{
+	  		  window.alert('No results found');
+	  	  }
+	  });  
+		  
 };
 
     </script>

@@ -136,8 +136,6 @@ public class SingleOrderServlet extends HttpServlet{
                     errorMsgs.add("下車地點錯誤");
                 if (orderType == null || orderType < 0 || orderType > 7)
                     errorMsgs.add("訂單種類錯誤");
-                if (!isValidParameter(note, ".+"))
-                    errorMsgs.add("備註錯誤");
                 if (req.getParameter("startLng")== null)
                     errorMsgs.add("未取得經緯度");
                 
@@ -179,6 +177,10 @@ public class SingleOrderServlet extends HttpServlet{
                 int totalAmount = (int) (Math.random() * 1000) + 1;
                 Integer orderType = parseInteger(req.getParameter("orderType"));
                 Timestamp launchTime = new Timestamp(System.currentTimeMillis());
+                Double startLng=new Double(req.getParameter("startLng"));
+                Double startLat=new Double(req.getParameter("startLat"));
+                Double endLng=new Double(req.getParameter("endLng"));
+                Double endLat=new Double(req.getParameter("endLat"));
                 
                 if (!isValidParameter(memID, "^[Mm]\\d+$"))
                     errorMsgs.add("會員ID錯誤");
@@ -190,8 +192,8 @@ public class SingleOrderServlet extends HttpServlet{
                     errorMsgs.add("下車地點錯誤");
                 if (orderType == null || orderType < 0 || orderType > 7)
                     errorMsgs.add("訂單種類錯誤");
-                if (!isValidParameter(note, ".+"))
-                    errorMsgs.add("備註錯誤");
+                if (req.getParameter("startLng")== null)
+                    errorMsgs.add("未取得經緯度");
                 if(endTime==null) {
             		errorMsgs.add("長期預約叫車結束日期未填寫");
             	}
@@ -240,14 +242,16 @@ public class SingleOrderServlet extends HttpServlet{
 	                singleOrderVO.setEndLoc(endLoc);
 	                singleOrderVO.setOrderType(orderType);
 	                singleOrderVO.setNote(note);
+	                singleOrderVO.setStartLat(startLat);
+	                singleOrderVO.setStartLng(startLng);
+	                singleOrderVO.setEndLat(endLat);
+	                singleOrderVO.setEndLng(endLng);
+	                
 	                //設定其他變數的初始值
 	                singleOrderVO.setState(0);
 	                singleOrderVO.setTotalAmount(totalAmount);
 	                singleOrderVO.setLaunchTime(launchTime);
-	                singleOrderVO.setEndLat(0.0);
-	                singleOrderVO.setEndLng(0.0);
-	                singleOrderVO.setStartLat(0.0);
-	                singleOrderVO.setStartLng(0.0);
+	                
 	                singleOrderVOList.add(singleOrderVO);//長期訂單資訊依序加入list
             		
 	                if (!errorMsgs.isEmpty()) {
