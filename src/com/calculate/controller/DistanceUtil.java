@@ -10,7 +10,7 @@ public class DistanceUtil {
 
 	public static void main(String[] args) {
 		// 根據兩點間的經緯度計算距離，單位：km
-		Double s = algorithm(115.21221, 1.5, 114.21221, 0);
+		Double s = algorithm(-122.084, 37.4219983, -122	, 37);
 		System.out.println(s);
 	}
 
@@ -24,8 +24,8 @@ public class DistanceUtil {
 	public static Double algorithm(double longitude1, double latitude1, double longitude2, double latitude2) {
 
 		double lat1 = rad(latitude1); // 乘客的緯度
-		double lat2 = rad(latitude2);	//司機的緯度
 		double lon1 = rad(longitude1); // 乘客的經度
+		double lat2 = rad(latitude2);	//司機的緯度		
 		double lon2 = rad(longitude2); //司機的經度
  
 		double a = lat1 - lat2;// 兩點緯度之差
