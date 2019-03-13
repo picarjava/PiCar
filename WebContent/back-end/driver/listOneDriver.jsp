@@ -6,14 +6,7 @@
 <%@ page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
-	<%
-	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
-    DriverService driSrc = new DriverService();
-// 	DriverVO driverVO = (DriverVO) session.getAttribute("driverVO");
-    DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());	
-    List<DriverVO> list  = driSrc.getAll();	
-// 	System.out.println(driverVO.getPlateNum());
-	%>
+
 <html>
 <head>
 <jsp:include page="/regna-master/head.jsp" />
@@ -64,12 +57,12 @@
 							<div class="form-group">
 								<p>會員編號</p>
 								<input type="text" name="memID" readonly 
-									value="${memberVO.memID}" class="form-control" />
+									value="${driverVO.memID}" class="form-control" />
 							</div>
 							<div class="form-group">
 								<p>會員名字</p>
 								<input type="text" name="memID" readonly 
-									value="${memberVO.name}" class="form-control" />
+									value="${MemberVOs.name}" class="form-control" />
 							</div>
 							<div class="form-group">
 								<p>司機編號</p>

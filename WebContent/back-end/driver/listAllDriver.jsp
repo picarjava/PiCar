@@ -68,7 +68,14 @@
 					 		<tr>	 
 						      <th scope="row">
 						      <c:if test="${driverVO.verified == 0}">
-						      <a href='<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp' data-role='button'>未審核</a>
+						        <Form METHOD="post" ACTION="driver.do" >
+							    <div class="text-center"><button type="submit" class="btn btn-light">未審核</button>
+							      	<!-- /*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ -->
+							      	<input type="hidden" name="actionS" value="GET_ONE_FOR_PERMIT">
+	                				<input type="hidden" name="action" value="GET_ONE_FOR_CHECK">
+	                				<input type="hidden" name="driverID" value="${driverVO.driverID}">
+							     </div>
+							  </Form>
 						      </c:if>
 						      <c:if test="${driverVO.verified == 1}">審核通過</c:if>
 						      <c:if test="${driverVO.verified == 2}">未通過</c:if>
@@ -131,9 +138,10 @@
 <!-- 							  </Form> -->
 <!-- 						      </td> -->
 						      <td>
-						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/driver.do" >
+						      <Form METHOD="post" ACTION="driver.do" >
 							    <div class="text-center"><button type="submit" class="btn btn-light">修改</button>
 							      	<!-- /*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ -->
+							      		<input type="hidden" name="actionS" value="GET_ONE_CHECK_PERMIT">
 	                				<input type="hidden" name="action" value="GET_ONE_FOR_CHECK">
 	                				<input type="hidden" name="driverID" value="${driverVO.driverID}">
 							     </div>
