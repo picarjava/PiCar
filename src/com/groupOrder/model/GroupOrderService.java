@@ -67,4 +67,7 @@ public class GroupOrderService {
 	public List<GroupOrderVO> GET_one_groupid__state_men_id(String memid) {		
 		return dao.GET_ONE_groupid__state_men_id(memid);
 	}	
+	public Integer getOneDriversAve(String driver_id) {
+		return dao.getOneDriversAve(driver_id);		
+	}
 }
