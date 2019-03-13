@@ -16,11 +16,11 @@
     <!--==========================
       Contact Section
     ============================-->
-    <!-- 先取出VO -->
     
 <!--       DriverVO driverVO=(DriverVO)request.getAttribute("driverVO"); -->
 <!-- DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID()); -->
     
+    <!-- 先取出VO -->
   <%
   
 MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
@@ -29,10 +29,8 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 System.out.print(driverVO);
 DriverVO xxx  = driSrc.getfindDriverByMemID(memberVO.getMemID());
 session.setAttribute("xxx", xxx);
-
-  
+                    System.out.println(xxx);
   %>
-  
     <!-- 錯誤列表 -->
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
@@ -67,13 +65,10 @@ session.setAttribute("xxx", xxx);
                       <p>會員編號</p> 
                      <input type="text" name="memID"  readonly  value="${driverVO.memID}" class="form-control"   />
                     </div>
-                    <% 
-                    System.out.println(xxx);
-                    %>
-                     <div class="form-group">
-                      <p>司機編號</p> 
-                     <input type="text" name="driverID"  readonly  value="${driverVO.driverID}" class="form-control"   />
-                    </div>
+<!--                      <div class="form-group"> --會有交易問題---->
+<!--                       <p>司機編號</p>  -->
+<%--                      <input type="text" name="driverID"  readonly  value="${driverVO.driverID}" class="form-control"   /> --%>
+<!--                     </div> -->
                     <div class="form-group">
                        <p>車牌號碼</p>
                       <input type="text" name="plateNum" class="form-control" value="${driverVO.plateNum}" readonly  placeholder="請輸入車牌號碼" />
@@ -84,7 +79,6 @@ session.setAttribute("xxx", xxx);
                       <p>駕照</p>
                       <input type="file" class="form-control" name="licence" value="${driverVO.licence}" placeholder="請輸入駕照"  /> 
                        <div class="card" style="width: 18rem;">
-<%--                           <img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=1" width="300" height="150" class="card-img-top" alt="..." > --%>
                           <img src="driver.do?driverID=${driverVO.driverID}&pic=1" width="300" height="150" class="card-img-top" alt="..." >
                         </div>      
                    </div>
@@ -92,36 +86,38 @@ session.setAttribute("xxx", xxx);
                       <p>良民證</p>
                       <input type="file" class="form-control" name="criminal" value="${driverVO.criminal}" placeholder="請輸入肇事紀錄"  />
                        <div class="card" style="width: 18rem;">
-<%--                           <img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=2" width="300" height="150" class="card-img-top" alt="..." > --%>
-                          <img src="driver.do?driverID=D003&pic=2" width="300" height="150" class="card-img-top" alt="..." >
+                          <img src="driver.do?driverID=${driverVO.driverID}&pic=2" width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
-<%-- <img src="/PiCar/GroupBand?groupID=<%=groupBandVO.getGroupID()%>"  --%>
                     <div class="form-group">
                       <p>肇事紀錄</p>
                       <input type="file" class="form-control" name="trafficRecord" value="${driverVO.trafficRecord}" placeholder="請輸入肇事紀錄"  />
                        <div class="card" style="width: 18rem;">
-<%--                           <img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=3" width="300" height="150" class="card-img-top" alt="..." > --%>
-                          <img src="driver.do?driverID=D003&pic=3" width="300" height="150" class="card-img-top" alt="..." >
+                          <img src="driver.do?driverID=${driverVO.driverID}&pic=3" width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
                     <div class="form-group">
                       <p>身分證</p>
                       <input type="file" class="form-control" name="idNum" value="${driverVO.idNum}" placeholder="請輸入身分證"  />
                        <div class="card" style="width: 18rem;">
-<%--                           <img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=4"  width="300" height="150" class="card-img-top" alt="..." > --%>
-                          <img src="driver.do?driverID=D003&pic=4"  width="300" height="150" class="card-img-top" alt="..." >
+                          <img src="driver.do?driverID=${driverVO.driverID}&pic=4"  width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
                     
+<!--                     <div class="form-group"> -->
+<!--                       <p>大頭照</p> -->
+<%--                       <input type="file" class="form-control" name="photo" value="${driverVO.photo}" /> --%>
+<!--                        <div class="card" style="width: 18rem;"> -->
+<%-- <%--                           <img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=5"  width="300" height="150" class="card-img-top" alt="..." >  --%>
+<%--                           <img src="driver.do?driverID=${driverVO.driverID}&pic=5"  width="300" height="150" class="card-img-top" alt="..." > --%>
+<%-- <%--                                <img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200">      --%>
+<!--                         </div> -->
+<!--                     </div> -->
+
                     <div class="form-group">
-                      <p>大頭照</p>
-                      <input type="file" class="form-control" name="photo" value="${driverVO.photo}" />
-                       <div class="card" style="width: 18rem;">
-<%--                           <img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=5"  width="300" height="150" class="card-img-top" alt="..." > --%>
-                          <img src="driver.do?driverID=D003&pic=5"  width="300" height="150" class="card-img-top" alt="..." >
-<%--                                <img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200">                           --%>
-                        </div>
+                      <p>會員照片</p>
+							<img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
+		          onerror="this.src='cat.jpg'">
                     </div>
                     <div class="form-group">
                        <p>評價分數</p>
@@ -150,8 +146,6 @@ session.setAttribute("xxx", xxx);
 						      	<c:if test="${driverVO.pet == 1}">寵物我可以</c:if>
 						      	</div>
                             </div>
-<%--                                 <input type="text" name="pet"  readonly  value="${driverVO.pet}" class="form-control"   /> --%>
-
                             <div class="form-group">
                                 <p>抽菸</p>
                                 <div class="form-control" style="width: 18rem;">
@@ -168,7 +162,6 @@ session.setAttribute("xxx", xxx);
 						        </div>
                             </div>
 						      
-						      
                   <!--  <div class="text-center"><button type="submit">確認修改</button></div>  -->
                     <!--隱藏的參數action讓controller抓-->
                     <!-- <input type="hidden" name="action" value="UPTDATE"> -->
@@ -179,9 +172,7 @@ session.setAttribute("xxx", xxx);
           </div>
     </section><!-- #contact -->
   <!--==========================
-    底部
-    <!--==========================
-    Footer
+    底部     Footer
   ============================-->
 	<footer id="footer">
 		<div class="footer-top">
