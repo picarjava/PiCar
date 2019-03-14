@@ -1,17 +1,12 @@
 package com.calculate.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
-import java.util.TreeMap;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletContext;
@@ -24,15 +19,11 @@ import javax.websocket.Session;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.rate.model.RateVO;
 import com.singleOrder.model.SingleOrderVO;
 
 import android.com.location.model.InputInfo;
 import android.com.location.model.StoredInfo;
 
-/**
- * Servlet implementation class Caculate
- */
 @WebServlet("/Caculate")
 public class Calculate extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -51,8 +42,6 @@ public class Calculate extends HttpServlet {
 
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
-//		PrintWriter out = res.getWriter();
-//		String action = req.getParameter("action");
 		Double lat1 = Double.valueOf(req.getParameter("lat"));
 		Double lon1 = Double.valueOf(req.getParameter("lon"));
 //		Double lat2 = 0.0;
@@ -121,54 +110,19 @@ public class Calculate extends HttpServlet {
 		});
 
 		for (Entry<String, StoredInfo> o : list) {
-			System.out.println(o.getKey());
-			System.out.println(o.getValue().getSession());
+			System.out.println(o.getKey());  //這是司機ID
+			System.out.println(o.getValue().getSession()); //這是司機的連線
 			Double result = DistanceUtil.algorithm(lon1, lat1, o.getValue().getLatlng().getLongitude(),
-					o.getValue().getLatlng().getLatitude());
-			System.out.println(result);
+					o.getValue().getLatlng().getLatitude()); 
+			System.out.println(result); //這是計算出的距離
 		}
 		
-		RateVO vo = new RateVO();
+		
 		Gson gson = new Gson();
-		String json = gson.toJson(vo);
+//		String json = gson.toJson(vo);
 		list.get(0).getValue().getSession().getAsyncRemote().sendText("json");
 
-		// 更新訂單，把司機ID放進去
-		// JSON給安卓
-		// 上下車地點緯經度，乘客
-
-//		Set set = driver.keySet();
-//		Iterator it = set.iterator();
-//		while (it.hasNext()) {
-//			String driverID = (String) it.next();
-//			System.out.println(driverID);
-//		}
-
-//		for (String driver1 : driver.keySet()) {
-//			System.out.println(driver1);
-//
-//		}		
-
-//		for (StoredInfo storedInfo : driver.values()) {
-//			System.out.println(storedInfo.getLatlng().getLatitude());
-//			System.out.println(storedInfo.getLatlng().getLongitude());
-//			
-//			
-//			
-//			System.out.println(storedInfo.getSession());//key
-//			
-//			lat2 = storedInfo.getLatlng().getLatitude();
-//			lon2 = storedInfo.getLatlng().getLongitude();
-//			Double result = DistanceUtil.algorithm(lon1, lat1, lon2, lat2);//value
-//			
-//			
-//			
-//
-//		}
-		// 1.乘客的經度 2.乘客的緯度 3.司機的經度 4.司機的緯度
-//		Double result = DistanceUtil.algorithm(lon1, lat1, lon2, lat2);
-
-//		System.out.println(result);
+		
 
 	}
 
