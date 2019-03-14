@@ -36,7 +36,26 @@ public class GroupTimer extends HttpServlet {
 	            	calendar2.add(Calendar.DATE, 3);
 	            	String three_days_after = sdf2.format(calendar2.getTime());
 	            	System.out.println(three_days_after);
-	   	       
+	            	
+//	            	--取得那些揪團--
+//	            	select distinct GROUP_ID from GROUP_ORDER where START_TIME LIKE '15-MAR-19%' and STATE=0;
+//
+//	            	--取得目前下限 人數--
+//	            	select COUNT("MEM_ID")as MEM_ID from GROUP_ORDER where GROUP_ID='G005' and START_TIME LIKE '15-MAR-19%';
+//
+//	            	--取的揪團人數下限 拿出後比對下限人數--
+//	            	SELECT LOWER_LIMIT FROM GROUP_BAND  where GROUP_ID='G005';
+//
+//	            	--java比對--
+//	            	--if(MEM_ID>LOWER_LIMIT)--
+//
+//	            	--trun 成單--
+//	            	update GROUP_BAND set GROUP_STATUS=1  where GROUP_ID='G005';
+//	            	update GROUP_ORDER set STATE=1  where GROUP_ID='G005';
+//
+//	            	--false 流單--
+//	            	update GROUP_BAND set GROUP_STATUS=2  where SGROUP_ID='G005';
+//	            	update GROUP_ORDER set STATE=8  where GROUP_ID='G005';
 
 	    	
 	            }
