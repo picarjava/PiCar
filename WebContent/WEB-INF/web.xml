@@ -110,7 +110,7 @@
   <servlet>
     <servlet-name>DriverReportServlet</servlet-name>
     <servlet-class>com.driverReport.controller.DriverReportServlet</servlet-class>
-    </servlet>
+  </servlet>
   <servlet-mapping>
     <servlet-name>DriverReportServlet</servlet-name>
     <url-pattern>/back-end/driverReport/driverReport.do</url-pattern>
@@ -278,6 +278,7 @@
     <servlet-name>ScheduleTimer</servlet-name>
     <url-pattern>/ScheduleServlet</url-pattern>
   </servlet-mapping>
+  
     <servlet>
     <servlet-name>GroupTimer</servlet-name>
     <servlet-class>Timer.GroupTimer</servlet-class>
