@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.driver.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64" %>
@@ -55,14 +55,12 @@ table {
     	System.out.println(yyy);
     	System.out.println(memberVO.getMemID());
     	System.out.println(memberVO.getPic());////
-    	System.out.println(memberVO.getBirthday());
-    	
     	
 	%>
     <section id="contact">
         <div class="container wow fadeInUp">
             <div class="section-header">
-                <h3 class="section-title">司機資料管理(前端_已成為司機的)</h3>
+                <h3 class="section-title">司機資料管理(已司機)</h3>
                 <p class="section-description">請查看與修改資料</p>
             </div>
         </div>

@@ -16,7 +16,6 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/"; 
 %>
 
-//
 
 <!-- 本頁面待與登入功能session 此處先指定driverID-->
 <%-- <%String driverID=(String)session.getAttribute("driverID"); %>  --%>
@@ -192,7 +191,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:forEach>
 							</tbody>
 							</table>
-
 
 </body>
 </body>
