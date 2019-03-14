@@ -110,7 +110,7 @@
                       </div>
                       <div  id="map" class="col12">
                      </div>
-                      </div>
+                    </div>
                    
                    
                       <!--==========================
@@ -199,12 +199,7 @@
 </body>
 
 <!-- auto place complete 開始 -->
-  <script>
-// This example requires the Places library. Include the libraries=places
-// parameter when you first load the API. For example:
-// <script
-// src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
-
+ <script>
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     mapTypeControl: false,

@@ -14,6 +14,8 @@ public class renewDriverRate {
 	    Timer timer=new Timer();
 	    long renewTime;//當日晚間10點更新
 		boolean isRenew= false; //司機評價一天只更新一次即可， 效能較佳
+	
+		
 		public renewDriverRate(String driverID){
 			if (!isRenew) {
 			TimerTask task=new TimerTask(){

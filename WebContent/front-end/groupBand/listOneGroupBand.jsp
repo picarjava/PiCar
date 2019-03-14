@@ -49,6 +49,27 @@
 
 <meta charset="UTF-8">
 <title>listOneGroupBand.jsp</title>
+<!-- google map -->
+<style>
+	#map { 
+         height: 500px;  
+         width: 850px;
+      } 
+        #origin-input, 
+       #destination-input { 
+         background-color: #fff; 
+         font-family: Roboto;  
+         font-size: 15px; 
+         font-weight: 300; 
+         margin-left: 12px; 
+         padding: 1 11px 1 13px; 
+         text-overflow: ellipsis; 
+         width: 350px; 
+       } 
+       
+
+</style>
+
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -233,7 +254,31 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 	%>
 	<h5>修改資料</h5>
 	\
-	<form
+	<form>
+	<!-- google map -->
+	
+					<div class="form-row">
+		       			<div class="col">
+						<p id="distance"></p>
+						</div>
+						<div class="col">
+		       			<p id="duration"></p>
+		       			</div>
+	       			</div>
+ 					<div class="form-row">
+                      <div class="col">
+                        <p>上車地點/下車地點</p> 
+                        <input id="origin-input" type="text" name="startLoc" value="${groupBandOrder.startLoc}" class="form-control" placeholder="請輸入上車地點">
+                      </div>
+                      <div class="col">
+                        <input id="destination-input" type="text" name="endLoc" value="${groupBandOrder.endLoc}" class="form-control" placeholder="請輸入下車地點">
+                      </div>
+                      <div  id="map" class="col12">
+                     </div>
+                    </div>
+	
+	
+	
 		action="<%=request.getServletContext().getContextPath()%>/GroupBand"
 		method="POST" enctype="multipart/form-data"
 		style="margin-bottom: 0px;">
@@ -420,4 +465,137 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 
 
 </body>
+
+<!-- auto place complete 開始 -->
+ <script>
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    mapTypeControl: false,
+    center: {lat: 23.914626, lng: 121.060895},
+    zoom: 7.5
+  });
+
+  new AutocompleteDirectionsHandler(map);
+  
+}
+
+/**
+ * @constructor
+ */
+function AutocompleteDirectionsHandler(map) {
+  this.map = map;
+  this.originPlaceId = null;
+  this.destinationPlaceId = null;
+  this.travelMode = 'DRIVING';
+  this.directionsService = new google.maps.DirectionsService;
+  this.directionsDisplay = new google.maps.DirectionsRenderer;
+  this.directionsDisplay.setMap(map);
+
+  var originInput = document.getElementById('origin-input');
+  var destinationInput = document.getElementById('destination-input');
+
+
+  var originAutocomplete = new google.maps.places.Autocomplete(originInput);
+  // Specify just the place data fields that you need.
+  originAutocomplete.setFields(['place_id']);
+
+  var destinationAutocomplete =
+      new google.maps.places.Autocomplete(destinationInput);
+  // Specify just the place data fields that you need.
+  destinationAutocomplete.setFields(['place_id']);
+  
+ 
+
+  this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
+  this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
+
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
+  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
+      destinationInput);
+}
+
+AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(
+    autocomplete,mode) {
+  var me = this;
+  autocomplete.bindTo('bounds', this.map);
+
+  autocomplete.addListener('place_changed', function() {
+    var place = autocomplete.getPlace();
+	    if (!place.place_id) {
+	      window.alert('Please select an option from the dropdown list.');
+	      return;
+	    }
+	    if (mode === 'ORIG') {
+	      me.originPlaceId = place.place_id;
+	    } else {
+	      me.destinationPlaceId = place.place_id;
+	    }
+    me.route();
+  });
+};
+
+AutocompleteDirectionsHandler.prototype.route = function() {
+  if (!this.originPlaceId || !this.destinationPlaceId) {
+    return;
+  }
+  
+  var me = this;
+
+  this.directionsService.route(
+      {
+        origin: {'placeId': this.originPlaceId},
+        destination: {'placeId': this.destinationPlaceId},
+        travelMode: this.travelMode
+      },
+      function(response, status) {
+    	  
+    	  if (status === 'OK') {
+          me.directionsDisplay.setDirections(response);
+          //呈現預估時間與距離
+          var distance =response.routes[0].legs[0].distance.value;
+    	  var duration=response.routes[0].legs[0].duration.value;
+    	  
+    	  document.getElementById('distance').innerHTML = 
+             "<h3>預估距離</h3>"+ parseInt(distance/1000) + "公里"+distance%1000+"公尺" ;
+    	  document.getElementById('duration').innerHTML = 
+              "<h3>預估時間</h3>"+parseInt(duration/60/60)+"時"+parseInt(duration/60%60) + "分";
+        } else {
+          window.alert('Directions request failed due to ' + status);
+        }
+      });
+  
+		  //將地址資料轉為緯經度
+		var startLngInput = document.getElementById('startLng');
+		var startLatInput = document.getElementById('startLat');
+		var endLngInput = document.getElementById('endLng');
+		var endLatInput = document.getElementById('endLat');
+		  
+		  
+		  var geocoder = new google.maps.Geocoder();
+		  geocoder.geocode({'placeId':this.originPlaceId},function(results,status){
+			  
+			  if (status === 'OK') {
+		  			  startLatInput.value =results[0].geometry.location.lat();//得到起點緯經度資料Object
+		  			  startLngInput.value=results[0].geometry.location.lng();
+		  	  }else{
+		  		  window.alert('No results found');
+		  	  }
+		  });
+		  
+		  geocoder.geocode({'placeId':this.destinationPlaceId},function(results,status){
+			  
+			  if (status === 'OK') {
+		  			  endLatInput.value=results[0].geometry.location.lat();//得到迄點緯經度資料Object
+		  			  endLngInput.value=results[0].geometry.location.lng();
+		  	  }else{
+		  		  window.alert('No results found');
+		  	  }
+		  });
+};
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWL8JxUOY0dQZ01M4rCgDU-oHLkP5BORI&libraries=places&callback=initMap"
+        async defer></script>
+<!-- auto complete結束 -->
+
 </html>
