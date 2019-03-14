@@ -85,7 +85,7 @@ width: 100px;
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/listAllfutureTrip.jsp"><i class="icon-tasks"></i><br />訂單查詢</a>
                                     </li>
                                     <li class="widthes">
-                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/member/listOneMember.jsp"><i class="fas fa-cog"></i><br />設定</a>
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/member/listOneMemberByUpdate.jsp"><i class="fas fa-cog"></i><br />設定</a>
                                     </li>
                                      <li class="widthes">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/activityToken/listOnesAllActivityToken.jsp"><i class="fas fa-coins"></i><br />代幣管理</a>
