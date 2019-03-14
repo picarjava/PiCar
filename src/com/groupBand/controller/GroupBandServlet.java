@@ -806,10 +806,11 @@ public class GroupBandServlet extends HttpServlet {
 					req.setAttribute("GroupBandVO", groupBandVO);
 				}
 
+				
 				String url = "/front-end/groupBand/listOneGroupBand.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
 				successView.forward(req, res);
-
+//				res.sendRedirect("/PiCar//front-end/groupBand/listOneGroupBand.jsp");
 			} catch (Exception e) {
 				errorMsgs.add("無法取得資料:" + e.getMessage());
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/groupBand/listOneGroupBand.jsp");
