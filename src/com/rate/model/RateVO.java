@@ -12,6 +12,8 @@ public class RateVO implements java.io.Serializable{
 		return rateID;
 	}
 	
+
+
 	public void setRateID(Integer rateID) {
 		this.rateID = rateID;
 	}

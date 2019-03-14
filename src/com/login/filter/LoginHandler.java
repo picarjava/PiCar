@@ -75,7 +75,7 @@ public class LoginHandler extends HttpServlet {
 					}
 				} catch (Exception ignored) {
 				}
-				res.sendRedirect(req.getContextPath() + "/front-end/member/listOneMember.jsp"); // *工作2: 看看有無來源網頁
+				res.sendRedirect(req.getContextPath() + "/front-end/member/listOneMemberByUpdate.jsp"); // *工作2: 看看有無來源網頁
 																								// (-->如有來源網頁:則重導至來源網頁)
 			}
 		}

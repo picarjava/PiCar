@@ -22,6 +22,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.Session;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.rate.model.RateVO;
+import com.singleOrder.model.SingleOrderVO;
+
 import android.com.location.model.InputInfo;
 import android.com.location.model.StoredInfo;
 
@@ -118,9 +123,19 @@ public class Calculate extends HttpServlet {
 		for (Entry<String, StoredInfo> o : list) {
 			System.out.println(o.getKey());
 			System.out.println(o.getValue().getSession());
-			Double result = DistanceUtil.algorithm(lon1, lat1, o.getValue().getLatlng().getLongitude(), o.getValue().getLatlng().getLatitude());
+			Double result = DistanceUtil.algorithm(lon1, lat1, o.getValue().getLatlng().getLongitude(),
+					o.getValue().getLatlng().getLatitude());
 			System.out.println(result);
 		}
+		
+		RateVO vo = new RateVO();
+		Gson gson = new Gson();
+		String json = gson.toJson(vo);
+		list.get(0).getValue().getSession().getAsyncRemote().sendText("json");
+
+		// 更新訂單，把司機ID放進去
+		// JSON給安卓
+		// 上下車地點緯經度，乘客
 
 //		Set set = driver.keySet();
 //		Iterator it = set.iterator();
