@@ -371,6 +371,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 		System.out.println("--------------------------");
 	/*************1.��隢��:���蝑暑��D**************/
 	String driverID=new String(req.getParameter("driverID").trim());
+	java.sql.Date deadline = null;//--
 	String actionS=new String(req.getParameter("actionS").trim());
 	/*************2�閰Ｚ���:隤踹���蝑�o**************/
 	DriverService driverSvc=new DriverService();
@@ -386,6 +387,15 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	RequestDispatcher failureView = req
 			.getRequestDispatcher("/back-end/driver/listOneDriver.jsp");
 	failureView.forward(req, res);
+	}
+	if("GET_ONE_FOR_BANNED".equals(actionS)) {
+		//撽����
+		if(driverVO.getBanned() == 0) {
+			driverSvc.updateBanned(driverID);
+		}else {
+		}
+		RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driver/listOneDriver.jsp");
+		failureView.forward(req, res);
 	}
 	if("GET_ONE_CHECK_PERMIT".equals(actionS)) {
 		RequestDispatcher failureView = req
@@ -414,7 +424,6 @@ if("GET_ONE_FOR_BANNED".equals(action)){
 		}else {
 		}
 //		�銵��閮��&&������
-		
 		req.setAttribute("driverVO", driverVO);
 		String url="/back-end/driver/listAllDriver.jsp";  //banned����
 		RequestDispatcher successPage=req.getRequestDispatcher(url);
