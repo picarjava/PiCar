@@ -147,7 +147,7 @@ public class DriverService {
 		return dao.findDriverByMemID(memID);
 	}
 	
-	public void updateBanned(String driverID) {
-//		return dao.updateBanned(driverID);
+	public DriverVO updateBanned(String driverID) {
+		return dao.updateBanned(driverID);
 	}
 }

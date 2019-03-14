@@ -122,7 +122,7 @@
 		</tr>
 		<tr>
 		<td>個人照片</td>
-		<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
+		<td><img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
 		onerror="this.src='cat.jpg'"></td>
 		</tr>	
 	</table>
@@ -143,12 +143,7 @@
 			     <input type="hidden" name="action"	value="addToken"></FORM>
 			</td>
 			
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改個人資料">
-			     <input type="hidden" name="memID"  value="${memberVO.memID}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
+
 			
 			
 				<form method="post" action="logoutHandler.do">			

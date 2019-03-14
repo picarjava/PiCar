@@ -4,6 +4,7 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="javax.servlet.http.*"%>
+<%@ page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64" %>
 <html>
 <head>
 
@@ -109,21 +110,17 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 									placeholder="請上傳身分證" />
 							</div>
 
-<!-- 							<div class="form-group"> -->
-<!-- 								<p>大頭照</p> -->
-<!-- 								<input type="file" class="form-control" name="photo"> -->
-<!-- 							</div> -->
+							<div class="form-group">
+								<p>大頭照</p>
+								<input type="file" class="form-control" name="photo">
+							</div>
 							
 							//
-		<div>	會員照片：
-			<td><img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200" id="preview_progressbarTW_img"></td>
-			<td>
-<!-- 			<img id="preview_progressbarTW_img" src="#" width='200' height="200"/> -->
-			</td>
-			<td>
-			<input type="file" class="form-control" name="photo" onchange="readURL(this)"  targetID="preview_progressbarTW_img"> <br>
-			</td>		
-			 </div>
+							<div class="form-group">
+								<p>會員照片</p>
+							<img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
+		          onerror="this.src='cat.jpg'">
+					</div>
 							//
 
 							<div class="form-group">

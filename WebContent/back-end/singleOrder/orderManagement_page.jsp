@@ -1,4 +1,3 @@
-<%@page import="com.singleOrder.model.SingleOrderDAO"%>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <%@ page import="java.util.HashMap" %>
 <%@ page import="java.sql.Timestamp"%>
@@ -6,12 +5,10 @@
 <%@ page import="java.text.SimpleDateFormat"%>
 <%@ page import="java.util.List"%>
 <%@ page import="java.sql.Date"%>
-<%@ page import="com.singleOrder.model.SingleOrderVO"%>
-<%@ page import="com.singleOrder.model.SingleOrderService"%>
+<%@ page import="com.singleOrder.model.*"%>
 <%@ page import="com.admin.model.*"%>
 <%@ page import="com.member.model.*"%>
-<%@ page import="com.groupOrder.model.GroupOrderService"%>
-<%@ page import="com.groupOrder.model.GroupOrderVO"%>
+<%@ page import="com.groupOrder.model.*"%>
 <%@ page import="com.singleOrder.controller.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% 
@@ -148,9 +145,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							      <td >
 								 <c:set var="xxx" value="${singleOrder.memID}"/>
 <!-- 							     預設當前頁面  -->
-<%-- (${singleOrder.memID}) --%>
-
-						 		  
 							      <% 
 							      String xxx = (String)pageContext.getAttribute("xxx");
 // 							      SingleOrderVO singleOrder = (SingleOrderVO)pageContext.getAttribute("xxx");//不需要

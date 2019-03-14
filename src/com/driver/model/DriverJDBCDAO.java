@@ -383,7 +383,8 @@ public class DriverJDBCDAO implements DriverDAO_interface {
     }
 
 	@Override
-	public void updateBanned(String driverID) {
+	public DriverVO updateBanned(String driverID) {
+		return null;
 		// TODO Auto-generated method stub
 		
 	}

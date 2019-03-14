@@ -348,16 +348,16 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
  
 	        if(jsonObj.sessionUser=="listsessionUser")
 	        {
-				if(jsonObj.status=="1111"){
+// 				if(jsonObj.status=="1111"){
        			 var newDiv = document.createElement("div");
 	        	 	newDiv.id=jsonObj.userID;
 	        	 	newDiv.innerHTML=jsonObj.userName+"  :已連線";
 	        	 	messa.appendChild(newDiv); 
-					}
-					if(jsonObj.status=="0000"){
-   				var jsonObjs = {"userName" : "${memberVO.name}", "message" : "以連線","sessionUser" : "listsessionUser","userID" : "${memberVO.memID}","status":"1111"};
-	       			  	webSocket.send(JSON.stringify(jsonObjs));
-	       			  	}
+// 					}
+// 					if(jsonObj.status=="0000"){
+//    				var jsonObjs = {"userName" : "${memberVO.name}", "message" : "以連線","sessionUser" : "listsessionUser","userID" : "${memberVO.memID}","status":"1111"};
+// 	       			  	webSocket.send(JSON.stringify(jsonObjs));
+// 	       			  	}
 	        }
 	        else
 	        {

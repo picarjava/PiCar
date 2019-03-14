@@ -30,7 +30,7 @@
 	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.js"></script>
 <script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-<meta charset="BIG5">
+<meta charset="utf-8">
 <title>Insert title here</title>
 <style>
 table#table-1 {

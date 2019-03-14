@@ -58,7 +58,8 @@ public class LoginHandler extends HttpServlet {
 
 				// 加入計時器自動跳轉
 				res.setHeader("Refresh", "5; URL=" + req.getContextPath() + "/front-end/login/login.html");
-				out.println("請按此重新登入<a href=" + req.getContextPath() + "/front-end/login/login.html> 重新登入 </a>"); // 密碼錯誤的時候要去的地方
+				out.println("請按此重新登入<a href=" + req.getContextPath() + "/front-end/login/login.html> 重新登入 </a><br>"); // 密碼錯誤的時候要去的地方
+				out.println("請按此回首頁<a href=" + req.getContextPath() + "/regna-master/homeindex.jsp> 回首頁 </a>");
 				out.println("</BODY></HTML>");
 
 			} else {
@@ -75,7 +76,7 @@ public class LoginHandler extends HttpServlet {
 					}
 				} catch (Exception ignored) {
 				}
-				res.sendRedirect(req.getContextPath() + "/front-end/member/listOneMember.jsp"); // *工作2: 看看有無來源網頁
+				res.sendRedirect(req.getContextPath() + "/front-end/member/listOneMemberByUpdate.jsp"); // *工作2: 看看有無來源網頁
 																								// (-->如有來源網頁:則重導至來源網頁)
 			}
 		}

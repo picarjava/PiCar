@@ -49,8 +49,8 @@ strong { font-weight: bold; }
     -moz-box-shadow: none;
     -webkit-box-shadow: none;
     box-shadow: none;
-    left: 200px;
-    right: 200px;
+    left: 50px;
+    right: 50px;
     z-index: 997;
     top: 0;
     height: 105px;

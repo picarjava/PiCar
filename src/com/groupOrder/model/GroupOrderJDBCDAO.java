@@ -367,4 +367,10 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
 		return null;
 	}
 
+	@Override
+	public Integer getOneDriversAve(String driver_id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

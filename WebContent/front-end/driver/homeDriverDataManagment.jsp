@@ -8,7 +8,6 @@
 <%@ page import="javax.servlet.http.*"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <title>homeDriverDataManagment.jsp</title>
     <jsp:include page="/regna-master/head.jsp" />
@@ -23,7 +22,6 @@ table, tr, td, th {
 	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro',
 		'Noto Sans CJK SC', monospace;
 }
-
 table {
 	width: 100%;
 }
@@ -111,7 +109,7 @@ table {
 						      String encodeImg1 = null;
 						      if(licence!=null){
 						    	  encodeImg1 = Base64.encode(licence);%>
-                                    <img src="data:image/jpg;base64,<%=encodeImg1 %>" id="img1">
+                                    <img src="data:image/jpg;base64,<%=encodeImg1 %>" id="img1" width='200' height="200">
                                     <% }%>
                                     </div>
                                     <%-- 						      <td>${driverVO.criminal}</td> --%>
@@ -123,7 +121,7 @@ table {
 						      String encodeImg2 = null;
 						      if(criminal!=null){
 						    	  encodeImg2 = Base64.encode(criminal);%>
-                                        <img src="data:image/jpg;base64,<%=encodeImg2 %>" id="img2">
+                                        <img src="data:image/jpg;base64,<%=encodeImg2 %>" id="img2" width='200' height="200">
                                         <% }%>
                                     </div>
                                     <%-- 						      <td>${driverVO.trafficRecord}</td> --%>
@@ -135,7 +133,7 @@ table {
 						      String encodeImg3 = null;
 						      if(trafficRecord!=null){
 						    	  encodeImg3 = Base64.encode(trafficRecord);%>
-                                        <img src="data:image/jpg;base64,<%=encodeImg3 %>" id="img3">
+                                        <img src="data:image/jpg;base64,<%=encodeImg3 %>" id="img3" width='200' height="200">
                                         <% }%>
                                     </div>
                                     <%-- 						      <td>${driverVO.idNum}</td> --%>
@@ -147,21 +145,26 @@ table {
 						      String encodeImg4 = null;
 						      if(idNum!=null){
 						    	  encodeImg4 = Base64.encode(idNum);%>
-                                        <img src="data:image/jpg;base64,<%=encodeImg4 %>" id="img4">
+                                        <img src="data:image/jpg;base64,<%=encodeImg4 %>" id="img4" width='200' height="200">
                                         <% }%>
                                     </div>
                                     <%-- 						      <td>${driverVO.photo}</td> --%>
-                                    <div class="form-group">
-                                        <p>大頭照</p>
-                                        <c:set var="photo" value="${memberVO.pic}" />
-                                        <%
-						      byte[] photo = (byte[])pageContext.getAttribute("photo");
-						      String encodeImg5 = null;
-						      if(photo!=null){
-						    	  encodeImg5 = Base64.encode(photo);%>
-                                        <img src="data:image/jpg;base64,<%=encodeImg5 %>" id="img5">
-                                        <% }%>
-                                    </div>
+<!--                                     <div class="form-group"> -->
+<!--                                         <p>大頭照</p> -->
+<%--                                         <c:set var="photo" value="${memberVO.pic}" /> --%>
+<%--                                         <% --%>
+<!-- // 						      byte[] photo = (byte[])pageContext.getAttribute("photo"); -->
+<!-- // 						      String encodeImg5 = null; -->
+<!-- // 						      if(photo!=null){ -->
+<%-- 						    	  encodeImg5 = Base64.encode(photo);%> --%>
+<%--                                         <img src="data:image/jpg;base64,<%=encodeImg5 %>" id="img5" width='200' height="200"> --%>
+<%--                                         <% }%> --%>
+<!--                                     </div> -->
+							<div class="form-group">
+                      <p>會員照片</p>
+							<img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
+		          onerror="this.src='cat.jpg'">
+                    </div>	
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">評價分數</span>
@@ -190,7 +193,8 @@ table {
                                         </div>
                                         <div class="form-control" aria-label="Username" aria-describedby="basic-addon1"><font color="red">
                                         <c:if test="${driverVO.pet == 0}">不要寵物</c:if>
-						    			 <c:if test="${driverVO.pet == 1}">寵物我可以</c:if></font></div>	
+						    			 <c:if test="${driverVO.pet == 1}">寵物我可以</c:if></font>
+						    			 </div>	
                                     </div>
                                     <!-- 							<div class="form-group"> -->
                                     <!-- 								<p>可載寵物</p> -->
@@ -199,29 +203,26 @@ table {
                                     <!-- 									<option value="1">接受</option> -->
                                     <!-- 								</select> -->
                                     <!-- 							</div> -->
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">抽菸</span>
-                                        </div>
-                                        <input type="text" class="form-control" placeholder="3" name="smoke" value="${driverVO.smoke}" readonly  aria-label="Username" aria-describedby="basic-addon1">
-                                    </div>
-                                    
 						      
-						      <c:if test="${driverVO.pet == 0}">不要寵物</c:if>
-						      <c:if test="${driverVO.pet == 1}">寵物我可以</c:if>
+						      
+								<div class="input-group mb-3">
+                                       	 <div class="input-group-prepend">
+                                            <span class="input-group-text" id="basic-addon1">是否抽菸</span>
+                                        </div>
+                                        <div class="form-control" aria-label="Username" aria-describedby="basic-addon1"><font color="red">
 						      <c:if test="${driverVO.smoke == 0}">不接受抽菸</c:if>
-						      <c:if test="${driverVO.smoke == 1}">接受抽菸</c:if>
-						      <c:if test="${driverVO.babySeat == 0}">不提供嬰兒座椅</c:if>
-						      <c:if test="${driverVO.babySeat == 1}">提供嬰兒座椅</c:if>
-                                    
-                                    
-                                    
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
+						      <c:if test="${driverVO.smoke == 1}">接受抽菸</c:if></font>
+						    			 </div>	
+						           </div>
+						      	<div class="input-group mb-3">
+                                       	 <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">提供嬰兒座椅</span>
                                         </div>
-                                        <input type="text" class="form-control" placeholder="3" name="babySeat" value="${driverVO.babySeat}" readonly aria-label="Username" aria-describedby="basic-addon1">
-                                    </div>
+                                        <div class="form-control" aria-label="Username" aria-describedby="basic-addon1"><font color="red">
+						      <c:if test="${driverVO.babySeat == 0}">不提供嬰兒座椅</c:if>
+						      <c:if test="${driverVO.babySeat == 1}">提供嬰兒座椅</c:if></font>
+						      </div>	
+						      </div>
                                     <!-- 							<div class="form-group"> -->
                                     <!-- 								<p>提供嬰兒座椅</p> -->
                                     <!-- 								<select name="babySeat" class="form-control"> -->
@@ -243,9 +244,12 @@ table {
                                         </div>
                                         <!-- <input type="text" class="form-control" placeholder="1" -->
                                         <!-- aria-label="Username" aria-describedby="basic-addon1" readonly> -->
+                                        <DIV>
                                         <font color="pink">
-                                            <c:out value="${driverVO.banned}" default="表現不錯，沒被BAN" />
+                                        <c:if test="${driverVO.banned == 0}">表現不錯，沒被BAN</c:if>
+						      			<c:if test="${driverVO.banned == 1}">BAN</c:if></font>
                                         </font>
+						      			</DIV>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
