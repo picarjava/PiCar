@@ -226,11 +226,10 @@
 							</div>
 							
 							<form method="post" id="sub" action="<%=request.getServletContext().getContextPath()%>/back-end/driver/driver.do" >
-<input type="hidden" name="action" value="GET_ONE_FOR_BANNED">
-<%-- <input type="hidden" name="driverID" value="${driverVO.driverID}" > --%>
-<input class="form-control mr-sm-2" name="driverID" type="text" placeholder="請輸入司機編號(eg.D001)" aria-label="Search">
-<button  type="submit" value="GET_ONE_FOR_BANNED">Ban it~</button>
-</form>
+							<input type="hidden" name="action" value="GET_ONE_FOR_BANNED">
+							<!-- <input class="form-control mr-sm-2" name="driverID" type="text" placeholder="請輸入司機編號(eg.D001)" aria-label="Search"> -->
+							<button  type="submit" value="GET_ONE_FOR_BANNED">Ban it~</button>
+							</form>
 							
 							 <div class="text-center"><button type="submit">確認修改</button></div> 
 							<!--隱藏的參數action讓controller抓-->

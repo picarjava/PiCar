@@ -364,7 +364,7 @@ req.setCharacterEncoding("UTF-8");
 //			failurePage.forward(req, res);
 //		}
 ////////////////////////
-//靘back-end/listAllDriver.jsp 靽格  ban deadline verivfied==0 (敺撽�璈�  )//??
+//靘back-end/listAllDriver.jsp 靽格  ban deadline verivfied==0 (敺撽�璈�  )//OK
 		//SELECT * FROM Driver ORDER BY VERIFIED ASC, DRIVER_ID ASC; ���撽����Ⅳ
 if("GET_ONE_FOR_CHECK".equals(action)){
 	try {
@@ -394,12 +394,12 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 			driverSvc.updateBanned(driverID);
 		}else {
 		}
-		RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driver/listOneDriver.jsp");
-		failureView.forward(req, res);
+		RequestDispatcher bannedView = req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
+		bannedView.forward(req, res);
 	}
 	if("GET_ONE_CHECK_PERMIT".equals(actionS)) {
 		RequestDispatcher failureView = req
-			.getRequestDispatcher("/back-end/driver/getOneUpdateActivity.jsp");
+			.getRequestDispatcher("/back-end/driver/");//??
  failureView.forward(req, res);
 	}
 	/*************4.������:��istALL���**************/
@@ -407,7 +407,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 }
 //////////////////////////////////////////////////
 //靘back-end/listAllDriver.jsp 靽格  ban deadline ==0 (敺banned�璈�  )//??
-if("GET_ONE_FOR_BANNED".equals(action)){
+if("GET_ONE_FOR_BANNEDs".equals(action)){
 	List<String> errorMsgs1=new LinkedList<String>();//�銝�1.頝唾��2.閮剖�EADLINE3.
 	req.setAttribute("errorMsgs", errorMsgs1);
 //	try {

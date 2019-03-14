@@ -1,5 +1,3 @@
-<%@page import="com.driver.model.DriverVO"%>
-<%@page import="com.driver.model.DriverService"%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.driver.model.*" %>
@@ -23,6 +21,10 @@
     <%List<DriverVO> list=driverSvc.getAll();%>
     <%request.setAttribute("list", list); %>
     <%if(list!=null&&(list.size()>0)){ %>
+    
+    <% 
+    MemberDAO memberdao = new MemberDAO();
+%>
     
     <%LinkedList<String> errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <!-- 錯誤列表 -->
@@ -49,7 +51,7 @@
 						      <th scope="col">審核驗證	</th>
 						      <th scope="col">會員編號	</th>
 						      <th scope="col">司機編號	</th>
-<!-- 						      <th scope="col">姓名    		</th> -->
+						      <th scope="col">姓名    		</th>
 						      <th scope="col">車牌號碼	</th>
 						      <th scope="col">BAN	</th>
 						      <th scope="col">到期時間	</th>
@@ -84,10 +86,21 @@
 						      
 						      <td>${driverVO.driverID}</td>
 						      
-<%-- 						      <td>${memberVO.name}</td> --%>
+						      <td>
+
+								<c:set var="memID" value="${driverVO.memID}"/>
+<!-- 							     預設當前頁面  -->
+							      <% 
+							      String memID = (String)pageContext.getAttribute("memID");
+// 							      SingleOrderVO singleOrder = (SingleOrderVO)pageContext.getAttribute("memID");//不需要
+							      MemberVO member = memberdao.findByPrimaryKey(memID);
+							      System.out.println(member.getName());
+							      %>
+							      <%= member.getName() %>
+							     <%  System.out.println("-------------------------");%>
+							</td>
 						      <td>${driverVO.plateNum}</td>
 <%-- 						      <td>${driverVO.licence}</td> --%>
-						      
 <!-- 						      <td> -->
 <%-- 						       	  <c:if test="${empty driverVO.photo}" var="condition"> --%>
 <%-- 					              <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" width="200" height="100"/> --%>
@@ -99,18 +112,15 @@
 <!-- 						      </td> -->
 						      <td>
 						      <c:if test="${driverVO.banned == 0}">
-						      
-						       <Form METHOD="post" ACTION="driver.do" >
-							    <div class="text-center"><button type="submit" class="btn btn-light">可以接單</button>
-							      	<!-- /*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ -->
-							      	<input type="hidden" name="actionS" value="GET_ONE_FOR_BANNED">
-	                				<input type="hidden" name="action" value="GET_ONE_FOR_CHECK">
-	                				<input type="hidden" name="driverID" value="${driverVO.driverID}">
-							     </div>
-							  </Form>
-						      
-						      
-						      
+<!-- 						       <Form METHOD="post" ACTION="driver.do" > -->
+<!-- 							    <div class="text-center"><button type="submit" class="btn btn-light">可以接單</button> -->
+<!-- 							      	/*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ -->
+<!-- 							      	<input type="hidden" name="actionS" value="GET_ONE_FOR_BANNED"> -->
+<!-- 	                				<input type="hidden" name="action" value="GET_ONE_FOR_CHECK"> -->
+<%-- 	                				<input type="hidden" name="driverID" value="${driverVO.driverID}"> --%>
+<!-- 							     </div> -->
+<!-- 							  </Form> -->
+							  可以接單。給司機檢舉。
 						      </c:if>
 						      <c:if test="${driverVO.banned == 1}">禁止接單</c:if>
 						      </td>
@@ -134,8 +144,8 @@
 						      <c:if test="${driverVO.pet == 1}">寵物我可以</c:if>
 						      </td>
 						      <td>
-						      <c:if test="${driverVO.smoke == 0}">不接受抽菸</c:if>
-						      <c:if test="${driverVO.smoke == 1}">接受抽菸</c:if>
+						      <c:if test="${driverVO.smoke == 0}">不接受</c:if>
+						      <c:if test="${driverVO.smoke == 1}">接受</c:if>
 						      </td>
 						      <td>
 						      <c:if test="${driverVO.babySeat == 0}">不提供</c:if>
