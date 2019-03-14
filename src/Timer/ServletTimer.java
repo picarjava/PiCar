@@ -46,6 +46,9 @@
 //	//主控台印出時間
 //				 public void run(){
 //					 
+					// 修改訂單狀態碼
+					//通知課服，利用websocket及js
+
 //					 // 用TimerTask物件 呼叫scheduledExecutionTime()得到long的指定執行時間
 //					//再利用Date建構子即可取得  指定執行時間的Date物件 
 //					 Date date =new Date(this.scheduledExecutionTime());
@@ -54,6 +57,7 @@
 //						System.out.println(strDate1);
 //						System.out.println("Hello World! " + i);
 //						i++;
+//						return; //或是看看有沒有其他方法
 //				}
 //			};
 //			
@@ -77,6 +81,9 @@
 //				GregorianCalendar gcToday=new GregorianCalendar(year, month-1, day, 0, 0, 0);
 //				java.util.Date today=gcToday.getTime();
 //				timer.scheduleAtFixedRate(task, today, 60*60*1000); //第一個參數放入想要執行的結果
+												//↑這邊要用動態抓取預約訂單的時間	
+				
+				// 先做出一個，再想想怎麼用多個排程器
 //				
 //		}
 //			public void destroy() {
