@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,10 +21,10 @@ import com.driverReport.model.DriverReportService;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 
+import Timer.renewDriverRate;
+
 public class SingleOrderServlet extends HttpServlet{
-    /**
-     * 
-     */
+	
     private static final long serialVersionUID = -4141756259988501128L;
     
     @Override
@@ -52,7 +54,7 @@ public class SingleOrderServlet extends HttpServlet{
                     req.setAttribute("singleOrder", serivce.getOneSingleOrder(orderID)); 
             
             }
-            //來自rating
+            //來自rating 
             else if("addRate".equals(action)) {
             forwordURL ="/front-end/singleOrder/rating.jsp";
             Integer rate=new Integer(req.getParameter("rate")) ;

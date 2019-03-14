@@ -1,9 +1,8 @@
 package com.driverReport.controller;
 
 import java.io.*;
-import java.sql.SQLException;
-import java.util.*;
 
+import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
@@ -28,7 +27,7 @@ public class DriverReportServlet extends HttpServlet {
          if("insertDriverReport".equals(action)) {
         	List<String> errorMsgs = new LinkedList<String>();
          	String forwordURL = "/front-end/driverReport/addDriverReport.jsp";
-        	String orderID=req.getParameter("orderID");
+         	String orderID=req.getParameter("orderID");
         	String memID=req.getParameter("memID");
         	Integer state=new Integer(req.getParameter("state"));
         	String content=req.getParameter("content");

@@ -27,8 +27,9 @@ public class SingleOrderDAO implements SingleOrder_interface {
                                                                   "END_LNG, END_LAT, TOTAL_AMOUNT, ORDER_TYPE, " +
                                                                   "NOTE, LAUNCH_TIME) " + 
                                                                   "VALUES ('SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    
-  //小編新增一個刪除語法
+    //小編新增司機查評價平均
+    private final static String DRIVER_RATE_AVE_STMT ="SELECT AVG(RATE) AS 'Avg_RATE' FROM SINGLE_ORDER  WHERE DRIVER_ID =?";
+    //小編新增一個刪除語法
     private static final String DELETE=
 			"DELETE FROM SINGLE_ORDER WHERE ORDER_ID=?";
     private static DataSource dataSource;
@@ -58,7 +59,45 @@ public class SingleOrderDAO implements SingleOrder_interface {
 //        System.out.println(singleOrderDAO.getAll());
 //    } // main()
     
-    //小編新增一個刪除方法
+    ////小編新增司機查評價平均
+    public int findRateAveByDriverID(String driverID) {
+    	Connection con=null;
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+    	int rateAve=0;
+    	try {
+    		con=dataSource.getConnection();
+			pstmt=con.prepareStatement(DRIVER_RATE_AVE_STMT);
+			pstmt.setString(1,driverID);
+			rs=pstmt.executeQuery();
+			rateAve=rs.getInt("Avg_RATE");
+    	}catch(SQLException se){
+			throw new RuntimeException("發生SQL error"+se.getMessage());
+		}finally{
+			if(pstmt!=null){
+				try{
+					pstmt.close();
+				}catch(SQLException se){
+					se.printStackTrace(System.err);
+				}
+			}
+			if(con!=null){
+				try{
+					con.close();
+				}catch(Exception e){
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+    	return rateAve;
+    }
+    
+    private int parseInt(String driverID) {
+	// TODO Auto-generated method stub
+	return 0;
+}
+
+	//小編新增一個刪除方法
     @Override
     public void delete(String orderID) {
 		Connection con=null;

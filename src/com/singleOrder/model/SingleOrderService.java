@@ -19,6 +19,10 @@ public class SingleOrderService {
     public void insert(LinkedList<SingleOrderVO> singleOrderVOList) {
     	singleOrderDAO.insert(singleOrderVOList);
     }
+    ////小編新增司機查評價平均
+    public int findRateAveByDriverID(String driverID) {
+    	return  singleOrderDAO.findRateAveByDriverID(driverID);
+    }
         
     public SingleOrderVO addSingleOrder(String memID, Integer state, Timestamp startTime, String startLoc,
                                         String endLoc, Double startLng, Double startLat, Double endLng,

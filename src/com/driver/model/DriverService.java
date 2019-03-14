@@ -11,6 +11,11 @@ public class DriverService {
 	public DriverService() {
 		dao = new DriverJNDIDAO();
 	}
+	
+	//小編更新司機評價
+	public void updateDriverRate(int score,String driverID) {
+		dao.updateDriverRate(score, driverID);
+	} 
 
 	// 比較JDBCDAO。利用多型 將VO變數傳入參數 用VO.set存
 	public DriverVO addDriver(String memID, 

@@ -151,13 +151,15 @@
 	<!-- 未來訂單:篩選狀態碼為 1:訂單成立、4:執行中、6:逾期未處理-->		  
 		 	 <c:if test="${groupOrder.driverID eq driverID&& groupOrder.state eq 1|| groupOrder.state eq 4|| groupOrder.state eq 6 }">
 					 		<tr>
-					 			  <th>${groupOrder.gorderID}</th>
-					 			  <th>
-					 			  ${groupOrder.orderType eq 0?"單程揪團":"長期揪團"}
-					 			  </th>		
-					 			  <th scope="row">
+					 			  <td>${groupOrder.gorderID}</td>
+					 			  <td>
+							      <c:forEach var="orderType" items="${orderTypeMap}">
+						 		   ${orderType.key eq groupOrder.orderType ? orderType.value: ""}
+						 		  </c:forEach>
+							      </td>		
+					 			  <td scope="row">
 							      <fmt:formatDate type="BOTH" value="${groupOrder.startTime}" pattern="yyyy/MM/dd/ mm:ss"/>
-							      </th>
+							      </td>
 							      <td>${groupOrder.startLoc}</td>
 							      <td>${groupOrder.endLoc}</td>
 							      <td>${groupOrder.totalAmout}</td>

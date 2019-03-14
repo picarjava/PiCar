@@ -251,36 +251,22 @@ function AutocompleteDirectionsHandler(map) {
       destinationInput);
 }
 
-// Sets a listener on a radio button to change the filter type on Places
-// Autocomplete.
-AutocompleteDirectionsHandler.prototype.setupClickListener = function(
-    id, mode) {
-  var radioButton = document.getElementById(id);
-  var me = this;
-
-  radioButton.addEventListener('click', function() {
-    me.travelMode = mode;
-    me.route();
-  });
-};
-
 AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(
-    autocomplete, mode) {
+    autocomplete,mode) {
   var me = this;
   autocomplete.bindTo('bounds', this.map);
 
   autocomplete.addListener('place_changed', function() {
     var place = autocomplete.getPlace();
-
-    if (!place.place_id) {
-      window.alert('Please select an option from the dropdown list.');
-      return;
-    }
-    if (mode === 'ORIG') {
-      me.originPlaceId = place.place_id;
-    } else {
-      me.destinationPlaceId = place.place_id;
-    }
+	    if (!place.place_id) {
+	      window.alert('Please select an option from the dropdown list.');
+	      return;
+	    }
+	    if (mode === 'ORIG') {
+	      me.originPlaceId = place.place_id;
+	    } else {
+	      me.destinationPlaceId = place.place_id;
+	    }
     me.route();
   });
 };

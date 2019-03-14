@@ -60,10 +60,12 @@
 							      <tr></tr>
 							      <tr>
 							      <th scope="col">訂單編號	</th>
+							      <th scope="col">訂單種類	</th>
 							      <th scope="col">乘車時間	</th>
 							      <th scope="col">乘車地點	</th>
 							      <th scope="col">乘車目的地	</th>
 							      <th scope="col">總金額	    </th>
+							      <th scope="col">訂單狀態	</th>
 							      <th scope="col">評價司機	</th>
 							      <th scope="col">檢舉司機	</th>
 							    </tr>
@@ -72,13 +74,23 @@
 		<c:forEach var="groupOrder" items="${groupOrderlist}" >			  
 			 <c:if test="${groupOrder.memID eq memID && groupOrder.state !=0 && singleOrder.state !=1}">
 						 		<tr>	 
-							      <th scope="row">${groupOrder.gorderID}</th>
+							      <td scope="row">${groupOrder.gorderID}</td>
+							      <td>
+							      <c:forEach var="orderType" items="${orderTypeMap}">
+						 		   ${orderType.key eq groupOrder.orderType ? orderType.value: ""}
+						 		  </c:forEach>
+							      </td>	
 							      <td>
 							      <fmt:formatDate  type="both" value="${groupOrder.startTime}" pattern="yyyy-MM-dd mm:ss" /> 
 							      </td>
 							      <td>${groupBandSvc.getOneGroupBand(groupOrder.groupID).startLoc}</td>
 							      <td>${groupBandSvc.getOneGroupBand(groupOrder.groupID).endLoc}</td>
 							      <td>${groupOrder.totalAmout}</td>
+							      <td>
+							      <c:forEach var="state" items="${stateMap}">
+						 		   ${state.key eq groupOrder.state? state.value: ""}
+						 		  </c:forEach>
+							     </td>
 							      <c:if test="${groupOrder.rate!=0}">
 							      <td>
 							          您的評價分數:${groupOrder.rate}

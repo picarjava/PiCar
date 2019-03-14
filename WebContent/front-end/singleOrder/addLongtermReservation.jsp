@@ -253,19 +253,6 @@ function AutocompleteDirectionsHandler(map) {
 
 }
 
-// Sets a listener on a radio button to change the filter type on Places
-// Autocomplete.
-AutocompleteDirectionsHandler.prototype.setupClickListener = function(
-    id, mode) {
-  var radioButton = document.getElementById(id);
-  var me = this;
-
-  radioButton.addEventListener('click', function() {
-    me.travelMode = mode;
-    me.route();
-  });
-};
-
 AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(
     autocomplete,mode) {
   var me = this;

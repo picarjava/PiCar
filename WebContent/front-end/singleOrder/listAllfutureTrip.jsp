@@ -74,10 +74,12 @@
 							      <tr></tr>
 							      <tr>
 							      <th scope="col">乘車時間	</th>
+							      <th scope="col">訂單種類	</th>
 							      <th scope="col">乘車地點	</th>
 							      <th scope="col">乘車目的地	</th>
 							      <th scope="col">總金額	    </th>
 							      <th scope="col">取消行程	</th>
+							      <th scope="col">訂單狀態	</th>
 							    </tr>
 							  </thead>
 							  <tbody>
@@ -88,6 +90,11 @@
 							      <th scope="row">
 							      <fmt:formatDate  type="both" value="${singleOrder.startTime}" pattern="yyyy-MM-dd mm:ss" />
 							      </th>
+							      <td>
+							      <c:forEach var="orderType" items="${orderTypeMap}">
+						 		   ${orderType.key eq singleOrder.orderType ? orderType.value: ""}
+						 		  </c:forEach>
+							      </td>
 							      <td>${singleOrder.startLoc}</td>
 							      <td>${singleOrder.endLoc}</td>
 							      <td>${singleOrder.totalAmount}</td>
@@ -100,6 +107,11 @@
 								     </div>
 								  </Form>
 							      </td>
+							       <td>
+						 		  <c:forEach var="state" items="${stateMap}">
+						 		   ${state.key eq singleOrder.state ? state.value: ""}
+						 		  </c:forEach>
+						 		  </td>
 							    </tr>
 		</c:if>					    
 		</c:forEach>
@@ -125,10 +137,12 @@
 						  <thead class="thead-dark">
 						    <tr>
 						     <th scope="col">乘車時間	</th>
+						     <th scope="col">訂單種類	</th>
 							 <th scope="col">乘車地點	</th>
 							 <th scope="col">前往目的地</th>
 							 <th scope="col">總金額	</th>
 							  <th scope="col">取消行程</th>
+							  <th scope="col">訂單狀態</th>
 						    </tr>
 						  </thead>
 						  <tbody>
@@ -140,6 +154,11 @@
 					 			  <th scope="row">
 							      <fmt:formatDate type="BOTH" value="${groupOrder.startTime}" pattern="yyyy/MM/dd/ mm:ss"/>
 							      </th>
+							      <td>
+							      <c:forEach var="orderType" items="${orderTypeMap}">
+						 		   ${orderType.key eq groupOrder.orderType ? orderType.value: ""}
+						 		  </c:forEach>
+							      </td>	
 							      <td>${groupBandSvc.getOneGroupBand(groupOrder.groupID).startLoc}</td>
 							      <td>${groupBandSvc.getOneGroupBand(groupOrder.groupID).endLoc}</td>
 							      <td>${groupOrder.totalAmout}</td>
@@ -152,7 +171,12 @@
 							     </div>
 							  </Form>
 						      </td>
-						    </tr>  
+						      <td>
+							      <c:forEach var="state" items="${stateMap}">
+						 		   ${state.key eq groupOrder.state? state.value: ""}
+						 		  </c:forEach>
+							   </td>
+						     </tr>  
 						   
 	</c:if>		
 	</c:forEach>

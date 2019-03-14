@@ -13,4 +13,5 @@ public interface SingleOrder_interface {
     List<SingleOrderVO> findByStateAndOrderType(Integer state, Integer orderType);
     void delete(String orderID);
     void insert(LinkedList<SingleOrderVO> singleOrderVOList); //長期訂單新增用
+    int findRateAveByDriverID(String driverID);//小編司機查評價平均
 } // interface SingleOrderInterface

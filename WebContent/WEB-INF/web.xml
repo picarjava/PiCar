@@ -110,7 +110,7 @@
   <servlet>
     <servlet-name>DriverReportServlet</servlet-name>
     <servlet-class>com.driverReport.controller.DriverReportServlet</servlet-class>
-  </servlet>
+    </servlet>
   <servlet-mapping>
     <servlet-name>DriverReportServlet</servlet-name>
     <url-pattern>/back-end/driverReport/driverReport.do</url-pattern>
@@ -140,96 +140,90 @@
     <url-pattern>/memberApi</url-pattern>
   </servlet-mapping>
   <servlet>
-	<servlet-name>AdminServlet</servlet-name>
-	<servlet-class>com.admin.controller.AdminServlet</servlet-class>
+    <servlet-name>AdminServlet</servlet-name>
+    <servlet-class>com.admin.controller.AdminServlet</servlet-class>
   </servlet>
   <servlet-mapping>
-	<servlet-name>AdminServlet</servlet-name>
-	<url-pattern>/back-end/admin/admin.do</url-pattern>
+    <servlet-name>AdminServlet</servlet-name>
+    <url-pattern>/back-end/admin/admin.do</url-pattern>
   </servlet-mapping>
-  
-  <servlet> 
-<servlet-name>MemberServlet</servlet-name> 
-<servlet-class>com.member.controller.MemberServlet</servlet-class> 
-</servlet> 
-<servlet-mapping> 
-<servlet-name>MemberServlet</servlet-name> 
-<url-pattern>/front-end/member/member.do</url-pattern>
-</servlet-mapping> 
-
-  <servlet> 
-<servlet-name>MemberServlet1</servlet-name> 
-<servlet-class>com.member.controller.MemberServlet1</servlet-class> 
-</servlet> 
-<servlet-mapping> 
-<servlet-name>MemberServlet1</servlet-name> 
-<url-pattern>/back-end/member/member.do</url-pattern>
-</servlet-mapping> 
-
-<servlet> 
-<servlet-name>RateServlet</servlet-name> 
-<servlet-class>com.rate.controller.RateServlet</servlet-class> 
-</servlet> 
-<servlet-mapping> 
-<servlet-name>RateServlet</servlet-name> 
-<url-pattern>/back-end/rate/rate.do</url-pattern> 
-</servlet-mapping> 
-<servlet> 
-<servlet-name>PaymentRecordServlet</servlet-name> 
-<servlet-class>com.paymentRecord.controller.PaymentRecordServlet</servlet-class> 
-</servlet> 
-<servlet-mapping> 
-<servlet-name>PaymentRecordServlet</servlet-name> 
-<url-pattern>/paymentRecord/paymentRecord.do</url-pattern> 
-</servlet-mapping> 
-<servlet> 
-<servlet-name>StoreRecordServlet</servlet-name> 
-<servlet-class>com.storeRecord.controller.StoreRecordServlet</servlet-class> 
-</servlet> 
-<servlet-mapping> 
-<servlet-name>StoreRecordServlet</servlet-name> 
-<url-pattern>/front-end/storeRecord/storeRecord.do</url-pattern> 
-</servlet-mapping>
-
-<servlet> 
-<servlet-name>StoreRecordServlet1</servlet-name> 
-<servlet-class>com.storeRecord.controller.StoreRecordServlet1</servlet-class> 
-</servlet> 
-<servlet-mapping> 
-<servlet-name>StoreRecordServlet1</servlet-name> 
-<url-pattern>/back-end/storeRecord/storeRecord.do</url-pattern> 
-</servlet-mapping>
-
-<servlet>
-  <servlet-name>singleOrderApi</servlet-name>
-  <servlet-class>android.com.singleOrder.controller.SingleOrderServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-  <servlet-name>groupOrderApi</servlet-name>
-  <url-pattern>/groupOrderApi</url-pattern>
-</servlet-mapping>
-<servlet>
-  <servlet-name>groupOrderApi</servlet-name>
-  <servlet-class>android.com.groupOrder.controller.GroupOrderServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-  <servlet-name>singleOrderApi</servlet-name>
-  <url-pattern>/singleOrderApi</url-pattern>
-</servlet-mapping>
-<servlet>
-  <servlet-name>driverApi</servlet-name>
-  <servlet-class>android.com.driver.controller.DriverServlet</servlet-class>
-</servlet>
-<servlet-mapping>
-  <servlet-name>driverApi</servlet-name>
-  <url-pattern>/driverApi</url-pattern>
-</servlet-mapping>
+  <servlet>
+    <servlet-name>MemberServlet</servlet-name>
+    <servlet-class>com.member.controller.MemberServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberServlet</servlet-name>
+    <url-pattern>/front-end/member/member.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>MemberServlet1</servlet-name>
+    <servlet-class>com.member.controller.MemberServlet1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberServlet1</servlet-name>
+    <url-pattern>/back-end/member/member.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>RateServlet</servlet-name>
+    <servlet-class>com.rate.controller.RateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>RateServlet</servlet-name>
+    <url-pattern>/back-end/rate/rate.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>PaymentRecordServlet</servlet-name>
+    <servlet-class>com.paymentRecord.controller.PaymentRecordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>PaymentRecordServlet</servlet-name>
+    <url-pattern>/paymentRecord/paymentRecord.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>StoreRecordServlet</servlet-name>
+    <servlet-class>com.storeRecord.controller.StoreRecordServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StoreRecordServlet</servlet-name>
+    <url-pattern>/front-end/storeRecord/storeRecord.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>StoreRecordServlet1</servlet-name>
+    <servlet-class>com.storeRecord.controller.StoreRecordServlet1</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>StoreRecordServlet1</servlet-name>
+    <url-pattern>/back-end/storeRecord/storeRecord.do</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>singleOrderApi</servlet-name>
+    <servlet-class>android.com.singleOrder.controller.SingleOrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>groupOrderApi</servlet-name>
+    <url-pattern>/groupOrderApi</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>groupOrderApi</servlet-name>
+    <servlet-class>android.com.groupOrder.controller.GroupOrderServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>singleOrderApi</servlet-name>
+    <url-pattern>/singleOrderApi</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <servlet-name>driverApi</servlet-name>
+    <servlet-class>android.com.driver.controller.DriverServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>driverApi</servlet-name>
+    <url-pattern>/driverApi</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>DriverVerified</servlet-name>
     <servlet-class>model.DriverVerified</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
-  
   <servlet>
     <servlet-name>LoginHandlerBackEnd</servlet-name>
     <servlet-class>com.login.filter.LoginHandlerBackEnd</servlet-class>
@@ -238,7 +232,6 @@
     <servlet-name>LoginHandlerBackEnd</servlet-name>
     <url-pattern>/back-end/login/loginHandlerBackEnd.do</url-pattern>
   </servlet-mapping>
-  
   <filter>
     <filter-name>LoginFilterBackEnd</filter-name>
     <filter-class>com.login.filter.LoginFilterBackEnd</filter-class>
@@ -252,7 +245,6 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
-  
   <servlet>
     <servlet-name>LogoutHandlerBackEnd</servlet-name>
     <servlet-class>com.login.filter.LogoutHandlerBackEnd</servlet-class>
@@ -261,7 +253,6 @@
     <servlet-name>LogoutHandlerBackEnd</servlet-name>
     <url-pattern>/back-end/logoutHandlerBackEnd.do</url-pattern>
   </servlet-mapping>
-  
   <servlet>
     <servlet-name>LoginHandler</servlet-name>
     <servlet-class>com.login.filter.LoginHandler</servlet-class>
@@ -278,16 +269,25 @@
     <servlet-name>LogoutHandler</servlet-name>
     <url-pattern>/front-end/member/logoutHandler.do</url-pattern>
   </servlet-mapping>
-      <!-- load-on-startup ScheduleServlet的註冊名稱與mapping -->
+  <servlet>
+    <servlet-name>ScheduleTimer</servlet-name>
+    <servlet-class>Timer.ServletTimer</servlet-class>
+    <load-on-startup>10</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ScheduleTimer</servlet-name>
+    <url-pattern>/ScheduleServlet</url-pattern>
+  </servlet-mapping>
     <servlet>
-		    <servlet-name>ScheduleTimer</servlet-name>
-		    <servlet-class>Timer.ServletTimer</servlet-class>
-		    <load-on-startup>10</load-on-startup>
-	  </servlet>
-	  <servlet-mapping>
-		    <servlet-name>ScheduleTimer</servlet-name>
-		    <url-pattern>/ScheduleServlet</url-pattern>
-	  </servlet-mapping>
+    <servlet-name>GroupTimer</servlet-name>
+    <servlet-class>Timer.GroupTimer</servlet-class>
+    <load-on-startup>9</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GroupTimer</servlet-name>
+    <url-pattern>/GroupTimer</url-pattern>
+  </servlet-mapping>
+  
   <filter>
     <filter-name>LoginFilter</filter-name>
     <filter-class>com.login.filter.LoginFilter</filter-class>
@@ -299,9 +299,8 @@
     <url-pattern>/front-end/groupBand/insertGroupBand.jsp</url-pattern>
     <url-pattern>/front-end/driver/homeDriverDataManagment.jsp</url-pattern>
     <url-pattern>/front-end/groupBand/SelectGroupBand.jsp</url-pattern>
-     <url-pattern>/front-end/groupBand/listAllOneGroupBand.jsp</url-pattern>
+    <url-pattern>/front-end/groupBand/listAllOneGroupBand.jsp</url-pattern>
     <url-pattern>/front-end/storeRecord/listOneStoreRecordMemberFront1.jsp</url-pattern>
-    
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
@@ -321,4 +320,14 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
+  
+  
+  <servlet>
+    <servlet-name>Calculate</servlet-name>
+    <servlet-class>com.calculate.controller.Calculate</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>Calculate</servlet-name>
+    <url-pattern>/TestSingleOrder/Calculate.do</url-pattern>
+  </servlet-mapping>
 </web-app>

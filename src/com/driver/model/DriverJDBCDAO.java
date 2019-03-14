@@ -400,6 +400,12 @@ public class DriverJDBCDAO implements DriverDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void updateDriverRate(int score, String driverID) {
+		// TODO Auto-generated method stub
+		
+	}
 }
 
 //}

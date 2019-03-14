@@ -44,6 +44,41 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 	private static final String GET_DRIVERID_BY_MEMID_STMT = "SELECT DRIVER_ID FROM DRIVER WHERE MEM_ID=?";
 	private static final String UPDATE_BANNED = "UPDATE DRIVER SET BANNED='1' WHERE DRIVER_ID=?";
 	private static final String UPDATE_PERMITTED ="UPDATE DRIVER SET VERIFIED=? WHERE DRIVER_ID=?";
+	//小編更新司機評價
+	private static final String UPDATE_RATE ="UPDATE DRIVER SET SCORE=? WHERE DRIVER_ID=?";
+	
+	//小編更新司機評價
+	public void updateDriverRate(int score,String driverID) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+			pstmt = con.prepareStatement(UPDATE_RATE);
+			pstmt.setInt(1, score);
+			pstmt.setString(2, driverID);
+			pstmt.executeUpdate();
+		}catch (SQLException se) {
+			se.printStackTrace();
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 	
 	@Override
 	public void insert(DriverVO driverVO) {

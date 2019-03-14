@@ -17,6 +17,8 @@ public interface DriverDAO_interface {
     public DriverVO findDriverByMemID(String memID);
     public void updateBanned(String driverID);
     public void updatePermitted(DriverVO driverVO);
+  //小編更新司機評價
+  	public void updateDriverRate(int score,String driverID) ;
 //	萬用複合查詢(傳入參數型別Map)(回傳List)
 	
 //	public List<DriverVO> getAll(Map<String, String> map);
