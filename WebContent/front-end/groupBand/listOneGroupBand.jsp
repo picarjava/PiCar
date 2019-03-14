@@ -4,6 +4,8 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.member.model.*"%>
 <%
+	MemberVO memberVOs = (MemberVO) session.getAttribute("memberVO");
+
 	GroupBandVO groupBandVO = (GroupBandVO) request.getAttribute("GroupBandVO");
 	Object GroupLeader = request.getAttribute("GroupLeader");
 	List<MemberVO> testList = (List) session.getAttribute("testList");
@@ -51,23 +53,21 @@
 <title>listOneGroupBand.jsp</title>
 <!-- google map -->
 <style>
-	#map { 
-         height: 500px;  
-         width: 850px;
-      } 
-        #origin-input, 
-       #destination-input { 
-         background-color: #fff; 
-         font-family: Roboto;  
-         font-size: 15px; 
-         font-weight: 300; 
-         margin-left: 12px; 
-         padding: 1 11px 1 13px; 
-         text-overflow: ellipsis; 
-         width: 350px; 
-       } 
-       
+#map {
+	height: 500px;
+	width: 850px;
+}
 
+#origin-input, #destination-input {
+	background-color: #fff;
+	font-family: Roboto;
+	font-size: 15px;
+	font-weight: 300;
+	margin-left: 12px;
+	padding: 1 11px 1 13px;
+	text-overflow: ellipsis;
+	width: 350px;
+}
 </style>
 
 <style>
@@ -177,6 +177,36 @@ th {
 					</h4>
 				</div>
 				<div class="tentce" id="${MemberVO.memID}"></div>
+
+
+				<!-- 				踢人功能 -->
+				<c:if test="${MemberVO.memID!=memberVO.memID}">
+					<%
+						if ("true".equals(GroupLeader)) {
+					%>
+					<FORM METHOD="post"
+						ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"
+						enctype="multipart/form-data" style="margin-bottom: 0px;">
+						<input type="submit" value="踢出"> <input type="hidden"
+							name="groupLeader" value="<%=groupBandVO.getGroupLeader()%>">
+						<input type="hidden" name="groupID" value="${GroupBandVO.groupID}">
+						<input type="hidden" name="startTime"
+							value="<%=groupBandVO.getStartTime()%>"> <input
+							type="hidden" name="memIDs" value="${memberVO.memID }" /> <input
+							type="hidden" name="groupKind"
+							value="<%=groupBandVO.getGroupKind()%>"> 
+							<input
+							type="hidden" name="GroupmemID" value="${MemberVO.memID}"> 
+							<input
+							type="hidden" name="action" value="GroupAdd"> <input
+							type="hidden" name="dropOutbutton" value="Kickingpeople">
+					</FORM>
+					<%
+						}
+					%>
+				</c:if>
+				<!-- 				踢人功能 -->
+
 			</div>
 			<script>
 			var Mymoney ='<%=groupBandVO.getGroupID()%>'.charCodeAt(0)+'<%=groupBandVO.getGroupID()%>'.substr(1);
@@ -249,36 +279,13 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 		</tr>
 	</table>
 	<%--判斷是否為團長 GroupBandServlet.java配合上689行--%>
+
 	<%
 		if ("true".equals(GroupLeader)) {
 	%>
 	<h5>修改資料</h5>
-	\
-	<form>
-	<!-- google map -->
-	
-					<div class="form-row">
-		       			<div class="col">
-						<p id="distance"></p>
-						</div>
-						<div class="col">
-		       			<p id="duration"></p>
-		       			</div>
-	       			</div>
- 					<div class="form-row">
-                      <div class="col">
-                        <p>上車地點/下車地點</p> 
-                        <input id="origin-input" type="text" name="startLoc" value="${groupBandOrder.startLoc}" class="form-control" placeholder="請輸入上車地點">
-                      </div>
-                      <div class="col">
-                        <input id="destination-input" type="text" name="endLoc" value="${groupBandOrder.endLoc}" class="form-control" placeholder="請輸入下車地點">
-                      </div>
-                      <div  id="map" class="col12">
-                     </div>
-                    </div>
-	
-	
-	
+
+	<form
 		action="<%=request.getServletContext().getContextPath()%>/GroupBand"
 		method="POST" enctype="multipart/form-data"
 		style="margin-bottom: 0px;">
@@ -328,7 +335,28 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 	%>
 
 
-
+	<div class="form-row">
+		<div class="col">
+			<p id="distance"></p>
+		</div>
+		<div class="col">
+			<p id="duration"></p>
+		</div>
+	</div>
+	<div class="form-row">
+		<div class="col">
+			<p>上車地點/下車地點</p>
+			<input id="origin-input" type="text" name="startLoc"
+				value="${groupBandOrder.startLoc}" class="form-control"
+				placeholder="請輸入上車地點">
+		</div>
+		<div class="col">
+			<input id="destination-input" type="text" name="endLoc"
+				value="${groupBandOrder.endLoc}" class="form-control"
+				placeholder="請輸入下車地點">
+		</div>
+		<div id="map" class="col12"></div>
+	</div>
 
 
 
@@ -467,7 +495,7 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 </body>
 
 <!-- auto place complete 開始 -->
- <script>
+<script>
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     mapTypeControl: false,
@@ -594,8 +622,9 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 };
 
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWL8JxUOY0dQZ01M4rCgDU-oHLkP5BORI&libraries=places&callback=initMap"
-        async defer></script>
+<script
+	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWL8JxUOY0dQZ01M4rCgDU-oHLkP5BORI&libraries=places&callback=initMap"
+	async defer></script>
 <!-- auto complete結束 -->
 
 </html>

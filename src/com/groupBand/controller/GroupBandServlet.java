@@ -655,20 +655,33 @@ public class GroupBandServlet extends HttpServlet {
 				;
 				Integer groupKind = new Integer(req.getParameter("groupKind").trim());
 
+				//連線會員id
 				String memIDs = req.getParameter("memIDs");
 
+				//揪團會員id
+				String GroupmemID = req.getParameter("GroupmemID");
+				
 				GroupBandService groupBandService = new GroupBandService();
 				GroupBandVO groupBandVO = groupBandService.getOneGroupBand(groupID);
-				// 退出揪團
+				
 //				System.out.println(groupBandVO.getGroupStatus());
 				String dropOutbutton = req.getParameter("dropOutbutton");
-				if ("dropOutbutton".equals(dropOutbutton)) {
+				if("Kickingpeople".equals(dropOutbutton)) {
+					GroupOrderService groupOrderService =new GroupOrderService();
+					groupOrderService.UPDATEmemid__GROUP_ID_MEM_ID(groupID, GroupmemID);
+					GroupBandDAO groupBandDAO = new GroupBandDAO();
+					GroupBandVO groupBandV = groupBandDAO.findByPrimaryKey(groupID);
+					groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum() + -1, groupID);
+				}
+				
+				// 退出揪團
+				else if("dropOutbutton".equals(dropOutbutton)) {
 					if (memIDs.equals(groupBandVO.getGroupLeader())) {
 
 						GroupBandDAO groupBandDAO = new GroupBandDAO();
 						groupBandDAO.UPDATE_GROUP_STATUS__GROUP_ID(2, groupID);
 						groupOrderDAO.UPDATE_STATE__GROUP_ID(8, groupID);
-						String url = "/front-end/groupBand/SelectGroupBand.jsp";
+						String url = "/front-end/groupBand/listAllOneGroupBand.jsp";
 						RequestDispatcher successView = req.getRequestDispatcher(url); // ���\��� listOneEmp.jsp
 						successView.forward(req, res);
 						return;

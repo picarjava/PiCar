@@ -360,4 +360,10 @@ public class GroupOrderJNDIDAO implements GroupOrderDAO_interface {
 		return null;
 	}
 
+	@Override
+	public void UPDATEmemid__GROUP_ID_MEM_ID(String GROUP_ID, String Memid) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

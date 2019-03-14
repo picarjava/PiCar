@@ -70,4 +70,7 @@ public class GroupOrderService {
 	public Integer getOneDriversAve(String driver_id) {
 		return dao.getOneDriversAve(driver_id);		
 	}
+	public void UPDATEmemid__GROUP_ID_MEM_ID(String groupid,String Memid) {
+		 dao.UPDATEmemid__GROUP_ID_MEM_ID(groupid, Memid);
+	}
 }
