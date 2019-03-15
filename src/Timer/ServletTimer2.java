@@ -91,32 +91,32 @@ public class ServletTimer2 extends HttpServlet {
 		timer.cancel();
 	}
 
-	public void dotime(String str) {
+	public void dotime(Timer timer) {
 		int i = 1;
 		timer = new Timer();
-		TimerTask task = new TimerTask() {
+//		TimerTask task = n;
+
+		timer.schedule(new TimerTask() {
 
 			@Override
 			public void run() {
 
-				System.out.println("司機遲到了" + str);
+				System.out.println("司機遲到了");
 
 			}
 
-		};
-
-		timer.schedule(task, 1*1000);
+		}, 1*1000);
 
 	}
 
-	public void cancel() {
+	public void cancel(Timer timer) {
 		timer.cancel();
 	}
 
 	public void doTimeCancle(String str) {
 //		dotime(str);
-		if (str.equals("a")){
-		cancel();	
-		}
+//		if (str.equals("a")){
+//		cancel();	
+//		}
 	}
 }

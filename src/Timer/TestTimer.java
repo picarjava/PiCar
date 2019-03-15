@@ -5,12 +5,15 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Timer;
 import java.util.TreeMap;
 
 public class TestTimer {
 	ServletTimer2 st2 = new ServletTimer2();
 
 	public static void main(String[] args) {
+	
+		
 //		Date date = new Date();
 //		
 //		ServletTimer2 st1 = new ServletTimer2();
@@ -34,28 +37,28 @@ public class TestTimer {
 //		st[1].dotime("1");
 //		st[2].dotime("2");
 		
-		Map<Integer, ServletTimer2> map = new TreeMap<Integer, ServletTimer2>();
-		
-		ServletTimer2 st2 = new ServletTimer2();
-		
-		st2.dotime("0");
-		map.put(0, st2);
-	
-		
-		st2.dotime("1");
-		map.put(1, st2);
-		
-		st2.dotime("2");
-		map.put(2, st2);
-		
-		st2.dotime("3");
-		map.put(3, st2);
-		
-		st2.dotime("4");
-		map.put(4, st2);
-		
-		
-		map.get(0).cancel();
+//		Map<Integer, ServletTimer2> map = new TreeMap<Integer, ServletTimer2>();
+//		
+//		ServletTimer2 st2 = new ServletTimer2();
+//		
+//		st2.dotime("0");
+//		map.put(0, st2);
+//	
+//		
+//		st2.dotime("1");
+//		map.put(1, st2);
+//		
+//		st2.dotime("2");
+//		map.put(2, st2);
+//		
+//		st2.dotime("3");
+//		map.put(3, st2);
+//		
+//		st2.dotime("4");
+//		map.put(4, st2);
+//		
+//		
+//		map.get(0).cancel();
 		
 		
 		
