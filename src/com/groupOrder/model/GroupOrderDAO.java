@@ -66,7 +66,9 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		
 		private static final String GET_ONE_RATE__DRIVER_ID = 
 				"SELECT AVG(RATE) AS 'AvgRATE' FROM GROUP_ORDER WHERE driver_id =?";
-				
+		
+		private static final String GET_MEM_ID__MEM_ID_GROUP_ID = 
+				"SELECT MEM_ID FROM GROUP_ORDER WHERE MEM_ID=? and GROUP_ID = ?";
 		
 	@Override
 	public void insert(GroupOrderVO groupOrderVO) {
@@ -756,6 +758,54 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		}
 	}
 	return avgrate;
+}
+	
+	public String get_memid__memid_groupid(String memid,String groupid) {
+		// TODO Auto-generated method stub
+
+		String memids=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(GET_MEM_ID__MEM_ID_GROUP_ID);
+		pstmt.setString(1, memid);
+		pstmt.setString(2, groupid);
+		rs = pstmt.executeQuery();
+		
+		memids=(rs.getString("MEM_ID"));
+			
+			
+		
+	}catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return memids;
 }
 	
 	public List<GroupOrderVO> getOneStntstartTimeMem(String groupid,String memid ) {

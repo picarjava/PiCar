@@ -366,4 +366,10 @@ public class GroupOrderJNDIDAO implements GroupOrderDAO_interface {
 		
 	}
 
+	@Override
+	public String get_memid__memid_groupid(String memid, String groupid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

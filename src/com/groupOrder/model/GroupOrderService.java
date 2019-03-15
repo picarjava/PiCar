@@ -73,4 +73,8 @@ public class GroupOrderService {
 	public void UPDATEmemid__GROUP_ID_MEM_ID(String groupid,String Memid) {
 		 dao.UPDATEmemid__GROUP_ID_MEM_ID(groupid, Memid);
 	}
+	public String get_memid__memid_groupid(String memid,String groupid){
+		return dao.get_memid__memid_groupid(memid,groupid);
+		
+	}
 }

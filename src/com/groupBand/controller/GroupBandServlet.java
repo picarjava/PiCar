@@ -666,13 +666,20 @@ public class GroupBandServlet extends HttpServlet {
 				
 //				System.out.println(groupBandVO.getGroupStatus());
 				String dropOutbutton = req.getParameter("dropOutbutton");
+				
+				
 				if("Kickingpeople".equals(dropOutbutton)) {
+					
 					GroupOrderService groupOrderService =new GroupOrderService();
 					groupOrderService.UPDATEmemid__GROUP_ID_MEM_ID(groupID, GroupmemID);
 					GroupBandDAO groupBandDAO = new GroupBandDAO();
 					GroupBandVO groupBandV = groupBandDAO.findByPrimaryKey(groupID);
+					if(groupOrderService.get_memid__memid_groupid(groupID, GroupmemID)!=null) {
 					groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum() + -1, groupID);
+					}
+					
 				}
+				
 				
 				// 退出揪團
 				else if("dropOutbutton".equals(dropOutbutton)) {

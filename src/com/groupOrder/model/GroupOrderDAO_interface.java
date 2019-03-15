@@ -13,4 +13,5 @@ public List<GroupOrderVO> getAll();
 public void insert2 (List<GroupOrderVO> list , java.sql.Connection con);
 public List<GroupOrderVO> GET_ONE_groupid__state_men_id(String memid);
 public void UPDATEmemid__GROUP_ID_MEM_ID(String GROUP_ID,String Memid);
+public String get_memid__memid_groupid(String memid,String groupid);
 }
