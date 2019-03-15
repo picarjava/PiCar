@@ -195,14 +195,14 @@ th, td {
 				</td>
 			</tr>
 
-			<tr>
-				<td>下車地點:</td>
+<!-- 			<tr> -->
+<!-- 				<td>下車地點:</td> -->
 
-				<td><select name="endLoc">
-						<option value="桃園火車站">桃園市</option>
-						<option value="台北市火車站">台北市</option>
-				</select></td>
-			</tr>
+<!-- 				<td><select name="endLoc"> -->
+<!-- 						<option value="桃園火車站">桃園市</option> -->
+<!-- 						<option value="台北市火車站">台北市</option> -->
+<!-- 				</select></td> -->
+<!-- 			</tr> -->
 
 			<tr>
 				<td>下限人數</td>

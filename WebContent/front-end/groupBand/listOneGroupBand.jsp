@@ -347,13 +347,13 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 		<div class="col">
 			<p>上車地點/下車地點</p>
 			<input id="origin-input" type="text" name="startLoc"
-				value="${groupBandOrder.startLoc}" class="form-control"
-				placeholder="請輸入上車地點">
+				value="<%=groupBandVO.getStartLoc()%>" class="form-control"
+				placeholder="請輸入上車地點" readonly="readonly">
 		</div>
 		<div class="col">
 			<input id="destination-input" type="text" name="endLoc"
-				value="${groupBandOrder.endLoc}" class="form-control"
-				placeholder="請輸入下車地點">
+				value="<%=groupBandVO.getEndLoc()%>" class="form-control"
+				placeholder="請輸入下車地點" readonly="readonly">
 		</div>
 		<div id="map" class="col12"></div>
 	</div>
@@ -496,6 +496,14 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 
 <!-- auto place complete 開始 -->
 <script>
+//地圖顯示研究到一半差 直接顯示路線
+setTimeout(function(){
+	  var originInput = document.getElementById('origin-input');
+	  var destinationInput = document.getElementById('destination-input');
+	  originInput.value='<%=groupBandVO.getStartLoc()%>';
+	  destinationInput.value='<%=groupBandVO.getEndLoc()%>';
+	},1000);
+
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
     mapTypeControl: false,
@@ -523,6 +531,7 @@ function AutocompleteDirectionsHandler(map) {
   var destinationInput = document.getElementById('destination-input');
 
 
+
   var originAutocomplete = new google.maps.places.Autocomplete(originInput);
   // Specify just the place data fields that you need.
   originAutocomplete.setFields(['place_id']);
@@ -532,7 +541,8 @@ function AutocompleteDirectionsHandler(map) {
   // Specify just the place data fields that you need.
   destinationAutocomplete.setFields(['place_id']);
   
- 
+  originInput.value='<%=groupBandVO.getStartLoc()%>';
+  destinationInput.value='<%=groupBandVO.getEndLoc()%>';
 
   this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
   this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
@@ -540,11 +550,13 @@ function AutocompleteDirectionsHandler(map) {
   this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
   this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
       destinationInput);
+  
 }
 
 AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(
     autocomplete,mode) {
   var me = this;
+  
   autocomplete.bindTo('bounds', this.map);
 
   autocomplete.addListener('place_changed', function() {
@@ -558,6 +570,7 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(
 	    } else {
 	      me.destinationPlaceId = place.place_id;
 	    }
+
     me.route();
   });
 };
