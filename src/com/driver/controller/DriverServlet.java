@@ -37,44 +37,44 @@ import com.member.model.MemberService;
 import com.member.model.MemberVO;
 @MultipartConfig
 //(fileSizeThreshold = 1024 * 1024, maxFileSize = 50 * 1024 * 1024, maxRequestSize = 5 * 50 * 1024 * 1024)
-public class DriverServlet extends HttpServlet {//頝臬�撠���� 霈����� ����� pic頝�雓�how��銝�撘�
+public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖片 根據專ˋ pic跟後台講。show出哪一張
 	private static final long serialVersionUID = 1L;
 	public DriverServlet() {
 		super();
 	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-//	憿舐內憭撐����
+//	顯示多張圖片
 req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("image/gif");
 //		
 		ServletOutputStream out = res.getOutputStream();
-		String driverID =req.getParameter("driverID");//敺ession��riverID
+		String driverID =req.getParameter("driverID");//從session抓driverID
 		int pic = new Integer(req.getParameter("pic"));
 		
 		DriverService driverSvc = new DriverService();
 	    DriverVO driverVO = driverSvc.getOneDriver(driverID);
 	    System.out.println(driverID);
 	    
-	    if(pic == 1) {//jsp�銝��mage��
+	    if(pic == 1) {//jsp哪一個image呼叫
 	    	byte[] licence = driverVO.getLicence();
-	    	out.write(licence);//憿舐內�image src� 霈����������
+	    	out.write(licence);//顯示在image src內 讀成二位元資料流
 	    }
-	    if(pic == 2) {//jsp�銝��mage��
+	    if(pic == 2) {//jsp哪一個image呼叫
 	    	byte[] criminal = driverVO.getCriminal();
-	    	out.write(criminal);//憿舐內�image src� 霈����������
+	    	out.write(criminal);//顯示在image src內 讀成二位元資料流
 	    }
-	    if(pic == 3) {//jsp�銝��mage��
+	    if(pic == 3) {//jsp哪一個image呼叫
 	    	byte[] trafficRecord= driverVO.getTrafficRecord();
-	    	out.write(trafficRecord);//憿舐內�image src� 霈����������
+	    	out.write(trafficRecord);//顯示在image src內 讀成二位元資料流
 	    }
-	    if(pic == 4) {//jsp�銝��mage��
+	    if(pic == 4) {//jsp哪一個image呼叫
 	    	byte[] idNum = driverVO.getIdNum();
-	    	out.write(idNum);//憿舐內�image src� 霈����������
+	    	out.write(idNum);//顯示在image src內 讀成二位元資料流
 	    }
-	    if(pic == 5) {//jsp�銝��mage��
+	    if(pic == 5) {//jsp哪一個image呼叫
 	    	byte[] photo = driverVO.getPhoto();
-	    	out.write(photo);//憿舐內�image src� 霈����������
+	    	out.write(photo);//顯示在image src內 讀成二位元資料流
 	    }
 //		System.out.println(driverID);
 //////////////
@@ -82,7 +82,7 @@ req.setCharacterEncoding("UTF-8");
 ////		for (Part part : parts) {
 ////			if (getFileNameFromPart(part) != null && part.getContentType()!=null) {
 ////				long size = part.getSize();
-////				// 憿�葫閰� InputStream ��� byte[] (撟怠��odel��O������)
+////				// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
 ////				InputStream in = part.getInputStream();
 ////				photo = new byte[in.available()];						
 ////				in.close();						
@@ -99,54 +99,41 @@ req.setCharacterEncoding("UTF-8");
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		String action = req.getParameter("action");
-		
 		DriverJNDIDAO driverDAO = new DriverJNDIDAO();
 		List<DriverVO> list = driverDAO.getAll();
-		// 撠���set�session
+		// 將資料存於set於session
 		HttpSession session = req.getSession();
 		session.setAttribute("list", list);
 		session.getAttribute("list");
 	///////////////////////////////////////////////////////////////////////
-	if ("INSERT".equals(action)) { // 靘addDriver.jsp����� ok
+	if ("INSERT".equals(action)) { // 來自addDriver.jsp的請求 ok
 		List<String> errorMsgs = new LinkedList<String>();
 		// Store this set in the request scope, in case we need to
 		// send the ErrorPage view.
 		req.setAttribute("errorMsgs", errorMsgs);
 //		try {
-//		/************************ 1.��隢�� - 頛詨�撘�隤方��� **********************/
-//		String msgID = req.getParameter("msgID");//撠��233銵�
-//		String msgID = "MSG";//撠��232銵� 瘜冽�圾��dd.jsp�isabled="disabled"
-//		String enameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,10}$";
-//		if (msgID == null || msgID.trim().length() == 0) {
-//			errorMsgs.add("��蝺刻��: 隢蝛箇");
-//		} else if (!msgID.trim().matches(enameReg)) { //// 隞乩�毀蝧迤���(閬�)銵函內撘�(regular-expression)
-//			errorMsgs.add("��蝺刻��: ���銝准������摮� , 銝摨血���2�10銋�蕭");
-//		}
-		
+//		/************************ 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 //		session.getAttribute("list");
 //		MemberVO memberVO = (MemberVO)session1.getAttribute("memberVO");
-//		String memID = "M003" ;//--�����
-		String memID =(String)(req.getParameter("memID"));//瘜冽��:甇��敺ession �����'
+//		String memID = "M003" ;//--假資料
+		String memID =(String)(req.getParameter("memID"));//注意:正是從session 抓下來'
 		DriverService drimem = new DriverService();
 		DriverVO  driverd =drimem.getOneDriverBymemID(memID);
 //		DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
-		
 //	    session.setAttribute("driverVO",driverVO);
-		
-		if(driverd != null ) {//��閮餃��甈∪璈�
-			String url = "/front-end/driver/homeDriverDataManagment.jsp";//瘥����璈�
-			RequestDispatcher successView = req.getRequestDispatcher(url); // �憓����漱listOneDriver.jsp
+		if(driverd != null ) {//只能註冊一次司機
+			String url = "/front-end/driver/homeDriverDataManagment.jsp";//比對是否為司機
+			RequestDispatcher successView = req.getRequestDispatcher(url); //新增成功後轉交listOneDriver.jsp
 			successView.forward(req, res);
 		}
 //		HttpSession session1 = req.getSession();
 //		String memID = (String)(session1.getAttribute("MEM_ID"));
-		
-//		String driverID=req.getParameter("driverID").trim();//瘜冽��:甇��敺ession �����
+//		String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
 		String plateNum = (String)req.getParameter("plateNum").trim();
 		if (plateNum == null || plateNum.trim().length() == 0) {
-			errorMsgs.add("頠��Ⅳ隢蝛箇");
+			errorMsgs.add("車牌號碼請勿空白	");
 		}
-		///////////////////////////�����蝯血����--����
+		///////////////////////////區域變數給初始值--圖片
 		byte[] licence = null;
 		byte[] criminal = null;
 		byte[] trafficRecord = null;
@@ -155,11 +142,11 @@ req.setCharacterEncoding("UTF-8");
 		Collection<Part> parts = req.getParts();
 		for (Part part : parts) {
 			part.getName();
-		if (getFileNameFromPart(part) != null && part.getContentType()!=null) {//�ㄐ�撌脩��征��
-//			long size = part.getSize();//update��
+		if (getFileNameFromPart(part) != null && part.getContentType()!=null) {//這裡是已經非空值
+//			long size = part.getSize();//update用到
 //			System.out.println(size);
-			// 憿�葫閰� InputStream ��� byte[] (撟怠��odel��O������)
-//			InputStream in = part.getInputStream();//��憭����蝺� 銝��偌擗�
+			//  額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
+//			InputStream in = part.getInputStream();//免除多一個連線 不用開水館
 			switch(part.getName()) {
 			case "licence":
 				licence = new byte[part.getInputStream().available()];			
@@ -167,7 +154,7 @@ req.setCharacterEncoding("UTF-8");
 				break;
 			case "criminal":
 				criminal = new byte[part.getInputStream().available()];
-				part.getInputStream().read(criminal);//霈��脣���葉
+				part.getInputStream().read(criminal);//讀進去陣列中
 				break;	
 			case "trafficRecord":				
 				trafficRecord = new byte[part.getInputStream().available()];					
@@ -179,44 +166,44 @@ req.setCharacterEncoding("UTF-8");
 				break;					
 			case "photo":				
 				photo = new byte[part.getInputStream().available()];					
-				part.getInputStream().read(photo);//inputstream��byte[] 嚗ervice摮鞈�澈 
+				part.getInputStream().read(photo);//inputstream獨到byte[] ，service存到資料庫 
 				break;					
 					}
 //			in.close();	
 			}
-		else {//瘥���� �5甈⊿��� /////�隤日�����
+		else {//每行會跑 共5次驗證 /////錯誤驗證圖片
 			switch (part.getName()) {
 			case "licence":
-			errorMsgs.add("隢�擏");	
+			errorMsgs.add("請上傳駕照");	
 				break;
 			case "criminal":
-			errorMsgs.add("隢�criminal");	
+			errorMsgs.add("請上傳criminal");	
 				break;
 			case "trafficRecord":
-			errorMsgs.add("隢�trafficRecord");	
+			errorMsgs.add("請上傳trafficRecord");	
 				break;
 			case "idNum":
-			errorMsgs.add("隢�idNum");	
+			errorMsgs.add("請上傳idNum");	
 				break;
 			case "photo":
-			errorMsgs.add("隢�photo");	
+			errorMsgs.add("請上傳photo");	
 				break;
 //			default:
 //				break;
 			}
 		}
 	}
-//		頧�yte[]; ��ead�脖�� write��
-		Integer verified= 0;//--��身�����
+//		轉成byte[]; 先read進來 write出去
+		Integer verified= 0;//--預設為未通過
 		Integer banned= 0;//--
 		Date deadline = null;//--
-		Integer onlineCar= 0;//--瘝蝺�� �session��
+		Integer onlineCar= 0;//--沒在線上 由session判斷
 		Integer score= 60;//--
-////////////////////////////////////////////����
+////////////////////////////////////////////照片
 		String carType= " ";
-		carType = new String(req.getParameter("carType").trim()); //閮���葡����
+		carType = new String(req.getParameter("carType").trim()); //訊息做字串處理
 		if (carType == null || carType.trim().length() == 0) {
-			errorMsgs.add("頠���摰�: 隢蝛箇");
+			errorMsgs.add("車子品牌內容: 請勿空白");
 		}
 		//////////////
 		Integer sharedCar ;
@@ -228,9 +215,9 @@ req.setCharacterEncoding("UTF-8");
 		Integer babySeat;
 		babySeat =new Integer(req.getParameter("babySeat"));
 		/////////////////
-		DriverVO driverVO = new DriverVO();//��迄銝�
+		DriverVO driverVO = new DriverVO();//告訴下頁面
 		driverVO.setMemID(memID);
-//		driverVO.setDriverID(driverID);//  1.�憓����K--> listall蝘�����--> 靽格��driverID 2.�憓蜓閬utogenerate
+//		driverVO.setDriverID(driverID);// 1.新增才能產生PK--> listall秀圖片--> 修改抓到driverID 2.自增主見autogenerate
 		driverVO.setPlateNum(plateNum);
 		driverVO.setLicence(licence);
 		driverVO.setCriminal(criminal);
@@ -249,14 +236,14 @@ req.setCharacterEncoding("UTF-8");
 		driverVO.setBabySeat(babySeat);//
 		// Send the use back to the form, if there were errors
 		if (!errorMsgs.isEmpty()) {
-			req.setAttribute("driverVO", driverVO); // // ���撓��撘隤斤�mpVO�隞�,銋�req
+			req.setAttribute("driverVO", driverVO); // // 含有輸入格式錯誤的driverVO物件,也存入req
 			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/driver/addDriver.jsp");
 			failureView.forward(req, res);
 			return;
 		}
-		/********************* *2.���憓���*****************************************/
-		/* 敺ddDriver.jsp���������riverService���AO摮�脰��澈 */
-		DriverService driverSvc ; // 隞冬O�隞嗅�� //鞈�澈���K
+		/********************* *2.開始新增資料********************************************/
+		/* 從addDriver.jsp取得的資料，透過DriverService操作DAO存進資料庫 */
+		DriverService driverSvc ; // 以VO物件傳送參數 //資料庫產生PK
 		driverSvc = new DriverService();
 		driverVO = driverSvc.addDriver(memID, 
 //				driverID, 
@@ -264,18 +251,18 @@ req.setCharacterEncoding("UTF-8");
 				licence, criminal, trafficRecord, idNum, photo, 
 				verified, banned, deadline, onlineCar, score, carType, sharedCar, pet, smoke, babySeat);
 		/***************************
-		 **3.�憓���,皞��漱(Send the Success view)* Success view)
+		 **3.新增完成,準備轉交(Send the Success view)* Success view)
 		 ***********/
 		//////////////////////
 		req.setAttribute("driverVO", driverVO);
-		String url = "/front-end/driver/listOneDriver.jsp";//��征�����irtyread
+		String url = "/front-end/driver/listOneDriver.jsp";//有空再來處理dirtyread
 		/////////////
 //		String url = "/front-end/driver/homeDriverDataManagment.jsp";
-//		res.sendRedirect(url);//���404
+//		res.sendRedirect(url);//會404
 		//////////
-		RequestDispatcher successView = req.getRequestDispatcher(url); // �憓����漱listOneDriver.jsp
+		RequestDispatcher successView = req.getRequestDispatcher(url); //新增成功後轉交listOneDriver.jsp
 		successView.forward(req, res);
-		/***************************�隞���隤方���*****************************/
+		/**************************其他可能的錯誤處理***************************/
 		} 
 //	RequestDispatcher requestDispatcher;
 //    catch (Exception e) {
@@ -286,97 +273,98 @@ req.setCharacterEncoding("UTF-8");
 //		}
 //	}
 ///////////////////	
-//	//靘擐��(eg.�璈�蝞∠��)�����(敺ession���蝑璈���)   ok
+//	//來自首頁(eg.司機會員管理)的請求(從session查出單筆司機資料)    ok
 		if("GET_ONE_FRONT".equals(action)){// 
 			LinkedList<String> errorMsgs=new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			/*************1.��隢��**************/
+			/*************1.接收請求參數**************/
 //			try {
-				String driverID=req.getParameter("driverID"); //�ㄐ���session
+				String driverID=req.getParameter("driverID"); //這裡抓的是session
 				if (driverID == null || (driverID.trim()).length() == 0) {
-					errorMsgs.add("隢撓��璈楊���");
+					errorMsgs.add("請輸入司機編號");
 				}
 				// Send the use back to the form, if there were errors
 //			//	if (!errorMsgs.isEmpty()) {
 //					RequestDispatcher failureView = req
 //							.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //					failureView.forward(req, res);
-//					return;//蝔�葉�
+//					return;//程式中斷
 //				}
-			/*************2�閰Ｚ���**************/
+			/*************2查詢資料**************/
 			DriverService driverSvc=new DriverService();
 			DriverVO driverVO=driverSvc.getOneDriver(driverID);
 			if(driverVO==null) {
-				errorMsgs.add("��甇斤��");
-				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");//銋������
+				errorMsgs.add("查無此筆");
+				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");//之後改成首頁
 				failurePage.forward(req, res);
 				return;
 			}
-			/*************3.敺鞈��scope=request嚗蒂�VO蝯西���**************/
+			/*************3.得到資料存在scope=request，並送出VO給處理頁面************/
 			req.setAttribute("driverVO", driverVO);
 			String url="/front-end/driver/homeDriverDataManagment.jsp";
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
 			successPage.forward(req, res);
-			/*************4.������**************/
+			/*************4.處理例外***************/
 		}
 //			catch(Exception e){
-//			errorMsgs.add("�瘜���耨������:"+e.getMessage());}
+//			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());}
 //			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //			failurePage.forward(req, res);
 //		}	
 /////////////////////////////////////////////////////
-////靘homeDriver.jsp�����(敺_蝞∠����蝑璈���) ok 
-		if("GET_ONE_BACK".equals(action)){// 閮餉圾
+////來自homeDriver.jsp的請求(後台_管理員查出單筆司機資料) ok 
+		if("GET_ONE_BACK".equals(action)){// 註解
 			LinkedList<String> errorMsgs=new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			/*************1.��隢��**************/
+			/*************1.接收請求參數**************/
 //			try {
 				String driverID=req.getParameter("driverID");
 				if (driverID == null || (driverID.trim()).length() == 0) {
-					errorMsgs.add("隢撓��璈楊���");
+					errorMsgs.add("請輸入司機編號");
 				}
 				// Send the use back to the form, if there were errors
 //			//	if (!errorMsgs.isEmpty()) {
 //					RequestDispatcher failureView = req
 //							.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //					failureView.forward(req, res);
-//					return;//蝔�葉�
+//					return;//程式中斷
 //				}
-			/*************2�閰Ｚ���**************/
+			/*************2查詢資料**************/
 			DriverService driverSvc=new DriverService();
 			DriverVO driverVO=driverSvc.getOneDriver(driverID);
 			if(driverVO==null) {
-				errorMsgs.add("��甇斤��");
+				errorMsgs.add("查無此筆");
 				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
+				//
 				failurePage.forward(req, res);
 				return;
 			}
-			/*************3.敺鞈��scope=request嚗蒂�VO蝯西���**************/
+			/*************3.得到資料存在scope=request，並送出VO給處理頁面**************/
 			req.setAttribute("driverVO", driverVO);
 			String url="/back-end/driver/listOneDriver.jsp";
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
 			successPage.forward(req, res);
-			/*************4.������**************/
+			/*************4.處理例外**************/
 		}
 //			catch(Exception e){
-//			errorMsgs.add("�瘜���耨������:"+e.getMessage());}
+//			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());}
 //			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //			failurePage.forward(req, res);
 //		}
 ////////////////////////
-//靘back-end/listAllDriver.jsp 靽格  ban deadline verivfied==0 (敺撽�璈�  )//OK
-		//SELECT * FROM Driver ORDER BY VERIFIED ASC, DRIVER_ID ASC; ���撽����Ⅳ
+//來自back-end/listAllDriver.jsp 修改  ban deadline verivfied==0 (後台驗證司機 )//OK
+		//SELECT * FROM Driver ORDER BY VERIFIED ASC, DRIVER_ID ASC;先挑出驗證再牌號碼
 if("GET_ONE_FOR_CHECK".equals(action)){
 	try {
 		System.out.println("--------------------------");
-	/*************1.��隢��:���蝑暑��D**************/
+	/*************1.接收請求參數:某一筆司機IDD**************/
 	String driverID=new String(req.getParameter("driverID").trim());
 	java.sql.Date deadline = null;//--
 	String actionS=new String(req.getParameter("actionS").trim());
-	/*************2�閰Ｚ���:隤踹���蝑�o**************/
+	/*************2查詢資料:調出某一筆的vo**************/
 	DriverService driverSvc=new DriverService();
-	DriverVO driverVO=driverSvc.getOneDriver(driverID);//敺riverPK
-	/*************3.敺鞈���������scope=reqest嚗蒂�VO蝯西���:getOneUpdate��**************/
+	DriverVO driverVO=driverSvc.getOneDriver(driverID);//從driverPK
+	/*************3.得到資料和圖片轉換資料存在scope=reqest，並送出VO給處理頁面:getOneUpdate**************/
 	MemberService memberService =new MemberService();
 	MemberVO MemberVOs =memberService.getOneMember(driverVO.getMemID());
 	req.setAttribute("MemberVOs",MemberVOs);
@@ -389,7 +377,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	failureView.forward(req, res);
 	}
 	if("GET_ONE_FOR_BANNED".equals(actionS)) {
-		//撽����
+		//
 		if(driverVO.getBanned() == 0) {
 			driverSvc.updateBanned(driverID);
 		}else {
@@ -402,65 +390,65 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 			.getRequestDispatcher("/back-end/driver/");//??
  failureView.forward(req, res);
 	}
-	/*************4.������:��istALL���**************/
+	/*************4.處理例外:回listALL原頁面**************/
 }catch(Exception e){
 }
 //////////////////////////////////////////////////
-//靘back-end/listAllDriver.jsp 靽格  ban deadline ==0 (敺banned�璈�  )//??
+//來自back-end/listAllDriver.jsp 修改  ban deadline ==0 (後台banned司機  )//??
 if("GET_ONE_FOR_BANNEDs".equals(action)){
-	List<String> errorMsgs1=new LinkedList<String>();//�銝�1.頝唾��2.閮剖�EADLINE3.
+	List<String> errorMsgs1=new LinkedList<String>();//剩下1.跳轉畫面2.設定DEADLINE3.
 	req.setAttribute("errorMsgs", errorMsgs1);
 //	try {
-		/*************1.��隢��:���蝑璈D**************/
+		/*************1.接收請求參數:某一筆司機ID**************/
 		String driverID=req.getParameter("driverID");
 		java.sql.Date deadline = null;//--
 //		deadline
-		/*************2�閰Ｚ���:隤踹���蝑�o**************/
+		/*************2查詢資料:調出某一筆的vo**************/
 		DriverService driverSvc=new DriverService();
-		DriverVO driverVO=driverSvc.getOneDriver(driverID);//敺riverPK
-		/*************3.敺鞈���������scope=reqest嚗蒂�VO蝯西���:getOneUpdate��**************/
+		DriverVO driverVO=driverSvc.getOneDriver(driverID);//從driverPK
+		/*************3.得到資料和圖片轉換資料存在scope=reqest，並送出VO給處理頁面:getOneUpdate頁面**************/
 		if(driverVO.getBanned() == 0) {
 			driverSvc.updateBanned(driverID);
 		}else {
 		}
-//		�銵��閮��&&������
+//		執行排程器計時&&到時轉回
 		req.setAttribute("driverVO", driverVO);
-		String url="/back-end/driver/listAllDriver.jsp";  //banned����
+		String url="/back-end/driver/listAllDriver.jsp";  //banned成功頁面
 		RequestDispatcher successPage=req.getRequestDispatcher(url);
 		successPage.forward(req, res);
-		/*************4.������:��istALL���**************/
+		/*************4.處理例外:回listALL原頁面*************/
 //	}catch(Exception e){
-//		errorMsgs1.add("�瘜���耨������:"+e.getMessage());
+//		errorMsgs1.add("無法取得要修改的資料:"+e.getMessage());
 //	}
 	RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
 	failurePage.forward(req, res);
 }
 
 ////////////////////////////////////////////////////////////////////////////////
-//	蝯血�垢update雿輻()����撖急��
+//	給後端update使用()可參考全寫法
 //	DEADLINE DATE
 //	java.sql.Date time = null;
 //	try {
 //		time = java.sql.Date.valueOf(req.getParameter("time").trim());		
 //	} catch (IllegalArgumentException e) {
 //		time = new java.sql.Date(System.currentTimeMillis());
-//		errorMsgs.add("隢撓�����");
+//		errorMsgs.add("請輸入日期");
 //	}
 //	}
 //////////////
 //	update
-//	Date deadline = null;//鋡剎an�����
-//	driverVO.setDeadline(deadline);//靽格��蝙�
+//	Date deadline = null;//被ban的時間
+//	driverVO.setDeadline(deadline);//修改時使用
 		}
 	//////////////////////////////////////
-//	if ("UPDATE_DRI".equals(action)) { //��垢�璈(����末閮剖���撖非AO) //?
+//	if ("UPDATE_DRI".equals(action)) { //前端司機用(僅含喜好設定需改寫DAO) //?
 //		List<String> errorMsgs = new LinkedList<String>();
 //		// Store this set in the request scope, in case we need to
 //		// send the ErrorPage view.
 //		req.setAttribute("errorMsgs", errorMsgs);
 //		DriverService driverService = new DriverService();
 ////		try {
-//			/***********************1.��隢��*************************/
+//			/***********************1.接收請求參數*************************/
 //			DriverVO driverVO = new DriverVO();
 //			String content =" ";	
 //			java.sql.Timestamp launchTime = null;
@@ -586,7 +574,7 @@ if("GET_ONE_FOR_BANNEDs".equals(action)){
 //				RequestDispatcher failureView = req
 //						.getRequestDispatcher("/front-end/member/update_member_input.jsp");
 //				failureView.forward(req, res);
-//				return; // 蝔�葉�
+//				return; // 程式中斷
 //			}
 //
 //			// ���耨�鞈��
@@ -609,7 +597,7 @@ if("GET_ONE_FOR_BANNEDs".equals(action)){
 		
 	}
 	/////////////////��末閮剖�� (�璈�)
-//	String driverID=req.getParameter("driverID").trim();//瘜冽��:甇��敺ession �����
+//	String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
 //	Integer sharedCar = 0;
 //	Integer pet= 0;
 //	Integer smoke= 0;
