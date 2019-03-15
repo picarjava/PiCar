@@ -91,5 +91,7 @@ public class GroupBandService {
 	public List<GroupBandVO> getAll(Map<String, String[]> map) {
 		return dao.getAll(map);
 	}
-
+	public void UPDATE_GROUP_STATUS__GROUP_ID(Integer groupStatus,String groupID) {
+		dao.UPDATE_GROUP_STATUS__GROUP_ID(groupStatus, groupID);
+	} 
 }

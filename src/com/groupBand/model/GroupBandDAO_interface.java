@@ -16,5 +16,6 @@ public GroupBandVO findByPrimaryKey(String groupBandno);
 public List<GroupBandVO> getAll();
 public List<GroupBandVO> getAll(Map<String, String[]> map); 
 
+public void UPDATE_GROUP_STATUS__GROUP_ID(Integer groupStatus,String groupID);
 public void insertWithEmps(GroupBandVO deptVO , List<GroupOrderVO> list);
 }

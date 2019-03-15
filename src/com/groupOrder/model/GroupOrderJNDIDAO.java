@@ -372,4 +372,25 @@ public class GroupOrderJNDIDAO implements GroupOrderDAO_interface {
 		return null;
 	}
 
+
+
+
+	@Override
+	public List<String> get_group_id__start_time(String START_TIME, String START_TIME2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Integer getMemID_groupID_startTime(String groupID, String START_TIME, String START_TIME2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void UPDATE_STATE__GROUP_ID(Integer STATE, String GROUP_ID) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

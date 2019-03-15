@@ -77,4 +77,15 @@ public class GroupOrderService {
 		return dao.get_memid__memid_groupid(memid,groupid);
 		
 	}
+	
+	//排成器
+	public List<String> get_group_id__start_time(String START_TIME,String START_TIME2){
+		return dao.get_group_id__start_time(START_TIME, START_TIME2);				
+	}
+	public Integer getMemID_groupID_startTime(String groupID,String START_TIME,String START_TIME2) {
+		return dao.getMemID_groupID_startTime(groupID,START_TIME,START_TIME2);		
+	}
+	public void UPDATE_STATE__GROUP_ID(Integer STATE,String GROUP_ID) {
+		dao.UPDATE_STATE__GROUP_ID(STATE, GROUP_ID);
+	}
 }

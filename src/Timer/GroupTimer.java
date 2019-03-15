@@ -9,6 +9,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.groupBand.model.GroupBandService;
+import com.groupBand.model.GroupBandVO;
+import com.groupOrder.model.*;
+
 import java.util.*;
 /**
  * Servlet implementation class GroupTimer
@@ -35,10 +40,49 @@ public class GroupTimer extends HttpServlet {
 	            	SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 	            	calendar2.add(Calendar.DATE, 3);
 	            	String three_days_after = sdf2.format(calendar2.getTime());
-	            	System.out.println(three_days_after);
+	            
+	            	GroupOrderService groupOrderService = new GroupOrderService();
+	            	GroupBandService groupBandService =new GroupBandService();
 	            	
-//	            	--取得那些揪團--
-//	            	select distinct GROUP_ID from GROUP_ORDER where START_TIME LIKE '15-MAR-19%' and STATE=0;
+	            	String START_TIME = three_days_after +" 00:00:00";
+	            	
+	            	String START_TIME_End = three_days_after +" 23:59:59";
+	            	
+	            	//--取得那些揪團--
+	            	List<String> groupIDList =new ArrayList<String>();
+//	            	System.out.println("有獨到這一行");
+	            	groupIDList = groupOrderService.get_group_id__start_time(START_TIME,START_TIME_End);
+	            	
+	            	int countmemid;
+	            	GroupBandVO groupBandVO;
+//	            	判斷是否有到期限的單
+	            	if(groupIDList!=null) {
+	            		//迴圈把所有單拿出來比對
+	            	for(String groupID:groupIDList) {
+	            		countmemid = groupOrderService.getMemID_groupID_startTime(groupID,START_TIME,START_TIME_End);
+	            		groupBandVO = groupBandService.getOneGroupBand(groupID);
+	            		
+	            		if(countmemid>=groupBandVO.getLowerLimit()) {
+	            			//改揪團狀態碼為已成團
+	            			groupBandService.UPDATE_GROUP_STATUS__GROUP_ID(1, groupID);
+	            			
+	            			//改訂單為已成團
+	            			groupOrderService.UPDATE_STATE__GROUP_ID(3,groupID);
+	            		}else
+	            		{
+	            			
+	            			//改揪團狀態碼為已成團
+	            			groupBandService.UPDATE_GROUP_STATUS__GROUP_ID(2, groupID);
+	            			
+	            			//改訂單為已成團
+	            			groupOrderService.UPDATE_STATE__GROUP_ID(8,groupID);
+	            		}
+	            		
+	            		
+//	            		System.out.println(groupID+"人數"+countmemid);
+//	            		System.out.println(groupID+"比較人數"+groupBandVO.getLowerLimit());
+	            	}
+	            	}
 //
 //	            	--取得目前下限 人數--
 //	            	select COUNT("MEM_ID")as MEM_ID from GROUP_ORDER where GROUP_ID='G005' and START_TIME LIKE '15-MAR-19%';
@@ -79,7 +123,7 @@ public class GroupTimer extends HttpServlet {
 				java.util.Date today=gcToday.getTime();
 				
 	        timer.scheduleAtFixedRate(task, today,24*60*60*1000); 
-//	        
+//	        24*60*60*1000
 	}
     /**
      * @see HttpServlet#HttpServlet()

@@ -455,4 +455,10 @@ public class GroupBandJNDIDAO implements GroupBandDAO_interface {
 		}
 	}
 
+	@Override
+	public void UPDATE_GROUP_STATUS__GROUP_ID(Integer groupStatus, String groupID) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
