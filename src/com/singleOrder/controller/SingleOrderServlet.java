@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Timer;
@@ -21,7 +22,7 @@ import com.driverReport.model.DriverReportService;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 
-import Timer.renewDriverRate;
+import Timer.RenewDriverRate;
 
 public class SingleOrderServlet extends HttpServlet{
 	
@@ -68,6 +69,14 @@ public class SingleOrderServlet extends HttpServlet{
             }catch(RuntimeException e) {
             	errorMsgs.add("無法更新至資料庫");
             }
+            HashSet<String> rateingHashSet= (HashSet<String>)getServletContext().getAttribute("rateingHashSet");
+            if(rateingHashSet==null) {
+            	rateingHashSet=new HashSet<String>();
+            	getServletContext().setAttribute("rateingHashSet", rateingHashSet);
+            }
+            rateingHashSet.add(singleOrderVO.getDriverID());
+           
+            
             forwordURL ="/front-end/singleOrder/listPastSingleOrder.jsp";//成功則回歷史頁面
             }
             
@@ -120,7 +129,7 @@ public class SingleOrderServlet extends HttpServlet{
                 String startLoc = req.getParameter("startLoc");
                 String endLoc = req.getParameter("endLoc");
                 String note = req.getParameter("note");
-                int totalAmount = (int) (Math.random() * 1000) + 1;
+                Integer totalAmount=new Integer(req.getParameter("totalAmount"));
                 Integer orderType = parseInteger(req.getParameter("orderType"));
                 Timestamp launchTime = new Timestamp(System.currentTimeMillis());
                 Double startLng=new Double(req.getParameter("startLng"));
@@ -176,7 +185,7 @@ public class SingleOrderServlet extends HttpServlet{
                 String startLoc = req.getParameter("startLoc");
                 String endLoc = req.getParameter("endLoc");
                 String note = req.getParameter("note");
-                int totalAmount = (int) (Math.random() * 1000) + 1;
+                Integer totalAmount=new Integer(req.getParameter("totalAmount"));
                 Integer orderType = parseInteger(req.getParameter("orderType"));
                 Timestamp launchTime = new Timestamp(System.currentTimeMillis());
                 Double startLng=new Double(req.getParameter("startLng"));

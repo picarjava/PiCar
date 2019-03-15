@@ -95,6 +95,9 @@
 						<div class="col">
 		       			<p id="duration"></p>
 		       			</div>
+		       			<div class="col">
+		       			<p id="checkout"></p>
+		       			</div>
 	       			</div>
  					<div class="form-row">
                       <div class="col">
@@ -164,6 +167,7 @@
                 <input type="hidden" id="startLat" name="startLat" value="">
                 <input type="hidden" id="endLng" name="endLng" value="">
                 <input type="hidden" id="endLat" name="endLat" value="">
+                <input type="hidden" id="totalAmount" name="totalAmount" value="">
                 <!-- 訂單種類:預約叫車3/長期預約叫車4-->
               </form>
             </div>
@@ -296,11 +300,15 @@ AutocompleteDirectionsHandler.prototype.route = function() {
           var distance =response.routes[0].legs[0].distance.value;
     	  var duration=response.routes[0].legs[0].duration.value;
     	  
+    	  var totalAmount =document.getElementById('totalAmount');
+    	  totalAmount.value=parseInt((distance/1000*24.5*0.85)+40);
+    	  
     	  document.getElementById('distance').innerHTML = 
              "<h3>預估距離</h3>"+ parseInt(distance/1000) + "公里"+distance%1000+"公尺" ;
     	  document.getElementById('duration').innerHTML = 
               "<h3>預估時間</h3>"+parseInt(duration/60/60)+"時"+parseInt(duration/60%60) + "分";
-          
+    	  document.getElementById('checkout').innerHTML = 
+        	  "<h3>預估金額</h3>"+ totalAmount.value +"元";
           
         } else {
           window.alert('Directions request failed due to ' + status);

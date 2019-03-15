@@ -5,7 +5,7 @@
 <%@ page import="com.singleOrder.model.SingleOrderVO"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*" %>
-
+<%@ page import="com.util.Checkout" %>
 <!DOCTYPE html>
 <html lang="zh">
 <head>
@@ -38,6 +38,7 @@
 <%
  session.setAttribute("memID", memID);
 %>
+<jsp:useBean id="checkout" class="com.util.Checkout"> </jsp:useBean>
 
 
 <body>
@@ -99,6 +100,9 @@
 						<div class="col">
 		       			<p id="duration"></p>
 		       			</div>
+		       			<div class="col">
+		       			<p id="checkout"></p>
+		       			</div>
 	       			</div>
  					<div class="form-row">
                       <div class="col">
@@ -156,6 +160,7 @@
                 <input type="hidden" id="startLat" name="startLat" value="">
                 <input type="hidden" id="endLng" name="endLng" value="">
                 <input type="hidden" id="endLat" name="endLat" value="">
+                <input type="hidden" id="totalAmount" name="totalAmount" value="">
                 <!-- 訂單種類:預約叫車3/長期預約叫車4-->
               </form>
               
@@ -286,16 +291,21 @@ AutocompleteDirectionsHandler.prototype.route = function() {
           //呈現預估時間與距離
           var distance =response.routes[0].legs[0].distance.value;
     	  var duration=response.routes[0].legs[0].duration.value;
+    	 
+    	  var totalAmount =document.getElementById('totalAmount');
+    	  totalAmount.value=parseInt((distance/1000*24.5)+40);
     	  
     	  document.getElementById('distance').innerHTML = 
              "<h3>預估距離</h3>"+ parseInt(distance/1000) + "公里"+distance%1000+"公尺" ;
     	  document.getElementById('duration').innerHTML = 
               "<h3>預估時間</h3>"+parseInt(duration/60/60)+"時"+parseInt(duration/60%60) + "分";
-        } else {
+          document.getElementById('checkout').innerHTML = 
+        	  "<h3>預估金額</h3>"+ totalAmount.value +"元";
+           
+    	  } else {
           window.alert('Directions request failed due to ' + status);
         }
       });
-  
 		  //將地址資料轉為緯經度
 		var startLngInput = document.getElementById('startLng');
 		var startLatInput = document.getElementById('startLat');
@@ -324,6 +334,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 		  	  }
 		  });
 };
+
 
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWL8JxUOY0dQZ01M4rCgDU-oHLkP5BORI&libraries=places&callback=initMap"
