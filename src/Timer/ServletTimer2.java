@@ -91,9 +91,9 @@ public class ServletTimer2 extends HttpServlet {
 		timer.cancel();
 	}
 
-	public void dotime(String str,Date date) {
+	public void dotime(String str) {
 		int i = 1;
-		timer = new Timer(str);
+		timer = new Timer();
 		TimerTask task = new TimerTask() {
 
 			@Override
@@ -105,7 +105,7 @@ public class ServletTimer2 extends HttpServlet {
 
 		};
 
-		timer.schedule(task, date);
+		timer.schedule(task, 1*1000);
 
 	}
 

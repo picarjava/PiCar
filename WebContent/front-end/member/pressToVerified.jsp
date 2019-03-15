@@ -35,7 +35,7 @@
 	}); 
 	</script>
 <%-- <%response.setHeader("Refresh", "2; URL=" + request.getContextPath() + "/front-end/login/login.html"); %> --%>
-
+<!-- http://localhost:8081/PiCar/front-end/pressToVerified.jsp -->
 
 </body>
 </html>
