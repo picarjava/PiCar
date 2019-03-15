@@ -19,13 +19,13 @@ import javax.websocket.CloseReason;
 
 @ServerEndpoint("/webSocket/{myName}/{myRoom}")
 public class webSocket {
-	
+private static final Map<Session,String> map =Collections.synchronizedMap(new HashMap<>());	
 private static final Set<Session> allSessions = Collections.synchronizedSet(new HashSet<Session>());
 //public List<String> list =new ArrayList<String>();
 	@OnOpen
-	public void onOpen(@PathParam("myName") String myName, @PathParam("myRoom") int myRoom, Session userSession) throws IOException {
+	public void onOpen(@PathParam("myName") String myName, @PathParam("myRoom") String myRoom, Session userSession) throws IOException {
 		allSessions.add(userSession);
-		
+		map.put(userSession, myRoom);
 		System.out.println(userSession.getId() + ": 已連線");
 		System.out.println(myName + ": 已連線");
 		System.out.println(myRoom + ": 房號");
@@ -34,7 +34,7 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 
 	
 	@OnMessage
-	public void onMessage(Session userSession, String message) {
+	public void onMessage( @PathParam("myRoom") String myRoom,Session userSession, String message) {
 		
 //		this.list.add(message);
 //		
@@ -44,7 +44,7 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 
 		for (Session session : allSessions) {//轉傳
 			
-			if (session.isOpen()) 
+			if (session.isOpen()&& map.get(session).equals(myRoom)) 
 		session.getAsyncRemote().sendText(message);
 		
 		}
