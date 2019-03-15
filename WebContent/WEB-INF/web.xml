@@ -296,7 +296,7 @@
   <filter-mapping>
     <filter-name>LoginFilter</filter-name>
     <url-pattern>/front-end/member/listOneMemberByUpdate.jsp</url-pattern>
-    <url-pattern>/back-end/member/pressToVerified.jsp</url-pattern>
+    <url-pattern>/front-end/member/pressToVerified.jsp</url-pattern>
     <url-pattern>/front-end/groupBand/insertGroupBand.jsp</url-pattern>
     <url-pattern>/front-end/driver/homeDriverDataManagment.jsp</url-pattern>
     <url-pattern>/front-end/groupBand/SelectGroupBand.jsp</url-pattern>
