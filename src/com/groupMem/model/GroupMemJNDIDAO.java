@@ -231,4 +231,19 @@ public List<GroupMemVO> getAll() {
 	// TODO Auto-generated method stub
 	return list;
 }
+@Override
+public GroupMemVO findone_memid__ALL(String groupID, String memID, int state) {
+	// TODO Auto-generated method stub
+	return null;
+}
+@Override
+public GroupMemVO findone_memid__GROUP_ID_MEM_ID(String groupID, String memID) {
+	// TODO Auto-generated method stub
+	return null;
+}
+@Override
+public void update_State(String groupID, String memID, int state) {
+	// TODO Auto-generated method stub
+	
+}
 }
