@@ -3,6 +3,7 @@
 <%@ page import="com.groupBand.model.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.member.model.*"%>
+
 <%
 	MemberVO memberVOs = (MemberVO) session.getAttribute("memberVO");
 
@@ -381,6 +382,17 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 			onclick="disconnect();" />
 	</div>
 
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" language="javascript">google.load("jquery", "1.3");</script>
+<!-- json傳資料 -->
+<script>
+function groupJoin()
+{
+	jQuery.post("AjexGroupInsert.jsp","memid="+"${memberVO.memID}"+"&groupID="+"<%=groupBandVO.getGroupID()%>");
+}
+
+</script>
+
 
 	<script>
 var btn = document.createElement("BUTTON");//放甚麼就創甚麼
@@ -400,12 +412,15 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 		webSocket = new WebSocket(endPointURL);
         
 		webSocket.onopen = function(event) {
+		
 			updateStatus("${memberVO.name} 成功連線");
 			document.getElementById('sendMessage').disabled = false;
 			document.getElementById('connect').disabled = true;
 			document.getElementById('disconnect').disabled = false;
 	        var jsonObj = {"userName" : "${memberVO.name}", "message" : "以連線","sessionUser" : "listsessionUser","userID" : "${memberVO.memID}","status":"0000"};
+	      	
 	        webSocket.send(JSON.stringify(jsonObj));
+	    	
 		};
 
 		webSocket.onmessage = function(event) {
@@ -422,6 +437,7 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 	        if(jsonObj.sessionUser=="listsessionUser")
 	        {
 // 				if(jsonObj.status=="1111"){
+ 					  groupJoin();
        			 var newDiv = document.createElement("div");
 	        	 	newDiv.id=jsonObj.userID;
 	        	 	newDiv.innerHTML=jsonObj.userName+"  :已連線";
