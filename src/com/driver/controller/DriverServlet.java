@@ -131,7 +131,7 @@ req.setCharacterEncoding("UTF-8");
 //		String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
 		String plateNum = (String)req.getParameter("plateNum").trim();
 		if (plateNum == null || plateNum.trim().length() == 0) {
-			errorMsgs.add("車牌號碼請勿空白	");
+			errorMsgs.add("車牌號碼請勿空白");
 		}
 		///////////////////////////區域變數給初始值--圖片
 		byte[] licence = null;
@@ -202,8 +202,11 @@ req.setCharacterEncoding("UTF-8");
 ////////////////////////////////////////////照片
 		String carType= " ";
 		carType = new String(req.getParameter("carType").trim()); //訊息做字串處理
+		String enameReg = "[a-zA-Z]{3}[0-9]{3,4}";
 		if (carType == null || carType.trim().length() == 0) {
-			errorMsgs.add("車子品牌內容: 請勿空白");
+			errorMsgs.add("車子品牌內容: 請勿空白");
+		}else if (!carType.trim().matches(enameReg)) { //// 以下練習正則(規)表示式(regular-expression)
+			errorMsgs.add("車牌號碼: 例如ABC0001");
 		}
 		//////////////
 		Integer sharedCar ;
@@ -250,10 +253,7 @@ req.setCharacterEncoding("UTF-8");
 				plateNum,
 				licence, criminal, trafficRecord, idNum, photo, 
 				verified, banned, deadline, onlineCar, score, carType, sharedCar, pet, smoke, babySeat);
-		/***************************
-		 **3.新增完成,準備轉交(Send the Success view)* Success view)
-		 ***********/
-		//////////////////////
+		/*****************************3.新增完成,準備轉交(Send the Success view)* Success view)**********/
 		req.setAttribute("driverVO", driverVO);
 		String url = "/front-end/driver/listOneDriver.jsp";//有空再來處理dirtyread
 		/////////////

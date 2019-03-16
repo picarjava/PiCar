@@ -28,7 +28,7 @@
 		<div class="sidebar" data-color="" data-background-color="black"
 			data-image="../assets/img/sidebar-1.jpg">
 			<div class="logo">
-				<a href="index.jsp" class="simple-text logo-normal"> PICAR </a>
+				<a href="<%=request.getServletContext().getContextPath()%>/back-end/backHome.jsp" class="simple-text logo-normal"> PICAR </a>
 			</div>
       <div class="sidebar-wrapper">
         <ul class="nav">
@@ -68,8 +68,8 @@
               <p>資費管理</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/rate/select_page.jsp">
+          <li class="nav-item active-pro ">
+            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/singleOrder/orderManagement_page.jsp">
               <i class="material-icons">content_paste</i>
               <p>訂單管理</p>
             </a>
@@ -110,12 +110,6 @@
               <p>RTL Support</p>
             </a>
           </li>
-          <li class="nav-item active-pro ">
-            <a class="nav-link" href="./upgrade.html">
-              <i class="material-icons">unarchive</i>
-              <p>Upgrade to PRO</p>
-            </a>
-          </li>
         </ul>
       </div>
     </div>
@@ -147,6 +141,8 @@
 									<input type="hidden" name="action" value="logout">
 									<input type="submit" name="logout" value="登出">				
 								</FORM>
+								
+								<input type="submit" data-toggle="modal" data-target="#exampleModal" value="修改個人密碼">
 							<!-- your navbar here -->
 						</ul>
 					</div>
@@ -154,7 +150,40 @@
 				</div>
 			</nav>
 			<!-- End Navbar -->
-
+		<!-- Modal -->
+	      <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	        <div class="modal-dialog" role="document">
+	          <div class="modal-content">
+	            <div class="modal-header">
+	              <h5 class="modal-title" id="exampleModalLabel">修改密碼</h5>
+	              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                <span aria-hidden="true">&times;</span>
+	              </button>
+	            </div>
+	            <div class="modal-body">
+	                    <FORM METHOD="post" ACTION="adminSelf.do" name="form1">
+								輸入新密碼<input class="form-control" type="text" id="p2" name="password"><br>
+								再次輸入新密碼<input class="form-control" type="text" id="p2" name="password2"><br>
+		                          	<input type="hidden" name="adminID" value="<%=adminVO.getAdminID()%>"> 
+		                            <input type="hidden" name="adminName" value="<%=adminVO.getAdminName()%>"> 
+		                            <input type="hidden" name="email" value="<%=adminVO.getEmail()%>"> 
+		                            <input type="hidden" name="isEmp" value="<%=adminVO.getIsEmp()%>"> 
+								<input type="hidden" name="action" value="update"> 
+								<input type="hidden" name="adminID" value="<%=adminVO.getAdminID()%>"> 
+								<!-- 呼叫JS方法判斷新密碼輸入 -->
+								<br>
+								<br>
+								<br>
+								<input type="submit" onclick="return test()"> <br>
+								<br>
+	                    </FORM>
+	                  <br>
+	                  <br>
+	                  <br>
+	            </div>
+	            </div>
+	          </div>
+	        </div>
 				<footer class="footer">
 					<div class="container-fluid">
 						<nav class="float-left"></nav>
@@ -170,7 +199,33 @@
 				</footer>
 			</div>
 		</div>
-
+		
+		
+			<script type="text/javascript">
+	        function test(){
+	        var f = document.form1;
+	        var newPsw1 = f.password.value;
+	        var newPsw2 = f.password2.value;
+	        if(newPsw1 == "" || newPsw2 == ""){
+	        alert("密碼請勿空白");
+	        return false;
+	        }
+	        if(newPsw1.length<6){
+		   	alert("密碼不得低於6個英數字");
+		    return false;
+		    }
+	        if(newPsw1.length>12){
+			   	alert("密碼不得超過12個英數字");
+			    return false;
+			}
+	        if(newPsw1 != newPsw2){
+	        alert("新密碼輸入不一致");
+	        return false;
+	        }
+	        return true;
+	        }
+	
+	    </script>
 		<!-- Optional JavaScript -->
 		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
 		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
