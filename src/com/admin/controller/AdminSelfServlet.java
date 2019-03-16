@@ -49,12 +49,7 @@ public class AdminSelfServlet extends HttpServlet {
 					}
 					/*********************************************/
 					String password = req.getParameter("password");
-					String passwordReg = "^[a-zA-Z0-9]{6,100}$";
-					if (password==null || (password.trim()).length()==0) {
-						errorMsgs.add("密碼請勿空白");
-					} else if (!password.trim().matches(passwordReg)) {
-						errorMsgs.add("密碼長度須為6-10之間，且只能使用英文字或數字");
-					}
+
 					
 					DigestService digestSvc = new DigestService();
 					String digestpassword = digestSvc.digest(password);
@@ -92,6 +87,10 @@ public class AdminSelfServlet extends HttpServlet {
 					
 					/***************************3.修改完成,準備轉交(Send the Success view)*************/
 					req.setAttribute("adminVO", adminVO);
+					
+					String url = "/back-end/index.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); 
+					successView.forward(req, res);	
 
 					/***************************其他可能的錯誤處理*************************************/
 				} catch (Exception e) {
