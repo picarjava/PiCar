@@ -32,6 +32,9 @@ public class SingleOrderDAO implements SingleOrder_interface {
     //小編新增一個刪除語法
     private static final String DELETE=
 			"DELETE FROM SINGLE_ORDER WHERE ORDER_ID=?";
+//    以下兩個方法用於訂單管理排成使用
+    private final static String TIME_FROM_START =  "SELECT ORDER_ID ,START_TIME FROM SINGLE_ORDER WHERE START_TIME = ?";
+    private static final String UPDATE_STATE_TO_DELAY =	"UPDATE SINGLE_ORDER SET STATE ='6' WHERE ";
     private static DataSource dataSource;
 //    private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 //    private final static String NAME = "PiCar";
@@ -58,6 +61,81 @@ public class SingleOrderDAO implements SingleOrder_interface {
 //        singleOrderDAO.insert(singleOrderVO);
 //        System.out.println(singleOrderDAO.getAll());
 //    } // main()
+    
+    
+    @Override
+    public void update_state_to_delay() {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_STATE_TO_DELAY);
+//            int index = 1;
+//            preparedStatement.setInt(index++, state);
+//            preparedStatement.setString(index++, orderID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        }
+    }
+    
+    
+    public List<String> get_start_time(String START_TIME,String START_TIME2) {
+		// TODO Auto-generated method stub
+		List<String> list =new ArrayList<String>();
+		String starttime=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		con = dataSource.getConnection();
+		pstmt = con.prepareStatement(TIME_FROM_START);
+		pstmt.setString(1, START_TIME);
+		pstmt.setString(2, START_TIME2);
+		
+//		where 取現在三天後時間
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+		starttime=(rs.getString("START_TIME"));
+		list.add(starttime);
+// 訂單 開始時間ID
+//		list.add(orderid).add(memid).add;
+//		list.addAll(orderid,)
+		}
+	}catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return list;
+}
+    
     
     ////小編新增司機查評價平均
     public int findRateAveByDriverID(String driverID) {
@@ -458,6 +536,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
             } //catch
         } // if
     } // closeConnection()
+    
+		
 
 
     
