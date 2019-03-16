@@ -16,4 +16,5 @@ public List<GroupMemVO> getAll();
 GroupMemVO findone_memid__ALL(String groupID, String memID, int state);
 GroupMemVO findone_memid__GROUP_ID_MEM_ID(String groupID, String memID);
 void update_State(String groupID, String memID, int state);
+List<GroupMemVO> getAllgroupID(String GroupID,int state);
 }

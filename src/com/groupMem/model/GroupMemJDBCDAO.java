@@ -261,4 +261,9 @@ public class GroupMemJDBCDAO implements GroupMemDAO_interface {
 		// TODO Auto-generated method stub
 		
 	}
+	@Override
+	public List<GroupMemVO> getAllgroupID(String GroupID, int state) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

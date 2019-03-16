@@ -3,6 +3,7 @@
 <%@ page import="com.groupBand.model.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.groupMem.model.*"%>
 
 <%
 	MemberVO memberVOs = (MemberVO) session.getAttribute("memberVO");
@@ -417,17 +418,37 @@ function groupJoin()
 
 	        //傳送成功則跳出成功訊息
 
-	        success:function(){                                                           
+	        success:function(selects){                                                           
 
 	        //資料傳送成功後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
-
-	  
+	  		
 
 	        }
 
 	    }); 
+// 1代表加入揪團 0代表沒加入揪團
+var messa = document.getElementById("messa");
+<%
+GroupMemService groupMemService =new GroupMemService();
+List<GroupMemVO> groupMemlist =new ArrayList<GroupMemVO>();
+groupMemlist= groupMemService.getAllgroupID(groupBandVO.getGroupID(),1);
+MemberService memberService = new MemberService();
+MemberVO memberVO = new MemberVO();
+for(GroupMemVO Memlist :groupMemlist){
 
-
+	memberVO = memberService.getOneMember(Memlist.getMemID());	
+	System.out.println(memberVO.getMemID()+"+++");
+	System.out.println(memberVOs.getMemID()+"---");
+	if(!memberVO.getMemID().equals(memberVOs.getMemID())){
+	%>	
+	 var newDiv = document.createElement("div");
+	 	newDiv.id="<%=memberVO.getName()%>";
+	 	newDiv.innerHTML="<%=memberVO.getName()%>  :已連線";
+	 	messa.appendChild(newDiv); 
+	<%
+}
+	}
+%>
 
 
 <%-- 	jQuery.post("AjexGroupInsert.jsp","memid="+"${memberVO.memID}&groupID="+"<%=groupBandVO.getGroupID()%>"); --%>

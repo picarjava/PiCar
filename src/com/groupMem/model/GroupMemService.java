@@ -55,4 +55,8 @@ public class GroupMemService {
 	public void update_State(String groupID, String memID, int state) {
 		dao.update_State(groupID, memID, state);		
 	}
+	public List<GroupMemVO> getAllgroupID(String groupID,int state){
+		return dao.getAllgroupID(groupID, state);
+		
+	}
 }

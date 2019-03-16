@@ -246,4 +246,9 @@ public void update_State(String groupID, String memID, int state) {
 	// TODO Auto-generated method stub
 	
 }
+@Override
+public List<GroupMemVO> getAllgroupID(String GroupID, int state) {
+	// TODO Auto-generated method stub
+	return null;
+}
 }

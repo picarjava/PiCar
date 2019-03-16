@@ -37,6 +37,8 @@ private static final String GET_ONE_MEMID__ALL = "SELECT * FROM GROUP_MEM where 
 
 private static final String GET_ONE_MEMID__GROUP_ID_MEM_ID = "SELECT * FROM GROUP_MEM where GROUP_ID = ? AND MEM_ID=?";
 
+private static final String GET_ONE_ALL__GROUP_ID = "SELECT * FROM GROUP_MEM where GROUP_ID = ? AND STATE=?";
+
 @Override
 public void insert( GroupMemVO  groupMemVO) {
 	// TODO Auto-generated method stub
@@ -330,7 +332,7 @@ public  GroupMemVO findone_memid__GROUP_ID_MEM_ID(String groupID,String memID) {
 
 @Override
 public List<GroupMemVO> getAll() {
-	List<GroupMemVO> list =new ArrayList<GroupMemVO>();;
+	List<GroupMemVO> list =new ArrayList<GroupMemVO>();
 	GroupMemVO groupMemVO =null;
 	
 	Connection con = null;
@@ -339,6 +341,57 @@ public List<GroupMemVO> getAll() {
 	try {
 		con = ds.getConnection();
 		pstmt = con.prepareStatement(GET_ALL_STMT);
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+			groupMemVO = new GroupMemVO();	
+			groupMemVO.setGroupID(rs.getString("GROUP_ID"));
+			groupMemVO.setMemID(rs.getString("MEM_ID"));
+			groupMemVO.setState(rs.getInt("STATE"));
+			list.add(groupMemVO);
+		}
+	} catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	// TODO Auto-generated method stub
+	return list;
+}
+@Override
+public List<GroupMemVO> getAllgroupID(String groupID,int state) {
+	List<GroupMemVO> list =new ArrayList<GroupMemVO>();
+	GroupMemVO groupMemVO =null;
+	
+	Connection con = null;
+	PreparedStatement pstmt = null;
+	ResultSet rs = null;
+	try {
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(GET_ONE_ALL__GROUP_ID);
+		pstmt.setString(1, groupID);
+		pstmt.setInt(2, state);
 		rs = pstmt.executeQuery();
 		while(rs.next()) {
 			groupMemVO = new GroupMemVO();	
