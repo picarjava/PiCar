@@ -45,6 +45,7 @@ public void insert( GroupMemVO  groupMemVO) {
 	try {
 		con=ds.getConnection();
 		pstmt = con.prepareStatement(INSERT_STMT);
+
 		pstmt.setString(1,groupMemVO.getGroupID());
 		pstmt.setString(2,groupMemVO.getMemID());
 		pstmt.setInt(3,groupMemVO.getState());
