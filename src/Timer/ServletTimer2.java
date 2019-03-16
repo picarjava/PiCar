@@ -15,10 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-//定期select DB 比對資料 若 真的則update
-/**
- * Servlet implementation class SchedulServlet
- */
+
 //	@WebServlet("/ServletTimer")
 public class ServletTimer2 extends HttpServlet {
 	Timer timer;
@@ -91,8 +88,7 @@ public class ServletTimer2 extends HttpServlet {
 		timer.cancel();
 	}
 
-	public void dotime(Timer timer) {
-		int i = 1;
+	public void dotime(String str, int i) {
 		timer = new Timer();
 //		TimerTask task = n;
 
@@ -101,11 +97,11 @@ public class ServletTimer2 extends HttpServlet {
 			@Override
 			public void run() {
 
-				System.out.println("司機遲到了");
+				System.out.println("司機遲到了"+str);
 
 			}
 
-		}, 1*1000);
+		}, i);
 
 	}
 

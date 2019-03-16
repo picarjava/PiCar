@@ -33,6 +33,9 @@ public class AdminJNDIDAO implements AdminDAO_interface {
 		private static final String LOGIN =
 			"SELECT * FROM ADMIN WHERE ADMIN_ID=? AND PASSWORD=?";
 		
+		private static final String UPDATEPSW =
+				"UPDATE ADMIN SET PASSWORD =? WHERE ADMIN_ID=?";
+		
 		@Override
 		public void insert(AdminVO adminVO) {
 
@@ -315,6 +318,45 @@ public class AdminJNDIDAO implements AdminDAO_interface {
 				}
 			}
 			return adminVO;
+		}
+		@Override
+		public void updatePSW(AdminVO adminVO) {
+			
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(UPDATEPSW);
+				
+				pstmt.setString(1, adminVO.getPassword());
+				pstmt.setString(2, adminVO.getAdminID());
+				
+				System.out.println("成功修改資料"+adminVO.getPassword());
+				
+				pstmt.executeUpdate();
+
+				//控制任何SQL的錯誤
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured."+ se.getMessage());
+				//清除JDBC資源
+			} finally {
+				if(pstmt != null) {
+					try {
+						pstmt.close();
+					} catch(SQLException se) {
+						se.printStackTrace(System.err);
+					} 
+				}
+				if(con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}	
+			
 		}
 		
 	}

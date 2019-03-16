@@ -37,27 +37,27 @@ public class TestTimer {
 //		st[1].dotime("1");
 //		st[2].dotime("2");
 		
-//		Map<Integer, ServletTimer2> map = new TreeMap<Integer, ServletTimer2>();
-//		
-//		ServletTimer2 st2 = new ServletTimer2();
-//		
-//		st2.dotime("0");
-//		map.put(0, st2);
-//	
-//		
-//		st2.dotime("1");
-//		map.put(1, st2);
-//		
-//		st2.dotime("2");
-//		map.put(2, st2);
-//		
-//		st2.dotime("3");
-//		map.put(3, st2);
-//		
-//		st2.dotime("4");
-//		map.put(4, st2);
-//		
-//		
+		Map<Integer, ServletTimer2> map = new TreeMap<Integer, ServletTimer2>();
+		
+		ServletTimer2 st2 = new ServletTimer2();
+		
+		st2.dotime("0", 0);
+		map.put(0, st2);
+	
+		
+		st2.dotime("1", 1000);
+		map.put(1, st2);
+		
+		st2.dotime("2", 2000);
+		map.put(2, st2);
+		
+		st2.dotime("3", 3000);
+		map.put(3, st2);
+		
+		st2.dotime("4", 4000);
+		map.put(4, st2);
+		
+		
 //		map.get(0).cancel();
 		
 		

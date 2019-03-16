@@ -51,5 +51,13 @@ public class AdminService {
 		return dao.login(adminID, password);
 	}
 	
+	public AdminVO updatePSW(String password) {
+		AdminVO adminVO = new AdminVO();
+		
+		adminVO.setPassword(password);
+		dao.updatePSW(adminVO);
+		return adminVO;
+		
+	}
 	
 }

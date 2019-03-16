@@ -24,6 +24,10 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 	private static final String LOGIN =
 		"SELECT * FROM ADMIN WHERE ADMIN_ID=? AND PASSWORD=?";
 	
+	private static final String UPDATEPSW =
+			"UPDATE ADMIN SET PASSWORD =? WHERE ADMIN_ID=?";
+	
+	
 	@Override
 	public void insert(AdminVO adminVO) {
 
@@ -328,27 +332,70 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 		return adminVO;
 	}
 	
+	@Override
+	public void updatePSW(AdminVO adminVO) {
+		
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		
+			try {
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(UPDATEPSW);
+				
+
+				pstmt.setString(1, adminVO.getPassword());
+				pstmt.setString(2, adminVO.getAdminID());
+			
+				System.out.println("成功修改資料"+adminVO.getPassword());
+				
+				pstmt.executeUpdate();
+			} catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "+ e.getMessage());
+				//控制任何SQL的錯誤
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured."+ se.getMessage());
+				//清除JDBC資源
+			} finally {
+				if(pstmt != null) {
+					try {
+						pstmt.close();
+					} catch(SQLException se) {
+						se.printStackTrace(System.err);
+					} 
+				}
+				if(con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}	
+			
+		}
+	
 	
 	public static void main(String[] args) {
 		
 		AdminJDBCDAO dao = new AdminJDBCDAO();
 		
 		// 新增
-		AdminVO adminVO1 = new AdminVO();
-		adminVO1.setAdminName("古阿明");
-		adminVO1.setEmail("wwww123@gmail.com");
-		adminVO1.setPassword("aaa2222");	
-		adminVO1.setIsEmp(1);
-		dao.insert(adminVO1);
+//		AdminVO adminVO1 = new AdminVO();
+//		adminVO1.setAdminName("古阿明");
+//		adminVO1.setEmail("wwww123@gmail.com");
+//		adminVO1.setPassword("aaa2222");	
+//		adminVO1.setIsEmp(1);
+//		dao.insert(adminVO1);
 		
 		//修改
-		AdminVO adminVO2 = new AdminVO();
-		adminVO2.setAdminID("A002");
-		adminVO2.setAdminName("Kevin");
-		adminVO2.setEmail("qqq123@gmail.com");
-		adminVO2.setPassword("9996666");
-		adminVO2.setIsEmp(0);
-		dao.update(adminVO2);
+//		AdminVO adminVO2 = new AdminVO();
+//		adminVO2.setAdminID("A002");
+//		adminVO2.setAdminName("Kevin");
+//		adminVO2.setEmail("qqq123@gmail.com");
+//		adminVO2.setPassword("9996666");
+//		adminVO2.setIsEmp(0);
+//		dao.update(adminVO2);
 		
 		//刪除    無法刪除!
 //		dao.delete("A001");
@@ -374,10 +421,14 @@ public class AdminJDBCDAO implements AdminDAO_interface{
 			System.out.println();
 		}
 		
-		AdminVO adminVO4 = dao.login("A005","aaa2222");
-		System.out.print(adminVO4.getAdminID() + ",");
-		System.out.print(adminVO4.getPassword());
+//		AdminVO adminVO4 = dao.login("A005","aaa2222");
+//		System.out.print(adminVO4.getAdminID() + ",");
+//		System.out.print(adminVO4.getPassword());
 		
+		AdminVO adminVO5 = new AdminVO();
+		adminVO5.setAdminID("A002");
+		adminVO5.setPassword("9996666");
+		dao.updatePSW(adminVO5);
 	}
 
 }

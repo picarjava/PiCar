@@ -2,11 +2,15 @@ package com.admin.controller;
 
 import java.io.*;
 import java.util.*;
-
 import javax.servlet.*;
 import javax.servlet.http.*;
 
+import com.DigestService.DigestService;
 import com.admin.model.*;
+import com.mailService.MailService;
+
+
+
 
 public class AdminServlet extends HttpServlet {
 	
@@ -206,31 +210,33 @@ public class AdminServlet extends HttpServlet {
 						errorMsgs.add("信箱長度須為6-50之間，且只能使用英文字或數字");
 					}
 					/*********************************************/
-					
-
 					String password = req.getParameter("password").trim();
-					String passwordReg = "^[(a-zA-Z0-9_)]{2,10}$";
-					if (password==null || (password.trim()).length()==0) {
-						errorMsgs.add("密碼請勿空白");
-					} 
-					else if (!password.trim().matches(passwordReg)) {
-						errorMsgs.add("密碼長度須為6-10之間，且只能使用英文字或數字");
+					String[] array = new String[] {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+					String str = "";
+					for (int i =1; i<=10;i++) {
+						 int index = (int)(Math.random() * array.length+1);
+						 str = str +array[index];
 					}
+					password = str;
+					
+					DigestService digestSvc = new DigestService();
+					String digestpassword = digestSvc.digest(password);
 							
+					/*********************************************/	
 					Integer isEmp = new Integer(req.getParameter("isEmp").trim());
 					
-					try {
-						if (isEmp>1 ||isEmp.equals(null)) 
-							errorMsgs.add("處理狀態只能0或1");
-					} catch(NullPointerException e) {
-							errorMsgs.add("請輸入處理狀態");
-					}
+//					try {
+//						if (isEmp>1 ||isEmp.equals(null)) 
+//							errorMsgs.add("處理狀態只能0或1");
+//					} catch(NullPointerException e) {
+//							errorMsgs.add("請輸入處理狀態");
+//					}
 					
 					AdminVO adminVO = new AdminVO();
 					
 					adminVO.setAdminName(adminName);
 					adminVO.setEmail(email);
-					adminVO.setPassword(password);
+					adminVO.setPassword(digestpassword);
 					adminVO.setIsEmp(isEmp);
 					
 					if (!errorMsgs.isEmpty()) {
@@ -240,11 +246,30 @@ public class AdminServlet extends HttpServlet {
 						return; //程式中斷
 					}
 					
-					/***************************2.開始新增資料***************************************/
+					/***************************2.開始新增資料*********************************************/
 					AdminService adminSvc = new AdminService();
-					adminVO = adminSvc.addAdmin(adminName, email ,password, isEmp);
+					adminVO = adminSvc.addAdmin(adminName, email ,digestpassword, isEmp);
 					
-					/***************************3.新增完成,準備轉交(Send the Success view)***********/
+					AdminService adminSvc1 = new AdminService();
+					List<AdminVO> lastone = adminSvc1.getAll();
+					String id = lastone.get(lastone.size()-1).getAdminID();
+					
+					/***************************3.將密碼Email出去***************************************/
+				      String to = email;
+				      String ch_name = adminName;
+				      String passRandom = password;
+				      String subject = "PICAR管理員密碼通知";
+				      String messageText = "Hello　" + ch_name + "\n"+
+				    		               "歡迎你加入PICAR大家庭！"+ "\n"  +
+				                           "你的管理員編號為" + id +"\n"+
+				                           "此為你之後的登入帳號，"+
+				                           "請先以此密碼登入【 " + passRandom + " 】"+
+				                           "\n" +"登入後台過後再修改你的密碼！謝謝！"; 
+					
+					  MailService mailService = new MailService();
+				      mailService.sendMail(to, subject, messageText);
+					
+					/***************************4.新增完成,準備轉交(Send the Success view)***********/
 					String url = "/back-end/admin/admin_select_page.jsp";
 					RequestDispatcher successView = req.getRequestDispatcher(url); 
 					successView.forward(req, res);				
@@ -282,5 +307,35 @@ public class AdminServlet extends HttpServlet {
 					failureView.forward(req, res);
 				}
 			}
+			
+	        if ("updatePSW".equals(action)) { 
+				
+				try {
+					
+					String password = req.getParameter("newpassword1").trim();
+					
+					DigestService digestSvc = new DigestService();
+					String digestpassword = digestSvc.digest(password);
+							
+					AdminVO adminVO = new AdminVO();
+					
+					adminVO.setPassword(digestpassword);
+					
+					/***************************2.開始新增資料*********************************************/
+					AdminService adminSvc = new AdminService();
+					adminVO = adminSvc.updatePSW(digestpassword);
+					
+					String url = "/back-end/index.jsp";
+					RequestDispatcher successView = req.getRequestDispatcher(url); 
+					successView.forward(req, res);	
+					
+					/***************************其他可能的錯誤處理**********************************/
+				} catch (Exception e) {
+					RequestDispatcher failureView = req.getRequestDispatcher("/back-end/admin/addAdmin.jsp");
+					failureView.forward(req, res);
+				}	
+			}
+			
+			
 		}
 	}

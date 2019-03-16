@@ -11,4 +11,5 @@ public interface AdminDAO_interface {
 	public List<AdminVO> getAll();
 	
 	public AdminVO login(String adminID, String password);
+	public void updatePSW(AdminVO adminVO);
 }

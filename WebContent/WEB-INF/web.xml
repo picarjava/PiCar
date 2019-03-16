@@ -323,6 +323,16 @@
   </filter-mapping>
   
   
+   <servlet>
+    <servlet-name>AdminSelfServlet</servlet-name>
+    <servlet-class>com.admin.controller.AdminSelfServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AdminSelfServlet</servlet-name>
+    <url-pattern>/back-end/adminSelf.do</url-pattern>
+  </servlet-mapping>
+  
+  
   <servlet>
     <servlet-name>Calculate</servlet-name>
     <servlet-class>com.calculate.controller.Calculate</servlet-class>
