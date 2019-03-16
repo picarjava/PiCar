@@ -5,7 +5,7 @@
 <%
 	AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
 %>
-
+<script src="randompsw.js"></script>
 <html>
 <head>
 <title>PICAR BACK-END</title>
@@ -104,19 +104,17 @@ h5 {
 			<tr>
 				<td>電子信箱</td>
 				<td><input type="TEXT" name="email" size="45"
-					value="<%= (adminVO==null)? "123@gmail.com" : adminVO.getEmail()%>" /></td>
+					value="<%= (adminVO==null)? "jyunliou120@gmail.com" : adminVO.getEmail()%>" /></td>
 			</tr>
 			<tr>
-				<td>密碼</td>
-				<td><input type="TEXT" name="password" size="45"
-					value="<%= (adminVO==null)? "abc123456" : adminVO.getPassword()%>" /></td>
+				<td><input type=hidden name="password" size="45"
+					value="<%= (adminVO==null)? "" : adminVO.getPassword()%>" /></td>
 			</tr>
 			<tr>
-				<td>在職狀態</td>
-				<td><input type="TEXT" name="isEmp" size="45"
+			
+				<td><input type="hidden" name="isEmp" size="45"
 					value="<%= (adminVO==null)? "1" : adminVO.getIsEmp()%>" /></td>
 			</tr>
-
 
 
 		</table>
@@ -129,8 +127,6 @@ h5 {
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script
-	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 </html>
