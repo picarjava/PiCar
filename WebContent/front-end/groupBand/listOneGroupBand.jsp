@@ -427,6 +427,7 @@ function groupJoin()
 
 	    }); 
 // 1代表加入揪團 0代表沒加入揪團
+//查詢資料庫的所有揪團
 var messa = document.getElementById("messa");
 <%
 GroupMemService groupMemService =new GroupMemService();
@@ -437,10 +438,7 @@ MemberVO memberVO = new MemberVO();
 for(GroupMemVO Memlist :groupMemlist){
 
 	memberVO = memberService.getOneMember(Memlist.getMemID());	
-	System.out.println(memberVO.getMemID()+"+++");
-	System.out.println(memberVOs.getMemID()+"---");
-	if(!memberVO.getMemID().equals(memberVOs.getMemID())){
-	%>	
+	if(!memberVO.getMemID().equals(memberVOs.getMemID())){%>	
 	 var newDiv = document.createElement("div");
 	 	newDiv.id="<%=memberVO.getName()%>";
 	 	newDiv.innerHTML="<%=memberVO.getName()%>  :已連線";
@@ -500,11 +498,22 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 	        if(jsonObj.sessionUser=="listsessionUser")
 	        {
 // 				if(jsonObj.status=="1111"){
- 					
-       			 var newDiv = document.createElement("div");
-	        	 	newDiv.id=jsonObj.userID;
-	        	 	newDiv.innerHTML=jsonObj.userName+"  :已連線";
-	        	 	messa.appendChild(newDiv); 
+				messa.innerHTML="";
+ 				<%	
+	        	for(GroupMemVO Memlist :groupMemlist){
+
+	        		memberVO = memberService.getOneMember(Memlist.getMemID());	
+	        		
+	        		%>	
+	        		
+	        		 var newDiv = document.createElement("div");
+	        		 	newDiv.id="<%=memberVO.getName()%>";
+	        		 	newDiv.innerHTML="<%=memberVO.getName()%>  :已連線";
+	        		 	messa.appendChild(newDiv); 
+	        		<%
+	        	
+	        		}
+	        	%>
 // 					}
 // 					if(jsonObj.status=="0000"){
 //    				var jsonObjs = {"userName" : "${memberVO.name}", "message" : "以連線","sessionUser" : "listsessionUser","userID" : "${memberVO.memID}","status":"1111"};
