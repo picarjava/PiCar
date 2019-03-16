@@ -172,6 +172,7 @@ public class StoreRecordDAO implements StoreRecordDAO_interface {
 				srVO.setStoreID(rs.getString("STORE_ID"));
 				srVO.setMemID(rs.getString("MEM_ID"));
 				srVO.setSaveDate(rs.getTimestamp("SAVE_DATE"));
+				System.out.println(rs.getTimestamp("SAVE_DATE"));
 				srVO.setAmount(rs.getInt("AMOUNT"));
 			}
 

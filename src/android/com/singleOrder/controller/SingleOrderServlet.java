@@ -5,8 +5,14 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.concurrent.ConcurrentHashMap;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,8 +28,11 @@ import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 
 import android.com.driver.controller.DriverServlet;
+import android.com.location.model.StoredInfo;
+
 import com.driver.model.DriverVO;
 import com.member.model.MemberService;
+import com.calculate.controller.*;
 
 public class SingleOrderServlet extends HttpServlet {
     private final static int NOT_ESTABLISHED = 0;
@@ -53,12 +62,52 @@ public class SingleOrderServlet extends HttpServlet {
         if ("insert".equals(action)) {
             SingleOrderVO singleOrderVO = gson.fromJson(jsonIn.get("singleOrder").getAsString(), SingleOrderVO.class);
             singleOrderService.addSingleOrder(singleOrderVO.getMemID(), singleOrderVO.getState(), null, singleOrderVO.getStartLoc(),
-                                   singleOrderVO.getEndLoc(), singleOrderVO.getEndLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(),
+                                   singleOrderVO.getEndLoc(), singleOrderVO.getStartLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(),
                                    singleOrderVO.getEndLat(), 0, singleOrderVO.getOrderType(), singleOrderVO.getNote(), new Timestamp(System.currentTimeMillis()));
+
+            
+    		Double lat1 = Double.valueOf(singleOrderVO.getStartLat()); //乘客緯度 /*******
+    		Double lng1 = Double.valueOf(singleOrderVO.getStartLng()); //乘客經度 /*******
+            
+    		List<Map.Entry<String, StoredInfo>> list = null;
+
+
+    		ServletContext sc = getServletContext();
+    		Map<String, StoredInfo> MatchDriver = (ConcurrentHashMap<String, StoredInfo>) sc.getAttribute("driverLocation");
+
+    		list = new ArrayList<Map.Entry<String, StoredInfo>>(MatchDriver.entrySet());
+
+    		Collections.sort(list, new Comparator<Map.Entry<String, StoredInfo>>() {
+    			public int compare(Entry<String, StoredInfo> o1, Entry<String, StoredInfo> o2) {
+    				
+    				Double lat3 = o1.getValue().getLatlng().getLatitude();
+    				Double lon3 = o1.getValue().getLatlng().getLongitude();
+    				Double lat4 = o2.getValue().getLatlng().getLatitude();
+    				Double lon4 = o2.getValue().getLatlng().getLongitude();
+
+    				Double result2 = DistanceUtil.algorithm(lng1, lat1, lon3, lat3);
+    				Double result3 = DistanceUtil.algorithm(lng1, lat1, lon4, lat4);
+
+    				return (int) (result2 - result3);
+    			}
+
+    		});
+
+    		String ChoosenDriver = null;
+    		for (Entry<String, StoredInfo> o : list) {
+    			System.out.println(o.getKey());  //這是司機ID
+    			System.out.println(o.getValue().getSession()); //這是司機的連線
+    			ChoosenDriver = o.getKey();
+    			Double result = DistanceUtil.algorithm(lng1, lat1, o.getValue().getLatlng().getLongitude(),
+    					o.getValue().getLatlng().getLatitude()); 
+    			System.out.println(result); //這是計算出的距離
+    		}
+    		
+    		System.out.println(ChoosenDriver);//************
             // simulate driver accept order
             DriverService driverService = new DriverService();
             MemberService memberService = new MemberService();
-            DriverVO driver = driverService.getOneDriver("D001");
+            DriverVO driver = driverService.getOneDriver(ChoosenDriver); //*************  
             MemberVO memberVO = memberService.getOneMember(driver.getMemID());
             JsonObject jsonOut = new JsonObject();
             jsonOut.addProperty("driverName", memberVO.getName());

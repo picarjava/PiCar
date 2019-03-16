@@ -13,4 +13,7 @@ public void delete(String groupMemno);
 public GroupMemVO findByPrimaryKey(String groupMemno);
 public List<GroupMemVO> getAll();
 //public Set<> getEmpsByDeptno(Integer groupMemno);
+GroupMemVO findone_memid__ALL(String groupID, String memID, int state);
+GroupMemVO findone_memid__GROUP_ID_MEM_ID(String groupID, String memID);
+void update_State(String groupID, String memID, int state);
 }

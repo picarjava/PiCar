@@ -33,6 +33,11 @@
     <servlet-class>model.StateMap</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
+   <servlet>
+    <servlet-name>RenewDriverRate</servlet-name>
+    <servlet-class>Timer.RenewDriverRate</servlet-class>
+    <load-on-startup>3</load-on-startup>
+  </servlet>
   <servlet>
     <servlet-name>Broadcast</servlet-name>
     <servlet-class>com.broadcast.controller.BroadcastServlet</servlet-class>
