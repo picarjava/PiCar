@@ -68,15 +68,13 @@ public class SingleOrderServlet extends HttpServlet{
                          rate);
             }catch(RuntimeException e) {
             	errorMsgs.add("無法更新至資料庫");
+            }//有評價，則將司機ID放入context，讓排成器 RenewDriverRate.java定時更新司機評價
+            HashSet<String> ratingHashSet= (HashSet<String>)getServletContext().getAttribute("rateingHashSet");
+            if(ratingHashSet==null) {
+            	ratingHashSet=new HashSet<String>();
+            	getServletContext().setAttribute("ratingHashSet", ratingHashSet);
             }
-            HashSet<String> rateingHashSet= (HashSet<String>)getServletContext().getAttribute("rateingHashSet");
-            if(rateingHashSet==null) {
-            	rateingHashSet=new HashSet<String>();
-            	getServletContext().setAttribute("rateingHashSet", rateingHashSet);
-            }
-            rateingHashSet.add(singleOrderVO.getDriverID());
-           
-            
+            ratingHashSet.add(singleOrderVO.getDriverID());
             forwordURL ="/front-end/singleOrder/listPastSingleOrder.jsp";//成功則回歷史頁面
             }
             
