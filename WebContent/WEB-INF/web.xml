@@ -269,15 +269,15 @@
     <servlet-name>LogoutHandler</servlet-name>
     <url-pattern>/front-end/member/logoutHandler.do</url-pattern>
   </servlet-mapping>
-  <servlet>
-    <servlet-name>ScheduleTimer</servlet-name>
-    <servlet-class>Timer.ServletTimer</servlet-class>
-    <load-on-startup>10</load-on-startup>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>ScheduleTimer</servlet-name>
-    <url-pattern>/ScheduleServlet</url-pattern>
-  </servlet-mapping>
+<!--   <servlet> -->
+<!--     <servlet-name>ScheduleTimer</servlet-name> -->
+<!--     <servlet-class>Timer.ServletTimer</servlet-class> -->
+ <!--      <load-on-startup>10</load-on-startup> --> 
+<!--   </servlet> -->
+<!--   <servlet-mapping> -->
+<!--     <servlet-name>ScheduleTimer</servlet-name> -->
+<!--     <url-pattern>/ScheduleServlet</url-pattern> -->
+<!--   </servlet-mapping> -->
   
     <servlet>
     <servlet-name>GroupTimer</servlet-name>
