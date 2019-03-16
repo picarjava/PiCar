@@ -14,6 +14,7 @@ public class DigestService {
         try
         {
             // Select the message digest for the hash computation -> SHA-256
+        	//MD5與SHA-1會被破解，所以用SHA-256
             md = MessageDigest.getInstance("SHA-256");
 
             // Generate the salted hash

@@ -4,6 +4,8 @@ import java.io.*;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import com.DigestService.DigestService;
 import com.admin.model.*;
 
 
@@ -19,9 +21,12 @@ public class LoginHandlerBackEnd extends HttpServlet {
     // 【取得管理員編號(adminID) 密碼(password)】
     String adminID = req.getParameter("adminID");
     String password = req.getParameter("password");
+	DigestService digestSvc = new DigestService();
+	String digestpassword = digestSvc.digest(password);
+    
     //透過AdminService的loginAdmin方法取得資料庫資料
 	AdminService adminSvc = new AdminService();
-	AdminVO adminVO = adminSvc.loginAdmin(adminID, password);
+	AdminVO adminVO = adminSvc.loginAdmin(adminID, digestpassword);
 	
 
     // 【檢查該帳號 , 密碼是否有效】
