@@ -28,7 +28,7 @@
 		<div class="sidebar" data-color="" data-background-color="black"
 			data-image="../assets/img/sidebar-1.jpg">
 			<div class="logo">
-				<a href="index.jsp" class="simple-text logo-normal"> PICAR </a>
+				<a href="<%=request.getServletContext().getContextPath()%>/back-end/backHome.jsp" class="simple-text logo-normal"> PICAR </a>
 			</div>
       <div class="sidebar-wrapper">
         <ul class="nav">
@@ -68,8 +68,8 @@
               <p>資費管理</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/rate/select_page.jsp">
+          <li class="nav-item active-pro ">
+            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/singleOrder/orderManagement_page.jsp">
               <i class="material-icons">content_paste</i>
               <p>訂單管理</p>
             </a>
@@ -108,12 +108,6 @@
             <a class="nav-link" href="./rtl.html">
               <i class="material-icons">language</i>
               <p>RTL Support</p>
-            </a>
-          </li>
-          <li class="nav-item active-pro ">
-            <a class="nav-link" href="./upgrade.html">
-              <i class="material-icons">unarchive</i>
-              <p>Upgrade to PRO</p>
             </a>
           </li>
         </ul>
