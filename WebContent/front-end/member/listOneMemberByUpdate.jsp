@@ -143,7 +143,13 @@
 			     <input type="hidden" name="action"	value="addToken"></FORM>
 			</td>
 			
-
+			<td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="設定">
+			     <input type="hidden" name="memID"  value="${memberVO.memID}">
+			     <input type="hidden" name="action"	value="getOne_For_Update_HOBBY">
+			  </FORM>
+			</td>
 			
 			
 				<form method="post" action="logoutHandler.do">			

@@ -296,6 +296,7 @@
     <url-pattern>/front-end/groupBand/SelectGroupBand.jsp</url-pattern>
     <url-pattern>/front-end/groupBand/listAllOneGroupBand.jsp</url-pattern>
     <url-pattern>/front-end/storeRecord/listOneStoreRecordMemberFront1.jsp</url-pattern>
+    <url-pattern>/front-end/member/setting.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
