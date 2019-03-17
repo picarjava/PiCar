@@ -22,7 +22,7 @@ import com.driverReport.model.DriverReportService;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 
-import Timer.RenewDriverRate;
+import Timer.RenewDriverRateTimer;
 
 public class SingleOrderServlet extends HttpServlet{
 	

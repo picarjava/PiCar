@@ -59,7 +59,13 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 			pstmt.setInt(1, score);
 			pstmt.setString(2, driverID);
 			pstmt.executeUpdate();
+			con.commit();
 		}catch (SQLException se) {
+			try {
+				con.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			se.printStackTrace();
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources

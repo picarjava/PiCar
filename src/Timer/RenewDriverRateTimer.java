@@ -16,10 +16,10 @@ import com.driver.model.DriverService;
 import com.groupOrder.model.GroupOrderService;
 import com.singleOrder.model.SingleOrderService;
 
-public class RenewDriverRate extends HttpServlet {
+public class RenewDriverRateTimer extends HttpServlet {
 	Timer timer;
 	String strDate1;
-	int count;
+	int count;//計TimerTask被執行的次數
 	private static final long serialVersionUID = 1L;
 	
 	public void init(ServletConfig config) throws ServletException  {
@@ -27,7 +27,7 @@ public class RenewDriverRate extends HttpServlet {
 		timer=new Timer();    
 		SimpleDateFormat tFormat=new SimpleDateFormat("yyyy/MM/dd a hh:mm:ss ");
 		TimerTask task=new TimerTask(){
-				 //計TimerTask被執行的次數
+				 
 				 public void run(){
 				//取得指定執行時間的Date物件 
 				 Date date =new Date(this.scheduledExecutionTime());
@@ -40,44 +40,42 @@ public class RenewDriverRate extends HttpServlet {
 				 
 				 SingleOrderService singleOrderSvc= new SingleOrderService();
 			     GroupOrderService groupOrderSvc= new GroupOrderService();
-			     
-			     Iterator<String> iteratorSingle=singleOrderSvc.getRatedDrivers().iterator();
-			     System.out.println( "singleOrderSvc.getRatedDrivers()拿到那些司機:"+singleOrderSvc.getRatedDrivers().toString() );
-			     System.out.println("iteratorSingle.hasNext()"+iteratorSingle.hasNext());
-			     if(iteratorSingle.hasNext()) {
-					 ratedDriver.add(iteratorSingle.next());//把預約訂單中已評價的司機加入set，以實現不重複入加入
-				}
-				 
+			     System.out.println("單人訂單已評價司機:"+singleOrderSvc.getRatedDrivers());
+			     for(String driverID :singleOrderSvc.getRatedDrivers()) {
+			    	 ratedDriver.add(driverID);//把預約訂單中已評價的司機加入set，以實現不重複入加入
+			     }
+			     System.out.println("加入待更新名單的單人訂單已評價司機:"+ratedDriver);
+			    
 			    
 				 //等增銓新增
-//				 Iterator<String> iteratorGroup=groupOrderSvc.getRatedDrivers().iterator();
-//				 if(iteratorSingle.hasNext()) {
-//					 ratedDriver.add(iteratorSingle.next());//把揪團訂單中已評價的司機加入set，以實現不重複入加入
-//				 }
+//			     for(String driverID :groupOrderSvc.getRatedDrivers()) {
+//			    	 ratedDriver.add(driverID);//把揪團訂單中已評價的司機加入set，以實現不重複入加入
+//			     }
 				 
 				 //開始更新司機評價
+			     
 				 int countDriver=0;
-				 Iterator<String> iteratorAll=((HashSet<String>)ratedDriver).iterator();
-				 if(iteratorAll.hasNext()) {
-				 countDriver++;
-			     DriverService driverSvc=new DriverService();
-				 String driverID =iteratorAll.next();
-				 int singleRateAve=singleOrderSvc.findRateAveByDriverID(driverID);
-				 int groupRateAve=groupOrderSvc.getOneDriversAve(driverID);
-				 int rateAve=(int)(singleRateAve+groupRateAve)/2;
-				 driverSvc.updateDriverRate(rateAve, driverID);
-				 System.out.println("將"+driverID+"的評價更新為:" +rateAve+ "分");
+				 if(!ratedDriver.isEmpty()) {
+					 DriverService driverSvc=new DriverService();
+					 for(String driverID :ratedDriver) {
+						 countDriver++;
+						 int singleRateAve=singleOrderSvc.findRateAveByDriverID(driverID);
+						 int groupRateAve=groupOrderSvc.getOneDriversAve(driverID);
+						 int rateAve=(int)(singleRateAve+groupRateAve)/2;
+						 System.out.println("單人訂單分數="+singleRateAve+"揪團訂單分數="+groupRateAve+"平均分數="+rateAve);
+						 driverSvc.updateDriverRate(rateAve, driverID);
+						 System.out.println("將"+driverID+"的評價更新為:" +rateAve+ "分");
+					 }//for
 				 }else {
 				 System.out.println("目前無人給予評價司機");	 
 				 }//if
-				 
 				 System.out.println("本次總共更新"+countDriver+"位司機的評價");
 			  
  		       }//run
 			};//TimerTask
 			
-			timer.scheduleAtFixedRate(task,getStartDate(0),1000*60*60);
-			System.out.println("司機評價更新排程器於"+ tFormat.format(getStartDate(0))+"開始每小時執行一次");
+			timer.scheduleAtFixedRate(task,getStartDate(0),1000*60*60*24);
+			System.out.println("司機評價更新排程器於"+ tFormat.format(getStartDate(0))+"開始每天執行更新一次");
 		}//init
 	
 	public void destroy() {
