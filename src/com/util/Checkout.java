@@ -3,7 +3,7 @@ package com.util;
 public class Checkout {
 	
 	//行車距離(公尺)以及訂單種類(0-6)，即回傳單筆訂單總金額($NT)
-	public Integer checkout(int distance, int orderType) {
+	public static Integer checkout(int distance, int orderType) {
 		int totalAmount=0;
 		double baseFee=40; //基本費
 		double y=24.5; //費率
@@ -11,19 +11,19 @@ public class Checkout {
 		distance=distance/1000; //換算公里
 		
 		switch(orderType){
-			case 0: //一般叫車
+			case 0: //一般叫車  這裡是星斈
 				totalAmount= (int) (baseFee+y*distance);
 			 break;
 			case 3: //預約叫車
 				totalAmount= (int) (baseFee+y*distance);
 			 break;
-			case 4: //長期預約
+			case 4: //長期預約	
 				totalAmount= (int) (baseFee+y*distance*discount);
 			 break;
-			case 5: //糾團叫車
+			case 5: //糾團叫車  這裡是增銓
 				totalAmount= (int) (baseFee+y*distance);
 			 break;
-			case 6: //長期揪團
+			case 6: //長期揪團  這裡是增銓
 				totalAmount= (int) (baseFee+y*distance*discount);
 			 break;
 			 default:

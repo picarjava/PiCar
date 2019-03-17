@@ -7,7 +7,7 @@
 <head>
 <meta charset="BIG5">
 <title>addStoreRecord.jsp</title>
-
+<script src="jquery-1.12.4.min.js" >$('#post-form').one('submit', otherDoPost); </script>
 
 </head>
 <style>
@@ -31,7 +31,7 @@ table{
 	</ul>
 </c:if>
 
-<form method="post" action="storeRecord.do" name="form1" >
+<form method="post" action="storeRecord.do" name="form1" ID="post-form">
 <a href="select_page.jsp">回主頁面</a>
 	<table >
 		
@@ -62,9 +62,25 @@ table{
 	</table>                          
 	
 	<input type="hidden" name="action" value="insert">
-	<input type="submit" value="結帳">
-</form>
+	<input type="submit" value="結帳" id="submit" ID="post-form">
+	
+	
+	
 
+	
+	
+	
+	
+</form>
+<script>
+	
+		//otherDoPost 為一個包括 post 的 function
+		
+// 	 function checkSubmit(){
+// 	        document.getElementById("submit").disabled = "disabled";
+// 	        return true;
+		
+	</script>
 
 </body>
 
