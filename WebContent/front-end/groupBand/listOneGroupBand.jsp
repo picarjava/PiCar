@@ -387,6 +387,53 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 <script type="text/javascript" language="javascript">google.load("jquery", "1.3");</script>
 <!-- json傳資料 -->
 <script>
+
+function groupSelect()
+{
+	   $.ajax({
+
+	        //告訴程式表單要傳送到哪裡                                         
+
+	        url:"<%=request.getServletContext().getContextPath()%>/front-end/groupBand/AjexGroupInsert.jsp",                                                              
+
+	        //需要傳送的資料
+
+	        data:"memid=${memberVO.memID}&groupID=<%=groupBandVO.getGroupID()%>",  
+
+	         //使用POST方法     
+
+	        type : "POST",                                                                    
+
+	        //接收回傳資料的格式，在這個例子中，只要是接收true就可以了
+	        dataType:'json', 
+
+	         //傳送失敗則跳出失敗訊息      
+
+	        error:function(selects){                                                                 
+
+	        //資料傳送失敗後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+					 var newDiv = documeSnt.createElement("div");
+	        for(x=0;x<=selects.length;x++){
+	 	newDiv.id=selects[x];
+	 	newDiv.innerHTML=selects[x]"  :已連線";
+	 	messa.appendChild(newDiv); 
+	        	alert(selects);
+	        }
+	        },
+
+	        //傳送成功則跳出成功訊息
+
+	        success:function(selects){                                                           
+	        	alert(selects);
+	        //資料傳送成功後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+	  		
+
+	        }
+
+	    }); 
+	
+	}
+
 function groupJoin()
 {
 	   $.ajax({
