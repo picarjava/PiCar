@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.naming.Context;
@@ -391,6 +392,12 @@ public class GroupOrderJNDIDAO implements GroupOrderDAO_interface {
 	public void UPDATE_STATE__GROUP_ID(Integer STATE, String GROUP_ID) {
 		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public HashSet<String> getRatedDrivers() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

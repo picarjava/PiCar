@@ -93,5 +93,20 @@ public class MemberService {
 	public void updateVerified(String memID) {
 		dao.updateVerified(memID);
 	}
+	
+	//阿君新增FOR前端設定喜好設定
+	public MemberVO setHobby(String memID, String creditcard, Integer pet, Integer smoke, Integer babySeat) {
+
+		MemberVO memberVO = new MemberVO();
+
+		memberVO.setMemID(memID);
+		memberVO.setCreditcard(creditcard);
+		memberVO.setPet(pet);
+		memberVO.setSmoke(smoke);
+		memberVO.setBabySeat(babySeat);
+		dao.setForHobby(memberVO);
+
+		return memberVO;
+	}
 
 }

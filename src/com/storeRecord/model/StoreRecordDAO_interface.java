@@ -12,6 +12,12 @@ public interface StoreRecordDAO_interface {
 	public List<StoreRecordVO> findByMemID(String memID);
 	public List<StoreRecordVO> getAll();
 	public List<StoreRecordVO> getDistinctMemID();
+	public void insertOrder(StoreRecordVO srVO);
+	
+	
+	
+	
+	
 //	public Integer getSumAmount(String memID);
 
 }

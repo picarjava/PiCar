@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.naming.Context;
@@ -58,7 +59,13 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 			pstmt.setInt(1, score);
 			pstmt.setString(2, driverID);
 			pstmt.executeUpdate();
+			con.commit();
 		}catch (SQLException se) {
+			try {
+				con.rollback();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 			se.printStackTrace();
 			throw new RuntimeException("A database error occured. " + se.getMessage());
 			// Clean up JDBC resources
@@ -648,4 +655,5 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 	
 	}
 
+	
 }

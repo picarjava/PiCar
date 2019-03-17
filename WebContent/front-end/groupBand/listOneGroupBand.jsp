@@ -3,6 +3,8 @@
 <%@ page import="com.groupBand.model.*"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.member.model.*"%>
+<%@ page import="com.groupMem.model.*"%>
+
 <%
 	MemberVO memberVOs = (MemberVO) session.getAttribute("memberVO");
 
@@ -381,6 +383,77 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 			onclick="disconnect();" />
 	</div>
 
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" language="javascript">google.load("jquery", "1.3");</script>
+<!-- json傳資料 -->
+<script>
+function groupJoin()
+{
+	   $.ajax({
+
+	        //告訴程式表單要傳送到哪裡                                         
+
+	        url:"<%=request.getServletContext().getContextPath()%>/front-end/groupBand/AjexGroupInsert.jsp",                                                              
+
+	        //需要傳送的資料
+
+	        data:"memid=${memberVO.memID}&groupID=<%=groupBandVO.getGroupID()%>",  
+
+	         //使用POST方法     
+
+	        type : "POST",                                                                    
+
+	        //接收回傳資料的格式，在這個例子中，只要是接收true就可以了
+	        dataType:'json', 
+
+	         //傳送失敗則跳出失敗訊息      
+
+	        error:function(){                                                                 
+
+	        //資料傳送失敗後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+
+	       
+
+	        },
+
+	        //傳送成功則跳出成功訊息
+
+	        success:function(selects){                                                           
+
+	        //資料傳送成功後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+	  		
+
+	        }
+
+	    }); 
+// 1代表加入揪團 0代表沒加入揪團
+//查詢資料庫的所有揪團
+var messa = document.getElementById("messa");
+<%
+GroupMemService groupMemService =new GroupMemService();
+List<GroupMemVO> groupMemlist =new ArrayList<GroupMemVO>();
+groupMemlist= groupMemService.getAllgroupID(groupBandVO.getGroupID(),1);
+MemberService memberService = new MemberService();
+MemberVO memberVO = new MemberVO();
+for(GroupMemVO Memlist :groupMemlist){
+
+	memberVO = memberService.getOneMember(Memlist.getMemID());	
+	if(!memberVO.getMemID().equals(memberVOs.getMemID())){%>	
+	 var newDiv = document.createElement("div");
+	 	newDiv.id="<%=memberVO.getName()%>";
+	 	newDiv.innerHTML="<%=memberVO.getName()%>  :已連線";
+	 	messa.appendChild(newDiv); 
+	<%
+}
+	}
+%>
+
+
+<%-- 	jQuery.post("AjexGroupInsert.jsp","memid="+"${memberVO.memID}&groupID="+"<%=groupBandVO.getGroupID()%>"); --%>
+}
+
+</script>
+
 
 	<script>
 var btn = document.createElement("BUTTON");//放甚麼就創甚麼
@@ -400,12 +473,15 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 		webSocket = new WebSocket(endPointURL);
         
 		webSocket.onopen = function(event) {
+		
 			updateStatus("${memberVO.name} 成功連線");
 			document.getElementById('sendMessage').disabled = false;
 			document.getElementById('connect').disabled = true;
 			document.getElementById('disconnect').disabled = false;
 	        var jsonObj = {"userName" : "${memberVO.name}", "message" : "以連線","sessionUser" : "listsessionUser","userID" : "${memberVO.memID}","status":"0000"};
+	        groupJoin();
 	        webSocket.send(JSON.stringify(jsonObj));
+	    	
 		};
 
 		webSocket.onmessage = function(event) {
@@ -422,10 +498,22 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 	        if(jsonObj.sessionUser=="listsessionUser")
 	        {
 // 				if(jsonObj.status=="1111"){
-       			 var newDiv = document.createElement("div");
-	        	 	newDiv.id=jsonObj.userID;
-	        	 	newDiv.innerHTML=jsonObj.userName+"  :已連線";
-	        	 	messa.appendChild(newDiv); 
+				messa.innerHTML="";
+ 				<%	
+	        	for(GroupMemVO Memlist :groupMemlist){
+
+	        		memberVO = memberService.getOneMember(Memlist.getMemID());	
+	        		
+	        		%>	
+	        		
+	        		 var newDiv = document.createElement("div");
+	        		 	newDiv.id="<%=memberVO.getName()%>";
+	        		 	newDiv.innerHTML="<%=memberVO.getName()%>  :已連線";
+	        		 	messa.appendChild(newDiv); 
+	        		<%
+	        	
+	        		}
+	        	%>
 // 					}
 // 					if(jsonObj.status=="0000"){
 //    				var jsonObjs = {"userName" : "${memberVO.name}", "message" : "以連線","sessionUser" : "listsessionUser","userID" : "${memberVO.memID}","status":"1111"};

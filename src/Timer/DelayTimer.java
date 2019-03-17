@@ -1,29 +1,32 @@
 package Timer;
 
-
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.groupBand.model.GroupBandService;
 import com.groupBand.model.GroupBandVO;
-import com.groupOrder.model.*;
+import com.groupOrder.model.GroupOrderService;
 
-import java.util.*;
-/**
- * Servlet implementation class GroupTimer
- */
-//@WebServlet("/GroupTimer")
-public class GroupTimer extends HttpServlet {
+public class DelayTimer extends HttpServlet{
+    Timer timer=new Timer();
+    long renewTime;//當日晚間10點更新
+	boolean isRenew= false; //司機評價一天只更新一次即可， 效能較佳
+
 	
 	private static final long serialVersionUID = 1L;
 	int count = 0;      
-	Timer timer;
 	String strDate;
 	
 	public void init() {
@@ -32,21 +35,30 @@ public class GroupTimer extends HttpServlet {
 //	        SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 //        	Date date = new Date();
 //        	String strDate = sdFormat.format(date);
+	        Calendar calendar2 = Calendar.getInstance();
+	        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+	        calendar2.add(Calendar.DATE, 3);
+	        String three_days_after = sdf2.format(calendar2.getTime());
+	        String START_TIME = three_days_after +" 00:00:00";
+	        
+	        String START_TIME_End = three_days_after +" 23:59:59";
 	        TimerTask task = new TimerTask(){
+	        	
+	        	
+//	        	main
+//	    		GregorianCalendar gc= new GregorianCalendar();
+//	    		java.util.Date date =gc.getTime(); //拿到目前時間
+//	    		System.out.println("date:"+date);
+//	    		SimpleDateFormat tFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); //格式化成資料庫出來的形式
+//	    		String strDate=tFormat.format(date); //格式化成資料庫出來的形式
+//	    		System.out.println("strDate:"+strDate); 	
 	                   
 	            public void run(){
 	            	
-	            	Calendar calendar2 = Calendar.getInstance();
-	            	SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-	            	calendar2.add(Calendar.DATE, 3);
-	            	String three_days_after = sdf2.format(calendar2.getTime());
 	            
 	            	GroupOrderService groupOrderService = new GroupOrderService();
 	            	GroupBandService groupBandService =new GroupBandService();
 	            	
-	            	String START_TIME = three_days_after +" 00:00:00";
-	            	
-	            	String START_TIME_End = three_days_after +" 23:59:59";
 	            	
 	            	//--取得那些揪團--
 	            	List<String> groupIDList =new ArrayList<String>();
@@ -122,15 +134,15 @@ public class GroupTimer extends HttpServlet {
 				GregorianCalendar gcToday=new GregorianCalendar(year, month-1, day, 0, 0, 0);
 				java.util.Date today=gcToday.getTime();
 				
-	        timer.scheduleAtFixedRate(task, today,24*60*60*1000); 
+	        timer.schedule(task, 24*60*60*1000); 
+//	        timer.schedule(task, three_days_after); 
 //	        24*60*60*1000
 	}
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GroupTimer() {
+    public  DelayTimer() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -149,8 +161,34 @@ public class GroupTimer extends HttpServlet {
 		
 	}
 	public void destroy() {
-		timer.cancel();
+		
 		
 	}
+	
+	//傳入當日欲更新的hour
+	public long getRenewTime(int renewHour){
+		//取得現在時間
+		Date date =new java.util.Date();
+		SimpleDateFormat tFormat=new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+		String strDate=tFormat.format(date);
+				
+		//取得當日的日年月日
+		String stryear=strDate.substring(0, 4);
+		String strmonth=strDate.substring(5, 7);
+		String strday=strDate.substring(8, 10);
+						
+		int year=Integer.parseInt(stryear);
+		int month=Integer.parseInt(strmonth);
+		int day=Integer.parseInt(strday);
+		
+		GregorianCalendar gc=new GregorianCalendar(2019, 2, 13, renewHour, 00);
+		GregorianCalendar gc1=new GregorianCalendar(2019, 2, 13);
+		long hour=gc.getTime().getTime()-gc1.getTime().getTime();
+		long today=new GregorianCalendar(year,month-1,day).getTime().getTime();
+		renewTime=today+hour; //當日晚間10點的long
+		return renewTime;
+	}
+
+
 
 }

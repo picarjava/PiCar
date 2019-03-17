@@ -44,11 +44,11 @@ public class Calculate extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		
-		Integer state = 0;
-		Integer orderType = 0;
-		String memID = req.getParameter("memID");
-		
-		SingleOrderService so = new SingleOrderService();
+//		Integer state = 0;
+//		Integer orderType = 0;
+//		String memID = req.getParameter("memID");
+//		
+//		SingleOrderService so = new SingleOrderService();
 //		SingleOrderVO newSingleOrderVO = so.getBySingleOrder(state, orderType, memID);
 		
 //		Double lat1 = newSingleOrderVO.getStartLat();
@@ -58,8 +58,8 @@ public class Calculate extends HttpServlet {
 		Double lon1 = Double.valueOf(req.getParameter("lon"));
 		
 
-		String driverID = null;
-		Session session = null;
+//		String driverID = null;
+//		Session session = null;
 
 		List<Map.Entry<String, StoredInfo>> list = null;
 

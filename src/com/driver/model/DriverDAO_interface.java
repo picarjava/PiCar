@@ -1,5 +1,6 @@
 package com.driver.model;
 
+import java.util.HashSet;
 import java.util.List;
 
 public interface DriverDAO_interface {
@@ -19,6 +20,7 @@ public interface DriverDAO_interface {
     public void updatePermitted(DriverVO driverVO);
   //小編更新司機評價
   	public void updateDriverRate(int score,String driverID) ;
+  	
 //	萬用複合查詢(傳入參數型別Map)(回傳List)
 	
 //	public List<DriverVO> getAll(Map<String, String> map);

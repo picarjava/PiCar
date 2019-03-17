@@ -12,6 +12,7 @@ public interface MemberDAO_interface {
 	public MemberVO findByLoginPass(String memID, String password);
 	public void updateToken(MemberVO memberVO);
 	public void updateVerified(String memID);
+	public void setForHobby(MemberVO memberVO);  //阿君新增FOR前端喜好設定
 //	萬用複合查詢(傳入參數型別Map)(回傳List)
 	
 //	public List<MemberVO> getAll(Map<String, String> map);

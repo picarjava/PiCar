@@ -56,6 +56,11 @@ public class MemberDAO implements MemberDAO_interface {
 	//小編新增for活動代幣
     private static final String UPDATE_ACTIVITY_TOKEN="UPDATE MEMBER SET ACTIVITY_TOKEN=? WHERE MEM_ID=?";
     //小編新增for活動代幣-處理交易問題
+    
+	//阿君新增for前台會員喜好設定與常用地點設定
+    private static final String UPDATE_HOBBY="UPDATE MEMBER SET CREDIT_CARD=?, PET=?, SMOKE=?, BABY_SEAT=? WHERE MEM_ID=?";
+   
+    
     public void updateActivityToken(Integer activityTokenSum,String memID,Connection con){
     	PreparedStatement pstmt = null;
     	try {
@@ -583,7 +588,51 @@ public class MemberDAO implements MemberDAO_interface {
 				}
 			}
 		}
+		
+		
 
+	}
+	
+	//阿君新增FOR前端喜好設定
+	@Override
+	public void setForHobby(MemberVO memberVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_HOBBY);
+
+			pstmt.setString(1, memberVO.getCreditcard());
+			pstmt.setInt(2, memberVO.getPet());
+			pstmt.setInt(3, memberVO.getSmoke());
+			pstmt.setInt(4, memberVO.getBabySeat());
+			pstmt.setString(5, memberVO.getMemID());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
+
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}		
+		
+		
 	}
 
 }

@@ -22,6 +22,7 @@ import com.rate.model.RateVO;
 import com.storeRecord.model.StoreRecordDAO;
 import com.storeRecord.model.StoreRecordService;
 import com.storeRecord.model.StoreRecordVO;
+import com.util.Checkout;
 
 /**
  * Servlet implementation class StroeRecordServlet
@@ -205,8 +206,8 @@ public class StoreRecordServlet extends HttpServlet {
 //
 //		}
 //
-		
-		//從自己addStoreRecord.jsp來的請求
+
+		// 從自己addStoreRecord.jsp來的請求
 		if ("insert".equals(action)) {
 
 			// 司機編號作下拉式選單
@@ -218,7 +219,7 @@ public class StoreRecordServlet extends HttpServlet {
 				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
 				if (memID == null || memID.trim().length() == 0) {
 
-					errorMsgs.add("請輸入司機ID");
+					errorMsgs.add("請輸入會員ID");
 				} else if (!memID.trim().matches(nameReg)) {
 
 					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \" 且長度必需在2到20之間");
@@ -262,6 +263,7 @@ public class StoreRecordServlet extends HttpServlet {
 				MemberVO memberVO = memberSvc.getOneMember(memID);
 				memberSvc.updateToken(memID, memberVO.getToken() + storeRecordVO.getAmount());
 
+				System.out.println("已經插入");
 				RequestDispatcher succesView = req
 						.getRequestDispatcher("/front-end/storeRecord/listOneStoreRecordByMem.jsp");
 				succesView.forward(req, res);
@@ -273,14 +275,14 @@ public class StoreRecordServlet extends HttpServlet {
 			}
 
 		}
-		
-		//從Front-end/Member/listOneMember.jsp來的請求
+
+		// 從Front-end/Member/listOneMember.jsp來的請求
 		if ("addToken".equals(action)) {
 
 			String memID = req.getParameter("memID");
 			StoreRecordVO storeRecordVO = new StoreRecordVO();
 			storeRecordVO.setMemID(memID);
-			
+
 			req.setAttribute("storeRecordVO", storeRecordVO);
 			RequestDispatcher successView = req.getRequestDispatcher("/front-end/storeRecord/addStoreRecord.jsp");
 			successView.forward(req, res);
@@ -311,6 +313,87 @@ public class StoreRecordServlet extends HttpServlet {
 //				failureView.forward(req, res);
 //			}
 //		}
+
+		if ("insertOrder".equals(action)) {
+
+			// 司機編號作下拉式選單
+			List<String> errorMsgs = new LinkedList();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+				String memID = req.getParameter("memID").trim();
+				String nameReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+				if (memID == null || memID.trim().length() == 0) {
+
+					errorMsgs.add("請輸入司機ID");
+				} else if (!memID.trim().matches(nameReg)) {
+
+					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \" 且長度必需在2到20之間");
+				}
+				// 接收訂單的資訊
+				Integer meter = 0;
+				Integer type = 0;
+				Integer amount = 0;
+
+				try {
+					amount = -(Checkout.checkout(meter, type)); // 扣除金額為負值
+
+				} catch (Exception e) {
+					amount = 0;
+					errorMsgs.add("請點選金額");
+				}
+
+				String orderID = null;
+				try {
+					orderID = req.getParameter("amount").trim();
+
+				} catch (Exception e) {
+					orderID = null;
+					errorMsgs.add("請新增訂單ID");
+				}
+
+				StoreRecordVO storeRecordVO = new StoreRecordVO();
+				storeRecordVO.setMemID(memID);
+				storeRecordVO.setAmount(amount);
+				storeRecordVO.setOrderID(orderID);
+				// 以上VO是為了錯誤時，原輸入資料保留
+
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("storeRecordVO", storeRecordVO);
+					RequestDispatcher failView = req.getRequestDispatcher("/front-end/storeRecord/addStoreRecord.jsp");
+					failView.forward(req, res);
+					return;
+				}
+
+				// 開始新增資料
+				StoreRecordService storeRecordSvc = new StoreRecordService();
+				storeRecordVO = storeRecordSvc.addOrdrID(memID, amount, orderID);
+				req.setAttribute("storeRecordVO", storeRecordVO);
+
+				// 為了拿名子
+				List<StoreRecordVO> list = storeRecordSvc.getMemStoreRecord(memID);
+				req.setAttribute("list", list);
+
+				// 為了計算加總金額 用取得會員代幣替代
+//				Integer sumCount = storeRecordSvc.getCount(memID);
+//				req.setAttribute("sumCount", sumCount);
+
+				MemberService memberSvc = new MemberService();
+				MemberVO memberVO = memberSvc.getOneMember(memID);
+				memberSvc.updateToken(memID, memberVO.getToken() + storeRecordVO.getAmount());
+
+				RequestDispatcher succesView = req
+						.getRequestDispatcher("/front-end/storeRecord/listOneStoreRecordByMem.jsp");
+				succesView.forward(req, res);
+
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/storeRecord/addStoreRecord.jsp");
+				successView.forward(req, res);
+			}
+
+		}
+
 	}
 
 }

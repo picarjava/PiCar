@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.servlet.RequestDispatcher;
 
+import com.admin.model.AdminService;
 import com.member.model.*;
 import java.util.LinkedList;
 import com.storeRecord.model.*;
@@ -448,6 +449,70 @@ public class MemberServlet extends HttpServlet {
 				RequestDispatcher failureView = req.getRequestDispatcher("/front-end/member/pressToVerified.jsp");
 				failureView.forward(req, res);
 				return; // 程式中斷
+			}
+
+		}
+		
+		if ("getOne_For_Update_HOBBY".equals(action)) { //阿君新增FOR前端喜好設定
+			// 建立錯誤的collection
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			try {
+				// 接收請求參數
+				String memID = new String(req.getParameter("memID"));
+				// 開始查詢
+				MemberService memberSvc = new MemberService();
+				MemberVO memberVO = memberSvc.getOneMember(memID);
+				req.setAttribute("memberVO", memberVO);
+				// 查詢完成 轉交給update_member_input.jsp 可以顯示原始的資料值
+
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/setting.jsp");
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByUpdate.jsp");
+				successView.forward(req, res);
+			}
+
+		}
+		
+		
+		if ("Update_Hobby".equals(action)) {   //阿君新增FOR前端喜好設定
+			// 建立錯誤的collection
+			List<String> errorMsgs = new LinkedList<String>();
+			req.setAttribute("errorMsgs", errorMsgs);
+			
+			try {
+				String memID = new String(req.getParameter("memID").trim());
+
+				String creditcard = req.getParameter("creditcard");
+				if (creditcard == null || creditcard.trim().length() == 0) {
+					errorMsgs.add("creditcard請勿空白");
+				}
+
+				Integer pet = new Integer(req.getParameter("pet"));
+				Integer smoke = new Integer(req.getParameter("smoke"));
+				Integer babySeat = new Integer(req.getParameter("babySeat"));
+
+
+				MemberVO memberVO = new MemberVO();
+				memberVO.setMemID(memID);
+				memberVO.setCreditcard(creditcard);
+				memberVO.setPet(pet);
+				memberVO.setSmoke(smoke);
+				memberVO.setBabySeat(babySeat);
+				
+				MemberService memberService = new MemberService();
+				memberVO = memberService.setHobby(memID, creditcard, pet, smoke, babySeat);
+				
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByUpdate.jsp");
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/setting.jsp");
+				successView.forward(req, res);
 			}
 
 		}
