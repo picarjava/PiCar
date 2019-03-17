@@ -149,7 +149,7 @@ public class GroupTimer extends HttpServlet {
 		
 	}
 	public void destroy() {
-		
+		timer.cancel();
 		
 	}
 
