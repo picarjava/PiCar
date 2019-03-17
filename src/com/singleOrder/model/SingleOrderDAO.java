@@ -374,9 +374,9 @@ public class SingleOrderDAO implements SingleOrder_interface {
         try {
             connection = dataSource.getConnection();
             connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(UPDATE_DRIVER_ID_AND_STATE_BY_ORDER_ID);
             for (String orderID: orderIDs) {
                 int index = 1;
-                preparedStatement = connection.prepareStatement(UPDATE_DRIVER_ID_AND_STATE_BY_ORDER_ID);
                 preparedStatement.setString(index++, driverID);
                 preparedStatement.setInt(index++, state);
                 preparedStatement.setString(index++, orderID);
