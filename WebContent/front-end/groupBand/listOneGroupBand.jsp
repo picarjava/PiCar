@@ -387,14 +387,13 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 <script type="text/javascript" language="javascript">google.load("jquery", "1.3");</script>
 <!-- json傳資料 -->
 <script>
-
 function groupSelect()
 {
 	   $.ajax({
 
 	        //告訴程式表單要傳送到哪裡                                         
 
-	        url:"<%=request.getServletContext().getContextPath()%>/front-end/groupBand/AjexGroupInsert.jsp",                                                              
+	        url:"<%=request.getServletContext().getContextPath()%>/front-end/groupBand/AjexGroupSelect.jsp",                                                              
 
 	        //需要傳送的資料
 
@@ -410,21 +409,35 @@ function groupSelect()
 	         //傳送失敗則跳出失敗訊息      
 
 	        error:function(selects){                                                                 
-
+	        	 console.log(selects);
 	        //資料傳送失敗後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
-					 var newDiv = documeSnt.createElement("div");
-	        for(x=0;x<=selects.length;x++){
-	 	newDiv.id=selects[x];
-	 	newDiv.innerHTML=selects[x]"  :已連線";
-	 	messa.appendChild(newDiv); 
-	        	alert(selects);
-	        }
+					
+	        		for(let i=0;i<selects.length;i++)
+	        		{
+	        			var newDiv = document.createElement("div");
+	        			newDiv.id = selects[i].name;
+	        			newDiv.innerHTML= selects[i].name;
+	        			messa.appendChild(newDiv);
+	        		}
+			
+	        
+	        
+					
 	        },
 
 	        //傳送成功則跳出成功訊息
 
 	        success:function(selects){                                                           
-	        	alert(selects);
+	        	 console.log(selects);
+	 	        //資料傳送失敗後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+	 					
+	 	        		for(let i=0;i<selects.length;i++)
+	 	        		{
+	 	        			var newDiv = document.createElement("div");
+	 	        			newDiv.id = selects[i].name;
+	 	        			newDiv.innerHTML= selects[i].name+":  已連線";
+	 	        			messa.appendChild(newDiv);
+	 	        		}
 	        //資料傳送成功後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
 	  		
 
@@ -433,7 +446,8 @@ function groupSelect()
 	    }); 
 	
 	}
-
+</script>
+<script>
 function groupJoin()
 {
 	   $.ajax({
@@ -546,21 +560,22 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 	        {
 // 				if(jsonObj.status=="1111"){
 				messa.innerHTML="";
- 				<%	
-	        	for(GroupMemVO Memlist :groupMemlist){
+				 groupSelect();
+<%--  				<%	 --%>
+// 	        	for(GroupMemVO Memlist :groupMemlist){
 
-	        		memberVO = memberService.getOneMember(Memlist.getMemID());	
+// 	        		memberVO = memberService.getOneMember(Memlist.getMemID());	
 	        		
-	        		%>	
+<%-- 	        		%>	 --%>
 	        		
-	        		 var newDiv = document.createElement("div");
-	        		 	newDiv.id="<%=memberVO.getName()%>";
-	        		 	newDiv.innerHTML="<%=memberVO.getName()%>  :已連線";
-	        		 	messa.appendChild(newDiv); 
-	        		<%
+// 	        		 var newDiv = document.createElement("div");
+<%-- 	        		 	newDiv.id="<%=memberVO.getName()%>"; --%>
+<%-- 	        		 	newDiv.innerHTML="<%=memberVO.getName()%>  :已連線"; --%>
+// 	        		 	messa.appendChild(newDiv); 
+<%-- 	        		<% --%>
 	        	
-	        		}
-	        	%>
+// 	        		}
+<%-- 	        	%> --%>
 // 					}
 // 					if(jsonObj.status=="0000"){
 //    				var jsonObjs = {"userName" : "${memberVO.name}", "message" : "以連線","sessionUser" : "listsessionUser","userID" : "${memberVO.memID}","status":"1111"};
