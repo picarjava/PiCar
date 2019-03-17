@@ -2,10 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.location.model.*"%>
-
+<%@ page import="java.util.List"%>
 <%
 		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 		LocationVO locationVO = (LocationVO)session.getAttribute("locationVO");
+		LocationService lSvc = new LocationService();
+		List<LocationVO> list = lSvc.getAll(memberVO.getMemID());
+		pageContext.setAttribute("list", list);
+		
 %>
 <!DOCTYPE html>
 <html>
@@ -21,7 +25,8 @@
         </c:forEach>
     </c:if>
     <form action="<%=application.getContextPath()%>/location" method="POST">
-                會員ID ${memberVO.name} 您好<br>
+                會員ID ${memberVO.name}
+                ${memberVO.memID} 您好<br>
        <p>請輸入您的常用地點</p>
        <input type="hidden" name="memID" value="${memberVO.memID}"/>
        <input type="text" name="location" value="${locationVO.location}"/>
@@ -34,7 +39,7 @@
     <br>
     <br>
     <jsp:useBean id="service" class="com.location.model.LocationService"/>
-        <c:forEach var="location" items="${service.all}">
+        <c:forEach var="location" items="${list}">
         <tr>
             <td>${location.memID}</td>
             <td>${location.location}</td>

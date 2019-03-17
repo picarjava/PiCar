@@ -158,6 +158,12 @@
                     <input type="submit" value="常用地點"/>
                 </form>
 			 </td>
+			<td>
+			 	<form method="post" action="logoutHandler.do">			
+				<input type="submit" value="登出">	
+				 <input type="hidden" name="logout"	value="logout">	
+				</form>
+			</td>
 	</tr>
 	</table>
 </body>
