@@ -12,7 +12,6 @@ MemberService memberService = new MemberService ();
 if(groupMemVO.getMemID()==null){
 	groupMemService.addGroupMem(groupID, memID,1);	
 }else{
-
 	groupMemService.update_State(groupID, memID,1);
 }
 %> 
