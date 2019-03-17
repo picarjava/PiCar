@@ -17,6 +17,7 @@ public interface DriverDAO_interface {
     public DriverVO findByMemID(String memID);
     public DriverVO findDriverByMemID(String memID);
     public DriverVO updateBanned(String driverID);
+    public DriverVO updateBannedBack(String driverID);
     public void updatePermitted(DriverVO driverVO);
   //小編更新司機評價
   	public void updateDriverRate(int score,String driverID) ;

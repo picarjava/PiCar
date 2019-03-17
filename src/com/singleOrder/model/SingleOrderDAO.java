@@ -41,7 +41,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
 
 //    以下兩個方法用於訂單管理排成使用
     private final static String TIME_FROM_START =  "SELECT ORDER_ID ,START_TIME FROM SINGLE_ORDER WHERE START_TIME = ?";
-    private static final String UPDATE_STATE_TO_DELAY =	"UPDATE SINGLE_ORDER SET STATE ='6' WHERE ";
+    private static final String UPDATE_STATE_TO_DELAY =	"UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=? ";
 
     private static DataSource dataSource;
 //    private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";

@@ -523,6 +523,45 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 	}
 //讀的時候dirtyread 避免 寫一個方法
 	@Override
+	public DriverVO updateBannedBack(String driverID) {
+		
+		DriverVO driverVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int index = 1;
+		
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+//			// 2●設定於 pstm.executeUpdate()之後
+			pstmt = con.prepareStatement(UPDATE_BACKBANNED);
+			pstmt.setString(1, driverID);
+			pstmt.executeUpdate();
+			
+			con.commit();
+		} catch (SQLException se) {
+			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		return driverVO;
+	}
+//讀的時候dirtyread 避免 寫一個方法
+	@Override
 	public DriverVO updateBanned(String driverID) {
 		
 		DriverVO driverVO = null;

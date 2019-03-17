@@ -350,10 +350,21 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	/*************1.接收請求參數:某一筆司機IDD**************/
 	String driverID=new String(req.getParameter("driverID").trim());
 	String actionS=new String(req.getParameter("actionS").trim());
-	Calendar date = Calendar.getInstance();
  	SimpleDateFormat sdf2 = new SimpleDateFormat("YYYY-MM-DD");
 //	java.sql.Date deadline = date.add(Calendar.HOUR, 24);//--
+ 	
+	// util.Date → util.Calendar
+	java.util.Date date = new java.util.Date();
+	Calendar cal = Calendar.getInstance();
+	cal.setTime(date);
+	// util.Calendar → util.Date
+	java.util.Date date2 = cal.getTime();
+	// util.Date → sql.Date
+	java.util.Date date5 = new java.util.Date();
+	java.sql.Date sqlDate2 = new java.sql.Date(date5.getTime());
 	String one_day_after = sdf2.format(date.getTime());
+	long long_now =  new java.util.Date().getTime();
+//	System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.sql.Timestamp(long_now)));
 	/*************2查詢資料:調出某一筆的vo**************/
 	DriverService driverSvc=new DriverService();
 	DriverVO driverVO=driverSvc.getOneDriver(driverID);//從driverPK
@@ -366,7 +377,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driver/listOneDriver.jsp");
 	failureView.forward(req, res);
 	}
-	if("GET_ONE_FOR_BANNED".equals(actionS)) {
+	if("GET_ONE_FOR_BANNED".equals(actionS)) {//有用
 		if(driverVO.getBanned() == 0) {
 			driverSvc.updateBanned(driverID);
 		}else {
@@ -382,7 +393,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 }catch(Exception e){
 }
 //////////////////////////////////////////////////
-//來自back-end/listAllDriver.jsp 修改  ban deadline ==0 (後台banned司機  )//??
+//來自back-end/listAllDriver.jsp 修改  ban deadline ==0 (後台banned司機  )//??沒用
 if("GET_ONE_FOR_BANNEDs".equals(action)){
 	List<String> errorMsgs1=new LinkedList<String>();//剩下1.跳轉畫面2.設定DEADLINE3.
 	req.setAttribute("errorMsgs", errorMsgs1);
