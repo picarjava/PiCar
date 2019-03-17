@@ -65,7 +65,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		"select DISTINCT GROUP_ID from GROUP_ORDER where STATE=0 and MEM_ID=?";
 		
 		private static final String GET_ONE_RATE__DRIVER_ID = 
-				"SELECT AVG(RATE) AS 'AvgRATE' FROM GROUP_ORDER WHERE driver_id =?";
+				"SELECT AVG(RATE) AS AvgRATE FROM GROUP_ORDER WHERE driver_id =?";
 		
 		private static final String GET_MEM_ID__MEM_ID_GROUP_ID = 
 				"SELECT MEM_ID FROM GROUP_ORDER WHERE MEM_ID=? and GROUP_ID = ?";
@@ -731,9 +731,9 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		pstmt = con.prepareStatement(GET_ONE_RATE__DRIVER_ID);
 		pstmt.setString(1, driver_id);
 		rs = pstmt.executeQuery();
-		
+		while(rs.next()) {
 		avgrate=(rs.getInt("AvgRATE"));
-			
+		}
 			
 		
 	}catch (SQLException se) {

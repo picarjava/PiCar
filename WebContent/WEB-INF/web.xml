@@ -33,7 +33,7 @@
     <servlet-class>model.StateMap</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
-   <servlet>
+  <servlet>
     <servlet-name>RenewDriverRate</servlet-name>
     <servlet-class>Timer.RenewDriverRate</servlet-class>
     <load-on-startup>3</load-on-startup>
@@ -274,17 +274,7 @@
     <servlet-name>LogoutHandler</servlet-name>
     <url-pattern>/front-end/member/logoutHandler.do</url-pattern>
   </servlet-mapping>
-<!--   <servlet> -->
-<!--     <servlet-name>ScheduleTimer</servlet-name> -->
-<!--     <servlet-class>Timer.ServletTimer</servlet-class> -->
- <!--      <load-on-startup>10</load-on-startup> --> 
-<!--   </servlet> -->
-<!--   <servlet-mapping> -->
-<!--     <servlet-name>ScheduleTimer</servlet-name> -->
-<!--     <url-pattern>/ScheduleServlet</url-pattern> -->
-<!--   </servlet-mapping> -->
-  
-    <servlet>
+  <servlet>
     <servlet-name>GroupTimer</servlet-name>
     <servlet-class>Timer.GroupTimer</servlet-class>
     <load-on-startup>9</load-on-startup>
@@ -293,7 +283,6 @@
     <servlet-name>GroupTimer</servlet-name>
     <url-pattern>/GroupTimer</url-pattern>
   </servlet-mapping>
-  
   <filter>
     <filter-name>LoginFilter</filter-name>
     <filter-class>com.login.filter.LoginFilter</filter-class>
@@ -326,9 +315,7 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
-  
-  
-   <servlet>
+  <servlet>
     <servlet-name>AdminSelfServlet</servlet-name>
     <servlet-class>com.admin.controller.AdminSelfServlet</servlet-class>
   </servlet>
@@ -336,8 +323,6 @@
     <servlet-name>AdminSelfServlet</servlet-name>
     <url-pattern>/back-end/adminSelf.do</url-pattern>
   </servlet-mapping>
-  
-  
   <servlet>
     <servlet-name>Calculate</servlet-name>
     <servlet-class>com.calculate.controller.Calculate</servlet-class>

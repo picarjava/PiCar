@@ -1,6 +1,7 @@
 package com.singleOrder.model;
 
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -14,6 +15,11 @@ public class SingleOrderService {
     public SingleOrderVO getOneSingleOrder(String orderID) {
         return singleOrderDAO.findByPrimaryKey(orderID);
     } // getOneSingleOrder()
+    
+    //小編新增找已評價司機
+    public HashSet<String> getRatedDrivers(){
+    	return singleOrderDAO.getRatedDrivers();
+    }
     
     //小編新增長期insert方法
     public void insert(LinkedList<SingleOrderVO> singleOrderVOList) {

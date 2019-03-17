@@ -44,7 +44,7 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 	}
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 //	顯示多張圖片
-req.setCharacterEncoding("UTF-8");
+    req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("image/gif");
 //		
