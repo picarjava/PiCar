@@ -112,14 +112,14 @@
 <!-- 						      </td> -->
 						      <td>
 						      <c:if test="${driverVO.banned == 0}">
-<!-- 						       <Form METHOD="post" ACTION="driver.do" > -->
-<!-- 							    <div class="text-center"><button type="submit" class="btn btn-light">可以接單</button> -->
+						       <Form METHOD="post" ACTION="driver.do" >
+							    <div class="text-center"><button type="submit" class="btn btn-light">可以接單</button>
 <!-- 							      	/*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ -->
-<!-- 							      	<input type="hidden" name="actionS" value="GET_ONE_FOR_BANNED"> -->
-<!-- 	                				<input type="hidden" name="action" value="GET_ONE_FOR_CHECK"> -->
-<%-- 	                				<input type="hidden" name="driverID" value="${driverVO.driverID}"> --%>
-<!-- 							     </div> -->
-<!-- 							  </Form> -->
+							      	<input type="hidden" name="actionS" value="GET_ONE_FOR_BANNED">
+	                				<input type="hidden" name="action" value="GET_ONE_FOR_CHECK">
+	                				<input type="hidden" name="driverID" value="${driverVO.driverID}">
+							     </div>
+							  </Form>
 							  可以接單。給司機檢舉。
 						      </c:if>
 						      <c:if test="${driverVO.banned == 1}">禁止接單</c:if>

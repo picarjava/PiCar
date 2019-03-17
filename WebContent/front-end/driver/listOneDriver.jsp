@@ -47,8 +47,7 @@ session.setAttribute("xxx", xxx);
                 <div class="section-header">
                   <h3 class="section-title">司機個人資料</h3>
                   <div class="text-center">
-                  <!-- <form action="homeActivity.jsp">設返回頁面 -->
-                  <form action="homeDriverDataManagment.jsp">
+                  <form action="homeDriverDataManagment.jsp"><!--設返回頁面 -->
                   <button type="submit" >返回</button>
                   </form>
                   </div>                
@@ -59,7 +58,7 @@ session.setAttribute("xxx", xxx);
             <div class="row justify-content-center">
               <div class="col-lg-12 col-md-12">
                 <div class="form">
-                  <!-- 活動表單開始 -->
+                  <!-- 司機表單開始 -->
                   <form action="https://www.google.com" method="post" role="form" class="contactForm">
                     <!-- <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post" role="form" class="contactForm"> -->
                      <div class="form-group">
@@ -201,4 +200,12 @@ session.setAttribute("xxx", xxx);
   <jsp:include page="/regna-master/body.jsp" />
 
 </body>
+<!-- <script> -->
+// $(document).ready(function(){
+	
+// 	if(${driverVO.memID}!=null)
+// 		window.alert("恭喜您 成為我們的司機，並請等待我們的審核");
+// })
+
+<!-- </script> -->
 </html>

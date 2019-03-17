@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;
@@ -35,6 +36,8 @@ import com.driver.model.DriverService;
 import com.driver.model.DriverVO;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
+
+import sun.util.resources.cldr.aa.CalendarData_aa_ER;
 @MultipartConfig
 //(fileSizeThreshold = 1024 * 1024, maxFileSize = 50 * 1024 * 1024, maxRequestSize = 5 * 50 * 1024 * 1024)
 public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖片 根據專ˋ pic跟後台講。show出哪一張
@@ -111,15 +114,14 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		// Store this set in the request scope, in case we need to
 		// send the ErrorPage view.
 		req.setAttribute("errorMsgs", errorMsgs);
-//		try {
+		try {
 //		/************************ 1.接收請求參數 - 輸入格式的錯誤處理 **********************/
 //		session.getAttribute("list");
 //		MemberVO memberVO = (MemberVO)session1.getAttribute("memberVO");
 //		String memID = "M003" ;//--假資料
 		String memID =(String)(req.getParameter("memID"));//注意:正是從session 抓下來'
 		DriverService drimem = new DriverService();
-		DriverVO  driverd =drimem.getOneDriverBymemID(memID);
-//		DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
+		DriverVO  driverd =drimem.getOneDriverBymemID(memID);//(memberVO.getMemID())
 //	    session.setAttribute("driverVO",driverVO);
 		if(driverd != null ) {//只能註冊一次司機
 			String url = "/front-end/driver/homeDriverDataManagment.jsp";//比對是否為司機
@@ -128,10 +130,12 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		}
 //		HttpSession session1 = req.getSession();
 //		String memID = (String)(session1.getAttribute("MEM_ID"));
-//		String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
 		String plateNum = (String)req.getParameter("plateNum").trim();
+		String enameReg = "[a-zA-Z]{3}[0-9]{3,4}";
 		if (plateNum == null || plateNum.trim().length() == 0) {
 			errorMsgs.add("車牌號碼請勿空白");
+		}else if (!plateNum.trim().matches(enameReg)) { //// 以下練習正則(規)表示式(regular-expression)
+			errorMsgs.add("車牌號碼: 例如ABC0001");
 		}
 		///////////////////////////區域變數給初始值--圖片
 		byte[] licence = null;
@@ -143,10 +147,6 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		for (Part part : parts) {
 			part.getName();
 		if (getFileNameFromPart(part) != null && part.getContentType()!=null) {//這裡是已經非空值
-//			long size = part.getSize();//update用到
-//			System.out.println(size);
-			//  額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
-//			InputStream in = part.getInputStream();//免除多一個連線 不用開水館
 			switch(part.getName()) {
 			case "licence":
 				licence = new byte[part.getInputStream().available()];			
@@ -195,18 +195,15 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 	}
 //		轉成byte[]; 先read進來 write出去
 		Integer verified= 0;//--預設為未通過
-		Integer banned= 0;//--
+		Integer banned= 0;//--未被BANNED
 		Date deadline = null;//--
 		Integer onlineCar= 0;//--沒在線上 由session判斷
 		Integer score= 60;//--
 ////////////////////////////////////////////照片
-		String carType= " ";
+		String carType= "PICAR";
 		carType = new String(req.getParameter("carType").trim()); //訊息做字串處理
-		String enameReg = "[a-zA-Z]{3}[0-9]{3,4}";
 		if (carType == null || carType.trim().length() == 0) {
 			errorMsgs.add("車子品牌內容: 請勿空白");
-		}else if (!carType.trim().matches(enameReg)) { //// 以下練習正則(規)表示式(regular-expression)
-			errorMsgs.add("車牌號碼: 例如ABC0001");
 		}
 		//////////////
 		Integer sharedCar ;
@@ -250,28 +247,22 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		driverSvc = new DriverService();
 		driverVO = driverSvc.addDriver(memID, 
 //				driverID, 
-				plateNum,
-				licence, criminal, trafficRecord, idNum, photo, 
+				plateNum,licence, criminal, trafficRecord, idNum, photo, 
 				verified, banned, deadline, onlineCar, score, carType, sharedCar, pet, smoke, babySeat);
 		/*****************************3.新增完成,準備轉交(Send the Success view)* Success view)**********/
 		req.setAttribute("driverVO", driverVO);
 		String url = "/front-end/driver/listOneDriver.jsp";//有空再來處理dirtyread
-		/////////////
 //		String url = "/front-end/driver/homeDriverDataManagment.jsp";
 //		res.sendRedirect(url);//會404
-		//////////
 		RequestDispatcher successView = req.getRequestDispatcher(url); //新增成功後轉交listOneDriver.jsp
 		successView.forward(req, res);
 		/**************************其他可能的錯誤處理***************************/
-		} 
-//	RequestDispatcher requestDispatcher;
-//    catch (Exception e) {
-//			errorMsgs.add(e.getMessage());
-//			RequestDispatcher failureView = req
-//					.getRequestDispatcher("/broadcast/addBrod.jsp");
-//			failureView.forward(req, res);
-//		}
-//	}
+		}   catch (Exception e) {
+			errorMsgs.add(e.getMessage());
+			RequestDispatcher failureView = req.getRequestDispatcher("/front-end/driver/addDriver.jsp");
+			failureView.forward(req, res);
+		}
+	}
 ///////////////////	
 //	//來自首頁(eg.司機會員管理)的請求(從session查出單筆司機資料)    ok
 		if("GET_ONE_FRONT".equals(action)){// 
@@ -356,11 +347,13 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		//SELECT * FROM Driver ORDER BY VERIFIED ASC, DRIVER_ID ASC;先挑出驗證再牌號碼
 if("GET_ONE_FOR_CHECK".equals(action)){
 	try {
-		System.out.println("--------------------------");
 	/*************1.接收請求參數:某一筆司機IDD**************/
 	String driverID=new String(req.getParameter("driverID").trim());
-	java.sql.Date deadline = null;//--
 	String actionS=new String(req.getParameter("actionS").trim());
+	Calendar date = Calendar.getInstance();
+ 	SimpleDateFormat sdf2 = new SimpleDateFormat("YYYY-MM-DD");
+//	java.sql.Date deadline = date.add(Calendar.HOUR, 24);//--
+	String one_day_after = sdf2.format(date.getTime());
 	/*************2查詢資料:調出某一筆的vo**************/
 	DriverService driverSvc=new DriverService();
 	DriverVO driverVO=driverSvc.getOneDriver(driverID);//從driverPK
@@ -370,14 +363,10 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	req.setAttribute("MemberVOs",MemberVOs);
 	req.setAttribute("driverVO", driverVO);
 	if("GET_ONE_FOR_PERMIT".equals(actionS)) {
-	  //撽����
-
-	RequestDispatcher failureView = req
-			.getRequestDispatcher("/back-end/driver/listOneDriver.jsp");
+	RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driver/listOneDriver.jsp");
 	failureView.forward(req, res);
 	}
 	if("GET_ONE_FOR_BANNED".equals(actionS)) {
-		//
 		if(driverVO.getBanned() == 0) {
 			driverSvc.updateBanned(driverID);
 		}else {
@@ -386,8 +375,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 		bannedView.forward(req, res);
 	}
 	if("GET_ONE_CHECK_PERMIT".equals(actionS)) {
-		RequestDispatcher failureView = req
-			.getRequestDispatcher("/back-end/driver/");//??
+		RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driver/");//??
  failureView.forward(req, res);
 	}
 	/*************4.處理例外:回listALL原頁面**************/
@@ -442,6 +430,11 @@ if("GET_ONE_FOR_BANNEDs".equals(action)){
 		}
 	//////////////////////////////////////
 //	if ("UPDATE_DRI".equals(action)) { //前端司機用(僅含喜好設定需改寫DAO) //?
+
+//long size = part.getSize();//update用到
+//System.out.println(size);
+//  額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
+//InputStream in = part.getInputStream();//免除多一個連線 不用開水館
 //		List<String> errorMsgs = new LinkedList<String>();
 //		// Store this set in the request scope, in case we need to
 //		// send the ErrorPage view.
