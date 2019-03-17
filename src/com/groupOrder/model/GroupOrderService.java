@@ -2,6 +2,7 @@ package com.groupOrder.model;
 
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.HashSet;
 import java.util.List;
 
 public class GroupOrderService {
@@ -87,5 +88,11 @@ public class GroupOrderService {
 	}
 	public void UPDATE_STATE__GROUP_ID(Integer STATE,String GROUP_ID) {
 		dao.UPDATE_STATE__GROUP_ID(STATE, GROUP_ID);
+		
+	}
+	public HashSet<String> getRatedDrivers(){
+		return dao.getRatedDrivers();
+		
+		
 	}
 }

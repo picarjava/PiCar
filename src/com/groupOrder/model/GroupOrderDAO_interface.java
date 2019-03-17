@@ -1,5 +1,6 @@
 package com.groupOrder.model;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 public interface GroupOrderDAO_interface {
@@ -19,4 +20,5 @@ public String get_memid__memid_groupid(String memid,String groupid);
 public void UPDATE_STATE__GROUP_ID(Integer STATE,String GROUP_ID);
 public List<String> get_group_id__start_time(String START_TIME,String START_TIME2);
 public Integer getMemID_groupID_startTime(String groupID,String START_TIME,String START_TIME2);
+HashSet<String> getRatedDrivers();
 }

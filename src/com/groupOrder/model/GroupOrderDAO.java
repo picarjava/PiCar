@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.naming.Context;
@@ -76,6 +77,59 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String GET_MEM_ID__GROUP_ID_START_TIME = 
 		"select COUNT(MEM_ID)as MEM_ID from GROUP_ORDER where GROUP_ID=? and START_TIME >= TO_TIMESTAMP (?, 'YYYY-MM-DD HH24:MI:SS') AND  START_TIME <= TO_TIMESTAMP (?, 'YYYY-MM-DD HH24:MI:SS')";
 		
+		private static final String  GET_RATED_DRIVERS=
+				"SELECT DISTINCT DRIVER_ID FROM GROUP_ORDER WHERE RATE IS NOT NULL AND NOT RATE=0";
+		@Override
+		public HashSet<String> getRatedDrivers(){
+			HashSet<String> hashSet =new HashSet<String>();
+			GroupOrderVO groupOrderVO =null;
+			String Drivers =null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			ResultSet rs = null;
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(GET_RATED_DRIVERS);
+				rs = pstmt.executeQuery();
+				while(rs.next()) {
+					
+					
+				
+				
+					Drivers= rs.getString("DRIVER_ID");
+					
+					hashSet.add(Drivers);
+				}
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured. "
+						+ se.getMessage());
+				// Clean up JDBC resources
+			} finally {
+				if (rs != null) {
+					try {
+						rs.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				if (con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+			
+			return hashSet;
+		}
 	@Override
 	public void insert(GroupOrderVO groupOrderVO) {
 		// TODO Auto-generated method stub
