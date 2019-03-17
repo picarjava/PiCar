@@ -26,5 +26,5 @@ for (GroupMemVO Memlist:groupMemlist){
 	ajj.add(jObj);
 }
 
-out.println(ajj.toString());
+out.println(jObj.toString());
 %> 
