@@ -232,7 +232,7 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 	<table>
 		<tr>
 			<th>揪團ID</th>
-			<th>留言板內容</th>
+		
 			<th>發起時間</th>
 			<th>簡介</th>
 			<th>揪團種類</th>
@@ -257,7 +257,7 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 
 		<tr>
 			<td><%=groupBandVO.getGroupID()%></td>
-			<td><%=groupBandVO.getContent()%></td>
+		
 			<td><%=groupBandVO.getLaunchTime()%></td>
 			<td><%=groupBandVO.getIntroduction()%></td>
 			<td><%=groupBandVO.getGroupKind()%></td>
