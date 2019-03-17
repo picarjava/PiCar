@@ -63,7 +63,6 @@ public class SingleOrderDAO implements SingleOrder_interface {
 //    } // main()
     
     
-    @Override
     public void update_state_to_delay() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;

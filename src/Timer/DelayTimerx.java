@@ -67,7 +67,7 @@ public class DelayTimerx extends HttpServlet {
 							// System.out.println("更新日期:"+new
 							// java.util.Date()+"司機編號"+driverID+"最新評價為:"+rateAve+ "分");
 							TimerTask taskdelay = null;
-							afterdelay();
+							taskdelay = afterdelay();
 							new Timer().schedule(taskdelay, 1000 * 60 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
 						}
 					};
