@@ -34,8 +34,8 @@
     <load-on-startup>3</load-on-startup>
   </servlet>
   <servlet>
-    <servlet-name>RenewDriverRate</servlet-name>
-    <servlet-class>Timer.RenewDriverRate</servlet-class>
+    <servlet-name>RenewDriverRateTimer</servlet-name>
+    <servlet-class>Timer.RenewDriverRateTimer</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
   <servlet>
