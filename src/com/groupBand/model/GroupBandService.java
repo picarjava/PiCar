@@ -93,5 +93,11 @@ public class GroupBandService {
 	}
 	public void UPDATE_GROUP_STATUS__GROUP_ID(Integer groupStatus,String groupID) {
 		dao.UPDATE_GROUP_STATUS__GROUP_ID(groupStatus, groupID);
-	} 
-}
+	}
+	public void UPDATE_CONTENT__GROUP_ID(String groupID,String content ) {
+		dao.UPDATE_CONTENT__GROUP_ID(groupID, content);		
+	}
+	public String getOneContentGroupID(String groupID) {
+		return dao.getOneContentGroupID(groupID);
+	}
+	}

@@ -447,6 +447,73 @@ function groupSelect()
 	
 	}
 </script>
+
+<script>
+function groupSelectUpdateChatRoom(room)
+{
+	alert(room);
+	   $.ajax({
+			
+	        //告訴程式表單要傳送到哪裡                                         
+
+	        url:"<%=request.getServletContext().getContextPath()%>/front-end/groupBand/AjexGroupInsertchatroom.jsp",                                                              
+
+	        //需要傳送的資料
+
+	        data:"room="+room+"&groupID=<%=groupBandVO.getGroupID()%>",  
+
+	         //使用POST方法     
+
+	        type : "POST",                                                                    
+
+	        //接收回傳資料的格式，在這個例子中，只要是接收true就可以了
+	        dataType:'json', 
+
+	         //傳送失敗則跳出失敗訊息      
+
+	        error:function(selects){                                                                 
+	        	 console.log(selects);
+	        //資料傳送失敗後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+					
+	        		for(let i=0;i<selects.length;i++)
+	        		{
+	        			var newDiv = document.createElement("div");
+	        			newDiv.id = selects[i].name;
+	        			newDiv.innerHTML= selects[i].name;
+	        			messa.appendChild(newDiv);
+	        		}
+			
+	        
+	        
+					
+	        },
+
+	        //傳送成功則跳出成功訊息
+
+	        success:function(selects){                                                           
+	        	 console.log(selects);
+	 	        //資料傳送失敗後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+	 					
+	 	        		for(let i=0;i<selects.length;i++)
+	 	        		{
+	 	        			var newDiv = document.createElement("div");
+	 	        			newDiv.id = selects[i].name;
+	 	        			newDiv.innerHTML= selects[i].name+":  已連線";
+	 	        			messa.appendChild(newDiv);
+	 	        		}
+	        //資料傳送成功後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+	  		
+
+	        }
+
+	    }); 
+	
+	}
+</script>
+
+
+
+
 <script>
 function groupJoin()
 {
@@ -615,17 +682,18 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 	        }
 	        else
 	        {
-	        
+	        	
 	        messagesArea.value = messagesArea.value + message;
 	        
 	        messagesArea.scrollTop = messagesArea.scrollHeight;
+	        groupSelectUpdateChatRoom(messagesArea.value);
 	  	  	}
 	        	
 		};
 
 		webSocket.onclose = function(event) {
 			updateStatus("WebSocket 已離線");
-			groupdelecte();
+			groupSelect();
 		};
 		
 	}
@@ -658,7 +726,7 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 
 	
 	function disconnect () {
-		groupdelecte();
+		groupSelect();
 		webSocket.close();
 		document.getElementById('sendMessage').disabled = true;
 		document.getElementById('connect').disabled = false;

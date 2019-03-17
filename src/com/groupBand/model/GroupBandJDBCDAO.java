@@ -423,5 +423,17 @@ public class GroupBandJDBCDAO implements GroupBandDAO_interface{
 		
 	}
 
+	@Override
+	public void UPDATE_CONTENT__GROUP_ID(String groupID, String content) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public String getOneContentGroupID(String groupID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 }
