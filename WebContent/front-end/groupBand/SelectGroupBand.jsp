@@ -36,11 +36,6 @@
 </style>
 <body bgcolor='white'>
 
-<table id="table-1">
-   <tr><td><h3>揪團</h3><h4>( MVC )</h4></td></tr>
-</table>
-
-<p>揪團</p>
 
 <h3>揪團資料查詢:</h3>
 
@@ -54,8 +49,6 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllGroupBand.jsp'>List</a> AllGroupBand  <br><br></li>
- 
   
   <li>
     <FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"  enctype="multipart/form-data">
