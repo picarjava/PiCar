@@ -45,8 +45,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
     //撈長期訂單2:再透過 撈長期的LAUNCH_TIME ，撈此長期預約的整組
     private static final String LIST_ONT_SET_OF_LONGTERM="SELECT * FROM SINGLE_ORDER WHERE STATE=0 AND DRIVER_ID IS NULL AND ORDER_TYPE=4 AND LAUNCH_TIME=?";
 //    以下兩個方法用於訂單管理排成使用
-    private final static String TIME_FROM_START =  "SELECT DISTINCT START_TIME"
-//    		+ "ORDER_ID"
+    private final static String TIME_FROM_START =  "SELECT DISTINCT "
+    		+ "ORDER_ID"
 //    		+ ",START_TIME "
     		+ "FROM SINGLE_ORDER WHERE START_TIME >= TO_TIMESTAMP (?, 'YYYY-MM-DD HH24:MI:SS') AND START_TIME <= TO_TIMESTAMP (?, 'YYYY-MM-DD HH24:MI:SS') "
 //    		+ "and STATE=1"
@@ -273,8 +273,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
 //		where 取現在三天後時間
 		rs = pstmt.executeQuery();
 		while(rs.next()) {
-		starttime=(rs.getString("START_TIME"));
-//		starttime=(rs.getString("ORDER_ID"));
+//		starttime=(rs.getString("START_TIME"));
+		starttime=(rs.getString("ORDER_ID"));
 		list.add(starttime);
 // 訂單 開始時間ID
 //		list.add(orderid).add(memid).add;
