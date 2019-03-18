@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -27,18 +28,21 @@ public class SingleOrderDAO implements SingleOrder_interface {
                                                                   "START_LOC, END_LOC, START_LNG, START_LAT, " +
                                                                   "END_LNG, END_LAT, TOTAL_AMOUNT, ORDER_TYPE, " +
                                                                   "NOTE, LAUNCH_TIME) " + 
-                                                                  "VALUES ('SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                                                                  "VALUES ('SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
     //小編新增司機查評價平均
     private final static String DRIVER_RATE_AVE_STMT ="SELECT AVG(RATE) AS Avg_RATE FROM SINGLE_ORDER  WHERE DRIVER_ID =?";
     //小編新增一個刪除語法
     private static final String DELETE=
 			"DELETE FROM SINGLE_ORDER WHERE ORDER_ID=?";
-
     //小編新增查被評價司機
     private static final String GET_RATED_DRIVERS="SELECT DISTINCT DRIVER_ID FROM SINGLE_ORDER WHERE RATE IS NOT NULL AND NOT RATE=0";
-    
-    
-
+    /*小編預約訂單排程器用*/
+    //撈單程訂單:三天前 可撈單程
+    private static final String LIST_All_UNPAID_SINGLE="SELECT * FROM SINGLE_ORDER WHERE STATE=0 AND DRIVER_ID IS NULL AND ORDER_TYPE=3 AND START_TIME-3 <= CURRENT_TIMESTAMP";
+     //撈長期訂單1:三天前撈出長期單的前幾筆)
+    private static final String LIST_EARLIER_PART_UNPAID_FROM_LONGTERM_SETS="SELECT * FROM SINGLE_ORDER WHERE STATE=0 AND DRIVER_ID IS NULL AND ORDER_TYPE=4 AND START_TIME-3 <= CURRENT_TIMESTAMP";
+    //撈長期訂單2:再透過 撈長期的LAUNCH_TIME ，撈此長期預約的整組
+    private static final String LIST_ONT_SET_OF_LONGTERM="SELECT * FROM SINGLE_ORDER WHERE STATE=0 AND DRIVER_ID IS NULL AND ORDER_TYPE=4 AND LAUNCH_TIME=?";
 //    以下兩個方法用於訂單管理排成使用
     private final static String TIME_FROM_START =  "SELECT ORDER_ID ,START_TIME FROM SINGLE_ORDER WHERE START_TIME = ?";
     private static final String UPDATE_STATE_TO_DELAY =	"UPDATE SINGLE_ORDER SET STATE ='6' WHERE ";
@@ -70,7 +74,133 @@ public class SingleOrderDAO implements SingleOrder_interface {
 //        System.out.println(singleOrderDAO.getAll());
 //    } // main()
     
-
+    /*小編預約訂單排程器用*/
+  //撈單程訂單:三天前 可撈單程
+    public HashSet<SingleOrderVO> listAllUnpaidReservationOrder(){
+    	HashSet<SingleOrderVO> allUnpaidReservationOrderID=new HashSet<SingleOrderVO>();
+    	SingleOrderVO singleOrderVO=new  SingleOrderVO();
+    	Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+    	try {
+    		con=dataSource.getConnection();
+			pstmt=con.prepareStatement(LIST_All_UNPAID_SINGLE);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				singleOrderVO.setOrderID(rs.getString("ORDER_ID"));
+				singleOrderVO.setDriverID(rs.getString("DRIVER_ID"));
+				singleOrderVO.setMemID(rs.getString("MEM_ID"));
+				singleOrderVO.setState(rs.getInt("STATE"));
+				singleOrderVO.setStartTime(rs.getTimestamp("START_TIME"));
+				singleOrderVO.setEndTime(rs.getTimestamp("END_TIME"));
+				singleOrderVO.setStartLoc(rs.getString("START_LOC"));
+				singleOrderVO.setEndLoc(rs.getString("END_LOC"));
+				singleOrderVO.setStartLng(rs.getDouble("START_LNG"));
+				singleOrderVO.setStartLat(rs.getDouble("START_LAT"));
+				singleOrderVO.setEndLng(rs.getDouble("END_LNG"));
+				singleOrderVO.setEndLat(rs.getDouble("END_LAT"));
+				singleOrderVO.setTotalAmount(rs.getInt("TOTAL_AMOUNT"));
+				singleOrderVO.setOrderType(rs.getInt("ORDER_TYPE"));
+				singleOrderVO.setRate(rs.getInt("RATE"));
+				singleOrderVO.setNote(rs.getString("NOTE"));
+				singleOrderVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
+				allUnpaidReservationOrderID.add(singleOrderVO);
+			}
+    	}catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pstmt);
+            closeConnection(con);
+        } // finally
+    	
+    	return allUnpaidReservationOrderID;
+    }
+  //撈長期訂單1:三天前撈出長期單的前幾筆) LIST_EARLIER_PART_FROM_LONGTERM_SETS
+    public HashSet<SingleOrderVO> listEarlierPartUnpaidFromLongtermSets(){
+    	HashSet<SingleOrderVO> earlierPartUnpaidFromLongtermSets=new HashSet<SingleOrderVO>();
+    	SingleOrderVO singleOrderVO=new  SingleOrderVO();
+    	Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+    		con=dataSource.getConnection();
+			pstmt=con.prepareStatement(LIST_EARLIER_PART_UNPAID_FROM_LONGTERM_SETS);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				singleOrderVO.setOrderID(rs.getString("ORDER_ID"));
+				singleOrderVO.setDriverID(rs.getString("DRIVER_ID"));
+				singleOrderVO.setMemID(rs.getString("MEM_ID"));
+				singleOrderVO.setState(rs.getInt("STATE"));
+				singleOrderVO.setStartTime(rs.getTimestamp("START_TIME"));
+				singleOrderVO.setEndTime(rs.getTimestamp("END_TIME"));
+				singleOrderVO.setStartLoc(rs.getString("START_LOC"));
+				singleOrderVO.setEndLoc(rs.getString("END_LOC"));
+				singleOrderVO.setStartLng(rs.getDouble("START_LNG"));
+				singleOrderVO.setStartLat(rs.getDouble("START_LAT"));
+				singleOrderVO.setEndLng(rs.getDouble("END_LNG"));
+				singleOrderVO.setEndLat(rs.getDouble("END_LAT"));
+				singleOrderVO.setTotalAmount(rs.getInt("TOTAL_AMOUNT"));
+				singleOrderVO.setOrderType(rs.getInt("ORDER_TYPE"));
+				singleOrderVO.setRate(rs.getInt("RATE"));
+				singleOrderVO.setNote(rs.getString("NOTE"));
+				singleOrderVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
+				earlierPartUnpaidFromLongtermSets.add(singleOrderVO);
+			}
+    	}catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pstmt);
+            closeConnection(con);
+        } // finally
+    	return earlierPartUnpaidFromLongtermSets;
+    }
+  //撈長期訂單2:再透過 撈長期第一筆LAUNCH_TIME ，撈此長期預約的整組
+    public HashSet<SingleOrderVO> listOneSetOfLongterm(Timestamp launchtime){
+    	HashSet<SingleOrderVO> oneSetOfLongterm=new HashSet<SingleOrderVO>();
+    	SingleOrderVO singleOrderVO=new  SingleOrderVO();
+    	Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+    		con=dataSource.getConnection();
+			pstmt=con.prepareStatement(LIST_ONT_SET_OF_LONGTERM);
+			pstmt.setTimestamp(1, launchtime);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				singleOrderVO.setOrderID(rs.getString("ORDER_ID"));
+				singleOrderVO.setDriverID(rs.getString("DRIVER_ID"));
+				singleOrderVO.setMemID(rs.getString("MEM_ID"));
+				singleOrderVO.setState(rs.getInt("STATE"));
+				singleOrderVO.setStartTime(rs.getTimestamp("START_TIME"));
+				singleOrderVO.setEndTime(rs.getTimestamp("END_TIME"));
+				singleOrderVO.setStartLoc(rs.getString("START_LOC"));
+				singleOrderVO.setEndLoc(rs.getString("END_LOC"));
+				singleOrderVO.setStartLng(rs.getDouble("START_LNG"));
+				singleOrderVO.setStartLat(rs.getDouble("START_LAT"));
+				singleOrderVO.setEndLng(rs.getDouble("END_LNG"));
+				singleOrderVO.setEndLat(rs.getDouble("END_LAT"));
+				singleOrderVO.setTotalAmount(rs.getInt("TOTAL_AMOUNT"));
+				singleOrderVO.setOrderType(rs.getInt("ORDER_TYPE"));
+				singleOrderVO.setRate(rs.getInt("RATE"));
+				singleOrderVO.setNote(rs.getString("NOTE"));
+				singleOrderVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
+				oneSetOfLongterm.add(singleOrderVO);
+			}
+    	}catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pstmt);
+            closeConnection(con);
+        } // finally
+    	return oneSetOfLongterm;
+    }
+    
   //小編新增查被評價司機
     public HashSet<String> getRatedDrivers(){
     	HashSet<String> ratedDrivers=new HashSet<String>();
@@ -97,7 +227,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
     	return ratedDrivers;
     }
     
-    //小編新增司機查評價平均
+   
 
     
     public void update_state_to_delay() {
@@ -173,7 +303,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
 }
     
     
-    ////小編新增司機查評價平均
+    //小編新增司機查評價平均
 
     public int findRateAveByDriverID(String driverID) {
     	Connection con=null;

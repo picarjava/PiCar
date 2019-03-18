@@ -86,7 +86,7 @@
               <form action="<%=application.getContextPath()%>/singleOrder" method="post" role="form" class="contactForm">
  					<div class="form-group">
 	                   <p>會員編號</p>
-	                  <input type="text" name="memID" class="form-control" value="${memID}"   placeholder="請輸入會員編號" />
+	                  <input type="text" name="memID" class="form-control" value="${memID}"  readonly placeholder="請輸入會員編號" />
 	       			</div>
 	       			<div class="form-row">
 		       			<div class="col">

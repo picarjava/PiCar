@@ -57,14 +57,7 @@ public class GroupOrderServlet extends HttpServlet {
 	     }catch(RuntimeException e) {
 	    	errorMsgs.add("無法更新至資料庫");
 	    }
-	   //有評價，則將司機ID放入context，讓排成器 RenewDriverRate.java定時更新司機評價
-        @SuppressWarnings("unchecked")
-		HashSet<String> ratingHashSet= (HashSet<String>)getServletContext().getAttribute("rateingHashSet");
-        if(ratingHashSet==null) {
-        	ratingHashSet=new HashSet<String>();
-        	getServletContext().setAttribute("ratingHashSet", ratingHashSet);
-        }
-        ratingHashSet.add(groupOrderVO.getDriverID());
+	   
 	    forwordURL ="/front-end/groupOrder/listPastGroupOrder.jsp";//成功則回歷史頁面
 	    RequestDispatcher requestDispatcher=req.getRequestDispatcher(forwordURL);
 		requestDispatcher.forward(req, res);
