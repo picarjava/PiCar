@@ -22,6 +22,10 @@ DriverService driSrc = new DriverService();
 DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 
 	%>
+	
+	<!--  Session得到的MemberVO原本沒有照片，若新增照片 ，要先拿出MEMID 透過SERVEICE 查詢這位會員的新資料，拿到新的MemberVO 裡面才有照片 -->
+	<jsp:useBean id="memberSvc" class="com.member.model.MemberService"/>
+	${memberSvc.getOneMember(memberVO.memID).memID}
 
 	<%
 		LinkedList errorMsgs = (LinkedList) request.getAttribute("errorMsgs");
@@ -115,13 +119,21 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 							</div>
 							
 							<div class="form-group">
-								<p>會員照片</p>
-								<c:if test="${empty memberVO.pic}" >
-					            <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" class='card-img-top' width='300' height='350'>
-					            </c:if>
-					             <c:if test="${not empty memberVO.pic}" >
-									<img src="<%=request.getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='400' height='350' >
-					             </c:if>
+<!-- 								<p>會員照片</p> -->
+<%-- 								<c:if test="${empty memberVO.pic}" > --%>
+<%-- 					            <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" class='card-img-top' width='300' height='350'> --%>
+<%-- 					            </c:if> --%>
+<%-- 					             <c:if test="${not empty memberVO.pic}" > --%>
+<%-- 									<img src="<%=request.getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='400' height='350' > --%>
+<%-- 					             </c:if> --%>
+
+									<p>會員照片</p> -->
+										<c:if test="${empty memberSvc.getOneMember(memberVO.memID).pic}" >
+							            <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" class='card-img-top' width='300' height='350'>
+							            </c:if>
+							             <c:if test="${not empty memberSvc.getOneMember(memberVO.memID).pic}" >
+										<img src="<%=request.getContextPath()%>/front-end/member/member.do?memID=${memberSvc.getOneMember(memberVO.memID).memID}"  width='400' height='350' >
+						                </c:if>
 							</div>
 							
 							<div class="form-group">
