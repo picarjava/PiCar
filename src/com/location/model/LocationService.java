@@ -34,7 +34,11 @@ public class LocationService {
         locationDAO.delete(memID, location);
     } // deleteLocation()
     
-    public List<LocationVO> getAll(String memID) {
+    public List<LocationVO> getAll(String memID) {   //阿君前台頁面使用
         return locationDAO.getAll(memID);
+    } // getAll()
+    
+    public List<LocationVO> getAll() {
+        return locationDAO.getAll();
     } // getAll()
 }
