@@ -17,6 +17,7 @@ import java.util.List;
 public class SingleOrderDAO implements SingleOrder_interface {
 	private final static String SELECT_STMT = "SELECT * FROM SINGLE_ORDER WHERE ORDER_ID=?";
 	private final static String SELECT_BY_STATE_AND_ORDER_TYPE_STMT = "SELECT * FROM SINGLE_ORDER WHERE STATE=? AND ORDER_TYPE=? ORDER BY ORDER_ID";
+	private final static String SELECT_BY_STATE_AND_DRIVER_ID_STMT = "SELECT * FROM SINGLE_ORDER WHERE STATE=? AND DRIVER_ID=? ORDER BY ORDER_ID";
 	private final static String SELECT_ALL_STMT = "SELECT * FROM SINGLE_ORDER";
 	private final static String UPDATE_DRIVER_ID_AND_STATE_BY_ORDER_ID = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, STATE=? WHERE ORDER_ID=?";
     private final static String UPDATE_STMT = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, STATE=?, START_TIME=?, END_TIME=?, " +
@@ -209,11 +210,6 @@ public class SingleOrderDAO implements SingleOrder_interface {
 		}
     	return rateAve;
     }
-    
-    private int parseInt(String driverID) {
-	// TODO Auto-generated method stub
-	return 0;
-}
 
 	//小編新增一個刪除方法
     @Override
@@ -460,6 +456,32 @@ public class SingleOrderDAO implements SingleOrder_interface {
             closePreparedStatement(preparedStatement);
             closeConnection(connection);
         } // finally
+        
+        return list;
+    }
+    
+    @Override
+    public List<SingleOrderVO> findByStateAndDriverID(Integer state, String driverID) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<SingleOrderVO> list = new ArrayList<>();
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(SELECT_BY_STATE_AND_DRIVER_ID_STMT);
+            preparedStatement.setInt(1, state);
+            preparedStatement.setString(2, driverID);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                list.add(getSingleOrderVO(resultSet));
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        }
         
         return list;
     }
