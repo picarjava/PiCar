@@ -101,6 +101,10 @@ public class SingleOrderService {
         return singleOrderDAO.findByStateAndOrderType(state, orderType);
     } // getByStateAndOrderType()
     
+    public List<SingleOrderVO> getByStateAndDriverID(Integer state, String driverID) {
+        return singleOrderDAO.findByStateAndDriverID(state, driverID);
+    } //  getByStateAndDriverID()
+    
     public void updateDriverIDAndStateByOrderID(String driverID, Integer state, String orderID) {
         singleOrderDAO.updateDriverIDAndStateByOrderID(driverID, state, orderID);
     } // updateDriverIDAndStateByOrderID()
@@ -112,5 +116,5 @@ public class SingleOrderService {
     //新增訂單管理延遲時間
     public void update_state_to_delay(){
     	singleOrderDAO.update_state_to_delay();
-    } // update_state_to_delay
+    } // update_state_to_delay()
 } // class SingleOrderService

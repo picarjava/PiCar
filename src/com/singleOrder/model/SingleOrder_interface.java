@@ -15,6 +15,7 @@ public interface SingleOrder_interface {
     void delete(String orderID);
     void insert(LinkedList<SingleOrderVO> singleOrderVOList); //長期訂單新增用
     int findRateAveByDriverID(String driverID);//小編司機查評價平均
+    List<SingleOrderVO> findByStateAndDriverID(Integer State, String driverID);
   	HashSet<String> getRatedDrivers(); //小編得到已評價司機
 	void update_state_to_delay();
 	/*小編預約訂單排程器用*/

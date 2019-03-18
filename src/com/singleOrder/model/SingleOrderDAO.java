@@ -18,6 +18,7 @@ import java.util.List;
 public class SingleOrderDAO implements SingleOrder_interface {
 	private final static String SELECT_STMT = "SELECT * FROM SINGLE_ORDER WHERE ORDER_ID=?";
 	private final static String SELECT_BY_STATE_AND_ORDER_TYPE_STMT = "SELECT * FROM SINGLE_ORDER WHERE STATE=? AND ORDER_TYPE=? ORDER BY ORDER_ID";
+	private final static String SELECT_BY_STATE_AND_DRIVER_ID_STMT = "SELECT * FROM SINGLE_ORDER WHERE STATE=? AND DRIVER_ID=? ORDER BY ORDER_ID";
 	private final static String SELECT_ALL_STMT = "SELECT * FROM SINGLE_ORDER";
 	private final static String UPDATE_DRIVER_ID_AND_STATE_BY_ORDER_ID = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, STATE=? WHERE ORDER_ID=?";
     private final static String UPDATE_STMT = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, STATE=?, START_TIME=?, END_TIME=?, " +
@@ -44,8 +45,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
     //撈長期訂單2:再透過 撈長期的LAUNCH_TIME ，撈此長期預約的整組
     private static final String LIST_ONT_SET_OF_LONGTERM="SELECT * FROM SINGLE_ORDER WHERE STATE=0 AND DRIVER_ID IS NULL AND ORDER_TYPE=4 AND LAUNCH_TIME=?";
 //    以下兩個方法用於訂單管理排成使用
-    private final static String TIME_FROM_START =  "SELECT DISTINCT START_TIME"
-//    		+ "ORDER_ID"
+    private final static String TIME_FROM_START =  "SELECT DISTINCT "
+    		+ "ORDER_ID"
 //    		+ ",START_TIME "
     		+ "FROM SINGLE_ORDER WHERE START_TIME >= TO_TIMESTAMP (?, 'YYYY-MM-DD HH24:MI:SS') AND START_TIME <= TO_TIMESTAMP (?, 'YYYY-MM-DD HH24:MI:SS') "
 //    		+ "and STATE=1"
@@ -275,8 +276,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
 //		where 取現在三天後時間
 		rs = pstmt.executeQuery();
 		while(rs.next()) {
-		starttime=(rs.getString("START_TIME"));
-//		starttime=(rs.getString("ORDER_ID"));
+//		starttime=(rs.getString("START_TIME"));
+		starttime=(rs.getString("ORDER_ID"));
 		list.add(starttime);
 // 訂單 開始時間ID
 //		list.add(orderid).add(memid).add;
@@ -349,11 +350,6 @@ public class SingleOrderDAO implements SingleOrder_interface {
 		}
     	return rateAve;
     }
-    
-    private int parseInt(String driverID) {
-	// TODO Auto-generated method stub
-	return 0;
-}
 
 	//小編新增一個刪除方法
     @Override
@@ -600,6 +596,32 @@ public class SingleOrderDAO implements SingleOrder_interface {
             closePreparedStatement(preparedStatement);
             closeConnection(connection);
         } // finally
+        
+        return list;
+    }
+    
+    @Override
+    public List<SingleOrderVO> findByStateAndDriverID(Integer state, String driverID) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<SingleOrderVO> list = new ArrayList<>();
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(SELECT_BY_STATE_AND_DRIVER_ID_STMT);
+            preparedStatement.setInt(1, state);
+            preparedStatement.setString(2, driverID);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                list.add(getSingleOrderVO(resultSet));
+            }
+        } catch(SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        }
         
         return list;
     }

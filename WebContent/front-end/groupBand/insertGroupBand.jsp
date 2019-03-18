@@ -179,6 +179,7 @@ th, td {
 						</div>
 						<div class="col">
 		       			<p id="duration"></p>
+		       
 		       			</div>
 	       			</div>
 				    <div class="form-row">
@@ -288,6 +289,7 @@ th, td {
                 <input type="hidden" id="startLat" name="startLat" value="">
                 <input type="hidden" id="endLng" name="endLng" value="">
                 <input type="hidden" id="endLat" name="endLat" value="">
+				<input type="hidden" id="distancees" name="distancees" value="">	
 	</form>
 </body>
 <!-- google map auto place complete 開始 -->
@@ -379,6 +381,8 @@ AutocompleteDirectionsHandler.prototype.route = function() {
           var distance =response.routes[0].legs[0].distance.value;
     	  var duration=response.routes[0].legs[0].duration.value;
     	  
+    	  var distancees = document.getElementById('distancees');
+    	  distancees.value=distance;    	  
     	  document.getElementById('distance').innerHTML = 
              "<h3>預估距離</h3>"+ parseInt(distance/1000) + "公里"+distance%1000+"公尺" ;
     	  document.getElementById('duration').innerHTML = 
@@ -446,7 +450,7 @@ $('#buttons').datetimepicker(
 			step: 5,
 			timepicker : true,
 					value : '<%=startTime%>',
-			minDate:           '-1970-01-01', // 去除今日(不含)之前
+			minDate:           '+1970-01-03', // 去除今日(不含)之前
 			maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 		});
 		
@@ -508,7 +512,7 @@ function datestamps(){
 	days.innerHTML="";
 	
 	//位數字產生日期
-	for(a=1 ;a<=sunday ;a++){
+	for(a=7 ;a<=sunday ;a++){
 		days.innerHTML=days.innerHTML+"<option value="+a+">"+a+"</option>";
 	}
 

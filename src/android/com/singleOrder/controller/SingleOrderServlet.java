@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -28,7 +29,6 @@ import com.member.model.MemberVO;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 
-import android.com.driver.controller.DriverServlet;
 import android.com.location.model.StoredInfo;
 
 import com.driver.model.DriverVO;
@@ -68,7 +68,7 @@ public class SingleOrderServlet extends HttpServlet {
         String action = jsonIn.get("action").getAsString();
         if ("insert".equals(action)) {
             SingleOrderVO singleOrderVO = gson.fromJson(jsonIn.get("singleOrder").getAsString(), SingleOrderVO.class);
-            singleOrderService.addSingleOrder(singleOrderVO.getMemID(), 0, null, singleOrderVO.getStartLoc(),
+            singleOrderService.addSingleOrder(singleOrderVO.getMemID(), NOT_ESTABLISHED, null, singleOrderVO.getStartLoc(),
                                               singleOrderVO.getEndLoc(), singleOrderVO.getEndLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(),
                                               singleOrderVO.getEndLat(), 0, singleOrderVO.getOrderType(), singleOrderVO.getNote(), new Timestamp(System.currentTimeMillis()));
             
@@ -84,6 +84,7 @@ public class SingleOrderServlet extends HttpServlet {
     		list = new ArrayList<Map.Entry<String, StoredInfo>>(MatchDriver.entrySet());
 
     		Collections.sort(list, new Comparator<Map.Entry<String, StoredInfo>>() {
+    		    @Override
     			public int compare(Entry<String, StoredInfo> o1, Entry<String, StoredInfo> o2) {
     				
     				Double lat3 = o1.getValue().getLatlng().getLatitude();
@@ -121,12 +122,18 @@ public class SingleOrderServlet extends HttpServlet {
             jsonOut.addProperty("carType", driver.getCarType());
             writer.write(jsonOut.toString());
         } else if ("getNewSingleOrder".equals(action)) {
-            List<SingleOrderVO> singleOrderVOs = singleOrderService.getByStateAndOrderType(NOT_ESTABLISHED, ONE_TIME_RESERVE);
+            List<SingleOrderVO> singleOrderVOs = singleOrderService.getByStateAndOrderType(ESTABLISHED, ONE_TIME_RESERVE)
+                                                                   .stream()
+                                                                   .filter(singleOrder -> singleOrder.getDriverID() == null)
+                                                                   .collect(Collectors.toList());
             gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
             writer.print(gson.toJson(singleOrderVOs));
             System.out.println(gson.toJson(singleOrderVOs));
         } else if ("getLongTermSingleOrder".equals(action)) {
-            List<SingleOrderVO> singleOrderVOs = singleOrderService.getByStateAndOrderType(NOT_ESTABLISHED, LONG_TERM_RESERVE);
+            List<SingleOrderVO> singleOrderVOs = singleOrderService.getByStateAndOrderType(ESTABLISHED, LONG_TERM_RESERVE)
+                                                                   .stream()
+                                                                   .filter(singleOrder -> singleOrder.getDriverID() == null)
+                                                                   .collect(Collectors.toList());
             gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
             writer.print(gson.toJson(convertToLongTermOrder(singleOrderVOs)));
             System.out.println(gson.toJson(convertToLongTermOrder(singleOrderVOs)));
@@ -146,7 +153,6 @@ public class SingleOrderServlet extends HttpServlet {
             JsonObject jsonObject = new JsonObject();
             if (singleOrderVO != null && driverID != null && driverID.equals(singleOrderVO.getDriverID())) {
                 singleOrderService.updateDriverIDAndStateByOrderID(driverID, EXRCUTING, orderID);
-                
                 Map<String, StoredInfo> driverLocation = (Map<String, StoredInfo>) getServletContext().getAttribute("driverLocation");
                 Session session = driverLocation.get(driverID).getSession();
                 if (session != null && session.isOpen()) {

@@ -1,5 +1,11 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<%@ page import="com.driver.model.*"%>
+<%@ page import="com.member.model.*"%>
+<%@ page import="java.util.*"%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -55,6 +61,14 @@ width: 100px;
     </head>
 
     <body>
+    
+        <%
+    MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+    DriverService driSrc = new DriverService();
+    DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
+    session.setAttribute("driverVO",driverVO);
+    DriverVO drixx = (DriverVO)session.getAttribute("driverVO");
+	%>
 
         <!-- Header -->
         <div class="container">
@@ -91,7 +105,12 @@ width: 100px;
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/activityToken/listOnesAllActivityToken.jsp"><i class="fas fa-coins"></i><br />代幣管理</a>
                                     </li>
                                     <li class="widthes">
-                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/addDriver.jsp"><i class="icon-user"></i><br />成為司機</a>
+						      <c:if test="${empty driverVO.driverID}">
+						      <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/addDriver.jsp"><i class="icon-user"></i><br />成為司機</a>
+						      </c:if>
+						      <c:if test="${not empty driverVO.driverID}">
+						      <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/homeDriverDataManagment.jsp"><i class="icon-user"></i><br />司機頁面</a>
+						      </c:if>
                                     </li>
                                 </ul>
                             </div>
