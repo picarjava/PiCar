@@ -44,6 +44,7 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 	private static final String GET_ONE_BY_MEMID_STMT = "SELECT * FROM DRIVER WHERE MEM_ID=?";
 	private static final String GET_DRIVERID_BY_MEMID_STMT = "SELECT DRIVER_ID FROM DRIVER WHERE MEM_ID=?";
 	private static final String UPDATE_BANNED = "UPDATE DRIVER SET BANNED='1' WHERE DRIVER_ID=?";
+	private static final String UPDATE_BACKBANNED = "UPDATE DRIVER SET BANNED='0' WHERE DRIVER_ID=?";
 	private static final String UPDATE_PERMITTED ="UPDATE DRIVER SET VERIFIED=? WHERE DRIVER_ID=?";
 	//小編更新司機評價
 	private static final String UPDATE_RATE ="UPDATE DRIVER SET SCORE=? WHERE DRIVER_ID=?";
@@ -153,7 +154,6 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 			pstmt = con.prepareStatement(UPDATE);
 			/* 根據SQL常數，用vo.getxxx去set pstmt需要的值 */
 
-
 			pstmt.setString(1, driverVO.getPlateNum());
 			pstmt.setBytes(2, driverVO.getLicence());
 			pstmt.setBytes(3, driverVO.getCriminal());
@@ -227,7 +227,6 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 				}
 			}
 		}
-	
 	}
 	@Override
 	public DriverVO findByPrimaryKey(String driverID) {
@@ -328,7 +327,6 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 				driverVOall.setPet(rs.getInt("PET"));
 				driverVOall.setSmoke(rs.getInt("SMOKE"));
 				driverVOall.setBabySeat(rs.getInt("BABY_SEAT"));
-
 			
 				list.add(driverVOall);
 
@@ -352,7 +350,6 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 			}
 		}
 		return list;
-
 	}
 
 	@Override
@@ -526,6 +523,45 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 	}
 //讀的時候dirtyread 避免 寫一個方法
 	@Override
+	public DriverVO updateBannedBack(String driverID) {
+		
+		DriverVO driverVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		int index = 1;
+		
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+//			// 2●設定於 pstm.executeUpdate()之後
+			pstmt = con.prepareStatement(UPDATE_BACKBANNED);
+			pstmt.setString(1, driverID);
+			pstmt.executeUpdate();
+			
+			con.commit();
+		} catch (SQLException se) {
+			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		return driverVO;
+	}
+//讀的時候dirtyread 避免 寫一個方法
+	@Override
 	public DriverVO updateBanned(String driverID) {
 		
 		DriverVO driverVO = null;
@@ -536,64 +572,14 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 		try {
 			con = ds.getConnection();
 			con.setAutoCommit(false);
-//			pstmt = con.prepareStatement(INSERT_STMT);
-//			String cols[] = {"GROUP_ID"};
-//			pstmt = con.prepareStatement(INSERT_STMT , cols);
-			
-
-//pstmt.setString(index++, driverVO.getMemID());
-////pstmt.setString(index++, driverVO.getDriverID());
-//pstmt.setString(index++, driverVO.getPlateNum());
-//pstmt.setBytes(index++, driverVO.getLicence());
-//pstmt.setBytes(index++, driverVO.getCriminal());
-//pstmt.setBytes(index++, driverVO.getTrafficRecord());
-//pstmt.setBytes(index++, driverVO.getIdNum());
-//pstmt.setBytes(index++, driverVO.getPhoto());
-//pstmt.setInt(index++, driverVO.getVerified());
-//pstmt.setInt(index++, driverVO.getBanned());
-//pstmt.setDate(index++, driverVO.getDeadline());
-//pstmt.setInt(index++, driverVO.getOnlineCar());
-//pstmt.setInt(index++, driverVO.getScore());
-//pstmt.setString(index++, driverVO.getCarType());
-//pstmt.setInt(index++, driverVO.getSharedCar());
-//pstmt.setInt(index++, driverVO.getPet());
-//pstmt.setInt(index++, driverVO.getSmoke());
-//pstmt.setInt(index++, driverVO.getBabySeat());
-			
-//			pstmt.executeUpdate();
-//			String next_deptno = null;
-//			ResultSet rs = pstmt.getGeneratedKeys();
-//			System.out.println("自增主鍵值= " + next_deptno +"(剛新增成功的部門編號)");
-//			if (rs.next()) {
-//				next_deptno = rs.getString(1);
-//				System.out.println("自增主鍵值= " + next_deptno +"(剛新增成功的部門編號)");
-//			} else {
-//				System.out.println("未取得自增主鍵值");
-//			}
-//			GroupOrderDAO dao = new GroupOrderDAO();
-//			System.out.println("list.size()-A="+list.size());
-//			
-//			for (GroupOrderVO groupOrderVO : list) {				
-//				groupOrderVO.setGroupID(next_deptno) ;				
-//						
-//			}
-//			dao.insert2(list,con);		
-//			System.out.println("++++++++++++++++++++++++++++++++++++++++");
-//				
 //			// 2●設定於 pstm.executeUpdate()之後
-//
-//
-//
 			pstmt = con.prepareStatement(UPDATE_BANNED);
-
 			pstmt.setString(1, driverID);
-
 			pstmt.executeUpdate();
 
 			con.commit();
 		} catch (SQLException se) {
 			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
-
 		} finally {
 			if (pstmt != null) {
 				try {
@@ -611,7 +597,6 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 				}
 			}
 		}
-		
 		return driverVO;
 	}
 

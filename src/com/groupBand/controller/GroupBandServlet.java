@@ -430,13 +430,13 @@ public class GroupBandServlet extends HttpServlet {
 
 				Timestamp endTime = null;
 
-				Double startLng = 0.1;
+				Double startLng =  new Double(req.getParameter("startLng").trim());
 
-				Double startLat = 0.1;
+				Double startLat =  new Double(req.getParameter("startLat").trim());
 
-				Double endLng = 0.1;
+				Double endLng =  new Double(req.getParameter("endLng").trim());
 
-				Double endLat = 0.1;
+				Double endLat =  new Double(req.getParameter("endLat").trim());
 
 				Integer orderType = 0; // 0是揪團 1是長期揪團
 

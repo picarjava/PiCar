@@ -34,7 +34,7 @@ public class LocationService {
         locationDAO.delete(memID, location);
     } // deleteLocation()
     
-    public List<LocationVO> getAll() {
-        return locationDAO.getAll();
+    public List<LocationVO> getAll(String memID) {
+        return locationDAO.getAll(memID);
     } // getAll()
 }

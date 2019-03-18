@@ -44,8 +44,14 @@ public class SingleOrderDAO implements SingleOrder_interface {
     //撈長期訂單2:再透過 撈長期的LAUNCH_TIME ，撈此長期預約的整組
     private static final String LIST_ONT_SET_OF_LONGTERM="SELECT * FROM SINGLE_ORDER WHERE STATE=0 AND DRIVER_ID IS NULL AND ORDER_TYPE=4 AND LAUNCH_TIME=?";
 //    以下兩個方法用於訂單管理排成使用
-    private final static String TIME_FROM_START =  "SELECT ORDER_ID ,START_TIME FROM SINGLE_ORDER WHERE START_TIME = ?";
-    private static final String UPDATE_STATE_TO_DELAY =	"UPDATE SINGLE_ORDER SET STATE ='6' WHERE ";
+    private final static String TIME_FROM_START =  "SELECT DISTINCT START_TIME"
+//    		+ "ORDER_ID"
+//    		+ ",START_TIME "
+    		+ "FROM SINGLE_ORDER WHERE START_TIME >= TO_TIMESTAMP (?, 'YYYY-MM-DD HH24:MI:SS') AND START_TIME <= TO_TIMESTAMP (?, 'YYYY-MM-DD HH24:MI:SS') "
+//    		+ "and STATE=1"
+//SELECT DISTINCT START_TIME FROM SINGLE_ORDER WHERE START_TIME >= TO_TIMESTAMP ('2019-02-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND START_TIME <= TO_TIMESTAMP ('2019-02-14 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+    		;
+    private static final String UPDATE_STATE_TO_DELAY =	"UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=? ";
 
     private static DataSource dataSource;
 //    private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
@@ -251,8 +257,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
     
     
     public List<String> get_start_time(String START_TIME,String START_TIME2) {
-		// TODO Auto-generated method stub
 		List<String> list =new ArrayList<String>();
+//		Set<SingleOrderVO> set = new LinkedHashSet<SingleOrderVO>();
 		String starttime=null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -267,6 +273,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
 		rs = pstmt.executeQuery();
 		while(rs.next()) {
 		starttime=(rs.getString("START_TIME"));
+//		starttime=(rs.getString("ORDER_ID"));
 		list.add(starttime);
 // 訂單 開始時間ID
 //		list.add(orderid).add(memid).add;
@@ -622,9 +629,9 @@ public class SingleOrderDAO implements SingleOrder_interface {
         try {
             connection = dataSource.getConnection();
             connection.setAutoCommit(false);
+            preparedStatement = connection.prepareStatement(UPDATE_DRIVER_ID_AND_STATE_BY_ORDER_ID);
             for (String orderID: orderIDs) {
                 int index = 1;
-                preparedStatement = connection.prepareStatement(UPDATE_DRIVER_ID_AND_STATE_BY_ORDER_ID);
                 preparedStatement.setString(index++, driverID);
                 preparedStatement.setInt(index++, state);
                 preparedStatement.setString(index++, orderID);

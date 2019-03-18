@@ -152,4 +152,7 @@ public class DriverService {
 	public DriverVO updateBanned(String driverID) {
 		return dao.updateBanned(driverID);
 	}
+	public DriverVO updateBannedBack(String driverID) {
+		return dao.updateBannedBack(driverID);
+	}
 }

@@ -38,6 +38,10 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 	private static final String UPDATE_GROUP_STATUS__GROUP_ID = "UPDATE  GROUP_BAND set  GROUP_STATUS= ?  where GROUP_ID = ?";
 	
 	private static final String UPDATE_GROUP_TYPE_GROUP_NAME_INTRODUCTION_NOTE_PHOTO__GROUP_ID= "UPDATE GROUP_BAND set GROUP_TYPE= ? , GROUP_NAME=? , INTRODUCTION=? , NOTE=?, PHOTO=? where GROUP_ID= ?";
+
+	//聊天室
+	private static final String GET_ONE_CONTENT__GROUP_ID = "SELECT CONTENT FROM GROUP_BAND where GROUP_ID= ?";
+	private static final String UPDATE_CONTENT__GROUP_ID= "UPDATE GROUP_BAND set CONTENT=? where GROUP_ID= ?";
 	@Override
 	public void insert(GroupBandVO groupBandVO) {
 		// TODO Auto-generated method stub
@@ -316,8 +320,53 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 		return list;
 	}
 
-	
-	
+	@Override	
+	public String getOneContentGroupID(String groupID) {
+		// TODO Auto-generated method stub
+		String content=null;
+		GroupBandVO groupBandVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_CONTENT__GROUP_ID);
+			pstmt.setString(1,groupID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				content =rs.getString("CONTENT");
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return content;
+	}
+
 	
 	@Override
 	public List<GroupBandVO> getAll(Map<String, String[]> map) {
@@ -509,6 +558,42 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 		}
 	}
 	
+	@Override
+	public void UPDATE_CONTENT__GROUP_ID(String groupID,String content ) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(true);
+			pstmt = con.prepareStatement(UPDATE_CONTENT__GROUP_ID);
+			
+			pstmt.setString(1,content);
+			pstmt.setString(2,groupID);
+			
+			pstmt.executeUpdate();
+			con.commit();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 	
 	public void UpdateCURRENT(Integer currenTnum,String groupBandno) {
 		// TODO Auto-generated method stub

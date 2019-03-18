@@ -8,6 +8,7 @@ public class StoreRecordVO implements java.io.Serializable{
 	private String memID;
 	private Timestamp saveDate;
 	private Integer amount;
+	private String orderID;
 	
 	public String getStoreID() {
 		return storeID;
@@ -39,6 +40,14 @@ public class StoreRecordVO implements java.io.Serializable{
 	
 	public void setAmount(Integer amount) {
 		this.amount = amount;
+	}
+
+	public String getOrderID() {
+		return orderID;
+	}
+
+	public void setOrderID(String orderID) {
+		this.orderID = orderID;
 	}
 	
 }

@@ -8,7 +8,9 @@ import javax.websocket.server.ServerEndpoint;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import com.groupMem.model.*;
 import com.groupOrder.model.GroupOrderVO;
+import com.member.model.*;
 
 import javax.websocket.Session;
 import javax.websocket.OnOpen;
@@ -60,7 +62,10 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 	}
 	
 	@OnClose
-	public void onClose(Session userSession, CloseReason reason) {
+	public void onClose(@PathParam("myName") String myName, @PathParam("myRoom") String myRoom,Session userSession, CloseReason reason) {
+		GroupMemService groupMemService =new GroupMemService();
+		
+			groupMemService.update_State("G"+myRoom.substring(2, 5),myName,0);
 		allSessions.remove(userSession);
 		System.out.println(userSession.getId() + ": Disconnected: " + Integer.toString(reason.getCloseCode().getCode()));
 	}

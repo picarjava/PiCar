@@ -7,7 +7,7 @@
 <%@ page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64" %>
 <html>
 <head>
-
+<title>成為司機</title>
 <jsp:include page="/regna-master/head.jsp" />
 </head>
 
@@ -27,8 +27,7 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 		LinkedList errorMsgs = (LinkedList) request.getAttribute("errorMsgs");
 	%>
 	<!-- 錯誤列表 -->
-	<c:if test="${not empty errorMsgs}">
-		<ul class="list-group">
+    <c:if test="${not empty errorMsgs}"><ul class="list-group">
 			<li class="list-group-item active">Opps!錯誤訊息回報</li>
 			<c:forEach var="massage" items="${errorMsgs}">
 				<li class="list-group-item">${massage}</li>
@@ -69,7 +68,7 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 							<div class="form-group">
 								<p>車牌號碼</p>
 								<input type="text" name="plateNum" class="form-control"
-									 placeholder="請輸入車牌號碼" />
+									 placeholder="請輸入車牌號碼例如:ABC1234" />
 							</div>
 							<div class="form-group">
 								<p>車型</p>
@@ -115,14 +114,16 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 								<input type="file" class="form-control" name="photo">
 							</div>
 							
-							//
 							<div class="form-group">
 								<p>會員照片</p>
-							<img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
-		          onerror="this.src='cat.jpg'">
-					</div>
-							//
-
+								<c:if test="${empty memberVO.pic}" >
+					            <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" class='card-img-top' width='300' height='350'>
+					            </c:if>
+					             <c:if test="${not empty memberVO.pic}" >
+									<img src="<%=request.getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='400' height='350' >
+					             </c:if>
+							</div>
+							
 							<div class="form-group">
 								<p>願意共乘載客</p>
 								<select name="sharedCar" class="form-control">
@@ -157,7 +158,7 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 
 							<div class="text-center">
 								<input type="hidden" name="action" value="INSERT">
-								<button type="submit" class="btn btn-dark">成為司機</button>
+								<button type="submit" class="btn btn-dark" id="btn">成為司機</button>
 							</div>
 							<!--隱藏的參數action讓controller抓-->
 						</form>
@@ -174,6 +175,10 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 
 	<jsp:include page="/regna-master/body.jsp" />
 <script>
+
+
+var btn= document.getElementById("btn");
+$(btn).css("color","blue");
 
 function readURL(input){
 

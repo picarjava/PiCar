@@ -8,8 +8,8 @@
 
 <head>
 <%--     <jsp:include page="/regna-master/head.jsp" /> --%>
-    <title>司機會員管理</title>
-<jsp:include page="/back-end/head_back.jsp" />
+    <title>z</title>
+<jsp:include page="/back-end/kidHead.jsp" />
 </head>
 <!-- http://localhost:8081/PiCar/back-end/driver/driverMemberManagement.jsp -->
 <body>
@@ -17,6 +17,7 @@
     <%
 		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
 	%>
+	
     <section id="contact">
         <div class="container wow fadeInUp">
             <div class="col-lg-12 col-md-12">

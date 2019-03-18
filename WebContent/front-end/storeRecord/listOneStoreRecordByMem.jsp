@@ -55,21 +55,13 @@
 
 				<td>${storeRecordVO.storeID}</td>				
 				<td>${storeRecordVO.amount}</td>
-				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${storeRecordVO.saveDate}" /></td>
-				
-			
-				
-				
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${storeRecordVO.saveDate}" /></td>				
 			</tr>
 		</c:forEach>
 		<tr>
-			<td colspan="1">總儲值金額555</td>	
-<%-- 			<td><%=memberVO.getToken() %></td>	 --%>
-<%-- 			<c:forEach var="storeRecordVO" items="${list}" begin="0" end="0" --%>
-<%-- 				step="1"> --%>
-<%-- 				<td>${storeRecordDAO.getSumAmount(storeRecordVO.memID)}</td> --%>
-<%-- 			</c:forEach> --%>
-			<td></td>
+			<td colspan="1">總儲值金額</td>	
+
+			<td><%=memberVO.getToken() %></td>
 		</tr>
 			
 

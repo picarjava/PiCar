@@ -35,7 +35,12 @@ public class StoreRecordDAO implements StoreRecordDAO_interface {
 	private static final String GET_MEM_ID_STMT_DISTINCT = "SELECT  DISTINCT MEM_ID FROM STORE_RECORD ORDER BY MEM_ID";
 
 	private static final String GET_AMOUT_MEM = "SELECT SUM (AMOUNT) FROM STORE_RECORD WHERE MEM_ID=?";
-
+	
+	private static final String INSERT_ORDERID = "INSERT INTO STORE_RECORD (STORE_ID, MEM_ID, SAVE_DATE, AMOUNT, ORDER_ID) VALUES"
+			+ "(TO_CHAR(SYSDATE,'YYYYMMDD')||'-'||LPAD(TO_CHAR(STO_SEQ.NEXTVAL), 3, '0'), ?, SYSDATE, ?, ?)";
+	
+	
+	
 	@Override
 	public void insert(StoreRecordVO srVO) {
 
@@ -369,6 +374,62 @@ public class StoreRecordDAO implements StoreRecordDAO_interface {
 		return list;
 	}
 
+	@Override
+	public void insertOrder(StoreRecordVO srVO) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(INSERT_ORDERID);
+
+			pstmt.setString(1, srVO.getMemID());
+			pstmt.setInt(2, srVO.getAmount());
+			pstmt.setString(3, srVO.getOrderID());
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("SQL錯誤: " + se.getMessage());
+		} finally {
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+		
+	}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 //	public Integer getSumAmount(String memID) {
 //
 //		Integer sumAmount = new Integer(0);

@@ -1,6 +1,6 @@
 package Timer;
 
-import com.util.*;
+
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 
@@ -19,7 +19,7 @@ import java.util.*;
  * Servlet implementation class GroupTimer
  */
 //@WebServlet("/GroupTimer")
-public class GroupTimer extends HttpServlet {
+public class BannedTimer extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	int count = 0;      
@@ -38,7 +38,7 @@ public class GroupTimer extends HttpServlet {
 	            	
 	            	Calendar calendar2 = Calendar.getInstance();
 	            	SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-	            	calendar2.add(Calendar.DATE, 3);
+	            	calendar2.add(Calendar.DATE, 1);
 	            	String three_days_after = sdf2.format(calendar2.getTime());
 	            
 	            	GroupOrderService groupOrderService = new GroupOrderService();
@@ -128,7 +128,7 @@ public class GroupTimer extends HttpServlet {
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GroupTimer() {
+    public BannedTimer() {
         super();
         // TODO Auto-generated constructor stub
     }

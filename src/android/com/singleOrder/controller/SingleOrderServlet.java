@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 import com.driver.model.DriverService;
 import com.google.gson.Gson;
@@ -35,10 +36,16 @@ import com.member.model.MemberService;
 import com.calculate.controller.*;
 
 public class SingleOrderServlet extends HttpServlet {
+    // state
     private final static int NOT_ESTABLISHED = 0;
     private final static int ESTABLISHED = 1;
+    private final static int EXRCUTING = 4;
+    // order type
     private final static int ONE_TIME_RESERVE = 3;
     private final static int LONG_TERM_RESERVE = 4;
+    private final static String TIMESTAMP_PATTERN = "yyyy-MM-dd HH:mm";
+    private final static String DRIVER_ID = "driverID";
+    private final static String ORDER_ID = "orderID";
     
     
     @Override
@@ -61,10 +68,9 @@ public class SingleOrderServlet extends HttpServlet {
         String action = jsonIn.get("action").getAsString();
         if ("insert".equals(action)) {
             SingleOrderVO singleOrderVO = gson.fromJson(jsonIn.get("singleOrder").getAsString(), SingleOrderVO.class);
-            singleOrderService.addSingleOrder(singleOrderVO.getMemID(), singleOrderVO.getState(), null, singleOrderVO.getStartLoc(),
-                                   singleOrderVO.getEndLoc(), singleOrderVO.getStartLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(),
-                                   singleOrderVO.getEndLat(), 0, singleOrderVO.getOrderType(), singleOrderVO.getNote(), new Timestamp(System.currentTimeMillis()));
-
+            singleOrderService.addSingleOrder(singleOrderVO.getMemID(), 0, null, singleOrderVO.getStartLoc(),
+                                              singleOrderVO.getEndLoc(), singleOrderVO.getEndLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(),
+                                              singleOrderVO.getEndLat(), 0, singleOrderVO.getOrderType(), singleOrderVO.getNote(), new Timestamp(System.currentTimeMillis()));
             
     		Double lat1 = Double.valueOf(singleOrderVO.getStartLat()); //乘客緯度 /*******
     		Double lng1 = Double.valueOf(singleOrderVO.getStartLng()); //乘客經度 /*******
@@ -116,23 +122,43 @@ public class SingleOrderServlet extends HttpServlet {
             writer.write(jsonOut.toString());
         } else if ("getNewSingleOrder".equals(action)) {
             List<SingleOrderVO> singleOrderVOs = singleOrderService.getByStateAndOrderType(NOT_ESTABLISHED, ONE_TIME_RESERVE);
-            gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
+            gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
             writer.print(gson.toJson(singleOrderVOs));
             System.out.println(gson.toJson(singleOrderVOs));
         } else if ("getLongTermSingleOrder".equals(action)) {
             List<SingleOrderVO> singleOrderVOs = singleOrderService.getByStateAndOrderType(NOT_ESTABLISHED, LONG_TERM_RESERVE);
-            gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
+            gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
             writer.print(gson.toJson(convertToLongTermOrder(singleOrderVOs)));
             System.out.println(gson.toJson(convertToLongTermOrder(singleOrderVOs)));
         } else if ("takeSingleOrder".equals(action)) {
-            String driverID = jsonIn.get("driverID").getAsString();
-            String orderID = jsonIn.get("orderID").getAsString();
+            String driverID = jsonIn.get(DRIVER_ID).getAsString();
+            String orderID = jsonIn.get(ORDER_ID).getAsString();
             if (driverID != null)
                 singleOrderService.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderID);
         } else if ("takeLongTermOrder".equals(action)) {
-            String driverID = jsonIn.get("driverID").getAsString();
-            List<String> orderIDs = gson.fromJson(jsonIn.get("orderID").getAsString(), new TypeToken<List<String>>() {}.getType());
+            String driverID = jsonIn.get(DRIVER_ID).getAsString();
+            List<String> orderIDs = gson.fromJson(jsonIn.get(ORDER_ID).getAsString(), new TypeToken<List<String>>() {}.getType());
             singleOrderService.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderIDs);
+        } else if ("getInPiCar".equals(action)) {
+            String driverID = jsonIn.get(DRIVER_ID).getAsString();
+            String orderID = jsonIn.get(ORDER_ID).getAsString();
+            SingleOrderVO singleOrderVO = singleOrderService.getOneSingleOrder(orderID);
+            JsonObject jsonObject = new JsonObject();
+            if (singleOrderVO != null && driverID != null && driverID.equals(singleOrderVO.getDriverID())) {
+                singleOrderService.updateDriverIDAndStateByOrderID(driverID, EXRCUTING, orderID);
+                
+                Map<String, StoredInfo> driverLocation = (Map<String, StoredInfo>) getServletContext().getAttribute("driverLocation");
+                Session session = driverLocation.get(driverID).getSession();
+                if (session != null && session.isOpen()) {
+                    System.out.println("send");
+                    jsonObject.addProperty("state", "OK");
+                    session.getAsyncRemote().sendText(jsonObject.toString());
+                }
+            } else {
+                jsonObject = new JsonObject();
+                jsonObject.addProperty("state", "Failed");
+                writer.print(jsonObject.toString());
+            }
         }
         
         writer.close();

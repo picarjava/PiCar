@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="com.member.model.*"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" import="com.member.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page import="com.location.model.*"%>
 <%
 // 	此處為登入處理
 //    String account = (String)session.getAttribute("account");                  // 從 session內取出 (key) account的值
@@ -145,18 +144,26 @@
 			
 			<td>
 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="設定">
+			     <input type="submit" value="喜好設定">
 			     <input type="hidden" name="memID"  value="${memberVO.memID}">
 			     <input type="hidden" name="action"	value="getOne_For_Update_HOBBY">
 			  </FORM>
 			</td>
 			
-			
-				<form method="post" action="logoutHandler.do">			
-				<td><input type="submit" value="登出"></td>	
+            <td>
+                <form action="<%=application.getContextPath()%>/location" method="POST">
+                    <input type="hidden" name="memID" value="${locationVO.memID}"/>
+                    <input type="hidden" name="location" value="${locationVO.location}"/>
+                    <input type="hidden" name="action" value="getUpdateLocation"/>
+                    <input type="submit" value="常用地點"/>
+                </form>
+			 </td>
+			<td>
+			 	<form method="post" action="logoutHandler.do">			
+				<input type="submit" value="登出">	
 				 <input type="hidden" name="logout"	value="logout">	
 				</form>
-			
+			</td>
 	</tr>
 	</table>
 </body>

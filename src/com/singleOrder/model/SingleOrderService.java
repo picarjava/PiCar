@@ -108,4 +108,9 @@ public class SingleOrderService {
     public void updateDriverIDAndStateByOrderID(String driverID, Integer state, List<String> orderIDs) {
         singleOrderDAO.updateDriverIDAndStateByOrderID(driverID, state, orderIDs);
     } // updateDriverIDAndStateByOrderID()
+    
+    //新增訂單管理延遲時間
+    public void update_state_to_delay(){
+    	singleOrderDAO.update_state_to_delay();
+    } // update_state_to_delay
 } // class SingleOrderService
