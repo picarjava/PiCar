@@ -60,6 +60,12 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String UPDATE_MEM_ID__GROUP_ID_MEM_ID = 
 				"UPDATE GROUP_ORDER set MEM_ID=null where GROUP_ID = ? and MEM_ID=?";
 		
+		private static final String UPDATE_STATE__GROUP_ID_MEM_ID = 
+				"UPDATE GROUP_ORDER set STATE=? where GROUP_ID = ? and MEM_ID IS null";
+		
+		private static final String UPDATE_TOTAL_AMOUT__GROUP_ID_STATE = 
+				"update GROUP_ORDER set TOTAL_AMOUT=? WHERE GROUP_ID= ? AND STATE=?";
+		
 		private static final String GET_ONE_GROUP_ID_START_TIME = 
 				"SELECT * FROM GROUP_ORDER where GROUP_ID = ?  and START_TIME= ?";
 		private static final String GET_ONE_GROUP_ID__STATE_MEM_ID = 
@@ -79,6 +85,10 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		
 		private static final String  GET_RATED_DRIVERS=
 				"SELECT DISTINCT DRIVER_ID FROM GROUP_ORDER WHERE RATE IS NOT NULL AND NOT RATE=0";
+		
+		private static final String  GET_STATE_GROUP_ID_memID_NOTNULL=
+				"SELECT count(STATE) as STATE FROM GROUP_ORDER Where MEM_ID IS not null and GROUP_ID = ?";
+		
 		@Override
 		public HashSet<String> getRatedDrivers(){
 			HashSet<String> hashSet =new HashSet<String>();
@@ -686,7 +696,79 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 			}
 		}
 	}
+	@Override
+	public void UPDATE_Total_AmoutGroupIDState(Integer TotalAmout,String GroupID,Integer State) {
+		// TODO Auto-generated method stub
+		Connection con =null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(true);
+			pstmt = con.prepareStatement(UPDATE_TOTAL_AMOUT__GROUP_ID_STATE);
+			pstmt.setInt(1, TotalAmout);
+			pstmt.setString(2, GroupID);			
+			pstmt.setInt(3, State);
+			pstmt.executeUpdate();
+			con.commit();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
 	
+	@Override
+	public void updateState_GroupID_mem_ID(String GROUP_ID,Integer State) {
+		// TODO Auto-generated method stub
+		Connection con =null;
+		PreparedStatement pstmt = null;
+		try {
+			con = ds.getConnection();
+			con.setAutoCommit(true);
+			pstmt = con.prepareStatement(UPDATE_STATE__GROUP_ID_MEM_ID);
+			pstmt.setInt(1, State);
+			pstmt.setString(2, GROUP_ID);			
+			
+			pstmt.executeUpdate();
+			con.commit();
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	}
+	
+	@Override
 	public void UPDATEmemid__GROUP_ID_MEM_ID(String GROUP_ID,String Memid) {
 		// TODO Auto-generated method stub
 		Connection con =null;
@@ -818,6 +900,53 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		}
 	}
 	return avgrate;
+}
+	@Override
+	public Integer getstateGrouID_Memid_Notnull(String groupID) {
+		// TODO Auto-generated method stub
+
+		Integer avgmemID=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(GET_STATE_GROUP_ID_memID_NOTNULL);
+		pstmt.setString(1, groupID);
+		rs = pstmt.executeQuery();
+		   while (rs.next()) {
+		avgmemID=(rs.getInt("STATE"));
+		   }
+			
+		
+	}catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return avgmemID;
 }
 	
 	public Integer getMemID_groupID_startTime(String groupID,String START_TIME,String START_TIME2) {

@@ -413,4 +413,24 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
 		return null;
 	}
 
+	@Override
+	public void updateState_GroupID_mem_ID(String GROUP_ID, Integer state) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public Integer getstateGrouID_Memid_Notnull(String groupID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void UPDATE_Total_AmoutGroupIDState(Integer TotalAmout, String GroupID, Integer State) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 }

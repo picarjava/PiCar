@@ -100,4 +100,7 @@ public class GroupBandService {
 	public String getOneContentGroupID(String groupID) {
 		return dao.getOneContentGroupID(groupID);
 	}
+	public int getOneTotalAmoutGroupID(String groupID) {
+		return dao.getOneTotalAmoutGroupID(groupID);
+	}
 	}

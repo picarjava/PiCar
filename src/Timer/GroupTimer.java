@@ -54,6 +54,7 @@ public class GroupTimer extends HttpServlet {
 	            	groupIDList = groupOrderService.get_group_id__start_time(START_TIME,START_TIME_End);
 	            	
 	            	int countmemid;
+	            	
 	            	GroupBandVO groupBandVO;
 //	            	判斷是否有到期限的單
 	            	if(groupIDList!=null) {
@@ -62,12 +63,29 @@ public class GroupTimer extends HttpServlet {
 	            		countmemid = groupOrderService.getMemID_groupID_startTime(groupID,START_TIME,START_TIME_End);
 	            		groupBandVO = groupBandService.getOneGroupBand(groupID);
 	            		
+	            		//測試	            		
+	            		
+	            		if(groupBandVO.getGroupStatus()==0) {
 	            		if(countmemid>=groupBandVO.getLowerLimit()) {
 	            			//改揪團狀態碼為已成團
 	            			groupBandService.UPDATE_GROUP_STATUS__GROUP_ID(1, groupID);
 	            			
 	            			//改訂單為已成團
-	            			groupOrderService.UPDATE_STATE__GROUP_ID(3,groupID);
+	            			groupOrderService.UPDATE_STATE__GROUP_ID(1,groupID);
+	            			
+	            			//為NULL的單
+	            			groupOrderService.updateState_GroupID_mem_ID(groupID,2);
+	            			
+	            			//取出目前揪團金額
+	            			int totalAmout = groupBandService.getOneTotalAmoutGroupID(groupID);
+	            			
+	            			//目前揪團金額除以人數和天數
+	            			int Amout = totalAmout/groupOrderService.getstateGrouID_Memid_Notnull(groupID);
+	            			
+	            			//填入金額
+	            			groupOrderService.UPDATE_Total_AmoutGroupIDState(Amout, groupID,1);
+	            			
+	            			
 	            		}else
 	            		{
 	            			
@@ -77,7 +95,7 @@ public class GroupTimer extends HttpServlet {
 	            			//改訂單為已成團
 	            			groupOrderService.UPDATE_STATE__GROUP_ID(8,groupID);
 	            		}
-	            		
+	            		}
 	            		
 //	            		System.out.println(groupID+"人數"+countmemid);
 //	            		System.out.println(groupID+"比較人數"+groupBandVO.getLowerLimit());

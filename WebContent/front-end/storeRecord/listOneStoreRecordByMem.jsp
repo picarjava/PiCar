@@ -41,7 +41,7 @@
 </style>
 <body bgcolor="#11e1e9">
 	<h3>listOneStoreRecordMember.jsp</h3>
-	<a href="select_page.jsp">回主頁面</a>
+	<a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
 	<h1 align="center"> ${storeRecordVO.memID} <%=memberVO.getName() %>	你好，以下為您的儲值紀錄</h1>
 	<table align="center" border="1" id="table1">
 		<tr>

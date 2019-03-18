@@ -473,4 +473,10 @@ public class GroupBandJNDIDAO implements GroupBandDAO_interface {
 		return null;
 	}
 
+	@Override
+	public int getOneTotalAmoutGroupID(String groupID) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }
