@@ -329,20 +329,6 @@ width: 100px;
         <script src="assets/js/jquery.quicksand.js"></script>
         <script src="assets/prettyPhoto/js/jquery.prettyPhoto.js"></script>
         <script src="assets/js/scripts.js"></script>
-        
-        
-        
-        <script>
-//         var icon-user = $('.icon-user');
-        
-        if(drixx != null){
-        	$('.icon-user').style.display="none";
-        }
-//         $('.icon-user').on('click', function () {
-//             $("#kartik").rating('destroy');
-//         });
-        
-        </script>
 
     </body>
 
