@@ -26,7 +26,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
                                                                       "END_LNG=?, END_LAT=?, TOTAL_AMOUNT=?, RATE=? " +
                                                                       "WHERE ORDER_ID=?";
     private final static String INSERT_STMT = "INSERT INTO SINGLE_ORDER(ORDER_ID, MEM_ID, STATE, START_TIME, " + 
-//                                                                  "START_LOC, END_LOC, START_LNG, START_LAT, " +
+                                                                  "START_LOC, END_LOC, START_LNG, START_LAT, " +
                                                                   "END_LNG, END_LAT, TOTAL_AMOUNT, ORDER_TYPE, " +
                                                                   "NOTE, LAUNCH_TIME) " + 
                                                                   "VALUES ('SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";

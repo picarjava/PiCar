@@ -38,7 +38,7 @@ public class Timerdo {
 		List<String> startTimeList = new ArrayList<String>();
 //		Set<SingleOrderVO> startTimeList = new LinkedHashSet();
 		System.out.println("3.");
-		startTimeList = new SingleOrderDAO().get_start_time(START_TIME_Start, START_TIME_End);// 拿出一群訂單的集合
+//		startTimeList = new SingleOrderDAO().get_start_time(START_TIME_Start, START_TIME_End);// 拿出一群訂單的集合
 		
 		
 		
