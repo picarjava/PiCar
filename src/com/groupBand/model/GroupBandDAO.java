@@ -42,6 +42,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 	//聊天室
 	private static final String GET_ONE_CONTENT__GROUP_ID = "SELECT CONTENT FROM GROUP_BAND where GROUP_ID= ?";
 	private static final String UPDATE_CONTENT__GROUP_ID= "UPDATE GROUP_BAND set CONTENT=? where GROUP_ID= ?";
+	private static final String GET_ONE_TOTAL_AMOUT__GROUP_ID = "SELECT TOTAL_AMOUT FROM GROUP_BAND where GROUP_ID= ?";
 	@Override
 	public void insert(GroupBandVO groupBandVO) {
 		// TODO Auto-generated method stub
@@ -367,6 +368,52 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 		return content;
 	}
 
+	@Override	
+	public int getOneTotalAmoutGroupID(String groupID) {
+		// TODO Auto-generated method stub
+		int totalAmout=0;
+		GroupBandVO groupBandVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE_TOTAL_AMOUT__GROUP_ID);
+			pstmt.setString(1,groupID);
+			rs = pstmt.executeQuery();
+			while (rs.next()) {
+				totalAmout =rs.getInt("TOTAL_AMOUT");
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return totalAmout;
+	}
 	
 	@Override
 	public List<GroupBandVO> getAll(Map<String, String[]> map) {

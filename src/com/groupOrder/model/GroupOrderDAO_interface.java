@@ -20,5 +20,8 @@ public String get_memid__memid_groupid(String memid,String groupid);
 public void UPDATE_STATE__GROUP_ID(Integer STATE,String GROUP_ID);
 public List<String> get_group_id__start_time(String START_TIME,String START_TIME2);
 public Integer getMemID_groupID_startTime(String groupID,String START_TIME,String START_TIME2);
-HashSet<String> getRatedDrivers();
+public HashSet<String> getRatedDrivers();
+public void updateState_GroupID_mem_ID(String GROUP_ID, Integer state);
+public Integer getstateGrouID_Memid_Notnull(String groupID);
+public void UPDATE_Total_AmoutGroupIDState(Integer TotalAmout, String GroupID, Integer State);
 }
