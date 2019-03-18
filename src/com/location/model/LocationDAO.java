@@ -15,7 +15,8 @@ import javax.sql.DataSource;
 
 public class LocationDAO implements LocationDAO_interface{
     private final static String SELECT = "SELECT * FROM LOCATION WHERE MEM_ID=? AND LOCATION=?";
-    private final static String SELECT_ALL = "SELECT * FROM LOCATION WHERE MEM_ID=?";
+    private final static String SELECT_ONE = "SELECT * FROM LOCATION WHERE MEM_ID=?";
+    private final static String SELECT_ALL = "SELECT * FROM LOCATION";
     private final static String UPDATE = "UPDATE LOCATION SET LOCATION=? WHERE MEM_ID=? AND LOCATION=?";
     private final static String INSERT = "INSERT INTO LOCATION(MEM_ID, LOCATION) VALUES (?, ?)";
     private final static String DELETE = "DELETE FROM LOCATION WHERE MEM_ID=? AND LOCATION=?";
@@ -102,7 +103,34 @@ public class LocationDAO implements LocationDAO_interface{
     } // delete()
     
     @Override
-    public List<LocationVO> getAll(String memID) {
+    public List<LocationVO> getAll(String memID) {  //阿君前台頁面使用
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<LocationVO> list = new ArrayList<>();
+        try {
+            connection = dataSource.getConnection();
+//            connection = DriverManager.getConnection(URL, NAME, NAME);
+            preparedStatement = connection.prepareStatement(SELECT_ONE);
+            preparedStatement.setString(1, memID);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+            	
+                list.add(getLocationVO(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        } // finally
+        
+        return list;
+    } // getAll()
+    
+    @Override
+    public List<LocationVO> getAll() {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -111,7 +139,7 @@ public class LocationDAO implements LocationDAO_interface{
             connection = dataSource.getConnection();
 //            connection = DriverManager.getConnection(URL, NAME, NAME);
             preparedStatement = connection.prepareStatement(SELECT_ALL);
-            preparedStatement.setString(1, memID);
+
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
             	

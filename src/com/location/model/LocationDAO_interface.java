@@ -8,5 +8,6 @@ public interface LocationDAO_interface {
     void insert(LocationVO VO);
     void update(LocationVO VO, String location);
     void delete(String primaryKey1, String primaryKey2);
-    List<LocationVO> getAll(String memID);
+    List<LocationVO> getAll(String memID);  //阿君前端頁面使用
+    List<LocationVO> getAll();
 }
