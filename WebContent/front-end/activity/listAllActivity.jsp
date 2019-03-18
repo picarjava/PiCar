@@ -51,7 +51,7 @@
 					 		<div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-delay="0.2s"> 
 					 		<div class="card" style="width: 65rem;height:35rem ">
 					 			  <c:if test="${empty activityVO.activityPost}" var="condition">
-					              <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" class='card-img-top' width='300' height='350'>
+					              <img src="<%=request.getContextPath()%>/regna-master/img/${activityVO.activityID eq ('AC001'or'AC002'or'AC003'or'AC004'or'AC005')?activityVO.activityID:noFileUpdate}.JPG" class='card-img-top' width='300' height='350'>
 					              </c:if>
 					              <c:if test="${not empty activityVO.activityPost}" var="condition">
 					              <img  src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' class='card-img-top' width='400' height='350' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/>

@@ -41,18 +41,17 @@ public class RenewDriverRateTimer extends HttpServlet {
 				 
 				 SingleOrderService singleOrderSvc= new SingleOrderService();
 			     GroupOrderService groupOrderSvc= new GroupOrderService();
-			     System.out.println("單人訂單已評價司機名單:"+singleOrderSvc.getRatedDrivers());
 			     for(String driverID :singleOrderSvc.getRatedDrivers()) {
 			    	 ratedDriver.add(driverID);//把預約訂單中已評價的司機加入set，以實現不重複入加入
+			    	 System.out.println("單人訂單已評價司機名單:"+driverID);
 			     }
-			     System.out.println("揪團訂單已評價司機名單:"+groupOrderSvc.getRatedDrivers());
+			     
 			     for(String driverID :groupOrderSvc.getRatedDrivers()) {
 			    	 ratedDriver.add(driverID);//把揪團訂單中已評價的司機加入set，以實現不重複入加入
+			    	 System.out.println("揪團訂單已評價司機名單:"+driverID);
 			     }
-			     System.out.println("加入待更新名單(來自單人與揪團的已評價司機):"+ratedDriver);
-				 
+			     
 				 //開始更新司機評價
-			    
 				 int countDriver=0;
 				 if(!ratedDriver.isEmpty()) {
 					 DriverService driverSvc=new DriverService();
@@ -69,7 +68,6 @@ public class RenewDriverRateTimer extends HttpServlet {
 				 System.out.println("目前無人給予評價司機");	 
 				 }//if
 				 System.out.println("本次總共更新"+countDriver+"位司機的評價");
-			  
  		       }//run
 			};//TimerTask
 			

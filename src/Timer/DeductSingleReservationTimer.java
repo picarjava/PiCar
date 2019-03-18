@@ -53,6 +53,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 				 
 				for(SingleOrderVO unpaidReservationOrder :singleOrderSvc.listAllUnpaidReservationOrder()) {
 					allUnpaid.add(unpaidReservationOrder);
+					System.out.println("待扣款的單程預約:"+ unpaidReservationOrder.getOrderID());
 				}
 				
 				//將長期的部分加入待付款訂單 
@@ -60,23 +61,19 @@ public class DeductSingleReservationTimer extends HttpServlet {
 				for(SingleOrderVO earlierPartUnpaidOrderFromLongtermSets :singleOrderSvc.listEarlierPartUnpaidFromLongtermSets()) {
 					Timestamp thisLaunchTime=earlierPartUnpaidOrderFromLongtermSets.getLaunchTime();//檢查是否為同一批長期訂單
 					if(!thisLaunchTime.equals(checkLaunchTime)) { //不同批者，則進入查整組
-						System.out.println("thisLaunchTime:"+thisLaunchTime);
 						 for(SingleOrderVO unpaidlongtermOrder:singleOrderSvc.listOneSetOfLongterm(thisLaunchTime)) { //得到整組長期訂單
 							 allUnpaid.add(unpaidlongtermOrder);
+							 System.out.println("待扣款的長期預約:"+unpaidlongtermOrder.getOrderID());
 						 }; 
+					 checkLaunchTime=earlierPartUnpaidOrderFromLongtermSets.getLaunchTime();
 					}
-					checkLaunchTime=earlierPartUnpaidOrderFromLongtermSets.getLaunchTime();
 				}
-				ArrayList<String> showAllUnpaidID=new ArrayList<String>(); //測試用
-				for(SingleOrderVO sVO:allUnpaid ){
-					showAllUnpaidID.add(sVO.getOrderID());
-					}
-				System.out.println("加入待付款訂單allUnpaid:"+ showAllUnpaidID);
+				
+//				
 				//2.=======呼叫小蔣扣款方法=======
 				//3.=======扣款成功後狀態碼1；失敗改為8=======
 //				try{
 //					//此處用for迴圈一一呼叫扣款方法
-				
 //				}catch(SQLException e) {
 //					e.printStackTrace();
 //		            throw new RuntimeException(e.getMessage(), e);

@@ -81,12 +81,12 @@ public class ActivServlet extends HttpServlet {
 			try {
 				 String activityName=(String) req.getParameter("activityName");
 				 String activityInfo=(String) req.getParameter("activityInfo");
-				 try {
-					 activityStart=java.sql.Date.valueOf(req.getParameter("activityStart"));
-					 System.out.println("測試日期"+activityStart);
-				 }catch(IllegalArgumentException e) {
-					 errorMsgs.add("日期格式轉換錯誤");
-				 }
+					 try {
+						 activityStart=java.sql.Date.valueOf(req.getParameter("activityStart"));
+						 System.out.println("測試日期"+activityStart);
+					 }catch(IllegalArgumentException e) {
+						 errorMsgs.add("日期格式轉換錯誤");
+					 }
 				 
 				 java.sql.Date activityEnd=java.sql.Date.valueOf(req.getParameter("activityEnd"));
 				 String activityCode=(String) req.getParameter("activityCode");
@@ -95,14 +95,14 @@ public class ActivServlet extends HttpServlet {
 				 Part part = req.getPart("activityPost");
 				 byte[] activityPost=null;
 				 
-				try { 
-					InputStream in = part.getInputStream();
-					activityPost = new byte[in.available()];
-					in.read(activityPost);
-					in.close();
-				}catch(Exception e) {
-							 errorMsgs.add("無法取得圖片"+e.getMessage());
-						 }
+					try { 
+						InputStream in = part.getInputStream();
+						activityPost = new byte[in.available()];
+						in.read(activityPost);
+						in.close();
+					}catch(Exception e) {
+								 errorMsgs.add("無法取得圖片"+e.getMessage());
+							 }
 				 
 				 if(activityName==null||activityName.trim().length()==0){
 					 errorMsgs.add("活動名稱未填寫");
@@ -124,6 +124,7 @@ public class ActivServlet extends HttpServlet {
 				 
 				 /*如有錯誤，資料包進VO送至錯誤頁面*/
 				 if(!errorMsgs.isEmpty()) {
+					 
 					 RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/activity/addActivity.jsp");
 					 failurePage.forward(req, res);
 					 return;//程式中止
@@ -132,12 +133,12 @@ public class ActivServlet extends HttpServlet {
 		
 			/**************step2.開始新增資料*****************/
 			 /*從addActiv.jsp取得的資料，透過ActivityService操作DAO存進資料庫*/
-			 try {
-				 ActivityService activityService=new ActivityService();
-				 activityService.addActivity(activityName,activityInfo,activityStart,activityEnd,activityCode,tokenAmount,activityPost);
-			 }catch(Exception e) {
-			 errorMsgs.add("無法新增至DB"+e.getMessage());
-			 }
+				 try {
+					 ActivityService activityService=new ActivityService();
+					 activityService.addActivity(activityName,activityInfo,activityStart,activityEnd,activityCode,tokenAmount,activityPost);
+				 }catch(Exception e) {
+				 errorMsgs.add("無法新增至DB"+e.getMessage());
+				 }
 			
 			/**************step3.開始新增完成，轉交ListAllActivity頁面*****************/
 			String url="/back-end/activity/listAllActivity.jsp";

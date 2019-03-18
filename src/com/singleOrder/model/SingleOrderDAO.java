@@ -84,7 +84,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
   //撈單程訂單:三天前 可撈單程
     public HashSet<SingleOrderVO> listAllUnpaidReservationOrder(){
     	HashSet<SingleOrderVO> allUnpaidReservationOrderID=new HashSet<SingleOrderVO>();
-    	SingleOrderVO singleOrderVO=new  SingleOrderVO();
+    	
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -93,6 +93,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
 			pstmt=con.prepareStatement(LIST_All_UNPAID_SINGLE);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
+				SingleOrderVO singleOrderVO=new  SingleOrderVO();
 				singleOrderVO.setOrderID(rs.getString("ORDER_ID"));
 				singleOrderVO.setDriverID(rs.getString("DRIVER_ID"));
 				singleOrderVO.setMemID(rs.getString("MEM_ID"));
@@ -126,7 +127,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
   //撈長期訂單1:三天前撈出長期單的前幾筆) LIST_EARLIER_PART_FROM_LONGTERM_SETS
     public HashSet<SingleOrderVO> listEarlierPartUnpaidFromLongtermSets(){
     	HashSet<SingleOrderVO> earlierPartUnpaidFromLongtermSets=new HashSet<SingleOrderVO>();
-    	SingleOrderVO singleOrderVO=new  SingleOrderVO();
+    	
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -135,6 +136,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
 			pstmt=con.prepareStatement(LIST_EARLIER_PART_UNPAID_FROM_LONGTERM_SETS);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
+				SingleOrderVO singleOrderVO=new  SingleOrderVO(); //要在裡面NEW VO 否則會被SET視為同一個
 				singleOrderVO.setOrderID(rs.getString("ORDER_ID"));
 				singleOrderVO.setDriverID(rs.getString("DRIVER_ID"));
 				singleOrderVO.setMemID(rs.getString("MEM_ID"));
@@ -167,7 +169,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
   //撈長期訂單2:再透過 撈長期第一筆LAUNCH_TIME ，撈此長期預約的整組
     public HashSet<SingleOrderVO> listOneSetOfLongterm(Timestamp launchtime){
     	HashSet<SingleOrderVO> oneSetOfLongterm=new HashSet<SingleOrderVO>();
-    	SingleOrderVO singleOrderVO=new  SingleOrderVO();
+    	
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -177,6 +179,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
 			pstmt.setTimestamp(1, launchtime);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
+				SingleOrderVO singleOrderVO=new  SingleOrderVO();
 				singleOrderVO.setOrderID(rs.getString("ORDER_ID"));
 				singleOrderVO.setDriverID(rs.getString("DRIVER_ID"));
 				singleOrderVO.setMemID(rs.getString("MEM_ID"));
