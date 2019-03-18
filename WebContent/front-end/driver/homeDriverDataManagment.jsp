@@ -263,7 +263,11 @@ table {
                                         <input type="hidden" name="action" value="UPDATE_DRI" />
                                     </div>
                                     <!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
-                                    <button type="button" class="btn btn-block ">返回PICAR首頁</button>
+                                    <div class="text-center" class="btn btn-block" class="btn btn-outline-success">
+						           <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp">返回PICAR首頁
+                                    </button>
+                                    </div>
+                                    
                         </form>
                     </div>
                 </div>
