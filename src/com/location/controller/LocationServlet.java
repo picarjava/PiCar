@@ -59,9 +59,11 @@ public class LocationServlet extends HttpServlet {
             }
         } else if ("delete".equals(action)) {
             service.deleteLocation(memID, location);
-            forwardUrl = "/front-end/location/listAllLocation.jsp";
+            forwardUrl = "/front-end/location/updateLocation.jsp";
+        } else if ("insert".equals(action)) {  //阿君新增for前端使用
+            service.addLocation(memID, location);
+            forwardUrl = "/front-end/location/updateLocation.jsp";
         }
-        
         if (forwardUrl == null)
             forwardUrl = "/front-end/location/testLocation.jsp";
         
