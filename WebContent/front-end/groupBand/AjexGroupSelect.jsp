@@ -1,3 +1,4 @@
+
 <%@page import="com.google.gson.JsonObject"%>
 <%@page import="com.google.gson.JsonArray"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
@@ -8,7 +9,7 @@
     <%@ page import="java.util.*"%>
 
 
-<% System.out.println("有獨到嗎");
+<% 
 String memID = request.getParameter("memid");
 String groupID = request.getParameter("groupID");
 GroupMemService groupMemService =new GroupMemService();
@@ -25,6 +26,5 @@ for (GroupMemVO Memlist:groupMemlist){
 	jObj.addProperty("name",memberVO.getName());
 	ajj.add(jObj);
 }
-
-out.println(jObj.toString());
+out.println(ajj.toString());
 %> 
