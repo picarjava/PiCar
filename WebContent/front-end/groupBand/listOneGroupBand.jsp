@@ -411,15 +411,16 @@ function groupSelect()
 	        error:function(selects){                                                                 
 	        	 console.log(selects);
 	        //資料傳送失敗後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
-					
+// 					var messa = document.getElementById("messa");
 	        		for(let i=0;i<selects.length;i++)
 	        		{
 	        			var newDiv = document.createElement("div");
 	        			newDiv.id = selects[i].name;
 	        			newDiv.innerHTML= selects[i].name;
 	        			messa.appendChild(newDiv);
+	        			
 	        		}
-			
+	        		
 	        
 	        
 					
@@ -427,17 +428,23 @@ function groupSelect()
 
 	        //傳送成功則跳出成功訊息
 
-	        success:function(selects){                                                           
+	        success:function(selects){   
+	        	
 	        	 console.log(selects);
 	 	        //資料傳送失敗後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+// 	 					var messa = document.getElementById("messa");
 	 					
 	 	        		for(let i=0;i<selects.length;i++)
 	 	        		{
+	 	        			
 	 	        			var newDiv = document.createElement("div");
 	 	        			newDiv.id = selects[i].name;
 	 	        			newDiv.innerHTML= selects[i].name+":  已連線";
 	 	        			messa.appendChild(newDiv);
+	 	        			
+	 	        			 
 	 	        		}
+	 	        		
 	        //資料傳送成功後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
 	  		
 
