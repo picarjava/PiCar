@@ -18,9 +18,6 @@ public class Timerdo {
 //		訂單編號  開始時間 起始秒數
 		
 //		List<String> x =  new SingleOrderDAO().get_start_time("2019-03-18 00:00:00"," 2019-03-18 23:59:59");
-		
-		
-		
 		long renewTime;// 當日晚間10點更新
 
 //			timer = new Timer();
@@ -41,8 +38,7 @@ public class Timerdo {
 		List<String> startTimeList = new ArrayList<String>();
 //		Set<SingleOrderVO> startTimeList = new LinkedHashSet();
 		System.out.println("3.");
-		startTimeList = new SingleOrderDAO().get_start_time(START_TIME_Start, START_TIME_End);// 拿出一群時間的集合
-		System.out.println("上面還沒讀到.");
+		startTimeList = new SingleOrderDAO().get_start_time(START_TIME_Start, START_TIME_End);// 拿出一群訂單的集合
 		
 		
 		
@@ -50,7 +46,7 @@ public class Timerdo {
 		st2.put("7002", "10", 5000);
 		st2.put("7003", "15", 6000);
 		
-		st2.map.get("7001").cancel();
+		st2.map.get("7001").cancel();//接單改變
 		
 		
 		

@@ -18,7 +18,7 @@ import com.singleOrder.model.SingleOrderDAO;
 import oracle.jdbc.OracleResultSetMetaData.SecurityAttribute;
 
 //@WebServlet(loadOnStartup = 1)
-public class DelayTimerx extends HttpServlet {
+public class HalfCheckTimer extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	Timer timer;
@@ -44,25 +44,30 @@ public class DelayTimerx extends HttpServlet {
 				String START_TIME_Start = three_days_after + " 00:00:00";
 				String START_TIME_End   = three_days_after + " 23:59:59";
 //				('2019-03-18 05:20:00', 'YYYY-MM-DD HH24:MI:SS')
-				System.out.println("2.");
+				System.out.println("2-2.");
 				System.out.println(START_TIME_Start);
 				System.out.println(START_TIME_End );
-				List<String> startTimeList = new ArrayList<String>();
-//				Set<SingleOrderVO> startTimeList = new LinkedHashSet();
+				System.out.println("給我拿到"+getServletContext().getAttribute("futureOrder"));
+				List<String> orderList =(List<String>) (getServletContext().getAttribute("futureOrder"));
+				System.out.println("1"+orderList);
 				System.out.println("3.");
-				startTimeList = new SingleOrderDAO().get_start_time(START_TIME_Start, START_TIME_End);// 拿出一群時間的集合
-				System.out.println(startTimeList);
-				ServletContext context ;
-				getServletContext().setAttribute("futureOrder", startTimeList);
-				//拿到一堆訂單
-				System.out.println("1:"+getServletContext().getAttribute("futureOrder"));
+//				startTimeList = new SingleOrderDAO().get_start_time(START_TIME_Start, START_TIME_End);// 拿出一群時間的集合
+				System.out.println(orderList);
+//五分鐘後改變狀態碼。同時提醒克服。...克服進去則select狀態碼
+				
 //				if (startTimeList != null) {
-//					for (String starttime : startTimeList) {// 滾出一群時間
-////					 System.out.println(starttime);
-//						long num = Long.parseLong(starttime);// 動態計算出到開始時間
-//						System.out.println(num);
-//						System.out.println("=================");
-////						TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
+					for (String OrderID : orderList) {// 滾出一群時間
+					 System.out.println("2"+orderList);
+					 //加小時判斷是 { 0105 +60min 開始結束(0106~0204) 0205 0305 
+					 //寫方法ˋDAO    (SODR)____  SELECT ORDER_ID, WHERE STATE = 1 AND START_TIME get
+					 List<String> starttime= new SingleOrderDAO().gettimeByorderID(OrderID) ;
+//					 "SELECT STATE , START_TIME FROM SINGLE_ORDER WHERE ORDER_ID = ? ";
+//				    "UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=? ";
+					 
+					 
+					 System.out.println(starttime);
+//					 Update set state 6
+////						TimerTask delaytask = new TimerTask() {//執行下一個排成器
 ////							public void run() {
 ////								// System.out.println("更新日期:"+new
 ////								// java.util.Date()+"司機編號"+driverID+"最新評價為:"+rateAve+ "分");
@@ -76,11 +81,9 @@ public class DelayTimerx extends HttpServlet {
 ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
 //						// 排成器delaytask 5分鐘後 1.狀態碼改成逾期2.推播websocket給管理員 
 //						//
-//					}
+					}
 //				}
 				
-				
-				System.out.println("訂單集合");
 //				sharetimer(startTimeList);//此行跑不到。B.將一群時間傳到另一個方法
 				System.out.println("B.");
 			}
@@ -88,8 +91,10 @@ public class DelayTimerx extends HttpServlet {
 //		this.getRenewTime(22);// 當日22點更新 ，取得當天22點的Long
 //		timer.schedule(task, renewTime);
 //		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
-		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000*50); //甲. 每半小時執行一次 搜出隔天訂單 
-		System.out.println("1.現在時間"+new java.sql.Timestamp(System.currentTimeMillis()));   //TEST
+		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000); //乙. 每半小時(第三個參數)執行一次檢查定單狀態碼 
+//		int i =0;
+//		timer.scheduleAtFixedRate(task, i++, 1000*60*30); //乙. 每半小時(第三個參數)執行一次檢查定單狀態碼 
+		System.out.println("2-1.現在時間"+new java.sql.Timestamp(System.currentTimeMillis()));   //TEST
 //		System.out.println("C.現在毫秒數"+new GregorianCalendar().getTimeInMillis());   //TEST
 	}//init
 	// 傳入當日欲更新的hour
@@ -115,6 +120,8 @@ public class DelayTimerx extends HttpServlet {
 //					};
 ////					new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
 //					new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
+//					// 排成器delaytask 5分鐘後 1.狀態碼改成逾期2.推播websocket給管理員 
+//					//
 //				}
 //			}
 		}
