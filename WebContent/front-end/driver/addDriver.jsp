@@ -7,7 +7,7 @@
 <%@ page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64" %>
 <html>
 <head>
-
+<title>成為司機</title>
 <jsp:include page="/regna-master/head.jsp" />
 </head>
 
@@ -27,8 +27,7 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 		LinkedList errorMsgs = (LinkedList) request.getAttribute("errorMsgs");
 	%>
 	<!-- 錯誤列表 -->
-	<c:if test="${not empty errorMsgs}">
-		<ul class="list-group">
+    <c:if test="${not empty errorMsgs}"><ul class="list-group">
 			<li class="list-group-item active">Opps!錯誤訊息回報</li>
 			<c:forEach var="massage" items="${errorMsgs}">
 				<li class="list-group-item">${massage}</li>
@@ -117,10 +116,14 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 							
 							<div class="form-group">
 								<p>會員照片</p>
-							<img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
-		        				 onerror="this.src='cat.jpg'">
+								<c:if test="${empty memberVO.pic}" >
+					            <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" class='card-img-top' width='300' height='350'>
+					            </c:if>
+					             <c:if test="${not empty memberVO.pic}" >
+									<img src="<%=request.getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='400' height='350' >
+					             </c:if>
 							</div>
-
+							
 							<div class="form-group">
 								<p>願意共乘載客</p>
 								<select name="sharedCar" class="form-control">
