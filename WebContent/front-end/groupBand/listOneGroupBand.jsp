@@ -745,7 +745,7 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 
 		webSocket.onclose = function(event) {
 			updateStatus("WebSocket 已離線");
-			groupSelect();
+	
 		};
 		
 	}
@@ -778,7 +778,7 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 
 	
 	function disconnect () {
-		groupSelect();
+	
 		webSocket.close();
 		document.getElementById('sendMessage').disabled = true;
 		document.getElementById('connect').disabled = false;

@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
-
+import com.util.*;
 import com.groupBand.model.*;
 import com.groupOrder.model.*;
 import com.member.model.*;
@@ -324,11 +324,24 @@ public class GroupBandServlet extends HttpServlet {
 					errorMsgs.add("請上傳照片");
 
 				}
-
+				
+				Integer groupKind = new Integer(req.getParameter("groupKind").trim());
 				String groupType = req.getParameter("groupType");
-
-				Integer totalAmout = 0;
-
+				Integer distancees = new Integer(req.getParameter("distancees").trim());
+				Integer days = new Integer(req.getParameter("days").trim());
+				Integer totalAmout =null;
+				Checkout Checkout=new Checkout();
+				
+				if(groupKind==5) {
+					System.out.println("揪團"+distancees);
+					totalAmout = Checkout.checkout(distancees,5);
+					
+				System.out.println("揪團總金額"+totalAmout);
+				}else {
+					totalAmout = Checkout.checkout(distancees,6) *days;
+					System.out.println("長期揪團"+totalAmout);
+				}
+				
 				java.sql.Timestamp startTime = null;
 				java.sql.Timestamp endtime = null;
 //					try {
@@ -364,7 +377,7 @@ public class GroupBandServlet extends HttpServlet {
 				}
 
 //   	
-				Integer groupKind = new Integer(req.getParameter("groupKind").trim());
+				
 
 				Integer rate = 5;
 
