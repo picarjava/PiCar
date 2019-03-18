@@ -213,7 +213,7 @@ th {
 			<script>
 			var Mymoney ='<%=groupBandVO.getGroupID()%>'.charCodeAt(0)+'<%=groupBandVO.getGroupID()%>'.substr(1);
 		
-var MyPoint = "/webSocket/${MemberVO.memID}/"+parseInt(Mymoney);
+var MyPoint = "/webSocket/${memberVO.memID}/"+parseInt(Mymoney);
 var ${MemberVO.memID} = document.getElementById("${MemberVO.memID}");
 
 ${MemberVO.memID}.innerHTML="${MemberVO.memID}";
@@ -624,13 +624,13 @@ MemberVO memberVO = new MemberVO();
 for(GroupMemVO Memlist :groupMemlist){
 
 	memberVO = memberService.getOneMember(Memlist.getMemID());	
-	if(!memberVO.getMemID().equals(memberVOs.getMemID())){%>	
+	%>	
 	 var newDiv = document.createElement("div");
 	 	newDiv.id="<%=memberVO.getName()%>";
 	 	newDiv.innerHTML="<%=memberVO.getName()%>  :已連線";
 	 	messa.appendChild(newDiv); 
 	<%
-}
+
 	}
 %>
 
