@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.driverReport.model.DriverReportService;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
+import com.util.TimeConverter;
 
 import Timer.RenewDriverRateTimer;
 
@@ -68,13 +69,8 @@ public class SingleOrderServlet extends HttpServlet{
                          rate);
             }catch(RuntimeException e) {
             	errorMsgs.add("無法更新至資料庫");
-            }//有評價，則將司機ID放入context，讓排成器 RenewDriverRate.java定時更新司機評價
-            HashSet<String> ratingHashSet= (HashSet<String>)getServletContext().getAttribute("rateingHashSet");
-            if(ratingHashSet==null) {
-            	ratingHashSet=new HashSet<String>();
-            	getServletContext().setAttribute("ratingHashSet", ratingHashSet);
             }
-            ratingHashSet.add(singleOrderVO.getDriverID());
+           
             forwordURL ="/front-end/singleOrder/listPastSingleOrder.jsp";//成功則回歷史頁面
             }
             
@@ -121,6 +117,7 @@ public class SingleOrderServlet extends HttpServlet{
             
           //新增單程預約
             else if ("insert".equals(action)) {
+            	
                 forwordURL = "/front-end/singleOrder/addReservation.jsp";
                 String memID = req.getParameter("memID");
                 Timestamp startTime = parseTimestamp(req.getParameter("startTime"));
@@ -129,7 +126,7 @@ public class SingleOrderServlet extends HttpServlet{
                 String note = req.getParameter("note");
                 Integer totalAmount=new Integer(req.getParameter("totalAmount"));
                 Integer orderType = parseInteger(req.getParameter("orderType"));
-                Timestamp launchTime = new Timestamp(System.currentTimeMillis());
+                Timestamp launchTime= new Timestamp(System.currentTimeMillis());
                 Double startLng=new Double(req.getParameter("startLng"));
                 Double startLat=new Double(req.getParameter("startLat"));
                 Double endLng=new Double(req.getParameter("endLng"));
@@ -235,7 +232,7 @@ public class SingleOrderServlet extends HttpServlet{
                 oneDay=gc1.getTime().getTime()-gc.getTime().getTime();
                 restOfstartDay=(endDay-startDay)%oneDay;//得到第一天的時與分的long
                 countsDay=(int)(((endDay-(startDay-restOfstartDay))/oneDay)+1);//取得長期預約共幾天
-                System.out.println("共:"+countsDay+"天");
+                System.out.println(new Date(System.currentTimeMillis())+"新增長期訂單共:"+countsDay+"筆");
                 
                 //開始跑迴圈將每一筆長期訂單資訊放進List
                 LinkedList<SingleOrderVO> singleOrderVOList=new LinkedList<SingleOrderVO>();

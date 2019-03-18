@@ -16,6 +16,20 @@ public class SingleOrderService {
         return singleOrderDAO.findByPrimaryKey(orderID);
     } // getOneSingleOrder()
     
+    /*小編預約訂單排程器用*/
+    //撈單程訂單:三天前 可撈單程
+	public HashSet<SingleOrderVO> listAllUnpaidReservationOrder(){
+		return singleOrderDAO.listAllUnpaidReservationOrder();
+	};
+	//撈長期訂單1:三天前撈出長期單的前幾筆) 
+	public HashSet<SingleOrderVO> listEarlierPartUnpaidFromLongtermSets(){
+		return singleOrderDAO.listEarlierPartUnpaidFromLongtermSets();
+	};
+	//撈長期訂單2:再透過 撈長期第一筆LAUNCH_TIME，撈此長期預約的整組
+	public HashSet<SingleOrderVO> listOneSetOfLongterm(Timestamp launchtime){
+		return singleOrderDAO.listOneSetOfLongterm(launchtime);
+	}; 
+	   
     //小編新增找已評價司機
     public HashSet<String> getRatedDrivers(){
     	return singleOrderDAO.getRatedDrivers();
