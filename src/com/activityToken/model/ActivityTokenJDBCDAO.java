@@ -356,4 +356,14 @@ public class ActivityTokenJDBCDAO implements ActivityTokenDAO_interface{
 		// TODO Auto-generated method stub
 		
 	}
+
+
+	@Override
+	public void cancelToken(String mem_id, String activity_id) {
+		// TODO Auto-generated method stub
+		
+	}
+	
+	
+	
 }

@@ -17,5 +17,7 @@ public interface ActivityTokenDAO_interface {
     public void update(ActivityTokenVO activityTokenVO, Integer sum);
     /*處理交易問題-領取活動代幣的方法*/
     public void insert(ActivityTokenVO activityTokenVO,Integer sum);
+    //拿來結帳將代幣歸零用
+    public void cancelToken(String mem_id,String activity_id);
 
 }

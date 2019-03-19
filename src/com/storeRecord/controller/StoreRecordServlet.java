@@ -360,23 +360,22 @@ public class StoreRecordServlet extends HttpServlet {
 
 					@Override
 					public int compare(ActivityTokenVO o1, ActivityTokenVO o2) {
-						Integer result = (int) (o1.getDeadline().getTime() - o2.getDeadline().getTime());
+						int result = (int) (o1.getDeadline().getTime() - o2.getDeadline().getTime());
 						return result;
 					}
 
 				});
-				
-				
-				
+
 				if (!onesActivityToken.isEmpty()) {
 					if (onesActivityToken.get(0).getTokenAmount() != 0) {
 						amount = -(amount - onesActivityToken.get(0).getTokenAmount());
 						// 將第一筆資料歸零OR刪除?
 						String memberIDNewest = onesActivityToken.get(0).getMemID();
-//						String activityIDNewest = onesActivityToken.get(0).getActivityID();
-						
-						
-						
+						String activityIDNewest = onesActivityToken.get(0).getActivityID();
+						atSvc.cancelToken(memberIDNewest, activityIDNewest);
+
+					}else {
+						amount = -amount;
 					}
 				}
 

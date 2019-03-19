@@ -57,4 +57,10 @@ public class ActivityTokenService {
 		return dao.getOnesALL(memID);
 	}
 
+	public void cancelToken(String mem_id, String activity_id) {
+		 dao.cancelToken(mem_id, activity_id);
+		
+	}
+	
+	
 }
