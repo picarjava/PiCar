@@ -134,33 +134,33 @@ public class SingleOrderServlet extends HttpServlet {
 			SingleOrderVO SingleOrderVO1 = singleOrderSvc.getOneSingleOrder(orderID);
 
     		/*********轉JSON to 司機  目前乘客app會跳錯 *************/
-//			Gson gson1 = new Gson();
-//			gson1 = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
-//    		JsonObject json = new JsonObject();
-//    		json.addProperty("ORDER_ID", SingleOrderVO1.getOrderID());
-//    		json.addProperty("DRIVER_ID", SingleOrderVO1.getDriverID());
-//    		json.addProperty("MEM_ID", SingleOrderVO1.getMemID());
-//    		json.addProperty("STATE", SingleOrderVO1.getState());
-//    		json.addProperty("TOTALAMOUNT", SingleOrderVO1.getTotalAmount());
-//    		json.addProperty("startLoc", SingleOrderVO1.getStartLoc());
-//    		json.addProperty("endLoc", SingleOrderVO1.getEndLoc());
-//    		json.addProperty("startTime", String.valueOf(SingleOrderVO1.getStartTime()));
-//    		json.addProperty("endTime", String.valueOf(SingleOrderVO1.getStartTime()));
-//    		json.addProperty("startLng", SingleOrderVO1.getStartLng());
-//    		json.addProperty("startLat", SingleOrderVO1.getEndLat());
-//    		json.addProperty("endLng", SingleOrderVO1.getEndLng());
-//    		json.addProperty("endLat", SingleOrderVO1.getEndLat());
-//    		json.addProperty("orderType", SingleOrderVO1.getOrderType());
-//    		json.addProperty("rate", SingleOrderVO1.getRate());
-//    		json.addProperty("note", SingleOrderVO1.getNote());
-//    		json.addProperty("lauchTime", String.valueOf(SingleOrderVO1.getLaunchTime()));
-//    		
-//    		
+			Gson gson1 = new Gson();
+			gson1 = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
+    		JsonObject json = new JsonObject();
+    		json.addProperty("ORDER_ID", SingleOrderVO1.getOrderID());
+    		json.addProperty("DRIVER_ID", SingleOrderVO1.getDriverID());
+    		json.addProperty("MEM_ID", SingleOrderVO1.getMemID());
+    		json.addProperty("STATE", SingleOrderVO1.getState());
+    		json.addProperty("TOTALAMOUNT", SingleOrderVO1.getTotalAmount());
+    		json.addProperty("startLoc", SingleOrderVO1.getStartLoc());
+    		json.addProperty("endLoc", SingleOrderVO1.getEndLoc());
+    		json.addProperty("startTime", String.valueOf(SingleOrderVO1.getStartTime()));
+    		json.addProperty("endTime", String.valueOf(SingleOrderVO1.getStartTime()));
+    		json.addProperty("startLng", SingleOrderVO1.getStartLng());
+    		json.addProperty("startLat", SingleOrderVO1.getEndLat());
+    		json.addProperty("endLng", SingleOrderVO1.getEndLng());
+    		json.addProperty("endLat", SingleOrderVO1.getEndLat());
+    		json.addProperty("orderType", SingleOrderVO1.getOrderType());
+    		json.addProperty("rate", SingleOrderVO1.getRate());
+    		json.addProperty("note", SingleOrderVO1.getNote());
+    		json.addProperty("lauchTime", String.valueOf(SingleOrderVO1.getLaunchTime()));
+    		
+    		
 //            writer.write(json.toString());
-//           
-//            System.out.println(json);
-//            list.get(0).getValue().getSession().getAsyncRemote().sendText(json.toString());
            
+            System.out.println(json);
+            list.get(0).getValue().getSession().getAsyncRemote().sendText(json.toString());
+
             /**********************************************************************************/     
  
             MemberVO memberVO = memberService.getOneMember(driver.getMemID());
