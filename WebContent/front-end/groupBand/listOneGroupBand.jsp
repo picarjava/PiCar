@@ -942,7 +942,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 		  		  window.alert('No results found');
 		  	  }
 		  });
-};
+}
 
     </script>
 <script
