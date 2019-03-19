@@ -38,7 +38,7 @@
     <title>查看排定訂單</title>
     <jsp:include page="/regna-master/head.jsp" />  
 </head>
-<body>
+<body onload="connect();" onunload="disconnect();">
     <!-- 錯誤列表開始 -->
     <%List errorMsgs=(List<String>)request.getAttribute("errorMsgs");%>
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
@@ -54,6 +54,7 @@
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">查看排定訂單</h3>
+                    <p>會員${memID}WEBSOCKET連線狀況:</p><p id="statusOutput"></p>
                     <form action="">
 					 <div class="text-center"><button type="submit" class="btn btn-outline-success">返回首頁</button></div>
 					</form>
@@ -219,5 +220,46 @@
     
     <jsp:include page="/regna-master/body.jsp" />
 </body>
+<!--==========websocket推播 開始=============-->
+ <script>
+ 	var MyPoint="/BroadcastServer/${memID}";
+ 	var host=window.location.host;
+ 	var path=window.lacation.pathname;
+ 	var webCtx=path.substring(0,path.indexOf('/',1));
+ 	var endPointURL="ws://"+window.location.host+webCtx+Mypoint;
+    
+ 	var statusOutput=document.getElementById("statusOutput");
+ 	var webSocket;
+ 	
+ 	function connect(){
+ 		//建立websocket物件
+ 		
+ 		webSocket=new WebSocket(endPointURL);
+ 		window.alert("測試有沒有到這行");
+ 		
+ 		webSocket.onopen=function(event){
+ 			updateStatus("WebSocket 成功連線");
+ 		};
+ 		
+ 		webSocket.onmessage=function(event){
+ 			var jsonObj=JSON.parse(event.data);
+ 			var message=jsonObj.message+"\r\n";
+ 			window.alert(message);
+ 		};
+ 		
+ 		webSocket.onclose=function(event){
+ 			updateStatus("WebSocket已離線");
+ 		};
+ 	}
+ 	
+ 	function disconnect(){
+ 		webSocket.close();
+ 	}
+ 	
+ 	function updateStatus(newStatus){
+ 		statusOutput.innerHTML=newStatus;
+ 	}
+ </script>
 
+ <!--==========websocket推播 結束============-->
 </html>

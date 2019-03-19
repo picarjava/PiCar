@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServlet;
 
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
+import com.util.BroadcastServer;
 import com.util.TimeConverter;
 
 
@@ -69,8 +70,15 @@ public class DeductSingleReservationTimer extends HttpServlet {
 					}
 				}
 				
-//				
+				for(SingleOrderVO allUnpaidOrders:allUnpaid) {
+					BroadcastServer broadcastServer=new BroadcastServer();
+					broadcastServer.broadcast(allUnpaidOrders.getMemID(), "訂單編號:"+allUnpaidOrders.getOrderID()+"已為您扣款");
+				}
+				
+				
+			
 				//2.=======呼叫小蔣扣款方法=======
+				
 				//3.=======扣款成功後狀態碼1；失敗改為8=======
 //				try{
 //					//此處用for迴圈一一呼叫扣款方法

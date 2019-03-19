@@ -38,8 +38,8 @@
     <servlet-class>Timer.RenewDriverRateTimer</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
-   <servlet>
-    <servlet-name> DeductSingleReservationTimer</servlet-name>
+  <servlet>
+    <servlet-name>DeductSingleReservationTimer</servlet-name>
     <servlet-class>Timer.DeductSingleReservationTimer</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
@@ -303,7 +303,6 @@
     <url-pattern>/front-end/storeRecord/listOneStoreRecordMemberFront1.jsp</url-pattern>
     <url-pattern>/front-end/member/setting.jsp</url-pattern>
     <url-pattern>/front-end/location/updateLocation.jsp</url-pattern>
-        
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
