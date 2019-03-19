@@ -38,10 +38,6 @@
     <servlet-class>Timer.RenewDriverRateTimer</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
-<<<<<<< HEAD
-  <servlet>
-    <servlet-name>DeductSingleReservationTimer</servlet-name>
-=======
 <!--   <servlet> -->
 <!--     <servlet-name>DelayTimer</servlet-name> -->
 <!--     <servlet-class>Timer.DelayTimerx</servlet-class> -->
@@ -54,7 +50,6 @@
 <!--   </servlet> -->
    <servlet>
     <servlet-name> DeductSingleReservationTimer</servlet-name>
->>>>>>> 7164148d257497b00c422faabbdb6227d24c2f16
     <servlet-class>Timer.DeductSingleReservationTimer</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
