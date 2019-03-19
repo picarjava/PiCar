@@ -100,21 +100,69 @@ public class SingleOrderServlet extends HttpServlet {
 
     		});
 
-    		String ChoosenDriver = null;
+    		
     		for (Entry<String, StoredInfo> o : list) {
     			System.out.println(o.getKey());  //這是司機ID
     			System.out.println(o.getValue().getSession()); //這是司機的連線
-    			ChoosenDriver = o.getKey();
+    			
     			Double result = DistanceUtil.algorithm(lng1, lat1, o.getValue().getLatlng().getLongitude(),
     					o.getValue().getLatlng().getLatitude()); 
     			System.out.println(result); //這是計算出的距離
     		}
+       		System.out.println(list.get(0).getKey()+"被抓到了");  //司機須在線上，乘客再發起訂單
+    		String ChoosenDriver = null;
+    		ChoosenDriver = list.get(0).getKey(); //被上帝選擇的司機
     		
-    		System.out.println(ChoosenDriver);//************
             // simulate driver accept order
             DriverService driverService = new DriverService();
-            MemberService memberService = new MemberService();
-            DriverVO driver = driverService.getOneDriver(ChoosenDriver); //*************  
+            MemberService memberService = new MemberService();    
+            DriverVO driver = driverService.getOneDriver(list.get(0).getKey());  //*************
+            
+    		/***********把司機SET進資料庫******使用方法updateDriverIDAndStateByOrderID***********/
+    		SingleOrderService singleOrderSvc = new SingleOrderService();   //取得資料庫最後一筆資料的OrderID		
+    		Integer state = 1;
+    		
+    		List<SingleOrderVO> lastone = singleOrderSvc.getAll();
+			String orderID = lastone.get(lastone.size()-1).getOrderID();    //取得自增主鍵的OrderID
+			
+			singleOrderSvc.updateDriverIDAndStateByOrderID(ChoosenDriver, state , orderID);
+			System.out.println(ChoosenDriver+"被選擇的司機"); 
+			System.out.println(state+"狀態碼");
+			System.out.println(orderID+"訂單ID");
+			
+			
+			SingleOrderVO SingleOrderVO1 = singleOrderSvc.getOneSingleOrder(orderID);
+
+    		/*********轉JSON to 司機  目前乘客app會跳錯 *************/
+//			Gson gson1 = new Gson();
+//			gson1 = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
+//    		JsonObject json = new JsonObject();
+//    		json.addProperty("ORDER_ID", SingleOrderVO1.getOrderID());
+//    		json.addProperty("DRIVER_ID", SingleOrderVO1.getDriverID());
+//    		json.addProperty("MEM_ID", SingleOrderVO1.getMemID());
+//    		json.addProperty("STATE", SingleOrderVO1.getState());
+//    		json.addProperty("TOTALAMOUNT", SingleOrderVO1.getTotalAmount());
+//    		json.addProperty("startLoc", SingleOrderVO1.getStartLoc());
+//    		json.addProperty("endLoc", SingleOrderVO1.getEndLoc());
+//    		json.addProperty("startTime", String.valueOf(SingleOrderVO1.getStartTime()));
+//    		json.addProperty("endTime", String.valueOf(SingleOrderVO1.getStartTime()));
+//    		json.addProperty("startLng", SingleOrderVO1.getStartLng());
+//    		json.addProperty("startLat", SingleOrderVO1.getEndLat());
+//    		json.addProperty("endLng", SingleOrderVO1.getEndLng());
+//    		json.addProperty("endLat", SingleOrderVO1.getEndLat());
+//    		json.addProperty("orderType", SingleOrderVO1.getOrderType());
+//    		json.addProperty("rate", SingleOrderVO1.getRate());
+//    		json.addProperty("note", SingleOrderVO1.getNote());
+//    		json.addProperty("lauchTime", String.valueOf(SingleOrderVO1.getLaunchTime()));
+//    		
+//    		
+//            writer.write(json.toString());
+//           
+//            System.out.println(json);
+//            list.get(0).getValue().getSession().getAsyncRemote().sendText(json.toString());
+           
+            /**********************************************************************************/     
+ 
             MemberVO memberVO = memberService.getOneMember(driver.getMemID());
             JsonObject jsonOut = new JsonObject();
             jsonOut.addProperty("driverName", memberVO.getName());
