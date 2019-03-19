@@ -6,6 +6,7 @@
       <%@ page import="com.groupMem.model.*"%>
 
     <%@ page import="com.groupBand.model.*"%>
+     <%@ page import="com.member.model.*"%>
     
     <jsp:useBean id="listgroupBand_ByCompositeQuery" scope="request" type="java.util.List<GroupBandVO>" /> 
 <%--     <jsp:useBean id="groupOrderService" scope="page" class="com.groupOrder.model.GroupOrderService" /> --%>
@@ -68,18 +69,18 @@
 </tr>
 	<tr>
 <th>下車地點</th><th>${GroupBandVO.endLoc}</th>
-<th>隱私設定</th><th>${GroupBandVO.privates}</th>
 <th>照片</th><th><img src="/PiCar/GroupBand?groupID=${GroupBandVO.groupID}" width="100px"   height="100px"></th>
 <th>揪團類別</th><th>${GroupBandVO.groupType}</th>
+<th>上車時間</th><th>${GroupBandVO.startTime}</th>
 </tr>
 	<tr>
-<th>上車時間</th><th>${GroupBandVO.startTime}</th>
+
 
 
 
 <th>揪團種類</th><c:forEach var="mypurstatus" items="${groupKind}" varStatus="s">
 		 <c:choose>
-		 <c:when test="${GroupBandVO.groupKind == s.index}">
+		 <c:when test="${GroupBandVO.groupKind-5 == s.index}">
 		 <th>${mypurstatus}</th>
 		 </c:when>
 		 </c:choose>

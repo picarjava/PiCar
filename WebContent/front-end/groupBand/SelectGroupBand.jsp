@@ -82,6 +82,7 @@
  
         <input type="hidden" name="action" value="listgroupBand_ByCompositeQuery">
         <input type="submit" value="送出">
+        <input class="buttonS" type="reset" value="清除" />
     </FORM>
   </li>
 </ul>
@@ -93,8 +94,8 @@ $('#start_date').datetimepicker(
 			},
 			step: 5,
 			timepicker : false,
-					value : ' ',
-			minDate:           '-1970-01-01', // 去除今日(不含)之前
+					value :'+1970-01-05',
+			minDate:           '+1970-01-05', // 去除今日(不含)之前
 			maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 		});
 </script>

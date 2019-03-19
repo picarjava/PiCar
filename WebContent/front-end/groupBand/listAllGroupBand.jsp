@@ -9,6 +9,7 @@
     List<GroupBandVO> list = groupBandSvc.getAll();
     pageContext.setAttribute("list",list);
 %>
+
     <link href="img/favicon.png" rel="icon">
 <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 

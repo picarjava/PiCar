@@ -203,14 +203,14 @@ color: #ffffff;
 	 </div>
 	  <div class="form-group">
 	   <div>團名:</div>
-	  <input type="TEXT" name="groupName" size="25" class="form-control form-control-lg"
+	  <input type="TEXT" name="groupName" required size="25" class="form-control form-control-lg"
 					value="<%=(groupBandVO == null) ? "今天來建servlet" : groupBandVO.getGroupName()%>" />
 					
 	   </div>
 	 
 	   <div class="form-group">
   <div>簡介:</div>
-    <textarea name="introduction" id="note exampleFormControlTextarea1" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "除錯中".trim() : groupBandVO.getIntroduction().trim()%></textarea></textarea>
+    <textarea name="introduction" required id="note exampleFormControlTextarea1" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "除錯中".trim() : groupBandVO.getIntroduction().trim()%></textarea></textarea>
   </div>
 	 
 	 
@@ -245,7 +245,7 @@ color: #ffffff;
 	 
 	  <div class="form-group">
 	   <div>備註:</div>
-	 <textarea name="note" id="note exampleFormControlTextarea1" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "謝謝".trim() : groupBandVO.getNote().trim()%></textarea>
+	 <textarea name="note" required id="note exampleFormControlTextarea1" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "謝謝".trim() : groupBandVO.getNote().trim()%></textarea>
 	 </div>
 	 
 	  <div class="form-group">
@@ -269,6 +269,7 @@ color: #ffffff;
 	 
 	  <div class="form-group">
 	  <div>揪團圖片:</div>
+	  <div id="Verifyimage" style="color:#FF3333"></div>
 	 <input type="file" id="progressbarTWInput" name="photo" size="25" accept="image/gif, image/jpeg, image/png"
 					value="<%=(groupBandVO == null) ? "" : groupBandVO.getPhoto()%>" />
 					 <img id="preview_progressbarTW_img" src="#"  width="100px"   height="100px"  style = "display:none"/>
@@ -298,7 +299,7 @@ color: #ffffff;
 	  <div class="form-group">
 	  <div>
 	 				<input  type="hidden" name="action" value="insert" /> <input class="buttonS"
-					type="submit" value="發起揪團" />
+					type="submit" value="發起揪團" id="send"/>
 			<input class="buttonS" type="reset" value="清除揪團" />
 			</div>
 			</div>
@@ -315,6 +316,18 @@ color: #ffffff;
 	</div>
 </body>
 <!-- google map auto place complete 開始 -->
+<script>
+var Verifyimage=document.getElementById("Verifyimage");
+var send=document.getElementById("send");
+send.onclick=function(){
+var progressbarTWInput=document.getElementById("progressbarTWInput").value;
+if(progressbarTWInput.length<1){
+Verifyimage.innerHTML="<h3 style='color:#FF3333'>※請上傳圖片※<h3>";
+
+return false;
+}
+}
+</script>
  <script>
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -471,7 +484,7 @@ $('#buttons').datetimepicker(
 			},
 			step: 5,
 			timepicker : true,
-					value : '<%=startTime%>',
+					value : '+1970-01-05',
 			minDate:           '+1970-01-05', // 去除今日(不含)之前
 			maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 		});

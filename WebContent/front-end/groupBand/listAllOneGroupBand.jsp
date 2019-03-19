@@ -5,6 +5,7 @@
     <%@ page import="com.groupOrder.model.*"%>
     <%@ page import="java.util.*"%>
     <%@ page import="com.member.model.*"%>
+     <%@ page import="com.member.model.*"%>
 
     <%
     MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
@@ -22,6 +23,8 @@
 
     pageContext.setAttribute("list",list);
 %>
+<% String groupKind[] = {"揪團","長期揪團"}; %>
+<%request.setAttribute("groupKind", groupKind);%>
     <link href="img/favicon.png" rel="icon">
 <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
@@ -96,7 +99,8 @@
 
 <%@ include file="page1.file" %> 
 <c:forEach var="GroupBandVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-<<table>
+
+<table>
 	<tr>
 <th>發起時間</th><th>${GroupBandVO.launchTime}</th>
 <th>簡介</th><th>${GroupBandVO.introduction}</th>
@@ -111,18 +115,18 @@
 </tr>
 	<tr>
 <th>下車地點</th><th>${GroupBandVO.endLoc}</th>
-<th>隱私設定</th><th>${GroupBandVO.privates}</th>
 <th>照片</th><th><img src="/PiCar/GroupBand?groupID=${GroupBandVO.groupID}" width="100px"   height="100px"></th>
 <th>揪團類別</th><th>${GroupBandVO.groupType}</th>
+<th>上車時間</th><th>${GroupBandVO.startTime}</th>
 </tr>
 	<tr>
-<th>上車時間</th><th>${GroupBandVO.startTime}</th>
+
 
 
 
 <th>揪團種類</th><c:forEach var="mypurstatus" items="${groupKind}" varStatus="s">
 		 <c:choose>
-		 <c:when test="${GroupBandVO.groupKind == s.index}">
+		 <c:when test="${GroupBandVO.groupKind-5 == s.index}">
 		 <th>${mypurstatus}</th>
 		 </c:when>
 		 </c:choose>
