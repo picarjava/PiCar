@@ -2,13 +2,16 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.groupReport.model.*"%>
+<%@ page import="com.admin.model.*"%>
+<%@ page import="com.groupBand.model.*"%>
 <%
 	GroupReportService groupReportSvc = new GroupReportService();
 	List<GroupReportVO> list = groupReportSvc.getAll();
 	pageContext.setAttribute("list", list);
+	AdminVO adminVO = (AdminVO)session.getAttribute("adminVO");
 %>
 
-
+<jsp:useBean id="groupBandSvc" scope="page" class="com.groupBand.model.GroupBandService" />
 
 <!doctype html>
 <html lang="zh">
@@ -178,9 +181,9 @@ table {
 						<table id="t1">
 							<tr>
 								<th>檢舉揪團單號</th>
-								<th>會員編號</th>
+<!-- 								<th>會員編號</th> -->
 								<th>揪團編號</th>
-								<th>管理員編號</th>
+<!-- 								<th>管理員編號</th> -->
 								<th>檢舉內容</th>
 								<th>檢舉日期</th>
 								<th>處理狀態</th>
@@ -194,9 +197,16 @@ table {
 
 								<tr>
 									<td>${groupReportVO.greportID}</td>
-									<td>${groupReportVO.memID}</td>
-									<td>${groupReportVO.groupID}</td>
-									<td>${groupReportVO.adminID}</td>
+<%-- 									<td>${groupReportVO.memID}</td> --%>
+									
+									<td><c:forEach var="groupBandVO" items="${groupBandSvc.all}">
+						                <c:if test="${groupReportVO.groupID==groupBandVO.groupID}">
+							                        ${groupBandVO.groupID}
+						                </c:if>
+						                </c:forEach>
+									</td>
+<%-- 									<td>${groupReportVO.adminID}</td> --%>
+
 									<td>${groupReportVO.content}</td>
 									<td>${groupReportVO.time}</td>
 									<td>

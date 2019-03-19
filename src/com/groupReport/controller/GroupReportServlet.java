@@ -6,9 +6,9 @@ import java.util.*;
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-import com.driverReport.model.DriverReportService;
-import com.driverReport.model.DriverReportVO;
 import com.groupReport.model.*;
+import com.groupBand.model.*;
+
 
 public class GroupReportServlet extends HttpServlet {
 
@@ -156,16 +156,13 @@ public class GroupReportServlet extends HttpServlet {
 						errorMsgs.add("請輸入日期");
 					}
 						
-					Integer state = null; 
-					try {
-						state = new Integer(req.getParameter("state").trim());
-					if (state>1 || state==null) 
-							errorMsgs.add("處理狀態只能0或1");
-					} catch (Exception e) {
-						errorMsgs.add("處理狀態錯誤" + e.getMessage());
-					}
-					
-					
+					Integer state = new Integer(req.getParameter("state").trim());
+					Integer groupStatus = 8;
+					if (state == 1) {
+						GroupBandService groupBandSvc = new GroupBandService();
+						groupBandSvc.UPDATE_GROUP_STATUS__GROUP_ID(groupStatus, groupID);	
+					} 
+						
 					GroupReportVO groupReportVO = new GroupReportVO();
 					
 					groupReportVO.setGreportID(greportID);
