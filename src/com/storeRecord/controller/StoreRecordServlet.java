@@ -2,6 +2,8 @@ package com.storeRecord.controller;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,6 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.activityToken.model.ActivityTokenService;
+import com.activityToken.model.ActivityTokenVO;
 import com.member.model.*;
 import com.paymentRecord.model.PaymentRecordDAO;
 import com.paymentRecord.model.PaymentRecordService;
@@ -331,12 +335,9 @@ public class StoreRecordServlet extends HttpServlet {
 					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \" 且長度必需在2到20之間");
 				}
 				// 接收訂單的資訊
-				Integer meter = 0;
-				Integer type = 0;
 				Integer amount = 0;
-
 				try {
-					amount = -(Checkout.checkout(meter, type)); // 扣除金額為負值
+					amount = Integer.valueOf(req.getParameter("amount")); // 扣除金額為負值
 
 				} catch (Exception e) {
 					amount = 0;
@@ -345,11 +346,38 @@ public class StoreRecordServlet extends HttpServlet {
 
 				String orderID = null;
 				try {
-					orderID = req.getParameter("amount").trim();
+					orderID = req.getParameter("orderID").trim();
 
 				} catch (Exception e) {
 					orderID = null;
 					errorMsgs.add("請新增訂單ID");
+				}
+
+				ActivityTokenService atSvc = new ActivityTokenService();
+				List<ActivityTokenVO> onesActivityToken = new LinkedList();
+				onesActivityToken = atSvc.getOnesALL(memID);
+				Collections.sort(onesActivityToken, new Comparator<ActivityTokenVO>() {
+
+					@Override
+					public int compare(ActivityTokenVO o1, ActivityTokenVO o2) {
+						Integer result = (int) (o1.getDeadline().getTime() - o2.getDeadline().getTime());
+						return result;
+					}
+
+				});
+				
+				
+				
+				if (!onesActivityToken.isEmpty()) {
+					if (onesActivityToken.get(0).getTokenAmount() != 0) {
+						amount = -(amount - onesActivityToken.get(0).getTokenAmount());
+						// 將第一筆資料歸零OR刪除?
+						String memberIDNewest = onesActivityToken.get(0).getMemID();
+//						String activityIDNewest = onesActivityToken.get(0).getActivityID();
+						
+						
+						
+					}
 				}
 
 				StoreRecordVO storeRecordVO = new StoreRecordVO();
@@ -358,12 +386,12 @@ public class StoreRecordServlet extends HttpServlet {
 				storeRecordVO.setOrderID(orderID);
 				// 以上VO是為了錯誤時，原輸入資料保留
 
-				if (!errorMsgs.isEmpty()) {
-					req.setAttribute("storeRecordVO", storeRecordVO);
-					RequestDispatcher failView = req.getRequestDispatcher("/front-end/storeRecord/addStoreRecord.jsp");
-					failView.forward(req, res);
-					return;
-				}
+//				if (!errorMsgs.isEmpty()) {
+//					req.setAttribute("storeRecordVO", storeRecordVO);
+//					RequestDispatcher failView = req.getRequestDispatcher("/front-end/storeRecord/addStoreRecord.jsp");
+//					failView.forward(req, res);
+//					return;
+//				}
 
 				// 開始新增資料
 				StoreRecordService storeRecordSvc = new StoreRecordService();
@@ -393,6 +421,22 @@ public class StoreRecordServlet extends HttpServlet {
 			}
 
 		}
+
+//		if ("insertOrder".equals(action)) {
+//
+//			String memID = req.getParameter("memID");
+//			Integer amount = Integer.valueOf(req.getParameter("amount"));			
+//			String orderID = req.getParameter("orderID");
+//			
+//			StoreRecordService sr = new StoreRecordService();
+//			sr.addOrdrID(memID, amount, orderID);
+//			StoreRecordVO storeRecordVO = new StoreRecordVO();
+//			storeRecordVO.setMemID(memID);
+//
+//			req.setAttribute("storeRecordVO", storeRecordVO);
+//			RequestDispatcher successView = req.getRequestDispatcher("/front-end/storeRecord/listOneStoreRecordByMem.jsp");
+//			successView.forward(req, res);
+//		}
 
 	}
 

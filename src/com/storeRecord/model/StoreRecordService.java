@@ -67,6 +67,14 @@ public class StoreRecordService {
 	public List<StoreRecordVO> getAll() {
 		return dao.getAll();
 	}
+	
+	public List<StoreRecordVO> getMemStoreRecordPos(String memID) {
+		return dao.findByMemIDPos(memID);
+	}
+	
+	public List<StoreRecordVO> getMemStoreRecordNeg(String memID) {
+		return dao.findByMemIDNeg(memID);
+	}
 
 //	public Integer getCount(String memID) {
 //		return dao.getSumAmount(memID);
