@@ -165,6 +165,14 @@ public class SingleOrderServlet extends HttpServlet {
                 jsonObject.addProperty("state", "Failed");
                 writer.print(jsonObject.toString());
             }
+        } else if ("getScheduledOrder".equals(action)) {
+            String driverID = jsonIn.get(DRIVER_ID).getAsString();
+            List<SingleOrderVO> list = singleOrderService.getByStateAndOrderType(ESTABLISHED, ONE_TIME_RESERVE)
+                                                         .stream()
+                                                         .filter(singleOrder -> driverID != null && driverID.equals(singleOrder.getDriverID()))
+                                                         .collect(Collectors.toList());
+            gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
+            writer.print(gson.toJson(list));
         }
         
         writer.close();
