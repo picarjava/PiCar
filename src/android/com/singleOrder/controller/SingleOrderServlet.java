@@ -71,18 +71,13 @@ public class SingleOrderServlet extends HttpServlet {
             singleOrderService.addSingleOrder(singleOrderVO.getMemID(), NOT_ESTABLISHED, null, singleOrderVO.getStartLoc(),
                                               singleOrderVO.getEndLoc(), singleOrderVO.getEndLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(),
                                               singleOrderVO.getEndLat(), 0, singleOrderVO.getOrderType(), singleOrderVO.getNote(), new Timestamp(System.currentTimeMillis()));
-            
-    		Double lat1 = Double.valueOf(singleOrderVO.getStartLat()); //乘客緯度 /*******
-    		Double lng1 = Double.valueOf(singleOrderVO.getStartLng()); //乘客經度 /*******
-            
+    		Double lat1 = singleOrderVO.getStartLat(); //乘客緯度 /*******
+    		Double lng1 = singleOrderVO.getStartLng(); //乘客經度 /*******
     		List<Map.Entry<String, StoredInfo>> list = null;
-
-
     		ServletContext sc = getServletContext();
-    		Map<String, StoredInfo> MatchDriver = (ConcurrentHashMap<String, StoredInfo>) sc.getAttribute("driverLocation");
-
+    		@SuppressWarnings("unchecked")
+            Map<String, StoredInfo> MatchDriver = (ConcurrentHashMap<String, StoredInfo>) sc.getAttribute("driverLocation");
     		list = new ArrayList<Map.Entry<String, StoredInfo>>(MatchDriver.entrySet());
-
     		Collections.sort(list, new Comparator<Map.Entry<String, StoredInfo>>() {
     		    @Override
     			public int compare(Entry<String, StoredInfo> o1, Entry<String, StoredInfo> o2) {
@@ -130,34 +125,27 @@ public class SingleOrderServlet extends HttpServlet {
 			System.out.println(state+"狀態碼");
 			System.out.println(orderID+"訂單ID");
 			
-			
-			SingleOrderVO SingleOrderVO1 = singleOrderSvc.getOneSingleOrder(orderID);
-
     		/*********轉JSON to 司機  目前乘客app會跳錯 *************/
-			Gson gson1 = new Gson();
-			gson1 = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
+			gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
     		JsonObject json = new JsonObject();
-    		json.addProperty("ORDER_ID", SingleOrderVO1.getOrderID());
-    		json.addProperty("DRIVER_ID", SingleOrderVO1.getDriverID());
-    		json.addProperty("MEM_ID", SingleOrderVO1.getMemID());
-    		json.addProperty("STATE", SingleOrderVO1.getState());
-    		json.addProperty("TOTALAMOUNT", SingleOrderVO1.getTotalAmount());
-    		json.addProperty("startLoc", SingleOrderVO1.getStartLoc());
-    		json.addProperty("endLoc", SingleOrderVO1.getEndLoc());
-    		json.addProperty("startTime", String.valueOf(SingleOrderVO1.getStartTime()));
-    		json.addProperty("endTime", String.valueOf(SingleOrderVO1.getStartTime()));
-    		json.addProperty("startLng", SingleOrderVO1.getStartLng());
-    		json.addProperty("startLat", SingleOrderVO1.getEndLat());
-    		json.addProperty("endLng", SingleOrderVO1.getEndLng());
-    		json.addProperty("endLat", SingleOrderVO1.getEndLat());
-    		json.addProperty("orderType", SingleOrderVO1.getOrderType());
-    		json.addProperty("rate", SingleOrderVO1.getRate());
-    		json.addProperty("note", SingleOrderVO1.getNote());
-    		json.addProperty("lauchTime", String.valueOf(SingleOrderVO1.getLaunchTime()));
-    		
-    		
+    		json.addProperty("ORDER_ID", singleOrderVO.getOrderID());
+    		json.addProperty("DRIVER_ID", singleOrderVO.getDriverID());
+    		json.addProperty("MEM_ID", singleOrderVO.getMemID());
+    		json.addProperty("STATE", singleOrderVO.getState());
+    		json.addProperty("TOTALAMOUNT", singleOrderVO.getTotalAmount());
+    		json.addProperty("startLoc", singleOrderVO.getStartLoc());
+    		json.addProperty("endLoc", singleOrderVO.getEndLoc());
+    		json.addProperty("startTime", String.valueOf(singleOrderVO.getStartTime()));
+    		json.addProperty("endTime", String.valueOf(singleOrderVO.getStartTime()));
+    		json.addProperty("startLng", singleOrderVO.getStartLng());
+    		json.addProperty("startLat", singleOrderVO.getEndLat());
+    		json.addProperty("endLng", singleOrderVO.getEndLng());
+    		json.addProperty("endLat", singleOrderVO.getEndLat());
+    		json.addProperty("orderType", singleOrderVO.getOrderType());
+    		json.addProperty("rate", singleOrderVO.getRate());
+    		json.addProperty("note", singleOrderVO.getNote());
+    		json.addProperty("lauchTime", String.valueOf(singleOrderVO.getLaunchTime()));
 //            writer.write(json.toString());
-           
             System.out.println(json);
             list.get(0).getValue().getSession().getAsyncRemote().sendText(json.toString());
 
@@ -201,6 +189,7 @@ public class SingleOrderServlet extends HttpServlet {
             JsonObject jsonObject = new JsonObject();
             if (singleOrderVO != null && driverID != null && driverID.equals(singleOrderVO.getDriverID())) {
                 singleOrderService.updateDriverIDAndStateByOrderID(driverID, EXRCUTING, orderID);
+                @SuppressWarnings("unchecked")
                 Map<String, StoredInfo> driverLocation = (Map<String, StoredInfo>) getServletContext().getAttribute("driverLocation");
                 Session session = driverLocation.get(driverID).getSession();
                 if (session != null && session.isOpen()) {

@@ -420,4 +420,10 @@ public class GroupOrderJNDIDAO implements GroupOrderDAO_interface {
 		
 	}
 
+    @Override
+    public List<GroupOrderVO> getByState(Integer state) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }

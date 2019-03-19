@@ -1,7 +1,6 @@
 package com.groupOrder.model;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,7 +46,6 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String GET_ONE_STMTSTART_TIME_Mem = 
 				"SELECT START_TIME FROM GROUP_ORDER where GROUP_ID = ? and MEM_ID= ?";
 	
-		
 		private static final String UPDATEmem = 
 				"UPDATE GROUP_ORDER set MEM_ID=? where GORDER_ID = ?";
 
@@ -88,6 +86,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		
 		private static final String  GET_STATE_GROUP_ID_memID_NOTNULL=
 				"SELECT count(STATE) as STATE FROM GROUP_ORDER Where MEM_ID IS not null and GROUP_ID = ?";
+		
+		private static final String GET_BY_STATE = "SELECT * FROM GROUP_ORDER";
 		
 		@Override
 		public HashSet<String> getRatedDrivers(){
@@ -1265,5 +1265,66 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		
 	return list;
 }
+    @Override
+    public List<GroupOrderVO> getByState(Integer state) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<GroupOrderVO> list = new ArrayList<>();
+        try {
+            connection = ds.getConnection();
+            preparedStatement = connection.prepareStatement(GET_BY_STATE);
+            preparedStatement.setInt(1, state);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                GroupOrderVO groupOrderVO = new GroupOrderVO();
+                groupOrderVO.setGorderID(resultSet.getString("GORDER_ID"));
+                groupOrderVO.setDriverID(resultSet.getString("DRIVER_ID"));
+                groupOrderVO.setMemID(resultSet.getString("MEM_ID"));
+                groupOrderVO.setState(resultSet.getInt("STATE"));
+                groupOrderVO.setTotalAmout(resultSet.getInt("TOTAL_AMOUT"));
+                groupOrderVO.setLaunchTime(resultSet.getTimestamp("LAUNCH_TIME"));
+                groupOrderVO.setStartTime(resultSet.getTimestamp("START_TIME"));
+                groupOrderVO.setEndTime(resultSet.getTimestamp("END_TIME"));
+                groupOrderVO.setStartLng(resultSet.getDouble("START_LNG"));
+                groupOrderVO.setStartLat(resultSet.getDouble("START_LAT"));
+                groupOrderVO.setEndLng(resultSet.getDouble("END_LNG"));
+                groupOrderVO.setEndLat(resultSet.getDouble("END_LAT"));
+                groupOrderVO.setOrderType(resultSet.getInt("ORDER_TYPE"));
+                groupOrderVO.setRate(resultSet.getInt("RATE"));
+                groupOrderVO.setNote(resultSet.getString("NOTE"));
+                groupOrderVO.setGroupID(resultSet.getString("GROUP_ID"));
+                groupOrderVO.setStartLoc(resultSet.getString("START_LOC"));
+                groupOrderVO.setEndLoc(resultSet.getString("END_LOC"));
+                list.add(groupOrderVO);
+            }
+        } catch (SQLException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        } finally {
+            if (resultSet != null) {
+                try {
+                    resultSet.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (preparedStatement != null) {
+                try {
+                    preparedStatement.close();
+                } catch (SQLException se) {
+                    se.printStackTrace(System.err);
+                }
+            }
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (Exception e) {
+                    e.printStackTrace(System.err);
+                }
+            }
+        }
+        return list;
+    }
 	
 }

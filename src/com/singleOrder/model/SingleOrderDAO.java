@@ -287,27 +287,9 @@ public class SingleOrderDAO implements SingleOrder_interface {
 				+ se.getMessage());
 		// Clean up JDBC resources
 	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+		closeResultSet(rs);
+		closePreparedStatement(pstmt);
+		closeConnection(con);
 	}
 	return list;
 }
@@ -319,51 +301,33 @@ public class SingleOrderDAO implements SingleOrder_interface {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try{
-		con = dataSource.getConnection();
-		pstmt = con.prepareStatement(TIME_FROM_START);
-		pstmt.setString(1, START_TIME);
-		pstmt.setString(2, START_TIME2);
-		
-//		where 取現在三天後時間
-		rs = pstmt.executeQuery();
-		while(rs.next()) {
-//		starttime=(rs.getString("START_TIME"));
-		starttime=(rs.getString("ORDER_ID"));
-		starttime=(rs.getString(1));
-		list.add(starttime);
-// 訂單 開始時間ID
-//		list.add(orderid).add(memid).add;
-//		list.addAll(orderid,)
-		}
-	}catch (SQLException se) {
-		se.printStackTrace();
-		throw new RuntimeException("A database error occured. "
-				+ se.getMessage());
-		// Clean up JDBC resources
-	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
-	}
-	return list;
+    		con = dataSource.getConnection();
+    		pstmt = con.prepareStatement(TIME_FROM_START);
+    		pstmt.setString(1, START_TIME);
+    		pstmt.setString(2, START_TIME2);
+    		
+//    		where 取現在三天後時間
+    		rs = pstmt.executeQuery();
+    		while(rs.next()) {
+        		starttime=(rs.getString("START_TIME"));
+        		starttime=(rs.getString("ORDER_ID"));
+        		starttime=(rs.getString(1));
+        		list.add(starttime);
+//              訂單 開始時間ID
+//        		list.add(orderid).add(memid).add;
+//        		list.addAll(orderid,)
+    		}
+    	} catch (SQLException se) {
+    		se.printStackTrace();
+    		throw new RuntimeException("A database error occured. "
+    				+ se.getMessage());
+    		// Clean up JDBC resources
+    	} finally {
+    		closeResultSet(rs);
+    		closePreparedStatement(pstmt);
+    		closeConnection(con);
+    	}
+    	return list;
 }
     
     
@@ -386,20 +350,9 @@ public class SingleOrderDAO implements SingleOrder_interface {
     	}catch(SQLException se){
 			throw new RuntimeException("發生SQL error"+se.getMessage());
 		}finally{
-			if(pstmt!=null){
-				try{
-					pstmt.close();
-				}catch(SQLException se){
-					se.printStackTrace(System.err);
-				}
-			}
-			if(con!=null){
-				try{
-					con.close();
-				}catch(Exception e){
-					e.printStackTrace(System.err);
-				}
-			}
+		    closeResultSet(rs);
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
     	return rateAve;
     }
@@ -420,20 +373,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
 		}catch(SQLException se){
 			throw new RuntimeException("發生SQL error"+se.getMessage());
 		}finally{
-			if(pstmt!=null){
-				try{
-					pstmt.close();
-				}catch(SQLException se){
-					se.printStackTrace(System.err);
-				}
-			}
-			if(con!=null){
-				try{
-					con.close();
-				}catch(Exception e){
-					e.printStackTrace(System.err);
-				}
-			}
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
 	}
     
@@ -471,20 +412,12 @@ public class SingleOrderDAO implements SingleOrder_interface {
     public void insert(LinkedList<SingleOrderVO> singleOrderVOList) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
-       
         try {
         	connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(INSERT_STMT);
 			connection.setAutoCommit(false);//多筆訂單新增視為一筆交易
-		}  
-        catch (SQLException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
-        //for迴圈取出每一筆並新增
-        for(SingleOrderVO singleOrderVO:singleOrderVOList){
-        	
-            try {
+            //for迴圈取出每一筆並新增
+            for(SingleOrderVO singleOrderVO:singleOrderVOList){
             	int index = 1;
                 preparedStatement.setString(index++, singleOrderVO.getMemID());
                 preparedStatement.setInt(index++, singleOrderVO.getState());
@@ -500,37 +433,27 @@ public class SingleOrderDAO implements SingleOrder_interface {
                 preparedStatement.setString(index++, singleOrderVO.getNote());
                 preparedStatement.setTimestamp(index++, singleOrderVO.getLaunchTime());            
                 preparedStatement.addBatch(); //先將每筆置入batch中
-         
-            }catch (SQLException e) {
-            	try {
-					connection.rollback(); //每筆置入batch過程中有誤，則rollback
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				}
-                e.printStackTrace();
-                throw new RuntimeException(e.getMessage(), e);
-            }
-        }//for迴圈
-            try {
-    			preparedStatement.executeBatch(); //批次新增，效能較佳
-    			connection.commit(); //新增過程無誤，則commit
-    			connection.setAutoCommit(true); //送進資料庫後調回setAutoCommit(true)
-    		} catch (SQLException e) {
-    			try {
-					connection.rollback(); //批次新增過程中有誤 ，則rollback
-				} catch (SQLException e1) {
-					e1.printStackTrace();
-				} 
-    			e.printStackTrace();
-    		}
-            finally {
-                closePreparedStatement(preparedStatement);
-                closeConnection(connection);
-            } // finally 
-        
+            }//for迴圈
+            
+			preparedStatement.executeBatch(); //批次新增，效能較佳
+			connection.commit(); //新增過程無誤，則commit
+			connection.setAutoCommit(true); //送進資料庫後調回setAutoCommit(true)
+        } catch (SQLException e) {
+            if (connection != null)
+                try {
+                    connection.rollback();
+                } catch (SQLException e1) {
+                    e1.printStackTrace();
+                    throw new RuntimeException(e.getMessage(), e);
+                } //每筆置入batch過程中有誤，則rollback
+            
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        } // finally 
     } // insert()
-
-    
 
     @Override
     public void insert(SingleOrderVO singleOrderVO) {
@@ -735,17 +658,6 @@ public class SingleOrderDAO implements SingleOrder_interface {
             closeConnection(connection);
         }
     }
-
-    private void closeResultSet(ResultSet resultSet) {
-        if (resultSet != null) {
-            try {
-                resultSet.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-                throw new RuntimeException(e.getMessage(), e);
-            } // catch
-        } // if
-    } // closeResultSet()
     
     private SingleOrderVO getSingleOrderVO(ResultSet resultSet) throws SQLException {
         int index = 1;
@@ -769,6 +681,17 @@ public class SingleOrderDAO implements SingleOrder_interface {
         singleOrderVO.setLaunchTime(resultSet.getTimestamp(index++));
         return singleOrderVO;
     } // getSingleOrderVO()
+
+    private void closeResultSet(ResultSet resultSet) {
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
+            } // catch
+        } // if
+    } // closeResultSet()
     
     private void closePreparedStatement(PreparedStatement preparedStatement) {
         if (preparedStatement != null) {
@@ -791,9 +714,4 @@ public class SingleOrderDAO implements SingleOrder_interface {
             } //catch
         } // if
     } // closeConnection()
-    
-		
-
-
-    
 } // class SingleOrderDAO
