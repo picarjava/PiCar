@@ -374,7 +374,7 @@ public class StoreRecordServlet extends HttpServlet {
 						String activityIDNewest = onesActivityToken.get(0).getActivityID();
 						atSvc.cancelToken(memberIDNewest, activityIDNewest);
 
-					}else {
+					} else {
 						amount = -amount;
 					}
 				}
@@ -420,22 +420,6 @@ public class StoreRecordServlet extends HttpServlet {
 			}
 
 		}
-
-//		if ("insertOrder".equals(action)) {
-//
-//			String memID = req.getParameter("memID");
-//			Integer amount = Integer.valueOf(req.getParameter("amount"));			
-//			String orderID = req.getParameter("orderID");
-//			
-//			StoreRecordService sr = new StoreRecordService();
-//			sr.addOrdrID(memID, amount, orderID);
-//			StoreRecordVO storeRecordVO = new StoreRecordVO();
-//			storeRecordVO.setMemID(memID);
-//
-//			req.setAttribute("storeRecordVO", storeRecordVO);
-//			RequestDispatcher successView = req.getRequestDispatcher("/front-end/storeRecord/listOneStoreRecordByMem.jsp");
-//			successView.forward(req, res);
-//		}
 
 	}
 
