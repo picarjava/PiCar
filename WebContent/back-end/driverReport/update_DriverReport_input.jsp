@@ -104,7 +104,7 @@ h3 {
 		</c:if>
 	</table>
 
-	<FORM METHOD="post" ACTION="driverReport.do" name="form1">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do" name="form1">
 		<table>
 			<tr>
 				<td>檢舉司機單號<font color=red></font></td>

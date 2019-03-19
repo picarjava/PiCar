@@ -107,7 +107,7 @@ table {
 						      String encodeImg1 = null;
 						      if(licence!=null){
 						    	  encodeImg1 = Base64.encode(licence);%>
-                                    <img src="data:image/jpg;base64,<%=encodeImg1 %>" id="img1" width='200' height="200">
+                                    <img src="data:image/jpg;base64,<%=encodeImg1 %>" id="img1" width='200' height="200" onerror="this.src='cat.jpg'">
                                     <% }%>
                                     </div>
                                     <%-- 						      <td>${driverVO.criminal}</td> --%>
@@ -119,7 +119,7 @@ table {
 						      String encodeImg2 = null;
 						      if(criminal!=null){
 						    	  encodeImg2 = Base64.encode(criminal);%>
-                                        <img src="data:image/jpg;base64,<%=encodeImg2 %>" id="img2" width='200' height="200">
+                                        <img src="data:image/jpg;base64,<%=encodeImg2 %>" id="img2" width='200' height="200" onerror="this.src='cat.jpg'">
                                         <% }%>
                                     </div>
                                     <%-- 						      <td>${driverVO.trafficRecord}</td> --%>
@@ -131,7 +131,7 @@ table {
 						      String encodeImg3 = null;
 						      if(trafficRecord!=null){
 						    	  encodeImg3 = Base64.encode(trafficRecord);%>
-                                        <img src="data:image/jpg;base64,<%=encodeImg3 %>" id="img3" width='200' height="200">
+                                        <img src="data:image/jpg;base64,<%=encodeImg3 %>" id="img3" width='200' height="200" onerror="this.src='cat.jpg'">
                                         <% }%>
                                     </div>
                                     <%-- 						      <td>${driverVO.idNum}</td> --%>
@@ -143,7 +143,7 @@ table {
 						      String encodeImg4 = null;
 						      if(idNum!=null){
 						    	  encodeImg4 = Base64.encode(idNum);%>
-                                        <img src="data:image/jpg;base64,<%=encodeImg4 %>" id="img4" width='200' height="200">
+                                        <img src="data:image/jpg;base64,<%=encodeImg4 %>" id="img4" width='200' height="200" onerror="this.src='cat.jpg'">
                                         <% }%>
                                     </div>
                                     <%-- 						      <td>${driverVO.photo}</td> --%>
@@ -216,7 +216,7 @@ table {
                                        	 <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">提供嬰兒座椅</span>
                                         </div>
-                                        <div class="form-control" aria-label="Username" aria-describedby="basic-addon1"><font color="red">
+                              <div class="form-control" aria-label="Username" aria-describedby="basic-addon1"><font color="red">
 						      <c:if test="${driverVO.babySeat == 0}">不提供嬰兒座椅</c:if>
 						      <c:if test="${driverVO.babySeat == 1}">提供嬰兒座椅</c:if></font>
 						      </div>	

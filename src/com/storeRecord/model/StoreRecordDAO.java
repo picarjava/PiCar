@@ -35,12 +35,14 @@ public class StoreRecordDAO implements StoreRecordDAO_interface {
 	private static final String GET_MEM_ID_STMT_DISTINCT = "SELECT  DISTINCT MEM_ID FROM STORE_RECORD ORDER BY MEM_ID";
 
 	private static final String GET_AMOUT_MEM = "SELECT SUM (AMOUNT) FROM STORE_RECORD WHERE MEM_ID=?";
-	
+
 	private static final String INSERT_ORDERID = "INSERT INTO STORE_RECORD (STORE_ID, MEM_ID, SAVE_DATE, AMOUNT, ORDER_ID) VALUES"
 			+ "(TO_CHAR(SYSDATE,'YYYYMMDD')||'-'||LPAD(TO_CHAR(STO_SEQ.NEXTVAL), 3, '0'), ?, SYSDATE, ?, ?)";
-	
-	
-	
+
+	private static final String GET_MEM_STMT_NEGATIVE = "SELECT STORE_ID, MEM_ID, SAVE_DATE, AMOUNT, ORDER_ID FROM STORE_RECORD WHERE MEM_ID= ? AND  AMOUNT < 0";
+
+	private static final String GET_MEM_STMT_POSITIVE = "SELECT STORE_ID, MEM_ID, SAVE_DATE, AMOUNT, ORDER_ID FROM STORE_RECORD WHERE MEM_ID= ? AND  AMOUNT > 0";
+
 	@Override
 	public void insert(StoreRecordVO srVO) {
 
@@ -269,6 +271,118 @@ public class StoreRecordDAO implements StoreRecordDAO_interface {
 	}
 
 	@Override
+	public List<StoreRecordVO> findByMemIDPos(String memID) {
+		List<StoreRecordVO> list = new ArrayList();
+		StoreRecordVO srVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_MEM_STMT_POSITIVE);
+			pstmt.setString(1, memID);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				srVO = new StoreRecordVO();
+				srVO.setStoreID(rs.getString("STORE_ID"));
+				srVO.setMemID(rs.getString("MEM_ID"));
+				srVO.setSaveDate(rs.getTimestamp("SAVE_DATE"));
+				srVO.setAmount(rs.getInt("AMOUNT"));
+				srVO.setOrderID(rs.getString("ORDER_ID"));
+				list.add(srVO);
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("SQL錯誤: " + se.getMessage());
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return list;
+	}
+
+	@Override
+	public List<StoreRecordVO> findByMemIDNeg(String memID) {
+		List<StoreRecordVO> list = new ArrayList();
+		StoreRecordVO srVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_MEM_STMT_NEGATIVE);
+			pstmt.setString(1, memID);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				srVO = new StoreRecordVO();
+				srVO.setStoreID(rs.getString("STORE_ID"));
+				srVO.setMemID(rs.getString("MEM_ID"));
+				srVO.setSaveDate(rs.getTimestamp("SAVE_DATE"));
+				srVO.setAmount(rs.getInt("AMOUNT"));
+				srVO.setOrderID(rs.getString("ORDER_ID"));
+				list.add(srVO);
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("SQL錯誤: " + se.getMessage());
+
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
+		return list;
+	}
+
+	@Override
 	public List<StoreRecordVO> getAll() {
 
 		List<StoreRecordVO> list = new ArrayList();
@@ -408,28 +522,9 @@ public class StoreRecordDAO implements StoreRecordDAO_interface {
 				}
 			}
 		}
-		
+
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 //	public Integer getSumAmount(String memID) {
 //
 //		Integer sumAmount = new Integer(0);

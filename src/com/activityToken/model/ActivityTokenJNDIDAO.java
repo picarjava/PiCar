@@ -46,6 +46,11 @@ public class ActivityTokenJNDIDAO implements ActivityTokenDAO_interface{
 	private static final String GET_ONES_ALL_STMT=
 			"SELECT * FROM ACTIVITY_TOKEN WHERE MEM_ID=? ";
 	
+	private static final String CANCELTOKEN=
+			"UPDATE ACTIVITY_TOKEN SET TOKEN_AMOUNT='0' WHERE MEM_ID=? AND ACTIVITY_ID=? ";
+	
+	
+	
 	@Override
 	public void insert(ActivityTokenVO activityTokenVO) {
 		Connection con = null;
@@ -408,6 +413,46 @@ public class ActivityTokenJNDIDAO implements ActivityTokenDAO_interface{
 			}
 		}
 		return list;
+	}
+	
+	
+	@Override
+	public void cancelToken(String mem_id, String activity_id) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(CANCELTOKEN);
+
+			pstmt.setString(1, mem_id);
+			pstmt.setString(2, activity_id);
+			
+
+			pstmt.executeUpdate();
+
+			// Handle any driver errors
+		} catch (SQLException se) {
+			throw new RuntimeException("SQL發生錯誤 "
+					+ se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+		
 	}
 		
 }

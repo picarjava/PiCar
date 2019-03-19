@@ -264,7 +264,7 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		}
 	}
 ///////////////////	
-//	//來自首頁(eg.司機會員管理)的請求(從session查出單筆司機資料)    ok
+//	//來自首頁(eg.司機會員管理)的請求(從session查出單筆司機資料)    ok 轉交司機資料管理
 		if("GET_ONE_FRONT".equals(action)){// 
 			LinkedList<String> errorMsgs=new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -286,7 +286,7 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 			DriverVO driverVO=driverSvc.getOneDriver(driverID);
 			if(driverVO==null) {
 				errorMsgs.add("查無此筆");
-				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");//之後改成首頁
+				RequestDispatcher failurePage =req.getRequestDispatcher("/back-end/backHome.jsp");//改成後台首頁
 				failurePage.forward(req, res);
 				return;
 			}
@@ -296,9 +296,10 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
 			successPage.forward(req, res);
 			/*************4.處理例外***************/
-		}
+//		}
 //			catch(Exception e){
-//			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());}
+//			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());
+			}
 //			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //			failurePage.forward(req, res);
 //		}	
@@ -336,12 +337,12 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 			RequestDispatcher successPage=req.getRequestDispatcher(url);
 			successPage.forward(req, res);
 			/*************4.處理例外**************/
-		}
+//		}
 //			catch(Exception e){
 //			errorMsgs.add("無法取得要修改的資料:"+e.getMessage());}
 //			RequestDispatcher  failurePage=req.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
 //			failurePage.forward(req, res);
-//		}
+		}
 ////////////////////////
 //來自back-end/listAllDriver.jsp 修改  ban deadline verivfied==0 (後台驗證司機 )//OK
 		//SELECT * FROM Driver ORDER BY VERIFIED ASC, DRIVER_ID ASC;先挑出驗證再牌號碼
@@ -392,6 +393,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	/*************4.處理例外:回listALL原頁面**************/
 }catch(Exception e){
 }
+}
 //////////////////////////////////////////////////
 //來自back-end/listAllDriver.jsp 修改  ban deadline ==0 (後台banned司機  )//??沒用
 if("GET_ONE_FOR_BANNEDs".equals(action)){
@@ -438,8 +440,46 @@ if("GET_ONE_FOR_BANNEDs".equals(action)){
 //	update
 //	Date deadline = null;//被ban的時間
 //	driverVO.setDeadline(deadline);//修改時使用
-		}
+//		}
 	//////////////////////////////////////
+if ("Update_Hobby".equals(action)) {   //阿君新增FOR前端喜好設定
+	// 建立錯誤的collection
+	List<String> errorMsgs = new LinkedList<String>();
+	req.setAttribute("errorMsgs", errorMsgs);
+	
+//	try {
+		String memID = new String(req.getParameter("memID").trim());
+
+		String creditcard = req.getParameter("creditcard");
+		if (creditcard == null || creditcard.trim().length() == 0) {
+			errorMsgs.add("creditcard請勿空白");
+		}
+
+		Integer pet = new Integer(req.getParameter("pet"));
+		Integer smoke = new Integer(req.getParameter("smoke"));
+		Integer babySeat = new Integer(req.getParameter("babySeat"));
+
+
+		MemberVO memberVO = new MemberVO();
+		memberVO.setMemID(memID);
+		memberVO.setCreditcard(creditcard);
+		memberVO.setPet(pet);
+		memberVO.setSmoke(smoke);
+		memberVO.setBabySeat(babySeat);
+		
+		MemberService memberService = new MemberService();
+		memberVO = memberService.setHobby(memID, creditcard, pet, smoke, babySeat);
+		
+		RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByUpdate.jsp");
+		successView.forward(req, res);
+
+//	} catch (Exception e) {
+//		errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
+//		RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/setting.jsp");
+//		successView.forward(req, res);
+//	}
+
+}
 //	if ("UPDATE_DRI".equals(action)) { //前端司機用(僅含喜好設定需改寫DAO) //?
 
 //long size = part.getSize();//update用到
@@ -598,7 +638,6 @@ if("GET_ONE_FOR_BANNEDs".equals(action)){
 //		}
 //	
 		
-		
 	}
 	/////////////////��末閮剖�� (�璈�)
 //	String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
@@ -661,6 +700,7 @@ if("GET_ONE_FOR_BANNEDs".equals(action)){
 //			failureView.forward(req, res);
 //		}		
 //   	}
+//}
 //////////////////////////////////////////////////////////////////////	
 	/* �������脰�冗嚗誑靘蹂誑��迂憿舐內�蝬脤��� */
 	public static void readPicture(byte[] bytes, String picName) throws IOException {

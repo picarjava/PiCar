@@ -23,9 +23,10 @@
 <!-- Libraries CSS Files -->
 <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 <link href="lib/animate/animate.min.css" rel="stylesheet">
-
+<link href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/style.css" rel="stylesheet">
+<link href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/flexslider.css" rel="stylesheet">
+<link href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/font-awesome.css" rel="stylesheet">
 <!-- Main Stylesheet File -->
-<link href="css/style.css" rel="stylesheet">
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.js"></script>
@@ -36,7 +37,7 @@
 <style>
 	#map { 
          height: 500px;  
-         width: 850px;
+         width: 1100px;
       } 
         #origin-input, 
        #destination-input { 
@@ -49,50 +50,116 @@
          text-overflow: ellipsis; 
          width: 350px; 
        } 
-</style>
-
-<style>
-table#table-1 {
-	width: 450px;
-	background-color: #008888;
-	margin-top: 5px;
-	margin-bottom: 10px;
-	border: 3px ridge Gray;
-	height: 80px;
-	text-align: center;
+       body {
+           text-align: left;
+       }
+       .about-us {
+    margin-top: 120px;
 }
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
+.h3center{
+    text-align: center;
 }
-
-h4 {
-	color: blue;
-	display: inline;
+.radio {
+display:inline;
+  margin: 0.5rem;
 }
-</style>
-
-<style>
-table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
+.radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
 }
-
-table, th, td {
-	border: 0px solid #CCCCFF;
+.radio input[type="radio"] + .radio-label:before {
+  content: '';
+  background: #f4f4f4;
+  border-radius: 100%;
+  border: 1px solid #b4b4b4;
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  position: relative;
+  top: -0.2em;
+  margin-right: 1em;
+  vertical-align: top;
+  cursor: pointer;
+  text-align: center;
+  -webkit-transition: all 250ms ease;
+  transition: all 250ms ease;
 }
+.radio input[type="radio"]:checked + .radio-label:before {
+  background-color: #2dc997;
+  box-shadow: inset 0 0 0 4px #f4f4f4;
+}
+.radio input[type="radio"]:focus + .radio-label:before {
+  outline: none;
+  border-color: #2dc997;
+}
+.radio input[type="radio"]:disabled + .radio-label:before {
+  box-shadow: inset 0 0 0 4px #f4f4f4;
+  border-color: #b4b4b4;
+  background: #b4b4b4;
+}
+.radio input[type="radio"] + .radio-label:empty:before {
+  margin-right: 0;
+}
+a:not([href]):not([tabindex]) {
+color: #2dc997;
+}
+a:not([href]):not([tabindex]):hover{
+color: #ffffff;
+}
+.form-control:hover{
 
-th, td {
-	padding: 1px;
+}
+.form-group{
+    margin-top: 20px;
+}
+.form-control-lg, .input-group-lg>.form-control, .input-group-lg>.input-group-addon, .input-group-lg>.input-group-btn>.btn {
+    font-size: 1.1rem;
+}
+.buttonS{
+    font-family: "Poppins", sans-serif;
+    border-radius: 50px;
+    padding: 5px 22px;
+    background: #f5f5f5;
+    color: #2dc997;
+    font-style: italic;
+    text-decoration: none;
+    -moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    -webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border-radius: 50px;
+/*     border: 2px solid #2dc997; */
+    0 1px 25px 0 rgba(0,0,0,.05) inset,: ;
+    0 -1px 25px 0 rgba(0,0,0,.05) inset: ;
+    -webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+}
+}
+.buttonS:hover {
+    font-family: "Poppins", sans-serif;
+    border-radius: 50px;
+    padding: 5px 22px;
+    background: #2dc997;
+    color: #f5f5f5;
+    font-style: italic;
+    text-decoration: none;
+    -moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    -webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border-radius: 50px;
+    border: 2px solid #2dc997;
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    -webkit-box-shadow:
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow:
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
 }
 </style>
 </head>
 <body bgcolor="#aaaaaa">
-
+<div class="about-us container">
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
 		<ul>
@@ -101,113 +168,56 @@ th, td {
 			</c:forEach>
 		</ul>
 	</c:if>
-	<table id="table-1">
+	<h4 class="h3center">發起揪團 <span class="badge badge-secondary"></span></h4>
+<div class="about-us-text span12">
+	<form  action="<%=request.getServletContext().getContextPath()%>/GroupBand" method="POST" enctype="multipart/form-data">
+		
+		<div class="container">
+  <div class="radio">
+    <input id="radio-1" type="radio" name="groupKind" value="5" checked
+					onclick="groupif(this.value)">
+    <label for="radio-1" class="radio-label">揪團</label>
+  </div>
 
-
-		<tr>
-			<td>
-				<h3>發起揪團 - insertGroupBand.jsp</h3>
-			</td>
-			<td>
-				<h4>
-					<a href="slistAllGroupBand.jsp">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
-	<h3>發起揪團 ${memberVO.memID }</h3>
-
-	<form action="<%=request.getServletContext().getContextPath()%>/GroupBand" method="POST" enctype="multipart/form-data">
-		<table border="1" class="table">
-
-			<tr>
-				<td><input type="radio" name="groupKind" value="5" checked
-					onclick="groupif(this.value)">揪團</td>
-				<td><input type="radio" name="groupKind" value="6"
-					onclick="groupif(this.value)">長期揪團<br></td>
-			</tr>
-			
-			<tr>
-			<td>揪團類別</td>
-			<td><select name="groupType">
+  <div class="radio">
+    <input id="radio-2" type="radio" name="groupKind" value="6"
+					onclick="groupif(this.value)">
+    <label  for="radio-2" class="radio-label">長期揪團</label>
+  </div>
+  <div class="radio">
+  <input  type="checkbox" style="zoom: 1.8" value="1" name="privates">
+  <label  for="radio-2" class="radio-label">隱私權</label>
+    </div>
+	</div>
+	
+	 <div class="form-group">
+	 <div>揪團類別</div>
+	 <select name="groupType" class="form-control" id="exampleFormControlSelect1">
 			<option value="演唱會">演唱會</option>
 			<option value="旅遊">旅遊</option>
 			<option value="美食">美食</option>
 			<option value="運動團">運動團</option>
 			<option value="展覽">展覽</option>
 			<option value="遊樂園">遊樂園</option>
-			</select></td>
-			</tr>
-			
-
-			<tr>
-				<td>團名</td>
-				<td><input type="TEXT" name="groupName" size="25"
-					value="<%=(groupBandVO == null) ? "今天來建servlet" : groupBandVO.getGroupName()%>" /></td>
-			</tr>
-			<tr>
-				<td>簡介:</td>
-
-				<td><textarea name="introduction" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "除錯中".trim() : groupBandVO.getIntroduction().trim()%></textarea></td>
-			</tr>
-
-			<tr>
-				<td>揪團圖片</td>
-
-
-  
-				<td><input type="file" id="progressbarTWInput" name="photo" size="25" accept="image/gif, image/jpeg, image/png"
-					value="<%=(groupBandVO == null) ? "" : groupBandVO.getPhoto()%>" />
-					 <img id="preview_progressbarTW_img" src="#"  width="100px"   height="100px"  style = "display:none"/>
-				</td>
-				
-			</tr>
-
-			<tr>
-				<td>上車地點:</td>
-
-				<td>
-<!-- 				<select name="startLoc"> -->
-<!-- 						<option value="桃園火車站">桃園市</option> -->
-<!-- 						<option value="台北市火車站">台北市</option> -->
-<!-- 				</select> -->
-<!-- 加入google map -->
-
-					<div class="form-row">
-		       			<div class="col">
-						<p id="distance"></p>
-						</div>
-						<div class="col">
-		       			<p id="duration"></p>
-		       
-		       			</div>
-	       			</div>
-				    <div class="form-row">
-                      <div class="col">
-                        <p>上車地點/下車地點</p> 
-                        <input id="origin-input" type="text" name="startLoc" value="${groupBand.startLoc}" class="form-control" placeholder="請輸入上車地點">
-                      </div>
-                      <div class="col">
-                        <input id="destination-input" type="text" name="endLoc" value="${groupBand.endLoc}" class="form-control" placeholder="請輸入下車地點">
-                      </div>
-                      <div  id="map" class="col12">
-                     </div>
-                    </div>
-				</td>
-			</tr>
-
-<!-- 			<tr> -->
-<!-- 				<td>下車地點:</td> -->
-
-<!-- 				<td><select name="endLoc"> -->
-<!-- 						<option value="桃園火車站">桃園市</option> -->
-<!-- 						<option value="台北市火車站">台北市</option> -->
-<!-- 				</select></td> -->
-<!-- 			</tr> -->
-
-			<tr>
-				<td>下限人數</td>
-				<td><select id="lowerLimit" onchange="pvalue(this.value);" name="lowerlimit">
+			</select>
+	 </div>
+	  <div class="form-group">
+	   <div>團名:</div>
+	  <input type="TEXT" name="groupName" required size="25" class="form-control form-control-lg"
+					value="<%=(groupBandVO == null) ? "今天來建servlet" : groupBandVO.getGroupName()%>" />
+					
+	   </div>
+	 
+	   <div class="form-group">
+  <div>簡介:</div>
+    <textarea name="introduction" required id="note exampleFormControlTextarea1" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "除錯中".trim() : groupBandVO.getIntroduction().trim()%></textarea></textarea>
+  </div>
+	 
+	 
+	
+	  <div class="form-group">
+	   <div>下限人數:</div>
+	 <select  class="form-control"  id="lowerLimit" onchange="pvalue(this.value);" name="lowerlimit">
 						<%
 							for (int a = 2; a < 5; a++) {
 						%>
@@ -215,13 +225,13 @@ th, td {
 						<%
 							}
 						%>
-				</select></td>
-			</tr>
-
-
-			<tr>
-				<td>上限人數</td>
-				<td><select id="Lower" name="upperlimit">
+				</select>
+	  </div>
+	 
+	 
+	 	  <div class="form-group">
+	 	   <div>上限人數:</div>
+	<select  class="form-control"  id="Lower" name="upperlimit">
 						<%
 							for (int a = 2; a < 5; a++) {
 						%>
@@ -230,15 +240,16 @@ th, td {
 							}
 						%>
 					
-					</select></td>
-			</tr>
-
-
-			<tr>
-				<td>上車日期</td>
-
-				<td>
-				<button type="button" id="buttons" onchange="buttones();">請點選輸入日期</button>
+					</select>
+	  </div>
+	 
+	  <div class="form-group">
+	   <div>備註:</div>
+	 <textarea name="note" required id="note exampleFormControlTextarea1" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "謝謝".trim() : groupBandVO.getNote().trim()%></textarea>
+	 </div>
+	 
+	  <div class="form-group">
+	 <button type="button" id="buttons" onchange="buttones();" class="btn btn-outline-success">請點選輸入日期</button>
 				<select id="days" name="days" style="display: none" onchange="timestamps();"></select>
 				<nobr>時間:</nobr> 
 				<nobr id="datetime" >00:00</nobr> 
@@ -249,50 +260,74 @@ th, td {
 						
 <input name="endTime" id="end_date" type="text"
 					style="display: none" readonly="readonly" size="8">
-					<nobr id="numd"></nobr>  
-				
-			</tr>
-
-		
-		
-
-		
-				
-		
-
-<tr>
-			<td>備註:</td>
-
-			<td><textarea name="note" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "謝謝".trim() : groupBandVO.getNote().trim()%></textarea></td>
-			</tr>
-			<tr>
-				<td>隱私設定:</td>
-
-				<td><input type="checkbox" value="1" name="privates">隱私權<br>
-				</td>
-			</tr>
-
-
-
-			<tr>
-				<td><input type="hidden" name="memIDs" value="${memberVO.memID }" /> 
-				<input type="hidden" name="action" value="insert" /> <input
-					type="submit" value="發起揪團" /></td>
-				<td><input type="reset" value="清除揪團" /></td>
-
-			</tr>
-		</table>
-		
-		
-		 <!-- google map 放隱藏的標籤，讓Controller抓到緯經度參數進行操作*/ -->
+					<nobr id="numd"></nobr>
+	 </div>
+	 
+	 
+	
+	 
+	 
+	  <div class="form-group">
+	  <div>揪團圖片:</div>
+	  <div id="Verifyimage" style="color:#FF3333"></div>
+	 <input type="file" id="progressbarTWInput" name="photo" size="25" accept="image/gif, image/jpeg, image/png"
+					value="<%=(groupBandVO == null) ? "" : groupBandVO.getPhoto()%>" />
+					 <img id="preview_progressbarTW_img" src="#"  width="100px"   height="100px"  style = "display:none"/>
+	 
+	 
+	  </div>
+	   <div>上車地點:</div>
+	   <div class="form-group">
+	  					<div class="form-row">
+		       			<div class="col">
+						<p id="distance"></p>
+						</div>
+						<div class="col">
+		       			<p id="duration"></p>
+		       
+		       			</div>
+	       			</div>
+				    <div class="form-row">              
+                        <input id="origin-input" type="text" name="startLoc" value="${groupBand.startLoc}" class="form-control" placeholder="請輸入上車地點">
+                      
+                        <input id="destination-input" type="text" name="endLoc" value="${groupBand.endLoc}" class="form-control" placeholder="請輸入下車地點">
+                      </div>
+                      <div  id="map" class="col12">
+                   
+                    </div>
+	  </div>
+	  <div class="form-group">
+	  <div>
+	 				<input  type="hidden" name="action" value="insert" /> <input class="buttonS"
+					type="submit" value="發起揪團" id="send"/>
+			<input class="buttonS" type="reset" value="清除揪團" />
+			</div>
+			</div>
+	
+				<input type="hidden" name="memIDs" value="${memberVO.memID }" /> 
+				<input type="hidden" name="action" value="insert" /> 
                 <input type="hidden" id="startLng" name="startLng" value="">
                 <input type="hidden" id="startLat" name="startLat" value="">
                 <input type="hidden" id="endLng" name="endLng" value="">
                 <input type="hidden" id="endLat" name="endLat" value="">
 				<input type="hidden" id="distancees" name="distancees" value="">	
 	</form>
+	</div>
+	</div>
 </body>
 <!-- google map auto place complete 開始 -->
+<script>
+var Verifyimage=document.getElementById("Verifyimage");
+var send=document.getElementById("send");
+send.onclick=function(){
+var progressbarTWInput=document.getElementById("progressbarTWInput").value;
+if(progressbarTWInput.length<1){
+Verifyimage.innerHTML="<h3 style='color:#FF3333'>※請上傳圖片※<h3>";
+
+return false;
+}
+}
+</script>
  <script>
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {
@@ -449,8 +484,8 @@ $('#buttons').datetimepicker(
 			},
 			step: 5,
 			timepicker : true,
-					value : '<%=startTime%>',
-			minDate:           '+1970-01-03', // 去除今日(不含)之前
+					value : '+1970-01-05',
+			minDate:           '+1970-01-05', // 去除今日(不含)之前
 			maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 		});
 		
@@ -715,28 +750,48 @@ function timestamps() {
 <script>
 
 	function groupif(number) {
-		days = document.getElementById("days");
-		brs = document.getElementById("brs");
-		enddate = document.getElementById("end_date");
-		fdate1 = document.getElementById("f_date1");
-		enddates = document.getElementById("enddate");
-		datetime =	document.getElementById("datetime");
 		if (number == 6) {
-			days.style="";
+			$('#days').show();
+			$('#end_date').show();
+			$('#f_date1').hide();
+			$('#enddate').show();
+			$('#datetime').show();
 			brs.innerHTML="~";
-			enddate.style = "";
-			fdate1.style = "display:none";
-			enddates.style = "";
-			datetime.style="";
 		} else {
-			days.style="display:none";
+			$('#days').hide();
+			$('#end_date').hide();
+			$('#f_date1').show();
+			$('#enddate').hide();
+			$('#datetime').hide();
 			brs.innerHTML="";
-			enddate.style = "display:none";
-			fdate1.style = "";
-			enddates.style = "display:none";
-			datetime.style="display:none";
+	
 		}
 	}
+// 	function groupif(number) {
+// 		days = document.getElementById("days");
+// 		brs = document.getElementById("brs");
+// 		enddate = document.getElementById("end_date");
+// 		fdate1 = document.getElementById("f_date1");
+// 		enddates = document.getElementById("enddate");
+// 		datetime =	document.getElementById("datetime");
+// 		if (number == 6) {
+// 			$('#days').hide();
+// 			$('#days').show();
+// 			days.style="";
+// 			brs.innerHTML="~";
+// 			enddate.style = "";
+// 			fdate1.style = "display:none";
+// 			enddates.style = "";
+// 			datetime.style="";
+// 		} else {
+// 			days.style="display:none";
+// 			brs.innerHTML="";
+// 			enddate.style = "display:none";
+// 			fdate1.style = "";
+// 			enddates.style = "display:none";
+// 			datetime.style="display:none";
+// 		}
+// 	}
 </script>
 <!-- JavaScript & jQuery 版本-->
 

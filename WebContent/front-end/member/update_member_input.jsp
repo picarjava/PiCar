@@ -31,7 +31,8 @@ table{
 </c:if>
 
 <form method="post" action="member.do" name="form1" enctype="multipart/form-data">
-<a href="select_page.jsp">回主頁面</a>
+<a  href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
+<a  href=listOneMemberByUpdate.jsp> 請按此回上一頁 </a>
 	<table >
 		<tr>
 			<td>會員編號：</td>
@@ -116,10 +117,12 @@ table{
 		</tr>
 		<tr>
 			<td>嬰兒座椅設定：</td>
-			<td><select name="babySeat">
-			<option value="1" ${(memberVO.babySeat == '1')?'selected':'' }>需要
-			<option value="0" ${(memberVO.babySeat == '0')?'selected':'' }>不需要
-			</select></td>		
+			<td>
+			<c:choose>
+			  <c:when test="${memberVO.babySeat == '1'}">需要  </c:when>
+			  <c:when test="${memberVO.babySeat == '0'}">不需要  </c:when>			 
+			</c:choose>
+			<input type = "hidden" name="babySeat" value= "<%=memberVO.getBabySeat() %>"></td>		
 		</tr>
 		<tr>
 			<td>會員照片：</td>

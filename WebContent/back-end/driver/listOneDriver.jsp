@@ -94,7 +94,7 @@
 						      String encodeImg1 = null;
 						      if(licence!=null){
 						    	  encodeImg1 = Base64.encode(licence);%>
-						    	  <img src="data:image/jpg;base64,<%=encodeImg1 %>" id="img1">
+						    	  <img src="data:image/jpg;base64,<%=encodeImg1 %>" id="img1" width='400' height='350'>
 						      <% }%>
 						      </td>			
 								</div>
@@ -112,7 +112,7 @@
  						      String encodeImg2 = null;
  						      if(criminal!=null){
 						    	  encodeImg2 = Base64.encode(criminal);%> 
-						    	  <img src="data:image/jpg;base64,<%=encodeImg2 %>" id="img2">
+						    	  <img src="data:image/jpg;base64,<%=encodeImg2 %>" id="img2" width='400' height='350'>
 						      <% }%>
 						      </td>
 								</div>
@@ -132,7 +132,7 @@
  						      String encodeImg3 = null;
  						      if(trafficRecord!=null){
 						    	  encodeImg3 = Base64.encode(trafficRecord);%>
-						    	  <img src="data:image/jpg;base64,<%=encodeImg3 %>" id="img3">
+						    	  <img src="data:image/jpg;base64,<%=encodeImg3 %>" id="img3" width='400' height='350'>
 						      <% }%>
 						      </td>								
 								</div>
@@ -152,7 +152,7 @@
 						      String encodeImg4 = null;
 						      if(idNum!=null){
 						    	  encodeImg4 = Base64.encode(idNum);%> 
-						    	  <img src="data:image/jpg;base64,<%=encodeImg4 %>" id="img4">
+						    	  <img src="data:image/jpg;base64,<%=encodeImg4 %>" id="img4" width='400' height='350'>
 						      <% }%>
 						      </td>
 								</div>
@@ -172,7 +172,7 @@
  						      String encodeImg5 = null;
  						      if(photo!=null){
 						    	  encodeImg5 = Base64.encode(photo);%>
-						    	  <img src="data:image/jpg;base64,<%=encodeImg5 %>" id="img5">
+						    	  <img src="data:image/jpg;base64,<%=encodeImg5 %>" id="img5" width='400' height='350'>
 						      <% }%>
 						      </td>
 								</div>
@@ -224,12 +224,6 @@
 						     	    <c:if test="${driverVO.onlineCar == 1}">在線上 </c:if>
 								</div>
 							</div>
-							
-							<form method="post" id="sub" action="<%=request.getServletContext().getContextPath()%>/back-end/driver/driver.do" >
-							<input type="hidden" name="action" value="GET_ONE_FOR_BANNED">
-							<!-- <input class="form-control mr-sm-2" name="driverID" type="text" placeholder="請輸入司機編號(eg.D001)" aria-label="Search"> -->
-							<button  type="submit" value="GET_ONE_FOR_BANNED">Ban it~</button>
-							</form>
 							
 							 <div class="text-center"><button type="submit">確認修改</button></div> 
 							<!--隱藏的參數action讓controller抓-->

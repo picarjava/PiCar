@@ -150,7 +150,7 @@ table {
 
 
 							<ul id="s1">
-								<form METHOD="post" ACTION="driverReport.do">
+								<form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do">
 									<a>搜尋檢舉司機單號</a> <input type="text" placeholder="(例如:DR001)"
 										name="dreportID"> <input type="hidden" name="action"
 										value="getOne_For_Display"> <input type="submit"
@@ -158,7 +158,7 @@ table {
 								</form>
 								<jsp:useBean id="driverReportSvc1" scope="page"
 									class="com.driverReport.model.DriverReportService" />
-								<FORM METHOD="post" ACTION="driverReport.do">
+								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do">
 									<a>選擇檢舉司機單號</a> <select size="1" name="dreportID" id="s3">
 										<c:forEach var="driverReportVO"
 											items="${driverReportSvc1.all}">

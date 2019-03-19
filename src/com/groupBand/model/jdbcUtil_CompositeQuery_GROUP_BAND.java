@@ -29,7 +29,9 @@ public class jdbcUtil_CompositeQuery_GROUP_BAND {
 			aCondition = columnName + " like '%" + value + "%'";			
 		}else if("START_TIME".equals(columnName))
 		{
-			aCondition = "to_char(" + columnName + ",'yyyy-mm-dd')='" + value + "'";
+			aCondition = " " + columnName + " " +">= TO_TIMESTAMP ('"+ value +" 00:00:00','YYYY-MM-DD HH24:MI:SS')"+"  AND ";
+			aCondition = aCondition +" " + columnName + " " +"<= TO_TIMESTAMP ('"+ value +" 23:59:59','YYYY-MM-DD HH24:MI:SS')";
+			
 		}	
 		return aCondition + " ";
 	

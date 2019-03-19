@@ -48,7 +48,7 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 				<div class="section-header">
 					<h3 class="section-title">成為司機(上傳檢附文件)</h3>
 					<div class="text-center">
-						<form action="<%=request.getServletContext().getContextPath()%>/front-end/driver/homeDriverDataManagment.jsp">
+						<form action="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp">
 							<!-- 以上請寫成為司機的人 action="寫上上一頁的畫面" -->
 							<button type="submit" class="btn btn-outline-success"">返回</button>
 						</form>
@@ -71,7 +71,7 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 							</div>
 							<div class="form-group">
 								<p>車牌號碼</p>
-								<input type="text" name="plateNum" class="form-control"
+								<input type="text" required name="plateNum" class="form-control"
 									 placeholder="請輸入車牌號碼例如:ABC1234" />
 							</div>
 							<div class="form-group">
@@ -127,7 +127,7 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 <%-- 									<img src="<%=request.getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='400' height='350' > --%>
 <%-- 					             </c:if> --%>
 
-									<p>會員照片</p> -->
+									<p>會員照片</p> 
 										<c:if test="${empty memberSvc.getOneMember(memberVO.memID).pic}" >
 							            <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" class='card-img-top' width='300' height='350'>
 							            </c:if>
@@ -192,27 +192,6 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 var btn= document.getElementById("btn");
 $(btn).css("color","blue");
 
-function readURL(input){
-
-  if(input.files && input.files[0]){
-
-    var imageTagID = input.getAttribute("targetID");
-
-    var reader = new FileReader();
-
-    reader.onload = function (e) {
-
-       var img = document.getElementById(imageTagID);
-
-       img.setAttribute("src", e.target.result);
-
-    }
-
-    reader.readAsDataURL(input.files[0]);
-
-  }
-
-}
 
 </script>
 </body>

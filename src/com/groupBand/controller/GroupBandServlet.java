@@ -186,38 +186,21 @@ public class GroupBandServlet extends HttpServlet {
 				String note = req.getParameter("note");
 
 				byte[] photo = null;
-//				Collection<>=ima01,ima02;
-				Collection<Part> parts = req.getParts();
-				for (Part part : parts) {
-					if (getFileNameFromPart(part) != null && part.getContentType() != null) {
-
-						long size = part.getSize();
-
-						// 額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
-						InputStream in = part.getInputStream();
-						photo = new byte[in.available()];
+				Part part = req.getPart("photo");
+				if(part.getSize() ==0) {
+					GroupBandService groupBandService = new GroupBandService();
+					GroupBandVO groupBandVOss = (GroupBandVO) groupBandService.getOneGroupBand(groupID);
+					photo=groupBandVOss.getPhoto();
+				}else {
+					long size = part.getSize();
+					InputStream in = part.getInputStream();
+					photo = new byte[in.available()];
+					if (in.available() != 0) {
 						in.read(photo);
 						in.close();
 					}
 				}
-
-				Part part = null;
-				part = req.getPart("photo");
-
-				long size = part.getSize();
-
-				InputStream in = part.getInputStream();
-
-				photo = new byte[in.available()];
-				if (in.available() != 0) {
-					in.read(photo);
-					in.close();
-				} else {
-					errorMsgs.add("請上傳照片");
-
-				}
-				
-				
+							
 
 				GroupBandDAO groupBandDAO = new GroupBandDAO();
 				groupBandDAO.UPDATE_GROUP_TYPE_GROUP_NAME_INTRODUCTION_NOTE_PHOTO__GROUP_ID(groupID, groupType, groupName, introduction, note, photo);
@@ -229,6 +212,7 @@ public class GroupBandServlet extends HttpServlet {
 				
 				req.setAttribute("dropOut",true);
 				
+
 				
 				
 				String url = "/front-end/groupBand/listOneGroupBand.jsp";

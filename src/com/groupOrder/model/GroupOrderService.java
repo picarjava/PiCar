@@ -65,6 +65,10 @@ public class GroupOrderService {
 		return dao.getAll();
 	}
 	
+	public List<GroupOrderVO> getByState(Integer state) {
+	    return dao.getByState(state);
+	}
+	
 	public List<GroupOrderVO> GET_one_groupid__state_men_id(String memid) {		
 		return dao.GET_ONE_groupid__state_men_id(memid);
 	}	
@@ -91,8 +95,15 @@ public class GroupOrderService {
 		
 	}
 	public HashSet<String> getRatedDrivers(){
-		return dao.getRatedDrivers();
-		
-		
+		return dao.getRatedDrivers();		
+	}
+	public void updateState_GroupID_mem_ID(String GROUP_ID,Integer State) {
+		dao.updateState_GroupID_mem_ID(GROUP_ID, State);
+	}
+	public Integer getstateGrouID_Memid_Notnull(String groupID) {
+		return dao.getstateGrouID_Memid_Notnull(groupID);
+	}
+	public void UPDATE_Total_AmoutGroupIDState(Integer TotalAmout,String GroupID,Integer State) {
+		dao.UPDATE_Total_AmoutGroupIDState(TotalAmout, GroupID, State);
 	}
 }

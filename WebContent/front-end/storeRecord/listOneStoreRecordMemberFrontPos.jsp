@@ -13,7 +13,7 @@
 	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 	StoreRecordService storeRecordSvc = new StoreRecordService();	
 	
-	List<StoreRecordVO> list = storeRecordSvc.getMemStoreRecord(memberVO.getMemID());
+	List<StoreRecordVO> list = storeRecordSvc.getMemStoreRecordPos(memberVO.getMemID());
 	pageContext.setAttribute("list", list);
 
 // 	List<StoreRecordVO> list = (List) request.getAttribute("list");

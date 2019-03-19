@@ -38,8 +38,23 @@
     <servlet-class>Timer.RenewDriverRateTimer</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
+<<<<<<< HEAD
   <servlet>
     <servlet-name>DeductSingleReservationTimer</servlet-name>
+=======
+<!--   <servlet> -->
+<!--     <servlet-name>DelayTimer</servlet-name> -->
+<!--     <servlet-class>Timer.DelayTimerx</servlet-class> -->
+<!--     <load-on-startup>1</load-on-startup> -->
+<!--   </servlet> -->
+<!--   <servlet> -->
+<!--     <servlet-name>HalfTimer</servlet-name> -->
+<!--     <servlet-class>Timer.HalfCheckTimer</servlet-class> -->
+<!--     <load-on-startup>2</load-on-startup> -->
+<!--   </servlet> -->
+   <servlet>
+    <servlet-name> DeductSingleReservationTimer</servlet-name>
+>>>>>>> 7164148d257497b00c422faabbdb6227d24c2f16
     <servlet-class>Timer.DeductSingleReservationTimer</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
@@ -300,7 +315,8 @@
     <url-pattern>/front-end/driver/homeDriverDataManagment.jsp</url-pattern>
     <url-pattern>/front-end/groupBand/SelectGroupBand.jsp</url-pattern>
     <url-pattern>/front-end/groupBand/listAllOneGroupBand.jsp</url-pattern>
-    <url-pattern>/front-end/storeRecord/listOneStoreRecordMemberFront1.jsp</url-pattern>
+    <url-pattern>/front-end/storeRecord/listOneStoreRecordMemberFrontPos.jsp</url-pattern>
+    <url-pattern>/front-end/storeRecord/listOneStoreRecordMemberFrontNeg.jsp</url-pattern>
     <url-pattern>/front-end/member/setting.jsp</url-pattern>
     <url-pattern>/front-end/location/updateLocation.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>

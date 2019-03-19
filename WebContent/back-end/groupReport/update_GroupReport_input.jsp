@@ -104,7 +104,7 @@ h3 {
 		</c:if>
 	</table>
 
-	<FORM METHOD="post" ACTION="groupReport.do" name="form1">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do" name="form1">
 		<table>
 			<tr>
 				<td>檢舉揪團單號<font color=red></font></td>

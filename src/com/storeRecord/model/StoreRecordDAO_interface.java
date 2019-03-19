@@ -10,6 +10,9 @@ public interface StoreRecordDAO_interface {
 	public void delete(String recordID);
 	public StoreRecordVO findByPrimaryKey(String recordID);
 	public List<StoreRecordVO> findByMemID(String memID);
+	public List<StoreRecordVO> findByMemIDPos(String memID);
+	public List<StoreRecordVO> findByMemIDNeg(String memID);
+	
 	public List<StoreRecordVO> getAll();
 	public List<StoreRecordVO> getDistinctMemID();
 	public void insertOrder(StoreRecordVO srVO);

@@ -16,6 +16,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.groupOrder.model.GroupOrderVO;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 
@@ -43,7 +44,7 @@ public class GroupOrderServlet extends HttpServlet {
         Gson gson = new Gson();
         JsonObject jsonIn = gson.fromJson(sBuilder.toString(), JsonObject.class);
         String action = jsonIn.get("action").getAsString();
-        if ("getNewGroupOrder".equals(action)) {
+        if ("getGroupOrder".equals(action)) {
             List<SingleOrderVO> singleOrderVOs = service.getByStateAndOrderType(NOT_ESTABLISHED, ONE_TIME_GROUP_RESERVE);
             gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
             writer.print(gson.toJson(convertToGroupOrder(singleOrderVOs)));
@@ -65,6 +66,24 @@ public class GroupOrderServlet extends HttpServlet {
             List<String> orderIDs = gson.fromJson(jsonIn.get("orderID").getAsString(), new TypeToken<List<String>>() {}.getType());
 //            service.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderIDs);
         }
+    }
+    
+    private SingleOrderVO convertToOrder(GroupOrderVO groupOrderVO) {
+        // some info driver don't need
+        SingleOrderVO singleOrderVO = new SingleOrderVO();
+        singleOrderVO.setOrderID(groupOrderVO.getGorderID());
+        singleOrderVO.setDriverID(groupOrderVO.getDriverID());
+        singleOrderVO.setMemID(groupOrderVO.getMemID());
+        singleOrderVO.setStartLoc(groupOrderVO.getStartLoc());
+        singleOrderVO.setStartLat(groupOrderVO.getStartLat());
+        singleOrderVO.setStartLng(groupOrderVO.getStartLng());
+        singleOrderVO.setEndLoc(groupOrderVO.getEndLoc());
+        singleOrderVO.setEndLat(groupOrderVO.getStartLat());
+        singleOrderVO.setEndLng(groupOrderVO.getEndLng());
+        singleOrderVO.setStartTime(groupOrderVO.getStartTime());
+        singleOrderVO.setEndTime(groupOrderVO.getEndTime());
+        singleOrderVO.setLaunchTime(groupOrderVO.getLaunchTime());
+        return singleOrderVO;
     }
     
     private List<List<SingleOrderVO>> convertToGroupOrder(List<SingleOrderVO> vos) {
