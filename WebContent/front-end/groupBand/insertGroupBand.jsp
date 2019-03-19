@@ -472,7 +472,7 @@ $('#buttons').datetimepicker(
 			step: 5,
 			timepicker : true,
 					value : '<%=startTime%>',
-			minDate:           '+1970-01-03', // 去除今日(不含)之前
+			minDate:           '+1970-01-05', // 去除今日(不含)之前
 			maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 		});
 		

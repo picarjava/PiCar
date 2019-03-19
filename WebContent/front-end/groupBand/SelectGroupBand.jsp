@@ -88,16 +88,12 @@
 <script>
 $('#start_date').datetimepicker(
 		{
-			format : 'Y-m-d H:i:s',
-			onShow : function() {
-				this.setOptions({
-					maxDate : $('#start_date').val() ? $('+1970-01-20')
-							.val() :  true
-				})
+			format : 'Y-m-d',
+			onShow : function() {			
 			},
 			step: 5,
-			timepicker : true,
-					value : 'new Date()',
+			timepicker : false,
+					value : ' ',
 			minDate:           '-1970-01-01', // 去除今日(不含)之前
 			maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 		});

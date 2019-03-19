@@ -1,3 +1,8 @@
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="com.driver.model.*"%>
+<%@ page import="com.member.model.*"%>
+<%@ page import="java.util.*"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -76,10 +81,10 @@ width: 100px;
                             <div class="nav-collapse collapse">
                                 <ul class="nav pull-right">
                                     <li class="current-page widthes">
-                                        <a href="index.html"><i class="icon-home"></i><br />Home</a>
+                                        <a href="index.html"><i class="icon-home"></i><br />司機首頁</a>
                                     </li>
                                     <li class="widthes">
-                                        <a href="portfolio.html"><i class="icon-camera"></i><br />Portfolio</a>
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/listAllfutureDriverTask.jsp"><i class="icon-camera"></i><br />訂單管理</a>
                                     </li>
                                     <li class="widthes">
                                         <a href="#"><i class="icon-comments"></i><br />Blog</a>
