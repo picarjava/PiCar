@@ -17,8 +17,30 @@
 <script
 	src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <meta charset="BIG5">
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+	integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+	crossorigin="anonymous">
 <title>updateGroupBand.jsp</title>
 <style>
+input[type="file"] {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0, 0, 0, 0);
+	border: 0;
+}
+
+.custom-file-upload {
+	border: 1px solid #ccc;
+	display: inline-block;
+	padding: 6px 12px;
+	cursor: pointer;
+}
+
 table#table-1 {
 	width: 450px;
 	background-color: #008888;
@@ -127,28 +149,33 @@ th, td {
 				<td>團名</td>
 				<td><input type="TEXT" name="groupName" size="25"
 					value="<%=(groupBandVO == null) ? "" : groupBandVO.getGroupName()%>" /></td>
-				<td><i class="fas fa-pen"></i></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td>簡介:</td>
 
 				<td><textarea name="introduction" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "好吃嗎".trim() : groupBandVO.getIntroduction().trim()%></textarea></td>
-				<td><i class="fas fa-pen"></i></td>
+				<td></td>
 			</tr>
 			<tr>
 
 				<td>備註:</td>
 
 				<td><textarea name="note" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "".trim() : groupBandVO.getNote().trim()%></textarea></td>
-				<td><i class="fas fa-pen"></i></td>
+				<td></td>
 			</tr>
 			<tr>
 				<td>揪團圖片</td>
 
-				<td><input id="progressbarTWInput" type="file" name="photo" size="25"
-					value="<%=groupBandVO.getPhoto()%>" /> <img id="preview_img" src="/PiCar/GroupBand?groupID=${GroupBandVO.groupID}" width="100px" height="100px">
-					<img id="preview_progressbarTW_img" src="#"  width="100px"   height="100px" style = "display:none" /></td>
-				<td><i class="fas fa-pen"></i></td>
+				<td><img id="preview_img"
+					src="/PiCar/GroupBand?groupID=${GroupBandVO.groupID}" width="100px"
+					height="100px"> <img id="preview_progressbarTW_img" src="#"
+					width="100px" height="100px" style="display: none" /> <label
+					for="progressbarTWInput" class="custom-file-upload"> <i
+						class="fas fa-file-import"></i> 上傳圖片
+				</label> <input id="progressbarTWInput" type="file" name="photo" size="25"
+					value="<%=groupBandVO.getPhoto()%>" /></td>
+
 			</tr>
 
 
@@ -171,36 +198,33 @@ th, td {
 		</table>
 	</form>
 </body>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
 <script>
+	$("#progressbarTWInput").change(function() {
 
-$("#progressbarTWInput").change(function(){
+		readURL(this);
 
-  readURL(this);
+	});
 
-});
+	function readURL(input) {
 
+		if (input.files && input.files[0]) {
 
+			var reader = new FileReader();
 
-function readURL(input){
-	
-  if(input.files && input.files[0]){
+			reader.onload = function(e) {
 
-    var reader = new FileReader();
+				$("#preview_progressbarTW_img").attr('src', e.target.result);
+				$("#preview_progressbarTW_img").removeAttr("style");
+				$("#preview_img").hide();
 
-    reader.onload = function (e) {
-    	
-       $("#preview_progressbarTW_img").attr('src', e.target.result);
-       $("#preview_progressbarTW_img").removeAttr("style");
-       $("#preview_img").hide();
-      
-    }
+			}
 
-    reader.readAsDataURL(input.files[0]);
+			reader.readAsDataURL(input.files[0]);
 
-  }
+		}
 
-}
-
+	}
 </script>
 </html>

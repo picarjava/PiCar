@@ -77,6 +77,8 @@
     border: 1px solid #CCCCFF;
   }
   th, td {
+      height: 50px;
+      width: 50px;
     padding: 5px;
     text-align: center;
   }
@@ -110,7 +112,15 @@
 	<tr>
 <th>下限人數</th><th>${GroupBandVO.lowerLimit}</th>
 <th>團名</th><th>${GroupBandVO.groupName}</th>
-<th>團長</th><th>${GroupBandVO.groupLeader}</th>
+<c:set var="id" scope="page" value="${GroupBandVO.groupLeader}" />
+			<%
+	String id = (String) pageContext.getAttribute("id");
+	MemberService memberService = new MemberService();
+	MemberVO memberVOs =  memberService.getOneMember(id);
+	pageContext.setAttribute("memberVOs", memberVOs);
+%>
+
+<th>團長</th><th>${memberVOs.name}</th>
 <th>上車地點</th><th>${GroupBandVO.startLoc}</th>
 </tr>
 	<tr>

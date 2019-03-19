@@ -12,6 +12,8 @@
 <%--     <jsp:useBean id="groupOrderService" scope="page" class="com.groupOrder.model.GroupOrderService" /> --%>
 <% String groupKind[] = {"揪團","長期揪團"}; %>
 <%request.setAttribute("groupKind", groupKind);%>
+
+							
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,6 +45,8 @@
     border: 1px solid #CCCCFF;
   }
   th, td {
+      height: 50px;
+      width: 50px;
     padding: 5px;
     text-align: center;
   }
@@ -64,7 +68,16 @@
 	<tr>
 <th>下限人數</th><th>${GroupBandVO.lowerLimit}</th>
 <th>團名</th><th>${GroupBandVO.groupName}</th>
-<th>團長</th><th>${GroupBandVO.groupLeader}</th>
+
+<c:set var="id" scope="page" value="${GroupBandVO.groupLeader}" />
+			<%
+	String id = (String) pageContext.getAttribute("id");
+	MemberService memberService = new MemberService();
+	MemberVO memberVO =  memberService.getOneMember(id);
+	pageContext.setAttribute("memberVO", memberVO);
+%>
+
+<th>團長</th><th>${memberVO.name}</th>
 <th>上車地點</th><th>${GroupBandVO.startLoc}</th>
 </tr>
 	<tr>
