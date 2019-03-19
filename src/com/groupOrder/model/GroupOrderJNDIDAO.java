@@ -421,7 +421,7 @@ public class GroupOrderJNDIDAO implements GroupOrderDAO_interface {
 	}
 
     @Override
-    public List<GroupOrderVO> getByState(Integer state) {
+    public List<GroupOrderVO> getByStateAndOrderType(Integer state, Integer orderType) {
         // TODO Auto-generated method stub
         return null;
     }

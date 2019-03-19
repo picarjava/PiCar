@@ -10,7 +10,7 @@ public void delete(String groupOrderno);
 public GroupOrderVO findByPrimaryKey(String groupOrderno);
 public Integer getOneDriversAve(String driver_id);
 public List<GroupOrderVO> getAll();
-public List<GroupOrderVO>getByState(Integer state);
+public List<GroupOrderVO>getByStateAndOrderType(Integer state, Integer orderType);
 //public Set<> getEmpsByDeptno(Integer groupOrderno);
 public void insert2 (List<GroupOrderVO> list , java.sql.Connection con);
 public List<GroupOrderVO> GET_ONE_groupid__state_men_id(String memid);

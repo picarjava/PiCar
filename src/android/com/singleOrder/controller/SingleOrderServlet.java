@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -30,6 +31,7 @@ import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 
 import android.com.location.model.StoredInfo;
+import android.com.singleOrder.model.LongTermOrder;
 
 import com.driver.model.DriverVO;
 import com.member.model.MemberService;
@@ -95,7 +97,6 @@ public class SingleOrderServlet extends HttpServlet {
 
     		});
 
-    		
     		for (Entry<String, StoredInfo> o : list) {
     			System.out.println(o.getKey());  //這是司機ID
     			System.out.println(o.getValue().getSession()); //這是司機的連線
@@ -171,8 +172,8 @@ public class SingleOrderServlet extends HttpServlet {
                                                                    .filter(singleOrder -> singleOrder.getDriverID() == null)
                                                                    .collect(Collectors.toList());
             gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
-            writer.print(gson.toJson(convertToLongTermOrder(singleOrderVOs)));
-            System.out.println(gson.toJson(convertToLongTermOrder(singleOrderVOs)));
+            writer.print(gson.toJson(convertToLongTermOrderList(singleOrderVOs)));
+            System.out.println(gson.toJson(convertToLongTermOrderList(singleOrderVOs)));
         } else if ("takeSingleOrder".equals(action)) {
             String driverID = jsonIn.get(DRIVER_ID).getAsString();
             String orderID = jsonIn.get(ORDER_ID).getAsString();
@@ -215,7 +216,7 @@ public class SingleOrderServlet extends HttpServlet {
         writer.close();
     }
     
-    private List<List<SingleOrderVO>> convertToLongTermOrder(List<SingleOrderVO> vos) {
+    private List<LongTermOrder> convertToLongTermOrderList(List<SingleOrderVO> vos) {
         List<List<SingleOrderVO>> vosLists = new ArrayList<>();
         for (SingleOrderVO singleOrderVO: vos) {
             boolean added = false;
@@ -236,6 +237,31 @@ public class SingleOrderServlet extends HttpServlet {
             }
         }
         
-        return vosLists;
+        return vosLists.stream().map(o -> convertToLongTermOrder(o)).collect(Collectors.toList());
+    }
+    
+    private LongTermOrder convertToLongTermOrder(List<SingleOrderVO> singleOrderVOs) { 
+        singleOrderVOs = singleOrderVOs.stream()
+                                       .sorted(Comparator.comparing(SingleOrderVO::getStartTime))
+                                       .collect(Collectors.toList());
+        SingleOrderVO singleOrderVO = singleOrderVOs.get(0);
+        LongTermOrder singleOrder = new LongTermOrder();
+        int amount = singleOrderVOs.stream()
+                                   .mapToInt(SingleOrderVO::getTotalAmount)
+                                   .sum();
+        singleOrder.setOrderIDs(singleOrderVOs.stream()
+                                              .map(SingleOrderVO::getOrderID)
+                                              .collect(Collectors.toList()));
+        singleOrder.setStartLoc(singleOrderVO.getStartLoc());
+        singleOrder.setStartLat(singleOrderVO.getStartLat());
+        singleOrder.setStartLng(singleOrderVO.getStartLng());
+        singleOrder.setEndLoc(singleOrderVO.getEndLoc());
+        singleOrder.setEndLat(singleOrderVO.getEndLat());
+        singleOrder.setEndLng(singleOrderVO.getEndLng());
+        singleOrder.setStartTime(singleOrderVO.getEndTime());
+        singleOrder.setEndTime(singleOrderVOs.get(singleOrderVOs.size() - 1).getStartTime());
+        singleOrder.setTotalAmount(amount);
+        singleOrder.setNote(singleOrderVO.getNote());
+        return singleOrder;
     }
 }

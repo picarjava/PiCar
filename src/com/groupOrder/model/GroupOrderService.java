@@ -65,8 +65,8 @@ public class GroupOrderService {
 		return dao.getAll();
 	}
 	
-	public List<GroupOrderVO> getByState(Integer state) {
-	    return dao.getByState(state);
+	public List<GroupOrderVO> getByStateAndOrderType(Integer state, Integer orderType) {
+	    return dao.getByStateAndOrderType(state, orderType);
 	}
 	
 	public List<GroupOrderVO> GET_one_groupid__state_men_id(String memid) {		
@@ -105,5 +105,9 @@ public class GroupOrderService {
 	}
 	public void UPDATE_Total_AmoutGroupIDState(Integer TotalAmout,String GroupID,Integer State) {
 		dao.UPDATE_Total_AmoutGroupIDState(TotalAmout, GroupID, State);
+	}
+	
+	public void updateDriverIDByGroupIDs(String driverID, List<String> orderIDs) {
+	    
 	}
 }

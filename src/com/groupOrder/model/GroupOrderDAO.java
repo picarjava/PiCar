@@ -87,7 +87,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String  GET_STATE_GROUP_ID_memID_NOTNULL=
 				"SELECT count(STATE) as STATE FROM GROUP_ORDER Where MEM_ID IS not null and GROUP_ID = ?";
 		
-		private static final String GET_BY_STATE = "SELECT * FROM GROUP_ORDER";
+		private static final String GET_BY_STATE = "SELECT * FROM GROUP_ORDER WHERE STATE=? AND ORDER_TYPE=?";
 		
 		@Override
 		public HashSet<String> getRatedDrivers(){
@@ -1266,7 +1266,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 	return list;
 }
     @Override
-    public List<GroupOrderVO> getByState(Integer state) {
+    public List<GroupOrderVO> getByStateAndOrderType(Integer state, Integer orderType) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
         ResultSet resultSet = null;
@@ -1275,6 +1275,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
             connection = ds.getConnection();
             preparedStatement = connection.prepareStatement(GET_BY_STATE);
             preparedStatement.setInt(1, state);
+            preparedStatement.setInt(2, orderType);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
                 GroupOrderVO groupOrderVO = new GroupOrderVO();

@@ -5,7 +5,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -16,9 +20,12 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+import com.groupOrder.model.GroupOrderService;
 import com.groupOrder.model.GroupOrderVO;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
+
+import android.com.groupOrder.model.GroupOrder;
 
 public class GroupOrderServlet extends HttpServlet {
     private final static int NOT_ESTABLISHED = 0;
@@ -40,25 +47,29 @@ public class GroupOrderServlet extends HttpServlet {
         resp.setCharacterEncoding("utf-8");
         PrintWriter writer = resp.getWriter();
         System.out.println(sBuilder.toString());
-        SingleOrderService service = new SingleOrderService();
+        GroupOrderService service = new GroupOrderService();
         Gson gson = new Gson();
         JsonObject jsonIn = gson.fromJson(sBuilder.toString(), JsonObject.class);
         String action = jsonIn.get("action").getAsString();
         if ("getGroupOrder".equals(action)) {
-            List<SingleOrderVO> singleOrderVOs = service.getByStateAndOrderType(NOT_ESTABLISHED, ONE_TIME_GROUP_RESERVE);
+            List<GroupOrderVO> list = service.getByStateAndOrderType(ESTABLISHED, ONE_TIME_GROUP_RESERVE)
+                                             .stream().filter(g -> g.getDriverID() == null)
+                                             .collect(Collectors.toList());
             gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
-            writer.print(gson.toJson(convertToGroupOrder(singleOrderVOs)));
-            System.out.println(gson.toJson(convertToGroupOrder(singleOrderVOs)));
+            writer.print(gson.toJson(convertToGroupOrderList(list)));
+            System.out.println(gson.toJson(convertToGroupOrderList(list)));
             writer.close();
         } else if ("getLongTermGroupOrder".equals(action)) {
-            List<SingleOrderVO> singleOrderVOs = service.getByStateAndOrderType(NOT_ESTABLISHED, LONG_TERM_GROUP_RESERVE);
+            List<GroupOrderVO> list = service.getByStateAndOrderType(ESTABLISHED, LONG_TERM_GROUP_RESERVE)
+                                             .stream().filter(g -> g.getDriverID() == null)
+                                             .collect(Collectors.toList());
             gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
-            writer.print(gson.toJson(convertToLongTermGroupOrder(singleOrderVOs)));
-            System.out.println(gson.toJson(convertToLongTermGroupOrder(singleOrderVOs)));
+            writer.print(gson.toJson(convertToGroupOrderList(list)));
+            System.out.println(gson.toJson(convertToGroupOrderList(list)));
             writer.close();
         } else if ("takeGroupOrder".equals(action)) {
             String driverID = jsonIn.get("driverID").getAsString();
-            List<String> orderIDs = gson.fromJson(jsonIn.get("orderID").getAsString(), new TypeToken<List<String>>() {}.getType());
+//            List<String> orderIDs = gson.fromJson(jsonIn.get("orderID").getAsString(), new TypeToken<List<String>>() {}.getType());
 //            if (driverID != null)
 //                service.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderID);
         } else if ("takeLongTermGroupOrder".equals(action)) {
@@ -68,68 +79,41 @@ public class GroupOrderServlet extends HttpServlet {
         }
     }
     
-    private SingleOrderVO convertToOrder(GroupOrderVO groupOrderVO) {
-        // some info driver don't need
-        SingleOrderVO singleOrderVO = new SingleOrderVO();
-        singleOrderVO.setOrderID(groupOrderVO.getGorderID());
-        singleOrderVO.setDriverID(groupOrderVO.getDriverID());
-        singleOrderVO.setMemID(groupOrderVO.getMemID());
-        singleOrderVO.setStartLoc(groupOrderVO.getStartLoc());
-        singleOrderVO.setStartLat(groupOrderVO.getStartLat());
-        singleOrderVO.setStartLng(groupOrderVO.getStartLng());
-        singleOrderVO.setEndLoc(groupOrderVO.getEndLoc());
-        singleOrderVO.setEndLat(groupOrderVO.getStartLat());
-        singleOrderVO.setEndLng(groupOrderVO.getEndLng());
-        singleOrderVO.setStartTime(groupOrderVO.getStartTime());
-        singleOrderVO.setEndTime(groupOrderVO.getEndTime());
-        singleOrderVO.setLaunchTime(groupOrderVO.getLaunchTime());
-        return singleOrderVO;
+    private List<GroupOrder> convertToGroupOrderList(List<GroupOrderVO> groupOrderVOs) {
+        Collection<List<GroupOrderVO>> list;
+        list = (Collection<List<GroupOrderVO>>) groupOrderVOs.stream()
+                                                       .collect(Collectors.groupingBy(GroupOrderVO::getGroupID))
+                                                       .values();
+        return list.stream()
+                   .map(l -> convertToGroupOrder(l))
+                   .collect(Collectors.toList());
     }
     
-    private List<List<SingleOrderVO>> convertToGroupOrder(List<SingleOrderVO> vos) {
-        List<List<SingleOrderVO>> vosLists = new ArrayList<>();
-        for (SingleOrderVO singleOrderVO: vos) {
-            boolean added = false;
-            for (List<SingleOrderVO> voslist: vosLists) {
-                SingleOrderVO first = voslist.get(0);
-                if (first.getLaunchTime().equals(singleOrderVO.getLaunchTime()) &&
-                    first.getStartTime().equals(singleOrderVO.getStartTime())) {
-                    voslist.add(singleOrderVO);
-                    added = true;
-                    break;
-                }
-            }
-            
-            if (!added) {
-                List<SingleOrderVO> singleOrderVOs = new ArrayList<>();
-                singleOrderVOs.add(singleOrderVO);
-                vosLists.add(singleOrderVOs);
-            }
-        }
-        
-        return vosLists;
+    private GroupOrder convertToGroupOrder(List<GroupOrderVO> groupOrderVOs) {
+        List<GroupOrderVO> list = groupOrderVOs.stream()
+                                               .sorted(Comparator.comparing(GroupOrderVO::getStartTime))
+                                               .collect(Collectors.toList());
+        int amount = groupOrderVOs.stream()
+                                  .mapToInt(GroupOrderVO::getTotalAmout)
+                                  .sum();
+        int people = groupOrderVOs.stream()
+                                  .collect(Collectors.groupingBy(GroupOrderVO::getMemID))
+                                  .size();
+        GroupOrderVO groupOrderVO = list.get(0);
+        GroupOrder groupOrder = new GroupOrder();
+        groupOrder.setGroupID(groupOrderVO.getGorderID());
+        groupOrder.setStartLoc(groupOrderVO.getStartLoc());
+        groupOrder.setStartLat(groupOrderVO.getStartLat());
+        groupOrder.setStartLng(groupOrderVO.getStartLng());
+        groupOrder.setEndLoc(groupOrderVO.getEndLoc());
+        groupOrder.setEndLat(groupOrderVO.getEndLat());
+        groupOrder.setEndLng(groupOrderVO.getEndLng());
+        groupOrder.setStartTime(groupOrderVO.getEndTime());
+        // for common use in long-term group order
+        groupOrder.setEndTime(groupOrderVOs.get(groupOrderVOs.size() - 1).getStartTime());
+        groupOrder.setTotalAmount(amount);
+        groupOrder.setPeople(people);
+        groupOrder.setNote(groupOrderVO.getNote());
+        return groupOrder;
     }
-    
-    private List<List<List<SingleOrderVO>>> convertToLongTermGroupOrder(List<SingleOrderVO> groupOrder) {
-        List<List<SingleOrderVO>> groupOrders = convertToGroupOrder(groupOrder);
-        List<List<List<SingleOrderVO>>> longTermOrder = new ArrayList<>();
-        for (List<SingleOrderVO> gVO: groupOrders) {
-            boolean added = false;
-            for (List<List<SingleOrderVO>> gVOs: longTermOrder) {
-                if (gVO.get(0).getLaunchTime().equals(gVOs.get(0).get(0).getLaunchTime())) {
-                    gVOs.add(gVO);
-                    added = true;
-                } // if
-            }
-            
-            if (!added) {
-                List<List<SingleOrderVO>> gVOs = new ArrayList<>();
-                gVOs.add(gVO);
-                longTermOrder.add(gVOs);
-            }
-        }
-        
-        return longTermOrder;
-    }
-    
 }
