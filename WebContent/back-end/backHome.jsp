@@ -11,8 +11,6 @@
   response.setHeader("Pragma","no-cache");        //HTTP 1.0
   response.setDateHeader ("Expires", 0);
 %>
-
-
 <!doctype html>
 <html lang="zh">
 <head>

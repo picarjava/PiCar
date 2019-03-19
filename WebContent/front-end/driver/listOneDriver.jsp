@@ -200,12 +200,12 @@ session.setAttribute("xxx", xxx);
   <jsp:include page="/regna-master/body.jsp" />
 
 </body>
-<!-- <script> -->
-// $(document).ready(function(){
+<script>
+ $(document).ready(function(){
 	
-// 	if(${driverVO.memID}!=null)
-// 		window.alert("恭喜您 成為我們的司機，並請等待我們的審核");
-// })
+ 	if(${driverVO.memID}!=null)
+ 		window.alert("恭喜您 成為我們的司機，並請等待我們的審核");
+ })
 
-<!-- </script> -->
+</script>
 </html>

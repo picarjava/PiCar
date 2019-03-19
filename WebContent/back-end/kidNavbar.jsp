@@ -5,7 +5,7 @@
 				class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
 				<div class="container-fluid">
 					<div class="navbar-wrapper">
-						<a class="navbar-brand" href="<%=request.getServletContext().getContextPath()%>/back-end/backHome.jsp">檢舉司機管理</a>
+						<a class="navbar-brand" href="<%=request.getServletContext().getContextPath()%>/back-end/backHome.jsp">PICAR首頁</a>
 					</div>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						aria-controls="navigation-index" aria-expanded="false"
