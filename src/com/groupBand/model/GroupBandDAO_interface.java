@@ -18,6 +18,7 @@ public List<GroupBandVO> getAll(Map<String, String[]> map);
 
 public void UPDATE_GROUP_STATUS__GROUP_ID(Integer groupStatus,String groupID);
 public void insertWithEmps(GroupBandVO deptVO , List<GroupOrderVO> list);
-void UPDATE_CONTENT__GROUP_ID(String groupID, String content);
-String getOneContentGroupID(String groupID);
+public void UPDATE_CONTENT__GROUP_ID(String groupID, String content);
+public String getOneContentGroupID(String groupID);
+public int getOneTotalAmoutGroupID(String groupID);
 }

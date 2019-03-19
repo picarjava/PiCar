@@ -66,7 +66,7 @@ public class Calculate extends HttpServlet {
 
 		ServletContext sc = getServletContext();
 		Map<String, StoredInfo> driver = (ConcurrentHashMap<String, StoredInfo>) sc.getAttribute("driverLocation");
-
+		System.out.println( sc.getAttribute("driverLocation"));
 		list = new ArrayList<Map.Entry<String, StoredInfo>>(driver.entrySet());
 
 		Collections.sort(list, new Comparator<Map.Entry<String, StoredInfo>>() {
@@ -105,7 +105,7 @@ public class Calculate extends HttpServlet {
 //		String json = gson.toJson(vo);
 		list.get(0).getValue().getSession().getAsyncRemote().sendText("json");
 
-		
+		System.out.println(list.get(0).getKey()+"HI");
 
 	}
 

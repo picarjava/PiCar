@@ -38,11 +38,33 @@
 	text-align: center;
 	font-family: Microsoft JhengHei;
 }
+.box1{
+	width:100px;
+	padding:40px;
+	position:absolute;
+	top:10%;
+	left:10%;
+	transform:translate(-50%,-50%);	
+	text-align:center;
+	font-family:Microsoft JhengHei;
+	border:0;
+	background:none;
+	display:block;
+	margin :20px auto;
+	text-align:center;
+	border:2px solid #2ecc71;
+	padding:14px 10px;	
+	outline:none;
+	color:white;
+	border-radius:24px;
+	transition:2s;
+	cursor:pointer;
+}
 
 </style>
 <body bgcolor="#11e1e9">
 <h3>listOneMember.jsp</h3>
-<a href="select_page.jsp">回主頁面</a>
+<a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
 	<h1 align="center">Hello!!${memberVO.name}，這是你的個人資料</h1>
 	<table align="center" border="1" id="table1">
 			

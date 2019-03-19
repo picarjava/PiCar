@@ -46,12 +46,13 @@ public class SingleOrderDAO implements SingleOrder_interface {
     private static final String LIST_ONT_SET_OF_LONGTERM="SELECT * FROM SINGLE_ORDER WHERE STATE=0 AND DRIVER_ID IS NULL AND ORDER_TYPE=4 AND LAUNCH_TIME=?";
 //    以下兩個方法用於訂單管理排成使用
     private final static String TIME_FROM_START =  "SELECT DISTINCT "
-    		+ "ORDER_ID"
-//    		+ ",START_TIME "
-    		+ "FROM SINGLE_ORDER WHERE START_TIME >= TO_TIMESTAMP (?, 'YYYY-MM-DD HH24:MI:SS') AND START_TIME <= TO_TIMESTAMP (?, 'YYYY-MM-DD HH24:MI:SS') "
-//    		+ "and STATE=1"
-//SELECT DISTINCT START_TIME FROM SINGLE_ORDER WHERE START_TIME >= TO_TIMESTAMP ('2019-02-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND START_TIME <= TO_TIMESTAMP ('2019-02-14 23:59:59', 'YYYY-MM-DD HH24:MI:SS')
+    		+ "ORDER_ID "
+    		+ "FROM SINGLE_ORDER WHERE START_TIME >=  TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS') AND START_TIME <=  TO_TIMESTAMP(?, 'YYYY-MM-DD HH24:MI:SS') "
+//SELECT DISTINCT START_TIME FROM SINGLE_ORDER WHERE START_TIME >= TO_TIMESTAMP ('2019-02-14 00:00:00', 'YYYY-MM-DD HH24:MI:SS') AND START_TIME <= TO_TIMESTAMP ('2019-02-14 23:59:59', 'YYYY-MM-DD HH24:MI:SS') and STATE=1
     		;
+    
+    private static final String GETTIME_BY_ORDER ="SELECT STATE , START_TIME FROM SINGLE_ORDER WHERE ORDER_ID = ? ";
+//    SELECT STATE ,START_TIME FROM SINGLE_ORDER WHERE ORDER_ID = 'SODR010'
     private static final String UPDATE_STATE_TO_DELAY =	"UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=? ";
 
     private static DataSource dataSource;
@@ -85,7 +86,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
   //撈單程訂單:三天前 可撈單程
     public HashSet<SingleOrderVO> listAllUnpaidReservationOrder(){
     	HashSet<SingleOrderVO> allUnpaidReservationOrderID=new HashSet<SingleOrderVO>();
-    	SingleOrderVO singleOrderVO=new  SingleOrderVO();
+    	
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -94,6 +95,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
 			pstmt=con.prepareStatement(LIST_All_UNPAID_SINGLE);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
+				SingleOrderVO singleOrderVO=new  SingleOrderVO();
 				singleOrderVO.setOrderID(rs.getString("ORDER_ID"));
 				singleOrderVO.setDriverID(rs.getString("DRIVER_ID"));
 				singleOrderVO.setMemID(rs.getString("MEM_ID"));
@@ -127,7 +129,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
   //撈長期訂單1:三天前撈出長期單的前幾筆) LIST_EARLIER_PART_FROM_LONGTERM_SETS
     public HashSet<SingleOrderVO> listEarlierPartUnpaidFromLongtermSets(){
     	HashSet<SingleOrderVO> earlierPartUnpaidFromLongtermSets=new HashSet<SingleOrderVO>();
-    	SingleOrderVO singleOrderVO=new  SingleOrderVO();
+    	
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -136,6 +138,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
 			pstmt=con.prepareStatement(LIST_EARLIER_PART_UNPAID_FROM_LONGTERM_SETS);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
+				SingleOrderVO singleOrderVO=new  SingleOrderVO(); //要在裡面NEW VO 否則會被SET視為同一個
 				singleOrderVO.setOrderID(rs.getString("ORDER_ID"));
 				singleOrderVO.setDriverID(rs.getString("DRIVER_ID"));
 				singleOrderVO.setMemID(rs.getString("MEM_ID"));
@@ -168,7 +171,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
   //撈長期訂單2:再透過 撈長期第一筆LAUNCH_TIME ，撈此長期預約的整組
     public HashSet<SingleOrderVO> listOneSetOfLongterm(Timestamp launchtime){
     	HashSet<SingleOrderVO> oneSetOfLongterm=new HashSet<SingleOrderVO>();
-    	SingleOrderVO singleOrderVO=new  SingleOrderVO();
+    	
     	Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -178,6 +181,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
 			pstmt.setTimestamp(1, launchtime);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
+				SingleOrderVO singleOrderVO=new  SingleOrderVO();
 				singleOrderVO.setOrderID(rs.getString("ORDER_ID"));
 				singleOrderVO.setDriverID(rs.getString("DRIVER_ID"));
 				singleOrderVO.setMemID(rs.getString("MEM_ID"));
@@ -256,7 +260,57 @@ public class SingleOrderDAO implements SingleOrder_interface {
         }
     }
     
-    
+    public List<String> gettimeByorderID(String OrderID) {
+		List<String> list =new ArrayList<String>();
+//		Set<SingleOrderVO> set = new LinkedHashSet<SingleOrderVO>();
+		String starttime=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		con = dataSource.getConnection();
+		pstmt = con.prepareStatement(GETTIME_BY_ORDER);
+//		SELECT STATE , START_TIME FROM SINGLE_ORDER WHERE ORDER_ID = ? 
+		pstmt.setString(1, OrderID);
+		
+		rs = pstmt.executeQuery();
+		while(rs.next()) {
+		starttime=(rs.getString("START_TIME"));
+//		starttime=(rs.getString(1));
+		list.add(starttime);
+// 訂單 開始時間ID
+//		list.addAll(orderid,)
+		}
+	}catch (SQLException se) {
+		se.printStackTrace();
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		if (rs != null) {
+			try {
+				rs.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (pstmt != null) {
+			try {
+				pstmt.close();
+			} catch (SQLException se) {
+				se.printStackTrace(System.err);
+			}
+		}
+		if (con != null) {
+			try {
+				con.close();
+			} catch (Exception e) {
+				e.printStackTrace(System.err);
+			}
+		}
+	}
+	return list;
+}
     public List<String> get_start_time(String START_TIME,String START_TIME2) {
 		List<String> list =new ArrayList<String>();
 //		Set<SingleOrderVO> set = new LinkedHashSet<SingleOrderVO>();
@@ -275,12 +329,14 @@ public class SingleOrderDAO implements SingleOrder_interface {
 		while(rs.next()) {
 //		starttime=(rs.getString("START_TIME"));
 		starttime=(rs.getString("ORDER_ID"));
+		starttime=(rs.getString(1));
 		list.add(starttime);
 // 訂單 開始時間ID
 //		list.add(orderid).add(memid).add;
 //		list.addAll(orderid,)
 		}
 	}catch (SQLException se) {
+		se.printStackTrace();
 		throw new RuntimeException("A database error occured. "
 				+ se.getMessage());
 		// Clean up JDBC resources

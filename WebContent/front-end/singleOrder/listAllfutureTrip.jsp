@@ -64,8 +64,7 @@
 	            	<!--==========================
 							    個人訂單 
 					============================-->
-            	
-	            	<div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.2s"> 
+	            	<div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-delay="0.2s"> 
 	                        <div class="section-header">
 			                    <h3 class="section-title">個人行程</h3>
 			                </div>
@@ -98,15 +97,38 @@
 							      <td>${singleOrder.startLoc}</td>
 							      <td>${singleOrder.endLoc}</td>
 							      <td>${singleOrder.totalAmount}</td>
-							      <td>
-							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
-								    <div class="text-center"><button type="submit" class="btn btn-light">取消</button>
-								      	<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
-		                				<input type="hidden" name="action" value="DELETE">
-		                				<input type="hidden" name="orderID" value="${singleOrder.orderID}">
-								     </div>
-								  </Form>
-							      </td>
+							      <c:if test="${singleOrder.state eq 1 }">
+							          <td>
+								      
+								      </td>
+							       </c:if>
+							       <c:if test="${singleOrder.state eq 0 and singleOrder.orderType eq 0}">
+							          <td>
+								            需於Picar App中取消
+								      </td>
+							       </c:if>
+							      <c:if test="${singleOrder.state eq 0 and singleOrder.orderType eq 3}">
+							          <td>
+								      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
+									    <div class="text-center"><button type="submit" class="btn btn-light">取消</button>
+									      	<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
+			                				<input type="hidden" name="action" value="DELETE">
+			                				<input type="hidden" name="orderID" value="${singleOrder.orderID}">
+									     </div>
+									   </Form>
+								       </td>
+							       </c:if>
+							        <c:if test="${singleOrder.state eq 0 and singleOrder.orderType eq 4}">
+							          <td >
+								      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
+									    <div class="text-center"><button type="submit" class="btn btn-light">取消長期</button>
+									      	<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
+			                				<input type="hidden" name="action" value="DELETE">
+			                				<input type="hidden" name="orderID" value="${singleOrder.orderID}">
+									     </div>
+									   </Form>
+								       </td>
+							       </c:if>
 							       <td>
 						 		  <c:forEach var="state" items="${stateMap}">
 						 		   ${state.key eq singleOrder.state ? state.value: ""}
@@ -129,7 +151,8 @@
 						 <!--==========================
 						    揪團訂單 
 						  ============================-->
-            		<div class="col-lg-6 col-md-6 wow fadeInUp" data-wow-delay="0.2s"> 
+				 <div class="container wow fadeInUp">
+            		<div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-delay="0.2s"> 
                         <div class="section-header">
 			                    <h3 class="section-title">揪團行程</h3>
 			            </div>
@@ -141,7 +164,6 @@
 							 <th scope="col">乘車地點	</th>
 							 <th scope="col">前往目的地</th>
 							 <th scope="col">總金額	</th>
-							  <th scope="col">取消行程</th>
 							  <th scope="col">訂單狀態</th>
 						    </tr>
 						  </thead>
@@ -162,15 +184,15 @@
 							      <td>${groupBandSvc.getOneGroupBand(groupOrder.groupID).startLoc}</td>
 							      <td>${groupBandSvc.getOneGroupBand(groupOrder.groupID).endLoc}</td>
 							      <td>${groupOrder.totalAmout}</td>
-						       <td>
-						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
-							    <div class="text-center"><button type="submit" class="btn btn-light">取消</button>
-							      	<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
-	                				<input type="hidden" name="action" value="DELETE">
-	                				<input type="hidden" name="groupOrder" value="${groupOrder.gorderID}">
-							     </div>
-							  </Form>
-						      </td>
+<!-- 						       <td> -->
+<%-- 						      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" > --%>
+<!-- 							    <div class="text-center"><button type="submit" class="btn btn-light">取消</button> -->
+<!-- 							      	/*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
+<!-- 	                				<input type="hidden" name="action" value="DELETE"> -->
+<%-- 	                				<input type="hidden" name="groupOrder" value="${groupOrder.gorderID}"> --%>
+<!-- 							     </div> -->
+<!-- 							  </Form> -->
+<!-- 						      </td> -->
 						      <td>
 							      <c:forEach var="state" items="${stateMap}">
 						 		   ${state.key eq groupOrder.state? state.value: ""}
@@ -191,33 +213,6 @@
             	</div>  <!-- row-->
             </div> <!-- container -->
         </section>
-         <!--==========================
-		    includ個人歷史訂單
-		  ============================-->
-        
-		<!-- Modal -->
-<!-- 		<div class="modal fade" id="listPastSingleOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
-<!-- 		  <div class="modal-dialog" role="document"> -->
-<!-- 		    <div class="modal-content"> -->
-<!-- 		      <div class="modal-header"> -->
-<!-- 		        <h5 class="modal-title" id="exampleModalLabel">個人歷史訂單</h5> -->
-<!-- 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-<!-- 		          <span aria-hidden="true">&times;</span> -->
-<!-- 		        </button> -->
-<!-- 		      </div> -->
-<!-- 		      <div class="modal-body"> -->
-<%-- 		      <jsp:include page="/front-end/singleOrder/listPastSingleOrder.jsp"/>; --%>
-<!-- 		      </div> -->
-<!-- 		      <div class="modal-footer"> -->
-<!-- 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-<!-- 		      </div> -->
-<!-- 		    </div> -->
-<!-- 		  </div> -->
-<!-- 		</div> -->
-       <!-- Button trigger modal 查看個人單筆詳情 結束-->
-        
-        
-   
     <!--==========================
     底部
   ============================-->

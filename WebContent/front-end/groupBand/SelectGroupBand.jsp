@@ -36,11 +36,6 @@
 </style>
 <body bgcolor='white'>
 
-<table id="table-1">
-   <tr><td><h3>揪團</h3><h4>( MVC )</h4></td></tr>
-</table>
-
-<p>揪團</p>
 
 <h3>揪團資料查詢:</h3>
 
@@ -54,8 +49,6 @@
 </c:if>
 
 <ul>
-  <li><a href='listAllGroupBand.jsp'>List</a> AllGroupBand  <br><br></li>
- 
   
   <li>
     <FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"  enctype="multipart/form-data">
@@ -95,16 +88,12 @@
 <script>
 $('#start_date').datetimepicker(
 		{
-			format : 'Y-m-d H:i:s',
-			onShow : function() {
-				this.setOptions({
-					maxDate : $('#start_date').val() ? $('+1970-01-20')
-							.val() :  true
-				})
+			format : 'Y-m-d',
+			onShow : function() {			
 			},
 			step: 5,
-			timepicker : true,
-					value : 'new Date()',
+			timepicker : false,
+					value : ' ',
 			minDate:           '-1970-01-01', // 去除今日(不含)之前
 			maxDate:           '+1970-01-20'  // 去除今日(不含)之後
 		});

@@ -9,9 +9,13 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.naming.Context;
+import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import com.singleOrder.model.SingleOrderDAO;
+
+import oracle.jdbc.OracleResultSetMetaData.SecurityAttribute;
 
 //@WebServlet(loadOnStartup = 1)
 public class DelayTimerx extends HttpServlet {
@@ -33,23 +37,25 @@ public class DelayTimerx extends HttpServlet {
 			public void run() {
 
 				Calendar calendar2 = Calendar.getInstance();
-//				calendar2.add(Calendar.DATE, 3);    //3天
-				calendar2.add(Calendar.SECOND, 5);
+				calendar2.add(Calendar.DATE, 1);    //3天
+//				calendar2.add(Calendar.SECOND, 5);
 				String three_days_after = sdf2.format(calendar2.getTime());
 
 				String START_TIME_Start = three_days_after + " 00:00:00";
 				String START_TIME_End   = three_days_after + " 23:59:59";
 //				('2019-03-18 05:20:00', 'YYYY-MM-DD HH24:MI:SS')
-				System.out.println("2."+START_TIME_Start);
+				System.out.println("2.");
+				System.out.println(START_TIME_Start);
 				System.out.println(START_TIME_End );
 				List<String> startTimeList = new ArrayList<String>();
 //				Set<SingleOrderVO> startTimeList = new LinkedHashSet();
 				System.out.println("3.");
 				startTimeList = new SingleOrderDAO().get_start_time(START_TIME_Start, START_TIME_End);// 拿出一群時間的集合
-				System.out.println("上面還沒讀到.");
-//				System.out.println(startTimeList);
-				System.out.println(new SingleOrderDAO().get_start_time(START_TIME_Start, START_TIME_End));
-				//拿到一堆time
+				System.out.println(startTimeList);
+				ServletContext context ;
+				getServletContext().setAttribute("futureOrder", startTimeList);
+				//拿到一堆訂單
+				System.out.println("1:"+getServletContext().getAttribute("futureOrder"));
 //				if (startTimeList != null) {
 //					for (String starttime : startTimeList) {// 滾出一群時間
 ////					 System.out.println(starttime);
@@ -74,10 +80,7 @@ public class DelayTimerx extends HttpServlet {
 //				}
 				
 				
-				
-				
-				
-				System.out.println("時間集合");
+				System.out.println("訂單集合");
 //				sharetimer(startTimeList);//此行跑不到。B.將一群時間傳到另一個方法
 				System.out.println("B.");
 			}
@@ -85,7 +88,7 @@ public class DelayTimerx extends HttpServlet {
 //		this.getRenewTime(22);// 當日22點更新 ，取得當天22點的Long
 //		timer.schedule(task, renewTime);
 //		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
-		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000*5); //TEST
+		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000*50); //甲. 每半小時執行一次 搜出隔天訂單 
 		System.out.println("1.現在時間"+new java.sql.Timestamp(System.currentTimeMillis()));   //TEST
 //		System.out.println("C.現在毫秒數"+new GregorianCalendar().getTimeInMillis());   //TEST
 	}//init
@@ -112,8 +115,6 @@ public class DelayTimerx extends HttpServlet {
 //					};
 ////					new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
 //					new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
-//					// 排成器delaytask 5分鐘後 1.狀態碼改成逾期2.推播websocket給管理員 
-//					//
 //				}
 //			}
 		}

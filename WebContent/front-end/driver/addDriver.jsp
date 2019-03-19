@@ -48,7 +48,7 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 				<div class="section-header">
 					<h3 class="section-title">成為司機(上傳檢附文件)</h3>
 					<div class="text-center">
-						<form action="<%=request.getServletContext().getContextPath()%>/front-end/driver/homeDriverDataManagment.jsp">
+						<form action="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp">
 							<!-- 以上請寫成為司機的人 action="寫上上一頁的畫面" -->
 							<button type="submit" class="btn btn-outline-success"">返回</button>
 						</form>

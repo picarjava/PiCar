@@ -68,8 +68,7 @@
 			                    <h3 class="section-title">個人訂單</h3>
 			                </div>
 	                        <table class="table">
-							  <thead class="thead-dark">							    <tr>
-							      <tr></tr>
+							  <thead class="thead-dark">	
 							      <tr>
 							      <th scope="col">訂單編號	</th>
 							      <th scope="col">訂單種類	</th>
@@ -104,24 +103,12 @@
 						 		  </c:forEach>
 						 		  </td>
 							      <td >
-<!-- 							      <td> -->
-<%-- 							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" > --%>
-<!-- 								    <div class="text-center"><button type="submit" class="btn btn-light">取消</button> -->
-<!-- 								      	/*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
-<!-- 		                				<input type="hidden" name="action" value="DELETE"> -->
-<%-- 		                				<input type="hidden" name="orderID" value="${singleOrder.orderID}"> --%>
-<!-- 								     </div> -->
-<!-- 								  </Form> -->
-<!-- 							      </td> -->
 							    </tr>
 		</c:if>					    
 		</c:forEach>
 							</tbody>
 							</table>
 		<div class="text-center">
-<!-- 		<button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#listPastSingleOrder"> -->
-<!-- 		  查看歷史紀錄 -->
-<!-- 		</button> -->
 		<Form  ACTION="<%=request.getContextPath()%>/front-end/singleOrder/listPastSingleDriverTask.jsp" >
 		<button type="submit" class="btn btn-secondary btn-lg btn-block">查看司機個人訂單歷史紀錄</button>
 		</Form>
@@ -168,20 +155,7 @@
 						 		   ${state.key eq groupOrder.state? state.value: ""}
 						 		  </c:forEach>
 							      </td>
-<!-- 										<td> -->
-<!-- 											<Form METHOD="post" -->
-<%-- 												ACTION="<%=request.getContextPath()%>/singleOrder"> --%>
-<!-- 												<div class="text-center"> -->
-<!-- 													<button type="submit" class="btn btn-light">取消</button> -->
-<!-- 													/*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
-<!-- 													<input type="hidden" name="action" value="DELETE"> -->
-<!-- 													<input type="hidden" name="groupOrder" -->
-<%-- 														value="${groupOrder.gorderID}"> --%>
-<!-- 												</div> -->
-<!-- 											</Form> -->
-<!-- 										</td> -->
 									</tr>  
-						   
 	</c:if>		
 	</c:forEach>
  						</tbody>
@@ -193,30 +167,6 @@
 					</div>   <!-- row-->
             	</div> <!-- container -->
         </section>
-         <!--==========================
-		    includ個人歷史訂單
-		  ============================-->
-		<!-- Modal -->
-<!-- 		<div class="modal fade" id="listPastSingleOrder" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true"> -->
-<!-- 		  <div class="modal-dialog" role="document"> -->
-<!-- 		    <div class="modal-content"> -->
-<!-- 		      <div class="modal-header"> -->
-<!-- 		        <h5 class="modal-title" id="exampleModalLabel">個人歷史訂單</h5> -->
-<!-- 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"> -->
-<!-- 		          <span aria-hidden="true">&times;</span> -->
-<!-- 		        </button> -->
-<!-- 		      </div> -->
-<!-- 		      <div class="modal-body"> -->
-<%-- 		      <jsp:include page="/front-end/singleOrder/listPastSingleOrder.jsp"/>; --%>
-<!-- 		      </div> -->
-<!-- 		      <div class="modal-footer"> -->
-<!-- 		        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-<!-- 		      </div> -->
-<!-- 		    </div> -->
-<!-- 		  </div> -->
-<!-- 		</div> -->
-       <!-- Button trigger modal 查看個人單筆詳情 結束-->
-   
     <!--==========================
     底部
   ============================-->
