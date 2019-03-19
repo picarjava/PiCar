@@ -320,7 +320,6 @@ public class StoreRecordServlet extends HttpServlet {
 
 		if ("insertOrder".equals(action)) {
 
-			// 司機編號作下拉式選單
 			List<String> errorMsgs = new LinkedList();
 			req.setAttribute("errorMsgs", errorMsgs);
 
@@ -334,7 +333,7 @@ public class StoreRecordServlet extends HttpServlet {
 
 					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \" 且長度必需在2到20之間");
 				}
-				// 接收訂單的資訊
+
 				Integer amount = 0;
 				try {
 					amount = Integer.valueOf(req.getParameter("amount")); // 扣除金額為負值
@@ -392,6 +391,19 @@ public class StoreRecordServlet extends HttpServlet {
 //					return;
 //				}
 
+				MemberService memberSvc = new MemberService();
+				MemberVO memberVO = memberSvc.getOneMember(memID);
+				Integer count = memberVO.getToken() + storeRecordVO.getAmount();
+				try {
+					if (count < 0) {
+						throw new Exception("總金額小於0");
+						
+					}
+				} catch (Exception e) {
+					System.out.println(e);
+					return;
+				}
+				
 				// 開始新增資料
 				StoreRecordService storeRecordSvc = new StoreRecordService();
 				storeRecordVO = storeRecordSvc.addOrdrID(memID, amount, orderID);
@@ -405,9 +417,7 @@ public class StoreRecordServlet extends HttpServlet {
 //				Integer sumCount = storeRecordSvc.getCount(memID);
 //				req.setAttribute("sumCount", sumCount);
 
-				MemberService memberSvc = new MemberService();
-				MemberVO memberVO = memberSvc.getOneMember(memID);
-				memberSvc.updateToken(memID, memberVO.getToken() + storeRecordVO.getAmount());
+				memberSvc.updateToken(memID, count);
 
 				RequestDispatcher succesView = req
 						.getRequestDispatcher("/front-end/storeRecord/listOneStoreRecordByMem.jsp");
