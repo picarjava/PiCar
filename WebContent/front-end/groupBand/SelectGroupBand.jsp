@@ -86,6 +86,10 @@
     </FORM>
   </li>
 </ul>
+
+<%if(request.getAttribute("listgroupBand_ByCompositeQuery")!=null){%>
+<jsp:include page="listgroupBand_ByCompositeQuery.jsp" />
+<%}%>
 <script>
 $('#start_date').datetimepicker(
 		{

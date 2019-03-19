@@ -557,7 +557,7 @@ public class GroupBandServlet extends HttpServlet {
 				req.setAttribute("listgroupBand_ByCompositeQuery", list); // 資料庫取出的list物件,存入request
 
 				RequestDispatcher successView = req
-						.getRequestDispatcher("/front-end/groupBand/listgroupBand_ByCompositeQuery.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
+						.getRequestDispatcher("/front-end/groupBand/SelectGroupBand.jsp"); // 成功轉交listEmps_ByCompositeQuery.jsp
 				successView.forward(req, res);
 
 			} catch (Exception e) {
