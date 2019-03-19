@@ -93,7 +93,7 @@ h5 {
 		</ul>
 	</c:if>
 
-	<FORM METHOD="post" ACTION="admin.do" name="form1">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/admin/admin.do" name="form1">
 		<table>
 			<tr>
 				<td>管理員姓名</td>

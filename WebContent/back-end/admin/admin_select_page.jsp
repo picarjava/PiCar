@@ -174,7 +174,7 @@ table {
 
 
 							<ul id="s1">
-								<form METHOD="post" ACTION="admin.do">
+								<form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/admin/admin.do">
 									<a>搜尋管理員</a> 
 									<input type="text" placeholder="(例如:A001)" name="adminID"> 
 									<input type="hidden" name="action" value="getOne_For_Display"> 

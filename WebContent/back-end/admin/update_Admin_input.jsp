@@ -104,7 +104,7 @@ h3 {
 		</c:if>
 	</table>
 
-	<FORM METHOD="post" ACTION="admin.do" name="form1">
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/admin/admin.do" name="form1">
 		<table>
 			<tr>
 				<td>管理員編號<font color=red></font></td>
