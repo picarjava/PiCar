@@ -93,6 +93,10 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String GET_BY_STATE = "SELECT * FROM GROUP_ORDER WHERE STATE=? AND ORDER_TYPE=?";
 		private static final String UPDATE_DRIVER_ID_BY_GROUP_ID = "UPDATE GROUP_ORDER SET DRIVER_ID=? WHERE GROUP_ID=?";
 		
+		//逾時訂單使用
+		private static final String DELAY_TIME ="SELECT * FROM GROUP_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP";
+
+		
 		@Override
 		public HashSet<String> getRatedDrivers(){
 			HashSet<String> hashSet =new HashSet<String>();
@@ -1007,4 +1011,31 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
             } //catch
         } // if
     } // closeConnection()
+    
+    
+    //定時撈出逾期訂單
+    public List<String> getDelayOrder(){
+    	List<String> delayOrder=new ArrayList<String>();
+    	
+    	Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+        	con=ds.getConnection();
+			pstmt=con.prepareStatement(DELAY_TIME);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				delayOrder.add(rs.getString("GORDER_ID"));
+			}
+        	
+        }catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pstmt);
+            closeConnection(con);
+        } // finally
+    	return delayOrder;
+    }
 }

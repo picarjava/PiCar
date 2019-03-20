@@ -115,4 +115,9 @@ public class GroupOrderService {
 	return 	dao.getStartTimeGgroupID(groupID);
 	}
 	
+    //逾時訂單
+    public List<String> getDelayOrder(){
+    	return dao.getDelayOrder();
+    }
+	
 }

@@ -439,4 +439,10 @@ public class GroupOrderJNDIDAO implements GroupOrderDAO_interface {
 		return null;
 	}
 
+	@Override
+	public List<String> getDelayOrder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
