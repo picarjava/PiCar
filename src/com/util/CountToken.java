@@ -6,13 +6,18 @@ import java.util.LinkedList;
 import java.util.List;
 import com.activityToken.model.ActivityTokenService;
 import com.activityToken.model.ActivityTokenVO;
+import com.member.model.MemberService;
+import com.member.model.MemberVO;
 import com.storeRecord.model.StoreRecordService;
+import com.storeRecord.model.StoreRecordVO;
 
 public class CountToken {
 	List<String> errorMsgs = new LinkedList();
 
 	public void countToken(String memID, Integer amount, String orderID) {
 
+		
+		
 		ActivityTokenService atSvc = new ActivityTokenService();
 		List<ActivityTokenVO> onesActivityToken = new LinkedList();
 		onesActivityToken = atSvc.getOnesALL(memID);
@@ -21,6 +26,16 @@ public class CountToken {
 			@Override
 			public int compare(ActivityTokenVO o1, ActivityTokenVO o2) {
 				int result = (int) ((o1.getDeadline().getTime() - o2.getDeadline().getTime()));
+				return result;
+			}
+
+		});
+
+		Collections.sort(onesActivityToken, new Comparator<ActivityTokenVO>() {
+
+			@Override
+			public int compare(ActivityTokenVO o1, ActivityTokenVO o2) {
+				int result = (int) ((o1.getTokenAmount() - o2.getTokenAmount()));
 				return result;
 			}
 
@@ -37,10 +52,26 @@ public class CountToken {
 			} else {
 				amount = -amount;
 			}
+/***************************/
+//			StoreRecordVO storeRecordVO = new StoreRecordVO();
+			MemberService memberSvc = new MemberService();
+			MemberVO memberVO = memberSvc.getOneMember(memID);
+			Integer count = memberVO.getToken() + amount;
+			try {
+				if (count < 0) {
+					throw new Exception("總金額小於0");
+
+				}
+			} catch (Exception e) {
+				System.out.println(e);
+				return;
+			}
 
 			StoreRecordService storeRecordSvc = new StoreRecordService();
 			storeRecordSvc.addOrdrID(memID, amount, orderID);
+			memberSvc.updateToken(memID, count);
 		}
+/****************/
 	}
 
 	public static void main(String[] args) {

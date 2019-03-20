@@ -368,6 +368,16 @@ public class StoreRecordServlet extends HttpServlet {
 					}
 
 				});
+				
+				Collections.sort(onesActivityToken, new Comparator<ActivityTokenVO>() {
+
+					@Override
+					public int compare(ActivityTokenVO o1, ActivityTokenVO o2) {
+						int result = (int) -((o1.getTokenAmount() - o2.getTokenAmount()));
+						return result;
+					}
+
+				});
 
 				if (!onesActivityToken.isEmpty()) {
 					if (onesActivityToken.get(0).getTokenAmount() != 0) {
