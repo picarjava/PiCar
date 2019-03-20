@@ -2,11 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page  import="com.member.model.*" %>
+<%@ page  import="com.driver.model.*" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>setting.jsp</title>
+<title>hobby_setting</title>
 </head>
 <style>
 table{
@@ -15,8 +16,9 @@ table{
 </style>
 <body>
 <%
-	MemberVO memberVO =  (MemberVO)request.getAttribute("memberVO");
-
+MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+DriverService driSrc = new DriverService();
+DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 %>
  <h3>setting.jsp</h3>
  
@@ -30,46 +32,51 @@ table{
 	</ul>
 </c:if>
 
-<form method="post" action="member.do" name="form1" enctype="multipart/form-data">
-<a href="select_page.jsp">回主頁面</a>
+<form method="post" action="driver.do" name="form1" enctype="multipart/form-data">
+<a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/homeDriverDataManagment.jsp">回主頁面</a>
 	<table >
 		<tr>
-			<td>司機編號：</td>
-			<td>  <%= memberVO.getMemID() %>   </td>		
-	
+			<td>會員編號：</td>
+			<td><%= memberVO.getMemID() %></td>		
 		</tr>
-		
 		<tr>
-			<td>司機信用卡：</td>
-			<td><input type="text" name="creditcard" size="45" value="<%=memberVO.getCreditcard() %>" /></td>		
+			<td>司機編號：</td>
+			<td>${driverVO.driverID}</td>		
 		</tr>
 		
 		<tr>
 			<td>司機寵物喜好設定：</td>
 			<td><select name="pet">
-			<option value="1" ${(memberVO.pet == '1')?'selected':'' }>喜歡寵物
-			<option value="0" ${(memberVO.pet == '0')?'selected':'' }>不喜歡寵物
+			<option value="1" ${(driverVO.pet == '1')?'selected':'' }>喜歡寵物
+			<option value="0" ${(driverVO.pet == '0')?'selected':'' }>不喜歡寵物
 			</select></td>		
 		</tr>
 		<tr>
 			<td>司機抽菸喜好設定：</td>
 			<td><select name="smoke">
-			<option value="1" ${(memberVO.smoke == '1')?'selected':'' }>抽菸
-			<option value="0" ${(memberVO.smoke == '0')?'selected':'' }>不抽菸
+			<option value="1" ${(driverVO.smoke == '1')?'selected':'' }>抽菸
+			<option value="0" ${(driverVO.smoke == '0')?'selected':'' }>不抽菸
 			</select></td>		
 		</tr>
 
 		<tr>
 			<td>嬰兒座椅設定：</td>
 			<td><select name="babySeat">
-			<option value="1" ${(memberVO.babySeat == '1')?'selected':'' }>需要
-			<option value="0" ${(memberVO.babySeat == '0')?'selected':'' }>不需要
+			<option value="1" ${(driverVO.babySeat == '1')?'selected':'' }>需要
+			<option value="0" ${(driverVO.babySeat == '0')?'selected':'' }>不需要
+			</select></td>		
+		</tr>
+		<tr>
+			<td>共享車子</td>
+			<td><select name="sharedCar">
+			<option value="1" ${(driverVO.sharedCar == '1')?'selected':'' }>需要
+			<option value="0" ${(driverVO.sharedCar == '0')?'selected':'' }>不需要
 			</select></td>		
 		</tr>
 
 		
 	</table>                          
-	<input type="hidden" name="memID" value="<%=memberVO.getMemID() %> ">
+	<input type="hidden" name="driverID" value="${driverVO.driverID}">
 	<input type="hidden" name="action" value="Update_Hobby">
 	<input type="submit" value="submit">
 </form>

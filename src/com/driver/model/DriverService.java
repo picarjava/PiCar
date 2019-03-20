@@ -5,6 +5,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 
+import com.member.model.MemberVO;
+
 //service 介於model && controller
 public class DriverService {
 	private DriverDAO_interface dao;
@@ -114,6 +116,21 @@ public class DriverService {
 		dao.updatedri(driverVO);
 		return driverVO;
 
+	}
+	
+	//阿君新增FOR前端設定喜好設定
+	public DriverVO setHobby(Integer sharedcar, Integer pet, Integer smoke, Integer babySeat, String driverID) {
+
+		DriverVO driverVO = new DriverVO();
+
+		driverVO.setSharedCar(sharedcar);
+		driverVO.setPet(pet);
+		driverVO.setSmoke(smoke);
+		driverVO.setBabySeat(babySeat);
+		driverVO.setDriverID(driverID);
+		dao.setForHobby(driverVO);
+
+		return driverVO;
 	}
 
 	public DriverVO updatePermitted(Integer verified, String driverID) {
