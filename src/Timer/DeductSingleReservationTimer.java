@@ -1,5 +1,16 @@
 package Timer;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.SocketAddress;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -14,6 +25,9 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
@@ -22,9 +36,14 @@ import com.util.TimeConverter;
 
 
 
+
+
 public class DeductSingleReservationTimer extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	Timer timer;   
+	Timer timer;
+	int port;
+	String serveletName;
+	Session session;
     
     public DeductSingleReservationTimer() {
         super();
@@ -36,7 +55,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 		SimpleDateFormat tFormat=new SimpleDateFormat("yyyy/MM/dd a hh:mm:ss ");
 		TimeConverter timeConverter=new TimeConverter();
 		Date firstime=timeConverter.getThisHourToday(0);//開始時間為伺服器啟動的當天0點
-		long period=1000*60*60; //每小時執行一次
+		long period=1000*60*60*24; //每小時執行一次
 		SingleOrderService singleOrderSvc=new SingleOrderService();
 		HashSet<SingleOrderVO> allUnpaid =new HashSet<SingleOrderVO>();//待付款訂單
 		TimerTask task=new TimerTask(){
@@ -44,11 +63,12 @@ public class DeductSingleReservationTimer extends HttpServlet {
 			String excutedTime;
 			@Override
 			public void run(){
+			
 				 Date date =new Date(this.scheduledExecutionTime());
 				 excutedTime=tFormat.format(date);
 				 count++;
 				 System.out.println("=======系統於"+excutedTime+" 做第"+count+"次預約訂單扣款=======");
-				
+			
 				//1.=======撈出三日前未完成付款的訂單=======
 				//將單程的部分加入待付款訂單
 				 
@@ -70,9 +90,51 @@ public class DeductSingleReservationTimer extends HttpServlet {
 					}
 				}
 				
+				
+				//Q2.或者 連線到  broadcastServer如何sendMessage?
+//				String MyPoint="/BroadcastServer/"+allUnpaidOrders.getMemID();
+//			    String contextPath=getServletContext().getContextPath();
+//			    String endPointURL="ws://"+contextPath+MyPoint;
+//			    Socket socket=null;
+//			    
+//			    try {
+//					URI url = new URI(endPointURL);
+//					SocketAddress socketAddress=new InetSocketAddress(url.getHost(),port);
+//					socket =new Socket();
+//					socket.connect(socketAddress);
+//					
+//					BufferedReader s_in=new BufferedReader(new InputStreamReader(socket.getInputStream()));
+//					
+//					OutputStream os= socket.getOutputStream();
+//					
+//					
+//				} catch (URISyntaxException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}catch (UnknownHostException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+				
+				
+				
+				//Q1.從排程器推播 如何得到同一個 與接收端同一個 broadcastServer物件
+				BroadcastServer broadcastServer=new BroadcastServer();
+				Session onOpenSession=broadcastServer.getOnOpenSession();
+				
+				System.out.println("排成器有沒有拿到onOpensesssion:"+(onOpenSession!=null));
+				
 				for(SingleOrderVO allUnpaidOrders:allUnpaid) {
-					BroadcastServer broadcastServer=new BroadcastServer();
-					broadcastServer.broadcast(allUnpaidOrders.getMemID(), "訂單編號:"+allUnpaidOrders.getOrderID()+"已為您扣款");
+					String memID=allUnpaidOrders.getMemID();
+//					String message= "訂單編號"+allUnpaidOrders.getOrderID()+"已為您扣款";
+					String toJsonMessage= "{\"message\":\"" +"已為您扣款"+"\"}";
+					
+					if(onOpenSession!=null) {
+						broadcastServer.onMessage(memID, onOpenSession, toJsonMessage);
+					}
 				}
 				
 				
@@ -97,6 +159,16 @@ public class DeductSingleReservationTimer extends HttpServlet {
 	
 	public void destroy() {
 		timer.cancel();
+	}
+	
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) {
+		doPos(req,res);
+	}
+	
+    protected void doPos(HttpServletRequest req, HttpServletResponse res) {
+    	serveletName=req.getServerName();
+		port=req.getServerPort();
+		session=(Session) req.getSession();
 	}
 
 }

@@ -224,18 +224,17 @@
  <script>
  	var MyPoint="/BroadcastServer/${memID}";
  	var host=window.location.host;
- 	var path=window.lacation.pathname;
+ 	var path=window.location.pathname;
  	var webCtx=path.substring(0,path.indexOf('/',1));
- 	var endPointURL="ws://"+window.location.host+webCtx+Mypoint;
+ 	var endPointURL="ws://"+window.location.host+webCtx+MyPoint;
     
  	var statusOutput=document.getElementById("statusOutput");
  	var webSocket;
  	
  	function connect(){
- 		//建立websocket物件
  		
+ 		//建立websocket物件
  		webSocket=new WebSocket(endPointURL);
- 		window.alert("測試有沒有到這行");
  		
  		webSocket.onopen=function(event){
  			updateStatus("WebSocket 成功連線");
@@ -244,10 +243,11 @@
  		webSocket.onmessage=function(event){
  			var jsonObj=JSON.parse(event.data);
  			var message=jsonObj.message+"\r\n";
- 			window.alert(message);
+ 			updateStatus(message);
  		};
  		
  		webSocket.onclose=function(event){
+ 			
  			updateStatus("WebSocket已離線");
  		};
  	}
@@ -257,7 +257,7 @@
  	}
  	
  	function updateStatus(newStatus){
- 		statusOutput.innerHTML=newStatus;
+ 		statusOutput.innerHTML= newStatus;
  	}
  </script>
 
