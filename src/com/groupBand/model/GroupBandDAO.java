@@ -43,7 +43,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 	private static final String GET_ONE_CONTENT__GROUP_ID = "SELECT CONTENT FROM GROUP_BAND where GROUP_ID= ?";
 	private static final String UPDATE_CONTENT__GROUP_ID= "UPDATE GROUP_BAND set CONTENT=? where GROUP_ID= ?";
 	private static final String GET_ONE_TOTAL_AMOUT__GROUP_ID = "SELECT TOTAL_AMOUT FROM GROUP_BAND where GROUP_ID= ?";
-	private static final String GET_ALL_START_TIME = "select * from GROUP_BAND where GROUP_STATUS=0 and rownum<6 ORDER BY START_TIME";
+	private static final String GET_ALL_START_TIME = "select * from (select * from GROUP_BAND where GROUP_STATUS=0 ORDER BY LAUNCH_TIME desc) where rownum<6";
 	@Override
 	public void insert(GroupBandVO groupBandVO) {
 		// TODO Auto-generated method stub
