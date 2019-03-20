@@ -74,6 +74,7 @@
 							      <tr></tr>
 							      <tr>
 							      <th scope="col">乘車時間	</th>
+							      <th scope="col">訂單編號	</th>
 							      <th scope="col">訂單種類	</th>
 							      <th scope="col">乘車地點	</th>
 							      <th scope="col">乘車目的地	</th>
@@ -90,6 +91,7 @@
 							      <th scope="row">
 							      <fmt:formatDate  type="both" value="${singleOrder.startTime}" pattern="yyyy-MM-dd mm:ss" />
 							      </th>
+							      <td>${singleOrder.orderID}</td>
 							      <td>
 							      <c:forEach var="orderType" items="${orderTypeMap}">
 						 		   ${orderType.key eq singleOrder.orderType ? orderType.value: ""}
@@ -121,13 +123,13 @@
 							       </c:if>
 							        <c:if test="${singleOrder.state eq 0 and singleOrder.orderType eq 4}">
 							          <td >
-								      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
-									    <div class="text-center"><button type="submit" class="btn btn-light">取消長期</button>
+									   <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
+									      	<div class="text-center"><button id="DELETELONGTERM" type="submit" class="btn btn-light">取消長期預約</button>
 									      	<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
-			                				<input type="hidden" name="action" value="DELETE">
+			                				<input type="hidden" name="action" value="DELETELONGTERM">
 			                				<input type="hidden" name="orderID" value="${singleOrder.orderID}">
-									     </div>
 									   </Form>
+									   </div>
 								       </td>
 							       </c:if>
 							       <td>
@@ -220,6 +222,13 @@
     
     <jsp:include page="/regna-master/body.jsp" />
 </body>
+
+<script>
+$("#DELETELONGTERM").click(function() {
+	window.alert("同一筆長期預約訂單將一併刪除");
+});
+</script>
+
 <!--==========websocket推播 開始=============-->
  <script>
  	var MyPoint="/BroadcastServer/${memID}";
@@ -243,6 +252,7 @@
  		webSocket.onmessage=function(event){
  			var jsonObj=JSON.parse(event.data);
  			var message=jsonObj.message+"\r\n";
+  			window.alert(message);
  			updateStatus(message);
  		};
  		

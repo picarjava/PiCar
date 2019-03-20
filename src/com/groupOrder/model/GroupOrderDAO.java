@@ -717,9 +717,9 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		pstmt.setString(1, memid);
 		pstmt.setString(2, groupid);
 		rs = pstmt.executeQuery();
-		
+		while (rs.next()) {
 		memids=(rs.getString("MEM_ID"));
-			
+		}
 			
 		
 	}catch (SQLException se) {

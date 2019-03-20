@@ -508,7 +508,9 @@ public class SingleOrderDAO implements SingleOrder_interface {
             preparedStatement.setInt(index++, singleOrderVO.getTotalAmount());
             preparedStatement.setInt(index++, singleOrderVO.getRate());
             preparedStatement.setString(index++, singleOrderVO.getOrderID());
+            
             preparedStatement.executeUpdate();
+           
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage(), e);

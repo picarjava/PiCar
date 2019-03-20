@@ -668,10 +668,11 @@ public class GroupBandServlet extends HttpServlet {
 				if("Kickingpeople".equals(dropOutbutton)) {
 					
 					GroupOrderService groupOrderService =new GroupOrderService();
+					if(groupOrderService.get_memid__memid_groupid( GroupmemID,groupID)!=null) {
 					groupOrderService.UPDATEmemid__GROUP_ID_MEM_ID(groupID, GroupmemID);
 					GroupBandDAO groupBandDAO = new GroupBandDAO();
 					GroupBandVO groupBandV = groupBandDAO.findByPrimaryKey(groupID);
-					if(groupOrderService.get_memid__memid_groupid(groupID, GroupmemID)!=null) {
+					
 					groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum() + -1, groupID);
 					}
 					
