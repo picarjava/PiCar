@@ -104,6 +104,9 @@ width: 100px;
                                      <li class="widthes">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/activityToken/listOnesAllActivityToken.jsp"><i class="fas fa-coins"></i><br />代幣管理</a>
                                     </li>
+                                      <li class="widthes">
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/activityToken/addActivityToken.jsp"><i class="fas fa-coins"></i><br />免費代幣</a>
+                                    </li>
                                     <li class="widthes">
 						      <c:if test="${empty driverVO.driverID}">
 						      <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/addDriver.jsp"><i class="icon-user"></i><br />成為司機</a>

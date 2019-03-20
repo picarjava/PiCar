@@ -16,4 +16,4 @@
     <link href="<%=request.getContextPath()%>/regna-master/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
     <link href="<%=request.getContextPath()%>/regna-master/lib/animate/animate.min.css" rel="stylesheet">
     <!-- Main Stylesheet File -->
-    <link href="<%=request.getContextPath()%>/regna-master/css/style.css" rel="stylesheet">
+<%--     <link href="<%=request.getContextPath()%>/regna-master/css/style.css" rel="stylesheet"> --%>
