@@ -73,11 +73,11 @@
 			<%
 	String id = (String) pageContext.getAttribute("id");
 	MemberService memberService = new MemberService();
-	MemberVO memberVO =  memberService.getOneMember(id);
-	pageContext.setAttribute("memberVO", memberVO);
+	MemberVO memberVOS =  memberService.getOneMember(id);
+	pageContext.setAttribute("memberVOS", memberVOS);
 %>
 
-<th>團長</th><th>${memberVO.name}</th>
+<th>團長</th><th>${memberVOS.name}</th>
 <th>上車地點</th><th>${GroupBandVO.startLoc}</th>
 </tr>
 	<tr>
