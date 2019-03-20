@@ -31,14 +31,17 @@ public class DelayTimerx extends HttpServlet {
 //	        	String strDate = sdFormat.format(date);
 
 	
-//	--//逾時訂單
-//	--條件1:開始時間+五分鐘>=現在時間
-//	--條件2:STATE=1
-//
-//	--撈單人訂單
-//	SELECT * FROM SINGLE_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 >= CURRENT_TIMESTAMP;
-//
-//	--撈揪團訂單
+//	--//	--//逾時訂單
+//	--//	--條件1:開始時間+五分鐘<=現在時間
+//	--//	--條件2:STATE=1
+//	--//
+//	--//	--撈單人訂單 
+//	  SELECT * FROM SINGLE_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP;
+//	--//
+//	--//	--撈揪團訂單
+//	  SELECT * FROM GROUP_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP; 
+//	  
+//	 -- 排成器: 以上的單放到lIST裡面，一一取出來 UPTDATE STAET=6;+    排程推播給管理員()
 	
 	
 	public void init() {//A.初始化一次排成器
