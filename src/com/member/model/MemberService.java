@@ -94,6 +94,12 @@ public class MemberService {
 		dao.updateVerified(memID);
 	}
 	
+	
+	public void updatePassVerified(String memID, String password) {
+		dao.updatePassVerified(memID, password);
+	}
+	
+	
 	//阿君新增FOR前端設定喜好設定
 	public MemberVO setHobby(String memID, String creditcard, Integer pet, Integer smoke, Integer babySeat) {
 

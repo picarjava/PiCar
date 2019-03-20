@@ -74,11 +74,11 @@
                         </table>
                         <%@ include file="page2.file"%>
                     </div>
-                    
                 </div>
                 <jsp:include page="/back-end/kidFooter.jsp" />
             </div>
         </div>
-        <jsp:include page="/back-end/kidBodyscript.jsp" />
+    </div>    
+<%--         <jsp:include page="/back-end/kidBodyscript.jsp" /> --%>
 </body>
 </html>

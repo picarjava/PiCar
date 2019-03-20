@@ -51,7 +51,7 @@
 						      <th scope="col">審核驗證	</th>
 						      <th scope="col">會員編號	</th>
 						      <th scope="col">司機編號	</th>
-						      <th scope="col">姓名    		</th>
+						      <th scope="col">姓名    	</th>
 						      <th scope="col">車牌號碼	</th>
 						      <th scope="col">BAN	</th>
 						      <th scope="col">到期時間	</th>
@@ -83,11 +83,9 @@
 						      <c:if test="${driverVO.verified == 2}">未通過</c:if>
 						      </th>
 						      <td>${driverVO.memID}</td>
-						      
 						      <td>${driverVO.driverID}</td>
 						      
 						      <td>
-
 								<c:set var="memID" value="${driverVO.memID}"/>
 <!-- 							     預設當前頁面  -->
 							      <% 

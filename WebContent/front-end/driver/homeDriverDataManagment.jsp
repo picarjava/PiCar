@@ -55,7 +55,6 @@ table {
     	System.out.println(yyy);
     	System.out.println(memberVO.getMemID());
     	System.out.println(memberVO.getPic());////
-    	
 	%>
     <section id="contact">
         <div class="container wow fadeInUp">
@@ -172,11 +171,7 @@ table {
                                     <div align="center">喜好設定</div><br>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <p class="input-group-text" id="basic-addon1">願意共乘載客</p>
-                                            <select name="sharedCar" class="form-group">
-                                                <option value="0">無</option>
-                                                <option value="1">有</option>
-                                            </select>
+                                            <span class="input-group-text" id="basic-addon1">願意共乘載客</span>
                                         </div>
                                         <div class="form-control" aria-label="Username" aria-describedby="basic-addon1"><font color="red">
 											<c:if test="${driverVO.sharedCar == 0}">不接受共乘</c:if>
@@ -194,15 +189,6 @@ table {
 						    			 <c:if test="${driverVO.pet == 1}">寵物我可以</c:if></font>
 						    			 </div>	
                                     </div>
-                                    <!-- 							<div class="form-group"> -->
-                                    <!-- 								<p>可載寵物</p> -->
-                                    <!-- 								<select name="pet" class="form-control"> -->
-                                    <!-- 									<option value="0">無法</option> -->
-                                    <!-- 									<option value="1">接受</option> -->
-                                    <!-- 								</select> -->
-                                    <!-- 							</div> -->
-						      
-						      
 								<div class="input-group mb-3">
                                        	 <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">是否抽菸</span>
@@ -219,8 +205,12 @@ table {
                               <div class="form-control" aria-label="Username" aria-describedby="basic-addon1"><font color="red">
 						      <c:if test="${driverVO.babySeat == 0}">不提供嬰兒座椅</c:if>
 						      <c:if test="${driverVO.babySeat == 1}">提供嬰兒座椅</c:if></font>
-						      </div>	
 						      </div>
+						      </div>
+						      <div>
+                                        <a href="<%=request.getContextPath()%>/front-end/driver/setting.jsp"><i class="fas fa-coins"></i><br />喜好設定</a>
+						      </div>
+						      
                                     <!-- 							<div class="form-group"> -->
                                     <!-- 								<p>提供嬰兒座椅</p> -->
                                     <!-- 								<select name="babySeat" class="form-control"> -->
@@ -235,10 +225,10 @@ table {
                                     <!-- 									<option value="1">有</option> -->
                                     <!-- 								</select> -->
                                     <!-- 							</div> -->
-                                    <div align="center">違規狀態</div><br>
+                                    <div align="center">違規狀態(被ban後台)</div><br>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">接單狀態碼(被ban後台)</span>
+                                            <span class="input-group-text" id="basic-addon1">接單狀態碼</span>
                                         </div>
                                         <!-- <input type="text" class="form-control" placeholder="1" -->
                                         <!-- aria-label="Username" aria-describedby="basic-addon1" readonly> -->
@@ -251,7 +241,7 @@ table {
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">到期日(被ban後台)</span>
+                                            <span class="input-group-text" id="basic-addon1">到期日</span>
                                         </div>
                                         <font color="pink">
                                             <c:out value="${driverVO.deadline}" default="表現不錯，繼續開車" />
