@@ -21,4 +21,5 @@ public void insertWithEmps(GroupBandVO deptVO , List<GroupOrderVO> list);
 public void UPDATE_CONTENT__GROUP_ID(String groupID, String content);
 public String getOneContentGroupID(String groupID);
 public int getOneTotalAmoutGroupID(String groupID);
+List<GroupBandVO> getAllStartTime();
 }

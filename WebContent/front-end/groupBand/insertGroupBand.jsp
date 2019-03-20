@@ -247,7 +247,7 @@ color: #ffffff;
 	   <div>備註:</div>
 	 <textarea name="note" required id="note exampleFormControlTextarea1" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "謝謝".trim() : groupBandVO.getNote().trim()%></textarea>
 	 </div>
-	 
+	 <div id="innerdate"></div>
 	  <div class="form-group">
 	 <button type="button" id="buttons" onchange="buttones();" class="btn btn-outline-success">請點選輸入日期</button>
 				<select id="days" name="days" style="display: none" onchange="timestamps();"></select>
@@ -255,7 +255,7 @@ color: #ffffff;
 				<nobr id="datetime" >00:00</nobr> 
 				<nobr>   日期:</nobr> 
 				<input name="startTime" id="start_date" type="text"
-					 onchange="datestamps();" readonly="readonly" size="8">
+					 onchange="datestamps();" readonly="readonly" size="8" value=" ">
 				<nobr id="brs"></nobr>  
 						
 <input name="endTime" id="end_date" type="text"
@@ -279,7 +279,7 @@ color: #ffffff;
 	   <div>上車地點:</div>
 	   <div class="form-group">
 	  					<div class="form-row">
-		       			<div class="col">
+		       			<div class="col" id="col">
 						<p id="distance"></p>
 						</div>
 						<div class="col">
@@ -319,14 +319,33 @@ color: #ffffff;
 <script>
 var Verifyimage=document.getElementById("Verifyimage");
 var send=document.getElementById("send");
+var col=document.getElementById("col");
+var innerdate=document.getElementById("innerdate");
 send.onclick=function(){
+	//必填 ，不填不能跑
+var start_date=document.getElementById("start_date").value;
 var progressbarTWInput=document.getElementById("progressbarTWInput").value;
+var distance=document.getElementById("distance");
+
+
+if(distance.innerHTML==''){
+	col.innerHTML="<h3 style='color:#FF3333'>※請填寫日期※<h3>";
+	return false;
+	}
+
+if(start_date==' '){
+	innerdate.innerHTML="<h3 style='color:#FF3333'>※請填寫日期※<h3>";
+	return false;
+	}
 if(progressbarTWInput.length<1){
 Verifyimage.innerHTML="<h3 style='color:#FF3333'>※請上傳圖片※<h3>";
-
 return false;
 }
+
 }
+
+
+
 </script>
  <script>
 function initMap() {
@@ -617,9 +636,40 @@ function datestamps(){
 		{
 			end_date.value="以超過揪團20天的準則，請洽公開說明書";		
 		}
+	}	
+	numd =document.getElementById("numd");
+	numd.innerHTML='';
+	for(a=2;a<=parseInt(days.value)+1;a++){
+		
+	//宣告一個1970年的格式 ，為了計算目前日期+上天數，這段程式碼天數轉換	
+	var dateAmo = new Date(1970,0,a);
+	
+	//將1970年格式轉成毫秒
+	var dayAmo=dateAmo.getTime();
+	
+	dayAmos=dayAmo+totalAmounts;
+	
+	//將日前從毫秒轉換回來
+	var da = new Date();
+	da.setTime(dayAmos);
+	
+	Months = da.getMonth()+1;
+	dates = da.getDate();
+	
+	if(parseInt(Months)<10)
+	{
+		Months="0"+Months;
 	}
 	
-// 	start_date.value=totalAmount.get;
+	//小於10的日期轉換 例01 02 03
+	if(parseInt(dates)<10)
+	{
+		
+		dates="0"+dates;
+	}	
+	//用迴圈跑寫入資料庫
+	numd.innerHTML=numd.innerHTML+'<input type="hidden" name="numdays" value="'+da.getFullYear()+"-"+Months+"-"+dates+' '+totalAmount.getHours()+':'+totalAmount.getMinutes()+':'+totalAmount.getSeconds()+'0'+'" />';
+	}// 	start_date.value=totalAmount.get;
 //測試
 
 
@@ -674,7 +724,7 @@ function timestamps() {
 	//測試
 	numd =document.getElementById("numd");
 	numd.innerHTML='';
-	for(a=1;a<=parseInt(days.value)+1;a++){
+	for(a=2;a<=parseInt(days.value)+1;a++){
 		
 	//宣告一個1970年的格式 ，為了計算目前日期+上天數，這段程式碼天數轉換	
 	var dateAmo = new Date(1970,0,a);
