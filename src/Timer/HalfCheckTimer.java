@@ -40,13 +40,8 @@ public class HalfCheckTimer extends HttpServlet {
 				calendar2.add(Calendar.DATE, 1);    //3天
 //				calendar2.add(Calendar.SECOND, 5);
 				String three_days_after = sdf2.format(calendar2.getTime());
-
-				String START_TIME_Start = three_days_after + " 00:00:00";
-				String START_TIME_End   = three_days_after + " 23:59:59";
 //				('2019-03-18 05:20:00', 'YYYY-MM-DD HH24:MI:SS')
 				System.out.println("2-2.");
-				System.out.println(START_TIME_Start);
-				System.out.println(START_TIME_End );
 				List<String> startTimeList = (List<String>)(getServletContext().getAttribute("futureOrderMAP"));
 				System.out.println("給我拿到"+startTimeList);
 //				System.out.println("給我拿到"+getServletContext().getAttribute("futureOrderMAP"));

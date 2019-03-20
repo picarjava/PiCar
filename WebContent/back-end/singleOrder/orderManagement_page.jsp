@@ -138,7 +138,6 @@ String path = request.getContextPath();
 // 							      List<SingleOrderVO> singleOrderlist = service.getAll();
 							      MemberVO members = memberdao.findByPrimaryKey(orderMem);
 							      System.out.print(members.getName());
-// 							      System.out.print(members.getPhone());
 							      %>
 							      <%= members.getMemID() %></td>
 							      <td ><%= members.getName() %></td>
