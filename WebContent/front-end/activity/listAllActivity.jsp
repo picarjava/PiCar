@@ -10,7 +10,9 @@
     
     <title>查看最新消息</title>
     
-    <jsp:include page="/regna-master/head.jsp" />
+<%--     <jsp:include page="/regna-master/head.jsp" /> --%>
+    <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+    
 </head>
 
 <body>
@@ -82,7 +84,7 @@
     底部
   ============================-->
     
-   <jsp:include page="/regna-master/body.jsp" />
+<%--    <jsp:include page="/regna-master/body.jsp" /> --%>
 </body>
 
 </html>

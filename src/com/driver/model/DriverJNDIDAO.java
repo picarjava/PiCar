@@ -15,6 +15,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 
+
 public class DriverJNDIDAO implements DriverDAO_interface{
 	//
 	private static DataSource ds = null;
@@ -48,6 +49,10 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 	private static final String UPDATE_PERMITTED ="UPDATE DRIVER SET VERIFIED=? WHERE DRIVER_ID=?";
 	//小編更新司機評價
 	private static final String UPDATE_RATE ="UPDATE DRIVER SET SCORE=? WHERE DRIVER_ID=?";
+	
+	//新增for司機喜好設定
+    private static final String UPDATE_DHOBBY="UPDATE DRIVER SET SHARED_CAR=?, PET=?, SMOKE=?, BABY_SEAT=? WHERE DRIVER_ID=?";
+  
 	
 	//小編更新司機評價
 	public void updateDriverRate(int score,String driverID) {
@@ -640,5 +645,47 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 	
 	}
 
+	//新增FOR前端喜好設定
+		@Override
+		public void setForHobby(DriverVO driverVO) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(UPDATE_DHOBBY);
+				
+				int index = 1;
+				pstmt.setInt(index++, driverVO.getSharedCar());
+				pstmt.setInt(index++, driverVO.getPet());
+				pstmt.setInt(index++, driverVO.getSmoke());
+				pstmt.setInt(index++, driverVO.getBabySeat());
+				pstmt.setString(index++, driverVO.getDriverID());
+
+				pstmt.executeUpdate();
+
+			} catch (SQLException se) {
+				throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
+
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+			}		
+			
+			
+		}
 	
 }

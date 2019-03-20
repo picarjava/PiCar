@@ -349,4 +349,16 @@
     <servlet-name>Calculate</servlet-name>
     <url-pattern>/TestSingleOrder/Calculate.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+    <servlet-name>MemberSelfServlet</servlet-name>
+    <servlet-class>com.admin.controller.MemberSelfServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>MemberSelfServlet</servlet-name>
+    <url-pattern>/front-end/member/memberSelf.do</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
+
+

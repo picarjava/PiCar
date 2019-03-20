@@ -415,6 +415,12 @@ public class DriverJDBCDAO implements DriverDAO_interface {
 		return null;
 	}
 
+	@Override
+	public void setForHobby(DriverVO driverVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }
 

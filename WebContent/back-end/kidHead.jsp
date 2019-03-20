@@ -12,7 +12,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 <!-- Material Kit CSS -->
-<link href="assets/css/material-dashboard.css" rel="stylesheet" />
+<link href="<%=request.getServletContext().getContextPath()%>/back-end/assets/css/material-dashboard.css" rel="stylesheet" />
 <style>
 table, tr, td, th {
 	background-color: white;

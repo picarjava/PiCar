@@ -63,7 +63,7 @@
 
 </style>
 <body bgcolor="#11e1e9">
-<h3>listOneMember.jsp</h3>
+<h3>listOneMemberByUpdate.jsp</h3>
 <a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
 	<h1 align="center">Hello!!${memberVO.name}，這是你的個人資料</h1>
 	<table align="center" border="1" id="table1">
@@ -180,6 +180,14 @@
                     <input type="submit" value="常用地點"/>
                 </form>
 			 </td>
+			 
+			 <td>
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/memberSelf.do" style="margin-bottom: 0px;">
+			     <input type="submit" value="修改密碼">
+			     <input type="hidden" name="memID"  value="${memberVO.memID}">
+			     <input type="hidden" name="action"	value="modify_password"></FORM>
+			</td>
+			
 			<td>
 			 	<form method="post" action="logoutHandler.do">			
 				<input type="submit" value="登出">	

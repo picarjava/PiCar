@@ -309,9 +309,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
 //    		where 取現在三天後時間
     		rs = pstmt.executeQuery();
     		while(rs.next()) {
-        		starttime=(rs.getString("START_TIME"));
         		starttime=(rs.getString("ORDER_ID"));
-        		starttime=(rs.getString(1));
+//        		starttime=(rs.getString(1));
         		list.add(starttime);
 //              訂單 開始時間ID
 //        		list.add(orderid).add(memid).add;
@@ -509,7 +508,9 @@ public class SingleOrderDAO implements SingleOrder_interface {
             preparedStatement.setInt(index++, singleOrderVO.getTotalAmount());
             preparedStatement.setInt(index++, singleOrderVO.getRate());
             preparedStatement.setString(index++, singleOrderVO.getOrderID());
+            
             preparedStatement.executeUpdate();
+           
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage(), e);

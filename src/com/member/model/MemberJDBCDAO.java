@@ -15,6 +15,8 @@ import java.sql.ResultSet;
 //測試完成
 public class MemberJDBCDAO implements MemberDAO_interface {
 
+
+
 	public static final String driver = "oracle.jdbc.driver.OracleDriver";
 	public static final String url = "jdbc:oracle:thin:@localhost:1521:XE";
 	public static final String userid = "PICAR";
@@ -490,6 +492,11 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 
 	@Override
 	public void setForHobby(MemberVO memberVO) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void updatePassVerified(String memID, String password) {
 		// TODO Auto-generated method stub
 		
 	}

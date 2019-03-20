@@ -187,7 +187,7 @@ table {
 								<th>檢舉內容</th>
 								<th>檢舉日期</th>
 								<th>處理狀態</th>
-								<th colspan="2">編輯</th>
+								<th colspan="3">編輯</th>
 
 
 							</tr>
@@ -230,6 +230,16 @@ table {
 											<input type="hidden" name="action" value="delete">
 									    </FORM>
 									</td>
+									
+									<td>
+										<FORM METHOD="post"
+											ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" style="margin-bottom: 0px;">		
+											<input type="hidden" name="greportID" value="${groupReportVO.groupID==groupBandVO.groupID}">
+											<input type="hidden" name="action" value="listgroupBand_ByCompositeQuery">
+											<input type="submit" value="查看內容"> 
+									    </FORM>
+									</td>
+									
 								</tr>
 							</c:forEach>
 						</table>

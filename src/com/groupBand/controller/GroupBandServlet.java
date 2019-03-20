@@ -668,10 +668,11 @@ public class GroupBandServlet extends HttpServlet {
 				if("Kickingpeople".equals(dropOutbutton)) {
 					
 					GroupOrderService groupOrderService =new GroupOrderService();
+					if(groupOrderService.get_memid__memid_groupid( GroupmemID,groupID)!=null) {
 					groupOrderService.UPDATEmemid__GROUP_ID_MEM_ID(groupID, GroupmemID);
 					GroupBandDAO groupBandDAO = new GroupBandDAO();
 					GroupBandVO groupBandV = groupBandDAO.findByPrimaryKey(groupID);
-					if(groupOrderService.get_memid__memid_groupid(groupID, GroupmemID)!=null) {
+					
 					groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum() + -1, groupID);
 					}
 					
@@ -690,10 +691,14 @@ public class GroupBandServlet extends HttpServlet {
 						successView.forward(req, res);
 						return;
 					} else {
+						GroupOrderService groupOrderService =new GroupOrderService();
+//目前進度
+						if(groupOrderService.get_memid__memid_groupid(memIDs,groupID)!=null) {
 						groupOrderDAO.UPDATEmemGROUP_ID__MEM_ID(groupID, memIDs);
 						GroupBandDAO groupBandDAO = new GroupBandDAO();
 						GroupBandVO groupBandV = groupBandDAO.findByPrimaryKey(groupID);
 						groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum() - 1, groupID);
+						}
 					}
 					// 判斷揪團還長期揪團
 				} else if (groupKind == 5 && !"dropOutbutton".equals(dropOutbutton)) {

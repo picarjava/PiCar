@@ -1,19 +1,17 @@
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
-<%@ page import="java.util.HashMap" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.sql.Timestamp"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ page import="java.text.SimpleDateFormat"%>
-<%@ page import="java.util.List"%>
+<%@ page import="java.util.*" %>
 <%@ page import="java.sql.Date"%>
 <%@ page import="com.singleOrder.model.*"%>
 <%@ page import="com.admin.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.groupOrder.model.*"%>
 <%@ page import="com.singleOrder.controller.*"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <% 
 String path = request.getContextPath(); 
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/"; 
 %>
 
 
@@ -28,7 +26,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    request.setAttribute("singleOrderlist", singleOrderlist);
 %>
 
-
 <!-- 揪團訂單 -->
 <% GroupOrderService groupOrderSvc=new GroupOrderService();
    List<GroupOrderVO> groupOrderlist=groupOrderSvc.getAll();
@@ -40,7 +37,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    List<MemberVO> memberlist=memberSvc.getAll();
    request.setAttribute("memberlist", memberlist);
 %>
-
 <jsp:useBean id="groupBandSvc" scope="page" class="com.groupBand.model.GroupBandService"/>
 <jsp:useBean id="groupBandVO" scope="page" class="com.groupBand.model.GroupBandVO"/>
 <jsp:useBean id="singleOrderVO" scope="page" class="com.singleOrder.model.SingleOrderVO"/>
@@ -50,9 +46,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta charset="UTF-8">
 <title>訂單管理頁面</title>
-
-
-  <base href="<%=basePath%>">
+<jsp:include page="/back-end/kidHead.jsp" />
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">    
@@ -68,10 +62,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- //     function(data){ document.getElementById("json").innerHTML=data; } } -->
 <!-- //     	); }  -->
 <!-- <!--     </script> --> 
-
-
 </head>
 <body>
+<div class="wrapper ">
+<jsp:include page="/back-end/kidBodyLeft.jsp" />
+<div class="main-panel">
+<jsp:include page="/back-end/kidNavbar.jsp" />
+<div class="content">
+<div class="container-fluid">
+<div class="container-fluid">
     <!-- 錯誤列表開始 -->
     <%List errorMsgs=(List<String>)request.getAttribute("errorMsgs");%>
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
@@ -95,32 +94,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div id ="333"><button>查詢訂單</button></div>
 
 
-<body>
-	年級：
-	<select id="grade">
-		<option value="-1">請選擇</option>
-		<option value="grade3">三年級</option>
-		<option value="grade2">二年級</option>
-		<option value="grade1">一年級</option>
-	</select>
-	班別：
-	<select id="class">
-		<option value="-1">請選擇</option>
-	</select>
-	姓名:
-	<select id="name">
-		<option value="-1">請選擇</option>
-	</select>
-	<br><br>
 		                        <table class="table">
 							  <thead class="thead-dark"><tr>
 							      <tr></tr>
 							      <tr>
 							      <th scope="col">訂單編號	</th>
+							      <th scope="col">乘車時間	</th>
 							      <th scope="col">訂單種類	</th>
+							      <th scope="col">乘客編號	</th>
 							      <th scope="col">乘客名稱	</th>
 							      <th scope="col">乘客電話	</th>
-							      <th scope="col">乘車時間	</th>
 							      <th scope="col">乘車地點	</th>
 							      <th scope="col">乘車目的地	</th>
 							      <th scope="col">訂單總金額	</th>
@@ -132,37 +115,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							  <tbody>
 		
 		<c:forEach var="singleOrder" items="${singleOrderlist}" >
-		<!-- 未來訂單:篩選狀態碼為 1:訂單成立、4:執行中、6:逾期未處理-->				  
+		<!-- 逾期訂單:篩選狀態碼為 6:逾期未處理-->				  
 			 <c:if test="${singleOrder.driverID eq driverID &&(singleOrder.state eq 6)}">
 						 		<tr>	
 						 		  <th scope="row">${singleOrder.orderID}</th>
+							      <td >
+									<fmt:formatDate  type="both" value="${singleOrder.startTime}" pattern="yyyy-MM-dd mm:ss" />
+							      </td>
 						 		  <td>
 						 		  <c:forEach var="orderType" items="${orderTypeMap}">
 						 		   ${orderType.key eq singleOrder.orderType ? orderType.value: ""}
 						 		  </c:forEach>
 						 		  </td>
 							      <td >
-								 <c:set var="xxx" value="${singleOrder.memID}"/>
+								 <c:set var="orderMem" value="${singleOrder.memID}"/>
 <!-- 							     預設當前頁面  -->
 							      <% 
-							      String xxx = (String)pageContext.getAttribute("xxx");
-// 							      SingleOrderVO singleOrder = (SingleOrderVO)pageContext.getAttribute("xxx");//不需要
-							      System.out.println(xxx);
+							      String orderMem = (String)pageContext.getAttribute("orderMem");
+// 							      SingleOrderVO singleOrder = (SingleOrderVO)pageContext.getAttribute("orderMem");//不需要
+							      System.out.println(orderMem);
 							      System.out.println("-------------------------");
 // 							      List<SingleOrderVO> singleOrderlist = service.getAll();
-
-							      MemberVO ccc = memberdao.findByPrimaryKey(xxx);
-							      System.out.print(ccc.getName());
-// 							      System.out.print(ccc.getPhone());
+							      MemberVO members = memberdao.findByPrimaryKey(orderMem);
+							      System.out.print(members.getName());
 							      %>
-							      <%= ccc.getName() %>
-
-							      </td>
+							      <%= members.getMemID() %></td>
+							      <td ><%= members.getName() %></td>
 							      <td >
-							      <%= ccc.getPhone() %>
-							      </td>
-							      <td >
-							      <fmt:formatDate  type="both" value="${singleOrder.startTime}" pattern="yyyy-MM-dd mm:ss" />
+							      <%= members.getPhone() %>
 							      </td>
 							      <td>${singleOrder.startLoc}</td>
 							      <td>${singleOrder.endLoc}</td>
@@ -191,10 +171,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</c:forEach>
 							</tbody>
 							</table>
-
+							</div>
+</div>
+<jsp:include page="/back-end/kidFooter.jsp" />
+</div>
+</div>
+</div>
 </body>
-</body>
-<script>
-
-</script>
 </html>

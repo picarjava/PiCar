@@ -448,31 +448,27 @@ if ("Update_Hobby".equals(action)) {   //阿君新增FOR前端喜好設定
 	req.setAttribute("errorMsgs", errorMsgs);
 	
 //	try {
-		String memID = new String(req.getParameter("memID").trim());
+		String driverID = new String(req.getParameter("driverID").trim());
 
-		String creditcard = req.getParameter("creditcard");
-		if (creditcard == null || creditcard.trim().length() == 0) {
-			errorMsgs.add("creditcard請勿空白");
-		}
-
+		Integer sharedCar = new Integer(req.getParameter("sharedCar"));
 		Integer pet = new Integer(req.getParameter("pet"));
 		Integer smoke = new Integer(req.getParameter("smoke"));
 		Integer babySeat = new Integer(req.getParameter("babySeat"));
 
 
-		MemberVO memberVO = new MemberVO();
-		memberVO.setMemID(memID);
-		memberVO.setCreditcard(creditcard);
-		memberVO.setPet(pet);
-		memberVO.setSmoke(smoke);
-		memberVO.setBabySeat(babySeat);
+		DriverVO driverVO = new DriverVO();
+		driverVO.setDriverID(driverID);
+		driverVO.setSharedCar(sharedCar);
+		driverVO.setPet(pet);
+		driverVO.setSmoke(smoke);
+		driverVO.setBabySeat(babySeat);
 		
-		MemberService memberService = new MemberService();
-		memberVO = memberService.setHobby(memID, creditcard, pet, smoke, babySeat);
+		DriverService driverService = new DriverService();
+		driverVO = driverService.setHobby(sharedCar, pet, smoke, babySeat, driverID);
 		
-		RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByUpdate.jsp");
+		RequestDispatcher successView = req.getRequestDispatcher("/front-end/driver/homeDriverDataManagment.jsp");
 		successView.forward(req, res);
-
+		
 //	} catch (Exception e) {
 //		errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
 //		RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/setting.jsp");

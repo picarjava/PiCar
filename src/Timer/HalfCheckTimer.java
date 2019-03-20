@@ -29,7 +29,7 @@ public class HalfCheckTimer extends HttpServlet {
 //		        SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 //	        	Date date = new Date();
 //	        	String strDate = sdFormat.format(date);
-
+//
 	public void init() {//A.初始化一次排成器
 		timer = new Timer();
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -40,32 +40,28 @@ public class HalfCheckTimer extends HttpServlet {
 				calendar2.add(Calendar.DATE, 1);    //3天
 //				calendar2.add(Calendar.SECOND, 5);
 				String three_days_after = sdf2.format(calendar2.getTime());
-
-				String START_TIME_Start = three_days_after + " 00:00:00";
-				String START_TIME_End   = three_days_after + " 23:59:59";
 //				('2019-03-18 05:20:00', 'YYYY-MM-DD HH24:MI:SS')
 				System.out.println("2-2.");
-				System.out.println(START_TIME_Start);
-				System.out.println(START_TIME_End );
-				System.out.println("給我拿到"+getServletContext().getAttribute("futureOrder"));
-				List<String> orderList =(List<String>) (getServletContext().getAttribute("futureOrder"));
-				System.out.println("1"+orderList);
-				System.out.println("3.");
+				List<String> startTimeList = (List<String>)(getServletContext().getAttribute("futureOrderMAP"));
+				System.out.println("給我拿到"+startTimeList);
+//				System.out.println("給我拿到"+getServletContext().getAttribute("futureOrderMAP"));
+//				List<String> orderList =(List<String>) (getServletContext().getAttribute("futureOrder"));
+//				System.out.println("1"+orderList);
 //				startTimeList = new SingleOrderDAO().get_start_time(START_TIME_Start, START_TIME_End);// 拿出一群時間的集合
-				System.out.println(orderList);
+//				System.out.println(orderList);
 //五分鐘後改變狀態碼。同時提醒克服。...克服進去則select狀態碼
 				
 //				if (startTimeList != null) {
-					for (String OrderID : orderList) {// 滾出一群時間
-					 System.out.println("2"+orderList);
+//					for (String OrderID : orderList) {// 滾出一群時間
+//					 System.out.println("2"+orderList);
 					 //加小時判斷是 { 0105 +60min 開始結束(0106~0204) 0205 0305 
 					 //寫方法ˋDAO    (SODR)____  SELECT ORDER_ID, WHERE STATE = 1 AND START_TIME get
-					 List<String> starttime= new SingleOrderDAO().gettimeByorderID(OrderID) ;
+//					 List<String> starttime= new SingleOrderDAO().gettimeByorderID(OrderID) ;
 //					 "SELECT STATE , START_TIME FROM SINGLE_ORDER WHERE ORDER_ID = ? ";
 //				    "UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=? ";
 					 
 					 
-					 System.out.println(starttime);
+//					 System.out.println(starttime);
 //					 Update set state 6
 ////						TimerTask delaytask = new TimerTask() {//執行下一個排成器
 ////							public void run() {
@@ -81,7 +77,7 @@ public class HalfCheckTimer extends HttpServlet {
 ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
 //						// 排成器delaytask 5分鐘後 1.狀態碼改成逾期2.推播websocket給管理員 
 //						//
-					}
+//					}
 //				}
 				
 //				sharetimer(startTimeList);//此行跑不到。B.將一群時間傳到另一個方法
@@ -91,7 +87,8 @@ public class HalfCheckTimer extends HttpServlet {
 //		this.getRenewTime(22);// 當日22點更新 ，取得當天22點的Long
 //		timer.schedule(task, renewTime);
 //		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
-		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000); //乙. 每半小時(第三個參數)執行一次檢查定單狀態碼 
+//		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000); //乙. 每半小時(第三個參數)執行一次檢查定單狀態碼 
+		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000);
 //		int i =0;
 //		timer.scheduleAtFixedRate(task, i++, 1000*60*30); //乙. 每半小時(第三個參數)執行一次檢查定單狀態碼 
 		System.out.println("2-1.現在時間"+new java.sql.Timestamp(System.currentTimeMillis()));   //TEST

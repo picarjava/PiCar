@@ -18,9 +18,9 @@ import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 
 public class MemberDAO implements MemberDAO_interface {
-	
-	private  String key ;
-	
+
+	private String key;
+
 	private static DataSource ds = null;
 	static {
 		try {
@@ -53,25 +53,32 @@ public class MemberDAO implements MemberDAO_interface {
 
 	private static final String UPDATE_VERIFIED = "UPDATE MEMBER SET VERIFIED='1' WHERE MEM_ID=?";
 
-	//小編新增for活動代幣
-    private static final String UPDATE_ACTIVITY_TOKEN="UPDATE MEMBER SET ACTIVITY_TOKEN=? WHERE MEM_ID=?";
-    //小編新增for活動代幣-處理交易問題
-    
-	//阿君新增for前台會員喜好設定與常用地點設定
-    private static final String UPDATE_HOBBY="UPDATE MEMBER SET CREDIT_CARD=?, PET=?, SMOKE=?, BABY_SEAT=? WHERE MEM_ID=?";
-   
-    
-    public void updateActivityToken(Integer activityTokenSum,String memID,Connection con){
-    	PreparedStatement pstmt = null;
-    	try {
-    		pstmt=con.prepareStatement(UPDATE_ACTIVITY_TOKEN);
-    		pstmt.setInt(1, activityTokenSum);
-    		pstmt.setString(2, memID);
-    		pstmt.executeUpdate();
-    		
-    	}catch (SQLException se) {
-			throw new RuntimeException("SQL發生錯誤 "
-					+ se.getMessage());
+	// 小編新增for活動代幣
+	private static final String UPDATE_ACTIVITY_TOKEN = "UPDATE MEMBER SET ACTIVITY_TOKEN=? WHERE MEM_ID=?";
+	// 小編新增for活動代幣-處理交易問題
+
+	// 阿君新增for前台會員喜好設定與常用地點設定
+	private static final String UPDATE_HOBBY = "UPDATE MEMBER SET CREDIT_CARD=?, PET=?, SMOKE=?, BABY_SEAT=? WHERE MEM_ID=?";
+
+	private static final String UPDATE_VERIFIEDBYMODIFYPASSWORD="UPDATE MEMBER SET VERIFIED='1',PASSWORD=? WHERE MEM_ID=? ";
+	
+	
+	
+	
+	
+	
+	
+	
+	public void updateActivityToken(Integer activityTokenSum, String memID, Connection con) {
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = con.prepareStatement(UPDATE_ACTIVITY_TOKEN);
+			pstmt.setInt(1, activityTokenSum);
+			pstmt.setString(2, memID);
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("SQL發生錯誤 " + se.getMessage());
 			// Clean up JDBC resources
 		} finally {
 			if (pstmt != null) {
@@ -82,11 +89,9 @@ public class MemberDAO implements MemberDAO_interface {
 				}
 			}
 		}
-    }
-    
-    
-    
-    @Override
+	}
+
+	@Override
 	public void insert(MemberVO memberVO) {
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -120,12 +125,12 @@ public class MemberDAO implements MemberDAO_interface {
 
 			pstmt.executeUpdate();
 
-			ResultSet rs = pstmt.getGeneratedKeys();			
-			
-			String  key = null;
+			ResultSet rs = pstmt.getGeneratedKeys();
+
+			String key = null;
 			if (rs.next()) {
-				  key = rs.getString(1);
-				  this.key = key;
+				key = rs.getString(1);
+				this.key = key;
 				System.out.println("自增主鍵值 = " + key + "(剛新增成功的員工編號)");
 			} else {
 				System.out.println("NO KEYS WERE GENERATED.");
@@ -186,12 +191,12 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.setDate(11, memberVO.getBirthday());
 			pstmt.setInt(12, memberVO.getVerified());
 			pstmt.setInt(13, memberVO.getBabySeat());
-			
+
 			Blob blob = con.createBlob();
 			byte[] pic = memberVO.getPic();
 			blob.setBytes(1, pic);
 			pstmt.setBlob(14, blob);
-			
+
 			pstmt.setString(15, memberVO.getMemID().trim());
 
 			pstmt.executeUpdate();
@@ -528,7 +533,7 @@ public class MemberDAO implements MemberDAO_interface {
 
 			pstmt.setInt(1, memberVO.getToken());
 			pstmt.setString(2, memberVO.getMemID());
-			
+
 			pstmt.executeUpdate();
 
 		} catch (SQLException se) {
@@ -588,12 +593,10 @@ public class MemberDAO implements MemberDAO_interface {
 				}
 			}
 		}
-		
-		
 
 	}
-	
-	//阿君新增FOR前端喜好設定
+
+	// 阿君新增FOR前端喜好設定
 	@Override
 	public void setForHobby(MemberVO memberVO) {
 		Connection con = null;
@@ -630,9 +633,50 @@ public class MemberDAO implements MemberDAO_interface {
 					se.printStackTrace(System.err);
 				}
 			}
-		}		
-		
+		}
+
+	}
+
+	@Override
+	public void updatePassVerified(String memID, String password) {
+		Connection con = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(UPDATE_VERIFIEDBYMODIFYPASSWORD);
+
+			pstmt.setString(2, memID);
+			pstmt.setString(1, password);
+
+			pstmt.executeUpdate();
+
+		} catch (SQLException se) {
+			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
+
+		} finally {
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
 		
 	}
+	
+	
+	
+	
+	
 
 }
