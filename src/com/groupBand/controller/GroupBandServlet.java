@@ -407,7 +407,7 @@ public class GroupBandServlet extends HttpServlet {
 				// 產生訂單
 
 //		-------------------產生 (揪團訂單 )多筆------------------------------------------
-
+				
 				String diverID = null;
 
 				String memID[];
@@ -435,7 +435,7 @@ public class GroupBandServlet extends HttpServlet {
 
 				Double endLat =  new Double(req.getParameter("endLat").trim());
 
-				Integer orderType = 0; // 0是揪團 1是長期揪團
+				Integer orderType = groupKind; // 0是揪團 1是長期揪團
 
 				Integer rateOr = 0;
 
@@ -522,7 +522,7 @@ public class GroupBandServlet extends HttpServlet {
 				/***************************
 				 * 3.�s�W����,�ǳ����(Send the Success view)
 				 ***********/
-				String url = "/front-end/groupBand/SelectGroupBand.jsp";
+				String url = "/front-end/groupBand/listAllOneGroupBand.jsp";
 				RequestDispatcher successView = req.getRequestDispatcher(url); // �s�W���\�����listAllEmp.jsp
 				successView.forward(req, res);
 

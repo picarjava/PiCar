@@ -26,7 +26,6 @@
     pageContext.setAttribute("list",list);
 %>
 <% String groupKind[] = {"揪團","長期揪團"}; %>
-<%request.setAttribute("groupKind", groupKind);%>
 <!--     <link href="img/favicon.png" rel="icon"> -->
 <!-- <link href="img/apple-touch-icon.png" rel="apple-touch-icon"> -->
 
