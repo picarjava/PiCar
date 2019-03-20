@@ -85,8 +85,9 @@
   }
 </style>
 </head>
-<body align="center">
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+<body align="center">
+
 
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>

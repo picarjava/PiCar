@@ -14,7 +14,8 @@
 	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.js"></script>
 <script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-<meta charset="BIG5">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.0/css/all.css" integrity="sha384-Mmxa0mLqhmOeaE8vgOSbKacftZcsNYDjQzuCOm6D02luYSzBG8vpaOykv9lFQ51Y" crossorigin="anonymous">
+<meta charset="utf-8">
 </head>
 
 <style>
@@ -32,12 +33,21 @@
     color: blue;
     display: inline;
   }
+#Floatingwindow {
+    position: fixed;
+    background-color: #555;
+    width: 500px;
+    height: 500px;
+    z-index: 995;
+    left: 40%;
+    top: 40%;
 </style>
 
 <style>
   table {
 	width: 800px;
 	background-color: white;
+	margin:auto;
 	margin-top: 15px;
 	margin-bottom: 15px;
   }
@@ -53,8 +63,8 @@
   }
 </style>
 <body bgcolor='white'>
-
-
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+<div id="Floatingwindow"></div>
 <h3>揪團資料查詢:</h3>
 
 <c:if test="${not empty errorMsgs}">
@@ -85,7 +95,8 @@
 			</select><br><br>
 			<b>上車日期</b>
 			<input name="START_TIME" id="start_date" type="text"
-					 onchange="datestamps();" size="15"><br><br>
+					 size="15">
+					 <br><br>
         <b>揪團類別</b>
         <select name="GROUP_TYPE">
          <option value="">請選擇</option>
@@ -149,7 +160,8 @@ for(GroupBandVO lists :list){
 <th>揪團種類</th>
 		 <th><%=groupKind[lists.getGroupKind()-5]%></th>
 		
-<th><FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
+<th>
+<FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" enctype="multipart/form-data" style="margin-bottom: 0px;">
 	<input type="submit" value="進入揪團">
 	<input type="hidden" name="groupLeader"  value="<%=lists.getGroupLeader()%>">
 	<input type="hidden" name="startTime"  value="<%=lists.getStartTime()%>">
@@ -157,12 +169,17 @@ for(GroupBandVO lists :list){
 	<input type="hidden" name="memIDs" value="${memberVO.memID}" /> 
 	<input type="hidden" name="action"	value="GroupJoin"></FORM>
 </th>
+	<th>
+	<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" 
+	data-content="And here's some amazing content. It's very engaging. Right?"><i class="fas fa-exclamation-triangle"></i></button>
+</th>
 </tr>	
 </table>
 
 	<%
 }
 }%>
+
 <script>
 $('#start_date').datetimepicker(
 		{
