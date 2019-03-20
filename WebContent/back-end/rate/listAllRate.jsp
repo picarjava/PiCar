@@ -46,7 +46,7 @@ table1, td {
 				<td>費率(NTDS/KM)</td>
 				<td>基本費率(NTDS)</td>
 				<td>修改</td>
-				<td>刪除</td>
+<!-- 				<td>刪除</td> -->
 			</tr>
 
 			<tr>
@@ -61,19 +61,21 @@ table1, td {
 						<input type="submit" value="修改"> 
 						<input type="hidden" name="rateID" value="${rateVO.rateID}"> 
 						<input type="hidden" name="action" value="getOne_For_Update">
-				</td>
+				
 				    </form>
-				<td>
-					<form method="post" action="<%=request.getContextPath()%>/back-end/rate/rate.do">
-						<input type="submit" value="刪除">
-						 <input type="hidden" name="rateID" value="${rateVO.rateID}"> 
-						 <input type="hidden" name="action" value="delete">
-					</form>
+				 </td>
+				 </tr>
+<!-- 				<td> -->
+<%-- 					<form method="post" action="<%=request.getContextPath()%>/back-end/rate/rate.do"> --%>
+<!-- 						<input type="submit" value="刪除"> -->
+<%-- 						 <input type="hidden" name="rateID" value="${rateVO.rateID}">  --%>
+<!-- 						 <input type="hidden" name="action" value="delete"> -->
+<!-- 					</form> -->
 
 
-				</td>
+<!-- 				</td> -->
 
-			</tr>
+			
 
 		</table>
 
