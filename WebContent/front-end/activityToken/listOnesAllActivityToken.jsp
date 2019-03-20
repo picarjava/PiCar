@@ -24,6 +24,8 @@
 <html lang="zh">
 
 <head>
+   <jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontPos.jsp"/> 
+
    
     <title>查詢活動代幣明細</title>
    <jsp:include page="/regna-master/head.jsp" />
@@ -48,9 +50,6 @@
 <%--     <%List<ActivityTokenVO> list=(List<ActivityTokenVO>)request.getAttribute("list");%> --%>
    
     
-    <c:if test="">
-    </c:if>
-    
     <%if(list!=null&&(list.size()>0)){ %>
         <section id="contact">
             <div class="container wow fadeInUp">
@@ -69,6 +68,7 @@
 						      <th scope="col">活動編號	</th>
 						      <th scope="col">代幣數量	</th>
 						      <th scope="col">使用期限	</th>
+						      <th scope="col">領用狀態	</th>
 						      <th scope="col" colspan="3"><%@ include file="page1.file" %></th>
 						    </tr>
 						  </thead>
@@ -80,6 +80,7 @@
 						      <td>${activityTokenVO.activityID}</td>
 						      <td>${activityTokenVO.tokenAmount}</td>
 						      <td>${activityTokenVO.deadline}</td>
+						      <td>${activityTokenVO.tokenAmount eq 0?"已使用":"已領取"}</td>
 						    </tr>
 	 </c:forEach>	
 	 						<tr>

@@ -56,6 +56,25 @@ public class SingleOrderServlet extends HttpServlet{
                     req.setAttribute("singleOrder", serivce.getOneSingleOrder(orderID)); 
             
             }
+            
+            //來自長期刪除listAllfutureTrip.jsp
+            else if("DELETELONGTERM".equals(action)) {
+            	forwordURL ="/front-end/singleOrder/listAllfutureTrip.jsp";
+            	String orderID=req.getParameter("orderID");
+            	Timestamp launchTime=serivce.getOneSingleOrder(orderID).getLaunchTime();
+            	HashSet<SingleOrderVO> OneSetOfLongterm=serivce.listOneSetOfLongterm(launchTime);
+            	try {
+	            	for(SingleOrderVO singleOrderVO:OneSetOfLongterm) {
+	            		singleOrderVO.setState(8);//修改狀態碼為8
+	            		serivce.updateSingleOrder(singleOrderVO.getOrderID(), singleOrderVO.getDriverID(), singleOrderVO.getState(), singleOrderVO.getStartTime(), singleOrderVO.getEndTime(), singleOrderVO.getStartLoc(), singleOrderVO.getEndLoc(), singleOrderVO.getStartLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(), singleOrderVO.getEndLat(), singleOrderVO.getTotalAmount(), singleOrderVO.getRate());
+	            	System.out.println("已刪除"+orderID);
+	            	}
+            	}catch(Exception e) {
+            		errorMsgs.add("資料庫無法刪除長期訂單");
+            		req.setAttribute("errorMsgs", errorMsgs);
+            	}
+            }
+            
             //來自rating 
             else if("addRate".equals(action)) {
             forwordURL ="/front-end/singleOrder/rating.jsp";
@@ -94,7 +113,7 @@ public class SingleOrderServlet extends HttpServlet{
             	}
             	forwordURL="/front-end/singleOrder/rating.jsp"; //成功則送至rating頁面
             }
-            //刪除訂單
+            //來自刪除單筆訂單
             else if("DELETE".equals(action)) {
             	forwordURL ="/front-end/singleOrder/listAllfutureTrip.jsp";
             	String orderID=req.getParameter("orderID");
@@ -105,11 +124,12 @@ public class SingleOrderServlet extends HttpServlet{
                     req.setAttribute("errorMsgs", errorMsgs);
                 } 
             	try{
-            		serivce.delete(orderID);
+            		SingleOrderVO singleOrderVO=serivce.getOneSingleOrder(orderID);
+            		singleOrderVO.setState(8);//單筆狀態碼改為8
+            		serivce.updateSingleOrder(singleOrderVO.getOrderID(), singleOrderVO.getDriverID(), singleOrderVO.getState(), singleOrderVO.getStartTime(), singleOrderVO.getEndTime(), singleOrderVO.getStartLoc(), singleOrderVO.getEndLoc(), singleOrderVO.getStartLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(), singleOrderVO.getEndLat(), singleOrderVO.getTotalAmount(), singleOrderVO.getRate());
             	}catch(Exception e) {
             		errorMsgs.add("您已過可取消行程時限"+e.getMessage());
             	}
-            	
             	if (!errorMsgs.isEmpty()) {
                     req.setAttribute("errorMsgs", errorMsgs);
                 }

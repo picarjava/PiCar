@@ -1,37 +1,22 @@
 package Timer;
 
-import java.io.BufferedReader;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.InetSocketAddress;
-import java.net.Socket;
-import java.net.SocketAddress;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.UnknownHostException;
-import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
-
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.websocket.Session;
-
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
-import com.util.BroadcastServer;
+import com.util.CountToken;
 import com.util.TimeConverter;
 
 
@@ -49,13 +34,13 @@ public class DeductSingleReservationTimer extends HttpServlet {
         super();
        
     }
-	public void init(ServletConfig config) throws ServletException {
+	public void init() throws ServletException {
 		timer=new Timer();
 		
 		SimpleDateFormat tFormat=new SimpleDateFormat("yyyy/MM/dd a hh:mm:ss ");
 		TimeConverter timeConverter=new TimeConverter();
 		Date firstime=timeConverter.getThisHourToday(0);//開始時間為伺服器啟動的當天0點
-		long period=1000*60*60*24; //每小時執行一次
+		long period=1000*60*60*12; //每12小時執行一次
 		SingleOrderService singleOrderSvc=new SingleOrderService();
 		HashSet<SingleOrderVO> allUnpaid =new HashSet<SingleOrderVO>();//待付款訂單
 		TimerTask task=new TimerTask(){
@@ -88,66 +73,98 @@ public class DeductSingleReservationTimer extends HttpServlet {
 						 }; 
 					 checkLaunchTime=earlierPartUnpaidOrderFromLongtermSets.getLaunchTime();
 					}
-				}
+				}		
 				
 				
-				//Q2.或者 連線到  broadcastServer如何sendMessage?
-//				String MyPoint="/BroadcastServer/"+allUnpaidOrders.getMemID();
-//			    String contextPath=getServletContext().getContextPath();
-//			    String endPointURL="ws://"+contextPath+MyPoint;
-//			    Socket socket=null;
-//			    
-//			    try {
-//					URI url = new URI(endPointURL);
-//					SocketAddress socketAddress=new InetSocketAddress(url.getHost(),port);
-//					socket =new Socket();
-//					socket.connect(socketAddress);
-//					
-//					BufferedReader s_in=new BufferedReader(new InputStreamReader(socket.getInputStream()));
-//					
-//					OutputStream os= socket.getOutputStream();
-//					
-//					
-//				} catch (URISyntaxException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}catch (UnknownHostException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
+				
+				//先拿到目前在線會員
+				@SuppressWarnings("unchecked")
+				Map<String,Session> broadcastMap =(Map<String,Session>)(getServletContext().getAttribute("broadcastMap"));
+				System.out.println("是否有會員在線上:"+(broadcastMap!=null));
+				
+				   //開始扣款
+				    SingleOrderService singleOrderSvc=new SingleOrderService();
+				    
+					for(SingleOrderVO allUnpaidOrders:allUnpaid) {
+						SingleOrderVO singleOrderVO=new SingleOrderVO();
+						CountToken countToken=new CountToken();
+						String memID=allUnpaidOrders.getMemID();
+						int amount=allUnpaidOrders.getTotalAmount();
+						String orderID=allUnpaidOrders.getOrderID();
+						
+						try {countToken.countToken(memID, amount, orderID);
+						
+						System.out.println("扣款成功"); //成功則改狀代碼為1
+							
+						singleOrderVO=singleOrderSvc.getOneSingleOrder(orderID);
+						singleOrderVO.setState(1);
+						singleOrderSvc.updateSingleOrder(orderID, singleOrderVO.getDriverID(), singleOrderVO.getState(), singleOrderVO.getStartTime(), singleOrderVO.getEndTime(), singleOrderVO.getStartLoc(), singleOrderVO.getEndLoc(), singleOrderVO.getStartLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(), singleOrderVO.getEndLat(), singleOrderVO.getTotalAmount(), singleOrderVO.getRate());
+							
+							if(broadcastMap!=null) { //若有會員在線，則可以進入推播對象的篩選
+								Session isOnline=broadcastMap.get(memID); 
+								if(isOnline!=null) { //若此會員有在線，則對此會員進行推播
+								    String message= "訂單編號"+orderID+"已為您扣款";
+									String toJsonMessage= "{\"message\":\"" +message+"\"}";	
+										try {
+											isOnline.getBasicRemote().sendText(toJsonMessage);
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+							}
+							
+						}catch(Exception e) {
+						System.out.println("扣款失敗");//失敗則改狀代碼為8
+						singleOrderVO=singleOrderSvc.getOneSingleOrder(orderID);
+						
+						singleOrderVO.setState(8);
+						singleOrderVO=singleOrderSvc.updateSingleOrder(orderID, singleOrderVO.getDriverID(), singleOrderVO.getState(), singleOrderVO.getStartTime(), singleOrderVO.getEndTime(), singleOrderVO.getStartLoc(), singleOrderVO.getEndLoc(), singleOrderVO.getStartLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(), singleOrderVO.getEndLat(), singleOrderVO.getTotalAmount(), singleOrderVO.getRate());
+							if(broadcastMap!=null) { //若有會員在線，則可以進入推播對象的篩選
+								Session isOnline=broadcastMap.get(memID); 
+								if(isOnline!=null) { //若此會員有在線，則對此會員進行推播
+								    String message= "訂單編號"+orderID+"因扣款失敗已流單";
+									String toJsonMessage= "{\"message\":\"" +message+"\"}";	
+										try {
+											isOnline.getBasicRemote().sendText(toJsonMessage);
+										} catch (IOException ee) {
+											// TODO Auto-generated catch block
+											ee.printStackTrace();
+										}
+								}
+							}
+					    }
+					}
+				
+					//推播成功架構
+//				if(broadcastMap!=null) {
+//					for(SingleOrderVO allUnpaidOrders:allUnpaid) {
+//						String memID=allUnpaidOrders.getMemID();
+//						Session isOnline=broadcastMap.get(memID);
+//						
+//						if(isOnline!=null) { //若此會員在線，則推播
+//					    String message= "訂單編號"+allUnpaidOrders.getOrderID()+"已為您扣款";
+//						String toJsonMessage= "{\"message\":\"" +message+"\"}";	
+//							try {
+//								isOnline.getBasicRemote().sendText(toJsonMessage);
+//							} catch (IOException e) {
+//								// TODO Auto-generated catch block
+//								e.printStackTrace();
+//							}
+//						}
+//					}
 //				}
 				
 				
 				
-				//Q1.從排程器推播 如何得到同一個 與接收端同一個 broadcastServer物件
-				BroadcastServer broadcastServer=new BroadcastServer();
-				Session onOpenSession=broadcastServer.getOnOpenSession();
 				
-				System.out.println("排成器有沒有拿到onOpensesssion:"+(onOpenSession!=null));
-				
-				for(SingleOrderVO allUnpaidOrders:allUnpaid) {
-					String memID=allUnpaidOrders.getMemID();
-//					String message= "訂單編號"+allUnpaidOrders.getOrderID()+"已為您扣款";
-					String toJsonMessage= "{\"message\":\"" +"已為您扣款"+"\"}";
-					
-					if(onOpenSession!=null) {
-						broadcastServer.onMessage(memID, onOpenSession, toJsonMessage);
-					}
-				}
 				
 				
 			
 				//2.=======呼叫小蔣扣款方法=======
 				
 				//3.=======扣款成功後狀態碼1；失敗改為8=======
-//				try{
-//					//此處用for迴圈一一呼叫扣款方法
-//				}catch(SQLException e) {
-//					e.printStackTrace();
-//		            throw new RuntimeException(e.getMessage(), e);
-//				}
+
 			}//run
 			
 		};//timerTask
