@@ -15,6 +15,7 @@
 <head>
 <meta charset="BIG5">
 <title>listAllmember_byDAO.jsp</title>
+<jsp:include page="/back-end/kidHead.jsp" />
 </head>
 
 <style>
@@ -38,7 +39,8 @@ table1, td {
 </style>
 
 <body bgcolor="#11e1e9">
-
+<jsp:include page="/back-end/kidBodyLeft.jsp" />
+<jsp:include page="/back-end/kidNavbar.jsp" />
  <h3>listAllmember_byDAO.jsp</h3>
 	<div id="errmsg">
 	<c:if test="${not empty errorMsgs}">
@@ -138,6 +140,7 @@ table1, td {
 	</c:forEach>
 	
 	</table>
+	<jsp:include page="/back-end/kidFooter.jsp" />
 	<div align="center"><%@ include file="page2.file"%></div>
 </body>
 </html>
