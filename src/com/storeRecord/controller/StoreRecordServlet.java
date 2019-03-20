@@ -351,6 +351,10 @@ public class StoreRecordServlet extends HttpServlet {
 					orderID = null;
 					errorMsgs.add("請新增訂單ID");
 				}
+				
+				
+				
+				
 
 				ActivityTokenService atSvc = new ActivityTokenService();
 				List<ActivityTokenVO> onesActivityToken = new LinkedList();
