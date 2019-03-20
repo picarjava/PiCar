@@ -16,7 +16,6 @@ table{
 <body>
 <%
 	MemberVO memberVO =  (MemberVO)request.getAttribute("memberVO");
-
 %>
  <h3>update_member_input.jsp</h3>
  
@@ -32,7 +31,7 @@ table{
 
 <form method="post" action="member.do" name="form1" enctype="multipart/form-data">
 <a  href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a><br>
-<a  href=listOneMemberByUpdate.jsp> 請按此回上一頁 </a><br>
+<a  href=listOneMemberByUpdate.jsp> 請按此回上一頁 </a>
 	<table >
 		<tr>
 			<td>會員編號：</td>
@@ -52,7 +51,7 @@ table{
 		
 <!-- 		<tr> -->
 <!-- 			<td>會員密碼：</td> -->
-<%-- 			<td><input type="text" name="password" size="45" value="<%=memberVO.getPassword() %>" /></td>		 --%>
+			<td><input type="hidden" name="password" size="45" value="<%=memberVO.getPassword() %>" /></td>		
 <!-- 		</tr> -->
 		
 		<tr>
@@ -80,7 +79,7 @@ table{
 			  <c:when test="${memberVO.verified == '1'}">抽菸  </c:when>
 			  <c:when test="${memberVO.verified == '0'}">不抽菸  </c:when>			 
 			</c:choose>			
-			<input type = "hidden" name="pet" value= "<%=memberVO.getSmoke() %>"></td>		
+			<input type = "hidden" name="smoke" value= "<%=memberVO.getSmoke() %>"></td>		
 		</tr>
 		<tr>
 			<td>會員性別：</td>
@@ -118,7 +117,7 @@ table{
 			<input type = "hidden" name="verified" value= "<%=memberVO.getVerified() %>"></td>		
 		</tr>
 		<tr>
-			<td>嬰兒座椅：</td>
+			<td>嬰兒座椅設定：</td>
 			<td>
 			<c:choose>
 			  <c:when test="${memberVO.babySeat == '1'}">需要  </c:when>
@@ -148,27 +147,16 @@ table{
 input.getAttribute("targetID")
 getElementById(preview_progressbarTW_img)
 function readURL(input){
-
   if(input.files && input.files[0]){
-
     var imageTagID = input.getAttribute("targetID");
-
     var reader = new FileReader();
-
     reader.onload = function (e) {
-
        var img = document.getElementById(imageTagID);
-
        img.setAttribute("src", e.target.result);
-
     }
-
     reader.readAsDataURL(input.files[0]);
-
   }
-
 }
-
 </script>
 
 
@@ -207,7 +195,6 @@ function readURL(input){
         
    
         // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
-
         //      1.以下為某一天之前的日期無法選擇
         //      var somedate1 = new Date('2017-06-15');
         //      $('#f_date1').datetimepicker({
@@ -220,7 +207,6 @@ function readURL(input){
         //              }
         //              return [true, ""];
         //      }});
-
         
         //      2.以下為某一天之後的日期無法選擇
         //      var somedate2 = new Date('2017-06-15');
@@ -234,8 +220,6 @@ function readURL(input){
         //              }
         //              return [true, ""];
         //      }});
-
-
         //      3.以下為兩個日期之外的日期無法選擇 (也可按需要換成其他日期)
         //      var somedate1 = new Date('2017-06-15');
         //      var somedate2 = new Date('2017-06-25');
