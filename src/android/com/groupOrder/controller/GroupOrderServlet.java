@@ -28,10 +28,11 @@ import com.singleOrder.model.SingleOrderVO;
 import android.com.groupOrder.model.GroupOrder;
 
 public class GroupOrderServlet extends HttpServlet {
-    private final static int NOT_ESTABLISHED = 0;
     private final static int ESTABLISHED = 1;
     private final static int ONE_TIME_GROUP_RESERVE = 5;
     private final static int LONG_TERM_GROUP_RESERVE = 6;
+    private final static String DRIVER_ID = "driverID";
+    private final static String GROUP_ID = "groupID";
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -68,22 +69,18 @@ public class GroupOrderServlet extends HttpServlet {
             System.out.println(gson.toJson(convertToGroupOrderList(list)));
             writer.close();
         } else if ("takeGroupOrder".equals(action)) {
-            String driverID = jsonIn.get("driverID").getAsString();
-//            List<String> orderIDs = gson.fromJson(jsonIn.get("orderID").getAsString(), new TypeToken<List<String>>() {}.getType());
-//            if (driverID != null)
-//                service.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderID);
-        } else if ("takeLongTermGroupOrder".equals(action)) {
-            String driverID = jsonIn.get("driverID").getAsString();
-            List<String> orderIDs = gson.fromJson(jsonIn.get("orderID").getAsString(), new TypeToken<List<String>>() {}.getType());
-//            service.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderIDs);
+            String driverID = jsonIn.get(DRIVER_ID).getAsString();
+            String groupID = jsonIn.get(GROUP_ID).getAsString();
+            System.out.println(driverID + " " + groupID);
+            if (driverID != null)
+                service.updateDriverIDByGroupID(driverID, groupID);
         }
     }
     
     private List<GroupOrder> convertToGroupOrderList(List<GroupOrderVO> groupOrderVOs) {
-        Collection<List<GroupOrderVO>> list;
-        list = (Collection<List<GroupOrderVO>>) groupOrderVOs.stream()
-                                                       .collect(Collectors.groupingBy(GroupOrderVO::getGroupID))
-                                                       .values();
+        Collection<List<GroupOrderVO>> list =  groupOrderVOs.stream()
+                                                            .collect(Collectors.groupingBy(GroupOrderVO::getGroupID))
+                                                            .values();
         return list.stream()
                    .map(l -> convertToGroupOrder(l))
                    .collect(Collectors.toList());
@@ -96,19 +93,20 @@ public class GroupOrderServlet extends HttpServlet {
         int amount = groupOrderVOs.stream()
                                   .mapToInt(GroupOrderVO::getTotalAmout)
                                   .sum();
-        int people = groupOrderVOs.stream()
-                                  .collect(Collectors.groupingBy(GroupOrderVO::getMemID))
-                                  .size();
+        int people = (int) groupOrderVOs.stream()
+                                        .map(GroupOrderVO::getMemID)
+                                        .distinct()
+                                        .count();
         GroupOrderVO groupOrderVO = list.get(0);
         GroupOrder groupOrder = new GroupOrder();
-        groupOrder.setGroupID(groupOrderVO.getGorderID());
+        groupOrder.setGroupID(groupOrderVO.getGroupID());
         groupOrder.setStartLoc(groupOrderVO.getStartLoc());
         groupOrder.setStartLat(groupOrderVO.getStartLat());
         groupOrder.setStartLng(groupOrderVO.getStartLng());
         groupOrder.setEndLoc(groupOrderVO.getEndLoc());
         groupOrder.setEndLat(groupOrderVO.getEndLat());
         groupOrder.setEndLng(groupOrderVO.getEndLng());
-        groupOrder.setStartTime(groupOrderVO.getEndTime());
+        groupOrder.setStartTime(groupOrderVO.getStartTime());
         // for common use in long-term group order
         groupOrder.setEndTime(groupOrderVOs.get(groupOrderVOs.size() - 1).getStartTime());
         groupOrder.setTotalAmount(amount);

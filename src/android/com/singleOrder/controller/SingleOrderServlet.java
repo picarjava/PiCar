@@ -82,25 +82,20 @@ public class SingleOrderServlet extends HttpServlet {
     		list = new ArrayList<Map.Entry<String, StoredInfo>>(MatchDriver.entrySet());
     		Collections.sort(list, new Comparator<Map.Entry<String, StoredInfo>>() {
     		    @Override
-    			public int compare(Entry<String, StoredInfo> o1, Entry<String, StoredInfo> o2) {
-    				
+    			public int compare(Entry<String, StoredInfo> o1, Entry<String, StoredInfo> o2) {	
     				Double lat3 = o1.getValue().getLatlng().getLatitude();
     				Double lon3 = o1.getValue().getLatlng().getLongitude();
     				Double lat4 = o2.getValue().getLatlng().getLatitude();
     				Double lon4 = o2.getValue().getLatlng().getLongitude();
-
     				Double result2 = DistanceUtil.algorithm(lng1, lat1, lon3, lat3);
     				Double result3 = DistanceUtil.algorithm(lng1, lat1, lon4, lat4);
-
     				return (int) (result2 - result3);
     			}
-
     		});
 
     		for (Entry<String, StoredInfo> o : list) {
     			System.out.println(o.getKey());  //這是司機ID
     			System.out.println(o.getValue().getSession()); //這是司機的連線
-    			
     			Double result = DistanceUtil.algorithm(lng1, lat1, o.getValue().getLatlng().getLongitude(),
     					o.getValue().getLatlng().getLatitude()); 
     			System.out.println(result); //這是計算出的距離

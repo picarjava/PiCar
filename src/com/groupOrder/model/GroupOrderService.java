@@ -107,7 +107,8 @@ public class GroupOrderService {
 		dao.UPDATE_Total_AmoutGroupIDState(TotalAmout, GroupID, State);
 	}
 	
-	public void updateDriverIDByGroupIDs(String driverID, List<String> orderIDs) {
-	    
+	public void updateDriverIDByGroupID(String driverID, String groupID) {
+	    System.out.println("fff");
+	    dao.updateDriverIDByGroupID(driverID, groupID);
 	}
 }

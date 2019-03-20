@@ -88,6 +88,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				"SELECT count(STATE) as STATE FROM GROUP_ORDER Where MEM_ID IS not null and GROUP_ID = ?";
 		
 		private static final String GET_BY_STATE = "SELECT * FROM GROUP_ORDER WHERE STATE=? AND ORDER_TYPE=?";
+		private static final String UPDATE_DRIVER_ID_BY_GROUP_ID = "UPDATE GROUP_ORDER SET DRIVER_ID=? WHERE GROUP_ID=?";
 		
 		@Override
 		public HashSet<String> getRatedDrivers(){
@@ -115,34 +116,15 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 						+ se.getMessage());
 				// Clean up JDBC resources
 			} finally {
-				if (rs != null) {
-					try {
-						rs.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (pstmt != null) {
-					try {
-						pstmt.close();
-					} catch (SQLException se) {
-						se.printStackTrace(System.err);
-					}
-				}
-				if (con != null) {
-					try {
-						con.close();
-					} catch (Exception e) {
-						e.printStackTrace(System.err);
-					}
-				}
+				closeResultSet(rs);
+				closePreparedStatement(pstmt);
+				closeConnection(con);
 			}
 			
 			return hashSet;
 		}
 	@Override
 	public void insert(GroupOrderVO groupOrderVO) {
-		// TODO Auto-generated method stub
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		try {
@@ -169,26 +151,13 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
 	}
 
 	@Override
 	public void update(GroupOrderVO groupOrderVO) {
-		// TODO Auto-generated method stub
 		Connection con =null;
 		PreparedStatement pstmt = null;
 		try {
@@ -216,26 +185,13 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
 	}
 
 	@Override
 	public void delete(String groupOrderno) {
-		// TODO Auto-generated method stub
 		Connection con =null;
 		PreparedStatement pstmt = null;
 		try {
@@ -250,27 +206,14 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
-		}
+	}
 	
 
 	@Override
 	public GroupOrderVO findByPrimaryKey(String groupOrderno) {
-		// TODO Auto-generated method stub
 		GroupOrderVO groupOrderVO =null;
 		Connection con = null;
 		PreparedStatement pstmt = null;
@@ -308,32 +251,13 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			closeResultSet(rs);
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
 		return groupOrderVO;
 	}
 		public GroupOrderVO findByALLMemID(String groupOrderno) {
-			// TODO Auto-generated method stub
 			GroupOrderVO groupOrderVO =null;
 			Connection con = null;
 			PreparedStatement pstmt = null;
@@ -372,34 +296,15 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			closeResultSet(rs);
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
 		return groupOrderVO;
 	}
 
 	@Override
 	public List<GroupOrderVO> getAll() {
-		// TODO Auto-generated method stub
 		List<GroupOrderVO> list =new ArrayList<GroupOrderVO>();
 		GroupOrderVO groupOrderVO =null;
 		
@@ -439,27 +344,9 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (rs != null) {
-				try {
-					rs.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			closeResultSet(rs);
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
 		
 		return list;
@@ -468,7 +355,6 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 
 	@Override
 	public void insert2(List<GroupOrderVO> list, Connection con) {
-		// TODO Auto-generated method stub
 
 		PreparedStatement pstmt = null;
 		try {
@@ -516,18 +402,11 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
+			closePreparedStatement(pstmt);
 		}
 	}
 
 	public List<GroupOrderVO> findByALLGroupMemTime(String groupid,Timestamp staerTime) {
-		// TODO Auto-generated method stub
 		List<GroupOrderVO> list =new ArrayList<GroupOrderVO>();
 		GroupOrderVO groupOrderVO =null;
 		Connection con = null;
@@ -568,27 +447,9 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				+ se.getMessage());
 		// Clean up JDBC resources
 	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+		closeResultSet(rs);
+		closePreparedStatement(pstmt);
+		closeConnection(con);
 	}
 	return list;
 }
@@ -596,7 +457,6 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 	
 	
 	public void updateMem(String memid,String gorderID) {
-		// TODO Auto-generated method stub
 		Connection con =null;
 		PreparedStatement pstmt = null;
 		try {
@@ -612,25 +472,12 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
 	}
 	
 	public void UPDATEmemGROUP_ID__MEM_ID(String GROUP_ID,String MEM_ID) {
-		// TODO Auto-generated method stub
 		Connection con =null;
 		PreparedStatement pstmt = null;
 		try {
@@ -646,25 +493,12 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
 	}
 	
 	public void UPDATE_STATE__GROUP_ID(Integer STATE,String GROUP_ID) {
-		// TODO Auto-generated method stub
 		Connection con =null;
 		PreparedStatement pstmt = null;
 		try {
@@ -680,25 +514,12 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
 	}
 	@Override
 	public void UPDATE_Total_AmoutGroupIDState(Integer TotalAmout,String GroupID,Integer State) {
-		// TODO Auto-generated method stub
 		Connection con =null;
 		PreparedStatement pstmt = null;
 		try {
@@ -715,26 +536,13 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
 	}
 	
 	@Override
 	public void updateState_GroupID_mem_ID(String GROUP_ID,Integer State) {
-		// TODO Auto-generated method stub
 		Connection con =null;
 		PreparedStatement pstmt = null;
 		try {
@@ -751,26 +559,13 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
 	}
 	
 	@Override
 	public void UPDATEmemid__GROUP_ID_MEM_ID(String GROUP_ID,String Memid) {
-		// TODO Auto-generated method stub
 		Connection con =null;
 		PreparedStatement pstmt = null;
 		try {
@@ -786,25 +581,12 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
-			if (pstmt != null) {
-				try {
-					pstmt.close();
-				} catch (SQLException se) {
-					se.printStackTrace(System.err);
-				}
-			}
-			if (con != null) {
-				try {
-					con.close();
-				} catch (Exception e) {
-					e.printStackTrace(System.err);
-				}
-			}
+			closePreparedStatement(pstmt);
+			closeConnection(con);
 		}
 	}
 	
 	public GroupOrderVO getOneStntstartTimeMems(String groupid,String memid ) {
-		// TODO Auto-generated method stub
 
 		GroupOrderVO groupOrderVO =null;
 		Connection con = null;
@@ -830,33 +612,14 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				+ se.getMessage());
 		// Clean up JDBC resources
 	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+		closeResultSet(rs);
+		closePreparedStatement(pstmt);
+		closeConnection(con);
 	}
 	return groupOrderVO;
 }
 	
 	public Integer getOneDriversAve(String driver_id) {
-		// TODO Auto-generated method stub
 
 		Integer avgrate=null;
 		Connection con = null;
@@ -877,33 +640,14 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				+ se.getMessage());
 		// Clean up JDBC resources
 	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+		closeResultSet(rs);
+		closePreparedStatement(pstmt);
+		closeConnection(con);
 	}
 	return avgrate;
 }
 	@Override
 	public Integer getstateGrouID_Memid_Notnull(String groupID) {
-		// TODO Auto-generated method stub
 
 		Integer avgmemID=null;
 		Connection con = null;
@@ -924,33 +668,14 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				+ se.getMessage());
 		// Clean up JDBC resources
 	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+		closeResultSet(rs);
+		closePreparedStatement(pstmt);
+		closeConnection(con);
 	}
 	return avgmemID;
 }
 	
 	public Integer getMemID_groupID_startTime(String groupID,String START_TIME,String START_TIME2) {
-		// TODO Auto-generated method stub
 
 		Integer avgmemID=null;
 		Connection con = null;
@@ -973,33 +698,14 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				+ se.getMessage());
 		// Clean up JDBC resources
 	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+		closeResultSet(rs);
+		closePreparedStatement(pstmt);
+		closeConnection(con);
 	}
 	return avgmemID;
 }
 	
 	public String get_memid__memid_groupid(String memid,String groupid) {
-		// TODO Auto-generated method stub
 
 		String memids=null;
 		Connection con = null;
@@ -1021,33 +727,14 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				+ se.getMessage());
 		// Clean up JDBC resources
 	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+		closeResultSet(rs);
+		closePreparedStatement(pstmt);
+		closeConnection(con);
 	}
 	return memids;
 }
 	
 	public List<String> get_group_id__start_time(String START_TIME,String START_TIME2) {
-		// TODO Auto-generated method stub
 		List<String> list =new ArrayList<String>();
 		String groupid=null;
 		Connection con = null;
@@ -1070,33 +757,14 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				+ se.getMessage());
 		// Clean up JDBC resources
 	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+		closeResultSet(rs);
+		closePreparedStatement(pstmt);
+		closeConnection(con);
 	}
 	return list;
 }
 	
 	public List<GroupOrderVO> getOneStntstartTimeMem(String groupid,String memid ) {
-		// TODO Auto-generated method stub
 		List<GroupOrderVO> list =new ArrayList<GroupOrderVO>();
 		GroupOrderVO groupOrderVO =null;
 		Connection con = null;
@@ -1122,27 +790,9 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				+ se.getMessage());
 		// Clean up JDBC resources
 	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+		closeResultSet(rs);
+		closePreparedStatement(pstmt);
+		closeConnection(con);
 	}
 	return list;
 }
@@ -1150,7 +800,6 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 	
 
 	public List<GroupOrderVO> getALL_GroupID_StArtTime(String groupid,Timestamp staerTime) {
-		// TODO Auto-generated method stub
 		List<GroupOrderVO> list =new ArrayList<GroupOrderVO>();
 		GroupOrderVO groupOrderVO =null;
 		Connection con = null;
@@ -1191,33 +840,14 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				+ se.getMessage());
 		// Clean up JDBC resources
 	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+		closeResultSet(rs);
+		closePreparedStatement(pstmt);
+		closeConnection(con);
 	}
 	return list;
 }
 
 	public List<GroupOrderVO> GET_ONE_groupid__state_men_id(String memid) {
-		// TODO Auto-generated method stub
 		List<GroupOrderVO> list =new ArrayList<GroupOrderVO>();
 		GroupOrderVO groupOrderVO =null;
 		Connection con = null;
@@ -1240,27 +870,9 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 				+ se.getMessage());
 		// Clean up JDBC resources
 	} finally {
-		if (rs != null) {
-			try {
-				rs.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (pstmt != null) {
-			try {
-				pstmt.close();
-			} catch (SQLException se) {
-				se.printStackTrace(System.err);
-			}
-		}
-		if (con != null) {
-			try {
-				con.close();
-			} catch (Exception e) {
-				e.printStackTrace(System.err);
-			}
-		}
+		closeResultSet(rs);
+		closePreparedStatement(pstmt);
+		closeConnection(con);
 	}
 		
 	return list;
@@ -1300,32 +912,67 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
                 list.add(groupOrderVO);
             }
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
         } finally {
-            if (resultSet != null) {
-                try {
-                    resultSet.close();
-                } catch (SQLException se) {
-                    se.printStackTrace(System.err);
-                }
-            }
-            if (preparedStatement != null) {
-                try {
-                    preparedStatement.close();
-                } catch (SQLException se) {
-                    se.printStackTrace(System.err);
-                }
-            }
-            if (connection != null) {
-                try {
-                    connection.close();
-                } catch (Exception e) {
-                    e.printStackTrace(System.err);
-                }
-            }
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
         }
         return list;
     }
-	
+    
+    @Override
+    public void updateDriverIDByGroupID(String driverID, String groupID) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ds.getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_DRIVER_ID_BY_GROUP_ID);
+            preparedStatement.setString(1, driverID);
+            preparedStatement.setString(2, groupID);
+            int i = preparedStatement.executeUpdate();
+            System.out.println(i);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        }
+        
+    }
+    
+    private void closeResultSet(ResultSet resultSet) {
+        if (resultSet != null) {
+            try {
+                resultSet.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
+            } // catch
+        } // if
+    } // closeResultSet()
+    
+    private void closePreparedStatement(PreparedStatement preparedStatement) {
+        if (preparedStatement != null) {
+            try {
+                preparedStatement.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
+            } // catch
+        } // if
+    } // closePreparedStatement()
+    
+    private void closeConnection(Connection connection) {
+        if (connection != null) {
+            try {
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                throw new RuntimeException(e.getMessage(), e);
+            } //catch
+        } // if
+    } // closeConnection()
 }
