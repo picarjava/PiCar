@@ -30,6 +30,17 @@ public class DelayTimerx extends HttpServlet {
 //	        	Date date = new Date();
 //	        	String strDate = sdFormat.format(date);
 
+	
+//	--//逾時訂單
+//	--條件1:開始時間+五分鐘>=現在時間
+//	--條件2:STATE=1
+//
+//	--撈單人訂單
+//	SELECT * FROM SINGLE_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 >= CURRENT_TIMESTAMP;
+//
+//	--撈揪團訂單
+	
+	
 	public void init() {//A.初始化一次排成器
 		timer = new Timer();
 		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -56,6 +67,7 @@ public class DelayTimerx extends HttpServlet {
 				getServletContext().setAttribute("futureOrderMAP", startTimeList);
 				//拿到一堆訂單
 				System.out.println("3:"+getServletContext().getAttribute("futureOrderMAP"));
+//	給JSP
 //				if (startTimeList != null) {
 //					for (String starttime : startTimeList) {// 滾出一群時間
 ////					 System.out.println(starttime);
