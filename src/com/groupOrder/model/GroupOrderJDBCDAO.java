@@ -443,6 +443,12 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
         
     }
 
+    @Override
+    public List<GroupOrderVO> getByStateAndDriverID(Integer state, String driverID) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 
 
 }

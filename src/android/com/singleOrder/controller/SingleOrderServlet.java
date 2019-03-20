@@ -200,12 +200,21 @@ public class SingleOrderServlet extends HttpServlet {
             }
         } else if ("getScheduledOrder".equals(action)) {
             String driverID = jsonIn.get(DRIVER_ID).getAsString();
-            List<SingleOrderVO> list = singleOrderService.getByStateAndOrderType(ESTABLISHED, ONE_TIME_RESERVE)
-                                                         .stream()
-                                                         .filter(singleOrder -> driverID != null && driverID.equals(singleOrder.getDriverID()))
-                                                         .collect(Collectors.toList());
+            Map<Integer, List<SingleOrderVO>> map = singleOrderService.getByStateAndDriverID(ESTABLISHED, driverID)
+                                                                      .stream()
+                                                                      .collect(Collectors.groupingBy(SingleOrderVO::getOrderType));
+            List<SingleOrderVO> singleOrderVOs = map.get(ONE_TIME_RESERVE);
+            List<LongTermOrder> longTermOrders = null;
+            if (map.containsKey(LONG_TERM_RESERVE))
+                longTermOrders = convertToLongTermOrderList(map.get(LONG_TERM_RESERVE)
+                                                               .stream()
+                                                               .collect(Collectors.toList()));
             gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
-            writer.print(gson.toJson(list));
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("singleOrder", gson.toJson(singleOrderVOs));
+            jsonObject.addProperty("longTermOrder", gson.toJson(longTermOrders));
+            writer.write(jsonObject.toString());
+            System.out.println(jsonObject);
         }
         
         writer.close();

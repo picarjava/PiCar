@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -33,6 +34,7 @@ public class GroupOrderServlet extends HttpServlet {
     private final static int LONG_TERM_GROUP_RESERVE = 6;
     private final static String DRIVER_ID = "driverID";
     private final static String GROUP_ID = "groupID";
+    private final static String TIMESTAMP_PATTERN = "yyyy-MM-dd HH:mm";
     
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -56,7 +58,7 @@ public class GroupOrderServlet extends HttpServlet {
             List<GroupOrderVO> list = service.getByStateAndOrderType(ESTABLISHED, ONE_TIME_GROUP_RESERVE)
                                              .stream().filter(g -> g.getDriverID() == null)
                                              .collect(Collectors.toList());
-            gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
+            gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
             writer.print(gson.toJson(convertToGroupOrderList(list)));
             System.out.println(gson.toJson(convertToGroupOrderList(list)));
             writer.close();
@@ -64,7 +66,7 @@ public class GroupOrderServlet extends HttpServlet {
             List<GroupOrderVO> list = service.getByStateAndOrderType(ESTABLISHED, LONG_TERM_GROUP_RESERVE)
                                              .stream().filter(g -> g.getDriverID() == null)
                                              .collect(Collectors.toList());
-            gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm").create();
+            gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
             writer.print(gson.toJson(convertToGroupOrderList(list)));
             System.out.println(gson.toJson(convertToGroupOrderList(list)));
             writer.close();
@@ -74,6 +76,26 @@ public class GroupOrderServlet extends HttpServlet {
             System.out.println(driverID + " " + groupID);
             if (driverID != null)
                 service.updateDriverIDByGroupID(driverID, groupID);
+        } else if ("getScheduledOrder".equals(action)) {
+            String driverID = jsonIn.get(DRIVER_ID).getAsString();
+            Map<Integer, List<GroupOrderVO>> map = service.getByStateAndDriverID(ESTABLISHED, driverID)
+                                                          .stream()
+                                                          .collect(Collectors.groupingBy(GroupOrderVO::getOrderType));
+            List<GroupOrder> groupOrders = null;
+            List<GroupOrder> longTermGroupOrders = null;
+            if (map.containsKey(ONE_TIME_GROUP_RESERVE))
+                groupOrders = convertToGroupOrderList(map.get(ONE_TIME_GROUP_RESERVE)
+                                                         .stream()
+                                                         .collect(Collectors.toList()));
+            if (map.containsKey(LONG_TERM_GROUP_RESERVE))
+                longTermGroupOrders = convertToGroupOrderList(map.get(LONG_TERM_GROUP_RESERVE)
+                                                                 .stream()
+                                                                 .collect(Collectors.toList()));
+            gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
+            JsonObject jsonObject = new JsonObject();
+            jsonObject.addProperty("groupOrder", gson.toJson(groupOrders));
+            jsonObject.addProperty("longTermGroupOrder", gson.toJson(longTermGroupOrders));
+            writer.print(jsonObject.toString());
         }
     }
     

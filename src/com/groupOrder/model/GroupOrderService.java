@@ -69,6 +69,10 @@ public class GroupOrderService {
 	    return dao.getByStateAndOrderType(state, orderType);
 	}
 	
+	public List<GroupOrderVO> getByStateAndDriverID(Integer state, String driverID) {
+	    return dao.getByStateAndDriverID(state, driverID);
+	}
+	
 	public List<GroupOrderVO> GET_one_groupid__state_men_id(String memid) {		
 		return dao.GET_ONE_groupid__state_men_id(memid);
 	}	
@@ -80,7 +84,6 @@ public class GroupOrderService {
 	}
 	public String get_memid__memid_groupid(String memid,String groupid){
 		return dao.get_memid__memid_groupid(memid,groupid);
-		
 	}
 	
 	//排成器
