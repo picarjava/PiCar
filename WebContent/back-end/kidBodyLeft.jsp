@@ -8,7 +8,8 @@
 			</div>
 			<div class="sidebar-wrapper">
 				<ul class="nav">
-				          <li class="nav-item active  ">
+<!-- 			<li class="nav-item active  ">聚焦 -->
+			<li class="nav-item ">
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/admin/admin_select_page.jsp">
               <i class="material-icons">person</i>
               <p>管理員管理</p>
@@ -20,11 +21,12 @@
               <p>檢舉揪團管理</p>
             </a>
           </li>
-		  <li class="nav-item active  "><a class="nav-link" href="#">
+		  <li class="nav-item ">
+		  <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/driverReport/select_page.jsp">
 			<i class="material-icons">dashboard</i>
 					<p>檢舉司機管理</p>
 					</a></li>
-					<li class="nav-item ">
+			<li class="nav-item ">
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/member/listAllmember_byDAO.jsp">
               <i class="material-icons">content_paste</i>
               <p>乘客會員管理</p>
