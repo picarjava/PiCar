@@ -20,7 +20,7 @@ public class CountToken {
 
 			@Override
 			public int compare(ActivityTokenVO o1, ActivityTokenVO o2) {
-				int result = (int) (o1.getDeadline().getTime() - o2.getDeadline().getTime());
+				int result = (int) ((o1.getDeadline().getTime() - o2.getDeadline().getTime()));
 				return result;
 			}
 
