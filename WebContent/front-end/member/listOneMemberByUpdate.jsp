@@ -85,10 +85,10 @@
 			<td>email</td>
 			<td>${memberVO.email}</td>
 		</tr>
-		<tr>	
-			<td>password</td>
-			<td>${memberVO.password}</td>
-		</tr>
+<!-- 		<tr>	 -->
+<!-- 			<td>password</td> -->
+<%-- 			<td>${memberVO.password}</td> --%>
+<!-- 		</tr> -->
 		<tr>	
 			<td>phone</td>
 			<td>${memberVO.phone}</td>

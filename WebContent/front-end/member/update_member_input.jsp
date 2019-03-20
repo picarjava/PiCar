@@ -31,8 +31,8 @@ table{
 </c:if>
 
 <form method="post" action="member.do" name="form1" enctype="multipart/form-data">
-<a  href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
-<a  href=listOneMemberByUpdate.jsp> 請按此回上一頁 </a>
+<a  href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a><br>
+<a  href=listOneMemberByUpdate.jsp> 請按此回上一頁 </a><br>
 	<table >
 		<tr>
 			<td>會員編號：</td>
@@ -50,10 +50,10 @@ table{
 			<td><input type="text" name="email" size="45" value="<%=memberVO.getEmail() %>" /></td>		
 		</tr>
 		
-		<tr>
-			<td>會員密碼：</td>
-			<td><input type="text" name="password" size="45" value="<%=memberVO.getPassword() %>" /></td>		
-		</tr>
+<!-- 		<tr> -->
+<!-- 			<td>會員密碼：</td> -->
+<%-- 			<td><input type="text" name="password" size="45" value="<%=memberVO.getPassword() %>" /></td>		 --%>
+<!-- 		</tr> -->
 		
 		<tr>
 			<td>會員電話：</td>
@@ -67,18 +67,20 @@ table{
 		
 		
 		<tr>
-			<td>會員寵物喜好設定：</td>
-			<td><select name="pet">
-			<option value="1" ${(memberVO.pet == '1')?'selected':'' }>喜歡寵物
-			<option value="0" ${(memberVO.pet == '0')?'selected':'' }>不喜歡寵物
-			</select></td>		
+			<td>會員寵物喜好：</td>
+			<td><c:choose>
+			  <c:when test="${memberVO.verified == '1'}">喜歡寵物  </c:when>
+			  <c:when test="${memberVO.verified == '0'}">不喜歡寵物  </c:when>			 
+			</c:choose>			
+			<input type = "hidden" name="pet" value= "<%=memberVO.getPet() %>"></td>		
 		</tr>
 		<tr>
-			<td>會員抽菸喜好設定：</td>
-			<td><select name="smoke">
-			<option value="1" ${(memberVO.smoke == '1')?'selected':'' }>抽菸
-			<option value="0" ${(memberVO.smoke == '0')?'selected':'' }>不抽菸
-			</select></td>		
+			<td>會員抽菸喜好：</td>
+			<td><c:choose>
+			  <c:when test="${memberVO.verified == '1'}">抽菸  </c:when>
+			  <c:when test="${memberVO.verified == '0'}">不抽菸  </c:when>			 
+			</c:choose>			
+			<input type = "hidden" name="pet" value= "<%=memberVO.getSmoke() %>"></td>		
 		</tr>
 		<tr>
 			<td>會員性別：</td>
@@ -116,7 +118,7 @@ table{
 			<input type = "hidden" name="verified" value= "<%=memberVO.getVerified() %>"></td>		
 		</tr>
 		<tr>
-			<td>嬰兒座椅設定：</td>
+			<td>嬰兒座椅：</td>
 			<td>
 			<c:choose>
 			  <c:when test="${memberVO.babySeat == '1'}">需要  </c:when>
@@ -126,7 +128,8 @@ table{
 		</tr>
 		<tr>
 			<td>會員照片：</td>
-			<td></td>
+			<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}" alt="這是圖片替代文字" onerror="this.src='cat.jpg'" width='200' height="200" id="preview_progressbarTW_img">
+		<input type="file" name="pic" onchange="readURL(this)" targetID="preview_progressbarTW_img"></td>
 			<td></td>
 			<td>
 			 <br></td>		
@@ -134,8 +137,7 @@ table{
 			 
 		</tr>
 		
-		<img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}" alt="這是圖片替代文字" onerror="this.src='cat.jpg'" width='200' height="200" id="preview_progressbarTW_img">
-		<input type="file" name="pic" onchange="readURL(this)" targetID="preview_progressbarTW_img">
+		
 		
 	</table>                          
 	<input type="hidden" name="memID" value="<%=memberVO.getMemID() %> ">

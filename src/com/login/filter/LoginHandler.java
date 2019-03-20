@@ -1,10 +1,13 @@
 package com.login.filter;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.io.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.*;
 
+import com.DigestService.DigestService;
 import com.member.model.MemberService;
 import com.member.model.MemberVO;
 
@@ -42,15 +45,36 @@ public class LoginHandler extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = res.getWriter();
+		List<String> list = new ArrayList();
+		list.add("M001");
+		list.add("M002");
+		list.add("M003");
+		list.add("M004");
+		list.add("M005");
+		list.add("M006");
+		list.add("M007");
+		list.add("M008");
+		list.add("M009");
+		list.add("M010");
+		
 
 		String account = req.getParameter("account").trim();
 		String password = req.getParameter("password").trim();
+		DigestService digestSvc = new DigestService();
+		String digestpassword = digestSvc.digest(password);
 
 		HttpSession session = req.getSession();
 		MemberVO memebrVO1 = (MemberVO) session.getAttribute("memberVO");
 		if (memebrVO1 == null) {
 			MemberService memberSvc = new MemberService();
-			MemberVO memberVO = memberSvc.getOneMemberByPass(account, password);
+			
+			MemberVO memberVO = null;
+			if (list.contains(account)) {
+				memberVO = memberSvc.getOneMemberByPass(account, password);
+			} else {
+				memberVO = memberSvc.getOneMemberByPass(account, digestpassword);
+			}
+
 			if (memberVO == null) {
 				out.println("<HTML><HEAD><TITLE>登入畫面</TITLE></HEAD>");
 				out.println("<BODY>你的帳號，密碼無效<BR>");
@@ -76,8 +100,9 @@ public class LoginHandler extends HttpServlet {
 					}
 				} catch (Exception ignored) {
 				}
-				res.sendRedirect(req.getContextPath() + "/front-end/member/listOneMemberByUpdate.jsp"); // *工作2: 看看有無來源網頁
-																								// (-->如有來源網頁:則重導至來源網頁)
+				res.sendRedirect(req.getContextPath() + "/front-end/member/listOneMemberByUpdate.jsp"); // *工作2:
+																										// 看看有無來源網頁
+				// (-->如有來源網頁:則重導至來源網頁)
 			}
 		}
 	}

@@ -36,18 +36,18 @@ table{
 	
 		<tr>
 			<td>會員姓名：</td>
-			<td><input type="text" name="name" size="45" value="<%= (memberVO==null)? "綠毛蟲":memberVO.getName() %>" /></td>		
+			<td><input type="text" name="name" size="45" value="<%= (memberVO==null)? "SAM":memberVO.getName() %>" /></td>		
 	
 		</tr>
 		<tr>
 			<td>會員信箱：</td>
-			<td><input type="text" name="email" size="45" value="<%= (memberVO==null)? "綠毛蟲@gmail.com":memberVO.getEmail() %>" /></td>		
+			<td><input type="text" name="email" size="45" value="<%= (memberVO==null)? "samchiang74@gmail.com":memberVO.getEmail() %>" /></td>		
 		</tr>
 		
-		<tr>
-			<td>會員密碼：</td>
-			<td><input type="text" name="password" size="45" value="<%= (memberVO==null)? "greenmomo":memberVO.getPassword() %>" /></td>		
-		</tr>
+<!-- 		<tr> -->
+<!-- 			<td>會員密碼：</td> -->
+			<input type="hidden" name="password" size="45" value="<%= (memberVO==null)? "greenmomo":memberVO.getPassword() %>" />	
+<!-- 		</tr> -->
 		
 		<tr>
 			<td>會員電話：</td>
@@ -113,7 +113,7 @@ table{
 		
 	</table>                          
 	
-	<input type="hidden" name="action" value="insert">
+	<input type="hidden" name="action" value="insertver2">
 	<input type="submit" value="送出新增">
 </form>
 

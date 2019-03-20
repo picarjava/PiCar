@@ -14,7 +14,9 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 import javax.servlet.RequestDispatcher;
 
+import com.DigestService.DigestService;
 import com.admin.model.AdminService;
+import com.mailService.MailService;
 import com.member.model.*;
 import java.util.LinkedList;
 import com.storeRecord.model.*;
@@ -515,6 +517,147 @@ public class MemberServlet extends HttpServlet {
 				successView.forward(req, res);
 			}
 
+		}
+		
+		if ("insertver2".equals(action)) {
+			List<String> errorMsgs = new LinkedList();
+			req.setAttribute("errorMsgs", errorMsgs);
+
+			try {
+//				String memID = new String(req.getParameter("memID"));
+
+				String name = req.getParameter("name").trim();
+				String nameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,20}$";
+				if (name == null || name.trim().length() == 0) {
+					errorMsgs.add("員工姓名~請勿空白");
+				} else if (!name.trim().matches(nameReg)) {
+					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \"  , 且長度必需在2到20之間");
+				}
+
+				String email = req.getParameter("email");
+				if (email == null || email.trim().length() == 0) {
+					errorMsgs.add("EMAI請勿空白");
+				}
+				/*******************************************/
+//				String password = req.getParameter("password");
+//				if (password == null || password.trim().length() == 0) {
+//					errorMsgs.add("password請勿空白");
+//				}
+				/****************************************亂數密碼測試***/
+				String password = req.getParameter("password").trim();
+				String[] array = new String[] {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+				String str = "";
+				for (int i =1; i<=10;i++) {
+					 int index = (int)(Math.random() * array.length+1);
+					 str = str +array[index];
+				}
+				password = str;
+				
+				DigestService digestSvc = new DigestService();
+				String digestpassword = digestSvc.digest(password);
+				
+				/*******************************************/
+				String phone = req.getParameter("phone");
+				if (phone == null || phone.trim().length() == 0) {
+					errorMsgs.add("phone請勿空白");
+				}
+				String creditcard = req.getParameter("creditcard");
+				if (creditcard == null || creditcard.trim().length() == 0) {
+					errorMsgs.add("creditcard請勿空白");
+				}
+				Integer token = null;
+				try {
+					token = new Integer(req.getParameter("token").trim());
+				} catch (NumberFormatException e) {
+					token = 0;
+					errorMsgs.add("代幣請填數字.");
+				}
+				Integer activityToken = null;
+				try {
+					activityToken = new Integer(req.getParameter("activityToken").trim());
+				} catch (NumberFormatException e) {
+					activityToken = 100;
+					errorMsgs.add("活動代幣請填數字.");
+				}
+				java.sql.Date birthday = null;
+				try {
+					birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
+				} catch (IllegalArgumentException e) {
+					birthday = new java.sql.Date(System.currentTimeMillis());
+					errorMsgs.add("請輸入日期!");
+				}
+
+				Integer pet = new Integer(req.getParameter("pet"));
+				Integer smoke = new Integer(req.getParameter("smoke"));
+				Integer gender = new Integer(req.getParameter("gender"));
+				Integer verified = new Integer(req.getParameter("verified"));
+				Integer babySeat = new Integer(req.getParameter("babySeat"));
+//				
+				Part part = req.getPart("pic");
+				InputStream in = part.getInputStream();
+				byte[] pic = new byte[in.available()];
+				in.read(pic);
+				in.close();
+
+				MemberVO memberVO = new MemberVO();
+//				memberVO.setMemID(memID);				
+				memberVO.setName(name);
+				memberVO.setEmail(email);
+				memberVO.setPassword(digestpassword);
+				memberVO.setPhone(phone);
+				memberVO.setCreditcard(creditcard);
+				memberVO.setPet(pet);
+				memberVO.setSmoke(smoke);
+				memberVO.setGender(gender);
+				memberVO.setToken(token);
+				memberVO.setActivityToken(activityToken);
+				memberVO.setBirthday(birthday);
+				memberVO.setVerified(verified);
+				memberVO.setBabySeat(babySeat);
+				memberVO.setPic(pic);
+
+				if (!errorMsgs.isEmpty()) {
+					req.setAttribute("memberVO", memberVO); // 含有輸入格式錯誤的empVO物件,也存入req
+					RequestDispatcher failureView = req.getRequestDispatcher("/front-end/member/addMember.jsp");
+					failureView.forward(req, res);
+					return; // 程式中斷
+				}
+
+				// 開始新增資料
+				MemberService memberSvc = new MemberService();
+				memberVO = memberSvc.addMember(name, email, digestpassword, phone, creditcard, pet, smoke, gender, token,
+						activityToken, birthday, verified, babySeat, pic);
+				req.setAttribute("memberVO", memberVO);
+
+				/****************************/
+				List<MemberVO> last = memberSvc.getAll();
+				String memIDlast = last.get(last.size()-1).getMemID();
+				
+				 String to = email;
+			      String ch_name = name;
+			      String passRandom = password;
+			      String subject = "PICAR管理員密碼通知";
+			      String messageText = "Hello　" + ch_name + "\n"+
+			    		               "歡迎你加入PICAR大家庭！"+ "\n"  +
+			                           "你的會員編號為" + memIDlast +"\n"+
+			                           "此為你之後的登入帳號，"+
+			                           "請先以此密碼登入【 " + passRandom + " 】"+
+			                           "\n" +"登入後台過後再修改你的密碼！謝謝！"; 
+				
+				  MailService mailService = new MailService();
+			      mailService.sendMail(to, subject, messageText);
+			      /****************************/
+			      
+			      
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByInsert.jsp"); // 新增成功後轉交listAllmember_byDAO
+				successView.forward(req, res);
+
+			} catch (Exception e) {
+				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/addMember.jsp");
+				successView.forward(req, res);
+
+			}
 		}
 
 	}
