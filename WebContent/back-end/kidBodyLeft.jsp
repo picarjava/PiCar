@@ -1,7 +1,8 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 		<div class="sidebar" data-color="azure" data-background-color="white"
-			data-image="../assets/img/sidebar-1.jpg">
+			data-image="<%=request.getServletContext().getContextPath()%>/back-end/assets/img/sidebar-1.jpg">
+<!-- 			data-image="../assets/img/sidebar-1.jpg"> -->
 			<div class="logo">
 				<a href="<%=request.getServletContext().getContextPath()%>/back-end/backHome.jsp" class="simple-text logo-normal"> PICAR </a>
 			</div>

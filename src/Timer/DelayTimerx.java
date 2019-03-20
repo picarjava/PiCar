@@ -44,18 +44,18 @@ public class DelayTimerx extends HttpServlet {
 				String START_TIME_Start = three_days_after + " 00:00:00";
 				String START_TIME_End   = three_days_after + " 23:59:59";
 //				('2019-03-18 05:20:00', 'YYYY-MM-DD HH24:MI:SS')
-				System.out.println("2.");
+				System.out.println("1.");
 				System.out.println(START_TIME_Start);
 				System.out.println(START_TIME_End );
 				List<String> startTimeList = new ArrayList<String>();
 //				Set<SingleOrderVO> startTimeList = new LinkedHashSet();
-				System.out.println("3.");
+				System.out.println("2.");
 				startTimeList = new SingleOrderDAO().get_start_time(START_TIME_Start, START_TIME_End);// 拿出一群時間的集合
 				System.out.println(startTimeList);
 				ServletContext context ;
-				getServletContext().setAttribute("futureOrder", startTimeList);
+				getServletContext().setAttribute("futureOrderMAP", startTimeList);
 				//拿到一堆訂單
-				System.out.println("1:"+getServletContext().getAttribute("futureOrder"));
+				System.out.println("3:"+getServletContext().getAttribute("futureOrderMAP"));
 //				if (startTimeList != null) {
 //					for (String starttime : startTimeList) {// 滾出一群時間
 ////					 System.out.println(starttime);
@@ -80,15 +80,14 @@ public class DelayTimerx extends HttpServlet {
 //				}
 				
 				
-				System.out.println("訂單集合");
+				System.out.println("4.訂單集合");
 //				sharetimer(startTimeList);//此行跑不到。B.將一群時間傳到另一個方法
-				System.out.println("B.");
 			}
 		};
 //		this.getRenewTime(22);// 當日22點更新 ，取得當天22點的Long
 //		timer.schedule(task, renewTime);
 //		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
-		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000*50); //甲. 每半小時執行一次 搜出隔天訂單 
+		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000*20); //甲. 每半小時執行一次 搜出隔天訂單 
 		System.out.println("1.現在時間"+new java.sql.Timestamp(System.currentTimeMillis()));   //TEST
 //		System.out.println("C.現在毫秒數"+new GregorianCalendar().getTimeInMillis());   //TEST
 	}//init
