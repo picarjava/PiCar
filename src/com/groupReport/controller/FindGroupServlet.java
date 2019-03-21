@@ -59,7 +59,7 @@ public class FindGroupServlet extends HttpServlet {
 					
 					/***************************3.查詢完成,準備轉交(Send the Success view)*************/
 					req.setAttribute("groupBandVO", groupBandVO);
-					String url = "/back-end/groupReport/listOneGroupReport.jsp";   //********************
+					String url = "/back-end/groupReport/findGroup.jsp";   //********************
 					RequestDispatcher successView = req.getRequestDispatcher(url);
 					successView.forward(req, res);
 
