@@ -41,7 +41,7 @@
 
 <style>
 .offset1 {
-        margin-top: 110px;
+        margin-top: 70px;
     }
     
 .navbar .nav.pull-right{

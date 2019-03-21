@@ -59,6 +59,17 @@ width: 100px;
 .flex-control-thumbs img {
 height: 145px;
 }
+#rigthtop{
+float: right;
+}
+ .TOPMENU {
+
+ }
+ .TOPMENU:hover {
+	
+	}
+
+
 </style>
 
     </head>
@@ -66,15 +77,15 @@ height: 145px;
     <body>
     
 <%--             <% --%>
-//     MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
-//     DriverService driSrc = new DriverService();
+<!-- //     MemberVO memberVO = (MemberVO)session.getAttribute("memberVO"); -->
+<!-- //     DriverService driSrc = new DriverService(); -->
     
    
-//     DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
-//     if(driverVO!=null){
-//     session.setAttribute("driverVO",driverVO);
-//     DriverVO drixx = (DriverVO)session.getAttribute("driverVO");
-//     }
+<!-- //     DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID()); -->
+<!-- //     if(driverVO!=null){ -->
+<!-- //     session.setAttribute("driverVO",driverVO); -->
+<!-- //     DriverVO drixx = (DriverVO)session.getAttribute("driverVO"); -->
+<!-- //     } -->
 <%-- 	%> --%>
 
         <!-- Header -->
@@ -83,38 +94,43 @@ height: 145px;
                 <div class="span12">
                     <div class="navbar">
                         <div class="navbar-inner">
+                         <div id="rigthtop"><form method="post"  action="logoutHandler.do">			
+				<input type="submit" value="登出">	
+				 <input type="hidden" name="logout"	value="logout">	
+				</form></div>
                             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </a>
                             <h1>
-                                <a class="brand" href="index.html">Andia - a super cool design agency...</a>
+                                <a class="brand" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp">Andia - a super cool design agency...</a>
                             </h1>
                             <div class="nav-collapse collapse">
                                 <ul class="nav pull-right">
-                                    <li class="current-page widthes">
-                                        <a href="index.html"><i class="icon-home"></i><br />首頁</a>
+                                    <li class="current-page widthes dropdown">
+                                    <div class="rectangle"></div>
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp"><i class="icon-home"></i><br />首頁</a>
                                     </li>
-                                    <li class="widthes">
+                                    <li class="widthes dropdown">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/addReservation.jsp"><i class="fas fa-car"></i><br />預約叫車</a>
                                     </li>
-                                    <li class="widthes">
+                                    <li class="widthes dropdown">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/SelectGroupBand.jsp"><i class="icon-comments"></i><br />糾團</a>
                                     </li>
-                                    <li class="widthes">
+                                    <li class="widthes dropdown">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/listAllfutureTrip.jsp"><i class="icon-tasks"></i><br />訂單查詢</a>
                                     </li>
-                                    <li class="widthes">
+                                    <li class="widthes dropdown">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/member/listOneMemberByUpdate.jsp"><i class="fas fa-cog"></i><br />設定</a>
                                     </li>
-                                     <li class="widthes">
+                                     <li class="widthes dropdown">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/activityToken/listOnesAllActivityToken.jsp"><i class="fas fa-coins"></i><br />代幣管理</a>
                                     </li>
-                                      <li class="widthes">
+                                      <li class="widthes dropdown">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/activityToken/addActivityToken.jsp"><i class="fas fa-coins"></i><br />免費代幣</a>
                                     </li>
-                                    <li class="widthes">
+                                    <li class="widthes dropdown">
 						      <c:if test="${empty driverVO.driverID}">
 						      <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/addDriver.jsp"><i class="icon-user"></i><br />成為司機</a>
 						      </c:if>
@@ -123,11 +139,15 @@ height: 145px;
 						      </c:if>
                                     </li>
                                 </ul>
+                               
                             </div>
                         </div>
+                        
                     </div>
                 </div>
+                
             </div>
+            
         </div>
 
         <!-- Slider -->
