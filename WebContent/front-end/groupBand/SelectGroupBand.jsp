@@ -37,10 +37,15 @@
     position: fixed;
     background-color: #555;
     width: 500px;
-    height: 500px;
+    height: 320px;
     z-index: 995;
     left: 40%;
-    top: 40%;
+    top: 30%;
+    }
+ #messageboards{
+ 	margin-top: 40px;
+ }   
+    
 </style>
 
 <style>
@@ -61,10 +66,25 @@
     padding: 5px;
     text-align: center;
   }
+  #topright{
+    position: absolute;
+    right: 0px;
+  
+  }
 </style>
 <body bgcolor='white'>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
-<div id="Floatingwindow"></div>
+
+
+<div id="Floatingwindow" style="display:none">
+<button type="button" onclick="Fork()" id="topright" class="" ><i class="fas fa-times fa-2x"></i></button>
+<div><h1>檢舉內容</h1></div>
+<div id="messageboards">檢舉原因</div>
+<div><textarea name="note" required id="note" class="form-control" rows="3" cols="50" style=" width: 400px;height: 150px;"></textarea></div>
+<div><button type="button" onclick="floatingwindow()" class="" >送出</button></div>
+</div>
+
+
 <h3>揪團資料查詢:</h3>
 
 <c:if test="${not empty errorMsgs}">
@@ -170,8 +190,7 @@ for(GroupBandVO lists :list){
 	<input type="hidden" name="action"	value="GroupJoin"></FORM>
 </th>
 	<th>
-	<button type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" 
-	data-content="And here's some amazing content. It's very engaging. Right?"><i class="fas fa-exclamation-triangle"></i></button>
+	<button type="button" onclick="floatingwindowshow('<%=lists.getGroupID()%>','${memberVO.memID}')" class="btn btn-lg btn-danger" ><i class="fas fa-exclamation-triangle"></i></button>
 </th>
 </tr>	
 </table>
@@ -179,6 +198,82 @@ for(GroupBandVO lists :list){
 	<%
 }
 }%>
+<script>
+var GroupID;
+var memID;
+function floatingwindowshow(GroupID,memID){
+	$('#Floatingwindow').show();
+	this.GroupID=GroupID;
+	this.memID=memID;
+}
+
+function Fork(){
+	$('#Floatingwindow').hide();
+}
+
+function floatingwindow(){
+	var note = document.getElementById("note").value;
+	
+	$('#Floatingwindow').hide();	
+	alert(memID);
+	alert(GroupID);
+	alert(note);
+	groudReport(memID,GroupID,note);
+}
+
+</script>
+
+
+<script>
+function groudReport(memID,GroupID,note)
+{
+	   $.ajax({
+
+	        //告訴程式表單要傳送到哪裡                                         
+
+	        url:"<%=request.getServletContext().getContextPath()%>/front-end/groupBand/AjexGroupReport.jsp",                                                              
+
+	        //需要傳送的資料
+
+	        data:"groupID="+GroupID+"&memID="+memID+"&note"+note,
+
+	         //使用POST方法     
+
+	        type : "POST",                                                                    
+
+	        //接收回傳資料的格式，在這個例子中，只要是接收true就可以了
+	        dataType:'json', 
+
+	         //傳送失敗則跳出失敗訊息      
+
+	        error:function(selects){                                                                 
+	        	 console.log(selects);
+	        //資料傳送失敗後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+					
+	      
+			
+	        
+	        
+					
+	        },
+
+	        //傳送成功則跳出成功訊息
+
+	        success:function(selects){                                                           
+	        	 console.log(selects);
+	 	        //資料傳送失敗後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+	 				
+	        //資料傳送成功後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+	  		
+
+	        }
+
+	    }); 
+	
+	}
+</script>
+
+
 
 <script>
 $('#start_date').datetimepicker(
