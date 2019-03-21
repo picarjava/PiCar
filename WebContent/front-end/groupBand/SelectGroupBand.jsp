@@ -80,6 +80,7 @@
 <button type="button" onclick="Fork()" id="topright" class="" ><i class="fas fa-times fa-2x"></i></button>
 <div><h1>檢舉內容</h1></div>
 <div id="messageboards">檢舉原因</div>
+<div id="noteExection"></div>
 <div><textarea name="note" required id="note" class="form-control" rows="3" cols="50" style=" width: 400px;height: 150px;"></textarea></div>
 <div><button type="button" onclick="floatingwindow()" class="" >送出</button></div>
 </div>
@@ -145,6 +146,12 @@ else{
 List<GroupBandVO> list = new ArrayList<GroupBandVO>();
 list = groupBandService.getAllStartTime();
 out.println("<h6>目前日期最近的五筆揪團</h6>");
+ int i = 0;
+ %>
+ <script>
+ var colors = [];
+ </script>
+ <%
 for(GroupBandVO lists :list){
 	%>
 	
@@ -190,10 +197,16 @@ for(GroupBandVO lists :list){
 	<input type="hidden" name="action"	value="GroupJoin"></FORM>
 </th>
 	<th>
-	<button type="button" onclick="floatingwindowshow('<%=lists.getGroupID()%>','${memberVO.memID}')" class="btn btn-lg btn-danger" ><i class="fas fa-exclamation-triangle"></i></button>
+	<button type="button" value="<%=lists.getGroupID()%>" id="<%=lists.getGroupID()%>" onclick="floatingwindowshow('<%=lists.getGroupID()%>','${memberVO.memID}')" class="btn btn-lg btn-danger" ><i class="fas fa-exclamation-triangle"></i></button>
 </th>
 </tr>	
 </table>
+ <script>
+
+colors[<%=i%>] = document.getElementById("<%=lists.getGroupID()%>");
+colors[<%=i%>].value="<%=lists.getGroupID()%>";
+<%i++;%>
+</script>
 
 	<%
 }
@@ -201,10 +214,14 @@ for(GroupBandVO lists :list){
 <script>
 var GroupID;
 var memID;
+var note;
 function floatingwindowshow(GroupID,memID){
+	document.getElementById("note").value='';
+	
 	$('#Floatingwindow').show();
 	this.GroupID=GroupID;
 	this.memID=memID;
+	
 }
 
 function Fork(){
@@ -212,13 +229,30 @@ function Fork(){
 }
 
 function floatingwindow(){
-	var note = document.getElementById("note").value;
+	note = document.getElementById("note").value;
+	var noteExection = document.getElementById("noteExection");
+	var Floatingwindow = document.getElementById("Floatingwindow");
+	if(note!=''){
+		for(i=0;i<colors.length;i++){
+		
+			
+			if(colors[i].value==GroupID){
+				
+				colors[i].disabled="disabled";
+			}
+		}
+		noteExection.innerHTML="";
+		Floatingwindow.style="height: 320px;";
+		groudReport(memID,GroupID,note);
+		$('#Floatingwindow').hide();	
+				
+	}else{
+		noteExection.innerHTML="<h3 style='color:#FF3333'>※請輸入錯誤訊息※<h3>";
+		Floatingwindow.style="height: 380px;";
+	}
 	
-	$('#Floatingwindow').hide();	
-	alert(memID);
-	alert(GroupID);
-	alert(note);
-	groudReport(memID,GroupID,note);
+	
+	
 }
 
 </script>
@@ -228,14 +262,17 @@ function floatingwindow(){
 function groudReport(memID,GroupID,note)
 {
 	   $.ajax({
-
+		   
+// 		   	alert(memID);
+// 			alert(GroupID);
+ 			
 	        //告訴程式表單要傳送到哪裡                                         
 
 	        url:"<%=request.getServletContext().getContextPath()%>/front-end/groupBand/AjexGroupReport.jsp",                                                              
 
 	        //需要傳送的資料
 
-	        data:"groupID="+GroupID+"&memID="+memID+"&note"+note,
+	        data:"groupID="+GroupID+"&memID="+memID+"&note="+note,
 
 	         //使用POST方法     
 

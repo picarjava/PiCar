@@ -7,6 +7,7 @@
 	String groupID = request.getParameter("groupID");
 	String memID = request.getParameter("memID");
 	String note = request.getParameter("note");
+	System.out.println(" groupID"+groupID+" memID"+memID+" note"+note);
 	GroupReportService groupReportService = new GroupReportService();
 	groupReportService.insertGroupStmt(memID, groupID, note);
 %> 
