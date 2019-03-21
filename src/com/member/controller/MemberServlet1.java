@@ -287,7 +287,7 @@ public class MemberServlet1 extends HttpServlet {
 						token, activityToken, birthday, verified, babySeat, pic);
 				req.setAttribute("memberVO", memberVO);
 
-				RequestDispatcher successView = req.getRequestDispatcher("/back-end/member/listOneMember.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/back-end/member/listAllmember_byDAO.jsp");
 				successView.forward(req, res);
 
 			} catch (Exception e) {
