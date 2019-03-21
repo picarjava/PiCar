@@ -74,6 +74,9 @@ session.setAttribute("memID",memID);
         <div class="section-header">
           <h3 class="section-title">單程預約</h3>
           <p class="section-description"> 請新增一筆預約單程訂單</p>
+          <form action="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">
+		          <button type="submit" class="btn btn-outline-success" >返回會員首頁</button>
+		  </form>
         </div>
       </div>
 

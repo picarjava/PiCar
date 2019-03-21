@@ -114,7 +114,7 @@ session.setAttribute("memID",memID);
 				                  </td>
 				                  </c:if>
 								 <td>
-							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do" >
+							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/driverReport/driverReport.do" >
 								    <jsp:useBean id="driberReportSvc" class="com.driverReport.model.DriverReportService"/>
 									 <div class="text-center"><button type="submit" class="btn btn-light" id="driberReport">${empty driberReportSvc.getOneByOrderID(singleOrder.orderID).content?"檢舉司機": "已檢舉"}</button>
 								      	<!--  orderID 與 memID 需透過controller傳遞至addGroupOrderDriverReport.jsp -->

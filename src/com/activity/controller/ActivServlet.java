@@ -169,7 +169,7 @@ public class ActivServlet extends HttpServlet {
 
 				if (activityVO == null) {
 					errorMsgs.add("查無此筆");
-					RequestDispatcher failurePage = req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
+					RequestDispatcher failurePage = req.getRequestDispatcher("/front-end/activity/listAllActivity.jsp");
 					failurePage.forward(req, res);
 					return;
 				}
@@ -184,15 +184,17 @@ public class ActivServlet extends HttpServlet {
 				/************* 3.得到資料存在scope=reqest，並送出VO給處理頁面 **************/
 
 				req.setAttribute("activityVO", activityVO);
-				String url = "/back-end/activity/getOneActivity.jsp";
+				String url = "/front-end/activity/getOneActivity.jsp";
 				RequestDispatcher successPage = req.getRequestDispatcher(url);
 				successPage.forward(req, res);
 				/************* 4.處理例外 **************/
 			} catch (Exception e) {
 				errorMsgs.add("無法此筆資料:" + e.getMessage());
+//				RequestDispatcher failurePage = req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
+//			    failurePage.forward(req, res);
 			}
-			RequestDispatcher failurePage = req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
-			failurePage.forward(req, res);
+			
+			
 		}
 
 		// 來自listAllActivity.jsp 修改某一筆的請求

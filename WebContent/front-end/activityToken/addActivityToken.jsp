@@ -40,6 +40,9 @@ session.setAttribute("memID",memID);
 	     <div class="container wow fadeInUp">
 	      	<div class="col-lg-12 col-md-12">
 		        <div class="section-header">
+		        <form action="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">
+		          <button type="submit" class="btn btn-outline-success" >返回會員首頁</button>
+		        </form>
 		          <h3 class="section-title">請輸入活動序號 </h3>
 		          <jsp:useBean id="memberSvc" class="android.com.member.model.MemberService"/>
 		          <p class="section-description">會員編號 ${memID} </p>
