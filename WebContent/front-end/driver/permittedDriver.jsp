@@ -14,8 +14,14 @@
       Contact Section
     ============================-->
     <!-- 先取出VO -->
+    <!-- 登入功能串接 ，將VOmemID指定給 memID-->
+<%@ page import="com.member.model.MemberVO"%>
   <%DriverVO driverVO=(DriverVO)request.getAttribute("driverVO");
-  MemberVO memberVO=(MemberVO)request.getAttribute("memberVO");%>
+  MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
+  String memID=memberVO.getMemID();
+  session.setAttribute("memID",memID);
+  
+  %>
   
     <!-- 錯誤列表 -->
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
