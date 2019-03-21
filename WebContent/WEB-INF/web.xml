@@ -265,29 +265,29 @@
   </filter>
   <filter-mapping>
     <filter-name>LoginFilterBackEnd</filter-name>
-    <url-pattern>/back-end/activity/*</url-pattern>
-    <url-pattern>/back-end/activityToken/*</url-pattern>
+<!--     <url-pattern>/back-end/activity/*</url-pattern> -->
+<!--     <url-pattern>/back-end/activityToken/*</url-pattern> -->
     
 <!-- <url-pattern>/back-end/admin/*</url-pattern> -->
 
-    <url-pattern>/back-end/broadcast/*</url-pattern>
-    <url-pattern>/back-end/driver/*</url-pattern>
-    <url-pattern>/back-end/driverReport/*</url-pattern>
-    <url-pattern>/back-end/groupReport/*</url-pattern>
-    <url-pattern>/back-end/member/*</url-pattern>
-    <url-pattern>/back-end/rate/*</url-pattern>
-    <url-pattern>/back-end/singleOrder/*</url-pattern>
-    <url-pattern>/back-end/storeRecord/*</url-pattern>           
-    <url-pattern>/back-end/member/*</url-pattern>
- 	<url-pattern>/back-end/backHome.jsp</url-pattern>
- 	<url-pattern>/back-end/body_back.jsp</url-pattern>    
- 	<url-pattern>/back-end/head_back.jsp</url-pattern>  
-    <url-pattern>/back-end/kidBodyLeft.jsp</url-pattern>  
-    <url-pattern>/back-end/kidFooter.jsp</url-pattern> 
-    <url-pattern>/back-end/kidHead.jsp</url-pattern> 
-    <url-pattern>/back-end/kidNavbar.jsp</url-pattern> 
-    <url-pattern>/back-end/kidSidebar.jsp</url-pattern> 
-    <url-pattern>/back-end/sidebar.jsp</url-pattern> 
+<!--     <url-pattern>/back-end/broadcast/*</url-pattern> -->
+<!--     <url-pattern>/back-end/driver/*</url-pattern> -->
+<!--     <url-pattern>/back-end/driverReport/*</url-pattern> -->
+<!--     <url-pattern>/back-end/groupReport/*</url-pattern> -->
+<!--     <url-pattern>/back-end/member/*</url-pattern> -->
+<!--     <url-pattern>/back-end/rate/*</url-pattern> -->
+<!--     <url-pattern>/back-end/singleOrder/*</url-pattern> -->
+<!--     <url-pattern>/back-end/storeRecord/*</url-pattern>            -->
+<!--     <url-pattern>/back-end/member/*</url-pattern> -->
+<!--  	<url-pattern>/back-end/backHome.jsp</url-pattern> -->
+<!--  	<url-pattern>/back-end/body_back.jsp</url-pattern>     -->
+<!--  	<url-pattern>/back-end/head_back.jsp</url-pattern>   -->
+<!--     <url-pattern>/back-end/kidBodyLeft.jsp</url-pattern>   -->
+<!--     <url-pattern>/back-end/kidFooter.jsp</url-pattern>  -->
+<!--     <url-pattern>/back-end/kidHead.jsp</url-pattern>  -->
+<!--     <url-pattern>/back-end/kidNavbar.jsp</url-pattern>  -->
+<!--     <url-pattern>/back-end/kidSidebar.jsp</url-pattern>  -->
+<!--     <url-pattern>/back-end/sidebar.jsp</url-pattern>  -->
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
