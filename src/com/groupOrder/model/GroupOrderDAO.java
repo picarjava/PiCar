@@ -90,7 +90,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String  GET_START_TIME_GROUP_ID=
 				"SELECT START_TIME FROM GROUP_ORDER WHERE GROUP_ID = ? Order by START_TIME";
 		
-		private static final String GET_BY_STATE = "SELECT * FROM GROUP_ORDER WHERE STATE=? AND ORDER_TYPE=?";
+		private static final String GET_BY_STATE_AND_ORDER_TYPE = "SELECT * FROM GROUP_ORDER WHERE STATE=? AND ORDER_TYPE=?";
+		private static final String GET_BY_STATE_AND_DRIVER_ID = "SELECT * FROM GROUP_ORDER WHERE STATE=? AND DRIVER_ID=?";
 		private static final String UPDATE_DRIVER_ID_BY_GROUP_ID = "UPDATE GROUP_ORDER SET DRIVER_ID=? WHERE GROUP_ID=?";
 		
 		//逾時訂單使用
@@ -921,31 +922,12 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
         List<GroupOrderVO> list = new ArrayList<>();
         try {
             connection = ds.getConnection();
-            preparedStatement = connection.prepareStatement(GET_BY_STATE);
+            preparedStatement = connection.prepareStatement(GET_BY_STATE_AND_ORDER_TYPE);
             preparedStatement.setInt(1, state);
             preparedStatement.setInt(2, orderType);
             resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                GroupOrderVO groupOrderVO = new GroupOrderVO();
-                groupOrderVO.setGorderID(resultSet.getString("GORDER_ID"));
-                groupOrderVO.setDriverID(resultSet.getString("DRIVER_ID"));
-                groupOrderVO.setMemID(resultSet.getString("MEM_ID"));
-                groupOrderVO.setState(resultSet.getInt("STATE"));
-                groupOrderVO.setTotalAmout(resultSet.getInt("TOTAL_AMOUT"));
-                groupOrderVO.setLaunchTime(resultSet.getTimestamp("LAUNCH_TIME"));
-                groupOrderVO.setStartTime(resultSet.getTimestamp("START_TIME"));
-                groupOrderVO.setEndTime(resultSet.getTimestamp("END_TIME"));
-                groupOrderVO.setStartLng(resultSet.getDouble("START_LNG"));
-                groupOrderVO.setStartLat(resultSet.getDouble("START_LAT"));
-                groupOrderVO.setEndLng(resultSet.getDouble("END_LNG"));
-                groupOrderVO.setEndLat(resultSet.getDouble("END_LAT"));
-                groupOrderVO.setOrderType(resultSet.getInt("ORDER_TYPE"));
-                groupOrderVO.setRate(resultSet.getInt("RATE"));
-                groupOrderVO.setNote(resultSet.getString("NOTE"));
-                groupOrderVO.setGroupID(resultSet.getString("GROUP_ID"));
-                groupOrderVO.setStartLoc(resultSet.getString("START_LOC"));
-                groupOrderVO.setEndLoc(resultSet.getString("END_LOC"));
-                list.add(groupOrderVO);
+                list.add(getGroupOrderVO(resultSet));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -955,6 +937,28 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
             closePreparedStatement(preparedStatement);
             closeConnection(connection);
         }
+        return list;
+    }
+    
+    @Override
+    public List<GroupOrderVO> getByStateAndDriverID(Integer state, String driverID) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<GroupOrderVO> list = new ArrayList<>();
+        try {
+            connection = ds.getConnection();
+            preparedStatement = connection.prepareStatement(GET_BY_STATE_AND_DRIVER_ID);
+            preparedStatement.setInt(1, state);
+            preparedStatement.setString(2, driverID);
+            resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                list.add(getGroupOrderVO(resultSet));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
         return list;
     }
     
@@ -977,6 +981,29 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
             closeConnection(connection);
         }
         
+    }
+    
+    private GroupOrderVO getGroupOrderVO(ResultSet resultSet) throws SQLException {
+        GroupOrderVO groupOrderVO = new GroupOrderVO();
+        groupOrderVO.setGorderID(resultSet.getString("GORDER_ID"));
+        groupOrderVO.setDriverID(resultSet.getString("DRIVER_ID"));
+        groupOrderVO.setMemID(resultSet.getString("MEM_ID"));
+        groupOrderVO.setState(resultSet.getInt("STATE"));
+        groupOrderVO.setTotalAmout(resultSet.getInt("TOTAL_AMOUT"));
+        groupOrderVO.setLaunchTime(resultSet.getTimestamp("LAUNCH_TIME"));
+        groupOrderVO.setStartTime(resultSet.getTimestamp("START_TIME"));
+        groupOrderVO.setEndTime(resultSet.getTimestamp("END_TIME"));
+        groupOrderVO.setStartLng(resultSet.getDouble("START_LNG"));
+        groupOrderVO.setStartLat(resultSet.getDouble("START_LAT"));
+        groupOrderVO.setEndLng(resultSet.getDouble("END_LNG"));
+        groupOrderVO.setEndLat(resultSet.getDouble("END_LAT"));
+        groupOrderVO.setOrderType(resultSet.getInt("ORDER_TYPE"));
+        groupOrderVO.setRate(resultSet.getInt("RATE"));
+        groupOrderVO.setNote(resultSet.getString("NOTE"));
+        groupOrderVO.setGroupID(resultSet.getString("GROUP_ID"));
+        groupOrderVO.setStartLoc(resultSet.getString("START_LOC"));
+        groupOrderVO.setEndLoc(resultSet.getString("END_LOC"));
+        return groupOrderVO;
     }
     
     private void closeResultSet(ResultSet resultSet) {
