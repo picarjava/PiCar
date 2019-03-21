@@ -288,8 +288,6 @@ public class DriverReportServlet extends HttpServlet {
 	        if ("insert".equals(action)) { 
 				
 				List<String> errorMsgs = new LinkedList<String>();
-				// Store this set in the request scope, in case we need to
-				// send the ErrorPage view.
 				req.setAttribute("errorMsgs", errorMsgs);
 
 				try {
