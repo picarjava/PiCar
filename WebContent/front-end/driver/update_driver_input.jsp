@@ -103,11 +103,6 @@ DriverVO driverVO = (DriverVO) request.getAttribute("driverVO"); //EmpServlet.ja
 			 value="<%= (driverVO==null)? "100" : driverVO.getIdNum()%>" /></td>
 	</tr>
 	<tr>
-		<td>大頭照:</td>
-		<td><input type="TEXT" name="photo" size="45"
-			 value="<%= (driverVO==null)? "100" : driverVO.getPhoto()%>" /></td>
-	</tr>
-	<tr>
 		<td>是被BAN:</td>
 		<td><input type="TEXT" name="banned" size="45"
 			 value="<%= (driverVO==null)? "100" : driverVO.getBanned()%>" /></td>

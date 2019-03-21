@@ -29,12 +29,12 @@
        
 </style>
 </head>
-<!-- 本頁面待與登入功能串接 此處先指定memID-->
-<%-- <%String memID=(String)session.getAttribute("memID"); %>  --%>
-<%!String memID="M001";%>
-<%
- session.setAttribute("memID", memID);
-%>
+<!-- 登入功能串接 ，將VOmemID指定給 memID-->
+<%@ page import="com.member.model.MemberVO"%>
+<%MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
+String memID=memberVO.getMemID();
+session.setAttribute("memID",memID);
+%> 
 
 <body>
 

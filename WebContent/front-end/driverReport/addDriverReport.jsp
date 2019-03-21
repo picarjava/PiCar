@@ -11,6 +11,7 @@
 	<jsp:include page="/regna-master/head.jsp" />  
 </head>
 <body>
+
 <!-- 取得orderID 與 memID -->
 <%String orderID=(String)request.getAttribute("orderID");
 String memID=(String)request.getAttribute("memID");

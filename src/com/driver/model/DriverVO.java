@@ -10,7 +10,6 @@ public class DriverVO {
 	private byte[]  criminal            ;   
 	private byte[]  trafficRecord      ;   
 	private byte[]  idNum              ;   
-	private byte[]  photo               ;   
 	private Integer verified            ;
 	private Integer banned              ;
 	private Date    deadline            ;      
@@ -81,13 +80,7 @@ public class DriverVO {
 		this.idNum = idNum;
 	}
 
-	public byte[] getPhoto() {
-		return photo;
-	}
 
-	public void setPhoto(byte[] photo) {
-		this.photo = photo;
-	}
 
 	public Integer getVerified() {
 		return verified;

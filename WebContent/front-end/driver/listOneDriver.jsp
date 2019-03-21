@@ -22,9 +22,12 @@
     
     <!-- 先取出VO -->
 <%--     <% String driverID = "D012" ;%> --%>
+<!-- 登入功能串接 ，將VOmemID指定給 memID-->
   <%
   
 MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+  String memID=memberVO.getMemID();
+  session.setAttribute("memID",memID);
 DriverService driSrc = new DriverService();
 DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 System.out.print(driverVO);

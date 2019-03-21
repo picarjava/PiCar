@@ -29,30 +29,28 @@ public class BroadcastServer {
 	private static final long serialVersionUID = 1L;
 	private static final Map<String,Session> map=(new ConcurrentHashMap<>());
     private static final Set<Session> allSessions=Collections.synchronizedSet(new HashSet<Session>());
-	String onOpenmemID;
-	private Session onOpenSession;
-	
+
 	
     
 	@OnOpen
 	public void onOpen(@PathParam("memID")String memID,Session userSession,EndpointConfig config)throws IOException{
 	allSessions.add(userSession);
 	map.put(memID,userSession);
-	onOpenmemID=memID;
+//	onOpenmemID=memID;
 	ServletContext servletContext = ((HttpSession) config.getUserProperties().get("httpSession")).getServletContext();
     servletContext.setAttribute("broadcastMap", map);
     
-	String message= "{\"message\":\"" +"WebSocket連線成功了"+"\"}";
+	String message= "{\"message\":\"" +"Picar推播系統連線成功!"+"\"}";
 	userSession.getBasicRemote().sendText(message);
 	System.out.println(memID+"已連線");
-	System.out.println("onOpenSession是否不空"+ (getOnOpenSession() != null));
+	
 	
 	}
 	
 	@OnMessage
 	public void onMessage(@PathParam("memID")String memID,Session userSession,String message) {
 		for(Session session:allSessions) {
-			if(session.isOpen()&&  onOpenmemID.equals(memID)){ //若onOpen的memID 為排程器要傳送的memID，則傳送訊息
+			if(session.isOpen()){ 
 				session.getAsyncRemote().sendText(message);
 				System.out.println("廣播成功");
 			}
@@ -69,13 +67,4 @@ public class BroadcastServer {
 		allSessions.remove(userSession);
 		System.out.println(userSession.getId()+"Disconnect:"+Integer.toString(reason.getCloseCode().getCode()));
 	}
-
-	public Session getOnOpenSession() {
-		return onOpenSession;
-	}
-
-	public void setOnOpenSession(Session onOpenSession) {
-		this.onOpenSession = onOpenSession;
-	}
-	
 }

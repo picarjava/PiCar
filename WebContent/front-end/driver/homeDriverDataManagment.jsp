@@ -42,10 +42,13 @@ table {
 </style>
 
 <body>
+<!-- 登入功能串接 ，將VOmemID指定給 memID-->
     <!-- 先取出VO -->
     <%
 // 		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
     	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+    	String memID=memberVO.getMemID();
+    	session.setAttribute("memID",memID);
     MemberService xxx = new MemberService();
     List<MemberVO> yyy =xxx.getAll();
     DriverService driSrc = new DriverService();

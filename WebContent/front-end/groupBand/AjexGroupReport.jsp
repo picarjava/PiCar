@@ -2,16 +2,12 @@
     pageEncoding="utf-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ page import="com.groupMem.model.*"%>
-    <%@ page import="com.member.model.*"%>
+    <%@ page import="com.groupReport.model.*"%>
 <% System.out.println("有獨到嗎");
-String memID = request.getParameter("memid");
-String groupID = request.getParameter("groupID");
-GroupMemService groupMemService =new GroupMemService();
-GroupMemVO groupMemVO= groupMemService.findone_memid__GROUP_ID_MEM_ID(groupID, memID);
-MemberService memberService = new MemberService ();
-if(groupMemVO.getMemID()==null){
-	groupMemService.addGroupMem(groupID, memID,1);	
-}else{
-	groupMemService.update_State(groupID, memID,1);
-}
+	String groupID = request.getParameter("groupID");
+	String memID = request.getParameter("memID");
+	String note = request.getParameter("note");
+	System.out.println(" groupID"+groupID+" memID"+memID+" note"+note);
+	GroupReportService groupReportService = new GroupReportService();
+	groupReportService.insertGroupStmt(memID, groupID, note);
 %> 

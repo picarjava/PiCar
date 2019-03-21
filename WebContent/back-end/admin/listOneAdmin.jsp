@@ -2,6 +2,7 @@
 <%@ page import="com.admin.model.*"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
+					<!-- 這支不用session! -->
 <%
 	AdminVO adminVO = (AdminVO)request.getAttribute("adminVO"); 
 %>
@@ -9,7 +10,7 @@
 <html>
 <head>
 <title>管理員資料 - listAdmin.jsp</title>
-
+<jsp:include page="/back-end/kidHead.jsp" />
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -49,34 +50,36 @@ th, td {
 
 </head>
 <body bgcolor='white'>
-
-	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>管理員資料 - listAdmin.jsp</h3>
-				<h4>
-					<a href="admin_select_page.jsp">
-					<img src="images/back1.gif" width="100" height="32" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
-
-	<table>
-		<tr>
-			<th>管理員編號</th>
-			<th>管理員姓名</th>
-			<th>密碼</th>
-			<th>在職狀態</th>
-		</tr>
-		<tr>
-			<td><%=adminVO.getAdminID()%></td>
-			<td><%=adminVO.getAdminName()%></td>
-			<td><%=adminVO.getPassword()%></td>
-			<td><%=adminVO.getIsEmp()%></td>
-		</tr>
-	</table>
-
+<body>
+    <div class="wrapper ">
+        <jsp:include page="/back-end/kidBodyLeft.jsp" />
+        <div class="main-panel">
+            <jsp:include page="/back-end/kidNavbar.jsp" />
+            <div class="content">
+                <div class="container-fluid">
+                    <!-- your content here -->
+                    <div class="container-fluid">
+                        <div class="col-9">
+						<table>
+							<tr>
+								<th>管理員編號</th>
+								<th>管理員姓名</th>
+								<th>密碼</th>
+								<th>在職狀態</th>
+							</tr>
+							<tr>
+								<td><%=adminVO.getAdminID()%></td>
+								<td><%=adminVO.getAdminName()%></td>
+								<td><%=adminVO.getPassword()%></td>
+								<td><%=adminVO.getIsEmp()%></td>
+							</tr>
+						</table>
+                   </div>
+                </div>
+                <jsp:include page="/back-end/kidFooter.jsp" />
+            </div>
+        </div>
+    </div>    
+</div>
 </body>
 </html>
