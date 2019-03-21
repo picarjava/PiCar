@@ -30,15 +30,16 @@
 	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/apple-touch-icon.png"
 	rel="apple-touch-icon">
 
+
 <!-- Google Fonts -->
 <!-- <link -->
 <!-- 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" -->
 <!-- 	rel="stylesheet"> -->
 
 <!-- Bootstrap CSS File -->
-<link
-	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<!-- <link -->
+<%-- 	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/bootstrap/css/bootstrap.min.css" --%>
+<!-- 	rel="stylesheet"> -->
 
 <!-- Libraries CSS Files -->
 <link
@@ -155,9 +156,12 @@ th, td {
 th {
 	background-color: #00BBFF;
 }
+
 </style>
 </head>
 <body onload="connect();" onunload="disconnect();">
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
 
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
@@ -169,7 +173,7 @@ th {
 		</ul>
 	</c:if>
 
-	<div class="row">
+	<div class="row" style="margin-top:20px">
 		<c:forEach var="MemberVO" items="${testList}">
 			<div
 				class="d-inline p-2 bg-primary text-white color${MemberVO.gender}">
