@@ -464,7 +464,7 @@ public class DriverJNDIDAO implements DriverDAO_interface{
                 }
             }
         }
-        System.out.println(driverVO.getDriverID());
+//        System.out.println(driverVO.getDriverID());
         return driverVO;
 	}
 	public DriverVO findDriverByMemID(String memID) {

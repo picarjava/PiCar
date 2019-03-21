@@ -55,6 +55,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div id="Floatingwindow" style="display:none">
+<button type="button" onclick="Fork()" id="topright" class="" ><i class="fas fa-times fa-2x"></i></button>
+<div><h1>檢舉內容</h1></div>
+<div id="messageboards">檢舉原因</div>
+<div id="noteExection"></div>
+<div><textarea name="note" required id="note" class="form-control" rows="3" cols="50" style=" width: 400px;height: 150px;"></textarea></div>
+<div><button type="button" onclick="floatingwindow()" class="" >送出</button></div>
+</div>
+<% int sss = 0;
+ %>
+ <script>
+ var colors = [];
+ </script>
 	<%@ include file="page1_ByCompositeQuery.file" %>
 <c:forEach var="GroupBandVO" items="${listgroupBand_ByCompositeQuery}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 
@@ -106,9 +119,117 @@
 	<input type="hidden" name="memIDs" value="${memberVO.memID}" /> 
 	<input type="hidden" name="action"	value="GroupJoin"></FORM>
 </th>
+<th>
+	<button type="button" value="${GroupBandVO.groupID}" id="${GroupBandVO.groupID}" onclick="floatingwindowshow('${GroupBandVO.groupID}','${memberVO.memID}')" class="btn btn-lg btn-danger" ><i class="fas fa-exclamation-triangle"></i></button>
+</th>
 </tr>	
 </table>
+ <script>
+
+colors[<%=sss%>] = document.getElementById("${GroupBandVO.groupID}");
+colors[<%=sss%>].value="${GroupBandVO.groupID}";
+<%sss++;%>
+</script>
+
 </c:forEach>
 	<%@ include file="page2_ByCompositeQuery.file" %>
 </body>
+<script>
+var GroupID;
+var memID;
+var note;
+function floatingwindowshow(GroupID,memID){
+	document.getElementById("note").value='';
+	
+	$('#Floatingwindow').show();
+	this.GroupID=GroupID;
+	this.memID=memID;
+	
+}
+
+function Fork(){
+	$('#Floatingwindow').hide();
+}
+
+function floatingwindow(){
+	note = document.getElementById("note").value;
+	var noteExection = document.getElementById("noteExection");
+	var Floatingwindow = document.getElementById("Floatingwindow");
+	if(note!=''){
+	for(i=0;i<colors.length;i++){
+		
+			
+			if(colors[i].value==GroupID){
+				
+				colors[i].disabled="disabled";
+			}
+		}
+		noteExection.innerHTML="";
+		Floatingwindow.style="height: 320px;";
+		groudReport(memID,GroupID,note);
+		$('#Floatingwindow').hide();	
+				
+	}else{
+		noteExection.innerHTML="<h3 style='color:#FF3333'>※請輸入錯誤訊息※<h3>";
+		Floatingwindow.style="height: 380px;";
+	}
+	
+	
+	
+}
+
+</script>
+
+
+<script>
+function groudReport(memID,GroupID,note)
+{
+	   $.ajax({
+		   
+// 		   	alert(memID);
+// 			alert(GroupID);
+ 			
+	        //告訴程式表單要傳送到哪裡                                         
+
+	        url:"<%=request.getServletContext().getContextPath()%>/front-end/groupBand/AjexGroupReport.jsp",                                                              
+
+	        //需要傳送的資料
+
+	        data:"groupID="+GroupID+"&memID="+memID+"&note="+note,
+
+	         //使用POST方法     
+
+	        type : "POST",                                                                    
+
+	        //接收回傳資料的格式，在這個例子中，只要是接收true就可以了
+	        dataType:'json', 
+
+	         //傳送失敗則跳出失敗訊息      
+
+	        error:function(selects){                                                                 
+	        	 console.log(selects);
+	        //資料傳送失敗後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+					
+	      
+			
+	        
+	        
+					
+	        },
+
+	        //傳送成功則跳出成功訊息
+
+	        success:function(selects){                                                           
+	        	 console.log(selects);
+	 	        //資料傳送失敗後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+	 				
+	        //資料傳送成功後就會執行這個function內的程式，可以在這裡寫入要執行的程式  
+	  		
+
+	        }
+
+	    }); 
+	
+	}
+</script>
 </html>
