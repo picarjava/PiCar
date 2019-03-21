@@ -4,17 +4,18 @@
 <%@ page import="com.groupReport.model.*"%>
 <%@ page import="com.admin.model.*"%>
 <%@ page import="com.groupBand.model.*"%>
-	<%
+<%
 	GroupReportService groupReportSvc = new GroupReportService();
 	List<GroupReportVO> list = groupReportSvc.getAll();
 	pageContext.setAttribute("list", list);
 	AdminVO adminVO = (AdminVO)session.getAttribute("adminVO");
-	%>
-	<%
-		GroupBandVO groupBandVO = (GroupBandVO)request.getAttribute("groupBandVO"); 
-	%>
+%>
 
-<jsp:useBean id="groupBandSvc1" scope="page" class="com.groupBand.model.GroupBandService" />
+<%
+	GroupBandVO groupBandVO = (GroupBandVO)request.getAttribute("groupBandVO"); 
+%>
+
+
 
 <!doctype html>
 <html lang="zh">
@@ -66,48 +67,70 @@ table {
 <body>
 
 	<div class="wrapper ">
-		<div class="sidebar" data-color="azure" data-background-color="white"
+		<div class="sidebar" data-color="" data-background-color="black"
 			data-image="../assets/img/sidebar-1.jpg">
 			<div class="logo">
-				<a href="#" class="simple-text logo-normal"> PICAR </a>
+				<a href="../index.jsp" class="simple-text logo-normal"> PICAR </a>
 			</div>
-			<div class="sidebar-wrapper">
-				<ul class="nav">
-					<li class="nav-item active  "><a class="nav-link" href="#">
-							<i class="material-icons">dashboard</i>
-							<p>檢舉揪團管理</p>
-					</a></li>
-					<li class="nav-item "><a class="nav-link" href="#"> <i
-							class="material-icons">person</i>
-							<p>User Profile</p>
-					</a></li>
-					<li class="nav-item "><a class="nav-link" href="#"> <i
-							class="material-icons">content_paste</i>
-							<p>Table List</p>
-					</a></li>
-					<li class="nav-item "><a class="nav-link" href="#"> <i
-							class="material-icons">library_books</i>
-							<p>Typography</p>
-					</a></li>
-					<li class="nav-item "><a class="nav-link" href="#"> <i
-							class="material-icons">bubble_chart</i>
-							<p>Icons</p>
-					</a></li>
-					<li class="nav-item "><a class="nav-link" href="#"> <i
-							class="material-icons">location_ons</i>
-							<p>Maps</p>
-					</a></li>
-					<li class="nav-item "><a class="nav-link" href="#"> <i
-							class="material-icons">notifications</i>
-							<p>Notifications</p>
-					</a></li>
-					<li class="nav-item "><a class="nav-link" href="#"> <i
-							class="material-icons">language</i>
-							<p>RTL Support</p>
-					</a></li>
-				</ul>
-			</div>
-		</div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item active  ">
+            <a class="nav-link" href="../admin/admin_select_page.jsp">
+              <i class="material-icons">person</i>
+              <p>管理員管理</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="greport_select_page.jsp">
+              <i class="material-icons">dashboard</i>
+              <p>檢舉揪團管理</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="../driverReport/select_page.jsp">
+              <i class="material-icons">content_paste</i>
+              <p>檢舉司機管理</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./typography.html">
+              <i class="material-icons">library_books</i>
+              <p>Typography</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./icons.html">
+              <i class="material-icons">bubble_chart</i>
+              <p>Icons</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./map.html">
+              <i class="material-icons">location_ons</i>
+              <p>Maps</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./notifications.html">
+              <i class="material-icons">notifications</i>
+              <p>Notifications</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="./rtl.html">
+              <i class="material-icons">language</i>
+              <p>RTL Support</p>
+            </a>
+          </li>
+          <li class="nav-item active-pro ">
+            <a class="nav-link" href="./upgrade.html">
+              <i class="material-icons">unarchive</i>
+              <p>Upgrade to PRO</p>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
 		<div class="main-panel">
 			<!-- Navbar -->
 			<nav
@@ -153,7 +176,7 @@ table {
 
 
 							<ul id="s1">
-								<form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do">
+								<form METHOD="post" ACTION="groupReport.do">
 									<a>搜尋檢舉揪團單號</a> 
 									<input type="text" placeholder="(例如:GR001)" name="greportID"> 
 									<input type="hidden" name="action" value="getOne_For_Display"> 
@@ -162,7 +185,7 @@ table {
 								
 								<jsp:useBean id="groupReportSvc1" scope="page" class="com.groupReport.model.GroupReportService" />
 								
-								<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do">
+								<FORM METHOD="post" ACTION="groupReport.do">
 									<a>選擇檢舉揪團單號</a> 
 									<select size="1" name="greportID" id="s3">
 										<c:forEach var="groupReportVO" items="${groupReportSvc1.all}">
@@ -201,15 +224,8 @@ table {
 								<tr>
 									<td>${groupReportVO.greportID}</td>
 <%-- 									<td>${groupReportVO.memID}</td> --%>
-									
-									<td><c:forEach var="groupBandVO" items="${groupBandSvc.all}">
-						                <c:if test="${groupReportVO.groupID==groupBandVO.groupID}">
-							                        ${groupBandVO.groupID}
-						                </c:if>
-						                </c:forEach>
-									</td>
+									<td>${groupReportVO.groupID}</td>
 <%-- 									<td>${groupReportVO.adminID}</td> --%>
-
 									<td>${groupReportVO.content}</td>
 									<td>${groupReportVO.time}</td>
 									<td>
@@ -220,8 +236,8 @@ table {
 									<td>
 										<FORM METHOD="post"
 											ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do" style="margin-bottom: 0px;">
-											<input type="submit" value="修改"> 
-											<input type="hidden" name="greportID" value="${groupReportVO.greportID}">
+											<input type="submit" value="修改"> <input type="hidden"
+												name="greportID" value="${groupReportVO.greportID}">
 											<input type="hidden" name="action" value="getOne_For_Update">
 										</FORM>
 									</td>
@@ -242,7 +258,6 @@ table {
 											<input type="submit" value="查看內容"> 
 									    </FORM>
 									</td>
-									
 								</tr>
 							</c:forEach>
 						</table>
