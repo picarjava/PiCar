@@ -8,35 +8,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<jsp:include page="/back-end/kidHead.jsp" />
 <title>listALLRate</title>
 </head>
-<style>
-#table1 {
-	width: 600px;
-	height: 100%;
-	background-color: #7afec6;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	text-align: center;
-	font-family: Microsoft JhengHei;
-}
 
-table1, td {
-	
-}
-
-.page1 {
-	margin-left: 80px
-}
-</style>
 <body>
+<div class="wrapper ">
 	<h3>listALLRate.jsp</h3>
 	<%
 		RateService rateSvc = new RateService();
 		List<RateVO> list = rateSvc.getAll();
 		pageContext.setAttribute("list", list);
 	%>
-	<a href="select_page.jsp">回主畫面</a>
+	<jsp:include page="/back-end/kidBodyLeft.jsp" />
+	<div class="main-panel">
+	<jsp:include page="/back-end/kidNavbar.jsp" />
+	<div class="content">
+<!-- 	<a href="select_page.jsp">回主畫面</a> -->
+	
 	<c:forEach var="rateVO" items="${list}">
 		<table border="1" id="table1">
 
@@ -82,8 +71,10 @@ table1, td {
 	</c:forEach>
 
 
-
-
+<jsp:include page="/back-end/kidFooter.jsp" />
+</div>
+</div>
+</div>
 
 </body>
 </html>
