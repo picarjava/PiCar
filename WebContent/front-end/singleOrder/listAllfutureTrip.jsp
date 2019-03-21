@@ -70,8 +70,7 @@ session.setAttribute("memID",memID);
 			                    <h3 class="section-title">個人行程</h3>
 			                </div>
 	                        <table class="table">
-							  <thead class="thead-dark">							    <tr>
-							      <tr></tr>
+							  <thead class="thead-dark">	
 							      <tr>
 							      <th scope="col">乘車時間	</th>
 							      <th scope="col">訂單編號	</th>
@@ -80,13 +79,13 @@ session.setAttribute("memID",memID);
 							      <th scope="col">乘車目的地	</th>
 							      <th scope="col">總金額	    </th>
 							      <th scope="col">取消行程	</th>
-							      <th scope="col" colspan="2">訂單狀態	</th>
+							      <th scope="col" >訂單狀態	</th>
 							    </tr>
 							  </thead>
 							  <tbody>
 		
 		<c:forEach var="singleOrder" items="${singleOrderlist}" >			  
-			 <c:if test="${singleOrder.memID eq memID && singleOrder.state eq 0|| singleOrder.state eq 1}">
+			 <c:if test="${singleOrder.memID eq memID && singleOrder.state eq 0|| singleOrder.state eq 1 || singleOrder.state eq 4}">
 						 		<tr>	 
 							      <th scope="row">
 							      <fmt:formatDate  type="both" value="${singleOrder.startTime}" pattern="yyyy-MM-dd mm:ss" />
@@ -100,8 +99,9 @@ session.setAttribute("memID",memID);
 							      <td>${singleOrder.startLoc}</td>
 							      <td>${singleOrder.endLoc}</td>
 							      <td>${singleOrder.totalAmount}</td>
-							      <c:if test="${singleOrder.state eq 1 }">
+							      <c:if test="${singleOrder.state eq 1 or singleOrder.state eq 4}">
 							          <td>
+							         
 								      </td>
 							       </c:if>
 							       <c:if test="${singleOrder.state eq 0 and singleOrder.orderType eq 0}">
@@ -120,8 +120,9 @@ session.setAttribute("memID",memID);
 									   </Form>
 								       </td>
 							       </c:if>
-							       <td >
+							       
 							        <c:if test="${singleOrder.state eq 0 and singleOrder.orderType eq 4}">
+							         <td >
 							           <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
 									    <div class="text-center"><button id="DELETELONGTERM" type="submit" class="btn btn-light">取消長期預約</button>
 									    <!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
@@ -129,8 +130,9 @@ session.setAttribute("memID",memID);
 			                				<input type="hidden" name="orderID" value="${singleOrder.orderID}">
 									    </div>
 									   </Form>
-							       </c:if>
 							       </td>
+							       </c:if>
+							       
 							       <td>
 						 		  <c:forEach var="state" items="${stateMap}">
 						 		   ${state.key eq singleOrder.state ? state.value: ""}
@@ -175,7 +177,7 @@ session.setAttribute("memID",memID);
 						  
 						  
 	<c:forEach var="groupOrder" items="${groupOrderlist}" >			  
-		 	 <c:if test="${groupOrder.memID eq memID&& groupOrder.state eq 0|| groupOrder.state eq 1 }">
+		 	 <c:if test="${groupOrder.memID eq memID&& groupOrder.state eq 0|| groupOrder.state eq 1 || groupOrder.state eq 4}">
 					 		<tr>
 					 			  <th scope="row">
 							      <fmt:formatDate type="BOTH" value="${groupOrder.startTime}" pattern="yyyy/MM/dd/ mm:ss"/>
