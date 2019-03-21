@@ -13,35 +13,18 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
-<title>listAllmember_byDAO.jsp</title>
-<jsp:include page="/back-end/kidHead.jsp" />
+<meta charset="UTF-8">
+<jsp:include page="/back-end/head_back.jsp" />
+<!-- <title>listAllmember_byDAO.jsp</title> -->
 </head>
 
-<style>
-#table1 {
-	width: 1300px;
-	height: 350px;
-	background-color: #7afec6;
-	margin-top: 20px;
-	margin-bottom: 20px;
-	text-align: center;
-	font-family: Microsoft JhengHei;
-}
-
-table1, td {
-	
-}
-
-.page1 {
-	margin-left: 80px
-}
-</style>
-
 <body bgcolor="#11e1e9">
+<div class="wrapper ">
 <jsp:include page="/back-end/kidBodyLeft.jsp" />
-<jsp:include page="/back-end/kidNavbar.jsp" />
- <h3>listAllmember_byDAO.jsp</h3>
+<div class="main-panel">
+<div class="content">
+<div class="container-fluid">
+<!--  <h3>listAllmember_byDAO.jsp</h3> -->
 	<div id="errmsg">
 	<c:if test="${not empty errorMsgs}">
 	<ul>	
@@ -55,7 +38,7 @@ table1, td {
 	</div>
 	<h1 align="center">管理員你好，這是Picar會員資料</h1>
 	<div class="page1">
-		<a href="select_page.jsp">回主頁面</a>
+		<a href="select_page.jsp">查詢主頁面</a>
 	</div>
 	<br>
 	<br>
@@ -135,12 +118,14 @@ table1, td {
 				<input type="hidden" name="action" value="delete">
 			</td>
 		</form>		
-		
 		</tr>
 	</c:forEach>
-	
 	</table>
+	</div>
 	<jsp:include page="/back-end/kidFooter.jsp" />
 	<div align="center"><%@ include file="page2.file"%></div>
+	</div>
+	</div>
+	</div>
 </body>
 </html>

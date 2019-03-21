@@ -7,9 +7,7 @@
 <html>
 <head>
   <title>後台新增活動資訊</title>
-
-    <jsp:include page="/back-end/kidHead.jsp" />
-	
+<jsp:include page="/back-end/head_back.jsp" />
 	  <!-- datetimepicker  -->
 	<link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 	
@@ -51,7 +49,6 @@
 <div class="wrapper ">
     <jsp:include page="/back-end/kidBodyLeft.jsp" />
         <div class="main-panel">
-            <jsp:include page="/back-end/kidNavbar.jsp" />
 <section id="contact">
   <div class="container wow fadeInUp">
 	  <div class="row">

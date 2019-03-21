@@ -39,7 +39,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/rate/select_page.jsp">
+            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/rate/listAllRate.jsp">
               <i class="material-icons">content_paste</i>
               <p>資費管理</p>
             </a>
@@ -50,24 +50,24 @@
               <p>訂單管理</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/rate/select_page.jsp">
-              <i class="material-icons">content_paste</i>
-              <p>乘客推播訊息設定</p>
-            </a>
-          </li>
+<!--           <li class="nav-item "> -->
+<%--             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/rate/select_page.jsp"> --%>
+<!--               <i class="material-icons">content_paste</i> -->
+<!--               <p>乘客推播訊息設定</p> -->
+<!--             </a> -->
+<!--           </li> -->
           <li class="nav-item ">
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/activity/homeActivity.jsp">
               <i class="material-icons">bubble_chart</i>
               <p>活動資訊管理</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
-              <i class="material-icons">notifications</i>
-              <p>即時客服交談</p>
-            </a>
-          </li>
+<!--           <li class="nav-item "> -->
+<!--             <a class="nav-link" href="./notifications.html"> -->
+<!--               <i class="material-icons">notifications</i> -->
+<!--               <p>即時客服交談</p> -->
+<!--             </a> -->
+<!--           </li> -->
 		</ul>
 			</div>
 		</div>

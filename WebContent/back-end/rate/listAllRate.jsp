@@ -7,17 +7,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="/back-end/head_back.jsp" />
 <meta charset="UTF-8">
-<jsp:include page="/back-end/kidHead.jsp" />
 <title>listALLRate</title>
-<jsp:include page="/back-end/kidHead.jsp" />
 </head>
 
 <body>
 <div class="wrapper ">
 <jsp:include page="/back-end/kidBodyLeft.jsp" />
-<jsp:include page="/back-end/kidNavbar.jsp" />
-	<h3>listALLRate.jsp</h3>
 	<%
 		RateService rateSvc = new RateService();
 		List<RateVO> list = rateSvc.getAll();
@@ -25,7 +22,6 @@
 	%>
 	<jsp:include page="/back-end/kidBodyLeft.jsp" />
 	<div class="main-panel">
-	<jsp:include page="/back-end/kidNavbar.jsp" />
 	<div class="content">
 <!-- 	<a href="select_page.jsp">回主畫面</a> -->
 	

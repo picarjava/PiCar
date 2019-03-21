@@ -5,10 +5,18 @@
 <html>
 <head>
   <title>活動資訊管理</title>
-    <jsp:include page="/regna-master/head.jsp" />
+  <jsp:include page="/back-end/head_back.jsp" />
 </head>
 
 <body>
+    <div class="wrapper ">
+        <jsp:include page="/back-end/kidBodyLeft.jsp" />
+        <div class="main-panel">
+                        <div class="content">
+                <div class="container-fluid">
+                    <!-- your content here -->
+                    <div class="container-fluid">
+                        <div class="col-9">
 <%LinkedList errorMsgs=(LinkedList)request.getAttribute("errorMsgs");%>
     <!-- 錯誤列表 -->
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
@@ -40,16 +48,16 @@
 					   <input class="form-control mr-sm-2" name="activityID" type="search" placeholder="請輸入活動編號" aria-label="Search">
 					   <!--隱藏的參數action讓controller抓-->
 		              	<input type="hidden" name="action" value="GET_ONE">
-					   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查詢一筆活動</button>
+					   <button type="submit">查詢一筆活動</button>
 					</form>
 				  <li class="nav-item">
 				   <form class="form-inline" action="<%=request.getContextPath()%>/back-end/activity/listAllActivity.jsp" method="post">
-					   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查詢全部活動</button>
+					   <button type="submit">查詢全部活動</button>
 					</form>
 				  </li>
 				  <li class="nav-item">
 				   <form class="form-inline" action="<%=request.getContextPath()%>/back-end/activity/addActivity.jsp" method="post">
-					   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">新增活動</button>
+					   <button type="submit">新增活動</button>
 					</form>
 				  </li> 
 				</ul>
@@ -66,33 +74,12 @@
 	        </div><!-- row結尾 -->
 	      </div>
     </section><!-- #contact -->
-  <!--==========================
-    Footer
-  ============================-->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong>Regna</strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!--
-          All the links in the footer should remain intact.
-          You can delete the links only if you purchased the pro version.
-          Licensing information: https://bootstrapmade.com/license/
-          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Regna
-        -->
-        Bootstrap Templates by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer><!-- #footer -->
-
- <jsp:include page="/regna-master/body.jsp" />
-
+</div>
+                    </div>
+                </div>
+                <jsp:include page="/back-end/kidFooter.jsp" />
+            </div>
+        </div>
+    </div>  
 </body>
 </html>

@@ -12,13 +12,12 @@
 <html lang="zh">
 <head>
     <title>司機會員管理</title>
-    <jsp:include page="/back-end/kidHead.jsp" />
+    <jsp:include page="/back-end/head_back.jsp" />
 </head>
 <body>
     <div class="wrapper ">
         <jsp:include page="/back-end/kidBodyLeft.jsp" />
         <div class="main-panel">
-            <jsp:include page="/back-end/kidNavbar.jsp" />
             <div class="content">
                 <div class="container-fluid">
                     <!-- your content here -->
@@ -36,7 +35,7 @@
                         </div>
                         <table id="t1">
                             <tr>
-                                <th colspan="2">查詢一筆司機</th>
+                                <th>查詢一筆司機</th>
                                 <th>查詢全部司機</th>
                             </tr>
                             <%@ include file="page1.file"%>
@@ -49,25 +48,25 @@
                                         <input class="form-control mr-sm-2" name="driverID" type="text" placeholder="請輸入司機編號(eg.D001)" aria-label="Search">
                                         <!--隱藏的參數action讓controller抓-->
                                         <input type="hidden" name="action" value="GET_ONE_BACK">
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查詢一筆司機</button>
+                                        <button type="submit">查詢一筆司機</button>
                                     </form>
                                 </td>
-                                <jsp:useBean id="driversrV" scope="page" class="com.driver.model.DriverService" />
-                                <td>
-                                    <form method="post" action="<%=request.getServletContext().getContextPath()%>/back-end/driver/driver.do">
-                                        <b>請選擇編號</b> <br>
-                                        <select size="1" name="driverID">
-                                            <c:forEach var="driverVO" items="${driversrV.all}">
-                                                <option value="${driverVO.driverID}">${driverVO.driverID}
-                                            </c:forEach>
-                                        </select>
-                                        <input type="hidden" name="action" value="GET_ONE_BACK"><br>
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查詢一筆司機</button>
-                                    </form>
-                                </td>
+<%--                                 <jsp:useBean id="driversrV" scope="page" class="com.driver.model.DriverService" /> --%>
+<!--                                 <td> -->
+<%--                                     <form method="post" action="<%=request.getServletContext().getContextPath()%>/back-end/driver/driver.do"> --%>
+<!--                                         <b>請選擇編號</b> <br> -->
+<!--                                         <select size="1" name="driverID"> -->
+<%--                                             <c:forEach var="driverVO" items="${driversrV.all}"> --%>
+<%--                                                 <option value="${driverVO.driverID}">${driverVO.driverID} --%>
+<%--                                             </c:forEach> --%>
+<!--                                         </select> -->
+<!--                                         <input type="hidden" name="action" value="GET_ONE_BACK"><br> -->
+<!--                                         <button type="submit">查詢一筆司機</button> -->
+<!--                                     </form> -->
+<!--                                 </td> -->
                                 <td>
                                     <form class="form-inline" action="<%=request.getContextPath()%>/back-end/driver/listAllDriver.jsp" method="post">
-                                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">查詢全部司機</button>
+                                        <button type="submit">查詢全部司機</button>
                                     </form>
                                 </td>
                             </tr>
