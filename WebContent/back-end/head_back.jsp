@@ -10,7 +10,7 @@
 <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
 <!-- Material Kit CSS -->
-<link href="assets/css/material-dashboard.css" rel="stylesheet" />
+<link href="<%=request.getServletContext().getContextPath()%>/back-end/assets/css/material-dashboard.css" rel="stylesheet" />
 <style>
 table, tr, td, th {
 	background-color: white;
@@ -52,6 +52,12 @@ table {
 
 }
 
+#btn1 {
+	background-color:#d3d3d3;
+	margin-left:-4%;
+	font-size:16px;
+}
+
 </style>
 
 <%@ page import="com.admin.model.*"%>
@@ -65,7 +71,7 @@ table {
 				class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
 				<div class="container-fluid">
 					<div class="navbar-wrapper">
-						<a class="navbar-brand" href="#"></a>
+						<a class="navbar-brand" href="<%=request.getServletContext().getContextPath()%>/back-end/backHome.jsp"></a>
 					</div>
 					<button class="navbar-toggler" type="button" data-toggle="collapse"
 						aria-controls="navigation-index" aria-expanded="false"
@@ -75,24 +81,20 @@ table {
 							class="navbar-toggler-icon icon-bar"></span> <span
 							class="navbar-toggler-icon icon-bar"></span>
 					</button>
-				
 					<div class="collapse navbar-collapse justify-content-end">
 						<ul class="navbar-nav">
 							<li class="nav-item"><a class="nav-link" href="#pablo">
 									<i class="material-icons">notifications</i> Notifications
-							</a>
-							</li>
+							</a></li>
 				              <p id="p1"><font color=black> ${adminVO.adminName} </font>您好   </p>
 				                <FORM METHOD="post" ACTION="logoutHandlerBackEnd.do">
 									<input type="hidden" name="action" value="logout">
 									<input type="submit" name="logout" value="登出">				
 								</FORM>
-								
 								<input type="submit" data-toggle="modal" data-target="#exampleModal" value="修改個人密碼">
 							<!-- your navbar here -->
 						</ul>
 					</div>
-				
 				</div>
 			</nav>
 			<!-- End Navbar -->

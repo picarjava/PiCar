@@ -9,6 +9,8 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+<jsp:include page="/front-end/HomeMember/HeadMemberReservatoin.jsp" />
     <jsp:include page="/regna-master/head.jsp" />
     <style>
 	#map { 

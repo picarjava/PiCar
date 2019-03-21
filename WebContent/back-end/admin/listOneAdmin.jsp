@@ -10,7 +10,6 @@
 <html>
 <head>
 <title>管理員資料 - listAdmin.jsp</title>
-<jsp:include page="/back-end/kidHead.jsp" />
 <style>
 table#table-1 {
 	background-color: #CCCCFF;
@@ -47,14 +46,13 @@ th, td {
 	text-align: center;
 }
 </style>
-
+<jsp:include page="/back-end/head_back.jsp" />
 </head>
 <body bgcolor='white'>
 <body>
     <div class="wrapper ">
         <jsp:include page="/back-end/kidBodyLeft.jsp" />
         <div class="main-panel">
-            <jsp:include page="/back-end/kidNavbar.jsp" />
             <div class="content">
                 <div class="container-fluid">
                     <!-- your content here -->

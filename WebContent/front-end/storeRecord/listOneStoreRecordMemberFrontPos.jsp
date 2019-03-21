@@ -71,15 +71,15 @@
 
 			</tr>
 		</c:forEach>
-		<tr>
-			<td colspan="1">總儲值金額</td>
-			<td>${memberVO.token}</td>
+<!-- 		<tr> -->
+<!-- 			<td colspan="1">總儲值金額</td> -->
+<%-- 			<td>${memberVO.token}</td> --%>
 			<%-- 			<c:forEach var="storeRecordVO" items="${list}" begin="0" end="0" --%>
 			<%-- 				step="1"> --%>
 			<%-- 				<td>${storeRecordDAO.getSumAmount(storeRecordVO.memID)}</td> --%>
 			<%-- 			</c:forEach> --%>
-			<td></td>
-		</tr>
+<!-- 			<td></td> -->
+<!-- 		</tr> -->
 
 
 	</table>

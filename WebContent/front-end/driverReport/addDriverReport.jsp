@@ -7,6 +7,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 	<title>單程的檢舉司機單</title>
 	<jsp:include page="/regna-master/head.jsp" />  
 </head>

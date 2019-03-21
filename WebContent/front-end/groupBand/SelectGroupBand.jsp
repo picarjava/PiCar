@@ -71,10 +71,11 @@
     right: 0px;
   
   }
+  
 </style>
 <body bgcolor='white'>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
-
+<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
 
 <div id="Floatingwindow" style="display:none">
 <button type="button" onclick="Fork()" id="topright" class="" ><i class="fas fa-times fa-2x"></i></button>

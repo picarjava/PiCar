@@ -38,7 +38,7 @@ table{
 	
 		<tr>
 			<td>會員ID：</td>
-			<td><input type="text" name="memID" size="45" value="<%= (storeRecordVO==null)? "會員ID":storeRecordVO.getMemID() %>" /></td>		
+			<td><input type="text" name="memID" size="45" value="<%= (storeRecordVO==null)? "會員ID":storeRecordVO.getMemID() %>" readonly/></td>		
 	
 		</tr>
 		<tr>

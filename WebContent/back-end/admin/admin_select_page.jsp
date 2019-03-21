@@ -22,7 +22,6 @@
     <div class="wrapper ">
         <jsp:include page="/back-end/kidBodyLeft.jsp" />
         <div class="main-panel">
-            <jsp:include page="/back-end/kidNavbar.jsp" />
             <div class="content">
                 <div class="container-fluid">
                     <div class="container-fluid">

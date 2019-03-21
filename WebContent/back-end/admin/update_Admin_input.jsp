@@ -17,14 +17,13 @@ AdminVO adminVO = (AdminVO) request.getAttribute("adminVO");
 
 <html>
 <head>
+<jsp:include page="/back-end/head_back.jsp" />
 <title>PICAR BACK-END</title>
-<jsp:include page="/back-end/kidHead.jsp" />
 </head>
 <body bgcolor='white'>
     <div class="wrapper ">
         <jsp:include page="/back-end/kidBodyLeft.jsp" />
         <div class="main-panel">
-            <jsp:include page="/back-end/kidNavbar.jsp" />
             <div class="content">
                 <div class="container-fluid">
                     <!-- your content here -->

@@ -5,7 +5,7 @@
 <%@ page import="java.util.*" %>
 <html>
 <head>
-  
+  <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
   <title>請輸入活動代碼</title>
  
   <jsp:include page="/regna-master/head.jsp" />

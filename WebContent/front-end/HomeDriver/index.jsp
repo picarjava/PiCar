@@ -86,17 +86,8 @@ width: 100px;
                                     <li class="widthes">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/listAllfutureDriverTask.jsp"><i class="icon-camera"></i><br />訂單管理</a>
                                     </li>
-                                    <li class="widthes">
-                                        <a href="#"><i class="icon-comments"></i><br />Blog</a>
-                                    </li>
-                                    <li class="widthes">
-                                        <a href="services.html"><i class="icon-tasks"></i><br />Services</a>
-                                    </li>
-                                    <li class="widthes">
-                                        <a href="about.html"><i class="icon-user"></i><br />About</a>
-                                    </li>
-                                    <li class="widthes">
-                                        <a href="contact.html"><i class="icon-envelope-alt"></i><br />Contact</a>
+                                     <li class="widthes">
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/homeDriverDataManagment.jsp"><i class="icon-camera"></i><br />司機資料管理</a>
                                     </li>
                                 </ul>
                             </div>

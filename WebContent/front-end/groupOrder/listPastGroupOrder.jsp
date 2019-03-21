@@ -26,6 +26,7 @@
 <title>查看揪團歷史訂單</title>
 	<jsp:include page="/regna-master/head.jsp" />  
 </head>
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 <body>
 <!-- 錯誤列表開始 -->
     <%List<String> errorMsgs=(List<String>)request.getAttribute("errorMsgs");%>
@@ -72,7 +73,7 @@
 							  </thead>
 							  <tbody>
 		<c:forEach var="groupOrder" items="${groupOrderlist}" >			  
-			 <c:if test="${groupOrder.memID eq memID && groupOrder.state !=0 && singleOrder.state !=1}">
+			 <c:if test="${groupOrder.memID eq memID && groupOrder.state !=0 && groupOrder.state !=1 && groupOrder.state !=4}">
 						 		<tr>	 
 							      <td scope="row">${groupOrder.gorderID}</td>
 							      <td>
@@ -108,7 +109,7 @@
 				                  </td>
 							      </c:if>
 							      <td>
-								   <Form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do" >
+								   <Form METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/driverReport/driverReport.do" >
 								    <jsp:useBean id="driberReportSvc" class="com.driverReport.model.DriverReportService"/>
 									 <div class="text-center"><button type="submit" class="btn btn-light" id="driberReport">${empty driberReportSvc.getOneByOrderID(groupOrder.gorderID).content?"檢舉司機": "已檢舉"}</button>
 								      	<!--  orderID 與 memID 需透過controller傳遞至addGroupOrderDriverReport.jsp -->

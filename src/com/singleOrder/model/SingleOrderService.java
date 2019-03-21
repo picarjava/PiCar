@@ -122,8 +122,12 @@ public class SingleOrderService {
     	singleOrderDAO.update_state_to_delay();
     } // update_state_to_delay()
     
-  //逾時訂單
+  //逾時訂單1.
     public List<String> getDelayOrder(){
     	return singleOrderDAO.getDelayOrder();
+    }
+  //逾時訂單2.
+    public void updateDelayOrder(String orderID){
+    	 singleOrderDAO.updateOrderIDToDelay();
     }
 } // class SingleOrderService

@@ -46,7 +46,7 @@ String path = request.getContextPath();
 <head>
 <meta charset="UTF-8">
 <title>訂單管理頁面</title>
-<jsp:include page="/back-end/kidHead.jsp" />
+<jsp:include page="/back-end/head_back.jsp" />
     <meta http-equiv="pragma" content="no-cache">
     <meta http-equiv="cache-control" content="no-cache">
     <meta http-equiv="expires" content="0">    
@@ -67,7 +67,6 @@ String path = request.getContextPath();
 <div class="wrapper ">
 <jsp:include page="/back-end/kidBodyLeft.jsp" />
 <div class="main-panel">
-<jsp:include page="/back-end/kidNavbar.jsp" />
 <div class="content">
 <div class="container-fluid">
 <div class="container-fluid">
@@ -82,16 +81,7 @@ String path = request.getContextPath();
 	</c:if>
     <!-- 錯誤列表結束 -->
 
-    <p id="json">資料</p><br>
-    <button onclick="myFunction()">獲取資料</button>
-
-<div>
-	<div><button>修改<img src=""></button></div>
-</div>
-
-
 <div id ="333"><button>查詢訂單</button></div>
-
 
 		                        <table class="table">
 							  <thead class="thead-dark"><tr>
