@@ -141,7 +141,8 @@ public class DeductSingleReservationTimer extends HttpServlet {
 							}
 						}
 					}
-				}
+				}//for迴圈
+				allUnpaid.clear(); //清空容器
 
 				// 推播成功架構
 //				if(broadcastMap!=null) {
