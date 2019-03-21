@@ -451,7 +451,7 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
 	}
 
 	@Override
-	public List<String> getDelayOrder() {
+	public List<String> getDelayGOrder() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -473,6 +473,14 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void updateGOrderIDToDelay(String gorderID) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
 
 
 

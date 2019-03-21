@@ -104,6 +104,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String  GET_MEM_ID_GROUP_ID=
 				"SELECT DISTINCT MEM_ID FROM GROUP_ORDER WHERE GROUP_ID=?";
 		
+		private static final String UPDATE_GROUP_STATE_TO_DELAY =	"UPDATE GROUP_ORDER SET STATE ='6' WHERE GORDER_ID=? ";
+		
 		@Override
 		public HashSet<String> getRatedDrivers(){
 			HashSet<String> hashSet =new HashSet<String>();
@@ -1125,7 +1127,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
     
     
     //定時撈出逾期訂單
-    public List<String> getDelayOrder(){
+    public List<String> getDelayGOrder(){
     	List<String> delayOrder=new ArrayList<String>();
     	
     	Connection con = null;
@@ -1149,4 +1151,25 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
         } // finally
     	return delayOrder;
     }
+	@Override
+	public void updateGOrderIDToDelay(String gorderID) {    //阿君新增
+	        Connection connection = null;
+	        PreparedStatement preparedStatement = null;
+	        try {
+	            connection = ds.getConnection();
+	            preparedStatement = connection.prepareStatement(UPDATE_GROUP_STATE_TO_DELAY);
+	            int index = 1;
+	            preparedStatement.setString(index++, gorderID);
+	            preparedStatement.executeUpdate();
+	        } catch (SQLException e) {
+	            e.printStackTrace();
+	            throw new RuntimeException(e.getMessage(), e);
+	        } finally {
+	            closePreparedStatement(preparedStatement);
+	            closeConnection(connection);
+	        }
+	    }
+
+
+		
 }

@@ -120,14 +120,20 @@ public class GroupOrderService {
 	}
 	
     //逾時訂單
-    public List<String> getDelayOrder(){
-    	return dao.getDelayOrder();
+    public List<String> getDelayGOrder(){
+    	return dao.getDelayGOrder();
     }
     public List<GroupOrderVO> getALL_GroupID_State(String groupid,Integer state) {
     	return dao.getALL_GroupID_State(groupid, state);
     }
     public List<String> getMemID_groupID(String groupID) {
-    		return dao.getMemID_groupID(groupID);
-    	
+    		return dao.getMemID_groupID(groupID); 	
     }
+    
+    //逾時訂單2.
+    public void updateDelayGOrder(String gorderID){
+    	dao.updateGOrderIDToDelay(gorderID);
+    }
+    
+    
 }
