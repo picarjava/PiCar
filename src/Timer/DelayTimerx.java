@@ -72,9 +72,11 @@ public class DelayTimerx extends HttpServlet {
 				
 				
 //				if (startTimeList != null) {
-					for (String singledelay : singleDelayList) {// 滾出一群過期期訂單
+					for (String singledelay : singleDelayList) {// 滾出一群過期訂單
 						System.out.println("UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=?");
 						System.out.println(singledelay);
+						new SingleOrderService().updateDelayOrder(singledelay);
+//						System.out.println(new SingleOrderService().get);
 						System.out.println("=================");
 						
 						
