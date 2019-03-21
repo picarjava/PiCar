@@ -164,6 +164,7 @@ session.setAttribute("memID",memID);
 						     <th scope="col">乘車時間	</th>
 						     <th scope="col">訂單編號	</th>
 						     <th scope="col">訂單種類	</th>
+						     <th scope="col">揪團編號	</th>
 							 <th scope="col">乘車地點	</th>
 							 <th scope="col">前往目的地</th>
 							 <th scope="col">總金額	</th>
@@ -185,6 +186,7 @@ session.setAttribute("memID",memID);
 						 		   ${orderType.key eq groupOrder.orderType ? orderType.value: ""}
 						 		  </c:forEach>
 							      </td>	
+							      <td>${groupOrder.groupID}</td>
 							      <td>${groupBandSvc.getOneGroupBand(groupOrder.groupID).startLoc}</td>
 							      <td>${groupBandSvc.getOneGroupBand(groupOrder.groupID).endLoc}</td>
 							      <td>${groupOrder.totalAmout}</td>

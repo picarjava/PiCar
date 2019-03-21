@@ -126,5 +126,8 @@ public class GroupOrderService {
     public List<GroupOrderVO> getALL_GroupID_State(String groupid,Integer state) {
     	return dao.getALL_GroupID_State(groupid, state);
     }
-    
+    public List<String> getMemID_groupID(String groupID) {
+    		return dao.getMemID_groupID(groupID);
+    	
+    }
 }

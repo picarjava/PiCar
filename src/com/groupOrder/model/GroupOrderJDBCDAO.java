@@ -468,6 +468,12 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
         return null;
     }
 
+	@Override
+	public List<String> getMemID_groupID(String groupID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 
 
 }

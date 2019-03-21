@@ -101,6 +101,8 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		//逾時訂單使用
 		private static final String DELAY_TIME ="SELECT * FROM GROUP_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP";
 
+		private static final String  GET_MEM_ID_GROUP_ID=
+				"SELECT DISTINCT MEM_ID FROM GROUP_ORDER WHERE GROUP_ID=?";
 		
 		@Override
 		public HashSet<String> getRatedDrivers(){
@@ -715,6 +717,36 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 	}
 	return avgmemID;
 }
+	
+	@Override
+	public List<String> getMemID_groupID(String groupID) {
+        List list =new ArrayList<String>();
+		String avgmemID=null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try{
+		con = ds.getConnection();
+		pstmt = con.prepareStatement(GET_MEM_ID_GROUP_ID);
+		pstmt.setString(1, groupID);
+		rs = pstmt.executeQuery();
+		   while (rs.next()) {
+			   list.add(rs.getString("MEM_ID"));
+		   }
+			
+		
+	}catch (SQLException se) {
+		throw new RuntimeException("A database error occured. "
+				+ se.getMessage());
+		// Clean up JDBC resources
+	} finally {
+		closeResultSet(rs);
+		closePreparedStatement(pstmt);
+		closeConnection(con);
+	}
+	return list;
+}
+	
 	
 	public Integer getMemID_groupID_startTime(String groupID,String START_TIME,String START_TIME2) {
 

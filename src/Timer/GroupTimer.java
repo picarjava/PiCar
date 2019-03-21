@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 import com.groupBand.model.GroupBandService;
 import com.groupBand.model.GroupBandVO;
@@ -35,6 +36,17 @@ public class GroupTimer extends HttpServlet {
 	        TimerTask task = new TimerTask(){
 	                   
 	            public void run(){
+	            	
+	            	//推播: 先拿到目前在線會員
+    				@SuppressWarnings("unchecked")
+    				Map<String, Session> broadcastMap = (Map<String, Session>) (getServletContext()
+    						.getAttribute("broadcastMap"));
+    				System.out.println("是否有會員在線上:" + (broadcastMap != null));
+    				//推播:先拿到執行時間
+    				Date date = new Date(this.scheduledExecutionTime());
+    				SimpleDateFormat tFormat = new SimpleDateFormat("yyyy/MM/dd a hh:mm:ss ");
+    				String excutedTime = tFormat.format(date);
+	            	
 	            	
 	            	Calendar calendar2 = Calendar.getInstance();
 	            	SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
@@ -63,10 +75,13 @@ public class GroupTimer extends HttpServlet {
 	            		countmemid = groupOrderService.getMemID_groupID_startTime(groupID,START_TIME,START_TIME_End);
 	            		groupBandVO = groupBandService.getOneGroupBand(groupID);
 	            		
+	            		
+	            		
 	            		//測試	            		
 	            		
 	            		if(groupBandVO.getGroupStatus()==0) {
 	            		if(countmemid>=groupBandVO.getLowerLimit()) {
+	            			
 	            			//改揪團狀態碼為已成團
 	            			groupBandService.UPDATE_GROUP_STATUS__GROUP_ID(1, groupID);
 	            			
@@ -89,17 +104,33 @@ public class GroupTimer extends HttpServlet {
 		            		
 	            			
 	            			
-	            			
-	            			
-	            			
-	            			
+	            			/*加入成團與扣款成功推播*/
+	            			//推播:得到memID
+	            			List<String> lista =new ArrayList<String>();
+	            			lista=groupOrderService.getMemID_groupID(groupID);
+	            			for(String listss :lista){
+	            				String memID=listss;
+	            				if (broadcastMap != null) { // 若有會員在線，則可以進入推播對象的篩選
+									Session isOnline = broadcastMap.get(memID);
+									if (isOnline != null) { // 若此會員有在線，則對此會員進行推播
+										String message = "揪團編號" + groupID + "已於" + excutedTime + "揪團成功並且扣款成功";
+										String toJsonMessage = "{\"message\":\"" + message + "\"}";
+										try {
+											isOnline.getBasicRemote().sendText(toJsonMessage);
+										} catch (IOException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+								}
+	            			}
 	            		}else
 	            		{
 	            			
 	            			//改揪團狀態碼為已成團
 	            			groupBandService.UPDATE_GROUP_STATUS__GROUP_ID(2, groupID);
 	            			
-	            			//改訂單為已成團
+	            			//改訂單為已流團
 	            			groupOrderService.UPDATE_STATE__GROUP_ID(8,groupID);
 	            		}
 	            		}
