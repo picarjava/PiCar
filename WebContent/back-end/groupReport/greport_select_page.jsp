@@ -233,23 +233,7 @@ table {
 											<c:when test="${groupReportVO.state=='1'}">已處理</c:when>
 											<c:when test="${groupReportVO.state=='0'}">未處理</c:when>
 										</c:choose></td>
-									<td>
-										<FORM METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do" style="margin-bottom: 0px;">
-											<input type="submit" value="修改"> <input type="hidden"
-												name="greportID" value="${groupReportVO.greportID}">
-											<input type="hidden" name="action" value="getOne_For_Update">
-										</FORM>
-									</td>
-									<td>
-										<FORM METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do" style="margin-bottom: 0px;">
-											<input type="submit" value="刪除"> 
-											<input type="hidden" name="greportID" value="${groupReportVO.greportID}">
-											<input type="hidden" name="action" value="delete">
-									    </FORM>
-									</td>
-									
+										
 									<td>
 										<FORM METHOD="post"
 											ACTION="<%=request.getContextPath()%>/back-end/groupReport/FindGroup.do" style="margin-bottom: 0px;">		
@@ -257,7 +241,25 @@ table {
 											<input type="hidden" name="action" value="FindOne">
 											<input type="submit" value="查看內容"> 
 									    </FORM>
+									</td>	
+									<td>
+										<FORM METHOD="post"
+											ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do" style="margin-bottom: 0px;">
+											<input type="submit" value="確認檢舉"> <input type="hidden"
+												name="greportID" value="${groupReportVO.greportID}">
+											<input type="hidden" name="action" value="getOne_For_Update">
+										</FORM>
 									</td>
+									<td>
+										<FORM METHOD="post"
+											ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do" style="margin-bottom: 0px;">
+											<input type="submit" value="退回檢舉"> 
+											<input type="hidden" name="greportID" value="${groupReportVO.greportID}">
+											<input type="hidden" name="action" value="delete">
+									    </FORM>
+									</td>
+									
+
 								</tr>
 							</c:forEach>
 						</table>

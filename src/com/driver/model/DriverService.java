@@ -118,7 +118,7 @@ public class DriverService {
 
 	}
 	
-	//阿君新增FOR前端設定喜好設定
+	//新增FOR前端設定喜好設定
 	public DriverVO setHobby(Integer sharedcar, Integer pet, Integer smoke, Integer babySeat, String driverID) {
 
 		DriverVO driverVO = new DriverVO();
@@ -130,6 +130,17 @@ public class DriverService {
 		driverVO.setDriverID(driverID);
 		dao.setForHobby(driverVO);
 
+		return driverVO;
+	}
+	//新增FOR前端設定喜好設定
+	public DriverVO setVerified(Integer verified, String driverID) {
+		
+		DriverVO driverVO = new DriverVO();
+		
+		driverVO.setVerified(verified);
+		driverVO.setDriverID(driverID);
+		dao.setForPermit(driverVO);
+		
 		return driverVO;
 	}
 

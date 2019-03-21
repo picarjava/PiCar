@@ -421,6 +421,12 @@ public class DriverJDBCDAO implements DriverDAO_interface {
 		
 	}
 
+	@Override
+	public void setForPermit(DriverVO driverVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }
 

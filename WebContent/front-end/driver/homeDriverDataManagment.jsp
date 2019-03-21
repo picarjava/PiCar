@@ -177,9 +177,6 @@ table {
 											<c:if test="${driverVO.sharedCar == 0}">不接受共乘</c:if>
 						      				<c:if test="${driverVO.sharedCar == 1}">接受共乘</c:if></font></div>	
                                     </div>
-                                    <!-- 					<div class="form-group"> -->
-                                    <!-- 								<p>願意共乘載客</p> -->
-                                    <!-- 							</div> -->
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
                                             <span class="input-group-text" id="basic-addon1">可載寵物</span>
@@ -211,20 +208,6 @@ table {
                                         <a href="<%=request.getContextPath()%>/front-end/driver/setting.jsp"><i class="fas fa-coins"></i><br />喜好設定</a>
 						      </div>
 						      
-                                    <!-- 							<div class="form-group"> -->
-                                    <!-- 								<p>提供嬰兒座椅</p> -->
-                                    <!-- 								<select name="babySeat" class="form-control"> -->
-                                    <!-- 									<option value="0">無</option> -->
-                                    <!-- 									<option value="1">有</option> -->
-                                    <!-- 								</select> -->
-                                    <!-- 							</div> -->
-                                    <!-- 							<div class="form-group"> -->
-                                    <!-- 								<p>抽菸</p> -->
-                                    <!-- 								<select name="smoke" class="form-control"> -->
-                                    <!-- 									<option value="0">無</option> -->
-                                    <!-- 									<option value="1">有</option> -->
-                                    <!-- 								</select> -->
-                                    <!-- 							</div> -->
                                     <div align="center">違規狀態(被ban後台)</div><br>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
@@ -253,6 +236,10 @@ table {
                                         <input type="hidden" name="action" value="UPDATE_DRI" />
                                     </div>
                                     <!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
+                                    <div class="text-center" class="btn btn-block" class="btn btn-outline-success">
+						           <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeDriver/index.jsp">返回司機首頁
+                                    </button>
+                                    </div>
                                     <div class="text-center" class="btn btn-block" class="btn btn-outline-success">
 						           <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp">返回PICAR首頁
                                     </button>

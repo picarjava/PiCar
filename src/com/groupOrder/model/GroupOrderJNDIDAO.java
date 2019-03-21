@@ -451,4 +451,10 @@ public class GroupOrderJNDIDAO implements GroupOrderDAO_interface {
 		return null;
 	}
 
+    @Override
+    public List<GroupOrderVO> getByStateAndDriverID(Integer state, String driverID) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 }
