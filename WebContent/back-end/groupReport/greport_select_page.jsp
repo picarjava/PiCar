@@ -4,14 +4,17 @@
 <%@ page import="com.groupReport.model.*"%>
 <%@ page import="com.admin.model.*"%>
 <%@ page import="com.groupBand.model.*"%>
-<%
+	<%
 	GroupReportService groupReportSvc = new GroupReportService();
 	List<GroupReportVO> list = groupReportSvc.getAll();
 	pageContext.setAttribute("list", list);
 	AdminVO adminVO = (AdminVO)session.getAttribute("adminVO");
-%>
+	%>
+	<%
+		GroupBandVO groupBandVO = (GroupBandVO)request.getAttribute("groupBandVO"); 
+	%>
 
-<jsp:useBean id="groupBandSvc" scope="page" class="com.groupBand.model.GroupBandService" />
+<jsp:useBean id="groupBandSvc1" scope="page" class="com.groupBand.model.GroupBandService" />
 
 <!doctype html>
 <html lang="zh">
@@ -217,8 +220,8 @@ table {
 									<td>
 										<FORM METHOD="post"
 											ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do" style="margin-bottom: 0px;">
-											<input type="submit" value="修改"> <input type="hidden"
-												name="greportID" value="${groupReportVO.greportID}">
+											<input type="submit" value="修改"> 
+											<input type="hidden" name="greportID" value="${groupReportVO.greportID}">
 											<input type="hidden" name="action" value="getOne_For_Update">
 										</FORM>
 									</td>
@@ -233,9 +236,9 @@ table {
 									
 									<td>
 										<FORM METHOD="post"
-											ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand" style="margin-bottom: 0px;">		
-											<input type="hidden" name="greportID" value="${groupReportVO.groupID==groupBandVO.groupID}">
-											<input type="hidden" name="action" value="listgroupBand_ByCompositeQuery">
+											ACTION="<%=request.getContextPath()%>/back-end/groupReport/FindGroup.do" style="margin-bottom: 0px;">		
+											<input type="hidden" name="groupID" value="${groupBandVO.groupID==groupReportVO.groupID}">
+											<input type="hidden" name="action" value="FindOne">
 											<input type="submit" value="查看內容"> 
 									    </FORM>
 									</td>
