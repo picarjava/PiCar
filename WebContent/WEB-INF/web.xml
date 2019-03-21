@@ -359,6 +359,15 @@
     <url-pattern>/front-end/member/memberSelf.do</url-pattern>
   </servlet-mapping>
   
+  <servlet>
+    <servlet-name>FindGroupServlet</servlet-name>
+    <servlet-class>com.groupReport.controller.FindGroupServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>FindGroupServlet</servlet-name>
+    <url-pattern>/back-end/groupReport/FindGroup.do</url-pattern>
+  </servlet-mapping>
+  
 </web-app>
 
 

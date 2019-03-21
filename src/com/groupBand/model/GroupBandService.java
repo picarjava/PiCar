@@ -107,4 +107,8 @@ public class GroupBandService {
 		return dao.getAllStartTime();
 	
 	}
+	public GroupBandVO findGroupID(String groupID) {   //阿君新增
+		return dao.findByGroupID(groupID);	
 	}
+	
+}

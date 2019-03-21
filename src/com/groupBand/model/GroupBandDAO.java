@@ -36,7 +36,7 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 	private static final String UPDATECURRENT = "UPDATE GROUP_BAND set CURRENT_NUM= ? where GROUP_ID= ?";
 	private static final String GET_ALL = "SELECT * FROM GROUP_BAND where GROUP_STATUS = ?";
 	private static final String UPDATE_GROUP_STATUS__GROUP_ID = "UPDATE  GROUP_BAND set  GROUP_STATUS= ?  where GROUP_ID = ?";
-	
+	private static final String GET_ONE = "SELECT * FROM GROUP_BAND WHERE GROUP_ID = ?";  //阿君新增
 	private static final String UPDATE_GROUP_TYPE_GROUP_NAME_INTRODUCTION_NOTE_PHOTO__GROUP_ID= "UPDATE GROUP_BAND set GROUP_TYPE= ? , GROUP_NAME=? , INTRODUCTION=? , NOTE=?, PHOTO=? where GROUP_ID= ?";
 
 	//聊天室
@@ -850,5 +850,74 @@ public class GroupBandDAO implements GroupBandDAO_interface {
 				}
 			}
 		}
+		
+	}
+
+	@Override
+	public GroupBandVO findByGroupID(String groupID) {
+		GroupBandVO groupBandVO = null;
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+
+		try {
+			con = ds.getConnection();
+			pstmt = con.prepareStatement(GET_ONE);
+			pstmt.setString(1, groupID);
+			rs = pstmt.executeQuery();
+
+			while (rs.next()) {
+				
+				groupBandVO = new GroupBandVO();
+				groupBandVO.setGroupID(rs.getString("GROUP_ID"));
+				groupBandVO.setContent(rs.getString("CONTENT"));
+				groupBandVO.setLaunchTime(rs.getTimestamp("LAUNCH_TIME"));
+				groupBandVO.setIntroduction(rs.getString("INTRODUCTION"));
+				groupBandVO.setGroupStatus(rs.getInt("GROUP_STATUS"));
+				groupBandVO.setCurrenTnum(rs.getInt("CURRENT_NUM"));
+				groupBandVO.setUpperLimit(rs.getInt("UPPER_LIMIT"));
+				groupBandVO.setLowerLimit(rs.getInt("LOWER_LIMIT"));
+				groupBandVO.setGroupName(rs.getString("GROUP_NAME"));
+				groupBandVO.setGroupLeader(rs.getString("GROUP_LEADER"));
+				groupBandVO.setStartLoc(rs.getString("START_LOC"));
+				groupBandVO.setEndLoc(rs.getString("END_LOC"));
+				groupBandVO.setPrivates(rs.getInt("PRIVATES"));
+				groupBandVO.setPhoto(rs.getBytes("PHOTO"));
+				groupBandVO.setGroupType(rs.getString("GROUP_TYPE"));
+				groupBandVO.setTotalAmout(rs.getInt("TOTAL_AMOUT"));
+				groupBandVO.setStartTime(rs.getTimestamp("START_TIME"));
+				groupBandVO.setRate(rs.getInt("RATE"));
+				groupBandVO.setNote(rs.getString("NOTE"));
+				groupBandVO.setGroupKind(rs.getInt("GROUP_KIND"));
+			}
+
+		} catch (SQLException se) {
+			throw new RuntimeException("A database error occured. " + se.getMessage());
+			// Clean up JDBC resources
+		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+			if (con != null) {
+				try {
+					con.close();
+				} catch (Exception e) {
+					e.printStackTrace(System.err);
+				}
+			}
+		}
+	
+		return groupBandVO;
 	}
 }

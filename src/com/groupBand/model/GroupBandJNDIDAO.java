@@ -485,4 +485,10 @@ public class GroupBandJNDIDAO implements GroupBandDAO_interface {
 		return null;
 	}
 
+	@Override
+	public GroupBandVO findByGroupID(String groupID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
