@@ -28,12 +28,10 @@
     0 -1px 25px 0 rgba(0,0,0,.05) inset: ;
     -webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
     box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
-     margin-bottom: 100px;
 }
     #GIbutton:hover {
     font-family: "Poppins", sans-serif;
     border-radius: 50px;
-       
     padding: 5px 22px;
     background: #2dc997;
     color: #f5f5f5;
@@ -55,9 +53,9 @@
 
     <body>
     <div>
-<a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/insertGroupBand.jsp">發起揪團</a>
-<a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/SelectGroupBand.jsp">加入揪團</a>
-<a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/listAllOneGroupBand.jsp">揪團管理</a>
+<a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/">單程預約</a>
+<a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/">長期預約</a>
+
 </div>
     </body>
 

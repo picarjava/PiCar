@@ -27,6 +27,7 @@ session.setAttribute("memID",memID);
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 	<title>查看個人歷史訂單</title>
 	<jsp:include page="/regna-master/head.jsp" />  
 </head>
