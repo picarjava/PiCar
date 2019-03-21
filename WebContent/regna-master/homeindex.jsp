@@ -12,17 +12,17 @@
     <meta content="" name="description">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.1/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
     <!-- Favicons -->
-    <link href="img/favicon.png" rel="icon">
-    <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
+    <link href="<%=request.getServletContext().getContextPath()%>/regna-master/img/favicon.png" rel="icon">
+    <link href="<%=request.getServletContext().getContextPath()%>/regna-master/img/apple-touch-icon.png" rel="apple-touch-icon">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" rel="stylesheet">
     <!-- Bootstrap CSS File -->
-    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="<%=request.getServletContext().getContextPath()%>/regna-master/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <!-- Libraries CSS Files -->
-    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-    <link href="lib/animate/animate.min.css" rel="stylesheet">
+    <link href="<%=request.getServletContext().getContextPath()%>/regna-master/lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="<%=request.getServletContext().getContextPath()%>/regna-master/lib/animate/animate.min.css" rel="stylesheet">
     <!-- Main Stylesheet File -->
-    <link href="css/style.css" rel="stylesheet">｢
+    <link href="<%=request.getServletContext().getContextPath()%>/regna-master/css/style.css" rel="stylesheet">｢
     <!-- =======================================================
     Theme Name: Regna
     Theme URL: https://bootstrapmade.com/regna-bootstrap-onepage-template/
@@ -205,7 +205,9 @@
         margin-bottom: 30px;
 margin-top: -20px;
     }
-  
+  	#hero h1 {
+  	    margin: 0px 0 10px 0;
+  	}
     </style>
 </head>
 
@@ -244,9 +246,9 @@ margin-top: -20px;
   ============================-->
     <section id="hero">
         <div class="hero-container">
-            <h1>Welcome to Regna</h1>
-            <h2>We are team of talanted designers making websites with Bootstrap</h2>
-            <a href="<%=request.getServletContext().getContextPath()%>/front-end/activity/listAllActivity.jsp" class="btn-get-started">Get Started</a>
+            <h1>想要獲得免費代幣嗎??</h1>
+            <h2>立即註冊PICAR，領取折扣，好理大放送，心動等妳行動</h2>
+            <a href="<%=request.getServletContext().getContextPath()%>/front-end/member/addMember.jsp" class="btn-get-started">立即註冊</a>
         </div>
     </section><!-- #hero -->
     <main id="main">
@@ -428,7 +430,7 @@ margin-top: -20px;
         <!--==========================
       Contact Section
     ============================-->
-        <section id="contact">
+        <section id="QA">
             <div id="google-map" data-latitude="40.713732" data-longitude="-74.0092704"></div>
         </section>
         <section id="portfolio">
@@ -508,20 +510,20 @@ margin-top: -20px;
     </footer><!-- #footer -->
     <a href="#" class="back-to-top"><i class="fa fa-chevron-up"></i></a>
     <!-- JavaScript Libraries -->
-    <script src="lib/jquery/jquery.min.js"></script>
-    <script src="lib/jquery/jquery-migrate.min.js"></script>
-    <script src="lib/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="lib/easing/easing.min.js"></script>
-    <script src="lib/wow/wow.min.js"></script>
+    <script src="<%=request.getServletContext().getContextPath()%>/regna-master/lib/jquery/jquery.min.js"></script>
+    <script src="<%=request.getServletContext().getContextPath()%>/regna-master/lib/jquery/jquery-migrate.min.js"></script>
+    <script src="<%=request.getServletContext().getContextPath()%>/regna-master/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="<%=request.getServletContext().getContextPath()%>/regna-master/lib/easing/easing.min.js"></script>
+    <script src="<%=request.getServletContext().getContextPath()%>/regna-master/lib/wow/wow.min.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD8HeI8o-c1NppZA-92oYlXakhDPYR7XMY"></script>
-    <script src="lib/waypoints/waypoints.min.js"></script>
-    <script src="lib/counterup/counterup.min.js"></script>
-    <script src="lib/superfish/hoverIntent.js"></script>
-    <script src="lib/superfish/superfish.min.js"></script>
+    <script src="<%=request.getServletContext().getContextPath()%>/regna-master/lib/waypoints/waypoints.min.js"></script>
+    <script src="<%=request.getServletContext().getContextPath()%>/regna-master/lib/counterup/counterup.min.js"></script>
+    <script src="<%=request.getServletContext().getContextPath()%>/regna-master/lib/superfish/hoverIntent.js"></script>
+    <script src="<%=request.getServletContext().getContextPath()%>/regna-master/lib/superfish/superfish.min.js"></script>
     <!-- Contact Form JavaScript File -->
-    <script src="contactform/contactform.js"></script>
+    <script src="<%=request.getServletContext().getContextPath()%>/regna-master/contactform/contactform.js"></script>
     <!-- Template Main Javascript File -->
-    <script src="js/main.js"></script>
+    <script src="<%=request.getServletContext().getContextPath()%>/regna-master/js/main.js"></script>
 </body>
 
 </html>

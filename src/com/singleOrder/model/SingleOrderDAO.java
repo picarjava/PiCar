@@ -52,8 +52,10 @@ public class SingleOrderDAO implements SingleOrder_interface {
     		;
     
     private static final String GETTIME_BY_ORDER ="SELECT STATE , START_TIME FROM SINGLE_ORDER WHERE ORDER_ID = ? ";
+//    訂單管理排成使用1.撈單
     private static final String DELAY_TIME ="SELECT * FROM SINGLE_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP";
     //    SELECT STATE ,START_TIME FROM SINGLE_ORDER WHERE ORDER_ID = 'SODR010'
+//     訂單管理排成使用 2.改單 -> 6
     private static final String UPDATE_STATE_TO_DELAY =	"UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=? ";
 
     private static DataSource dataSource;
@@ -353,7 +355,25 @@ public class SingleOrderDAO implements SingleOrder_interface {
     	}
     	return list;
 }
-    
+
+    @Override
+    public void updateOrderIDToDelay(String orderID) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_STATE_TO_DELAY);
+            int index = 1;
+            preparedStatement.setString(index++, orderID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        }
+    }
     
     //小編新增司機查評價平均
 

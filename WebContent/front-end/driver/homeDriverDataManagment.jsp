@@ -73,7 +73,7 @@ table {
                 </div>
                 <div class="col-lg-9 col-md-8">
                     <div class="form">
-                        <div id="sendmessage">Your message has been sent. Thank you!</div>
+<!--                         <div id="sendmessage">Welcome to PICAR. Thank you!</div> -->
                         <div id="errormessage"></div>
                         <form method="post" action="<%=request.getContextPath()%>/driver/driver.do" role="form" class="contactForm" style="margin-bottom: 0px;">
                             <div align="center">個人資料</div><br>
@@ -148,18 +148,6 @@ table {
                                         <img src="data:image/jpg;base64,<%=encodeImg4 %>" id="img4" width='200' height="200" onerror="this.src='cat.jpg'">
                                         <% }%>
                                     </div>
-                                    <%-- 						      <td>${driverVO.photo}</td> --%>
-<!--                                     <div class="form-group"> -->
-<!--                                         <p>大頭照</p> -->
-<%--                                         <c:set var="photo" value="${memberVO.pic}" /> --%>
-<%--                                         <% --%>
-<!-- // 						      byte[] photo = (byte[])pageContext.getAttribute("photo"); -->
-<!-- // 						      String encodeImg5 = null; -->
-<!-- // 						      if(photo!=null){ -->
-<%-- 						    	  encodeImg5 = Base64.encode(photo);%> --%>
-<%--                                         <img src="data:image/jpg;base64,<%=encodeImg5 %>" id="img5" width='200' height="200"> --%>
-<%--                                         <% }%> --%>
-<!--                                     </div> -->
 							<div class="form-group">
                       <p>會員照片</p>
 							<img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
@@ -211,40 +199,40 @@ table {
                                         <a href="<%=request.getContextPath()%>/front-end/driver/setting.jsp"><i class="fas fa-coins"></i><br />喜好設定</a>
 						      </div>
 						      
-                                    <div align="center">違規狀態(被ban後台)</div><br>
+                                    <div align="center">違規狀態</div><br>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">接單狀態碼</span>
+                                            <span class="input-group-text" id="basic-addon1">接單狀態碼:</span>
                                         </div>
                                         <!-- <input type="text" class="form-control" placeholder="1" -->
                                         <!-- aria-label="Username" aria-describedby="basic-addon1" readonly> -->
                                         <DIV>
-                                        <font color="pink">
+                                        <font color="black">
                                         <c:if test="${driverVO.banned == 0}">表現不錯，沒被BAN</c:if>
-						      			<c:if test="${driverVO.banned == 1}">BAN</c:if></font>
+						      			<c:if test="${driverVO.banned == 1}">BAN</c:if>
                                         </font>
 						      			</DIV>
                                     </div>
                                     <div class="input-group mb-3">
                                         <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">到期日</span>
+                                            <span class="input-group-text" id="basic-addon1">到期日:</span>
                                         </div>
-                                        <font color="pink">
+                                        <font color="black">
                                             <c:out value="${driverVO.deadline}" default="表現不錯，繼續開車" />
                                         </font>
                                     </div>
-                                    <div class="text-center">
-                                        <button type="submit" class="btn btn-block ">確認修改</button>
-                                        <%-- 	<input type="hidden" name="msgID"  value="${brodVO.msgID}"> --%>
-                                        <input type="hidden" name="action" value="UPDATE_DRI" />
-                                    </div>
+<!--                                     <div class="text-center"> -->
+<!--                                         <button type="submit" class="btn btn-block ">確認修改</button> -->
+<%--                                         	<input type="hidden" name="msgID"  value="${brodVO.msgID}"> --%>
+<!--                                         <input type="hidden" name="action" value="UPDATE_DRI" /> -->
+<!--                                     </div> -->
                                     <!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
                                     <div class="text-center" class="btn btn-block" class="btn btn-outline-success">
 						           <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeDriver/index.jsp">返回司機首頁
                                     </button>
                                     </div>
                                     <div class="text-center" class="btn btn-block" class="btn btn-outline-success">
-						           <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp">返回PICAR首頁
+						           <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp">返回會員首頁
                                     </button>
                                     </div>
                                     

@@ -21,11 +21,11 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster">
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/prettyPhoto/css/prettyPhoto.css">
-        <link rel="stylesheet" href="assets/css/flexslider.css">
-        <link rel="stylesheet" href="assets/css/font-awesome.css">
-        <link rel="stylesheet" href="assets/css/style.css">
+        <link rel="stylesheet" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/prettyPhoto/css/prettyPhoto.css">
+        <link rel="stylesheet" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/flexslider.css">
+        <link rel="stylesheet" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/font-awesome.css">
+        <link rel="stylesheet" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/style.css">
 
         <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
         <!--[if lt IE 9]>
@@ -34,10 +34,10 @@
 
         <!-- Favicon and touch icons -->
         <link rel="shortcut icon" href="assets/ico/favicon.ico">
-        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
-        <link rel="apple-touch-icon-precomposed" href="assets/ico/apple-touch-icon-57-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/apple-touch-icon-57-precomposed.png">
 
 <style>
 .offset1 {
@@ -56,23 +56,26 @@ width: 100px;
   left: 50px;
     right: 50px;
 }
+.flex-control-thumbs img {
+height: 145px;
+}
 </style>
 
     </head>
 
     <body>
     
-            <%
-    MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
-    DriverService driSrc = new DriverService();
+<%--             <% --%>
+//     MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+//     DriverService driSrc = new DriverService();
     
    
-    DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
-    if(driverVO!=null){
-    session.setAttribute("driverVO",driverVO);
-    DriverVO drixx = (DriverVO)session.getAttribute("driverVO");
-    }
-	%>
+//     DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
+//     if(driverVO!=null){
+//     session.setAttribute("driverVO",driverVO);
+//     DriverVO drixx = (DriverVO)session.getAttribute("driverVO");
+//     }
+<%-- 	%> --%>
 
         <!-- Header -->
         <div class="container">
@@ -134,20 +137,20 @@ width: 100px;
                     <div class="span10 offset1">
                         <div class="flexslider">
                             <ul class="slides">
-                                <li data-thumb="assets/img/slider/1.jpg">
-                                    <img src="assets/img/slider/1.jpg">
+                                <li data-thumb="assets/img/slider/AC001-2.jpg">
+                                    <img src="assets/img/slider/AC001.JPG">
                                     <p class="flex-caption">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur.</p>
                                 </li>
-                                <li data-thumb="assets/img/slider/2.jpg">
-                                    <img src="assets/img/slider/2.jpg">
+                                <li data-thumb="assets/img/slider/AC002.JPG">
+                                    <img src="assets/img/slider/AC002.JPG">
                                     <p class="flex-caption">Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
                                 </li>
-                                <li data-thumb="assets/img/slider/5.jpg">
-                                    <img src="assets/img/slider/5.jpg">
+                                <li data-thumb="assets/img/slider/AC003.JPG">
+                                    <img src="assets/img/slider/AC003.JPG">
                                     <p class="flex-caption">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur.</p>
                                 </li>
-                                <li data-thumb="assets/img/slider/6.jpg">
-                                    <img src="assets/img/slider/6.jpg">
+                                <li data-thumb="assets/img/slider/AC004.JPG">
+                                    <img src="assets/img/slider/AC004.JPG">
                                     <p class="flex-caption">Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
                                 </li>
                             </ul>
@@ -326,16 +329,16 @@ width: 100px;
         </footer>
 
         <!-- Javascript -->
-        <script src="assets/js/jquery-1.8.2.min.js"></script>
-        <script src="assets/bootstrap/js/bootstrap.min.js"></script>
-        <script src="assets/js/jquery.flexslider.js"></script>
-        <script src="assets/js/jquery.tweet.js"></script>
-        <script src="assets/js/jflickrfeed.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jquery-1.8.2.min.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jquery.flexslider.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jquery.tweet.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jflickrfeed.js"></script>
         <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
-        <script src="assets/js/jquery.ui.map.min.js"></script>
-        <script src="assets/js/jquery.quicksand.js"></script>
-        <script src="assets/prettyPhoto/js/jquery.prettyPhoto.js"></script>
-        <script src="assets/js/scripts.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jquery.ui.map.min.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jquery.quicksand.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/prettyPhoto/js/jquery.prettyPhoto.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/scripts.js"></script>
 
     </body>
 
