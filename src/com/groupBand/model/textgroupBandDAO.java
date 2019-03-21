@@ -18,29 +18,29 @@ public class textgroupBandDAO {
 		GroupBandJDBCDAO DAO =new GroupBandJDBCDAO();
 	
 		//增加
-		GroupBandVO groupBandVO =new GroupBandVO();
-		
-		groupBandVO.setContent("XX");
-		groupBandVO.setIntroduction("XXX");
-		groupBandVO.setGroupStatus(1);
-		groupBandVO.setCurrenTnum(1);
-		groupBandVO.setUpperLimit(2);
-		groupBandVO.setLowerLimit(4);
-		groupBandVO.setGroupName("五月天演唱會");
-		groupBandVO.setGroupLeader("M001");
-		groupBandVO.setStartLoc("桃園火車站");
-		groupBandVO.setEndLoc("中壢火車站");
-		groupBandVO.setPrivates(1);
-		groupBandVO.setPhoto(textgroupBandDAO.getPictureByteArray("WebContent/activity/img/team-1.jpg"));
-		groupBandVO.setGroupType("演唱會");
-		groupBandVO.setTotalAmout(5000);
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-		groupBandVO.setStartTime(new Timestamp(simpleDateFormat.parse("2019-02-14").getTime()));
-		groupBandVO.setRate(5);
-		groupBandVO.setNote("無");
-		
-		DAO.insert(groupBandVO);
-		System.out.println("成功拉");
+//		GroupBandVO groupBandVO =new GroupBandVO();
+//		
+//		groupBandVO.setContent("XX");
+//		groupBandVO.setIntroduction("XXX");
+//		groupBandVO.setGroupStatus(1);
+//		groupBandVO.setCurrenTnum(1);
+//		groupBandVO.setUpperLimit(2);
+//		groupBandVO.setLowerLimit(4);
+//		groupBandVO.setGroupName("五月天演唱會");
+//		groupBandVO.setGroupLeader("M001");
+//		groupBandVO.setStartLoc("桃園火車站");
+//		groupBandVO.setEndLoc("中壢火車站");
+//		groupBandVO.setPrivates(1);
+//		groupBandVO.setPhoto(textgroupBandDAO.getPictureByteArray("WebContent/activity/img/team-1.jpg"));
+//		groupBandVO.setGroupType("演唱會");
+//		groupBandVO.setTotalAmout(5000);
+//		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//		groupBandVO.setStartTime(new Timestamp(simpleDateFormat.parse("2019-02-14").getTime()));
+//		groupBandVO.setRate(5);
+//		groupBandVO.setNote("無");
+//		
+//		DAO.insert(groupBandVO);
+//		System.out.println("成功拉");
 
 		
 		
@@ -130,6 +130,29 @@ public class textgroupBandDAO {
 //			
 //		}
 		
+		GroupBandVO groupBandVO =DAO.findByGroupID("G002");
+		
+		System.out.print(groupBandVO.getGroupID() + ",");
+		System.out.print(groupBandVO.getContent() + ",");
+		System.out.print(groupBandVO.getLaunchTime() + ",");
+		System.out.print(groupBandVO.getIntroduction() + ",");
+		System.out.print(groupBandVO.getGroupStatus() + ",");
+		System.out.print(groupBandVO.getCurrenTnum() + ",");
+		System.out.print(groupBandVO.getUpperLimit() + ",");
+		System.out.print(groupBandVO.getLowerLimit() + ",");
+		System.out.print(groupBandVO.getGroupName() + ",");
+		System.out.print(groupBandVO.getGroupLeader() + ",");
+		System.out.print(groupBandVO.getStartLoc() + ",");
+		System.out.print(groupBandVO.getEndLoc() + ",");
+		System.out.print(groupBandVO.getPrivates() + ",");
+		System.out.print(groupBandVO.getPhoto() + ",");
+		System.out.print(groupBandVO.getGroupType() + ",");
+		System.out.print(groupBandVO.getTotalAmout() + ",");
+		System.out.print(groupBandVO.getStartTime() + ",");
+		System.out.print(groupBandVO.getRate() + ",");
+		System.out.print(groupBandVO.getNote() + ",");
+		System.out.println("成功拉");	
+			
 	}
 	public static byte[] getPictureByteArray(String path) throws IOException {
 		File file = new File(path);

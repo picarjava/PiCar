@@ -31,7 +31,7 @@ table1, td {
 }
 </style>
 <body>
-	<h3>listAllPaymentRecord.jsp</h3>
+	<h3>listAllStoretRecord.jsp</h3>
 	<%
 		StoreRecordService srSvc = new StoreRecordService();
 		List<StoreRecordVO> list = srSvc.getAll();
@@ -42,8 +42,8 @@ table1, td {
 			<tr>
 				<td>儲值ID</td>
 				<td>會員ID</td>
-				<td>撥款金額</td>
-				<td>撥款時間</td>
+				<td>儲值金額</td>
+				<td>儲值時間</td>
 				<td>修改</td>
 				<td>刪除</td>
 			</tr>

@@ -9,4 +9,5 @@ public interface GroupReportDAO_interface {
 	public void delete(String greportID); //greport_id為PK
 	public GroupReportVO findByPrimaryKey(String greportID);
 	public List<GroupReportVO> getAll();
+	void insertGroupStmt(String memID, String groupID, String content);
 }

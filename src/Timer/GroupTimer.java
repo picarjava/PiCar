@@ -85,6 +85,13 @@ public class GroupTimer extends HttpServlet {
 	            			//填入金額
 	            			groupOrderService.UPDATE_Total_AmoutGroupIDState(Amout, groupID,1);
 	            			
+//	            			groupOrderVO = groupBandService.getOneGroupBand(groupID,1);   //用鳩團ID 狀態碼(1)  找出揪團訂單(TABLE) 揪團訂單ID 訂單金額 會員ID
+		            		
+	            			
+	            			
+	            			
+	            			
+	            			
 	            			
 	            		}else
 	            		{

@@ -11,4 +11,5 @@ public interface ActivityDAO_interface {
 	public List<ActivityVO> getAll();
 	/*新增透過code查活動資訊的方法*/
 	public ActivityVO findActicvityByCode(String activityCode);
+	
 }

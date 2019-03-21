@@ -69,6 +69,10 @@ public class GroupOrderService {
 	    return dao.getByStateAndOrderType(state, orderType);
 	}
 	
+	public List<GroupOrderVO> getByStateAndDriverID(Integer state, String driverID) {
+        return dao.getByStateAndDriverID(state, driverID);
+    }
+	
 	public List<GroupOrderVO> GET_one_groupid__state_men_id(String memid) {		
 		return dao.GET_ONE_groupid__state_men_id(memid);
 	}	
@@ -111,4 +115,16 @@ public class GroupOrderService {
 	    System.out.println("fff");
 	    dao.updateDriverIDByGroupID(driverID, groupID);
 	}
+	public Timestamp getStartTimeGgroupID(String groupID) {
+	return 	dao.getStartTimeGgroupID(groupID);
+	}
+	
+    //逾時訂單
+    public List<String> getDelayOrder(){
+    	return dao.getDelayOrder();
+    }
+    public List<GroupOrderVO> getALL_GroupID_State(String groupid,Integer state) {
+    	return dao.getALL_GroupID_State(groupid, state);
+    }
+    
 }

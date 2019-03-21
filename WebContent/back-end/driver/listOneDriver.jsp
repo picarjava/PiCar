@@ -225,6 +225,19 @@
 								</div>
 							</div>
 							
+							 <div class="text-center">
+							 
+							 			<p>審核驗證</p>
+			<div><select name="verified">
+			<option value="1" ${(driverVO.babySeat == '1')?'selected':'' }>審核成功
+			<option value="2" ${(driverVO.babySeat == '2')?'selected':'' }>審核失敗
+			</select></div>
+			<button type="submit">審核</button>
+							 </div> 
+							<input type="hidden" name="actionP" value="GET_ONE_FORPERMIT">
+							
+							
+							
 							 <div class="text-center"><button type="submit">確認修改</button></div> 
 							<!--隱藏的參數action讓controller抓-->
 							<input type="hidden" name="action" value="GET_ONE_FOR_CHECK">

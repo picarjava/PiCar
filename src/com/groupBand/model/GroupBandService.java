@@ -103,4 +103,12 @@ public class GroupBandService {
 	public int getOneTotalAmoutGroupID(String groupID) {
 		return dao.getOneTotalAmoutGroupID(groupID);
 	}
+	public List<GroupBandVO> getAllStartTime() {
+		return dao.getAllStartTime();
+	
 	}
+	public GroupBandVO findGroupID(String groupID) {   //阿君新增
+		return dao.findByGroupID(groupID);	
+	}
+	
+}

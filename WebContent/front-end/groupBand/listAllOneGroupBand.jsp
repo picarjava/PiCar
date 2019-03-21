@@ -26,7 +26,6 @@
     pageContext.setAttribute("list",list);
 %>
 <% String groupKind[] = {"揪團","長期揪團"}; %>
-<%request.setAttribute("groupKind", groupKind);%>
 <!--     <link href="img/favicon.png" rel="icon"> -->
 <!-- <link href="img/apple-touch-icon.png" rel="apple-touch-icon"> -->
 
@@ -86,8 +85,9 @@
   }
 </style>
 </head>
-<body align="center">
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+<body align="center">
+
 
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>

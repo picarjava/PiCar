@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -441,6 +442,30 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
     public void updateDriverIDByGroupID(String driverID, String groupID) {
         // TODO Auto-generated method stub
         
+    }
+
+	@Override
+	public Timestamp getStartTimeGgroupID(String groupID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> getDelayOrder() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<GroupOrderVO> getALL_GroupID_State(String groupid, Integer state) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	
+    @Override
+    public List<GroupOrderVO> getByStateAndDriverID(Integer state, String driverID) {
+        // TODO Auto-generated method stub
+        return null;
     }
 
 

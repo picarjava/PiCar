@@ -52,7 +52,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
     		;
     
     private static final String GETTIME_BY_ORDER ="SELECT STATE , START_TIME FROM SINGLE_ORDER WHERE ORDER_ID = ? ";
-//    SELECT STATE ,START_TIME FROM SINGLE_ORDER WHERE ORDER_ID = 'SODR010'
+    private static final String DELAY_TIME ="SELECT * FROM SINGLE_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP";
+    //    SELECT STATE ,START_TIME FROM SINGLE_ORDER WHERE ORDER_ID = 'SODR010'
     private static final String UPDATE_STATE_TO_DELAY =	"UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=? ";
 
     private static DataSource dataSource;
@@ -238,7 +239,31 @@ public class SingleOrderDAO implements SingleOrder_interface {
     	return ratedDrivers;
     }
     
-   
+  //定時撈出逾期訂單
+    public List<String> getDelayOrder(){
+    	List<String> delayOrder=new ArrayList<String>();
+    	
+    	Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+        	con=dataSource.getConnection();
+			pstmt=con.prepareStatement(DELAY_TIME);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				delayOrder.add(rs.getString("ORDER_ID"));
+			}
+        	
+        }catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pstmt);
+            closeConnection(con);
+        } // finally
+    	return delayOrder;
+    }
 
     
     public void update_state_to_delay() {

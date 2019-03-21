@@ -13,7 +13,10 @@ import javax.naming.Context;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+
+import com.groupOrder.model.GroupOrderService;
 import com.singleOrder.model.SingleOrderDAO;
+import com.singleOrder.model.SingleOrderService;
 
 import oracle.jdbc.OracleResultSetMetaData.SecurityAttribute;
 
@@ -25,52 +28,42 @@ public class DelayTimerx extends HttpServlet {
 	long renewTime;// 當日晚間10點更新
 	boolean isRenew = false; // 司機評價一天只更新一次即可， 效能較佳
 
-//			 Calendar cal = new GregorianCalendar(2011, Calendar.MARCH, 5, 0, 0, 0); 
-//		        SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
-//	        	Date date = new Date();
-//	        	String strDate = sdFormat.format(date);
-
-	
 //	--//	--//逾時訂單
 //	--//	--條件1:開始時間+五分鐘<=現在時間
 //	--//	--條件2:STATE=1
 //	--//
 //	--//	--撈單人訂單 
 //	  SELECT * FROM SINGLE_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP;
-//	--//
+//	--DAO。SELECT * FROM SINGLE_ORDER WHERE STATE=1 AND (START_TIME+(1/24/60)*5) = ? <= CURRENT_TIMESTAMP
 //	--//	--撈揪團訂單
 //	  SELECT * FROM GROUP_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP; 
 //	  
 //	 -- 排成器: 以上的單放到lIST裡面，一一取出來 UPTDATE STAET=6;+    排程推播給管理員()
 	
-	
 	public void init() {//A.初始化一次排成器
 		timer = new Timer();
-		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 		TimerTask task = new TimerTask() {
 			public void run() {
 
 				Calendar calendar2 = Calendar.getInstance();
 				calendar2.add(Calendar.DATE, 1);    //3天
 //				calendar2.add(Calendar.SECOND, 5);
-				String three_days_after = sdf2.format(calendar2.getTime());
 
-				String START_TIME_Start = three_days_after + " 00:00:00";
-				String START_TIME_End   = three_days_after + " 23:59:59";
 //				('2019-03-18 05:20:00', 'YYYY-MM-DD HH24:MI:SS')
-				System.out.println("1.");
-				System.out.println(START_TIME_Start);
-				System.out.println(START_TIME_End );
+				System.out.println("1.現在時間"+new java.sql.Timestamp(System.currentTimeMillis())); 
 				List<String> startTimeList = new ArrayList<String>();
 //				Set<SingleOrderVO> startTimeList = new LinkedHashSet();
 				System.out.println("2.");
-				startTimeList = new SingleOrderDAO().get_start_time(START_TIME_Start, START_TIME_End);// 拿出一群時間的集合
 				System.out.println(startTimeList);
-				ServletContext context ;
-				getServletContext().setAttribute("futureOrderMAP", startTimeList);
+				getServletContext().setAttribute("futureOrderMAP", startTimeList);//	給JSP
 				//拿到一堆訂單
 				System.out.println("3:"+getServletContext().getAttribute("futureOrderMAP"));
-//	給JSP
+				
+				System.out.println("過期的單人訂單在這喔"+new SingleOrderService().getDelayOrder());//ok
+				System.out.println("過期的揪團訂單在這喔"+new GroupOrderService().getDelayOrder());//ok
+				
+				//3/21 01:40進度。已抓到過期訂單。
+
 //				if (startTimeList != null) {
 //					for (String starttime : startTimeList) {// 滾出一群時間
 ////					 System.out.println(starttime);
@@ -102,8 +95,7 @@ public class DelayTimerx extends HttpServlet {
 //		this.getRenewTime(22);// 當日22點更新 ，取得當天22點的Long
 //		timer.schedule(task, renewTime);
 //		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
-		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000*20); //甲. 每半小時執行一次 搜出隔天訂單 
-		System.out.println("1.現在時間"+new java.sql.Timestamp(System.currentTimeMillis()));   //TEST
+		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000*5); //甲. 每半小時執行一次 搜出隔天訂單 
 //		System.out.println("C.現在毫秒數"+new GregorianCalendar().getTimeInMillis());   //TEST
 	}//init
 	// 傳入當日欲更新的hour

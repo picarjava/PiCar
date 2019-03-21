@@ -4,6 +4,10 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.groupMem.model.*"%>
+<%@ page import="com.groupOrder.model.*"%>
+<%@ page import="java.sql.*"%>
+<%@ page import="java.text.SimpleDateFormat"%>
+
 
 <%
 	MemberVO memberVOs = (MemberVO) session.getAttribute("memberVO");
@@ -13,8 +17,8 @@
 	List<MemberVO> testList = (List) session.getAttribute("testList");
 	boolean dropOut = (boolean) request.getAttribute("dropOut");
 %>
-
-
+<% String groupKind[] = {"揪團","長期揪團"}; %>
+<%request.setAttribute("groupKind", groupKind);%>
 <!DOCTYPE html>
 
 <html>
@@ -231,8 +235,7 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 	</div>
 	<table>
 		<tr>
-			<th>揪團ID</th>
-		
+			<th>揪團ID</th>		
 			<th>發起時間</th>
 			<th>簡介</th>
 			<th>揪團種類</th>
@@ -254,13 +257,11 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 
 		</tr>
 
-
 		<tr>
-			<td><%=groupBandVO.getGroupID()%></td>
-		
+			<td><%=groupBandVO.getGroupID()%></td>		
 			<td><%=groupBandVO.getLaunchTime()%></td>
-			<td><%=groupBandVO.getIntroduction()%></td>
-			<td><%=groupBandVO.getGroupKind()%></td>
+			<td><%=groupBandVO.getIntroduction()%></td>		
+			<td><%=groupKind[groupBandVO.getGroupKind()-5]%></td>
 			<td><%=groupBandVO.getCurrenTnum()%></td>
 			<td><%=groupBandVO.getUpperLimit()%></td>
 			<td><%=groupBandVO.getLowerLimit()%></td>
@@ -274,7 +275,21 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 				width="100px" height="100px"></td>
 			<td><%=groupBandVO.getGroupType()%></td>
 			<td><%=groupBandVO.getTotalAmout()%></td>
+			
+				<%if(groupBandVO.getGroupKind()==6) {%>
+			<%
+			GroupOrderService groupOrderservice =new GroupOrderService();	
+			Timestamp timestamp = groupOrderservice.getStartTimeGgroupID(groupBandVO.getGroupID());
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			//進行轉換
+			String dateString = sdf.format(groupBandVO.getStartTime());
+			;
+			%>
+			
+			<td><%out.println(dateString.substring(0, 10));%>~<%out.println(timestamp);%></td>
+			<%}else{%>
 			<td><%=groupBandVO.getStartTime()%></td>
+			<%} %>
 			<td><%=groupBandVO.getRate()%></td>
 			<td><%=groupBandVO.getNote()%></td>
 

@@ -20,7 +20,9 @@ public class GroupReportJDBCDAO implements GroupReportDAO_interface {
 		"DELETE FROM GROUP_REPORT WHERE GREPORT_ID = ?";
 	private static final String UPDATE =
 		"UPDATE GROUP_REPORT SET MEM_ID=?, GROUP_ID =?, ADMIN_ID=?, CONTENT=?, TIME=?,STATE=? WHERE GREPORT_ID=?";
-	
+	private static final String INSERT_GROUP_STMT =
+			"INSERT INTO GROUP_REPORT(GREPORT_ID,MEM_ID,GROUP_ID,CONTENT,TIME,STATE)VALUES('GR'||LPAD(to_char(GREPORT_ID_SEQ.NEXTVAL),3,'0'),?,?,?,CURRENT_DATE,0)";
+		
 	
 	
 	@Override
@@ -335,5 +337,49 @@ public class GroupReportJDBCDAO implements GroupReportDAO_interface {
 		}
 		
 	}
+
+	@Override
+	public void insertGroupStmt(String memID, String groupID, String content) {
+		// TODO Auto-generated method stub
+		Connection con = null;
+		PreparedStatement pstmt = null;
+			
+			try {
+				Class.forName(driver);
+				con = DriverManager.getConnection(url, userid, passwd);
+				pstmt = con.prepareStatement(INSERT_GROUP_STMT);
+					
+				pstmt.setString(1, memID);
+				pstmt.setString(2, groupID);		
+				pstmt.setString(3, content);
+			
+					
+				pstmt.executeUpdate();
+				System.out.println("成功增加一筆資料");
+			
+				//控制任何SQL的錯誤
+			}  catch (ClassNotFoundException e) {
+				throw new RuntimeException("Couldn't load database driver. "
+						+ e.getMessage());
+			} catch (SQLException se) {
+				throw new RuntimeException("A database error occured."+ se.getMessage());
+				//清除JDBC資源
+			} finally {
+				if(pstmt != null) {
+					try {
+						pstmt.close();
+					} catch(SQLException se) {
+						se.printStackTrace(System.err);
+					} 
+				}
+				if(con != null) {
+					try {
+						con.close();
+					} catch (Exception e) {
+						e.printStackTrace(System.err);
+					}
+				}
+			}
+		}
 	
 }

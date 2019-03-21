@@ -53,6 +53,8 @@ public class GroupReportService {
 	public List<GroupReportVO> getAll() {
 		return dao.getAll();
 	}
-	
+	public void insertGroupStmt(String memID,String groupID,String content) {
+		dao.insertGroupStmt(memID, groupID, content);
+	}
 
 }
