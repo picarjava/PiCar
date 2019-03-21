@@ -129,15 +129,15 @@ public class AdminServlet extends HttpServlet {
 					
 					/*********************************************/
 					String email = req.getParameter("email");
-					String emailReg = "^[a-zA-Z0-9@.]{6,50}$";
+					String emailReg = "^\\w+\\.*\\w+@(\\w+\\.){1,5}[a-zA-Z]{2,3}$";
 					if (email==null || (email.trim()).length()==0) {
 						errorMsgs.add("電子信箱請勿空白");
 					} else if (!email.trim().matches(emailReg)) {
-						errorMsgs.add("電子信箱長度須為6-50之間，且只能使用英文字或數字");
+						errorMsgs.add("信箱格式有問題，請確認。");
 					}
 					/*********************************************/
 					String password = req.getParameter("password");
-					String passwordReg = "^[a-zA-Z0-9]{6,10}$";
+					String passwordReg = "^[a-zA-Z0-9]{6,100}$";
 					if (password==null || (password.trim()).length()==0) {
 						errorMsgs.add("密碼請勿空白");
 					} else if (!password.trim().matches(passwordReg)) {
@@ -203,11 +203,11 @@ public class AdminServlet extends HttpServlet {
 					
 					/*********************************************/
 					String email = req.getParameter("email").trim();
-					String emailReg = "^[a-zA-Z0-9@.]{6,50}$";
+					String emailReg = "^\\w+\\.*\\w+@(\\w+\\.){1,5}[a-zA-Z]{2,3}$";
 					if (email==null || (email.trim()).length()==0) {
 						errorMsgs.add("信箱請勿空白");
 					} else if (!email.trim().matches(emailReg)) {
-						errorMsgs.add("信箱長度須為6-50之間，且只能使用英文字或數字");
+						errorMsgs.add("信箱格式有問題，請確認。");
 					}
 					/*********************************************/
 					String password = req.getParameter("password").trim();
