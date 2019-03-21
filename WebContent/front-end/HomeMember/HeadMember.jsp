@@ -56,6 +56,12 @@ width: 100px;
   left: 50px;
     right: 50px;
 }
+.flex-control-thumbs img {
+height: 145px;
+}
+#rigthtop{
+float: right;
+}
 </style>
 
     </head>
@@ -79,14 +85,18 @@ width: 100px;
             <div class="header row">
                 <div class="span12">
                     <div class="navbar">
-                        <div class="navbar-inner">
+                            <div class="navbar-inner">
+                         <div id="rigthtop"><form method="post"  action="logoutHandler.do">			
+				<input type="submit" value="登出">	
+				 <input type="hidden" name="logout"	value="logout">	
+				</form></div>
                             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
                             </a>
                             <h1>
-                                <a class="brand" href="index.html">Andia - a super cool design agency...</a>
+                                <a class="brand" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp">Andia - a super cool design agency...</a>
                             </h1>
                             <div class="nav-collapse collapse">
                                 <ul class="nav pull-right">

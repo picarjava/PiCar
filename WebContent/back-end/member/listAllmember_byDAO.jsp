@@ -63,7 +63,7 @@
 			<td>babySeat</td>
 			<td>個人照片</td>
 			<td>修改</td>
-			<td>刪除</td>
+<!-- 			<td>刪除</td> -->
 		</tr>
 
 	<c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -96,7 +96,7 @@
 			
 			<td><c:choose>
 			  <c:when test="${memberVO.verified == '1'}">已經驗證  </c:when>
-			  <c:when test="${memberVO.verified == '0'}">尚未驗證  </c:when>			 
+			  <c:when test="${memberVO.verified == '0'}">停權  </c:when>			 
 			</c:choose></td>
 			
 			<td><c:choose>
@@ -111,13 +111,22 @@
 			     <input type="hidden" name="memID"  value="${memberVO.memID}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
-			<td>
+<!-- 			<td> -->
 <!-- 				<form method="post" action="member.do"> -->
+<<<<<<< HEAD
+<!-- 				<input type="submit" value="刪除" onClick="window.alert('想做什麼，不要亂按!!');"> -->
+<%-- 				<input type="hidden" name="memID"  value="${memberVO.memID}"> --%>
+<!-- 				<input type="hidden" name="action" value="delete"> -->
+<!-- 			</td> -->
+<!-- 		</form>		 -->
+		
+=======
 				<input type="submit" value="刪除" onClick="window.alert('想做什麼，不要亂按!!');">
 				<input type="hidden" name="memID"  value="${memberVO.memID}">
 				<input type="hidden" name="action" value="delete">
 			</td>
 		</form>		
+>>>>>>> bbb95871ecf8f28de8b902b50e9de1f0269fb023
 		</tr>
 	</c:forEach>
 	</table>
