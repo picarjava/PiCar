@@ -25,7 +25,7 @@ public class DriverService {
 	public DriverVO addDriver(String memID, 
 //			String driverID	,
 			String plateNum, 
-			byte[] licence, byte[] criminal, byte[] trafficRecord, byte[] idNum,byte[] photo, 
+			byte[] licence, byte[] criminal, byte[] trafficRecord, byte[] idNum, 
 			Integer verified,Integer banned,Date deadline,Integer onlineCar,Integer score,
 			String carType, Integer sharedCar, Integer pet, Integer smoke, Integer babySeat) {
 		DriverVO driverVO = new DriverVO();
@@ -38,7 +38,6 @@ public class DriverService {
 		driverVO.setCriminal(criminal);
 		driverVO.setTrafficRecord(trafficRecord);
 		driverVO.setIdNum(idNum);
-		driverVO.setPhoto(photo);
 		driverVO.setVerified(verified);
 		driverVO.setBanned(banned);
 		driverVO.setDeadline(deadline);
@@ -60,7 +59,7 @@ public class DriverService {
 //	}
 
 	public DriverVO updateDriver(String memID, String driverID, String plateNum, byte[] licence, byte[] criminal,
-			byte[] trafficRecord, byte[] idNum, byte[] photo, Integer verified, Integer banned, Date deadline,
+			byte[] trafficRecord, byte[] idNum, Integer verified, Integer banned, Date deadline,
 			Integer onlineCar, Integer score, String carType, Integer sharedCar, Integer pet, Integer smoke,
 			Integer babySeat) {
 
@@ -72,7 +71,6 @@ public class DriverService {
 		driverVO.setCriminal(criminal);
 		driverVO.setTrafficRecord(trafficRecord);
 		driverVO.setIdNum(idNum);
-		driverVO.setPhoto(photo);
 		driverVO.setVerified(verified);
 		driverVO.setBanned(banned);
 		driverVO.setDeadline(deadline);
@@ -90,7 +88,7 @@ public class DriverService {
 	
 	public DriverVO updateDriverdri(
 //			String memID, String driverID, String plateNum, byte[] licence, byte[] criminal,
-//			byte[] trafficRecord, byte[] idNum, byte[] photo, Integer verified, Integer banned, Date deadline,
+//			byte[] trafficRecord, byte[] idNum, Integer verified, Integer banned, Date deadline,
 //			Integer onlineCar, Integer score, String carType, 
 			Integer sharedCar, Integer pet, Integer smoke,	Integer babySeat) {
 
@@ -102,7 +100,6 @@ public class DriverService {
 //		driverVO.setCriminal(criminal);
 //		driverVO.setTrafficRecord(trafficRecord);
 //		driverVO.setIdNum(idNum);
-//		driverVO.setPhoto(photo);
 //		driverVO.setVerified(verified);
 //		driverVO.setBanned(banned);
 //		driverVO.setDeadline(deadline);

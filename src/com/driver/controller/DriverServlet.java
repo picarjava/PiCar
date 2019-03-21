@@ -55,6 +55,20 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		String driverID =req.getParameter("driverID");//從session抓driverID
 		int pic = new Integer(req.getParameter("pic"));
 		
+		
+//		 Part part = req.getPart("pic");
+//		 byte[] pic=null;
+//		 
+//			try { 
+//				InputStream in = part.getInputStream();
+//				pic = new byte[in.available()];
+//				in.read(pic);
+//				in.close();
+//			}catch(Exception e) {
+//						 errorMsgs.add("無法取得圖片"+e.getMessage());
+//					 }
+		
+		
 		DriverService driverSvc = new DriverService();
 	    DriverVO driverVO = driverSvc.getOneDriver(driverID);
 	    System.out.println(driverID);
@@ -74,10 +88,6 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 	    if(pic == 4) {//jsp哪一個image呼叫
 	    	byte[] idNum = driverVO.getIdNum();
 	    	out.write(idNum);//顯示在image src內 讀成二位元資料流
-	    }
-	    if(pic == 5) {//jsp哪一個image呼叫
-	    	byte[] photo = driverVO.getPhoto();
-	    	out.write(photo);//顯示在image src內 讀成二位元資料流
 	    }
 //////////////
 ////		Collection<Part> parts = req.getParts();
@@ -141,7 +151,6 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		byte[] criminal = null;
 		byte[] trafficRecord = null;
 		byte[] idNum = null;
-		byte[] photo = null;
 		Collection<Part> parts = req.getParts();
 		for (Part part : parts) {
 			part.getName();
@@ -163,10 +172,6 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 				idNum = new byte[part.getInputStream().available()];	
 				part.getInputStream().read(idNum);
 				break;					
-			case "photo":				
-				photo = new byte[part.getInputStream().available()];					
-				part.getInputStream().read(photo);//inputstream獨到byte[] ，service存到資料庫 
-				break;					
 					}
 //			in.close();	
 			}
@@ -183,9 +188,6 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 				break;
 			case "idNum":
 			errorMsgs.add("請上傳idNum");	
-				break;
-			case "photo":
-			errorMsgs.add("請上傳photo");	
 				break;
 //			default:
 //				break;
@@ -222,7 +224,6 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		driverVO.setCriminal(criminal);
 		driverVO.setTrafficRecord(trafficRecord);
 		driverVO.setIdNum(idNum);
-		driverVO.setPhoto(photo);
 		driverVO.setVerified(verified);
 		driverVO.setBanned(banned);
 		driverVO.setDeadline(deadline);
@@ -246,7 +247,7 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		driverSvc = new DriverService();
 		driverVO = driverSvc.addDriver(memID, 
 //				driverID, 
-				plateNum,licence, criminal, trafficRecord, idNum, photo, 
+				plateNum,licence, criminal, trafficRecord, idNum, 
 				verified, banned, deadline, onlineCar, score, carType, sharedCar, pet, smoke, babySeat);
 		/*****************************3.新增完成,準備轉交(Send the Success view)* Success view)**********/
 		req.setAttribute("driverVO", driverVO);
@@ -516,7 +517,6 @@ if ("Update_Hobby".equals(action)) {   //新增FOR司機前端喜好設定//ok
 		//	driverVO.setCriminal(criminal);
 		//	driverVO.setTrafficRecord(trafficRecord);
 		//	driverVO.setIdNum(idNum);
-		//	driverVO.setPhoto(photo);
 		//	driverVO.setVerified(verified);
 		//	driverVO.setBanned(banned);
 		//	driverVO.setDeadline(deadline);
@@ -541,7 +541,7 @@ if ("Update_Hobby".equals(action)) {   //新增FOR司機前端喜好設定//ok
 //	driverVO = driverSvc.addDriver(memID, 
 ////			driverID, 
 //			plateNum,
-////			licence, criminal, trafficRecord, idNum, photo, 
+////			licence, criminal, trafficRecord, idNum,  
 //			verified, banned, deadline, onlineCar, score, carType, sharedCar, pet, smoke, babySeat);
 //	/***************************
 //			/***************************3.嚙編嚙磕嚙踝蕭嚙踝蕭,嚙褒喉蕭嚙踝蕭嚙�(Send the Success view)***********/

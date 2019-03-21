@@ -25,11 +25,11 @@ public class SingleOrderDAO implements SingleOrder_interface {
                                                                       "START_LOC=?, END_LOC=?, START_LNG=?, START_LAT=?, " +
                                                                       "END_LNG=?, END_LAT=?, TOTAL_AMOUNT=?, RATE=? " +
                                                                       "WHERE ORDER_ID=?";
-    private final static String INSERT_STMT = "INSERT INTO SINGLE_ORDER(ORDER_ID, MEM_ID, STATE, START_TIME, " + 
+    private final static String INSERT_STMT = "INSERT INTO SINGLE_ORDER(ORDER_ID, MEM_ID, DRIVER_ID, STATE, START_TIME, " + 
                                                                   "START_LOC, END_LOC, START_LNG, START_LAT, " +
                                                                   "END_LNG, END_LAT, TOTAL_AMOUNT, ORDER_TYPE, " +
                                                                   "NOTE, LAUNCH_TIME) " + 
-                                                                  "VALUES ('SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+                                                                  "VALUES ('SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
     //小編新增司機查評價平均
     private final static String DRIVER_RATE_AVE_STMT ="SELECT AVG(RATE) AS Avg_RATE FROM SINGLE_ORDER  WHERE DRIVER_ID =?";
     //小編新增一個刪除語法
@@ -444,6 +444,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
             for(SingleOrderVO singleOrderVO:singleOrderVOList){
             	int index = 1;
                 preparedStatement.setString(index++, singleOrderVO.getMemID());
+                preparedStatement.setString(index++, singleOrderVO.getDriverID());
                 preparedStatement.setInt(index++, singleOrderVO.getState());
                 preparedStatement.setTimestamp(index++, singleOrderVO.getStartTime());
                 preparedStatement.setString(index++, singleOrderVO.getStartLoc());
@@ -489,6 +490,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
             connection = dataSource.getConnection();
             preparedStatement = connection.prepareStatement(INSERT_STMT);
             preparedStatement.setString(index++, singleOrderVO.getMemID());
+            preparedStatement.setString(index++, singleOrderVO.getDriverID());
             preparedStatement.setInt(index++, singleOrderVO.getState());
             preparedStatement.setTimestamp(index++, singleOrderVO.getStartTime());
             preparedStatement.setString(index++, singleOrderVO.getStartLoc());

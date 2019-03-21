@@ -21,7 +21,6 @@ public class TestDriverDAO {
 		driverdao.setCriminal(testJDBCDAO.getBytePost("WebContent/driver/img/criminal1.jpg"));
 		driverdao.setTrafficRecord(testJDBCDAO.getBytePost("WebContent/driver/img/trafficrecord1.jpg"));
 		driverdao.setIdNum(testJDBCDAO.getBytePost("WebContent/driver/img/idnum1.jpg"));
-		driverdao.setPhoto(testJDBCDAO.getBytePost("WebContent/driver/img/photo1.jpg"));
 		driverdao.setVerified(1);
 		driverdao.setBanned(1);
 		driverdao.setDeadline(testJDBCDAO.getSQLDate(2019,3,29,8,10));

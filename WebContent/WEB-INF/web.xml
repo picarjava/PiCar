@@ -344,6 +344,18 @@
     <url-pattern>/front-end/storeRecord/listOneStoreRecordMemberFrontNeg.jsp</url-pattern>
     <url-pattern>/front-end/member/setting.jsp</url-pattern>
     <url-pattern>/front-end/location/updateLocation.jsp</url-pattern>
+    <url-pattern>/front-end/activity/*</url-pattern>
+    <url-pattern>/front-end/activityToken/*</url-pattern>
+    <url-pattern>/front-end/driver/*</url-pattern>
+    <url-pattern>/front-end/driverReport/*</url-pattern>
+    <url-pattern>/front-end/groupBand/*</url-pattern>
+    <url-pattern>/front-end/groupMem/*</url-pattern>
+    <url-pattern>/front-end/groupOrder/*</url-pattern>
+    <url-pattern>/front-end/HomeDriver/*</url-pattern>
+    <url-pattern>/front-end/location/*</url-pattern>    
+<!--     <url-pattern>/front-end/member/*</url-pattern>     -->
+    <url-pattern>/front-end/singleOrder/*</url-pattern>    
+    <url-pattern>/front-end/storeRecord/*</url-pattern>    
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>

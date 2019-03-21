@@ -14,8 +14,14 @@
       Contact Section
     ============================-->
     <!-- 先取出VO -->
+    <!-- 登入功能串接 ，將VOmemID指定給 memID-->
+<%@ page import="com.member.model.MemberVO"%>
   <%DriverVO driverVO=(DriverVO)request.getAttribute("driverVO");
-  MemberVO memberVO=(MemberVO)request.getAttribute("memberVO");%>
+  MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
+  String memID=memberVO.getMemID();
+  session.setAttribute("memID",memID);
+  
+  %>
   
     <!-- 錯誤列表 -->
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
@@ -98,15 +104,6 @@
                         </div>
                     </div>
                     
-                    <div class="form-group">
-                      <p>大頭照</p>
-                      <input type="file" class="form-control" name="photo" value="${driverVO.photo}" />
-                       <div class="card" style="width: 18rem;">
-<%--                           <img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=5"  width="300" height="150" class="card-img-top" alt="..." > --%>
-                          <img src="driver.do?driverID=D003&pic=5"  width="300" height="150" class="card-img-top" alt="..." >
-<%--                                <img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200">                           --%>
-                        </div>
-                    </div>
                             <div class="form-group">
                                 <p>願意共乘載客</p>
                                 <input type="text" name="sharedCar"  readonly  value="${driverVO.sharedCar}" class="form-control"   />

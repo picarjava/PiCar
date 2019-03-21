@@ -5,6 +5,8 @@
 <%@ page import="java.util.*"%>
 <%@ page import="javax.servlet.http.*"%>
 <%@ page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64" %>
+
+
 <html>
 <head>
 <title>成為司機</title>
@@ -14,13 +16,15 @@
 <body>
 	<!-- 先get 再set -->
 <!-- 	http://localhost:8081/PiCar/front-end/driver/addDriver.jsp -->
+<!-- 登入功能串接 ，將VOmemID指定給 memID-->
 	<%
 // 	印出是否拿到ID////
 // 		DriverVO driverVO = (DriverVO) request.getAttribute("driverVO");
 MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 DriverService driSrc = new DriverService();
 DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
-
+String memID=memberVO.getMemID();
+session.setAttribute("memID",memID);
 	%>
 	
 	<!--  Session得到的MemberVO原本沒有照片，若新增照片 ，要先拿出MEMID 透過SERVEICE 查詢這位會員的新資料，拿到新的MemberVO 裡面才有照片 -->
@@ -113,10 +117,6 @@ DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
 									placeholder="請上傳身分證" />
 							</div>
 
-							<div class="form-group">
-								<p>大頭照</p>
-								<input type="file" class="form-control" name="photo">
-							</div>
 							
 							<div class="form-group">
 <!-- 								<p>會員照片</p> -->
