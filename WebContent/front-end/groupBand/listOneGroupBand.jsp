@@ -32,14 +32,14 @@
 
 
 <!-- Google Fonts -->
-<!-- <link -->
-<!-- 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" -->
-<!-- 	rel="stylesheet"> -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700"
+	rel="stylesheet">
 
 <!-- Bootstrap CSS File -->
-<!-- <link -->
-<%-- 	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/bootstrap/css/bootstrap.min.css" --%>
-<!-- 	rel="stylesheet"> -->
+<link
+	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- Libraries CSS Files -->
 <link
@@ -50,16 +50,20 @@
 	rel="stylesheet">
 
 <!-- Main Stylesheet File -->
-<!-- <link href="css/style.css" rel="stylesheet"> -->
-<!-- <link rel="stylesheet" type="text/css" -->
-<%-- 	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.datetimepicker.css" /> --%>
-<%-- <script src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.js"></script> --%>
-<%-- <script src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.datetimepicker.full.js"></script> --%>
+<link href="css/style.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.js"></script>
+<script src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.datetimepicker.full.js"></script>
 
 <meta charset="UTF-8">
 <title>listOneGroupBand.jsp</title>
 <!-- google map -->
 <style>
+#messagesArea {
+    height: 300px;
+    width: 500px;
+}
 #map {
 	height: 500px;
 	width: 850px;
