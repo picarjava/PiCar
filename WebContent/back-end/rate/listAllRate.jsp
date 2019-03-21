@@ -17,7 +17,6 @@
 <div class="wrapper ">
 <jsp:include page="/back-end/kidBodyLeft.jsp" />
 <jsp:include page="/back-end/kidNavbar.jsp" />
->>>>>>> cd4e59c4b3036b535312eaa076dd1eef960716ac
 	<h3>listALLRate.jsp</h3>
 	<%
 		RateService rateSvc = new RateService();
