@@ -227,7 +227,7 @@ public class SingleOrderServlet extends HttpServlet {
         singleOrder.setEndLoc(singleOrderVO.getEndLoc());
         singleOrder.setEndLat(singleOrderVO.getEndLat());
         singleOrder.setEndLng(singleOrderVO.getEndLng());
-        singleOrder.setStartTime(singleOrderVO.getEndTime());
+        singleOrder.setStartTime(singleOrderVO.getStartTime());
         singleOrder.setEndTime(singleOrderVOs.get(singleOrderVOs.size() - 1).getStartTime());
         singleOrder.setTotalAmount(amount);
         singleOrder.setNote(singleOrderVO.getNote());
