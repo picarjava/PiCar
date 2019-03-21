@@ -14,9 +14,7 @@
 </head>
 
 <body>
-<<<<<<< HEAD
 <div class="wrapper ">
-=======
 <jsp:include page="/back-end/kidBodyLeft.jsp" />
 <jsp:include page="/back-end/kidNavbar.jsp" />
 >>>>>>> cd4e59c4b3036b535312eaa076dd1eef960716ac
@@ -75,17 +73,10 @@
 		</table>
 
 	</c:forEach>
-
-
-<<<<<<< HEAD
 <jsp:include page="/back-end/kidFooter.jsp" />
 </div>
 </div>
 </div>
-=======
-
 <jsp:include page="/back-end/kidFooter.jsp" />
->>>>>>> cd4e59c4b3036b535312eaa076dd1eef960716ac
-
 </body>
 </html>
