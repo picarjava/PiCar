@@ -128,6 +128,8 @@ public class SingleOrderService {
     }
   //逾時訂單2.
     public void updateDelayOrder(String orderID){
-    	 singleOrderDAO.updateOrderIDToDelay();
+    	 singleOrderDAO.updateOrderIDToDelay(orderID);
     }
+    
+    
 } // class SingleOrderService

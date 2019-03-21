@@ -767,9 +767,5 @@ public class SingleOrderDAO implements SingleOrder_interface {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void updateOrderIDToDelay() {
-		// TODO Auto-generated method stub
-		
-	}
+
 } // class SingleOrderDAO
