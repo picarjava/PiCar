@@ -268,24 +268,24 @@ public class SingleOrderDAO implements SingleOrder_interface {
     }
 
     
-    public void update_state_to_delay() {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        try {
-            connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(UPDATE_STATE_TO_DELAY);
-//            int index = 1;
-//            preparedStatement.setInt(index++, state);
-//            preparedStatement.setString(index++, orderID);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e.getMessage(), e);
-        } finally {
-            closePreparedStatement(preparedStatement);
-            closeConnection(connection);
-        }
-    }
+//    public void update_state_to_delay() {
+//        Connection connection = null;
+//        PreparedStatement preparedStatement = null;
+//        try {
+//            connection = dataSource.getConnection();
+//            preparedStatement = connection.prepareStatement(UPDATE_STATE_TO_DELAY);
+////            int index = 1;
+////            preparedStatement.setInt(index++, state);
+////            preparedStatement.setString(index++, orderID);
+//            preparedStatement.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//            throw new RuntimeException(e.getMessage(), e);
+//        } finally {
+//            closePreparedStatement(preparedStatement);
+//            closeConnection(connection);
+//        }
+//    }
     
     public List<String> gettimeByorderID(String OrderID) {
 		List<String> list =new ArrayList<String>();
@@ -762,4 +762,14 @@ public class SingleOrderDAO implements SingleOrder_interface {
             } //catch
         } // if
     } // closeConnection()
+	@Override
+	public void update_state_to_delay() {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void updateOrderIDToDelay() {
+		// TODO Auto-generated method stub
+		
+	}
 } // class SingleOrderDAO
