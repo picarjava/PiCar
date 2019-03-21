@@ -52,6 +52,8 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 	
 	//新增for司機喜好設定
     private static final String UPDATE_DHOBBY="UPDATE DRIVER SET SHARED_CAR=?, PET=?, SMOKE=?, BABY_SEAT=? WHERE DRIVER_ID=?";
+    //新增司機驗證用
+    private static final String UPDATE_VERIFIED="UPDATE DRIVER SET VERIFIED=? WHERE DRIVER_ID=?";
   
 	
 	//小編更新司機評價
@@ -676,6 +678,45 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 					}
 				}
 
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+			}		
+			
+			
+		}
+		//新增FOR前端喜好設定
+		@Override
+		public void setForPermit(DriverVO driverVO) {
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			
+			try {
+				con = ds.getConnection();
+				pstmt = con.prepareStatement(UPDATE_VERIFIED);
+				
+				int index = 1;
+				pstmt.setInt(index++, driverVO.getVerified());
+				pstmt.setString(index++, driverVO.getDriverID());
+				
+				pstmt.executeUpdate();
+				
+			} catch (SQLException se) {
+				throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
+				
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+				
 				if (con != null) {
 					try {
 						con.close();

@@ -70,7 +70,7 @@
 					 		<tr>	 
 						      <th scope="row">
 						      <c:if test="${driverVO.verified == 0}">
-						        <Form METHOD="post" ACTION="driver.do" >
+						        <Form METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/back-end/driver/driver.do" >
 							    <div class="text-center"><button type="submit" class="btn btn-light">未審核</button>
 							      	<!-- /*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ -->
 							      	<input type="hidden" name="actionS" value="GET_ONE_FOR_PERMIT">

@@ -40,34 +40,24 @@ public class DelayTimerx extends HttpServlet {
 //	  
 //	 -- 排成器: 以上的單放到lIST裡面，一一取出來 UPTDATE STAET=6;+    排程推播給管理員()
 	
-	
 	public void init() {//A.初始化一次排成器
 		timer = new Timer();
-		SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
 		TimerTask task = new TimerTask() {
 			public void run() {
 
 				Calendar calendar2 = Calendar.getInstance();
 				calendar2.add(Calendar.DATE, 1);    //3天
 //				calendar2.add(Calendar.SECOND, 5);
-				String three_days_after = sdf2.format(calendar2.getTime());
 
-				String START_TIME_Start = three_days_after + " 00:00:00";
-				String START_TIME_End   = three_days_after + " 23:59:59";
 //				('2019-03-18 05:20:00', 'YYYY-MM-DD HH24:MI:SS')
 				System.out.println("1.現在時間"+new java.sql.Timestamp(System.currentTimeMillis())); 
-				System.out.println(START_TIME_Start);
-				System.out.println(START_TIME_End );
 				List<String> startTimeList = new ArrayList<String>();
 //				Set<SingleOrderVO> startTimeList = new LinkedHashSet();
 				System.out.println("2.");
-				startTimeList = new SingleOrderDAO().get_start_time(START_TIME_Start, START_TIME_End);// 拿出一群時間的集合
 				System.out.println(startTimeList);
 				getServletContext().setAttribute("futureOrderMAP", startTimeList);//	給JSP
 				//拿到一堆訂單
 				System.out.println("3:"+getServletContext().getAttribute("futureOrderMAP"));
-				
-				
 				
 				System.out.println("過期的單人訂單在這喔"+new SingleOrderService().getDelayOrder());//ok
 				System.out.println("過期的揪團訂單在這喔"+new GroupOrderService().getDelayOrder());//ok

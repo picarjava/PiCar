@@ -22,6 +22,7 @@ public interface DriverDAO_interface {
   //小編更新司機評價
   	public void updateDriverRate(int score,String driverID) ;
 	void setForHobby(DriverVO driverVO);
+	void setForPermit(DriverVO driverVO);
   	
 //	萬用複合查詢(傳入參數型別Map)(回傳List)
 	

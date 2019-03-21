@@ -79,7 +79,6 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 	    	byte[] photo = driverVO.getPhoto();
 	    	out.write(photo);//顯示在image src內 讀成二位元資料流
 	    }
-//		System.out.println(driverID);
 //////////////
 ////		Collection<Part> parts = req.getParts();
 ////		for (Part part : parts) {
@@ -274,13 +273,6 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 				if (driverID == null || (driverID.trim()).length() == 0) {
 					errorMsgs.add("請輸入司機編號");
 				}
-				// Send the use back to the form, if there were errors
-//			//	if (!errorMsgs.isEmpty()) {
-//					RequestDispatcher failureView = req
-//							.getRequestDispatcher("/back-end/driver/driverMemberManagement.jsp");
-//					failureView.forward(req, res);
-//					return;//程式中斷
-//				}
 			/*************2查詢資料**************/
 			DriverService driverSvc=new DriverService();
 			DriverVO driverVO=driverSvc.getOneDriver(driverID);
@@ -351,9 +343,10 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	/*************1.接收請求參數:某一筆司機IDD**************/
 	String driverID=new String(req.getParameter("driverID").trim());
 	String actionS=new String(req.getParameter("actionS").trim());
+	String actionP=new String(req.getParameter("actionP").trim());
  	SimpleDateFormat sdf2 = new SimpleDateFormat("YYYY-MM-DD");
 //	java.sql.Date deadline = date.add(Calendar.HOUR, 24);//--
- 	
+ 	Integer verified= new Integer(req.getParameter("verified"));
 	// util.Date → util.Calendar
 	java.util.Date date = new java.util.Date();
 	Calendar cal = Calendar.getInstance();
@@ -368,7 +361,8 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 //	System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.sql.Timestamp(long_now)));
 	/*************2查詢資料:調出某一筆的vo**************/
 	DriverService driverSvc=new DriverService();
-	DriverVO driverVO=driverSvc.getOneDriver(driverID);//從driverPK
+//	DriverVO driverVO=driverSvc.getOneDriver(driverID);//從driverPK
+	DriverVO driverVO = new DriverVO();
 	/*************3.得到資料和圖片轉換資料存在scope=reqest，並送出VO給處理頁面:getOneUpdate**************/
 	MemberService memberService =new MemberService();
 	MemberVO MemberVOs =memberService.getOneMember(driverVO.getMemID());
@@ -385,6 +379,17 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 		}
 		RequestDispatcher bannedView = req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
 		bannedView.forward(req, res);
+	}
+	if("GET_ONE_FORPERMIT".equals(actionP)) {//??
+		if(driverVO.getVerified() == 0) {//未驗證--> 已經驗證或驗證失敗
+	driverVO.setDriverID(driverID);
+	driverVO.setVerified(verified);
+	DriverService driSvc = new DriverService();
+	driverVO = driSvc.setVerified(verified, driverID);
+//		}else {
+		}
+		RequestDispatcher successView = req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
+		successView.forward(req, res);
 	}
 	if("GET_ONE_CHECK_PERMIT".equals(actionS)) {
 		RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driver/");//??
@@ -442,11 +447,10 @@ if("GET_ONE_FOR_BANNEDs".equals(action)){
 //	driverVO.setDeadline(deadline);//修改時使用
 //		}
 	//////////////////////////////////////
-if ("Update_Hobby".equals(action)) {   //阿君新增FOR前端喜好設定
+if ("Update_Hobby".equals(action)) {   //新增FOR司機前端喜好設定//ok
 	// 建立錯誤的collection
 	List<String> errorMsgs = new LinkedList<String>();
 	req.setAttribute("errorMsgs", errorMsgs);
-	
 //	try {
 		String driverID = new String(req.getParameter("driverID").trim());
 
@@ -476,106 +480,10 @@ if ("Update_Hobby".equals(action)) {   //阿君新增FOR前端喜好設定
 //	}
 
 }
-//	if ("UPDATE_DRI".equals(action)) { //前端司機用(僅含喜好設定需改寫DAO) //?
-
 //long size = part.getSize();//update用到
 //System.out.println(size);
 //  額外測試 InputStream 與 byte[] (幫將來model的VO預作準備)
 //InputStream in = part.getInputStream();//免除多一個連線 不用開水館
-//		List<String> errorMsgs = new LinkedList<String>();
-//		// Store this set in the request scope, in case we need to
-//		// send the ErrorPage view.
-//		req.setAttribute("errorMsgs", errorMsgs);
-//		DriverService driverService = new DriverService();
-////		try {
-//			/***********************1.接收請求參數*************************/
-//			DriverVO driverVO = new DriverVO();
-//			String content =" ";	
-//			java.sql.Timestamp launchTime = null;
-////			try {
-//			String launchTimes =null;
-//			launchTimes = req.getParameter("LaunchTime");
-//			SimpleDateFormat simpleDateFormats = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-//			
-//			launchTime = new Timestamp(simpleDateFormats.parse(launchTimes).getTime());
-//			
-//			String introduction = req.getParameter("introduction");
-//
-//			Integer sharedCar = new Integer(req.getParameter("sharedCar"));
-//			Integer pet = new Integer(req.getParameter("pet"));
-//			Integer smoke = new Integer(req.getParameter("smoke"));
-//			Integer babySeat =new Integer(req.getParameter("babySeat"));
-//			
-//			String groupName =req.getParameter("groupName");
-//			if("1".equals(req.getParameter("privates"))) {
-//			privates = new Integer(req.getParameter("privates").trim());	
-//			}else {
-//			privates =0;	
-//				  }
-//			
-//			GroupBandVO groupBandVO1 = (GroupBandVO)groupBandService.getOneGroupBand(req.getParameter("groupID"));
-//			
-//			String groupType = req.getParameter("groupType");
-//			
-//			String note =req.getParameter("note");
-//			String notes = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
-//			if (note == null || note.trim().length() == 0) {
-//				errorMsgs.add("��酉: 隢蝛箇");
-//			} else if(!note.trim().matches(notes)) { //隞乩�毀蝧迤���(閬�)銵函內撘�(regular-expression)
-//				errorMsgs.add("��酉: ���銝准������摮� , 銝摨血���2�10銋��");
-//            }
-//		}
-		
-//			String memID = new String(req.getParameter("memID").trim());
-//
-//			String name = req.getParameter("name");
-//			String nameReg = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{2,20}$";
-//			if (name == null || name.trim().length() == 0) {
-//				errorMsgs.add("�撌亙��隢蝛箇");
-//			} else if (!name.trim().matches(nameReg)) {
-//				errorMsgs.add("��憪��撓� 銝剜�������摮��   \" , \"  , 銝摨血���2�20銋��");
-//			}
-//
-//			Integer token = null;
-//			try {
-////				MemberDAO memberDAO = new MemberDAO();
-//
-////				token = memberDAO.getSumAmount(memID);
-//				token = new Integer(req.getParameter("token").trim());
-////				token = token + memberDAO.getSumAmount(memID);
-//			} catch (NumberFormatException e) {
-//				token = 0;
-//				errorMsgs.add("隞�撟�隢‵�摮�.");
-//			}
-//
-//			Integer activityToken = null;
-//			try {
-//				activityToken = new Integer(req.getParameter("activityToken").trim());
-//			} catch (NumberFormatException e) {
-//				activityToken = 100;
-//				errorMsgs.add("瘣餃�誨撟�隢‵�摮�.");
-//			}
-//
-//			java.sql.Date birthday = null;
-//			try {
-//				birthday = java.sql.Date.valueOf(req.getParameter("birthday").trim());
-//			} catch (IllegalArgumentException e) {
-//				birthday = new java.sql.Date(System.currentTimeMillis());
-//				errorMsgs.add("隢撓�����!");
-//			}
-//
-//			Integer pet = new Integer(req.getParameter("pet"));
-//			Integer smoke = new Integer(req.getParameter("smoke"));
-//			Integer gender = new Integer(req.getParameter("gender"));
-//			Integer verified = new Integer(req.getParameter("verified"));
-//			Integer babySeat = new Integer(req.getParameter("babySeat"));
-//
-//			MemberService memberSvc1 = new MemberService();
-//			MemberVO memberVO1 = memberSvc1.getOneMember(memID);
-//			byte[] picnow = memberVO1.getPic();
-//
-//			byte[] pic = null;
-//
 //			Part part = req.getPart("pic");
 //			long size = part.getSize();
 //			InputStream in = part.getInputStream();
@@ -589,52 +497,6 @@ if ("Update_Hobby".equals(action)) {   //阿君新增FOR前端喜好設定
 //			} else if (picnow != null && size == 0) {
 //				pic = picnow;
 //			}
-//			in.close();
-//
-//			MemberVO memberVO = new MemberVO();
-//			memberVO.setMemID(memID);
-//			memberVO.setName(name);
-//			memberVO.setEmail(email);
-//			memberVO.setPassword(password);
-//			memberVO.setPhone(phone);
-//			memberVO.setCreditcard(creditcard);
-//			memberVO.setPet(pet);
-//			memberVO.setSmoke(smoke);
-//			memberVO.setGender(gender);
-//			memberVO.setToken(token);
-//			memberVO.setActivityToken(activityToken);
-//			memberVO.setBirthday(birthday);
-//			memberVO.setVerified(verified);
-//			memberVO.setBabySeat(babySeat);
-//			memberVO.setPic(pic);
-//
-//			if (!errorMsgs.isEmpty()) {
-//
-//				req.setAttribute("memberVO", memberVO); // ���撓��撘隤斤�mpVO�隞�,銋�req
-//				RequestDispatcher failureView = req
-//						.getRequestDispatcher("/front-end/member/update_member_input.jsp");
-//				failureView.forward(req, res);
-//				return; // 程式中斷
-//			}
-//
-//			// ���耨�鞈��
-//			MemberService memberSvc = new MemberService();
-//			memberVO = memberSvc.updateMember(memID, name, email, password, phone, creditcard, pet, smoke, gender,
-//					token, activityToken, birthday, verified, babySeat, pic);
-//			req.setAttribute("memberVO", memberVO);
-//
-//			RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMember.jsp"); // �憓����漱listAllmember_byDAO
-//			successView.forward(req, res);
-//
-//		} catch (Exception e) {
-//			errorMsgs.add("�瘜���耨�������" + e.getMessage());
-//			RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/update_member_input.jsp");
-//			successView.forward(req, res);
-//
-//		}
-//	
-		
-	}
 	/////////////////��末閮剖�� (�璈�)
 //	String driverID=req.getParameter("driverID").trim();//注意:正是從session 抓下來
 //	Integer sharedCar = 0;
@@ -696,7 +558,7 @@ if ("Update_Hobby".equals(action)) {   //阿君新增FOR前端喜好設定
 //			failureView.forward(req, res);
 //		}		
 //   	}
-//}
+}
 //////////////////////////////////////////////////////////////////////	
 	/* �������脰�冗嚗誑靘蹂誑��迂憿舐內�蝬脤��� */
 	public static void readPicture(byte[] bytes, String picName) throws IOException {
