@@ -71,7 +71,9 @@
     right: 0px;
   
   }
-  
+  .text30{
+      width: 10%;
+  }
 </style>
 <body bgcolor='white'>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
@@ -108,19 +110,19 @@
 					onclick="groupif(this.value)">長期揪團<br>
         
         <b>團名</b>
-         <input  type="TEXT" name="GROUP_NAME"><br><br>
+         <input class="text30" type="TEXT" name="GROUP_NAME"><br><br>
          <b>上車地點</b>
-         	  <select name="START_LOC">
+         	  <select name="START_LOC" class="text30">
          	  <option value="">請選擇</option>
 			<option value="台北">台北市</option>
 			<option value="桃園">桃園市</option>
 			</select><br><br>
 			<b>上車日期</b>
-			<input name="START_TIME" id="start_date" type="text"
+			<input class="text30" name="START_TIME" id="start_date" type="text"
 					 size="15">
 					 <br><br>
         <b>揪團類別</b>
-        <select name="GROUP_TYPE">
+        <select name="GROUP_TYPE" class="text30">
          <option value="">請選擇</option>
 			<option value="演唱會">演唱會</option>
 			<option value="旅遊">旅遊</option>

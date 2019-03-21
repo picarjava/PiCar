@@ -163,6 +163,15 @@ width: 100%;
 label {
 display:;
 }
+#width100{
+width: 100%;
+}
+.form-control{
+width: 100%;
+}
+.form-group{
+width: 100%;
+}
 </style>
 </head>
 <body bgcolor="#aaaaaa">
@@ -212,14 +221,14 @@ display:;
 	 </div>
 	  <div class="form-group">
 	   <div>團名:</div>
-	  <input type="TEXT" name="groupName" required size="25" class="form-control form-control-lg"
+	  <input type="TEXT" id="width100" name="groupName" required size="25" class="form-control form-control-lg"
 					value="<%=(groupBandVO == null) ? "今天來建servlet" : groupBandVO.getGroupName()%>" />
 					
 	   </div>
 	 
 	   <div class="form-group">
   <div>簡介:</div>
-    <textarea name="introduction" required id="note exampleFormControlTextarea1" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "除錯中".trim() : groupBandVO.getIntroduction().trim()%></textarea></textarea>
+    <textarea name="introduction" required id="note exampleFormControlTextarea1" style="width: 100%;" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "除錯中".trim() : groupBandVO.getIntroduction().trim()%></textarea></textarea>
   </div>
 	 
 	 
@@ -254,7 +263,7 @@ display:;
 	 
 	  <div class="form-group">
 	   <div>備註:</div>
-	 <textarea name="note" required id="note exampleFormControlTextarea1" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "謝謝".trim() : groupBandVO.getNote().trim()%></textarea>
+	 <textarea name="note" required id=" note exampleFormControlTextarea1 " style="width: 100%;" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "謝謝".trim() : groupBandVO.getNote().trim()%></textarea>
 	 </div>
 	 <div id="innerdate"></div>
 	  <div class="form-group">
