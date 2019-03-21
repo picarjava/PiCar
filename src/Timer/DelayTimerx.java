@@ -63,13 +63,22 @@ public class DelayTimerx extends HttpServlet {
 				System.out.println("過期的揪團訂單在這喔"+new GroupOrderService().getDelayOrder());//ok
 				
 				//3/21 01:40進度。已抓到過期訂單。
-
+				
+				List<String> singleDelayList = new ArrayList<String>();
+				singleDelayList= new SingleOrderService().getDelayOrder();
+				
+				List<String> groupDelayList = new ArrayList<String>();
+				groupDelayList = new GroupOrderService().getDelayOrder();
+				
+				
 //				if (startTimeList != null) {
-//					for (String starttime : startTimeList) {// 滾出一群時間
-////					 System.out.println(starttime);
-//						long num = Long.parseLong(starttime);// 動態計算出到開始時間
-//						System.out.println(num);
-//						System.out.println("=================");
+					for (String singledelay : singleDelayList) {// 滾出一群過期期訂單
+						System.out.println("UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=?");
+						System.out.println(singledelay);
+						System.out.println("=================");
+						
+						
+						
 ////						TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
 ////							public void run() {
 ////								// System.out.println("更新日期:"+new
@@ -84,7 +93,7 @@ public class DelayTimerx extends HttpServlet {
 ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
 //						// 排成器delaytask 5分鐘後 1.狀態碼改成逾期2.推播websocket給管理員 
 //						//
-//					}
+					}
 //				}
 				
 				
