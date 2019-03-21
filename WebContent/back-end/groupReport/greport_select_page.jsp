@@ -253,7 +253,7 @@ table {
 									<td>
 										<FORM METHOD="post"
 											ACTION="<%=request.getContextPath()%>/back-end/groupReport/FindGroup.do" style="margin-bottom: 0px;">		
-											<input type="hidden" name="groupID" value="${groupBandVO.groupID==groupReportVO.groupID}">
+											<input type="hidden" name="groupID" value="${groupReportVO.groupID}">
 											<input type="hidden" name="action" value="FindOne">
 											<input type="submit" value="查看內容"> 
 									    </FORM>
