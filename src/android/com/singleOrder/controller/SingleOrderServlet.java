@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +12,6 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,6 +26,7 @@ import com.google.gson.reflect.TypeToken;
 import com.member.model.MemberVO;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
+import com.util.Checkout;
 
 import android.com.location.model.StoredInfo;
 import android.com.singleOrder.model.LongTermOrder;
@@ -39,7 +37,6 @@ import com.calculate.controller.*;
 
 public class SingleOrderServlet extends HttpServlet {
     // state
-    private final static int NOT_ESTABLISHED = 0;
     private final static int ESTABLISHED = 1;
     private final static int EXRCUTING = 4;
     // order type
@@ -69,89 +66,57 @@ public class SingleOrderServlet extends HttpServlet {
         JsonObject jsonIn = gson.fromJson(sBuilder.toString(), JsonObject.class);
         String action = jsonIn.get("action").getAsString();
         if ("insert".equals(action)) {
-            SingleOrderVO singleOrderVO = gson.fromJson(jsonIn.get("singleOrder").getAsString(), SingleOrderVO.class);
-            singleOrderService.addSingleOrder(singleOrderVO.getMemID(), NOT_ESTABLISHED, null, singleOrderVO.getStartLoc(),
-                                              singleOrderVO.getEndLoc(), singleOrderVO.getEndLng(), singleOrderVO.getStartLat(), singleOrderVO.getEndLng(),
-                                              singleOrderVO.getEndLat(), 0, singleOrderVO.getOrderType(), singleOrderVO.getNote(), new Timestamp(System.currentTimeMillis()));
-    		Double lat1 = singleOrderVO.getStartLat(); //乘客緯度 /*******
-    		Double lng1 = singleOrderVO.getStartLng(); //乘客經度 /*******
-    		List<Map.Entry<String, StoredInfo>> list = null;
-    		ServletContext sc = getServletContext();
-    		@SuppressWarnings("unchecked")
-            Map<String, StoredInfo> MatchDriver = (ConcurrentHashMap<String, StoredInfo>) sc.getAttribute("driverLocation");
-    		list = new ArrayList<Map.Entry<String, StoredInfo>>(MatchDriver.entrySet());
-    		Collections.sort(list, new Comparator<Map.Entry<String, StoredInfo>>() {
-    		    @Override
-    			public int compare(Entry<String, StoredInfo> o1, Entry<String, StoredInfo> o2) {	
-    				Double lat3 = o1.getValue().getLatlng().getLatitude();
-    				Double lon3 = o1.getValue().getLatlng().getLongitude();
-    				Double lat4 = o2.getValue().getLatlng().getLatitude();
-    				Double lon4 = o2.getValue().getLatlng().getLongitude();
-    				Double result2 = DistanceUtil.algorithm(lng1, lat1, lon3, lat3);
-    				Double result3 = DistanceUtil.algorithm(lng1, lat1, lon4, lat4);
-    				return (int) (result2 - result3);
-    			}
-    		});
-
-    		for (Entry<String, StoredInfo> o : list) {
-    			System.out.println(o.getKey());  //這是司機ID
-    			System.out.println(o.getValue().getSession()); //這是司機的連線
-    			Double result = DistanceUtil.algorithm(lng1, lat1, o.getValue().getLatlng().getLongitude(),
-    					o.getValue().getLatlng().getLatitude()); 
-    			System.out.println(result); //這是計算出的距離
-    		}
-       		System.out.println(list.get(0).getKey()+"被抓到了");  //司機須在線上，乘客再發起訂單
-    		String ChoosenDriver = null;
-    		ChoosenDriver = list.get(0).getKey(); //被上帝選擇的司機
-    		
-            // simulate driver accept order
-            DriverService driverService = new DriverService();
-            MemberService memberService = new MemberService();    
-            DriverVO driver = driverService.getOneDriver(list.get(0).getKey());  //*************
-            
-    		/***********把司機SET進資料庫******使用方法updateDriverIDAndStateByOrderID***********/
-    		SingleOrderService singleOrderSvc = new SingleOrderService();   //取得資料庫最後一筆資料的OrderID		
-    		Integer state = 1;
-    		
-    		List<SingleOrderVO> lastone = singleOrderSvc.getAll();
-			String orderID = lastone.get(lastone.size()-1).getOrderID();    //取得自增主鍵的OrderID
-			
-			singleOrderSvc.updateDriverIDAndStateByOrderID(ChoosenDriver, state , orderID);
-			System.out.println(ChoosenDriver+"被選擇的司機"); 
-			System.out.println(state+"狀態碼");
-			System.out.println(orderID+"訂單ID");
-			
-    		/*********轉JSON to 司機  目前乘客app會跳錯 *************/
-			gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
-    		JsonObject json = new JsonObject();
-    		json.addProperty("ORDER_ID", singleOrderVO.getOrderID());
-    		json.addProperty("DRIVER_ID", singleOrderVO.getDriverID());
-    		json.addProperty("MEM_ID", singleOrderVO.getMemID());
-    		json.addProperty("STATE", singleOrderVO.getState());
-    		json.addProperty("TOTALAMOUNT", singleOrderVO.getTotalAmount());
-    		json.addProperty("startLoc", singleOrderVO.getStartLoc());
-    		json.addProperty("endLoc", singleOrderVO.getEndLoc());
-    		json.addProperty("startTime", String.valueOf(singleOrderVO.getStartTime()));
-    		json.addProperty("endTime", String.valueOf(singleOrderVO.getStartTime()));
-    		json.addProperty("startLng", singleOrderVO.getStartLng());
-    		json.addProperty("startLat", singleOrderVO.getEndLat());
-    		json.addProperty("endLng", singleOrderVO.getEndLng());
-    		json.addProperty("endLat", singleOrderVO.getEndLat());
-    		json.addProperty("orderType", singleOrderVO.getOrderType());
-    		json.addProperty("rate", singleOrderVO.getRate());
-    		json.addProperty("note", singleOrderVO.getNote());
-    		json.addProperty("lauchTime", String.valueOf(singleOrderVO.getLaunchTime()));
-//            writer.write(json.toString());
-            System.out.println(json);
-            list.get(0).getValue().getSession().getAsyncRemote().sendText(json.toString());
-
-            /**********************************************************************************/     
- 
-            MemberVO memberVO = memberService.getOneMember(driver.getMemID());
             JsonObject jsonOut = new JsonObject();
-            jsonOut.addProperty("driverName", memberVO.getName());
-            jsonOut.addProperty("plateNum", driver.getPlateNum());
-            jsonOut.addProperty("carType", driver.getCarType());
+            @SuppressWarnings("unchecked")
+            Map<String, StoredInfo> matchDriver = (ConcurrentHashMap<String, StoredInfo>) getServletContext().getAttribute("driverLocation");
+            if (matchDriver != null && !matchDriver.entrySet().isEmpty()) {
+                int distance = jsonIn.get("distance").getAsInt();
+                SingleOrderVO singleOrderVO = gson.fromJson(jsonIn.get("singleOrder").getAsString(), SingleOrderVO.class);
+        		Double lat1 = singleOrderVO.getStartLat(); //乘客緯度 /*******
+        		Double lng1 = singleOrderVO.getStartLng(); //乘客經度 /*******
+        		List<Map.Entry<String, StoredInfo>> list = new ArrayList<Map.Entry<String, StoredInfo>>(matchDriver.entrySet());
+        		list.sort((d1, d2)-> {
+        		    Double lat3 = d1.getValue().getLatlng().getLatitude();
+                    Double lon3 = d1.getValue().getLatlng().getLongitude();
+                    Double lat4 = d2.getValue().getLatlng().getLatitude();
+                    Double lon4 = d2.getValue().getLatlng().getLongitude();
+                    return (int) (DistanceUtil.algorithm(lng1, lat1, lon3, lat3) - DistanceUtil.algorithm(lng1, lat1, lon4, lat4));
+                });
+        		for (Entry<String, StoredInfo> o : list) {
+        			System.out.println(o.getKey());  //這是司機ID
+        			System.out.println(o.getValue().getSession()); //這是司機的連線
+        			Double result = DistanceUtil.algorithm(lng1, lat1, o.getValue().getLatlng().getLongitude(), o.getValue().getLatlng().getLatitude()); 
+        			System.out.println(result); //這是計算出的距離
+        		}
+        		
+           		System.out.println(list.get(0).getKey()+"被抓到了");  //司機須在線上，乘客再發起訂單
+        		String ChoosenDriver  = list.get(0).getKey(); //被上帝選擇的司機
+                DriverService driverService = new DriverService();
+                MemberService memberService = new MemberService();    
+                DriverVO driver = driverService.getOneDriver(list.get(0).getKey());
+                MemberVO memberVO = memberService.getOneMember(driver.getMemID());
+        		/***********把司機SET進資料庫******使用方法updateDriverIDAndStateByOrderID***********/
+                singleOrderVO.setState(ESTABLISHED);
+                singleOrderVO.setDriverID(driver.getDriverID());
+                singleOrderVO.setTotalAmount(Checkout.checkout(distance, singleOrderVO.getOrderType()));
+                singleOrderVO.setLaunchTime(new Timestamp(System.currentTimeMillis()));
+                singleOrderService.addSingleOrder(singleOrderVO);
+    			System.out.println(ChoosenDriver + "被選擇的司機");
+    			gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
+    			JsonObject jsonObject = new JsonObject();
+                jsonObject.addProperty("singleOrder", gson.toJson(singleOrderVO));
+    			list.get(0)
+                    .getValue()
+                    .getSession()
+                    .getAsyncRemote()
+                    .sendText(jsonObject.toString());
+                jsonOut.addProperty("state", "Success");
+                jsonOut.addProperty("driverName", memberVO.getName());
+                jsonOut.addProperty("plateNum", driver.getPlateNum());
+                jsonOut.addProperty("carType", driver.getCarType());
+            } else
+                jsonOut.addProperty("state", "Failed");
+            
             writer.write(jsonOut.toString());
         } else if ("getNewSingleOrder".equals(action)) {
             List<SingleOrderVO> singleOrderVOs = singleOrderService.getByStateAndOrderType(ESTABLISHED, ONE_TIME_RESERVE)
