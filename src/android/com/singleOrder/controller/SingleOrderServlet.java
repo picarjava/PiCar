@@ -27,6 +27,7 @@ import com.member.model.MemberVO;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 import com.util.Checkout;
+import com.util.CountToken;
 
 import android.com.location.model.StoredInfo;
 import android.com.singleOrder.model.LongTermOrder;
@@ -100,7 +101,8 @@ public class SingleOrderServlet extends HttpServlet {
                 singleOrderVO.setDriverID(driver.getDriverID());
                 singleOrderVO.setTotalAmount(Checkout.checkout(distance, singleOrderVO.getOrderType()));
                 singleOrderVO.setLaunchTime(new Timestamp(System.currentTimeMillis()));
-                singleOrderService.addSingleOrder(singleOrderVO);
+                String orderID = singleOrderService.addSingleOrder(singleOrderVO);
+                singleOrderVO.setOrderID(orderID);
     			System.out.println(ChoosenDriver + "被選擇的司機");
     			gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
     			JsonObject jsonObject = new JsonObject();
@@ -180,6 +182,10 @@ public class SingleOrderServlet extends HttpServlet {
             jsonObject.addProperty("longTermOrder", gson.toJson(longTermOrders));
             writer.write(jsonObject.toString());
             System.out.println(jsonObject);
+        } else if ("getOffPiCar".equals(action)) {
+            String driverID = jsonIn.get(DRIVER_ID).getAsString();
+            String orderID = jsonIn.get(ORDER_ID).getAsString();
+//            new CountToken().countToken(memID, amount, orderID);
         }
         
         writer.close();
@@ -233,4 +239,6 @@ public class SingleOrderServlet extends HttpServlet {
         singleOrder.setNote(singleOrderVO.getNote());
         return singleOrder;
     }
+    
+    
 }

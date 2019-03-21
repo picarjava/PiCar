@@ -66,8 +66,8 @@ public class SingleOrderService {
         return singleOrderVO;
     } // addSingleOrder()
     
-    public void addSingleOrder(SingleOrderVO singleOrderVO) {
-        singleOrderDAO.insert(singleOrderVO);
+    public String addSingleOrder(SingleOrderVO singleOrderVO) {
+        return singleOrderDAO.insert(singleOrderVO);
     } // addSingleOrder()
     
     public SingleOrderVO updateSingleOrder(String orderID, String driverID, Integer state, Timestamp startTime,

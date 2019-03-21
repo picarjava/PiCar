@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface SingleOrder_interface {
     SingleOrderVO findByPrimaryKey(String primaryKey);
-    void insert(SingleOrderVO singleOrderVO);
+    String insert(SingleOrderVO singleOrderVO);
     void update(SingleOrderVO singleOrderVO);
     void updateDriverIDAndStateByOrderID(String driverID, Integer state, String orderID);
     void updateDriverIDAndStateByOrderID(String driverID, Integer state, List<String> orderIDs);
