@@ -393,9 +393,9 @@ public class StoreRecordServlet extends HttpServlet {
 				}
 
 				StoreRecordVO storeRecordVO = new StoreRecordVO();
-				storeRecordVO.setMemID(memID);
-				storeRecordVO.setAmount(amount);
-				storeRecordVO.setOrderID(orderID);
+//				storeRecordVO.setMemID(memID);
+//				storeRecordVO.setAmount(amount);
+//				storeRecordVO.setOrderID(orderID);
 				// 以上VO是為了錯誤時，原輸入資料保留
 
 //				if (!errorMsgs.isEmpty()) {
@@ -407,7 +407,7 @@ public class StoreRecordServlet extends HttpServlet {
 
 				MemberService memberSvc = new MemberService();
 				MemberVO memberVO = memberSvc.getOneMember(memID);
-				Integer count = memberVO.getToken() + storeRecordVO.getAmount();
+				Integer count = memberVO.getToken() + amount;
 				try {
 					if (count < 0) {
 						throw new Exception("總金額小於0");
@@ -417,7 +417,7 @@ public class StoreRecordServlet extends HttpServlet {
 					System.out.println(e);
 					return;
 				}
-				
+				System.out.println("2222");
 				// 開始新增資料
 				StoreRecordService storeRecordSvc = new StoreRecordService();
 				storeRecordVO = storeRecordSvc.addOrdrID(memID, amount, orderID);
@@ -430,9 +430,11 @@ public class StoreRecordServlet extends HttpServlet {
 				// 為了計算加總金額 用取得會員代幣替代
 //				Integer sumCount = storeRecordSvc.getCount(memID);
 //				req.setAttribute("sumCount", sumCount);
-
+				System.out.println("3333");
+				System.out.println(memID);
+				System.out.println(count);
 				memberSvc.updateToken(memID, count);
-
+				System.out.println("5555");
 				RequestDispatcher succesView = req
 						.getRequestDispatcher("/front-end/storeRecord/listOneStoreRecordByMem.jsp");
 				succesView.forward(req, res);

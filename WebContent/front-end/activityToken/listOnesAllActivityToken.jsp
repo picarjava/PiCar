@@ -58,7 +58,7 @@ session.setAttribute("memID",memID);
                 <div class="section-header">
                     <h3 class="section-title">查詢活動代幣明細</h3>
                     <form action="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">
-			          <div class="text-center"><button type="submit" class="btn btn-outline-success">返回</button></div>
+			          <div class="text-center"><button type="submit" class="btn btn-outline-success">返回會員首頁</button></div>
 			         </form>
                 </div>
             </div>

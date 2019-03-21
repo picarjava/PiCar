@@ -55,9 +55,9 @@ session.setAttribute("memID",memID);
                 <div class="section-header">
                     <h3 class="section-title">查看排定訂單</h3>
                     <p>會員${memID}最新即時推播內容:</p><p id="statusOutput"></p>
-                    <form action="">
-					 <div class="text-center"><button type="submit" class="btn btn-outline-success">返回首頁</button></div>
-					</form>
+                    <form action="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">
+		            <button type="submit" class="btn btn-outline-success" >返回會員首頁</button>
+		            </form>
                 </div>
             </div>
             <div class="container wow fadeInUp">
@@ -122,15 +122,15 @@ session.setAttribute("memID",memID);
 							       </c:if>
 							       <td >
 							        <c:if test="${singleOrder.state eq 0 and singleOrder.orderType eq 4}">
-							           <div class="text-center"><button id="DELETELONGTERM" type="submit" class="btn btn-light">取消長期預約</button>
 							           <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
+									    <div class="text-center"><button id="DELETELONGTERM" type="submit" class="btn btn-light">取消長期預約</button>
 									    <!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
 			                				<input type="hidden" name="action" value="DELETELONGTERM">
 			                				<input type="hidden" name="orderID" value="${singleOrder.orderID}">
+									    </div>
 									   </Form>
-									   </div>
-								       </td>
 							       </c:if>
+							       </td>
 							       <td>
 						 		  <c:forEach var="state" items="${stateMap}">
 						 		   ${state.key eq singleOrder.state ? state.value: ""}
@@ -162,6 +162,7 @@ session.setAttribute("memID",memID);
 						  <thead class="thead-dark">
 						    <tr>
 						     <th scope="col">乘車時間	</th>
+						     <th scope="col">訂單編號	</th>
 						     <th scope="col">訂單種類	</th>
 							 <th scope="col">乘車地點	</th>
 							 <th scope="col">前往目的地</th>
@@ -178,6 +179,7 @@ session.setAttribute("memID",memID);
 					 			  <th scope="row">
 							      <fmt:formatDate type="BOTH" value="${groupOrder.startTime}" pattern="yyyy/MM/dd/ mm:ss"/>
 							      </th>
+							      <td>${groupOrder.gorderID}</td>
 							      <td>
 							      <c:forEach var="orderType" items="${orderTypeMap}">
 						 		   ${orderType.key eq groupOrder.orderType ? orderType.value: ""}

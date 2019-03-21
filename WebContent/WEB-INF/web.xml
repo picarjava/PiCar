@@ -135,6 +135,10 @@
     <servlet-name>DriverReportServlet</servlet-name>
     <url-pattern>/back-end/driverReport/driverReport.do</url-pattern>
   </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DriverReportServlet</servlet-name>
+    <url-pattern>/front-end/driverReport/driverReport.do</url-pattern>
+  </servlet-mapping>
   <servlet>
     <servlet-name>GroupReportServlet</servlet-name>
     <servlet-class>com.groupReport.controller.GroupReportServlet</servlet-class>
