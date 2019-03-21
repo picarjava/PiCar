@@ -397,6 +397,13 @@ public class ActivityTokenJNDIDAO implements ActivityTokenDAO_interface{
 					+ se.getMessage());
 			// Clean up JDBC resources
 		} finally {
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
 			if (pstmt != null) {
 				try {
 					pstmt.close();
