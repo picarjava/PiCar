@@ -323,25 +323,29 @@ var col=document.getElementById("col");
 var innerdate=document.getElementById("innerdate");
 send.onclick=function(){
 	//必填 ，不填不能跑
+	var x=0;
 var start_date=document.getElementById("start_date").value;
 var progressbarTWInput=document.getElementById("progressbarTWInput").value;
 var distance=document.getElementById("distance");
 
 
 if(distance.innerHTML==''){
-	col.innerHTML="<h3 style='color:#FF3333'>※請填寫日期※<h3>";
-	return false;
+	col.innerHTML="<h3 style='color:#FF3333'>※請輸入台灣地址※<h3>";
+x++;
 	}
 
 if(start_date==' '){
 	innerdate.innerHTML="<h3 style='color:#FF3333'>※請填寫日期※<h3>";
-	return false;
+	x++;	
 	}
 if(progressbarTWInput.length<1){
 Verifyimage.innerHTML="<h3 style='color:#FF3333'>※請上傳圖片※<h3>";
-return false;
+x++;
 }
-
+if(x>0){
+	return false;
+	
+}
 }
 
 
