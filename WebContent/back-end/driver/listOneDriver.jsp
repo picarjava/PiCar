@@ -158,25 +158,6 @@
 								</div>
 							</div>
 
-							<div class="form-group">
-								<p>大頭照</p>
-								<div class="card" style="width: 18rem;">
-<%-- 									<img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=5" width="300" 
-<%-- 									<img src="<%=request.getContextPath()%>/driver/driver.do?driverID=${driverVO.driverID}&pic=5" width="300" 
-										height="150" class="card-img-top" alt="...">--%>
-<%-- <%-- 						      <td>${driverVO.photo}</td> --%> 
-                              <td>
-						      <c:set var="photo" value="${driverVO.photo}" />
-						      <%
- 						      byte[] photo = (byte[])pageContext.getAttribute("photo");
- 						      String encodeImg5 = null;
- 						      if(photo!=null){
-						    	  encodeImg5 = Base64.encode(photo);%>
-						    	  <img src="data:image/jpg;base64,<%=encodeImg5 %>" id="img5" width='400' height='350'>
-						      <% }%>
-						      </td>
-								</div>
-							</div>
 
 							<div class="form-group">
 								<p>願意共乘載客:</p>
