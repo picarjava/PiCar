@@ -54,8 +54,8 @@
     <body>
     <div>
 <a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/insertGroupBand.jsp">發起揪團</a>
-<a id="GIbutton" href="services.html">加入揪團</a>
-<a id="GIbutton" href="services.html">揪團管理</a>
+<a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/SelectGroupBand.jsp">加入揪團</a>
+<a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/listAllOneGroupBand.jsp">揪團管理</a>
 </div>
     </body>
 
