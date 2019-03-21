@@ -50,7 +50,6 @@
 <head>
 <meta charset="utf-8">
 <title>揪團管理</title>
-<style>
   table#table-1 {
 	background-color: #CCCCFF;
     border: 2px solid black;
@@ -65,15 +64,30 @@
     color: blue;
     display: inline;
   }
+#Floatingwindow {
+    position: fixed;
+    background-color: #555;
+    width: 500px;
+    height: 320px;
+    z-index: 995;
+    left: 40%;
+    top: 30%;
+    }
+ #messageboards{
+ 	margin-top: 40px;
+ }   
+    
 </style>
 
 <style>
   table {
 	width: 800px;
 	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
+	margin:auto;
+	margin-top: 15px;
+	margin-bottom: 15px;
   }
+  
   table, th, td {
     border: 1px solid #CCCCFF;
   }
@@ -82,6 +96,11 @@
       width: 50px;
     padding: 5px;
     text-align: center;
+  }
+  #topright{
+    position: absolute;
+    right: 0px;
+  
   }
 </style>
 </head>

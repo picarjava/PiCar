@@ -9,28 +9,28 @@
 <!DOCTYPE html>
 <html>
 <head>
-<!-- <link href="img/favicon.png" rel="icon"> -->
-<!-- <link href="img/apple-touch-icon.png" rel="apple-touch-icon"> -->
+<link href="img/favicon.png" rel="icon">
+<link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
-<!-- <!-- Google Fonts --> -->
-<!-- <link -->
-<!-- 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700" -->
-<!-- 	rel="stylesheet"> -->
+<!-- <!-- Google Fonts -->
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700"
+	rel="stylesheet">
 
-<!-- <!-- Bootstrap CSS File --> -->
+<!-- <!-- Bootstrap CSS File -->
 <!-- <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
 
-<!-- <!-- Libraries CSS Files --> -->
-<!-- <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet"> -->
-<!-- <link href="lib/animate/animate.min.css" rel="stylesheet"> -->
-<%-- <link href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/style.css" rel="stylesheet"> --%>
-<%-- <link href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/flexslider.css" rel="stylesheet"> --%>
-<%-- <link href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/font-awesome.css" rel="stylesheet"> --%>
-<!-- <!-- Main Stylesheet File --> -->
-<!-- <link rel="stylesheet" type="text/css" -->
-<%-- 	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" /> --%>
-<%-- <script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.js"></script> --%>
-<%-- <script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script> --%>
+<!--  Libraries CSS Files  -->
+<link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+<link href="lib/animate/animate.min.css" rel="stylesheet">
+<link href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/style.css" rel="stylesheet">
+<link href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/flexslider.css" rel="stylesheet">
+<link href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/font-awesome.css" rel="stylesheet">
+<!-- <!-- Main Stylesheet File --> 
+<link rel="stylesheet" type="text/css"
+	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
+<script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.js"></script>
+<script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
 <meta charset="utf-8">
 <title>Insert title here</title>
 <!-- google map用 -->
