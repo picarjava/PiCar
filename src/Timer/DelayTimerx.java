@@ -14,6 +14,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 
+import com.groupOrder.model.GroupOrderDAO;
 import com.groupOrder.model.GroupOrderService;
 import com.singleOrder.model.SingleOrderDAO;
 import com.singleOrder.model.SingleOrderService;
@@ -60,15 +61,14 @@ public class DelayTimerx extends HttpServlet {
 				System.out.println("3:"+getServletContext().getAttribute("futureOrderMAP"));
 				
 				System.out.println("過期的單人訂單在這喔"+new SingleOrderService().getDelayOrder());//ok
-				System.out.println("過期的揪團訂單在這喔"+new GroupOrderService().getDelayOrder());//ok
+				System.out.println("過期的揪團訂單在這喔"+new GroupOrderService().getDelayGOrder());//ok
 				
 				//3/21 01:40進度。已抓到過期訂單。
 				
 				List<String> singleDelayList = new ArrayList<String>();
 				singleDelayList= new SingleOrderService().getDelayOrder();
 				
-				List<String> groupDelayList = new ArrayList<String>();
-				groupDelayList = new GroupOrderService().getDelayOrder();
+
 				
 				
 //				if (startTimeList != null) {
@@ -96,9 +96,32 @@ public class DelayTimerx extends HttpServlet {
 //						// 排成器delaytask 5分鐘後 1.狀態碼改成逾期2.推播websocket給管理員 
 //						//
 					}
+					List<String> groupDelayList = new ArrayList<String>();
+					groupDelayList = new GroupOrderService().getDelayGOrder();
+					
+					for (String groupdelay : groupDelayList) {// 滾出一群過期訂單
+						System.out.println("UPDATE GROUP_ORDER SET STATE ='6' WHERE GORDER_ID=?");
+						System.out.println(groupdelay);
+						new GroupOrderService().updateDelayGOrder(groupdelay);
+//						System.out.println(new SingleOrderService().get);
+						System.out.println("=================");
+	
+////						TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
+////							public void run() {
+////								// System.out.println("更新日期:"+new
+////								// java.util.Date()+"司機編號"+driverID+"最新評價為:"+rateAve+ "分");
+////								TimerTask taskdelay = null;
+////								taskdelay = afterdelay();
+//////								new Timer().schedule(taskdelay, 1000 * 60 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
+////								new Timer().schedule(taskdelay, 1000 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
+////							}
+////						};
+////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
+////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
+//						// 排成器delaytask 5分鐘後 1.狀態碼改成逾期2.推播websocket給管理員 
+//						//
+					}
 //				}
-				
-				
 				System.out.println("4.訂單集合");
 //				sharetimer(startTimeList);//此行跑不到。B.將一群時間傳到另一個方法
 			}
@@ -108,8 +131,11 @@ public class DelayTimerx extends HttpServlet {
 //		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
 		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000*5); //甲. 每半小時執行一次 搜出隔天訂單 
 //		System.out.println("C.現在毫秒數"+new GregorianCalendar().getTimeInMillis());   //TEST
+	
 	}//init
 	// 傳入當日欲更新的hour
+	
+	
 	public void sharetimer(List<String> startTimeList) {
 		boolean isNew = false;
 		if (!isNew) {

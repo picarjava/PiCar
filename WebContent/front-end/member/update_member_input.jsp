@@ -30,7 +30,7 @@ table{
 </c:if>
 
 <form method="post" action="member.do" name="form1" enctype="multipart/form-data">
-<a  href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a><br>
+<a id="GIbutton" href="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">請按此回會員首頁</a><br>
 <a  href=listOneMemberByUpdate.jsp> 請按此回上一頁 </a>
 	<table >
 		<tr>

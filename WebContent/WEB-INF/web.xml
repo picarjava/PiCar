@@ -316,6 +316,16 @@
     <url-pattern>/front-end/login/loginHandler.do</url-pattern>
   </servlet-mapping>
   <servlet>
+    <servlet-name>LogoutHandler1</servlet-name>
+    <servlet-class>com.login.filter.LogoutHandler</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutHandler1</servlet-name>
+    <url-pattern>/front-end/HomeMember/logoutHandler.do</url-pattern>
+  </servlet-mapping>
+                
+  
+  <servlet>
     <servlet-name>LogoutHandler</servlet-name>
     <servlet-class>com.login.filter.LogoutHandler</servlet-class>
   </servlet>

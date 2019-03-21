@@ -501,14 +501,17 @@ public class SingleOrderDAO implements SingleOrder_interface {
     } // insert()
 
     @Override
-    public void insert(SingleOrderVO singleOrderVO) {
+    public String insert(SingleOrderVO singleOrderVO) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        String orderID = null;
         int index = 1;
         try {
 //            connection = DriverManager.getConnection(URL, NAME, PASSWORD);
+            String generatedColumns[] = {"ORDER_ID"}; 
             connection = dataSource.getConnection();
-            preparedStatement = connection.prepareStatement(INSERT_STMT);
+            preparedStatement = connection.prepareStatement(INSERT_STMT, generatedColumns);
             preparedStatement.setString(index++, singleOrderVO.getMemID());
             preparedStatement.setString(index++, singleOrderVO.getDriverID());
             preparedStatement.setInt(index++, singleOrderVO.getState());
@@ -524,13 +527,19 @@ public class SingleOrderDAO implements SingleOrder_interface {
             preparedStatement.setString(index++, singleOrderVO.getNote());
             preparedStatement.setTimestamp(index++, singleOrderVO.getLaunchTime());            
             preparedStatement.executeUpdate();
+            resultSet = preparedStatement.getGeneratedKeys();
+            resultSet.next();
+            orderID = resultSet.getString(1);
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage(), e);
         } finally {
+            closeResultSet(resultSet);
             closePreparedStatement(preparedStatement);
             closeConnection(connection);
-        } // finally    
+        } // finally
+        
+        return orderID;
     } // insert()
 
     @Override
@@ -767,9 +776,5 @@ public class SingleOrderDAO implements SingleOrder_interface {
 		// TODO Auto-generated method stub
 		
 	}
-	@Override
-	public void updateOrderIDToDelay() {
-		// TODO Auto-generated method stub
-		
-	}
+
 } // class SingleOrderDAO

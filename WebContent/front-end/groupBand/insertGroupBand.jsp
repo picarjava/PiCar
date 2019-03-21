@@ -12,21 +12,21 @@
 <link href="img/favicon.png" rel="icon">
 <link href="img/apple-touch-icon.png" rel="apple-touch-icon">
 
-<!-- Google Fonts -->
+<!-- <!-- Google Fonts -->
 <link
 	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700"
 	rel="stylesheet">
 
-<!-- Bootstrap CSS File -->
+<!-- <!-- Bootstrap CSS File -->
 <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-<!-- Libraries CSS Files -->
+<!--  Libraries CSS Files  -->
 <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 <link href="lib/animate/animate.min.css" rel="stylesheet">
 <link href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/style.css" rel="stylesheet">
 <link href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/flexslider.css" rel="stylesheet">
 <link href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/font-awesome.css" rel="stylesheet">
-<!-- Main Stylesheet File -->
+<!-- <!-- Main Stylesheet File --> 
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 <script src="<%=request.getServletContext().getContextPath()%>/datetimepicker/jquery.js"></script>
@@ -159,6 +159,8 @@ color: #ffffff;
 </style>
 </head>
 <body bgcolor="#aaaaaa">
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
 <div class="about-us container">
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>

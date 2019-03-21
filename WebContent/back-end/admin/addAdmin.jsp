@@ -9,18 +9,15 @@
 <html>
 <head>
 <title>PICAR BACK-END 新增管理員</title>
-<jsp:include page="/back-end/kidHead.jsp" />
-
+<jsp:include page="/back-end/head_back.jsp" />
 <meta charset="utf-8">
 <title>管理員資料新增 - addAdmin.jsp</title>
-<jsp:include page="/back-end/kidHead.jsp" />
 
 </head>
 <body bgcolor='white'>
     <div class="wrapper ">
         <jsp:include page="/back-end/kidBodyLeft.jsp" />
         <div class="main-panel">
-            <jsp:include page="/back-end/kidNavbar.jsp" />
             <div class="content">
                 <div class="container-fluid">
                     <!-- your content here -->

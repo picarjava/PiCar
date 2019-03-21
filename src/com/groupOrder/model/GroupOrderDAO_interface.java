@@ -31,7 +31,9 @@ public void UPDATE_Total_AmoutGroupIDState(Integer TotalAmout, String GroupID, I
 public Timestamp getStartTimeGgroupID(String groupID);
 
 //逾時訂單
-public List<String> getDelayOrder();
+public List<String> getDelayGOrder();
+void updateGOrderIDToDelay(String gorderID); //阿君新增
+
 List<GroupOrderVO> getALL_GroupID_State(String groupid, Integer state);
 List<String> getMemID_groupID(String groupID);
 }

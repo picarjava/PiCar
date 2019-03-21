@@ -4,6 +4,7 @@
 <%@ page import="java.util.*" %>
 <html>
 <head>
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
   <title>請查看單筆活動資訊</title>
     <jsp:include page="/regna-master/head.jsp" />
 </head>

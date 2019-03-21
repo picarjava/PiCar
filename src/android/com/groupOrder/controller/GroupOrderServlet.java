@@ -90,6 +90,14 @@ public class GroupOrderServlet extends HttpServlet {
             jsonObject.addProperty("groupOrder", gson.toJson(groupOrders));
             jsonObject.addProperty("longTermGroupOrder", gson.toJson(longTermGroupOrders));
             writer.print(jsonObject.toString());
+        } else if ("getOffPiCar".equals(action)) {
+            String driverID = jsonIn.get(DRIVER_ID).getAsString();
+            String groupID = jsonIn.get(GROUP_ID).getAsString();
+            if (jsonIn.has("startTime")) {
+                
+            } else {
+                
+            }
         }
     }
     

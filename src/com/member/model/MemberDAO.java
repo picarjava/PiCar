@@ -521,23 +521,20 @@ public class MemberDAO implements MemberDAO_interface {
 
 	@Override
 	public void updateToken(MemberVO memberVO) {
-		System.out.println("111");
+
 		Connection con = null;
 		PreparedStatement pstmt = null;
 
 		try {
 			con = ds.getConnection();
 			pstmt = con.prepareStatement(UPDATE_TOKEN);
-			System.out.println(memberVO.getToken());
-			System.out.println(memberVO.getMemID());
+
 			pstmt.setInt(1, memberVO.getToken());
-			System.out.println("222");
-			pstmt.setString(2, memberVO.getMemID().trim());
-			System.out.println("333");
+			pstmt.setString(2, memberVO.getMemID());
+
 			pstmt.executeUpdate();
-			System.out.println("444");
+
 		} catch (SQLException se) {
-			se.printStackTrace();
 			throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
 
 		} finally {
