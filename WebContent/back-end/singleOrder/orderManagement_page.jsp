@@ -80,9 +80,6 @@ String path = request.getContextPath();
 		</ul>
 	</c:if>
     <!-- 錯誤列表結束 -->
-
-<div id ="333"><button>查詢訂單</button></div>
-
 		                        <table class="table">
 							  <thead class="thead-dark"><tr>
 							      <tr></tr>
@@ -97,8 +94,8 @@ String path = request.getContextPath();
 							      <th scope="col">乘車目的地	</th>
 							      <th scope="col">訂單總金額	</th>
 							      <th scope="col">訂單狀態	</th>
-								  <th scope="col">重新叫車</th>
-								  <th scope="col">退款</th>
+<!-- 								  <th scope="col">重新叫車</th> -->
+<!-- 								  <th scope="col">退款</th> -->
 							    </tr>
 							  </thead>
 							  <tbody>
@@ -141,11 +138,11 @@ String path = request.getContextPath();
 						 		   ${state.key eq singleOrder.state ? state.value: ""}
 						 		  </c:forEach>
 						 		  </td>
-							      <td ><button>重新叫車</button>
-								  </td>
-								  <td>
-								  <button>退款</button>
-								  </td> 
+<!-- 							      <td ><button>重新叫車</button> -->
+<!-- 								  </td> -->
+<!-- 								  <td> -->
+<!-- 								  <button>退款</button> -->
+<!-- 								  </td>  -->
 <!-- 							      <td> -->
 <%-- 							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" > --%>
 <!-- 								    <div class="text-center"><button type="submit" class="btn btn-light">取消</button> -->

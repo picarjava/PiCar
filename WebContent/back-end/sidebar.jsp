@@ -21,7 +21,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/member/select_page.jsp">
+            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/member/listAllmember_byDAO.jsp">
               <i class="material-icons">content_paste</i>
               <p>乘客會員管理</p>
             </a>
@@ -45,33 +45,9 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/rate/select_page.jsp">
-              <i class="material-icons">content_paste</i>
-              <p>乘客推播訊息設定</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./typography.html">
-              <i class="material-icons">library_books</i>
-              <p>Typography</p>
-            </a>
-          </li>
-          <li class="nav-item ">
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/activity/homeActivity.jsp">
               <i class="material-icons">bubble_chart</i>
               <p>活動資訊管理</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./notifications.html">
-              <i class="material-icons">notifications</i>
-              <p>即時客服交談</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./rtl.html">
-              <i class="material-icons">language</i>
-              <p>RTL Support</p>
             </a>
           </li>
         </ul>

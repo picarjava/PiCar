@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="/back-end/head_back.jsp" />
 <meta charset="UTF-8">
 <title>update_member_input.jsp</title>
 </head>
@@ -18,7 +19,7 @@ table{
 	MemberVO memberVO =  (MemberVO)request.getAttribute("memberVO");
 %>
  <h3>update_member_input.jsp</h3>
- 
+ <jsp:include page="/back-end/kidBodyLeft.jsp" />
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>

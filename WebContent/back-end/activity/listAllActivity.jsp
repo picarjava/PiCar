@@ -7,13 +7,12 @@
 <html lang="zh">
 
 <head>
-    
+    <jsp:include page="/back-end/head_back.jsp" />
     <title>後台所有活動列表</title>
-    <jsp:include page="/regna-master/head.jsp" />
-   
 </head>
 
 <body>
+<jsp:include page="/back-end/kidBodyLeft.jsp" />
     <!--==========================
       活動listALL
     ============================-->

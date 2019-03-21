@@ -83,9 +83,9 @@ table {
 					</button>
 					<div class="collapse navbar-collapse justify-content-end">
 						<ul class="navbar-nav">
-							<li class="nav-item"><a class="nav-link" href="#pablo">
-									<i class="material-icons">notifications</i> Notifications
-							</a></li>
+<!-- 							<li class="nav-item"><a class="nav-link" href="#pablo"> -->
+<!-- 									<i class="material-icons">notifications</i> Notifications -->
+<!-- 							</a></li> -->
 				              <p id="p1"><font color=black> ${adminVO.adminName} </font>您好   </p>
 				                <FORM METHOD="post" ACTION="logoutHandlerBackEnd.do">
 									<input type="hidden" name="action" value="logout">
