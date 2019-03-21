@@ -40,7 +40,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 		SimpleDateFormat tFormat=new SimpleDateFormat("yyyy/MM/dd a hh:mm:ss ");
 		TimeConverter timeConverter=new TimeConverter();
 		Date firstime=timeConverter.getThisHourToday(0);//開始時間為伺服器啟動的當天0點
-		long period=1000*60*60; //每12小時執行一次
+		long period=1000*60*3; //每12小時執行一次
 		SingleOrderService singleOrderSvc=new SingleOrderService();
 		HashSet<SingleOrderVO> allUnpaid =new HashSet<SingleOrderVO>();//待付款訂單
 		TimerTask task=new TimerTask(){
@@ -103,7 +103,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 							if(broadcastMap!=null) { //若有會員在線，則可以進入推播對象的篩選
 								Session isOnline=broadcastMap.get(memID); 
 								if(isOnline!=null) { //若此會員有在線，則對此會員進行推播
-								    String message= "訂單編號"+orderID+"已為您扣款";
+								    String message= "訂單編號"+orderID+"已於"+excutedTime+"為您扣款";
 									String toJsonMessage= "{\"message\":\"" +message+"\"}";	
 										try {
 											isOnline.getBasicRemote().sendText(toJsonMessage);

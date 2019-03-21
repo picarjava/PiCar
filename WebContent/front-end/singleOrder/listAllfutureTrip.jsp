@@ -8,13 +8,13 @@
 <%@ page import="com.groupOrder.model.GroupOrderVO"%>
 <%@ page import="com.groupOrder.model.GroupOrderService"%>
 
+<!-- 登入功能串接 ，將VOmemID指定給 memID-->
+<%@ page import="com.member.model.MemberVO"%>
+<%MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
+String memID=memberVO.getMemID();
+session.setAttribute("memID",memID);
+%> 
 
-<!-- 本頁面待與登入功能串接 此處先指定memID-->
-<%-- <%String memID=(String)session.getAttribute("memID"); %>  --%>
-<%!String memID="M001";%>
-<%
-    session.setAttribute("memID", memID);
-%>
 
 <!-- 個人訂單 -->
 <%
@@ -54,7 +54,7 @@
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">查看排定訂單</h3>
-                    <p>會員${memID}WEBSOCKET連線狀況:</p><p id="statusOutput"></p>
+                    <p>會員${memID}最新即時推播內容:</p><p id="statusOutput"></p>
                     <form action="">
 					 <div class="text-center"><button type="submit" class="btn btn-outline-success">返回首頁</button></div>
 					</form>
@@ -80,7 +80,7 @@
 							      <th scope="col">乘車目的地	</th>
 							      <th scope="col">總金額	    </th>
 							      <th scope="col">取消行程	</th>
-							      <th scope="col">訂單狀態	</th>
+							      <th scope="col" colspan="2">訂單狀態	</th>
 							    </tr>
 							  </thead>
 							  <tbody>
@@ -102,7 +102,6 @@
 							      <td>${singleOrder.totalAmount}</td>
 							      <c:if test="${singleOrder.state eq 1 }">
 							          <td>
-								      
 								      </td>
 							       </c:if>
 							       <c:if test="${singleOrder.state eq 0 and singleOrder.orderType eq 0}">
@@ -121,11 +120,11 @@
 									   </Form>
 								       </td>
 							       </c:if>
+							       <td >
 							        <c:if test="${singleOrder.state eq 0 and singleOrder.orderType eq 4}">
-							          <td >
-									   <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
-									      	<div class="text-center"><button id="DELETELONGTERM" type="submit" class="btn btn-light">取消長期預約</button>
-									      	<!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
+							           <div class="text-center"><button id="DELETELONGTERM" type="submit" class="btn btn-light">取消長期預約</button>
+							           <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
+									    <!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
 			                				<input type="hidden" name="action" value="DELETELONGTERM">
 			                				<input type="hidden" name="orderID" value="${singleOrder.orderID}">
 									   </Form>
@@ -141,7 +140,7 @@
 		</c:if>					    
 		</c:forEach>
 							</tbody>
-							</table>
+						  </table>
 		<div class="text-center">
 <!-- 		<button type="button" class="btn btn-secondary btn-lg btn-block" data-toggle="modal" data-target="#listPastSingleOrder"> -->
 <!-- 		  查看歷史紀錄 -->
@@ -236,8 +235,10 @@ $("#DELETELONGTERM").click(function() {
  	var path=window.location.pathname;
  	var webCtx=path.substring(0,path.indexOf('/',1));
  	var endPointURL="ws://"+window.location.host+webCtx+MyPoint;
-    
- 	var statusOutput=document.getElementById("statusOutput");
+ 	
+ 	var webSocketTitle =document.getElementById("webSocketTitle"); //狀態標題
+ 	var statusOutput=document.getElementById("statusOutput");//狀態內容
+ 	
  	var webSocket;
  	
  	function connect(){
@@ -269,6 +270,8 @@ $("#DELETELONGTERM").click(function() {
  	function updateStatus(newStatus){
  		statusOutput.innerHTML= newStatus;
  	}
+ 	
+ 	
  </script>
 
  <!--==========websocket推播 結束============-->

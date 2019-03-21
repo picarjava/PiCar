@@ -5,10 +5,12 @@
 <%@ page import="com.member.model.*" %>
 <%@ page import="java.util.*" %>
 
-<!-- 本頁面待與登入功能串接 此處先指定memID-->
-<%-- <%String memID=(String)session.getAttribute("memID"); %>  --%>
-<%! String memID="M001"; %>
-<% session.setAttribute("memID", memID);%>
+<!-- 會員登入功能串接 ，將VOmemID指定給 memID-->
+<%@ page import="com.member.model.MemberVO"%>
+<%MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
+String memID=memberVO.getMemID();
+session.setAttribute("memID",memID);
+%> 
 <!-- 得到此會員的list和sum  -->
 
 <% ActivityTokenService activityTokenSvc=new ActivityTokenService();
@@ -24,7 +26,7 @@
 <html lang="zh">
 
 <head>
-   <jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontPos.jsp"/> 
+<%--    <jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontPos.jsp"/>  --%>
 
    
     <title>查詢活動代幣明細</title>

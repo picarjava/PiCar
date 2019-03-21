@@ -5,10 +5,17 @@
 <%@ page import="java.util.List"%>
 <%@ page import="com.singleOrder.model.SingleOrderVO"%>
 
-<!-- 本頁面待與登入功能串接 此處先指定driverID-->
-<%-- <%String driverID=(String)session.getAttribute("driverID"); %>  --%>
-<%! String driverID="D001";%>
-<% session.setAttribute("driverID", driverID);%>
+<!-- 登入功能串接 ，將VOmemID用Driver servevice driverID找出指定給driverID-->
+<%@ page import="com.member.model.MemberVO"%>
+<%@ page import="com.driver.model.DriverService"%>
+<%@ page import="com.driver.model.DriverVO"%>
+<%MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
+String memID=memberVO.getMemID();
+DriverService driverSvc=new DriverService();
+DriverVO driverVO=driverSvc.getOneDriverBymemID(memID);
+String driverID=driverVO.getDriverID();
+session.setAttribute("driverID", driverID);
+%> 
 
 <!-- 個人訂單 -->
 <%
