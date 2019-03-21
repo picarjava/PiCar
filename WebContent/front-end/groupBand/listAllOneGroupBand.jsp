@@ -49,7 +49,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>listAllGroupBand.jsp  ${memberVO.memID}</title>
+<title>揪團管理</title>
 <style>
   table#table-1 {
 	background-color: #CCCCFF;
@@ -85,9 +85,10 @@
   }
 </style>
 </head>
-<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
-<body align="center">
 
+<body align="center">
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
 
 <c:if test="${not empty errorMsgs}">
 	<font style="color:red">請修正以下錯誤:</font>
@@ -97,10 +98,9 @@
 		</c:forEach>
 	</ul>
 </c:if>
-<a href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/insertGroupBand.jsp" >發起揪團</a>
-<a href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/SelectGroupBand.jsp" >查詢單筆</a>
 
 
+<div style="margin-top: 50px;">
 <%@ include file="page1.file" %> 
 <c:forEach var="GroupBandVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 

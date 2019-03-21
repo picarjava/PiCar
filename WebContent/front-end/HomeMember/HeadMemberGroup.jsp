@@ -28,10 +28,12 @@
     0 -1px 25px 0 rgba(0,0,0,.05) inset: ;
     -webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
     box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+     margin-bottom: 100px;
 }
     #GIbutton:hover {
     font-family: "Poppins", sans-serif;
     border-radius: 50px;
+       
     padding: 5px 22px;
     background: #2dc997;
     color: #f5f5f5;
