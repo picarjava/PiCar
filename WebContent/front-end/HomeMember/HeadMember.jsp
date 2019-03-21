@@ -86,7 +86,7 @@ float: right;
                 <div class="span12">
                     <div class="navbar">
                             <div class="navbar-inner">
-                         <div id="rigthtop"><form method="post"  action="logoutHandler.do">			
+                         <div id="rigthtop"><form method="post"  action="/PiCar/front-end/HomeMember/logoutHandler.do">			
 				<input type="submit" value="登出">	
 				 <input type="hidden" name="logout"	value="logout">	
 				</form></div>
