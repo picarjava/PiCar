@@ -18,7 +18,7 @@
 	rel="stylesheet">
 
 <!-- <!-- Bootstrap CSS File -->
-<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
 
 <!--  Libraries CSS Files  -->
 <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -56,6 +56,7 @@
        .about-us {
     margin-top: 120px;
 }
+
 .h3center{
     text-align: center;
 }
@@ -156,6 +157,12 @@ color: #ffffff;
         0 1px 25px 0 rgba(0,0,0,.05) inset,
         0 -1px 25px 0 rgba(0,0,0,.05) inset;
 }
+.groupType{
+width: 100%;
+}
+label {
+display:;
+}
 </style>
 </head>
 <body bgcolor="#aaaaaa">
@@ -252,16 +259,16 @@ color: #ffffff;
 	 <div id="innerdate"></div>
 	  <div class="form-group">
 	 <button type="button" id="buttons" onchange="buttones();" class="btn btn-outline-success">請點選輸入日期</button>
-				<select id="days" name="days" style="display: none" onchange="timestamps();"></select>
+				<select id="days" name="days" style="display: none ;width: 20px;" onchange="timestamps();"></select>
 				<nobr>時間:</nobr> 
 				<nobr id="datetime" >00:00</nobr> 
 				<nobr>   日期:</nobr> 
 				<input name="startTime" id="start_date" type="text"
-					 onchange="datestamps();" readonly="readonly" size="8" value=" ">
+					 onchange="datestamps();" readonly="readonly" size="8" value=" " style="width: 50px;">
 				<nobr id="brs"></nobr>  
 						
 <input name="endTime" id="end_date" type="text"
-					style="display: none" readonly="readonly" size="8">
+					style="display: none;width: 75px;" readonly="readonly" size="8">
 					<nobr id="numd"></nobr>
 	 </div>
 	 
