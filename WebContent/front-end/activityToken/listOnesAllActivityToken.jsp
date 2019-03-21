@@ -26,6 +26,7 @@ session.setAttribute("memID",memID);
 <html lang="zh">
 
 <head>
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
    <jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontPos.jsp"/> 
 
    

@@ -26,6 +26,7 @@
 <title>查看揪團歷史訂單</title>
 	<jsp:include page="/regna-master/head.jsp" />  
 </head>
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 <body>
 <!-- 錯誤列表開始 -->
     <%List<String> errorMsgs=(List<String>)request.getAttribute("errorMsgs");%>

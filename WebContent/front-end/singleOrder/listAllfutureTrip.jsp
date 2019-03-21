@@ -35,6 +35,7 @@ session.setAttribute("memID",memID);
 <!DOCTYPE html>
 <html lang="zh">
 <head>
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
     <title>查看排定訂單</title>
     <jsp:include page="/regna-master/head.jsp" />  
 </head>
