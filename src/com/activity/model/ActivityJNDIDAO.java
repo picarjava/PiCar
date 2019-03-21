@@ -42,6 +42,7 @@ public class ActivityJNDIDAO implements ActivityDAO_interface{
 			"UPDATE ACTIVITY SET ACTIVITY_NAME=?,ACTIVITY_INFO=?,ACTIVITY_START=?,ACTIVITY_END=?,ACTIVITY_CODE=?,TOKEN_AMOUNT=?,ACTIVITY_POST=? WHERE ACTIVITY_ID=?" ;
 	/*新增 透過活動序號找當筆活動資訊的STMT*/
 	private static final String GET_ONE_BY_CODE="SELECT * FROM ACTIVITY WHERE ACTIVITY_CODE=?";
+	private static final String CANCEL_TOKEN="UPDATE ACTIVITY_TOKEN SET TOKEN_AMOUNT='0' WHERE MEM_ID=?, ACTIVITY_ID=?";
 	
 	/*新增 findActicvityByCode()*/
 	@Override

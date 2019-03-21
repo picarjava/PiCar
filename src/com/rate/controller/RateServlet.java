@@ -122,7 +122,7 @@ public class RateServlet extends HttpServlet {
 					errorMsgs.add("請輸入費率名稱");
 				} else if (!rateName.trim().matches(nameReg)) {
 
-					errorMsgs.add("會員姓名請輸入 中文、英文字母、數字和   \" , \" 且長度必需在2到20之間");
+					errorMsgs.add("費率名稱請輸入 中文、英文字母、數字和   \" , \" 且長度必需在2到20之間");
 				}
 
 				Double ratePrice = null;

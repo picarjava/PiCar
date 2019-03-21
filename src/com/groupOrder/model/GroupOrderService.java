@@ -119,5 +119,8 @@ public class GroupOrderService {
     public List<String> getDelayOrder(){
     	return dao.getDelayOrder();
     }
-	
+    public List<GroupOrderVO> getALL_GroupID_State(String groupid,Integer state) {
+    	return dao.getALL_GroupID_State(groupid, state);
+    }
+    
 }

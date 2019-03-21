@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@page import="com.member.model.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,11 +102,11 @@ body{
 // response.setHeader("Pragma","no-cache");        //HTTP 1.0
 // response.setDateHeader ("Expires", 0);
 
-// MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 
-// if (memberVO != null){
-// 	response.sendRedirect("/PiCar/regna-master/homeindex.jsp");
-// }
+if (memberVO == null){
+	response.sendRedirect("/PiCar/regna-master/homeindex.jsp");
+}
 %>
 
 

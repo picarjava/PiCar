@@ -36,7 +36,7 @@ public class DelayTimer extends HttpServlet{
 //        	Date date = new Date();
 //        	String strDate = sdFormat.format(date);
 	        Calendar calendar2 = Calendar.getInstance();
-	        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+	        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	        calendar2.add(Calendar.DATE, 3);
 	        String three_days_after = sdf2.format(calendar2.getTime());
 	        String START_TIME = three_days_after +" 00:00:00";

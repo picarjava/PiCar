@@ -445,4 +445,10 @@ public class GroupOrderJNDIDAO implements GroupOrderDAO_interface {
 		return null;
 	}
 
+	@Override
+	public List<GroupOrderVO> getALL_GroupID_State(String groupid, Integer state) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

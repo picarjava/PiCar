@@ -31,4 +31,5 @@ public Timestamp getStartTimeGgroupID(String groupID);
 
 //逾時訂單
 public List<String> getDelayOrder();
+List<GroupOrderVO> getALL_GroupID_State(String groupid, Integer state);
 }

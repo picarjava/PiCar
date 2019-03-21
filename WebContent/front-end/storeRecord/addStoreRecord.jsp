@@ -5,7 +5,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>addStoreRecord.jsp</title>
 <script src="jquery-1.12.4.min.js" >$('#post-form').one('submit', otherDoPost); </script>
 
