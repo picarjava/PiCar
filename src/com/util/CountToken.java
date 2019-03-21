@@ -14,7 +14,7 @@ import com.storeRecord.model.StoreRecordVO;
 public class CountToken {
 	List<String> errorMsgs = new LinkedList();
 
-	public void countToken(String memID, Integer amount, String orderID) {
+	public void countToken(String memID, Integer amount, String orderID) throws Exception {
 
 		
 		
@@ -57,16 +57,13 @@ public class CountToken {
 			MemberService memberSvc = new MemberService();
 			MemberVO memberVO = memberSvc.getOneMember(memID);
 			Integer count = memberVO.getToken() + amount;
-			try {
+			
 				if (count < 0) {
+					System.out.println("總金額小於0");
 					throw new Exception("總金額小於0");
 
 				}
-			} catch (Exception e) {
-				System.out.println(e);
-				return;
-			}
-
+			
 			StoreRecordService storeRecordSvc = new StoreRecordService();
 			storeRecordSvc.addOrdrID(memID, amount, orderID);
 			memberSvc.updateToken(memID, count);
@@ -76,8 +73,8 @@ public class CountToken {
 
 	public static void main(String[] args) {
 
-		CountToken ct = new CountToken();
-		ct.countToken("M002", 100, "55");
+//		CountToken ct = new CountToken();
+//		ct.countToken("M002", 100, "55");
 	}
 
 }

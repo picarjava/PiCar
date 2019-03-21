@@ -34,7 +34,7 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 			+ "VALUES (?,"
 			+ "'D'||LPAD(to_char(DRIVER_ID_SEQ.NEXTVAL),3,'0')"
 //			+"?"//自增主鍵的話。如何改善driverid的變數安排
-			+ ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+			+ ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 	private static final String GET_ALL_STMT =
 			"SELECT * FROM DRIVER ORDER BY DRIVER_ID";
 //	private static final String GET_ONE_STMT = "SELECT MEM_ID, DRIVER_ID, PLATE_NUM, LICENCE, CRIMINAL, TRAFFIC_RECORD, ID_NUM, VERIFIED, BANNED, DEADLINE, ONLINE_CAR, SCORE, CAR_TYPE, SHARED_CAR, PET, SMOKE, BABY_SEAT FROM DRIVER WHERE DRIVER_ID=?";

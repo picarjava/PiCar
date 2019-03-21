@@ -64,7 +64,8 @@
 </style>
 <body bgcolor="#11e1e9">
 <h3>listOneMemberByUpdate.jsp</h3>
-<a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
+<a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a><br>
+<a class="box" href=<%=request.getContextPath()%>/front-end/HomeMember/index.jsp> 請按此回會員首頁 </a>
 	<h1 align="center">Hello!!${memberVO.name}，這是你的個人資料</h1>
 	<table align="center" border="1" id="table1">
 			

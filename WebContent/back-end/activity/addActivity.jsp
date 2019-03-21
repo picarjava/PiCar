@@ -7,7 +7,8 @@
 <html>
 <head>
   <title>後台新增活動資訊</title>
-    <jsp:include page="/regna-master/head.jsp" />
+
+    <jsp:include page="/back-end/kidHead.jsp" />
 	
 	  <!-- datetimepicker  -->
 	<link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
@@ -35,7 +36,7 @@
 
 
 <%ActivityVO activityVO=(ActivityVO)request.getAttribute("activityVO");%>
-<%LinkedList errorMsgs=(LinkedList)request.getAttribute("errorMsgs");%>
+<%LinkedList<String> errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <!-- 錯誤列表 -->
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
 		  <li class="list-group-item active">Opps!錯誤訊息回報</li>
@@ -47,24 +48,27 @@
     <!--==========================
       Contact Section 
     ============================-->
-    
-    <section id="contact">
-	     <div class="container wow fadeInUp">
-	      	<div class="col-lg-12 col-md-12">
+<div class="wrapper ">
+    <jsp:include page="/back-end/kidBodyLeft.jsp" />
+        <div class="main-panel">
+            <jsp:include page="/back-end/kidNavbar.jsp" />
+<section id="contact">
+  <div class="container wow fadeInUp">
+	  <div class="row">
+	  <div class="col-3 col-lg-9">
+	 
+	  </div>
+	  <div class="col-9 col-lg-9">
 		        <div class="section-header">
 		          <h3 class="section-title">請新增一筆活動資訊</h3>
-		          
 		          <div class="text-center">
 		          <form action="<%=request.getContextPath()%>/back-end/activity/homeActivity.jsp">
 		          <button type="submit"  class="btn btn-outline-success">返回</button>
 		          </form>
 				  </div>		        
 		        </div>	
-			</div>      
-	     </div>
-	     <div class="container wow fadeInUp">
-	        <div class="row justify-content-center">
-	          <div class="col-lg-12 col-md-12">
+	   </div>  
+	   <div class="col-9 col-lg-9 ">
 	            <div class="form">
 	              <!-- 活動表單開始 -->
 	              <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post"  enctype="multipart/form-data">
@@ -104,15 +108,17 @@
 	              	<input type="hidden" name="action" value="INSERT">
 	              </form>
 	            </div>
-	          </div>
-	        </div><!-- row結尾 -->
-	      </div>
-    </section><!-- #contact -->
+		  </div>
+	   </div> 
+	</div>    
+</section>
+</div>
+</div>
   <!--==========================
     底部
   ============================-->
   
-  <jsp:include page="/regna-master/body.jsp" />
+  <jsp:include page="/back-end/kidFooter.jsp" />
   
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->

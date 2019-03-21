@@ -55,6 +55,20 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		String driverID =req.getParameter("driverID");//從session抓driverID
 		int pic = new Integer(req.getParameter("pic"));
 		
+		
+//		 Part part = req.getPart("pic");
+//		 byte[] pic=null;
+//		 
+//			try { 
+//				InputStream in = part.getInputStream();
+//				pic = new byte[in.available()];
+//				in.read(pic);
+//				in.close();
+//			}catch(Exception e) {
+//						 errorMsgs.add("無法取得圖片"+e.getMessage());
+//					 }
+		
+		
 		DriverService driverSvc = new DriverService();
 	    DriverVO driverVO = driverSvc.getOneDriver(driverID);
 	    System.out.println(driverID);

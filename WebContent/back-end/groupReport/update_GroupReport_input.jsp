@@ -1,10 +1,14 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.groupReport.model.*"%>
+<%@ page import="com.admin.model.*"%>
 
 <%
 GroupReportVO groupReportVO = (GroupReportVO) request.getAttribute("groupReportVO"); 
 
+%>
+<%
+	AdminVO adminVO = (AdminVO) session.getAttribute("adminVO");
 %>
 
 <html>
@@ -120,22 +124,22 @@ h3 {
 			</tr>
 			<tr>
 				<td>揪團編號</td>
-				<td><input type="TEXT" name="groupID" size="45"
-					value="<%=groupReportVO.getGroupID()%>" /></td>
+				<td><input class="form-control" type="TEXT" name="groupID" size="45"
+					value="<%=groupReportVO.getGroupID()%>" readonly/></td>
 			</tr>
 			<tr>
 				<td>管理員編號</td>
-				<td><input type="TEXT" name="adminID" size="45"
-					value="<%=groupReportVO.getAdminID()%>" /></td>
+				<td><input class="form-control" type="TEXT" name="adminID" size="45"
+					value="<%=adminVO.getAdminID()%>" readonly/></td>
 			</tr>
 			<tr>
 				<td>檢舉內容</td>
-				<td><input type="TEXT" name="content" size="45"
-					value="<%=groupReportVO.getContent()%>" /></td>
+				<td><input class="form-control" type="TEXT" name="content" size="45"
+					value="<%=groupReportVO.getContent()%>" readonly/></td>
 			</tr>
 			<tr>
 				<td>檢舉日期</td>
-				<td><input name="time" id="f_date1" size="45" type="text"></td>
+				<td><input class="form-control" name="time" id="f_date1" size="45" type="text" readonly></td>
 			</tr>
 			<tr>
 				<td>處理狀態</td>

@@ -1,11 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.member.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
+<%@ page import="java.util.List"%>
 <%
 	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 	MemberDAO memberDAO = new MemberDAO();
+	List<MemberVO> list = memberDAO.getAll();
+	String lastMem = (list.get(list.size()-1).getMemID());
+	pageContext.setAttribute("lastMem", lastMem);
 	memberDAO.getGeneratedKeys();
+	
 %>
 
 <!DOCTYPE html>
@@ -101,7 +105,7 @@
 		</tr>
 		<tr>
 		<td>個人照片</td>
-		<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
+		<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${lastMem}"  width='200' height="200"
 		onerror="this.src='cat.jpg'"></td>
 		</tr>
 			

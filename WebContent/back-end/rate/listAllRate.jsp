@@ -10,10 +10,16 @@
 <meta charset="UTF-8">
 <jsp:include page="/back-end/kidHead.jsp" />
 <title>listALLRate</title>
+<jsp:include page="/back-end/kidHead.jsp" />
 </head>
 
 <body>
+<<<<<<< HEAD
 <div class="wrapper ">
+=======
+<jsp:include page="/back-end/kidBodyLeft.jsp" />
+<jsp:include page="/back-end/kidNavbar.jsp" />
+>>>>>>> cd4e59c4b3036b535312eaa076dd1eef960716ac
 	<h3>listALLRate.jsp</h3>
 	<%
 		RateService rateSvc = new RateService();
@@ -71,10 +77,15 @@
 	</c:forEach>
 
 
+<<<<<<< HEAD
 <jsp:include page="/back-end/kidFooter.jsp" />
 </div>
 </div>
 </div>
+=======
+
+<jsp:include page="/back-end/kidFooter.jsp" />
+>>>>>>> cd4e59c4b3036b535312eaa076dd1eef960716ac
 
 </body>
 </html>

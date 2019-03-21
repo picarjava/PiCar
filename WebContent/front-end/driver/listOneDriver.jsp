@@ -34,6 +34,11 @@ System.out.print(driverVO);
 DriverVO xxx  = driSrc.getfindDriverByMemID(memberVO.getMemID());
 session.setAttribute("xxx", xxx);
                     System.out.println(xxx);
+                    
+      List<DriverVO> list = driSrc.getAll();
+//       String lastMem = (list.get(list.size()-1).getMemID());
+         String lastDriver = list.get(list.size()-1).getDriverID();
+         pageContext.setAttribute("lastDriver", lastDriver);
   %>
     <!-- 錯誤列表 -->
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
@@ -82,28 +87,28 @@ session.setAttribute("xxx", xxx);
                       <p>駕照</p>
                       <input type="file" class="form-control" name="licence" value="${driverVO.licence}" placeholder="請輸入駕照"  /> 
                        <div class="card" style="width: 18rem;">
-                          <img src="driver.do?driverID=${driverVO.driverID}&pic=1" width="300" height="150" class="card-img-top" alt="..." >
+                          <img src="driver.do?driverID=${lastDriver}&pic=1" width="300" height="150" class="card-img-top" alt="..." >
                         </div>      
                    </div>
                     <div class="form-group">
                       <p>良民證</p>
                       <input type="file" class="form-control" name="criminal" value="${driverVO.criminal}" placeholder="請輸入肇事紀錄"  />
                        <div class="card" style="width: 18rem;">
-                          <img src="driver.do?driverID=${driverVO.driverID}&pic=2" width="300" height="150" class="card-img-top" alt="..." >
+                          <img src="driver.do?driverID=${lastDriver}&pic=2" width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
                     <div class="form-group">
                       <p>肇事紀錄</p>
                       <input type="file" class="form-control" name="trafficRecord" value="${driverVO.trafficRecord}" placeholder="請輸入肇事紀錄"  />
                        <div class="card" style="width: 18rem;">
-                          <img src="driver.do?driverID=${driverVO.driverID}&pic=3" width="300" height="150" class="card-img-top" alt="..." >
+                          <img src="driver.do?driverID=${lastDriver}&pic=3" width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
                     <div class="form-group">
                       <p>身分證</p>
                       <input type="file" class="form-control" name="idNum" value="${driverVO.idNum}" placeholder="請輸入身分證"  />
                        <div class="card" style="width: 18rem;">
-                          <img src="driver.do?driverID=${driverVO.driverID}&pic=4"  width="300" height="150" class="card-img-top" alt="..." >
+                          <img src="driver.do?driverID=${lastDriver}&pic=4"  width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
                     
