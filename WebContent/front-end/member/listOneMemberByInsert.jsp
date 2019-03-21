@@ -118,12 +118,12 @@
 <!-- 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM> -->
 <!-- 			</td> -->
 			
-			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="代幣儲值">
-			     <input type="hidden" name="memID"  value="${memberVO.memID}">
-			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-			</td>
+<!-- 			<td> -->
+<%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do" style="margin-bottom: 0px;"> --%>
+<!-- 			     <input type="submit" value="代幣儲值"> -->
+<%-- 			     <input type="hidden" name="memID"  value="${memberVO.memID}"> --%>
+<!-- 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM> -->
+<!-- 			</td> -->
 			
 <!-- 			<td> -->
 <%-- 			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/member/member.do" style="margin-bottom: 0px;"> --%>

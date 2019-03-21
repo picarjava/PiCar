@@ -16,8 +16,10 @@ public class CountToken {
 
 	public void countToken(String memID, Integer amount, String orderID) throws Exception {
 
-		
-		
+		System.out.println(memID);
+		System.out.println(amount);
+		System.out.println(orderID);
+
 		ActivityTokenService atSvc = new ActivityTokenService();
 		List<ActivityTokenVO> onesActivityToken = new LinkedList();
 		onesActivityToken = atSvc.getOnesALL(memID);
@@ -41,34 +43,41 @@ public class CountToken {
 
 		});
 
+		MemberService memberSvc = new MemberService();
+		Integer count = 0;
+		String memberIDNewest = null;
+		String activityIDNewest = null;
 		if (!onesActivityToken.isEmpty()) {
 			if (onesActivityToken.get(0).getTokenAmount() != 0) {
 				amount = -(amount - onesActivityToken.get(0).getTokenAmount());
 				// 將第一筆資料歸零OR刪除?
-				String memberIDNewest = onesActivityToken.get(0).getMemID();
-				String activityIDNewest = onesActivityToken.get(0).getActivityID();
-				atSvc.cancelToken(memberIDNewest, activityIDNewest);
+				memberIDNewest = onesActivityToken.get(0).getMemID();
+				activityIDNewest = onesActivityToken.get(0).getActivityID();
+//				atSvc.cancelToken(memberIDNewest, activityIDNewest);
 
 			} else {
 				amount = -amount;
 			}
-/***************************/
+			/***************************/
 //			StoreRecordVO storeRecordVO = new StoreRecordVO();
-			MemberService memberSvc = new MemberService();
-			MemberVO memberVO = memberSvc.getOneMember(memID);
-			Integer count = memberVO.getToken() + amount;
-			
-				if (count < 0) {
-					System.out.println("總金額小於0");
-					throw new Exception("總金額小於0");
 
-				}
-			
-			StoreRecordService storeRecordSvc = new StoreRecordService();
-			storeRecordSvc.addOrdrID(memID, amount, orderID);
-			memberSvc.updateToken(memID, count);
+			MemberVO memberVO = memberSvc.getOneMember(memID);
+			count = memberVO.getToken() + amount;
+
+			if (count < 0) {
+				System.out.println("總金額小於0");
+				throw new Exception("總金額小於0");
+
+			}else {
+				StoreRecordService storeRecordSvc = new StoreRecordService();
+				storeRecordSvc.addOrdrID(memID, amount, orderID);
+				memberSvc.updateToken(memID, count);
+				atSvc.cancelToken(memberIDNewest, activityIDNewest);
+			}
+
 		}
-/****************/
+		
+		/****************/
 	}
 
 	public static void main(String[] args) {
