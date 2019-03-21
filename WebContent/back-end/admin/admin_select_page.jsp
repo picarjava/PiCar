@@ -13,7 +13,8 @@
 <html lang="zh">
 <head>
 <title>PICAR BACK-END</title>
-<jsp:include page="/back-end/kidHead.jsp" />
+<jsp:include page="/back-end/head_back.jsp" />
+<%-- <jsp:include page="/back-end/kidHead.jsp" /> --%>
 <meta charset="utf-8">
 </head>
 
