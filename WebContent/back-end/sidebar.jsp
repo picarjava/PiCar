@@ -38,9 +38,9 @@
               <p>資費管理</p>
             </a>
           </li>
-          <li class="nav-item active-pro ">
+          <li class="nav-item ">
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/singleOrder/orderManagement_page.jsp">
-              <i class="material-icons">content_paste</i>
+              <i class="material-icons">location_ons</i>
               <p>訂單管理</p>
             </a>
           </li>
@@ -60,12 +60,6 @@
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/activity/homeActivity.jsp">
               <i class="material-icons">bubble_chart</i>
               <p>活動資訊管理</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="./map.html">
-              <i class="material-icons">location_ons</i>
-              <p>Maps</p>
             </a>
           </li>
           <li class="nav-item ">
