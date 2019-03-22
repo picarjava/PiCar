@@ -68,7 +68,7 @@
 							<tr>
 								<th>檢舉司機單號</th>
 								<th>會員編號</th>
-								<th>管理員編號</th>
+<!-- 								<th>管理員編號</th> -->
 								<th>訂單編號</th>
 								<th>檢舉內容</th>
 								<th>檢舉日期</th>
@@ -84,7 +84,7 @@
 								<tr>
 									<td>${driverReportVO.dreportID}</td>
 									<td>${driverReportVO.memID}</td>
-									<td>${driverReportVO.adminID}</td>
+<%-- 									<td>${driverReportVO.adminID}</td> --%>
 									<td>${driverReportVO.orderID}</td>
 									<td>${driverReportVO.content}</td>
 									<td>${driverReportVO.time}</td>
