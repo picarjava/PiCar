@@ -801,10 +801,10 @@ public class MemberDAO implements MemberDAO_interface {
 
 					throw new SQLException();
 				}
-				
+				con.commit();
 			}
 
-			con.commit();
+			
 			con.setAutoCommit(true);
 
 		} catch (SQLException se) {
