@@ -157,8 +157,8 @@ public class GroupReportServlet extends HttpServlet {
 					}
 						
 					Integer state = new Integer(req.getParameter("state").trim());
-					Integer groupStatus = 8;
-					if (state == 1) {
+					Integer groupStatus = 2;
+					if (state == 0) {
 						GroupBandService groupBandSvc = new GroupBandService();
 						groupBandSvc.UPDATE_GROUP_STATUS__GROUP_ID(groupStatus, groupID);	
 					} 
