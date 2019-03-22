@@ -507,5 +507,12 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		
 	}
 
+	@Override
+	public void updateTokenAndCancelTokenManyOrder(String memberIDNewest, String activityIDNewest, String memID,
+			Integer count, int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

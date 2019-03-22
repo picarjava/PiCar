@@ -89,18 +89,16 @@ public class MemberService {
 		return memberVO;
 
 	}
-	
+
 	public void updateVerified(String memID) {
 		dao.updateVerified(memID);
 	}
-	
-	
+
 	public void updatePassVerified(String memID, String password) {
 		dao.updatePassVerified(memID, password);
 	}
-	
-	
-	//阿君新增FOR前端設定喜好設定
+
+	// 阿君新增FOR前端設定喜好設定
 	public MemberVO setHobby(String memID, String creditcard, Integer pet, Integer smoke, Integer babySeat) {
 
 		MemberVO memberVO = new MemberVO();
@@ -114,18 +112,16 @@ public class MemberService {
 
 		return memberVO;
 	}
-	
-	public void updateTokenAndCancelToken(String memberIDNewest, String activityIDNewest,String memID,Integer count) {
 
-//		MemberVO memberVO = new MemberVO();
-//
-//		memberVO.setMemID(memID);
-//		memberVO.setToken(token);
-//		dao.updateToken(memberVO);
-//
-//		return memberVO;
+	public void updateTokenAndCancelToken(String memberIDNewest, String activityIDNewest, String memID, Integer count) {
+
 		dao.updateTokenAndCancelToken(memberIDNewest, activityIDNewest, memID, count);
 
 	}
 
+	public void updateTokenAndCancelTokenManyOrder(String memberIDNewest, String activityIDNewest, String memID, Integer count, int i) {
+
+		dao.updateTokenAndCancelTokenManyOrder(memberIDNewest, activityIDNewest, memID, count, i);
+
+	}
 }

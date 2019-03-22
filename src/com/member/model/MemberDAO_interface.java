@@ -17,8 +17,11 @@ public interface MemberDAO_interface {
 	public void updatePassVerified(String memID, String password);
 	
 	public void  updateTokenAndCancelToken(String memberIDNewest, String activityIDNewest,String memID,Integer count);
+
+	//多單扣款方法
+	void updateTokenAndCancelTokenManyOrder(String memberIDNewest, String activityIDNewest, String memID, Integer count,
+			int i);
 //	萬用複合查詢(傳入參數型別Map)(回傳List)
-	
 //	public List<MemberVO> getAll(Map<String, String> map);
 	
 	

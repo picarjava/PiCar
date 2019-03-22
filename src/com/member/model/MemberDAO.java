@@ -703,18 +703,17 @@ public class MemberDAO implements MemberDAO_interface {
 			rs.next();
 			System.out.println(rs.getInt("TOKEN"));
 			if (rs.getInt("TOKEN") < 0) {
-			
+
 				throw new SQLException();
 			}
-			;
 
 			con.commit();
 			con.setAutoCommit(true);
 
 		} catch (SQLException se) {
-				se.printStackTrace();
+			se.printStackTrace();
 			if (con != null) {
-				
+
 				try {
 					// 3●設定於當有exception發生時之catch區塊內
 					System.err.print("Transaction is being ");
@@ -763,4 +762,100 @@ public class MemberDAO implements MemberDAO_interface {
 
 	}
 
+	@Override
+	public void updateTokenAndCancelTokenManyOrder(String memberIDNewest, String activityIDNewest, String memID,
+			Integer count, int i) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+			while (i > 0) {
+				pstmt = con.prepareStatement(CANCELTOKEN);
+				pstmt.setString(1, memberIDNewest);
+				pstmt.setString(2, activityIDNewest);
+
+				pstmt.executeUpdate();
+
+				pstmt1 = con.prepareStatement(UPDATE_TOKEN);
+				pstmt1.setInt(1, count);
+				pstmt1.setString(2, memID);
+
+				pstmt1.executeUpdate();
+
+				pstmt2 = con.prepareStatement(GET_ONE_STMT);
+
+				pstmt2.setString(1, memID);
+
+				rs = pstmt2.executeQuery();
+
+				rs.next();
+				System.out.println(rs.getInt("TOKEN"));
+				if (rs.getInt("TOKEN") < 0) {
+
+					throw new SQLException();
+				}
+				
+			}
+
+			con.commit();
+			con.setAutoCommit(true);
+
+		} catch (SQLException se) {
+			se.printStackTrace();
+			if (con != null) {
+
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
+
+			throw new RuntimeException("個人代幣餘額不足:" + se.getMessage());
+
+		} finally {
+			if (pstmt2 != null) {
+				try {
+					pstmt2.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt1 != null) {
+				try {
+					pstmt1.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
 }

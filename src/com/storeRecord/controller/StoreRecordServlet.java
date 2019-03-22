@@ -27,6 +27,8 @@ import com.storeRecord.model.StoreRecordDAO;
 import com.storeRecord.model.StoreRecordService;
 import com.storeRecord.model.StoreRecordVO;
 import com.util.Checkout;
+import com.util.CountToken;
+import com.util.CountToken1;
 
 /**
  * Servlet implementation class StroeRecordServlet
@@ -421,7 +423,6 @@ public class StoreRecordServlet extends HttpServlet {
 					System.out.println(e);
 					return;
 				}
-				System.out.println("2222");
 				// 開始新增資料
 				atSvc.cancelToken(memberIDNewest, activityIDNewest);
 				StoreRecordService storeRecordSvc = new StoreRecordService();
@@ -435,11 +436,9 @@ public class StoreRecordServlet extends HttpServlet {
 				// 為了計算加總金額 用取得會員代幣替代
 //				Integer sumCount = storeRecordSvc.getCount(memID);
 //				req.setAttribute("sumCount", sumCount);
-				System.out.println("3333");
 				System.out.println(memID);
 				System.out.println(count);
 				memberSvc.updateToken(memID, count);
-				System.out.println("5555");
 				RequestDispatcher succesView = req
 						.getRequestDispatcher("/front-end/storeRecord/listOneStoreRecordByMem.jsp");
 				succesView.forward(req, res);
@@ -452,6 +451,24 @@ public class StoreRecordServlet extends HttpServlet {
 
 		}
 
+		
+		if ("insertOrder1".equals(action)) {
+			String memID = req.getParameter("memID").trim();
+					
+			Integer amount = Integer.valueOf(req.getParameter("amount")); // 扣除金額為負值
+			String orderID = req.getParameter("orderID").trim();
+			Integer i = Integer.valueOf(req.getParameter("count"));
+			MemberService memberSvc = new MemberService();
+			CountToken1 ct1 = new CountToken1();
+			try {
+				ct1.countToken(memID, amount, orderID, i);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+
+		}
 	}
 
 }
