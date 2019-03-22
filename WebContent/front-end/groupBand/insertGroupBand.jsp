@@ -352,7 +352,7 @@ if(distance.innerHTML==''){
 x++;
 	}
 
-if(start_date==' '){
+if(start_date==''){
 	innerdate.innerHTML="<h3 style='color:#FF3333'>※請填寫日期※<h3>";
 	x++;	
 	}
