@@ -196,7 +196,7 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		}
 	}
 //		轉成byte[]; 先read進來 write出去
-		Integer verified= 0;//--預設為未通過
+		Integer verified= 1;//--預設為未通過 //??
 		Integer banned= 0;//--未被BANNED
 		Date deadline = null;//--
 		Integer onlineCar= 0;//--沒在線上 由session判斷
@@ -382,10 +382,12 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driver/listOneDriver.jsp");
 	failureView.forward(req, res);
 	}
-	if("GET_ONE_FOR_BANNED".equals(actionS)) {//有用
+	if("GET_ONE_FOR_BANNED".equals(actionS)) {//??
 		if(driverVO.getBanned() == 0) {
+			System.out.println("1");
 			driverSvc.updateBanned(driverID);
-			driverSvc.updateBannedtime(oneday_after, driverID);
+			System.out.println("2");
+//			driverSvc.updateBannedtime(oneday_after, driverID);
 			
 		}else {
 		}

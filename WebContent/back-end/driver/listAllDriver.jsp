@@ -56,11 +56,11 @@
 						      <th scope="col">司機編號	</th>
 						      <th scope="col">姓名    	</th>
 						      <th scope="col">車牌號碼	</th>
-						      <th scope="col">BAN	</th>
-						      <th scope="col">到期時間	</th>
-						      <th scope="col">是否線上	</th>
+<!-- 						      <th scope="col">BAN	</th> -->
+<!-- 						      <th scope="col">到期時間	</th> -->
+<!-- 						      <th scope="col">是否線上	</th> -->
 						      <th scope="col">評價分數	</th>
-						      <th scope="col">品牌	</th>
+						      <th scope="col">廠牌	</th>
 						      <th scope="col">共享	</th>
 						      <th scope="col">寵物	</th>
 						      <th scope="col">抽菸	</th>
@@ -111,29 +111,28 @@
 <%-- 					              <img  src='<%=request.getContextPath()%>/driver.do?driverID=${driverVO.driverID}' width='200' height='100' alt='"這是"+${driverVO.driverID}+"的"  '/> --%>
 <%-- 					              </c:if>  --%>
 <!-- 						      </td> -->
-						      <td>
-						      <c:if test="${driverVO.banned == 0}">
-						       <Form METHOD="post" ACTION="driver.do" >
-							    <div class="text-center"><button type="submit" class="btn btn-light">可以接單</button>
-<!-- 							      	/*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ -->
-							      	<input type="hidden" name="actionS" value="GET_ONE_FOR_BANNED">
-	                				<input type="hidden" name="action" value="GET_ONE_FOR_CHECK">
-	                				<input type="hidden" name="driverID" value="${driverVO.driverID}">
-							     </div>
-							  </Form>
-							  可以接單。給司機檢舉。
-						      </c:if>
-						      <c:if test="${driverVO.banned == 1}">禁止接單</c:if>
-						      </td>
-						      <td>
-<%-- 						      <c:if test="${driverVO.deadline != null}">${driverVO.deadline}</c:if> --%>
-<%-- 						      <c:if test="${driverVO.deadline == null}">沒有到期日</c:if> --%>
-								<c:out value="${driverVO.deadline}" default="沒有到期日"/>
-						      </td>
-						      <td>
-						      <c:if test="${driverVO.onlineCar == 0}">不在線</c:if>
-						      <c:if test="${driverVO.onlineCar == 1}">在線</c:if>
-						      </td>
+<!-- 						      <td> -->
+<%-- 						      <c:if test="${driverVO.banned == 0}"> --%>
+<!-- 						       <Form METHOD="post" ACTION="/driver.do" > -->
+<!-- 							    <div class="text-center"><button type="submit" class="btn btn-light">可以接單</button> -->
+<!-- <!-- 							      	/*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ --> 
+<!-- 							      	<input type="hidden" name="actionS" value="GET_ONE_FOR_BANNED"> -->
+<!-- 	                				<input type="hidden" name="action" value="GET_ONE_FOR_CHECK"> -->
+<%-- 	                				<input type="hidden" name="driverID" value="${driverVO.driverID}"> --%>
+<!-- 							     </div> -->
+<!-- 							  </Form> -->
+<%-- 						      </c:if> --%>
+<%-- 						      <c:if test="${driverVO.banned == 1}">禁止接單</c:if> --%>
+<!-- 						      </td> -->
+<!-- 						      <td> -->
+<%-- <%-- 						      <c:if test="${driverVO.deadline != null}">${driverVO.deadline}</c:if> --%> 
+<%-- <%-- 						      <c:if test="${driverVO.deadline == null}">沒有到期日</c:if> --%> 
+<%-- 								<c:out value="${driverVO.deadline}" default="沒有到期日"/> --%>
+<!-- 						      </td> -->
+<!-- 						      <td> -->
+<%-- 						      <c:if test="${driverVO.onlineCar == 0}">不在線</c:if> --%>
+<%-- 						      <c:if test="${driverVO.onlineCar == 1}">在線</c:if> --%>
+<!-- 						      </td> -->
 						      <td>${driverVO.score}</td>
 						      <td>${driverVO.carType}</td>
 						      <td>

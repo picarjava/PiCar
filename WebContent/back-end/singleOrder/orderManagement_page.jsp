@@ -94,8 +94,8 @@ String path = request.getContextPath();
 							      <th scope="col">乘車目的地	</th>
 							      <th scope="col">訂單總金額	</th>
 							      <th scope="col">訂單狀態	</th>
-<!-- 								  <th scope="col">重新叫車</th> -->
-<!-- 								  <th scope="col">退款</th> -->
+								  <th scope="col">重新叫車</th>
+								  <th scope="col">退款</th>
 							    </tr>
 							  </thead>
 							  <tbody>
