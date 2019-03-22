@@ -1,10 +1,15 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.driverReport.model.*"%>
+<%@ page import="com.admin.model.*"%>
 
 <%
 DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverReportVO"); //DriverReportServlet.java (Concroller) 存入req的DriverReportVO物件 (包括幫忙取出的DriverReportVO, 也包括輸入資料錯誤時的DriverReportVO物件)
 
+%>
+
+<%
+	AdminVO adminVO = (AdminVO) session.getAttribute("adminVO");
 %>
 
 <html>
@@ -120,22 +125,22 @@ h3 {
 			</tr>
 			<tr>
 				<td>管理員編號</td>
-				<td><input type="TEXT" name="adminID" size="45"
-					value="<%=driverReportVO.getAdminID()%>" /></td>
+				<td><input class="form-control" type="TEXT" name="adminID" size="45"
+					value="<%=adminVO.getAdminID()%>" readonly/></td>
 			</tr>
 			<tr>
 				<td>檢舉日期</td>
-				<td><input name="time" id="f_date1" size="45" type="text"></td>
+				<td><input class="form-control" name="time" id="f_date1" size="45" type="text" readonly></td>
 			</tr>
 			<tr>
 				<td>訂單編號</td>
-				<td><input type="TEXT" name="orderID" size="45"
-					value="<%=driverReportVO.getOrderID()%>" /></td>
+				<td><input class="form-control" type="TEXT" name="orderID" size="45"
+					value="<%=driverReportVO.getOrderID()%>" readonly/></td>
 			</tr>
 			<tr>
 				<td>內容</td>
-				<td><input type="TEXT" name="content" size="45"
-					value="<%=driverReportVO.getContent()%>" /></td>
+				<td><input class="form-control" type="TEXT" name="content" size="45"
+					value="<%=driverReportVO.getContent()%>" readonly/></td>
 			</tr>
 			<tr>
 				<td>處理狀態</td>
