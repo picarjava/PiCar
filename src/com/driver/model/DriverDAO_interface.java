@@ -1,5 +1,6 @@
 package com.driver.model;
 
+import java.sql.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -23,6 +24,7 @@ public interface DriverDAO_interface {
   	public void updateDriverRate(int score,String driverID) ;
 	void setForHobby(DriverVO driverVO);
 	void setForPermit(DriverVO driverVO);
+	DriverVO updateBannedTime(String oneday_after, String driverID);
   	
 //	萬用複合查詢(傳入參數型別Map)(回傳List)
 	

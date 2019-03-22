@@ -423,6 +423,12 @@ public class DriverJDBCDAO implements DriverDAO_interface {
 		
 	}
 
+	@Override
+	public DriverVO updateBannedTime(String oneday_after, String driverID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }
 

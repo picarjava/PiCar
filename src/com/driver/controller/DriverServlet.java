@@ -12,6 +12,7 @@ import java.io.InputStream;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -348,20 +349,28 @@ if("GET_ONE_FOR_CHECK".equals(action)){
  	SimpleDateFormat sdf2 = new SimpleDateFormat("YYYY-MM-DD");
 //	java.sql.Date deadline = date.add(Calendar.HOUR, 24);//--
  	Integer verified= new Integer(req.getParameter("verified"));
-	// util.Date → util.Calendar
-	java.util.Date date = new java.util.Date();
-	Calendar cal = Calendar.getInstance();
-	cal.setTime(date);
-	// util.Calendar → util.Date
-	java.util.Date date2 = cal.getTime();
-	// util.Date → sql.Date
-	java.util.Date date5 = new java.util.Date();
-	java.sql.Date sqlDate2 = new java.sql.Date(date5.getTime());
-	String one_day_after = sdf2.format(date.getTime());
+//	// util.Date → util.Calendar
+//	java.util.Date date = new java.util.Date();
+//	Calendar cal = Calendar.getInstance();
+//	cal.setTime(date);
+//	// util.Calendar → util.Date
+//	java.util.Date date2 = cal.getTime();
+//	// util.Date → sql.Date
+//	java.util.Date date5 = new java.util.Date();
+//	java.sql.Date sqlDate2 = new java.sql.Date(date5.getTime());
+//	String one_day_after = sdf2.format(date.getTime());
+ 	DriverService driverSvc=new DriverService();
+	Calendar calendar2 = Calendar.getInstance();
+	SimpleDateFormat dateform = new SimpleDateFormat("yyyy-MM-dd");
+	calendar2.add(Calendar.DATE, 1);
+	String oneday_after = dateform.format(calendar2.getTime());
+	
+	List<String> deadlineList =new ArrayList<String>();
+//	System.out.println("有獨到這一行");
+	
 	long long_now =  new java.util.Date().getTime();
 //	System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.sql.Timestamp(long_now)));
 	/*************2查詢資料:調出某一筆的vo**************/
-	DriverService driverSvc=new DriverService();
 //	DriverVO driverVO=driverSvc.getOneDriver(driverID);//從driverPK
 	DriverVO driverVO = new DriverVO();
 	/*************3.得到資料和圖片轉換資料存在scope=reqest，並送出VO給處理頁面:getOneUpdate**************/
@@ -376,6 +385,8 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	if("GET_ONE_FOR_BANNED".equals(actionS)) {//有用
 		if(driverVO.getBanned() == 0) {
 			driverSvc.updateBanned(driverID);
+			driverSvc.updateBannedtime(oneday_after, driverID);
+			
 		}else {
 		}
 		RequestDispatcher bannedView = req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");

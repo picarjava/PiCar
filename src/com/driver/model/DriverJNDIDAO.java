@@ -2,7 +2,7 @@
 package com.driver.model;
 
 import java.sql.Connection;
-
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -46,6 +46,8 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 	private static final String GET_ONE_BY_MEMID_STMT = "SELECT * FROM DRIVER WHERE MEM_ID=?";
 	private static final String GET_DRIVERID_BY_MEMID_STMT = "SELECT DRIVER_ID FROM DRIVER WHERE MEM_ID=?";
 	private static final String UPDATE_BANNED = "UPDATE DRIVER SET BANNED='1' WHERE DRIVER_ID=?";
+	private static final String UPDATE_BANNED_DATE = "UPDATE DRIVER SET DEADLINE=? WHERE DRIVER_ID=?";
+//	UPDATE DRIVER SET DEADLINE='2019-02-07' WHERE DRIVER_ID='D002'
 	private static final String UPDATE_BACKBANNED = "UPDATE DRIVER SET BANNED='0' WHERE DRIVER_ID=?";
 	private static final String UPDATE_PERMITTED ="UPDATE DRIVER SET VERIFIED=? WHERE DRIVER_ID=?";
 	//小編更新司機評價
@@ -564,6 +566,47 @@ public class DriverJNDIDAO implements DriverDAO_interface{
 		}
 		return driverVO;
 	}
+	//讀的時候dirtyread 避免 寫一個方法
+		@Override
+		public DriverVO updateBannedTime(String deadline,String driverID) {
+			
+			DriverVO driverVO = null;
+			Connection con = null;
+			PreparedStatement pstmt = null;
+			int index = 1;
+
+			try {
+				con = ds.getConnection();
+				con.setAutoCommit(false);
+//				// 2●設定於 pstm.executeUpdate()之後
+				pstmt = con.prepareStatement(UPDATE_BANNED_DATE);
+				pstmt.setString(index++, deadline);
+				pstmt.setString(index++, driverID);
+				pstmt.executeUpdate();
+
+				con.commit();
+			} catch (SQLException se) {
+				throw new RuntimeException("資料庫連線錯誤:" + se.getMessage());
+			} finally {
+				if (pstmt != null) {
+					try {
+						pstmt.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+
+				if (con != null) {
+					try {
+						con.close();
+					} catch (SQLException se) {
+						se.printStackTrace(System.err);
+					}
+				}
+			}
+			return driverVO;
+		}	
+	
 //讀的時候dirtyread 避免 寫一個方法
 	@Override
 	public DriverVO updateBanned(String driverID) {

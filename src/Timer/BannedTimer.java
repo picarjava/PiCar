@@ -59,28 +59,8 @@ public class BannedTimer extends HttpServlet {
 	            	if(groupIDList!=null) {
 	            		//迴圈把所有單拿出來比對
 	            	for(String groupID:groupIDList) {
-	            		countmemid = groupOrderService.getMemID_groupID_startTime(groupID,START_TIME,START_TIME_End);
-	            		groupBandVO = groupBandService.getOneGroupBand(groupID);
-	            		
-	            		if(countmemid>=groupBandVO.getLowerLimit()) {
-	            			//改揪團狀態碼為已成團
-	            			groupBandService.UPDATE_GROUP_STATUS__GROUP_ID(1, groupID);
-	            			
-	            			//改訂單為已成團
-	            			groupOrderService.UPDATE_STATE__GROUP_ID(3,groupID);
-	            		}else
-	            		{
-	            			
-	            			//改揪團狀態碼為已成團
-	            			groupBandService.UPDATE_GROUP_STATUS__GROUP_ID(2, groupID);
-	            			
-	            			//改訂單為已成團
-	            			groupOrderService.UPDATE_STATE__GROUP_ID(8,groupID);
-	            		}
 	            		
 	            		
-//	            		System.out.println(groupID+"人數"+countmemid);
-//	            		System.out.println(groupID+"比較人數"+groupBandVO.getLowerLimit());
 	            	}
 	            	}
 //
