@@ -39,11 +39,11 @@
 								<table>
 									<tr>
 										<td>管理員姓名</td>
-										<td><input type="TEXT" name="adminName" size="45" value="<%= (adminVO==null)? "Kev" : adminVO.getAdminName()%>" /></td>
+										<td><input type="TEXT" name="adminName" size="45" value="<%= (adminVO==null)? "" : adminVO.getAdminName()%>" /></td>
 									</tr>
 									<tr>
 										<td>電子信箱</td>
-										<td><input type="TEXT" name="email" size="45" value="<%= (adminVO==null)? "jyunliou120@gmail.com" : adminVO.getEmail()%>" /></td>
+										<td><input type="TEXT" name="email" size="45" value="<%= (adminVO==null)? "" : adminVO.getEmail()%>" /></td>
 									</tr>
 									
 									<input type=hidden name="password" size="45" value="<%= (adminVO==null)? "" : adminVO.getPassword()%>" />
