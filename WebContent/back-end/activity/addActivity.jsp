@@ -7,8 +7,10 @@
 <html>
 <head>
   <title>後台新增活動資訊</title>
-<jsp:include page="/back-end/head_back.jsp" />
-<jsp:include page="/regna-master/head.jsp" />
+  <jsp:include page="/regna-master/head.jsp" />
+<%-- <jsp:include page="/back-end/head_back.jsp" /> --%>
+<!--若 Include 這 支 照片上傳按鈕會消失 back-end/head_back.jsp back-end/head_back.jsp       -->
+
 	  <!-- datetimepicker  -->
 	<link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 	
@@ -48,7 +50,7 @@
       Contact Section 
     ============================-->
 <div class="wrapper ">
-    <jsp:include page="/back-end/kidBodyLeft.jsp" />
+<%--     <jsp:include page="/back-end/kidBodyLeft.jsp" /> --%>
         <div class="main-panel">
 <section id="contact">
   <div class="container wow fadeInUp">
@@ -117,7 +119,7 @@
   ============================-->
   
   <jsp:include page="/regna-master/body.jsp" />
-<jsp:include page="/back-end/kidFooter.jsp" />
+<%-- <jsp:include page="/back-end/kidFooter.jsp" /> --%>
   
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->

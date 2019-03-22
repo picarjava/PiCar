@@ -30,12 +30,12 @@
 	     <div class="container wow fadeInUp">
 	      	<div class="col-lg-12 col-md-12">
 		        <div class="section-header">
-		          <h3 class="section-title">訪客查看單筆活動資訊</h3>
-		          <div class="text-center">
-		          <form action="<%=request.getContextPath()%>/regna-master/homeindex.jsp">
-		          <button type="submit" class="btn btn-outline-success" >返回訪客首頁</button>
-		          </form>
-				  </div>		        
+		          <h3 class="section-title">查看單筆活動資訊</h3>
+<!-- 		          <div class="text-center"> -->
+<%-- 		          <form action="<%=request.getContextPath()%>/regna-master/homeindex.jsp"> --%>
+<!-- 		          <button type="submit" class="btn btn-outline-success" >返回訪客首頁</button> -->
+<!-- 		          </form> -->
+<!-- 				  </div>		         -->
 		        </div>	
 			</div>      
 	     </div>

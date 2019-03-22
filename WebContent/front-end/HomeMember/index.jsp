@@ -156,7 +156,7 @@ float: right;
                 <div class="row">
                     <div class="span10 offset1">
                         <div class="flexslider">
-                            <ul class="slides">
+                            <ul id="listallActicity" class="slides" onclick="window.open('<%=request.getContextPath()%>/front-end/activity/listAllActivity.jsp')">
                                 <li data-thumb="assets/img/slider/AC001-2.jpg">
                                     <img src="assets/img/slider/AC001.JPG">
                                     <p class="flex-caption">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur.</p>
@@ -363,4 +363,7 @@ float: right;
     </body>
 
 </html>
+
+
+
 
