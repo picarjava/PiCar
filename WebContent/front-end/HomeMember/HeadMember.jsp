@@ -101,7 +101,7 @@ float: right;
                             <div class="nav-collapse collapse">
                                 <ul class="nav pull-right">
                                     <li class="current-page widthes">
-                                        <a href="index.html"><i class="icon-home"></i><br />首頁</a>
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp"><i class="icon-home"></i><br />首頁</a>
                                     </li>
                                     <li class="widthes">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/addReservation.jsp"><i class="fas fa-car"></i><br />預約叫車</a>

@@ -138,11 +138,11 @@ String path = request.getContextPath();
 						 		   ${state.key eq singleOrder.state ? state.value: ""}
 						 		  </c:forEach>
 						 		  </td>
-<!-- 							      <td ><button>重新叫車</button> -->
-<!-- 								  </td> -->
-<!-- 								  <td> -->
-<!-- 								  <button>退款</button> -->
-<!-- 								  </td>  -->
+							      <td ><button>重新叫車</button>
+								  </td>
+								  <td>
+								  <button>退款</button>
+								  </td> 
 <!-- 							      <td> -->
 <%-- 							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" > --%>
 <!-- 								    <div class="text-center"><button type="submit" class="btn btn-light">取消</button> -->
