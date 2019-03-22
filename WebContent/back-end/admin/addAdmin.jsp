@@ -24,7 +24,7 @@
                     <div class="container-fluid">
                         <div class="col-9">
 
-					<h4>會員資料新增</h4>
+					<h4>新增管理員</h4>
 
 					<%-- 錯誤表列 --%>
 					<c:if test="${not empty errorMsgs}">

@@ -109,7 +109,7 @@ table {
 	              </button>
 	            </div>
 	            <div class="modal-body">
-	                    <FORM METHOD="post" ACTION="adminSelf.do" name="form1">
+	                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/adminSelf.do" name="form1">
 								輸入新密碼<input class="form-control" type="text" id="p2" name="password"><br>
 								再次輸入新密碼<input class="form-control" type="text" id="p2" name="password2"><br>
 		                          	<input type="hidden" name="adminID" value="<%=adminVO.getAdminID()%>"> 
