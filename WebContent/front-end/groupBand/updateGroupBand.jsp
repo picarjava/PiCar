@@ -189,7 +189,7 @@ th, td {
 			<tr>
 				<td><input type="hidden" name="action" value="update" /> <input
 					type="hidden" name="groupID" value="<%=groupBandVO.getGroupID()%>">
-					<input type="hidden" name="LaunchTime"
+					<input id="send" type="hidden" name="LaunchTime"
 					value="<%=groupBandVO.getLaunchTime()%>"> <input
 					type="submit" value="更改揪團" /></td>
 				<td><input type="reset" value="清除揪團" /></td>
@@ -226,5 +226,14 @@ th, td {
 		}
 
 	}
+</script>
+<script>
+var send=document.getElementById("send");
+send.onclick=function(){
+	var x=0;
+	
+	
+}
+}
 </script>
 </html>

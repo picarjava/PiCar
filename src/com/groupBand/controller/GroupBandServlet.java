@@ -702,7 +702,7 @@ public class GroupBandServlet extends HttpServlet {
 					}
 					// 判斷揪團還長期揪團
 				} else if (groupKind == 5 && !"dropOutbutton".equals(dropOutbutton)) {
-
+					GroupOrderService groupOrderService =new GroupOrderService();
 					// 揪團訂單： 單查 抓出所有資料 ，以 揪團和上車時間下判斷
 					List<GroupOrderVO> list = groupOrderDAO.findByALLGroupMemTime(groupID, startTime);
 
@@ -717,7 +717,7 @@ public class GroupBandServlet extends HttpServlet {
 						if (memID.equals(element.getMemID())) {
 							errorMsgs.add("你已經在揪團中");
 							break;
-						} else if (element.getMemID() == null) {// 加入糾團完成
+						} else if (element.getMemID() == null&&groupOrderService.get_memid__memid_groupid(memIDs,groupID)==null) {// 加入糾團完成
 							groupOrderDAO.updateMem(memID, element.getGorderID());
 							// 揪團：判斷揪團人數
 							groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum() + 1, groupID);
@@ -731,7 +731,7 @@ public class GroupBandServlet extends HttpServlet {
 						}
 					}
 				} else {
-
+					GroupOrderService groupOrderService =new GroupOrderService();
 					GroupBandDAO groupBandDAO = new GroupBandDAO();
 
 					// 1.取出揪團資料 等會用到
@@ -746,6 +746,7 @@ public class GroupBandServlet extends HttpServlet {
 
 					// 判斷跳出錯誤訊息之後將不在進入程式
 					boolean numberpeoples = false;
+
 					// 外層以揪團訂單 日期 包住內層產生訂單 每一次都會填入不同日期
 					for (GroupOrderVO elements : lists) {
 						List<GroupOrderVO> list = groupOrderDAO.findByALLGroupMemTime(groupID, elements.getStartTime());// 不同日期
@@ -762,7 +763,7 @@ public class GroupBandServlet extends HttpServlet {
 									&& numberpeople == false && numberpeoples == false) {
 								errorMsgs.add("揪團人數已滿");
 								numberpeoples = true;
-							} else if (element.getMemID() == null && numberpeoples == false) {// 加入糾團完成
+							} else if (element.getMemID() == null && numberpeoples == false&&groupOrderService.get_memid__memid_groupid(memIDs,groupID)==null) {// 加入糾團完成
 								groupOrderDAO.updateMem(memID, element.getGorderID());
 								// 長期揪團判斷要加
 								groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum() + 1, groupID);

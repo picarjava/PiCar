@@ -17,8 +17,12 @@
 	List<MemberVO> testList = (List) session.getAttribute("testList");
 	boolean dropOut = (boolean) request.getAttribute("dropOut");
 %>
-<% String groupKind[] = {"揪團","長期揪團"}; %>
-<%request.setAttribute("groupKind", groupKind);%>
+<%
+	String groupKind[] = {"揪團", "長期揪團"};
+%>
+<%
+	request.setAttribute("groupKind", groupKind);
+%>
 <!DOCTYPE html>
 
 <html>
@@ -37,9 +41,9 @@
 	rel="stylesheet">
 
 <!-- Bootstrap CSS File -->
-<!-- <link -->
-<%-- 	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/bootstrap/css/bootstrap.min.css" --%>
-<!-- 	rel="stylesheet"> -->
+<link
+	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
 
 <!-- Libraries CSS Files -->
 <link
@@ -60,10 +64,12 @@
 <title>listOneGroupBand.jsp</title>
 <!-- google map -->
 <style>
+
 #messagesArea {
-    height: 300px;
-    width: 500px;
+	height: 300px;
+	width: 500px;
 }
+
 #map {
 	height: 500px;
 	width: 850px;
@@ -141,8 +147,9 @@ textarea {
 </style>
 <style>
 table {
+margin-top: 60px;
 	margin: auto;
-	width: 800px;
+	width:1800px;
 	background-color: white;
 	margin-top: 5px;
 	margin-bottom: 5px;
@@ -160,12 +167,11 @@ th, td {
 th {
 	background-color: #00BBFF;
 }
-
 </style>
 </head>
 <body onload="connect();" onunload="disconnect();">
-<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
-<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
+	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+	<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
 
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
@@ -177,20 +183,139 @@ th {
 		</ul>
 	</c:if>
 	
-	<div class="row" style="margin-top:20px">
+<!-- 	     <div class="services-full-width container"> -->
+<!--             <div class="row"> -->
+<!--                 <div class="services-full-width-text span12"> -->
+<!--                     <h4>Lorem Ipsum Dolor Sit Amet</h4> -->
+<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="violet">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do <strong>eiusmod tempor</strong> incididunt.</p> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+
+<!--         Services -->
+<!--         <div class="what-we-do container"> -->
+<!--             <div class="row"> -->
+<!--                 <div class="service span3"> -->
+<!--                     <div class="icon-awesome"> -->
+<!--                         <i class="icon-eye-open"></i> -->
+<!--                     </div> -->
+<!--                     <h4>Beautiful Websites</h4> -->
+<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
+<!--                 </div> -->
+<!--                 <div class="service span3"> -->
+<!--                     <div class="icon-awesome"> -->
+<!--                         <i class="icon-table"></i> -->
+<!--                     </div> -->
+<!--                     <h4>Responsive Layout</h4> -->
+<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
+<!--                 </div> -->
+<!--                 <div class="service span3"> -->
+<!--                     <div class="icon-awesome"> -->
+<!--                         <i class="icon-magic"></i> -->
+<!--                     </div> -->
+<!--                     <h4>Awesome Logos</h4> -->
+<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
+<!--                 </div> -->
+<!--                 <div class="service span3"> -->
+<!--                     <div class="icon-awesome"> -->
+<!--                         <i class="icon-print"></i> -->
+<!--                     </div> -->
+<!--                     <h4>High Res Prints</h4> -->
+<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+
+<!--         Services Half Width Text -->
+<!--         <div class="services-half-width container"> -->
+<!--             <div class="row"> -->
+<!--                 <div class="services-half-width-text span6"> -->
+<!--                     <h4>Lorem Ipsum</h4> -->
+<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="violet">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do <strong>eiusmod tempor</strong> incididunt.</p> -->
+<!--                 </div> -->
+<!--                 <div class="services-half-width-text span6"> -->
+<!--                     <h4>Dolor Sit Amet</h4> -->
+<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="violet">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do <strong>eiusmod tempor</strong> incididunt.</p> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+
+<!--         Call To Action -->
+<!--         <div class="call-to-action container"> -->
+<!--             <div class="row"> -->
+<!--                 <div class="call-to-action-text span12"> -->
+<!--                     <div class="ca-text"> -->
+<!--                         <p>Lorem ipsum <span class="violet">dolor sit amet</span>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et ut wisi enim.</p> -->
+<!--                     </div> -->
+<!--                     <div class="ca-button"> -->
+<!--                         <a href="">Try It Now!</a> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </div> -->
+
+<!--         Footer -->
+<!--         <footer> -->
+<!--             <div class="container"> -->
+<!--                 <div class="row"> -->
+<!--                     <div class="widget span3"> -->
+<!--                         <h4>About Us</h4> -->
+<!--                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
+<!--                         <p><a href="">Read more...</a></p> -->
+<!--                     </div> -->
+<!--                     <div class="widget span3"> -->
+<!--                         <h4>Latest Tweets</h4> -->
+<!--                         <div class="show-tweets"></div> -->
+<!--                     </div> -->
+<!--                     <div class="widget span3"> -->
+<!--                         <h4>Flickr Photos</h4> -->
+<!--                         <ul class="flickr-feed"></ul> -->
+<!--                     </div> -->
+<!--                     <div class="widget span3"> -->
+<!--                         <h4>Contact Us</h4> -->
+<!--                         <p><i class="icon-map-marker"></i> Address: Via Principe Amedeo 9, 10100, Torino, TO, Italy</p> -->
+<!--                         <p><i class="icon-phone"></i> Phone: 0039 333 12 68 347</p> -->
+<!--                         <p><i class="icon-user"></i> Skype: Andia_Agency</p> -->
+<!--                         <p><i class="icon-envelope-alt"></i> Email: <a href="">contact@andia.co.uk</a></p> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--                 <div class="footer-border"></div> -->
+<!--                 <div class="row"> -->
+<!--                     <div class="copyright span4"> -->
+<!--                         <p>Copyright 2012 Andia - All rights reserved. Template by <a href="http://azmind.com">Azmind</a>.</p> -->
+<!--                     </div> -->
+<!--                     <div class="social span8"> -->
+<!--                         <a class="facebook" href=""></a> -->
+<!--                         <a class="dribbble" href=""></a> -->
+<!--                         <a class="twitter" href=""></a> -->
+<!--                         <a class="pinterest" href=""></a> -->
+<!--                     </div> -->
+<!--                 </div> -->
+<!--             </div> -->
+<!--         </footer> -->
+
+        <!-- Javascript -->
+
+	
+	<div style="margin-top: 20px;"></div>
+	<div>
+		<img  src="/PiCar/GroupBand?groupID=<%=groupBandVO.getGroupID()%>" width="300px" height="100px">
+	</div>
+	<div class="row" style="margin-top: 20px">
 		<c:forEach var="MemberVO" items="${testList}">
+	
 			<div
-				class="d-inline p-2 bg-primary text-white color${MemberVO.gender}">
+				class=" d-inline p-2 bg-primary text-white color${MemberVO.gender}">
 				<div class="marrgin">
 					<img class="imgss" src="/PiCar/GroupBand?MEM_ID=${MemberVO.memID}">
 				</div>
 				<div class="tentcenter" id="gender">
-					<h4>${MemberVO.name}<img class="mar"
+					<h4 style="color: #000;">${MemberVO.name}<img class="mar"
 							src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/${MemberVO.gender}.png"
 							width="20px" height="25px">
 					</h4>
 				</div>
-				<div class="tentce" id="${MemberVO.memID}"></div>
+				<div style="color: #000;" class="tentce" id="${MemberVO.memID}"></div>
 
 
 				<!-- 				踢人功能 -->
@@ -208,20 +333,19 @@ th {
 							value="<%=groupBandVO.getStartTime()%>"> <input
 							type="hidden" name="memIDs" value="${memberVO.memID }" /> <input
 							type="hidden" name="groupKind"
-							value="<%=groupBandVO.getGroupKind()%>"> 
-							<input
-							type="hidden" name="GroupmemID" value="${MemberVO.memID}"> 
-							<input
-							type="hidden" name="action" value="GroupAdd"> <input
+							value="<%=groupBandVO.getGroupKind()%>"> <input
+							type="hidden" name="GroupmemID" value="${MemberVO.memID}">
+						<input type="hidden" name="action" value="GroupAdd"> <input
 							type="hidden" name="dropOutbutton" value="Kickingpeople">
 					</FORM>
+					</div>
 					<%
 						}
 					%>
 				</c:if>
 				<!-- 				踢人功能 -->
-
-			</div>
+		</div>
+			
 			<script>
 			var Mymoney ='<%=groupBandVO.getGroupID()%>'.charCodeAt(0)+'<%=groupBandVO.getGroupID()%>'.substr(1);
 		
@@ -241,9 +365,9 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 </script>
 		</c:forEach>
 	</div>
-	<table>
+	<table    style=" margin-top: 50px;">
 		<tr>
-			<th>揪團ID</th>		
+			<th>揪團ID</th>
 			<th>發起時間</th>
 			<th>簡介</th>
 			<th>揪團種類</th>
@@ -254,7 +378,6 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 			<th>團長</th>
 			<th>上車地點</th>
 			<th>下車地點</th>
-			<th>隱私設定</th>
 			<th>照片</th>
 			<th>揪團類別</th>
 			<th>總金額</th>
@@ -266,38 +389,51 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 		</tr>
 
 		<tr>
-			<td><%=groupBandVO.getGroupID()%></td>		
+			<td><%=groupBandVO.getGroupID()%></td>
 			<td><%=groupBandVO.getLaunchTime()%></td>
-			<td><%=groupBandVO.getIntroduction()%></td>		
-			<td><%=groupKind[groupBandVO.getGroupKind()-5]%></td>
+			<td><%=groupBandVO.getIntroduction()%></td>
+			<td><%=groupKind[groupBandVO.getGroupKind() - 5]%></td>
 			<td><%=groupBandVO.getCurrenTnum()%></td>
 			<td><%=groupBandVO.getUpperLimit()%></td>
 			<td><%=groupBandVO.getLowerLimit()%></td>
 			<td><%=groupBandVO.getGroupName()%></td>
-			<td><%=groupBandVO.getGroupLeader()%></td>
+			
+				<%MemberService memberServicer = new MemberService();
+	MemberVO memberVOS =  memberServicer.getOneMember(groupBandVO.getGroupLeader()); %>
+			<td><%=memberVOS.getName()%></td>
 			<td><%=groupBandVO.getStartLoc()%></td>
 			<td><%=groupBandVO.getEndLoc()%></td>
 			<td><%=groupBandVO.getPrivates()%></td>
 			<td><img
 				src="/PiCar/GroupBand?groupID=<%=groupBandVO.getGroupID()%>"
-				width="100px" height="100px"></td>
-			<td><%=groupBandVO.getGroupType()%></td>
-			<td><%=groupBandVO.getTotalAmout()%></td>
-			
-				<%if(groupBandVO.getGroupKind()==6) {%>
+				width="100px" height="100px"></td>			
+			<td><%=groupBandVO.getTotalAmout()/1%>*1人倍率<br><%=groupBandVO.getTotalAmout()/2%>*2人倍率<br><%=groupBandVO.getTotalAmout()/3%>*3人倍率<br><%=groupBandVO.getTotalAmout()/4%>*4人倍率</td>
+
 			<%
-			GroupOrderService groupOrderservice =new GroupOrderService();	
-			Timestamp timestamp = groupOrderservice.getStartTimeGgroupID(groupBandVO.getGroupID());
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			//進行轉換
-			String dateString = sdf.format(groupBandVO.getStartTime());
-			;
+				if (groupBandVO.getGroupKind() == 6) {
 			%>
-			
-			<td><%out.println(dateString.substring(0, 10));%>~<%out.println(timestamp);%></td>
-			<%}else{%>
+			<%
+				GroupOrderService groupOrderservice = new GroupOrderService();
+					Timestamp timestamp = groupOrderservice.getStartTimeGgroupID(groupBandVO.getGroupID());
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					//進行轉換
+					String dateString = sdf.format(groupBandVO.getStartTime());;
+			%>
+
+			<td>
+				<%
+					out.println(dateString.substring(0, 10));
+				%>~<%
+					out.println(timestamp);
+				%>
+			</td>
+			<%
+				} else {
+			%>
 			<td><%=groupBandVO.getStartTime()%></td>
-			<%} %>
+			<%
+				}
+			%>
 			<td><%=groupBandVO.getRate()%></td>
 			<td><%=groupBandVO.getNote()%></td>
 
@@ -406,10 +542,10 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 			onclick="disconnect();" />
 	</div>
 
-<script type="text/javascript" src="http://www.google.com/jsapi"></script>
-<script type="text/javascript" language="javascript">google.load("jquery", "1.3");</script>
-<!-- json傳資料 -->
-<script>
+	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+	<script type="text/javascript" language="javascript">google.load("jquery", "1.3");</script>
+	<!-- json傳資料 -->
+	<script>
 function groupSelect()
 {
 	   $.ajax({
@@ -478,7 +614,7 @@ function groupSelect()
 	}
 </script>
 
-<script>
+	<script>
 function groupSelectChatRoom()
 {
 	   $.ajax({
@@ -529,7 +665,7 @@ function groupSelectChatRoom()
 	}
 </script>
 
-<script>
+	<script>
 function groupSelectUpdateChatRoom(room)
 {
 
@@ -595,7 +731,7 @@ function groupSelectUpdateChatRoom(room)
 
 
 
-<script>
+	<script>
 function groupJoin()
 {
 	   $.ajax({
@@ -638,24 +774,19 @@ function groupJoin()
 // 1代表加入揪團 0代表沒加入揪團
 //查詢資料庫的所有揪團
 var messa = document.getElementById("messa");
-<%
-GroupMemService groupMemService =new GroupMemService();
-List<GroupMemVO> groupMemlist =new ArrayList<GroupMemVO>();
-groupMemlist= groupMemService.getAllgroupID(groupBandVO.getGroupID(),1);
-MemberService memberService = new MemberService();
-MemberVO memberVO = new MemberVO();
-for(GroupMemVO Memlist :groupMemlist){
+<%GroupMemService groupMemService = new GroupMemService();
+			List<GroupMemVO> groupMemlist = new ArrayList<GroupMemVO>();
+			groupMemlist = groupMemService.getAllgroupID(groupBandVO.getGroupID(), 1);
+			MemberService memberService = new MemberService();
+			MemberVO memberVO = new MemberVO();
+			for (GroupMemVO Memlist : groupMemlist) {
 
-	memberVO = memberService.getOneMember(Memlist.getMemID());	
-	%>	
+				memberVO = memberService.getOneMember(Memlist.getMemID());%>	
 	 var newDiv = document.createElement("div");
 	 	newDiv.id="<%=memberVO.getName()%>";
 	 	newDiv.innerHTML="<%=memberVO.getName()%>  :已連線";
 	 	messa.appendChild(newDiv); 
-	<%
-
-	}
-%>
+	<%}%>
 
 
 <%-- 	jQuery.post("AjexGroupInsert.jsp","memid="+"${memberVO.memID}&groupID="+"<%=groupBandVO.getGroupID()%>"); --%>
@@ -664,7 +795,7 @@ for(GroupMemVO Memlist :groupMemlist){
 </script>
 
 
-<script>
+	<script>
 function groupdelecte()
 {
 	   $.ajax({
@@ -755,9 +886,10 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 	        //判斷是誰的連線
  	        
  
-	        if(jsonObj.sessionUser=="listsessionUser")
+	        if(jsonObj.sessionUser=="listsessionUser"||jsonObj.sessionUser=="END")
 	        {
 // 				if(jsonObj.status=="1111"){
+				 groupJoin();
 				messa.innerHTML="";
 				 groupSelect();
 

@@ -7,6 +7,7 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.groupMem.model.*;
 import com.groupOrder.model.GroupOrderVO;
@@ -42,7 +43,7 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 //		
 //		for(String elements : list) {		
 			
-			
+			System.out.println(message);
 
 		for (Session session : allSessions) {//轉傳
 			
@@ -68,6 +69,14 @@ private static final Set<Session> allSessions = Collections.synchronizedSet(new 
 			groupMemService.update_State("G"+myRoom.substring(2, 5),myName,0);
 		allSessions.remove(userSession);
 		System.out.println(userSession.getId() + ": Disconnected: " + Integer.toString(reason.getCloseCode().getCode()));
+		
+		
+	for (Session session : allSessions) {//轉傳
+			
+			if (session.isOpen()&& map.get(session).equals(myRoom)) 
+		session.getAsyncRemote().sendText("{\"userName\":\"卡蒂狗\",\"message\":\"以連線\",\"sessionUser\":\"listsessionUser\",\"userID\":\"M008\",\"status\":\"0000\"}");
+		
+		}
 	}
 
  

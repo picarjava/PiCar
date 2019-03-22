@@ -222,13 +222,13 @@ width: 100%;
 	  <div class="form-group">
 	   <div>團名:</div>
 	  <input type="TEXT" id="width100" name="groupName" required size="25" class="form-control form-control-lg"
-					value="<%=(groupBandVO == null) ? "今天來建servlet" : groupBandVO.getGroupName()%>" />
+					value="<%=(groupBandVO == null) ? "" : groupBandVO.getGroupName()%>" />
 					
 	   </div>
 	 
 	   <div class="form-group">
   <div>簡介:</div>
-    <textarea name="introduction" required id="note exampleFormControlTextarea1" style="width: 100%;" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "除錯中".trim() : groupBandVO.getIntroduction().trim()%></textarea></textarea>
+    <textarea name="introduction" required id="note exampleFormControlTextarea1" style="width: 100%;" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "".trim() : groupBandVO.getIntroduction().trim()%></textarea></textarea>
   </div>
 	 
 	 
@@ -263,7 +263,7 @@ width: 100%;
 	 
 	  <div class="form-group">
 	   <div>備註:</div>
-	 <textarea name="note" required id=" note exampleFormControlTextarea1 " style="width: 100%;" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "謝謝".trim() : groupBandVO.getNote().trim()%></textarea>
+	 <textarea name="note" required id=" note exampleFormControlTextarea1 " style="width: 100%;" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "".trim() : groupBandVO.getNote().trim()%></textarea>
 	 </div>
 	 <div id="innerdate"></div>
 	  <div class="form-group">
