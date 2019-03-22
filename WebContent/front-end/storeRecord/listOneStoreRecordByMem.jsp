@@ -8,6 +8,7 @@
 
 
 <%	
+	
 	//給會員儲值後顯示用的
 	//以下為了用迴圈將儲值紀錄列出
 	List<StoreRecordVO> list = (List) request.getAttribute("list");
@@ -18,6 +19,11 @@
 	//以下為了得到加總金額
 	Integer sumCount = (Integer)request.getAttribute("sumCount");
 // 	MemberVO memberVO = (MemberVO)session.getAttribute("memeberVO");
+int i = 0;
+i++;
+if (i > 0 ){
+	response.sendRedirect("/PiCar/front-enf/HomeMember/index.jsp");
+}
 	
 %>
 
@@ -41,7 +47,7 @@
 </style>
 <body bgcolor="#11e1e9">
 	<h3>listOneStoreRecordMember.jsp</h3>
-	<a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
+	<a class="box" href=/PiCar/front-end/HomeMember/index.jsp> 請按此回首頁 </a>
 	<h1 align="center"> ${storeRecordVO.memID} <%=memberVO.getName() %>	你好，以下為您的儲值紀錄</h1>
 	<table align="center" border="1" id="table1">
 		<tr>

@@ -139,6 +139,7 @@ session.setAttribute("xxx", xxx);
                        <div class="card" style="width: 18rem;">
                         </div>
                     </div>
+                    <h3>喜好設定</h3>
                             <div class="form-group">
                                 <p>願意共乘載客</p>
                                 <div class="form-control" style="width: 18rem;">
@@ -208,12 +209,4 @@ session.setAttribute("xxx", xxx);
   <jsp:include page="/regna-master/body.jsp" />
 
 </body>
-<script>
- $(document).ready(function(){
-	
- 	if(${driverVO.memID}!=null)
- 		window.alert("恭喜您 成為我們的司機，並請等待我們的審核");
- })
-
-</script>
 </html>

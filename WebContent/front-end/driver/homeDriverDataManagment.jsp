@@ -10,7 +10,8 @@
 <html lang="en">
 <head>
     <title>homeDriverDataManagment.jsp</title>
-    <jsp:include page="/regna-master/head.jsp" />
+<%--     <jsp:include page="/regna-master/head.jsp" /> --%>
+    <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 </head>
 <style>
 table, tr, td, th {
@@ -199,28 +200,28 @@ table {
                                         <a href="<%=request.getContextPath()%>/front-end/driver/setting.jsp"><i class="fas fa-coins"></i><br />喜好設定</a>
 						      </div>
 						      
-                                    <div align="center">違規狀態</div><br>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">接單狀態碼:</span>
-                                        </div>
-                                        <!-- <input type="text" class="form-control" placeholder="1" -->
-                                        <!-- aria-label="Username" aria-describedby="basic-addon1" readonly> -->
-                                        <DIV>
-                                        <font color="black">
-                                        <c:if test="${driverVO.banned == 0}">表現不錯，沒被BAN</c:if>
-						      			<c:if test="${driverVO.banned == 1}">BAN</c:if>
-                                        </font>
-						      			</DIV>
+<!--                                     <div align="center">違規狀態</div><br> -->
+<!--                                     <div class="input-group mb-3"> -->
+<!--                                         <div class="input-group-prepend"> -->
+<!--                                             <span class="input-group-text" id="basic-addon1">接單狀態碼:</span> -->
+<!--                                         </div> -->
+<!--                                         <input type="text" class="form-control" placeholder="1" -->
+<!--                                         aria-label="Username" aria-describedby="basic-addon1" readonly> -->
+<!-- <!--                                         <DIV> --> 
+<!-- <!--                                         <font color="black"> --> 
+<%-- <%--                                         <c:if test="${driverVO.banned == 0}">表現不錯，沒被BAN</c:if> --%> 
+<%-- <%-- 						      			<c:if test="${driverVO.banned == 1}">BAN</c:if> --%> 
+<!-- <!--                                         </font> --> 
+<!-- <!-- 						      			</DIV> --> 
                                     </div>
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text" id="basic-addon1">到期日:</span>
-                                        </div>
-                                        <font color="black">
-                                            <c:out value="${driverVO.deadline}" default="表現不錯，繼續開車" />
-                                        </font>
-                                    </div>
+<!--                                     <div class="input-group mb-3"> -->
+<!--                                         <div class="input-group-prepend"> -->
+<!--                                             <span class="input-group-text" id="basic-addon1">到期日:</span> -->
+<!--                                         </div> -->
+<!--                                         <font color="black"> -->
+<%--                                             <c:out value="${driverVO.deadline}" default="表現不錯，繼續開車" /> --%>
+<!--                                         </font> -->
+<!--                                     </div> -->
 <!--                                     <div class="text-center"> -->
 <!--                                         <button type="submit" class="btn btn-block ">確認修改</button> -->
 <%--                                         	<input type="hidden" name="msgID"  value="${brodVO.msgID}"> --%>

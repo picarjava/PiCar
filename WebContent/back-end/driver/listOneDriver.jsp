@@ -184,7 +184,7 @@
 
 							<div class="input-group mb-3">
 								<div class="input-group-prepend">
-									<span class="input-group-text" id="basic-addon1">審核狀態(驗證用)</span>
+									<span class="input-group-text" id="basic-addon1">審核狀態</span>
 						      <c:if test="${driverVO.verified == 0}">未審核</c:if>
 						      <c:if test="${driverVO.verified == 1}">審核成功</c:if>
 								</div>
@@ -197,13 +197,13 @@
 								</div>
 							</div>
 
-							<div class="input-group mb-3">
-								<div class="input-group-prepend">
-									<span class="input-group-text" id="basic-addon1">在線狀態(後台看的...)</span>
-									<c:if test="${driverVO.onlineCar == 0}">不在線上</c:if>
-						     	    <c:if test="${driverVO.onlineCar == 1}">在線上 </c:if>
-								</div>
-							</div>
+<!-- 							<div class="input-group mb-3"> -->
+<!-- 								<div class="input-group-prepend"> -->
+<!-- 									<span class="input-group-text" id="basic-addon1">在線狀態(後台看的...)</span> -->
+<%-- 									<c:if test="${driverVO.onlineCar == 0}">不在線上</c:if> --%>
+<%-- 						     	    <c:if test="${driverVO.onlineCar == 1}">在線上 </c:if> --%>
+<!-- 								</div> -->
+<!-- 							</div> -->
 							
 							 <div class="text-center">
 							 			<p>審核驗證</p>

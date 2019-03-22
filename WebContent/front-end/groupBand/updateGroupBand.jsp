@@ -147,21 +147,22 @@ th, td {
 
 			<tr>
 				<td>團名</td>
-				<td><input type="TEXT" name="groupName" size="25"
+				<td><div class="col"></div>
+				<input required id="distance" type="TEXT" name="groupName" size="25"
 					value="<%=(groupBandVO == null) ? "" : groupBandVO.getGroupName()%>" /></td>
 				<td></td>
 			</tr>
 			<tr>
 				<td>簡介:</td>
 
-				<td><textarea name="introduction" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "好吃嗎".trim() : groupBandVO.getIntroduction().trim()%></textarea></td>
+				<td><textarea required name="introduction" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "好吃嗎".trim() : groupBandVO.getIntroduction().trim()%></textarea></td>
 				<td></td>
 			</tr>
 			<tr>
 
 				<td>備註:</td>
 
-				<td><textarea name="note" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "".trim() : groupBandVO.getNote().trim()%></textarea></td>
+				<td><textarea required name="note" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "".trim() : groupBandVO.getNote().trim()%></textarea></td>
 				<td></td>
 			</tr>
 			<tr>
@@ -189,8 +190,8 @@ th, td {
 			<tr>
 				<td><input type="hidden" name="action" value="update" /> <input
 					type="hidden" name="groupID" value="<%=groupBandVO.getGroupID()%>">
-					<input type="hidden" name="LaunchTime"
-					value="<%=groupBandVO.getLaunchTime()%>"> <input
+					<input  type="hidden" name="LaunchTime"
+					value="<%=groupBandVO.getLaunchTime()%>"> <input id="send"
 					type="submit" value="更改揪團" /></td>
 				<td><input type="reset" value="清除揪團" /></td>
 
@@ -226,5 +227,24 @@ th, td {
 		}
 
 	}
+</script>
+<script>
+var send=document.getElementById("send");
+var distance=document.getElementById("distance");
+var col=document.getElementById("col");
+
+send.onclick=function(){
+	var x=0;
+	if(distance.innerHTML==''){
+		col.innerHTML="<h3 style='color:#FF3333'>※請確實填寫勿空值※<h3>";
+	x++;
+		}
+	
+	if(x>0){
+		return false;
+		
+	}
+}
+
 </script>
 </html>

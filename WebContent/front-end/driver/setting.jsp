@@ -6,6 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />	
 <meta charset="UTF-8">
 <title>hobby_setting</title>
 </head>
