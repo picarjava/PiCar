@@ -162,12 +162,12 @@ public class MemberSelfServlet extends HttpServlet {
 //				memberVO = memberSvc.updateMember(memID, password);
 //				req.setAttribute("memberVO", memberVO);
 
-				RequestDispatcher successView = req.getRequestDispatcher("/regna-master/homeindex.jsp"); 
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/HomeMember/index.jsp"); 
 				successView.forward(req, res);
 				System.out.println("@");
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/update_member_input.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/modifyPassword.jsp");
 				successView.forward(req, res);
 
 			}
