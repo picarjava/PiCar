@@ -8,6 +8,7 @@ import javax.servlet.http.*;
 
 import com.groupReport.model.*;
 import com.groupBand.model.*;
+import com.groupOrder.model.*;
 
 
 public class GroupReportServlet extends HttpServlet {
@@ -141,11 +142,11 @@ public class GroupReportServlet extends HttpServlet {
 					}
 					
 					String content = req.getParameter("content");
-					String contentReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{5,50}$";
+					String contentReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,50}$";
 					if (content == null ||content.trim().length()==0) {
 						errorMsgs.add("檢舉內容請勿空白");
 					} else if (!content.trim().matches(contentReg)) {
-						errorMsgs.add("檢舉內容: 只能用中、英文字母、數字和_ , 且長度必需在5到50之間");
+						errorMsgs.add("檢舉內容: 只能用中、英文字母、數字和_ , 且長度必需在1到50之間");
 					}
 					
 					java.sql.Date time = null;
@@ -158,9 +159,12 @@ public class GroupReportServlet extends HttpServlet {
 						
 					Integer state = new Integer(req.getParameter("state").trim());
 					Integer groupStatus = 2;
+					Integer changestate = 8;
 					if (state == 1) {
 						GroupBandService groupBandSvc = new GroupBandService();
-						groupBandSvc.UPDATE_GROUP_STATUS__GROUP_ID(groupStatus, groupID);	
+						groupBandSvc.UPDATE_GROUP_STATUS__GROUP_ID(groupStatus, groupID);  //下架該GroupBand	
+						GroupOrderService GroupOrderSvc = new GroupOrderService();          
+						GroupOrderSvc.UPDATE_STATE__GROUP_ID(changestate,groupID);         //把該筆揪團訂單狀態改8		
 					} 
 						
 					GroupReportVO groupReportVO = new GroupReportVO();
@@ -230,11 +234,11 @@ public class GroupReportServlet extends HttpServlet {
 					}
 						
 					String content = req.getParameter("content");
-					String contentReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{10,50}$";
+					String contentReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,50}$";
 					if (content == null ||content.trim().length()==0) {
 						errorMsgs.add("檢舉內容請勿空白");
 					} else if (!content.trim().matches(contentReg)) {
-						errorMsgs.add("檢舉內容: 只能用中、英文字母、數字和_ , 且長度必需在10到50之間");
+						errorMsgs.add("檢舉內容: 只能用中、英文字母、數字和_ , 且長度必需在1到50之間");
 					}
 						
 					java.sql.Date time = null;
