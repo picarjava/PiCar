@@ -35,9 +35,9 @@
 }
 </style>
 <body bgcolor="#11e1e9">
-	<h3>listOneStoreRecordMember.jsp</h3>
+	<h3>listOneStoreRecordMemberNeg.jsp</h3>
 	<a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
-	<h1 align="center"> ${storeRecordVO.memID} <%=memberVO.getName() %>	你好，以下為您的扣款紀錄</h1>
+	<h1 align="center"> <%=memberVO.getMemID() %> <%=memberVO.getName() %>	你好，以下為您的扣款紀錄</h1>
 	<table align="center" border="1" id="table1">
 		<tr>
 			<td>訂單ID</td>

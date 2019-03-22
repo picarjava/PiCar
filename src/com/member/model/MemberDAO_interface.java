@@ -15,6 +15,8 @@ public interface MemberDAO_interface {
 	public void setForHobby(MemberVO memberVO);  //阿君新增FOR前端喜好設定
 	
 	public void updatePassVerified(String memID, String password);
+	
+	public void  updateTokenAndCancelToken(String memberIDNewest, String activityIDNewest,String memID,Integer count);
 //	萬用複合查詢(傳入參數型別Map)(回傳List)
 	
 //	public List<MemberVO> getAll(Map<String, String> map);

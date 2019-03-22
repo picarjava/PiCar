@@ -36,7 +36,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 		SimpleDateFormat tFormat = new SimpleDateFormat("yyyy/MM/dd a hh:mm:ss ");
 		TimeConverter timeConverter = new TimeConverter();
 		Date firstime = timeConverter.getThisHourToday(0);// 開始時間為伺服器啟動的當天0點
-		long period = 1000 * 60 * 2  ; // 每12小時執行一次
+		long period = 1000 * 60* 60    ; // 每12小時執行一次
 		SingleOrderService singleOrderSvc = new SingleOrderService();
 		HashSet<SingleOrderVO> allUnpaid = new HashSet<SingleOrderVO>();// 待付款訂單
 		TimerTask task = new TimerTask() {

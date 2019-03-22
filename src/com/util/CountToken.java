@@ -1,5 +1,6 @@
 package com.util;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -21,7 +22,7 @@ public class CountToken {
 		System.out.println(orderID);
 
 		ActivityTokenService atSvc = new ActivityTokenService();
-		List<ActivityTokenVO> onesActivityToken = new LinkedList();
+		List<ActivityTokenVO> onesActivityToken = new ArrayList();
 		onesActivityToken = atSvc.getOnesALL(memID);
 		Collections.sort(onesActivityToken, new Comparator<ActivityTokenVO>() {
 
@@ -37,7 +38,7 @@ public class CountToken {
 
 			@Override
 			public int compare(ActivityTokenVO o1, ActivityTokenVO o2) {
-				int result = (int) ((o1.getTokenAmount() - o2.getTokenAmount()));
+				int result = -(int) ((o1.getTokenAmount() - o2.getTokenAmount()));
 				return result;
 			}
 
@@ -63,20 +64,27 @@ public class CountToken {
 
 			MemberVO memberVO = memberSvc.getOneMember(memID);
 			count = memberVO.getToken() + amount;
-
-			if (count < 0) {
-				System.out.println("總金額小於0");
-				throw new Exception("總金額小於0");
-
-			}else {
-				StoreRecordService storeRecordSvc = new StoreRecordService();
-				storeRecordSvc.addOrdrID(memID, amount, orderID);
-				memberSvc.updateToken(memID, count);
-				atSvc.cancelToken(memberIDNewest, activityIDNewest);
+//
+//			if (count < 0) {
+//				System.out.println("總金額小於0");
+//				throw new Exception("總金額小於0");
+//
+//			}else {
+			StoreRecordService storeRecordSvc = new StoreRecordService();
+//				atSvc.cancelToken(memberIDNewest, activityIDNewest);
+//				memberSvc.updateToken(memID, count);
+			try {
+				memberSvc.updateTokenAndCancelToken(memberIDNewest, activityIDNewest, memID, count);
+			} catch (RuntimeException e) {
+				throw new Exception(e.getMessage() + "代幣餘額小於零");
 			}
+			// 以下不用rollback處理
+			storeRecordSvc.addOrdrID(memID, amount, orderID);
+
+//			}
 
 		}
-		
+
 		/****************/
 	}
 

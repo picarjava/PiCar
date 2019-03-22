@@ -501,5 +501,11 @@ public class MemberJDBCDAO implements MemberDAO_interface {
 		
 	}
 
+	@Override
+	public void updateTokenAndCancelToken(String memberIDNewest, String activityIDNewest, String memID, Integer count) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

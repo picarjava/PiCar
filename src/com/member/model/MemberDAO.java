@@ -60,15 +60,10 @@ public class MemberDAO implements MemberDAO_interface {
 	// 阿君新增for前台會員喜好設定與常用地點設定
 	private static final String UPDATE_HOBBY = "UPDATE MEMBER SET CREDIT_CARD=?, PET=?, SMOKE=?, BABY_SEAT=? WHERE MEM_ID=?";
 
-	private static final String UPDATE_VERIFIEDBYMODIFYPASSWORD="UPDATE MEMBER SET VERIFIED='1',PASSWORD=? WHERE MEM_ID=? ";
-	
-	
-	
-	
-	
-	
-	
-	
+	private static final String UPDATE_VERIFIEDBYMODIFYPASSWORD = "UPDATE MEMBER SET VERIFIED='1',PASSWORD=? WHERE MEM_ID=? ";
+
+	private static final String CANCELTOKEN = "UPDATE ACTIVITY_TOKEN SET TOKEN_AMOUNT='0' WHERE MEM_ID=? AND ACTIVITY_ID=? ";
+
 	public void updateActivityToken(Integer activityTokenSum, String memID, Connection con) {
 		PreparedStatement pstmt = null;
 		try {
@@ -669,12 +664,103 @@ public class MemberDAO implements MemberDAO_interface {
 				}
 			}
 		}
-		
+
 	}
-	
-	
-	
-	
-	
+
+	// 新增加的方法
+	@Override
+	public void updateTokenAndCancelToken(String memberIDNewest, String activityIDNewest, String memID, Integer count) {
+
+		Connection con = null;
+		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+		ResultSet rs = null;
+
+		try {
+
+			con = ds.getConnection();
+			con.setAutoCommit(false);
+
+			pstmt = con.prepareStatement(CANCELTOKEN);
+			pstmt.setString(1, memberIDNewest);
+			pstmt.setString(2, activityIDNewest);
+
+			pstmt.executeUpdate();
+
+			pstmt1 = con.prepareStatement(UPDATE_TOKEN);
+			pstmt1.setInt(1, count);
+			pstmt1.setString(2, memID);
+
+			pstmt1.executeUpdate();
+
+			pstmt2 = con.prepareStatement(GET_ONE_STMT);
+
+			pstmt2.setString(1, memID);
+
+			rs = pstmt2.executeQuery();
+
+			rs.next();
+			System.out.println(rs.getInt("TOKEN"));
+			if (rs.getInt("TOKEN") < 0) {
+			
+				throw new SQLException();
+			}
+			;
+
+			con.commit();
+			con.setAutoCommit(true);
+
+		} catch (SQLException se) {
+				se.printStackTrace();
+			if (con != null) {
+				
+				try {
+					// 3●設定於當有exception發生時之catch區塊內
+					System.err.print("Transaction is being ");
+					System.err.println("rolled back-由-dept");
+					con.rollback();
+				} catch (SQLException excep) {
+					throw new RuntimeException("rollback error occured. " + excep.getMessage());
+				}
+			}
+
+			throw new RuntimeException("個人代幣餘額不足:" + se.getMessage());
+
+		} finally {
+			if (pstmt2 != null) {
+				try {
+					pstmt2.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt1 != null) {
+				try {
+					pstmt1.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+
+			if (con != null) {
+				try {
+					con.close();
+				} catch (SQLException se) {
+					se.printStackTrace(System.err);
+				}
+			}
+		}
+
+	}
 
 }

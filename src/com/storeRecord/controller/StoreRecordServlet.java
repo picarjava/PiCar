@@ -268,10 +268,12 @@ public class StoreRecordServlet extends HttpServlet {
 				memberSvc.updateToken(memID, memberVO.getToken() + storeRecordVO.getAmount());
 
 				System.out.println("已經插入");
+
+				
+				
 				RequestDispatcher succesView = req
 						.getRequestDispatcher("/front-end/storeRecord/listOneStoreRecordByMem.jsp");
 				succesView.forward(req, res);
-
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/storeRecord/addStoreRecord.jsp");

@@ -63,7 +63,7 @@ table{
 	
 	<input type="hidden" name="action" value="insert">
 	<input type="submit" value="結帳" id="submit" ID="post-form">
-	
+<%-- 	<input  type="hidden"  name="url" value=<%=request.getRequestURL()%>>  --%>
 	
 	
 

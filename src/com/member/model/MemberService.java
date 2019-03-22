@@ -114,5 +114,18 @@ public class MemberService {
 
 		return memberVO;
 	}
+	
+	public void updateTokenAndCancelToken(String memberIDNewest, String activityIDNewest,String memID,Integer count) {
+
+//		MemberVO memberVO = new MemberVO();
+//
+//		memberVO.setMemID(memID);
+//		memberVO.setToken(token);
+//		dao.updateToken(memberVO);
+//
+//		return memberVO;
+		dao.updateTokenAndCancelToken(memberIDNewest, activityIDNewest, memID, count);
+
+	}
 
 }

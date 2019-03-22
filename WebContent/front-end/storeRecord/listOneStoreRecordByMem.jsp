@@ -1,29 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.storeRecord.model.*"
 	import="java.util.List"%>
-<%@ page import="com.member.model.*" %>
+<%@ page import="com.member.model.*"%>
+<%@ page import="java.lang.Exception"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 
-<%	
-	
+<%
 	//給會員儲值後顯示用的
 	//以下為了用迴圈將儲值紀錄列出
 	List<StoreRecordVO> list = (List) request.getAttribute("list");
-	StoreRecordVO storeRecordVO = (StoreRecordVO)request.getAttribute("storeRecordVO");
+	StoreRecordVO storeRecordVO = (StoreRecordVO) request.getAttribute("storeRecordVO");
 	//以下為了取得姓名
 	MemberService memberSvc = new MemberService();
-	MemberVO memberVO = memberSvc.getOneMember(storeRecordVO.getMemID());
+// 	MemberVO memberVO = memberSvc.getOneMember(storeRecordVO.getMemID());
 	//以下為了得到加總金額
-	Integer sumCount = (Integer)request.getAttribute("sumCount");
-// 	MemberVO memberVO = (MemberVO)session.getAttribute("memeberVO");
-int i = 0;
-i++;
-if (i > 0 ){
-	response.sendRedirect("/PiCar/front-enf/HomeMember/index.jsp");
-}
+	Integer sumCount = (Integer) request.getAttribute("sumCount");
+		MemberVO memberVO = (MemberVO)session.getAttribute("memeberVO");
+
+	
 	
 %>
 
@@ -48,32 +45,43 @@ if (i > 0 ){
 <body bgcolor="#11e1e9">
 	<h3>listOneStoreRecordMember.jsp</h3>
 	<a class="box" href=/PiCar/front-end/HomeMember/index.jsp> 請按此回首頁 </a>
-	<h1 align="center"> ${storeRecordVO.memID} <%=memberVO.getName() %>	你好，以下為您的儲值紀錄</h1>
+	<h1 align="center">
+		${storeRecordVO.memID}
+		<%=memberVO.getName()%>
+		你好，以下為您的儲值紀錄
+	</h1>
 	<table align="center" border="1" id="table1">
 		<tr>
 			<td>儲值ID</td>
-			
+
 			<td>儲值金額</td>
 			<td>儲值時間</td>
 		</tr>
 		<c:forEach var="storeRecordVO" items="${list}">
 			<tr>
 
-				<td>${storeRecordVO.storeID}</td>				
+				<td>${storeRecordVO.storeID}</td>
 				<td>${storeRecordVO.amount}</td>
-				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${storeRecordVO.saveDate}" /></td>				
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"
+						value="${storeRecordVO.saveDate}" /></td>
 			</tr>
 		</c:forEach>
 		<tr>
-			<td colspan="1">總儲值金額</td>	
+			<td colspan="1">總儲值金額</td>
 
-			<td><%=memberVO.getToken() %></td>
+			<td><%=memberVO.getToken()%></td>
 		</tr>
-			
+
 
 	</table>
 
 
 
 </body>
+
+<script>
+//     if ( window.history.replaceState ) {
+//         window.history.replaceState( null, null, window.location.href="listOneStoreRecordByMem.jsp" );
+//     }
+</script>
 </html>
