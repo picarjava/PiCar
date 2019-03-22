@@ -8,6 +8,7 @@
 <head>
   <title>後台新增活動資訊</title>
 <jsp:include page="/back-end/head_back.jsp" />
+<jsp:include page="/regna-master/head.jsp" />
 	  <!-- datetimepicker  -->
 	<link   rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
 	
@@ -115,7 +116,8 @@
     底部
   ============================-->
   
-  <jsp:include page="/back-end/kidFooter.jsp" />
+  <jsp:include page="/regna-master/body.jsp" />
+<jsp:include page="/back-end/kidFooter.jsp" />
   
 
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->

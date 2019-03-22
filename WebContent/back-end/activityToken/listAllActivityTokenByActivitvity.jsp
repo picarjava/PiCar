@@ -10,6 +10,7 @@
     <meta charset="UTF-8">
     <title>後台查詢活動代幣明細</title>
      <jsp:include page="/regna-master/head.jsp" />
+     <jsp:include page="/back-end/head_back.jsp" />
 </head>
 
 <body>
@@ -31,12 +32,13 @@
     <% String activityID=(String)request.getAttribute("activityID");%>
     <jsp:useBean id="memberSvc" scope="page" class="com.member.model.MemberService" />
     
-    
+    <jsp:include page="/back-end/kidBodyLeft.jsp" />
         <section id="contact">
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">後台查詢活動代幣領取明細</h3>
-                    <form action="<%=request.getContextPath()%>/front-end/activityToken/listAllActivity.jsp">
+                    
+                    <form action="<%=request.getContextPath()%>/back-end/activity/listAllActivity.jsp">
 			          <div class="text-center"><button type="submit" class="btn btn-outline-success">返回</button></div>
 			         </form>
                 </div>
@@ -87,6 +89,7 @@
   ============================-->
     
   <jsp:include page="/regna-master/body.jsp" />
+   <jsp:include page="/back-end/kidFooter.jsp" />
 </body>
 
 </html>

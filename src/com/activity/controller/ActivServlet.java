@@ -155,8 +155,8 @@ public class ActivServlet extends HttpServlet {
 			}
 
 		}
-		// 來自homeActivity.jsp的請求
-		if ("GET_ONE".equals(action)) {
+		// 
+		if ("GET_ONE".equals(action)) { //前端用
 			LinkedList<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
 			try {
@@ -197,7 +197,7 @@ public class ActivServlet extends HttpServlet {
 			
 		}
 
-		// 來自listAllActivity.jsp 修改某一筆的請求
+		// 來自listAllActivity.jsp 修改某一筆的請求 和 homeactivity
 		if ("GET_ONE_FOR_UPTDATE".equals(action)) {
 			LinkedList errorMsgs = new LinkedList();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -212,7 +212,6 @@ public class ActivServlet extends HttpServlet {
 				/*************
 				 * 3.得到資料和圖片轉換資料存在scope=reqest，並送出VO給處理頁面:getOneUpdate頁面
 				 **************/
-
 				req.setAttribute("activityVO", activityVO);
 				String url = "/back-end/activity/getOneUpdateActivity.jsp";
 				RequestDispatcher successPage = req.getRequestDispatcher(url);
@@ -220,9 +219,9 @@ public class ActivServlet extends HttpServlet {
 				/************* 4.處理例外:回listALL原頁面 **************/
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料:" + e.getMessage());
+				RequestDispatcher failurePage = req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
+				failurePage.forward(req, res);
 			}
-			RequestDispatcher failurePage = req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
-			failurePage.forward(req, res);
 		}
 
 		// 來自getOnUpdateActivity.jsp 的請求

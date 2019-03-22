@@ -47,7 +47,7 @@
 				    <form class="form-inline" action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post">
 					   <input class="form-control mr-sm-2" name="activityID" type="search" placeholder="請輸入活動編號" aria-label="Search">
 					   <!--隱藏的參數action讓controller抓-->
-		              	<input type="hidden" name="action" value="GET_ONE">
+		              	<input type="hidden" name="action" value="GET_ONE_FOR_UPTDATE">
 					   <button type="submit">查詢一筆活動</button>
 					</form>
 				  <li class="nav-item">

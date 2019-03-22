@@ -6,6 +6,7 @@
 <head>
   <title>請修改此筆活動資訊</title>
     <jsp:include page="/regna-master/head.jsp" />
+  
     
 <!-- datetimepicker -->
 <link  rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
@@ -42,6 +43,7 @@
 		  </c:forEach>
 		</ul>
 	</c:if>
+	
     <section id="contact">
 	     <div class="container wow fadeInUp">
 	      	<div class="col-lg-12 col-md-12">
@@ -93,7 +95,7 @@
 	                  <p>活動海報</p> <!-- EL回傳空字串 -->
 	                  <input type="file" class="form-control" name="activityPost" />
 		               <c:if test="${empty activityVO.activityPost}" var="condition">
-		              <img src="<%=request.getContextPath()%>/regna-master/img/${activityVO.activityID eq ('AC001'or'AC002'or'AC003'or'AC004'or'AC005')?activityVO.activityID:noFileUpdate}.JPG" width='200' height='100'>
+		              <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" width='200' height='100'>
 		              </c:if>
 		              <c:if test="${not empty activityVO.activityPost}" var="condition">
 		              <img  src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/>
@@ -115,6 +117,7 @@
  	
   
  <jsp:include page="/regna-master/body.jsp" />
+
   
   <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
