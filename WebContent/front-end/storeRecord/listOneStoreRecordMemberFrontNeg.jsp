@@ -62,7 +62,7 @@
 
 	</table>
 
-
+	<h1 align="center">當前代幣餘額:<%=memberVO.getToken() %></h1>
 
 </body>
 </html>

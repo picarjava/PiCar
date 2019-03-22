@@ -119,7 +119,7 @@ public class MemberSelfServlet extends HttpServlet {
 				if (password1 == null || password1.trim().length() == 0) {
 					errorMsgs.add("password請勿空白");
 				}else if (!password1.trim().matches(emailReg)) {
-					errorMsgs.add("電子信箱長度須為6-50之間，且只能使用英文字或數字");
+					errorMsgs.add("電子信箱長度須為6-10之間，且只能使用英文字或數字");
 				}				
 				
 				
@@ -127,7 +127,7 @@ public class MemberSelfServlet extends HttpServlet {
 				if (password2 == null || password2.trim().length() == 0) {
 					errorMsgs.add("password請勿空白");
 				}else if (!password2.trim().matches(emailReg)) {
-					errorMsgs.add("電子信箱長度須為6-50之間，且只能使用英文字或數字");
+					errorMsgs.add("電子信箱長度須為6-10之間，且只能使用英文字或數字");
 				}	
 				System.out.println(memID);
 				System.out.println(password1);

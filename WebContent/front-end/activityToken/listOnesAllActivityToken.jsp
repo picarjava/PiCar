@@ -29,7 +29,7 @@ session.setAttribute("memID",memID);
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
    <jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontPos.jsp"/> 
 
-   
+   <jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontNeg.jsp"/> 
     <title>查詢活動代幣明細</title>
    <jsp:include page="/regna-master/head.jsp" />
    
