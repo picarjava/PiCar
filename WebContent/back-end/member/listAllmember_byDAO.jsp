@@ -119,10 +119,7 @@
 <!-- 			</td> -->
 <!-- 		</form>		 -->
 		
-				<input type="submit" value="刪除" onClick="window.alert('想做什麼，不要亂按!!');">
-				<input type="hidden" name="memID"  value="${memberVO.memID}">
-				<input type="hidden" name="action" value="delete">
-			</td>
+
 		</form>		
 		</tr>
 	</c:forEach>

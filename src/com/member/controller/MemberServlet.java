@@ -508,6 +508,8 @@ public class MemberServlet extends HttpServlet {
 				MemberService memberService = new MemberService();
 				memberVO = memberService.setHobby(memID, creditcard, pet, smoke, babySeat);
 				
+				memberVO = memberService.getOneMember(memID);
+				req.getSession().setAttribute("memberVO", memberVO);
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByUpdate.jsp");
 				successView.forward(req, res);
 
@@ -656,7 +658,7 @@ public class MemberServlet extends HttpServlet {
 				successView.forward(req, res);
 
 			} catch (Exception e) {
-				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
+				errorMsgs.add("請點選喜好：" + e.getMessage());
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/addMember.jsp");
 				successView.forward(req, res);
 

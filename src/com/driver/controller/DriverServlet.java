@@ -386,7 +386,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	driverVO.setDriverID(driverID);
 	driverVO.setVerified(verified);
 	DriverService driSvc = new DriverService();
-	driverVO = driSvc.setVerified(verified, driverID);
+	driverVO = driSvc.setForVerified(verified, driverID);
 //		}else {
 		}
 		RequestDispatcher successView = req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");

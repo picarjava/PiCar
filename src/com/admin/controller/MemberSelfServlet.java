@@ -119,7 +119,7 @@ public class MemberSelfServlet extends HttpServlet {
 				if (password1 == null || password1.trim().length() == 0) {
 					errorMsgs.add("password請勿空白");
 				}else if (!password1.trim().matches(emailReg)) {
-					errorMsgs.add("電子信箱長度須為6-50之間，且只能使用英文字或數字");
+					errorMsgs.add("電子信箱長度須為6-10之間，且只能使用英文字或數字");
 				}				
 				
 				
@@ -127,7 +127,7 @@ public class MemberSelfServlet extends HttpServlet {
 				if (password2 == null || password2.trim().length() == 0) {
 					errorMsgs.add("password請勿空白");
 				}else if (!password2.trim().matches(emailReg)) {
-					errorMsgs.add("電子信箱長度須為6-50之間，且只能使用英文字或數字");
+					errorMsgs.add("電子信箱長度須為6-10之間，且只能使用英文字或數字");
 				}	
 				System.out.println(memID);
 				System.out.println(password1);
@@ -162,12 +162,12 @@ public class MemberSelfServlet extends HttpServlet {
 //				memberVO = memberSvc.updateMember(memID, password);
 //				req.setAttribute("memberVO", memberVO);
 
-				RequestDispatcher successView = req.getRequestDispatcher("/regna-master/homeindex.jsp"); 
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/HomeMember/index.jsp"); 
 				successView.forward(req, res);
 				System.out.println("@");
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要修改的資料：" + e.getMessage());
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/update_member_input.jsp");
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/modifyPassword.jsp");
 				successView.forward(req, res);
 
 			}

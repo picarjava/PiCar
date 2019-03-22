@@ -31,7 +31,7 @@ table{
 </c:if>
 
 <form method="post" action="member.do" name="form1" enctype="multipart/form-data">
-<a href="select_page.jsp">回主頁面</a>
+<a href="listOneMemberByUpdate.jsp">回上一頁</a>
 	<table >
 		<tr>
 			<td>會員編號：</td>
