@@ -113,20 +113,17 @@
 			</td>
 <!-- 			<td> -->
 <!-- 				<form method="post" action="member.do"> -->
-<<<<<<< HEAD
 <!-- 				<input type="submit" value="刪除" onClick="window.alert('想做什麼，不要亂按!!');"> -->
 <%-- 				<input type="hidden" name="memID"  value="${memberVO.memID}"> --%>
 <!-- 				<input type="hidden" name="action" value="delete"> -->
 <!-- 			</td> -->
 <!-- 		</form>		 -->
 		
-=======
 				<input type="submit" value="刪除" onClick="window.alert('想做什麼，不要亂按!!');">
 				<input type="hidden" name="memID"  value="${memberVO.memID}">
 				<input type="hidden" name="action" value="delete">
 			</td>
 		</form>		
->>>>>>> bbb95871ecf8f28de8b902b50e9de1f0269fb023
 		</tr>
 	</c:forEach>
 	</table>

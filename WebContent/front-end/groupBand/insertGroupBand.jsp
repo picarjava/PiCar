@@ -18,7 +18,7 @@
 	rel="stylesheet">
 
 <!-- <!-- Bootstrap CSS File -->
-<link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet"> -->
 
 <!--  Libraries CSS Files  -->
 <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet">
@@ -56,6 +56,7 @@
        .about-us {
     margin-top: 120px;
 }
+
 .h3center{
     text-align: center;
 }
@@ -156,6 +157,21 @@ color: #ffffff;
         0 1px 25px 0 rgba(0,0,0,.05) inset,
         0 -1px 25px 0 rgba(0,0,0,.05) inset;
 }
+.groupType{
+width: 100%;
+}
+label {
+display:;
+}
+#width100{
+width: 100%;
+}
+.form-control{
+width: 100%;
+}
+.form-group{
+width: 100%;
+}
 </style>
 </head>
 <body bgcolor="#aaaaaa">
@@ -205,14 +221,14 @@ color: #ffffff;
 	 </div>
 	  <div class="form-group">
 	   <div>團名:</div>
-	  <input type="TEXT" name="groupName" required size="25" class="form-control form-control-lg"
+	  <input type="TEXT" id="width100" name="groupName" required size="25" class="form-control form-control-lg"
 					value="<%=(groupBandVO == null) ? "今天來建servlet" : groupBandVO.getGroupName()%>" />
 					
 	   </div>
 	 
 	   <div class="form-group">
   <div>簡介:</div>
-    <textarea name="introduction" required id="note exampleFormControlTextarea1" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "除錯中".trim() : groupBandVO.getIntroduction().trim()%></textarea></textarea>
+    <textarea name="introduction" required id="note exampleFormControlTextarea1" style="width: 100%;" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "除錯中".trim() : groupBandVO.getIntroduction().trim()%></textarea></textarea>
   </div>
 	 
 	 
@@ -247,21 +263,21 @@ color: #ffffff;
 	 
 	  <div class="form-group">
 	   <div>備註:</div>
-	 <textarea name="note" required id="note exampleFormControlTextarea1" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "謝謝".trim() : groupBandVO.getNote().trim()%></textarea>
+	 <textarea name="note" required id=" note exampleFormControlTextarea1 " style="width: 100%;" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "謝謝".trim() : groupBandVO.getNote().trim()%></textarea>
 	 </div>
 	 <div id="innerdate"></div>
 	  <div class="form-group">
 	 <button type="button" id="buttons" onchange="buttones();" class="btn btn-outline-success">請點選輸入日期</button>
-				<select id="days" name="days" style="display: none" onchange="timestamps();"></select>
+				<select id="days" name="days" style="display: none ;width: 20px;" onchange="timestamps();"></select>
 				<nobr>時間:</nobr> 
 				<nobr id="datetime" >00:00</nobr> 
 				<nobr>   日期:</nobr> 
 				<input name="startTime" id="start_date" type="text"
-					 onchange="datestamps();" readonly="readonly" size="8" value=" ">
+					 onchange="datestamps();" readonly="readonly" size="8" value=" " style="width: 50px;">
 				<nobr id="brs"></nobr>  
 						
 <input name="endTime" id="end_date" type="text"
-					style="display: none" readonly="readonly" size="8">
+					style="display: none;width: 75px;" readonly="readonly" size="8">
 					<nobr id="numd"></nobr>
 	 </div>
 	 

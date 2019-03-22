@@ -37,9 +37,9 @@
 	rel="stylesheet">
 
 <!-- Bootstrap CSS File -->
-<link
-	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
+<!-- <link -->
+<%-- 	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/bootstrap/css/bootstrap.min.css" --%>
+<!-- 	rel="stylesheet"> -->
 
 <!-- Libraries CSS Files -->
 <link
@@ -50,11 +50,11 @@
 	rel="stylesheet">
 
 <!-- Main Stylesheet File -->
-<link href="css/style.css" rel="stylesheet">
-<link rel="stylesheet" type="text/css"
-	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.js"></script>
-<script src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.datetimepicker.full.js"></script>
+<!-- <link href="css/style.css" rel="stylesheet"> -->
+<!-- <link rel="stylesheet" type="text/css" -->
+<%-- 	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.datetimepicker.css" /> --%>
+<%-- <script src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.js"></script> --%>
+<%-- <script src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.datetimepicker.full.js"></script> --%>
 
 <meta charset="UTF-8">
 <title>listOneGroupBand.jsp</title>
@@ -176,7 +176,7 @@ th {
 			</c:forEach>
 		</ul>
 	</c:if>
-
+	
 	<div class="row" style="margin-top:20px">
 		<c:forEach var="MemberVO" items="${testList}">
 			<div

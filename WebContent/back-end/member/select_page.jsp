@@ -1,11 +1,12 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-	pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<jsp:include page="/back-end/head_back.jsp" />
+<meta charset="UTF-8">
 <title>select_page.jsp</title>
 <style>
 #errmsg{
@@ -17,6 +18,7 @@
 
 </head>
 <body bgcolor="#c1ece9">
+<jsp:include page="/back-end/kidBodyLeft.jsp" />
 <h3>select_page.jsp</h3>
 	<div id="errmsg">
 	<c:if test="${not empty errorMsgs}">
@@ -31,13 +33,13 @@
 	</div>
 
 	<ul>
-		<li><a href="listAllmember_byDAO.jsp" >ÂI¿ïÅã¥Ü¥ş³¡·|­û</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
+		<li><a href="listAllmember_byDAO.jsp" >é»é¸é¡¯ç¤ºå…¨éƒ¨æœƒå“¡</a>  <font color="blue" face="DFKai-sb">All members by DAO</font> <br><br>
 	
-<!-- 		<li><a href="member.do?action=getAll" >ÂI¿ïÅã¥Ü¥ş³¡·|­û</a>  <font color="blue" face="DFKai-sb">All members getFormSession</font> <br><br> -->
+<!-- 		<li><a href="member.do?action=getAll" >é»é¸é¡¯ç¤ºå…¨éƒ¨æœƒå“¡</a>  <font color="blue" face="DFKai-sb">All members getFormSession</font> <br><br> -->
 		
 		<li>
 			<form method="post" action="member.do">
-				<b>½Ğ¿é¤J·|­û½s¸¹(EX:M001) (¸ê®Æ®æ¦¡ÅçÃÒ  by Controller ):</b><br> 
+				<b>è«‹è¼¸å…¥æœƒå“¡ç·¨è™Ÿ(EX:M001) (è³‡æ–™æ ¼å¼é©—è­‰  by Controller ):</b><br> 
 				<input type="text" name="memID">
 				<input type="hidden" name="action" value="getOne_For_Display"><br>
 				<input type="submit" value="submit"> 
@@ -46,7 +48,7 @@
 		<br>
 		<li>
 			<form method="post" action="member.do">
-				<b>½Ğ¿é¤J·|­û½s¸¹(EX:M001) (¸ê®Æ®æ¦¡ÅçÃÒ  by Java Script):</b><br> 
+				<b>è«‹è¼¸å…¥æœƒå“¡ç·¨è™Ÿ(EX:M001) (è³‡æ–™æ ¼å¼é©—è­‰  by Java Script):</b><br> 
 				<input type="text" name="memID">
 				<input type="hidden" name="action" value="getOne_For_Display"><br>
 				<input type="button" value="submit" onclick="fun1()">  
@@ -59,7 +61,7 @@
 		
 		<li>
 			<form method="post" action="member.do">
-				<b>½Ğ¿ï¾Ü·|­û½s¸¹</b> <br>
+				<b>è«‹é¸æ“‡æœƒå“¡ç·¨è™Ÿ</b> <br>
 				<select size="1" name="memID">
 					<c:forEach var="memberVO" items="${memberdao.all}">
 						<option value="${memberVO.memID}">${memberVO.memID}
@@ -72,7 +74,7 @@
 		<br>
 		<li>
 			<form method="post" action="member.do">
-				<b>½Ğ¿ï¾Ü·|­û©m¦W</b><br>
+				<b>è«‹é¸æ“‡æœƒå“¡å§“å</b><br>
 				<select size="1" name="memID">
 					<c:forEach var="memberVO" items="${memberdao.all}">
 						<option value="${memberVO.memID}">${memberVO.name}					
@@ -87,7 +89,7 @@
 	</ul>
 <!-- 	<ul> -->
 <!-- 		<li>	 -->
-<!-- 		<a href="addMember.jsp">ÂI¿ï·s¼W·|­û¸ê®Æ</a> -->
+<!-- 		<a href="addMember.jsp">é»é¸æ–°å¢æœƒå“¡è³‡æ–™</a> -->
 <!-- 		</li> -->
 <!-- 	</ul> -->
 	
@@ -99,9 +101,9 @@
    function fun1(){
       with(document.form1){
          if (memID.value=="") 
-             alert("½Ğ¿é¤J­û¤u½s¸¹!");
+             alert("è«‹è¼¸å…¥å“¡å·¥ç·¨è™Ÿ!");
          else if (isNaN(memID.value)) 
-             alert("­û¤u½s¸¹®æ¦¡¤£¥¿½T!");
+             alert("å“¡å·¥ç·¨è™Ÿæ ¼å¼ä¸æ­£ç¢º!");
       
          else
              submit();

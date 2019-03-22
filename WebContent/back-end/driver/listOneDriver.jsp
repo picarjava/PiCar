@@ -1,6 +1,4 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="com.driver.model.DriverVO"%>
-<%@page import="com.driver.model.DriverService"%>
 <%@ page import="com.driver.model.*"%>
 <%@ page import="com.member.model.*"%>
 <%@ page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64" %>
@@ -9,9 +7,10 @@
 
 <html>
 <head>
-<jsp:include page="/regna-master/head.jsp" />
+<jsp:include page="/back-end/head_back.jsp" />
 </head>
 <body>
+<jsp:include page="/back-end/kidBodyLeft.jsp" />
 	<!--====      Contact Section===============-->
 	<!-- 先取出VO -->
 
@@ -217,8 +216,6 @@
 							 </div> 
 							<input type="hidden" name="actionP" value="GET_ONE_FORPERMIT">
 							
-							
-							
 							 <div class="text-center"><button type="submit">確認修改</button></div> 
 							<!--隱藏的參數action讓controller抓-->
 							<input type="hidden" name="action" value="GET_ONE_FOR_CHECK">
@@ -231,32 +228,6 @@
 		</div>
 	</section>
 	<!-- #contact -->
-	<!--==========================
-    底部
-  ============================-->
-	<footer id="footer">
-		<div class="footer-top">
-			<div class="container"></div>
-		</div>
-		<div class="container">
-			<div class="copyright">
-				&copy; Copyright <strong>Regna</strong>. All Rights Reserved
-			</div>
-			<div class="credits">
-				<!--
-          All the links in the footer should remain intact.
-          You can delete the links only if you purchased the pro version.
-          Licensing information: https://bootstrapmade.com/license/
-          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Regna
-        -->
-				Bootstrap Templates by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-			</div>
-		</div>
-	</footer>
-	<!-- #footer -->
-	<!-- 	============================-->
-
-	<jsp:include page="/regna-master/body.jsp" />
-
+<jsp:include page="/back-end/kidFooter.jsp" />
 </body>
 </html>

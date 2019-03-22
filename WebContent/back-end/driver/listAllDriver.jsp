@@ -9,10 +9,12 @@
 <html lang="zh">
 
 <head>
+<jsp:include page="/back-end/head_back.jsp" />
     <title>後台所有司機列表</title>
     <jsp:include page="/regna-master/head.jsp" />
 </head>
 <body>
+<jsp:include page="/back-end/kidBodyLeft.jsp" />
     <!--=====     司機listALL========-->
    <!-- getAll再setAttribute存進pageContext 給forEach抓 -->
     <%
@@ -47,6 +49,7 @@
             <div class="container wow fadeInUp">
                         <table class="table">
 						  <thead class="thead-dark">
+						   <tr><th scope="col" colspan="14"><%@ include file="page1.file" %></th></tr>
 						    <tr>
 						      <th scope="col">審核驗證	</th>
 						      <th scope="col">會員編號	</th>
@@ -62,7 +65,7 @@
 						      <th scope="col">寵物	</th>
 						      <th scope="col">抽菸	</th>
 						      <th scope="col">嬰兒座椅	</th>
-						      <th scope="col" colspan="2"><%@ include file="page1.file" %></th>
+						      
 						    </tr>
 						  </thead>
 						  <tbody>
@@ -158,16 +161,16 @@
 <!-- 							     </div> -->
 <!-- 							  </Form> -->
 <!-- 						      </td> -->
-						      <td>
-						      <Form METHOD="post" ACTION="driver.do" >
-							    <div class="text-center"><button type="submit" class="btn btn-light">修改</button>
-							      	<!-- /*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ -->
-							      		<input type="hidden" name="actionS" value="GET_ONE_CHECK_PERMIT">
-	                				<input type="hidden" name="action" value="GET_ONE_FOR_CHECK">
-	                				<input type="hidden" name="driverID" value="${driverVO.driverID}">
-							     </div>
-							  </Form>
-						      </td>
+<!-- 						      <td> -->
+<!-- 						      <Form METHOD="post" ACTION="driver.do" > -->
+<!-- 							    <div class="text-center"><button type="submit" class="btn btn-light">修改</button> -->
+<!-- 							      	/*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ -->
+<!-- 							      		<input type="hidden" name="actionS" value="GET_ONE_CHECK_PERMIT"> -->
+<!-- 	                				<input type="hidden" name="action" value="GET_ONE_FOR_CHECK"> -->
+<%-- 	                				<input type="hidden" name="driverID" value="${driverVO.driverID}"> --%>
+<!-- 							     </div> -->
+<!-- 							  </Form> -->
+<!-- 						      </td> -->
 						    </tr>
 	</c:forEach>	
  						</tbody>

@@ -60,15 +60,10 @@
 <!-- 						 <input type="hidden" name="action" value="delete"> -->
 <!-- 					</form> -->
 
-
 <!-- 				</td> -->
-
-			
-
 		</table>
 
 	</c:forEach>
-<jsp:include page="/back-end/kidFooter.jsp" />
 </div>
 </div>
 </div>
