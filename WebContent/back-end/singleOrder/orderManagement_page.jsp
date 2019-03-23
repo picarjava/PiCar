@@ -14,11 +14,14 @@
 String path = request.getContextPath(); 
 %>
 
+<!-- 登入功能串接 ，將VOadminID指定給 adminID-->
+<%@ page import="com.admin.model.*"%>
+<%AdminVO adminVO=(AdminVO)session.getAttribute("adminVO");
+String adminID=adminVO.getAdminID();
+session.setAttribute("adminID",adminID);
+System.out.println(adminID);
+%> 
 
-<!-- 本頁面待與登入功能session 此處先指定driverID-->
-<%-- <%String driverID=(String)session.getAttribute("driverID"); %>  --%>
-<%! String driverID="D001";%>
-<% session.setAttribute("driverID", driverID);%>
 
 <!-- 個人訂單 -->
 <% SingleOrderService service = new SingleOrderService();
@@ -30,12 +33,9 @@ String path = request.getContextPath();
 <% GroupOrderService groupOrderSvc=new GroupOrderService();
    List<GroupOrderVO> groupOrderlist=groupOrderSvc.getAll();
    request.setAttribute("groupOrderlist", groupOrderlist);
-%>
+%>   
 
 <% MemberDAO memberdao = new MemberDAO();
-	MemberService memberSvc=new MemberService();
-   List<MemberVO> memberlist=memberSvc.getAll();
-   request.setAttribute("memberlist", memberlist);
 %>
 <jsp:useBean id="groupBandSvc" scope="page" class="com.groupBand.model.GroupBandService"/>
 <jsp:useBean id="groupBandVO" scope="page" class="com.groupBand.model.GroupBandVO"/>
@@ -52,16 +52,6 @@ String path = request.getContextPath();
     <meta http-equiv="expires" content="0">    
     <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
     <meta http-equiv="description" content="This is my page">
-    <!-- <link rel="stylesheet" type="text/css" href="styles.css"> -->
-<!--     <script src="jquery-3.0.0.js" type="text/javascript"></script> -->
-<!--     <script type="text/javascript">  -->
-<!-- //     function myFunction(){  -->
-<!-- //     	$.ajax({ type:"post", -->
-<!-- //     		//傳輸方式為post，所以我們在servlet里面代碼是寫在doPost()函數中 url:"DataServlet",  -->
-<!-- //     		//這就是使用的servlet的url success: -->
-<!-- //     function(data){ document.getElementById("json").innerHTML=data; } } -->
-<!-- //     	); }  -->
-<!-- <!--     </script> --> 
 </head>
 <body>
 <div class="wrapper ">
@@ -80,6 +70,12 @@ String path = request.getContextPath();
 		</ul>
 	</c:if>
     <!-- 錯誤列表結束 -->
+           <div class="container wow fadeInUp">
+                <div class="section-header">
+                    <h3 class="section-title">訂單管理</h3>
+                    <p>管理員${adminID}最新即時推播內容:</p><p id="statusOutput"></p>
+                </div>
+            </div>
 		                        <table class="table">
 							  <thead class="thead-dark"><tr>
 							      <tr></tr>
@@ -102,7 +98,7 @@ String path = request.getContextPath();
 		
 		<c:forEach var="singleOrder" items="${singleOrderlist}" >
 		<!-- 逾期訂單:篩選狀態碼為 6:逾期未處理-->				  
-			 <c:if test="${singleOrder.driverID eq driverID &&(singleOrder.state eq 6)}">
+			 <c:if test="${singleOrder.state eq 6}">
 						 		<tr>	
 						 		  <th scope="row">${singleOrder.orderID}</th>
 							      <td >
@@ -119,11 +115,10 @@ String path = request.getContextPath();
 							      <% 
 							      String orderMem = (String)pageContext.getAttribute("orderMem");
 // 							      SingleOrderVO singleOrder = (SingleOrderVO)pageContext.getAttribute("orderMem");//不需要
-							      System.out.println(orderMem);
 							      System.out.println("-------------------------");
 // 							      List<SingleOrderVO> singleOrderlist = service.getAll();
 							      MemberVO members = memberdao.findByPrimaryKey(orderMem);
-							      System.out.print(members.getName());
+// 							      System.out.print(members.getName());
 							      %>
 							      <%= members.getMemID() %></td>
 							      <td ><%= members.getName() %></td>
@@ -164,4 +159,54 @@ String path = request.getContextPath();
 </div>
 </div>
 </body>
+
+
+<!--==========websocket推播 開始=============-->
+ <script>
+ 	var MyPoint="/BroadcastOrderServer/${adminID}";
+ 	var host=window.location.host;
+ 	var path=window.location.pathname;
+ 	var webCtx=path.substring(0,path.indexOf('/',1));
+ 	var endPointURL="ws://"+window.location.host+webCtx+MyPoint;
+ 	
+ 	var webSocketTitle =document.getElementById("webSocketTitle"); //狀態標題
+ 	var statusOutput=document.getElementById("statusOutput");//狀態內容
+ 	
+ 	var webSocket;
+ 	
+ 	function connect(){
+ 		
+ 		//建立websocket物件
+ 		webSocket=new WebSocket(endPointURL);
+ 		
+ 		webSocket.onopen=function(event){
+ 			updateStatus("WebSocket 成功連線");
+ 		};
+ 		
+ 		webSocket.onmessage=function(event){
+ 			var jsonObj=JSON.parse(event.data);
+ 			var message=jsonObj.message+"\r\n";
+  			window.alert(message);
+ 			updateStatus(message);
+ 		};
+ 		
+ 		webSocket.onclose=function(event){
+ 			
+ 			updateStatus("WebSocket已離線");
+ 		};
+ 	}
+ 	
+ 	function disconnect(){
+ 		webSocket.close();
+ 	}
+ 	
+ 	function updateStatus(newStatus){
+ 		statusOutput.innerHTML= newStatus;
+ 	}
+ 	
+ 	
+ </script>
+
+ <!--==========websocket推播 結束============-->
+
 </html>

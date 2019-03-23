@@ -78,6 +78,5 @@
             </div>
         </div>
     </div>    
-<%--         <jsp:include page="/back-end/kidBodyscript.jsp" /> --%>
 </body>
 </html>
