@@ -58,7 +58,7 @@
 	width: 850px;
 }
 
-#map {
+#map_canvas {
 	border-radius: 10px;
     height: 270px;
     width: 200px;
@@ -77,18 +77,6 @@
 </style>
 
 <style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
-}
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
 .p-2 {
 	margin: auto;
 	width: 200px;
@@ -138,23 +126,19 @@ textarea {
 table {
 margin-top: 60px;
 	margin: auto;
-	width:1800px;
 	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
+    margin-top: 15px;
+	margin-bottom: 15px;
 }
 
 table, th, td {
+	border-radius: 10px;
 	border: 1px solid #CCCCFF;
 }
 
 th, td {
 	padding: 5px;
 	text-align: center;
-}
-
-th {
-	background-color: #00BBFF;
 }
 .what-we-do .service {
     background: #eeeeee;
@@ -389,12 +373,18 @@ border-radius: 10px;
 }
 .DetailsInside .textInside{
     width: 480px;
-    background-color: #999;
+    background-color: #f2f2f2;
     border-radius: 10px;
     height: 250px;
     top: 10px;
     margin-top: 20px;
     margin-left: 50px;
+    font-size: 20px;
+    color: #000;
+}
+.marring{
+    margin-bottom: 20px;
+
 }
 </style>
 </head>
@@ -417,10 +407,58 @@ border-radius: 10px;
 	
 		<div  class="DetailsInside " >
 			<div class="row">
-				<div class="services-half-width-text span9 textInside">333asd3asdasd</div>
+				<div class="services-half-width-text span9 textInside">
+<div class="marring">簡介:</div>
+<div class="marring"><%=groupBandVO.getIntroduction()%></div>
+<div class="marring">上車時間:</div>
+			<div class="marring"><%
+				if (groupBandVO.getGroupKind() == 6) {
+			%>
+			<%
+				GroupOrderService groupOrderservice = new GroupOrderService();
+					Timestamp timestamp = groupOrderservice.getStartTimeGgroupID(groupBandVO.getGroupID());
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+					//進行轉換
+					String dateString = sdf.format(groupBandVO.getStartTime());;
+			%>
+
+			
+				<%
+					out.println(dateString.substring(0, 10));
+				%>~<%
+					out.println(timestamp);
+				%>
+			
+			<%
+				} else {
+			%>
+			<%=groupBandVO.getStartTime()%>
+			<%
+				}
+			%></div>
+人數倍率：<br>
+<table style=" max-width:; 
+     background-color: ; 
+     border-collapse: inherit;; 
+     border-spacing: 3px; ">
+<tr>
+<th>
+1人:<%=groupBandVO.getTotalAmout()/1%>   
+</th>
+<th>
+2人:<%=groupBandVO.getTotalAmout()/2%>   
+</th>
+<th>
+3人:<%=groupBandVO.getTotalAmout()/3%>   
+</th>
+<th>
+4人:<%=groupBandVO.getTotalAmout()/4%>   
+</th>
+</tr>
+</table>
+</div>
 				<div class="services-half-width-textspan3 mapInside ">
-					<div id="map_canvas"style=" height:100%;width:100%">
-						
+					<div id="map_canvas"style=" height:100%;width:100%">						
  					 </div>
 				</div>			
 			</div>
@@ -1271,10 +1309,6 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 </body>
 <script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCWL8JxUOY0dQZ01M4rCgDU-oHLkP5BORI"></script>
 <!-- auto place complete 開始 -->
-
-<%GroupOrderService groupOrderService = new GroupOrderService();
-GroupOrderVO groupOrderVO = groupOrderService.getGroupOrderVOGroupID(groupBandVO.getGroupID());
-%>
 <script>
 var directionsService = new google.maps.DirectionsService();
 var map;
