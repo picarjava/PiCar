@@ -5,14 +5,16 @@ import javax.websocket.Session;
 public class StoredInfo {
     private Session session;
     private LatLng latlng;
+    private boolean isExecuting;
     
     public StoredInfo(Session session) {
         this.session = session;
     }
     
-    public StoredInfo(Session session, LatLng latlng) {
+    public StoredInfo(Session session, LatLng latlng, boolean isExecuting) {
         this(session);
         this.latlng = latlng;
+        this.isExecuting = isExecuting;
     }
     
     public Session getSession() {
@@ -29,6 +31,10 @@ public class StoredInfo {
     
     public void setLatlng(LatLng latlng) {
         this.latlng = latlng;
+    }
+    
+    public boolean isExecuting() {
+        return isExecuting;
     }
     
     public boolean isOnline() {

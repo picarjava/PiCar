@@ -36,4 +36,5 @@ void updateGOrderIDToDelay(String gorderID); //阿君新增
 
 List<GroupOrderVO> getALL_GroupID_State(String groupid, Integer state);
 List<String> getMemID_groupID(String groupID);
+void updateStateByGroupIDAndGroupID(Integer state, String groupID, Timestamp startTime);
 }

@@ -3,6 +3,7 @@ package android.com.location.model;
 public class InputInfo {
     private String driverID;
     private LatLng latLng;
+    private boolean isExecuting;
     
     public InputInfo() {}
     
@@ -21,6 +22,14 @@ public class InputInfo {
 
     public void setDriverID(String driverID) {
         this.driverID = driverID;
+    }
+    
+    public boolean isExecuting() {
+        return isExecuting;
+    }
+
+    public void setExecuting(boolean isExecuting) {
+        this.isExecuting = isExecuting;
     }
 
     public LatLng getLatLng() {

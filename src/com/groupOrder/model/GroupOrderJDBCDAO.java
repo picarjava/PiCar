@@ -480,6 +480,12 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
 		
 	}
 
+    @Override
+    public void updateStateByGroupIDAndGroupID(Integer state, String groupID, Timestamp startTime) {
+        // TODO Auto-generated method stub
+        
+    }
+
 
 
 

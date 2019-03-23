@@ -109,6 +109,10 @@ public class SingleOrderService {
         return singleOrderDAO.findByStateAndDriverID(state, driverID);
     } //  getByStateAndDriverID()
     
+    public void updateStateByOrderID(Integer state, String orderID) {
+        singleOrderDAO.updateStateByOrderID(state, orderID);
+    } // updateStateByOrderID()
+    
     public void updateDriverIDAndStateByOrderID(String driverID, Integer state, String orderID) {
         singleOrderDAO.updateDriverIDAndStateByOrderID(driverID, state, orderID);
     } // updateDriverIDAndStateByOrderID()

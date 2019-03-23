@@ -21,6 +21,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
 	private final static String SELECT_BY_STATE_AND_DRIVER_ID_STMT = "SELECT * FROM SINGLE_ORDER WHERE STATE=? AND DRIVER_ID=? ORDER BY ORDER_ID";
 	private final static String SELECT_ALL_STMT = "SELECT * FROM SINGLE_ORDER";
 	private final static String UPDATE_DRIVER_ID_AND_STATE_BY_ORDER_ID = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, STATE=? WHERE ORDER_ID=?";
+	private final static String UPDATE_STATE_BY_ORDER_ID = "UPDATE SINGLE_ORDER SET STATE=? WHERE ORDER_ID=?";
     private final static String UPDATE_STMT = "UPDATE SINGLE_ORDER SET DRIVER_ID=?, STATE=?, START_TIME=?, END_TIME=?, " +
                                                                       "START_LOC=?, END_LOC=?, START_LNG=?, START_LAT=?, " +
                                                                       "END_LNG=?, END_LAT=?, TOTAL_AMOUNT=?, RATE=? " +
@@ -657,6 +658,26 @@ public class SingleOrderDAO implements SingleOrder_interface {
         }
         
         return list;
+    }
+    
+    @Override
+    public void updateStateByOrderID(Integer state, String orderID) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_STATE_BY_ORDER_ID);
+            int index = 1;
+            preparedStatement.setInt(index++, state);
+            preparedStatement.setString(index++, orderID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        }
     }
     
     @Override

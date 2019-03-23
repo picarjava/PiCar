@@ -3,6 +3,7 @@ package android.com.groupOrder.controller;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
@@ -24,6 +25,7 @@ import android.com.groupOrder.model.GroupOrder;
 
 public class GroupOrderServlet extends HttpServlet {
     private final static int ESTABLISHED = 1;
+    private final static int FINISHED = 5;
     private final static int ONE_TIME_GROUP_RESERVE = 5;
     private final static int LONG_TERM_GROUP_RESERVE = 6;
     private final static String DRIVER_ID = "driverID";
@@ -91,12 +93,12 @@ public class GroupOrderServlet extends HttpServlet {
             jsonObject.addProperty("longTermGroupOrder", gson.toJson(longTermGroupOrders));
             writer.print(jsonObject.toString());
         } else if ("getOffPiCar".equals(action)) {
-            String driverID = jsonIn.get(DRIVER_ID).getAsString();
             String groupID = jsonIn.get(GROUP_ID).getAsString();
+            Timestamp startTime = new Timestamp(jsonIn.get("startTime").getAsLong());
             if (jsonIn.has("startTime")) {
-                
+                service.updateStateByGroupIDAndStartTime(FINISHED, groupID, startTime);
             } else {
-                
+                service.UPDATE_STATE__GROUP_ID(FINISHED, groupID);
             }
         }
     }
@@ -124,6 +126,7 @@ public class GroupOrderServlet extends HttpServlet {
         GroupOrderVO groupOrderVO = list.get(0);
         GroupOrder groupOrder = new GroupOrder();
         groupOrder.setGroupID(groupOrderVO.getGroupID());
+        groupOrder.setMemID(groupOrderVO.getMemID());
         groupOrder.setStartLoc(groupOrderVO.getStartLoc());
         groupOrder.setStartLat(groupOrderVO.getStartLat());
         groupOrder.setStartLng(groupOrderVO.getStartLng());
