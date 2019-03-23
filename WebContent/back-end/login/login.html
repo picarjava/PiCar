@@ -10,7 +10,9 @@ body {
     padding: 0;
     font-family: sans-serif;
     background: url(Cover.jpg);
-    background-size: cover;
+	background-color: #404040;
+    background-size: cover; 
+	background-repeat:no-repeat;
     font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro',
 			'Noto Sans CJK SC', monospace;
 }
@@ -51,6 +53,7 @@ body {
 
 .box input[type="submit"] 
 {
+width: 100%;
     padding:10px 20px; 
     background:#EEAD0E; 
     border:0 none;
@@ -59,7 +62,17 @@ body {
     border-radius: 5px; 
     font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
     font-size: 16px;
+    color:#ffffff;
+    position: relative;
+	transition: 0.4s;
 }
+
+.box input[type="submit"]:hover
+{
+    background:rgb(248, 197, 68);
+}
+
+
 </style>
 
 </head>
