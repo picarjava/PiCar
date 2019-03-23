@@ -138,6 +138,11 @@ public class GroupOrderService {
     public void updateDelayGOrder(String gorderID){
     	dao.updateGOrderIDToDelay(gorderID);
     }
+    public GroupOrderVO getGroupOrderVOGroupID(String groupID) {
+    
+    	return dao.getGroupOrderVOGroupID(groupID); 	
+    }
+    
     
     
 }

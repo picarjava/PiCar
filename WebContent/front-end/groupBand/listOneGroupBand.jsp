@@ -55,12 +55,13 @@
 
 #messagesArea {
 	height: 300px;
-	width: 500px;
+	width: 850px;
 }
 
 #map {
-	height: 500px;
-	width: 850px;
+	border-radius: 10px;
+    height: 270px;
+    width: 200px;
 }
 
 #origin-input, #destination-input {
@@ -157,6 +158,243 @@ th {
 }
 .what-we-do .service {
     background: #eeeeee;
+        height: 190px;
+}
+.imgtopStyle{
+    margin-bottom: 55px;
+    border: 6px solid #ccc;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5);
+}
+.imgtopStyle:hover{
+    margin-bottom: 55px;
+    border: 6px solid #ccc;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+    -moz-box-shadow:1px 1px 3px 2px rgba(20%,20%,40%,0.5) inset;
+-webkit-box-shadow:1px 1px 3px 2px rgba(20%,20%,40%,0.5) inset;
+  box-shadow:1px 1px 3px 2px rgba(20%,20%,40%,0.5) inset;    
+}
+.Gridline{
+	margin: auto;
+    width: 80%;
+    background: #e6e6e6;
+    height: 5px;   
+    margin-top: 20px;
+}
+.floating{
+    left: 33%;
+    position: relative;
+    bottom: 25%;
+}
+.buttonS{
+    font-family: "Poppins", sans-serif;
+    border-radius: 50px;
+    padding: 5px 22px;
+    background: #f5f5f5;
+    color: #2dc997;
+    font-style: italic;
+    text-decoration: none;
+    moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border: 2px solid #2dc997;
+    0 1px 25px 0 rgba(0,0,0,.05) inset,: ;
+    0 -1px 25px 0 rgba(0,0,0,.05) inset: ;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+}
+
+.buttonS:hover {
+    font-family: "Poppins", sans-serif;
+    border-radius: 50px;
+    padding: 5px 22px;
+    background: #ddd;    
+    color: #1f7157;
+    font-style: italic;
+    text-decoration: none;
+    moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border: 2px solid #29b387;
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow:
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow:
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+}
+.sunbmits{
+    font-family: "Poppins", sans-serif;
+    border-radius: 50px;
+    padding: 5px 22px;
+    background: #f5f5f5;
+    color: #333333;
+    font-style: italic;
+    text-decoration: none;
+    moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border: 2px solid #999999;
+    0 1px 25px 0 rgba(0,0,0,.05) inset,: ;
+    0 -1px 25px 0 rgba(0,0,0,.05) inset: ;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+}
+
+.sunbmits:hover {
+   
+    font-family: "Poppins", sans-serif;
+    border-radius: 50px;
+    padding: 5px 22px;
+    background: #999999;
+    color: #e5e5e5;
+    font-style: italic;
+    text-decoration: none;
+    moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border: 2px solid #ddd;
+    0 1px 25px 0: ;
+    rgba(0,0,0,.05) inset,: ;
+    0 -1px 25px 0: ;
+    rgba(0,0,0,.05) inset: ;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+}
+
+.sunbm{
+    font-family: "Poppins", sans-serif;
+    border-radius: 10px;
+    padding: 5px 22px;
+    background: #f5f5f5;
+    color: #333333;
+    font-style: italic;
+    text-decoration: none;
+    moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border: 2px solid #999999;
+    0 1px 25px 0 rgba(0,0,0,.05) inset,: ;
+    0 -1px 25px 0 rgba(0,0,0,.05) inset: ;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+}
+
+.sunbm:hover {
+   
+    font-family: "Poppins", sans-serif;
+    border-radius: 10px;
+    padding: 5px 22px;
+    background: #999999;
+    color: #e5e5e5;
+    font-style: italic;
+    text-decoration: none;
+    moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border: 2px solid #ddd;
+    0 1px 25px 0: ;
+    rgba(0,0,0,.05) inset,: ;
+    0 -1px 25px 0: ;
+    rgba(0,0,0,.05) inset: ;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+}
+
+.Modifyto{
+left: 33%;
+	margin-top: 1%;
+    position: relative;
+}
+.styleall{
+
+margin-top: 20px;
+   margin-right: 10%;
+}
+
+.styleall form{
+margin:8px; 
+display:inline
+
+   
+}
+
+.Exitto{
+left: 33%;
+	margin-top: 1%;
+    position: relative;
+}
+.ChatRoomSpace{
+    padding-left: 30px;
+    padding-right: 5;
+    padding-top: 20px;
+    border-radius: 10px;
+    background-color: #d8d8d8;
+    height: 290px;
+}
+.chatroom{
+width: 850px;
+}
+.backcolor{
+	border-radius: 10px;
+    height: 40px;
+	width: 880px;
+	 background-color: #e5e5e5;
+}
+.back{
+       position:absolute;
+    font-size: 30px;
+    margin-left: 30px;
+        margin-top: 10px;
+}
+.Details{
+border-radius: 10px;
+  	position: fixed;
+    background-color: #555;
+    width: 800px;
+    height: 400px;
+    z-index: 995;
+    left: 25%;
+    top: 30%;
+}
+  #topright{
+  border-radius: 10px;
+    position: absolute;
+    right: 10px;
+    top:10px;
+  
+  }
+.DetailsInside{
+    position: absolute;
+    border-radius: 10px;
+    background-color: #200;
+    width: 750px;
+    height: 320px;
+    z-index: 994;
+    top: 60px;
+    left: 3%;
+}
+.DetailsInside .mapInside{
+	    width: 200px;
+    background-color: #999;
+    border-radius: 10px;
+    height: 270px;
+    top: 10px;
+    margin-top: 20px;
+    /* margin-left: 50px; */
+}
+.DetailsInside .textInside{
+    width: 480px;
+    background-color: #999;
+    border-radius: 10px;
+    height: 250px;
+    top: 10px;
+    margin-top: 20px;
+    margin-left: 50px;
 }
 </style>
 </head>
@@ -164,30 +402,67 @@ th {
 	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 	<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
 
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
+<%-- 	<c:if test="${not empty errorMsgs}"> --%>
+<!-- 		<font style="color: red">請修正以下錯誤:</font> -->
+<!-- 		<ul> -->
+<%-- 			<c:forEach var="message" items="${errorMsgs}"> --%>
+<%-- 				<li style="color: red">${message}</li> --%>
 
-			</c:forEach>
-		</ul>
-	</c:if>
+<%-- 			</c:forEach> --%>
+<!-- 		</ul> -->
+<%-- 	</c:if> --%>
+<!--             圖片 -->
+<div class="Details" style="display:none">
+	<button type="button" onclick="Fork()" id="topright" class="" ><i class="fas fa-times fa-2x"></i></button>
 	
-      <div class="services-full-width container">
-            <div class="row">
-                <div class="services-full-width-text span12">
-                    <h4>Lorem Ipsum Dolor Sit Amet</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="violet">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do <strong>eiusmod tempor</strong> incididunt.</p>
-                </div>
-            </div>
+		<div  class="DetailsInside " >
+			<div class="row">
+				<div class="services-half-width-text span9 textInside">333asd3asdasd</div>
+				<div class="services-half-width-textspan3 mapInside ">
+				<div>
+					<input id="origin-input" type="hidden" name="startLoc"
+				value="<%=groupBandVO.getStartLoc()%>" class="form-control"
+				placeholder="請輸入上車地點" readonly="readonly">
+					</div>
+					<div class="col">
+						<input id="destination-input" type="hidden" name="endLoc"
+							value="<%=groupBandVO.getEndLoc()%>" class="form-control"
+							placeholder="請輸入下車地點" readonly="readonly">
+					</div>
+					<div id="map"></div>
+				</div>
+			</div>
+	</div>
+</div>
+<!-- 團名 -->
+	<div class="row"  style="margin-top: 20px">
+		<div class="Gridline"></div>
+      <div class="services-full-width container" style="margin-top: 45px;">
+        <div class="imgtopStyle"> 
+           <img  src="/PiCar/GroupBand?groupID=<%=groupBandVO.getGroupID()%>" style="width: 2000px;  height: 300px;"/>
         </div>
-
+      </div>
+	<div class="Gridline"></div>
         <!-- Services -->
+         <div class="services-half-width container">
+        	 <div class="row" >
+         		  <div class="services-half-width-text span9">
+         			  <div class="backcolor">
+         			  		 <div class="back"><%=groupBandVO.getGroupName()%></div>
+         			 </div>
+         		  </div>
+         		  <div class="services-half-width-text span3">
+         		  		<button class="sunbm" type="button" onclick="Clickdetails()">詳情</button>
+         		  </div>
+         	</div>
+         </div>
+        
+<!--            團員 -->
         <div class="what-we-do container">
             <div class="row">
-<!--             圖片 -->
-            		<c:forEach var="MemberVO" items="${testList}">
+
+<%int sun=0;%>
+           		<c:forEach var="MemberVO" items="${testList}">
             		
                 <div class="service span3">
                     <div class="icon-awesome">
@@ -198,33 +473,143 @@ th {
                     <h2>${MemberVO.name}<img class="mar"
 							src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/${MemberVO.gender}.png"
 							width="10px" height="10px"></h2>
-                    <c:if test="${MemberVO.name==memberVO.name}">
+                    <c:if test="${MemberVO.memID==GroupBandVO.groupLeader}">
                     <p style="font-size: 20px;">團主</p>
                     </c:if>
-                      <c:if test="${MemberVO.name!=memberVO.name}">
+                      <c:if test="${MemberVO.memID!=GroupBandVO.groupLeader}">
                     <p style="font-size: 20px;">團員</p>
                     </c:if>
+                    				<c:if test="${MemberVO.memID!=memberVO.memID}">
+                    			
+					<%
+						if ("true".equals(GroupLeader)) {
+					%>
+						<div class="floating">
+					<FORM METHOD="post"
+						ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"
+						enctype="multipart/form-data" style="margin-bottom: 0px;">
+						<input type="submit" value="踢出" class="buttonS"> <input type="hidden"
+							name="groupLeader" value="<%=groupBandVO.getGroupLeader()%>">
+						<input type="hidden" name="groupID" value="${GroupBandVO.groupID}">
+						<input type="hidden" name="startTime"
+							value="<%=groupBandVO.getStartTime()%>"> <input
+							type="hidden" name="memIDs" value="${memberVO.memID }" /> <input
+							type="hidden" name="groupKind"
+							value="<%=groupBandVO.getGroupKind()%>"> <input
+							type="hidden" name="GroupmemID" value="${MemberVO.memID}">
+						<input type="hidden" name="action" value="GroupAdd"> <input
+							type="hidden" name="dropOutbutton" value="Kickingpeople">
+					</FORM>
+					</div>
+					<%
+						}
+					%>
+					
+				</c:if>
                 </div>
-                
+                <%sun++;%>
 		</c:forEach>
+		<%for(int x=sun;x<4;x++){%>			
+			<%if(x>=groupBandVO.getUpperLimit()) {%>	
+			<div class="service span3" style="background: #ccc; ">
+			<img src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/img/x.png" style="width: 150px;margin: 20px;margin-top: 35px;">
+			</div>
+			<%}else if(x<groupBandVO.getLowerLimit()){%>
+			<div class="service span3" style="background: #ececec;">
+			</div>			
+			<%}else{%>
+			<div class="service span3" style="background: #ddd; ">
+			</div>
+		<%}}%>
+		
             </div>
         </div>
+        
+<!--        修改資料 -->
+        <div class="styleall">
+        	<%
+		if ("true".equals(GroupLeader)) {
+	%>
+	<form class="Exitto"
+		action="<%=request.getServletContext().getContextPath()%>/GroupBand"
+		method="POST" enctype="multipart/form-data"
+		style="margin-bottom: 0px;">
+		<input type="submit" value="修改" class="sunbmits"> <input type="hidden"
+			name="groupID" value="${GroupBandVO.groupID}"> <input
+			type="hidden" name="action" value="getOne_For_Update">
+	</FORM>
 
-        <!-- Services Half Width Text -->
+	<%
+		}
+	%>
+	<%
+		if (false == dropOut) {
+	%>
+	<FORM METHOD="post" class="Exitto"
+		ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"
+		enctype="multipart/form-data" style="margin-bottom: 0px;">
+		<input type="submit" value="加入" class="sunbmits"> <input type="hidden" 
+			name="groupLeader" value="<%=groupBandVO.getGroupLeader()%>">
+		<input type="hidden" name="groupID" value="${GroupBandVO.groupID}">
+		<input type="hidden" name="startTime"
+			value="<%=groupBandVO.getStartTime()%>"> <input type="hidden"
+			name="memIDs" value="${memberVO.memID }" /> <input type="hidden"
+			name="groupKind" value="<%=groupBandVO.getGroupKind()%>"> <input
+			type="hidden" name="action" value="GroupAdd">
+
+	</FORM>
+	<%
+		} else {
+	%>
+
+	<FORM METHOD="post" class="Exitto" class="Modifyto"
+		ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"
+		enctype="multipart/form-data" style="margin-bottom: 0px;">
+		<input type="submit" value="退出"  class="sunbmits"> <input type="hidden"
+			name="groupLeader" value="<%=groupBandVO.getGroupLeader()%>">
+		<input type="hidden" name="groupID" value="${GroupBandVO.groupID}">
+		<input type="hidden" name="startTime"
+			value="<%=groupBandVO.getStartTime()%>"> <input type="hidden"
+			name="memIDs" value="${memberVO.memID }" /> <input type="hidden"
+			name="groupKind" value="<%=groupBandVO.getGroupKind()%>"> <input
+			type="hidden" name="action" value="GroupAdd"> <input
+			type="hidden" name="dropOutbutton" value="dropOutbutton">
+	</FORM>
+	<%
+		}
+	%>
+        </div>
+        
+      <div class="Gridline"></div>
+        
         <div class="services-half-width container">
             <div class="row">
-                <div class="services-half-width-text span6">
-                    <h4>Lorem Ipsum</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="violet">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do <strong>eiusmod tempor</strong> incididunt.</p>
+                <div class="services-half-width-text span9">
+                   	<textarea id="messagesArea" class="panel message-area text-right" readonly></textarea>  </div>
+                <div class="services-half-width-text span3">
+                <div class="ChatRoomSpace">
+                <h3>在線人員</h3>
+					<div id="messa"></div>
                 </div>
-                <div class="services-half-width-text span6">
-                    <h4>Dolor Sit Amet</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="violet">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do <strong>eiusmod tempor</strong> incididunt.</p>
                 </div>
             </div>
         </div>
-
+        <div class="services-half-width container">
+			<div class="row">
+				<div class="services-half-width-text span9">
+					<input id="message" class="text-field chatroom" type="text" placeholder="訊息"
+					onkeydown="if (event.keyCode == 13) sendMessage();" /> 
+				</div>
+				<div class="services-half-width-text span3">
+					<input
+					type="submit" id="sendMessage" class="button sunbmits" value="送出"
+					onclick="sendMessage();" />
+				</div>
+			</div>
+		</div>
 	
+	
+		
 	<div style="margin-top: 20px;"></div>
 	<div>
 		<img  src="/PiCar/GroupBand?groupID=<%=groupBandVO.getGroupID()%>" width="300px" height="100px">
@@ -432,20 +817,20 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 			<p id="duration"></p>
 		</div>
 	</div>
-	<div class="form-row">
-		<div class="col">
-			<p>上車地點/下車地點</p>
-			<input id="origin-input" type="text" name="startLoc"
-				value="<%=groupBandVO.getStartLoc()%>" class="form-control"
-				placeholder="請輸入上車地點" readonly="readonly">
-		</div>
-		<div class="col">
-			<input id="destination-input" type="text" name="endLoc"
-				value="<%=groupBandVO.getEndLoc()%>" class="form-control"
-				placeholder="請輸入下車地點" readonly="readonly">
-		</div>
-		<div id="map" class="col12"></div>
-	</div>
+<!-- 	<div class="form-row"> -->
+<!-- 		<div class="col"> -->
+<!-- 			<p>上車地點/下車地點</p> -->
+<!-- 			<input id="origin-input" type="text" name="startLoc" -->
+<%-- 				value="<%=groupBandVO.getStartLoc()%>" class="form-control" --%>
+<!-- 				placeholder="請輸入上車地點" readonly="readonly"> -->
+<!-- 		</div> -->
+<!-- 		<div class="col"> -->
+<!-- 			<input id="destination-input" type="text" name="endLoc" -->
+<%-- 				value="<%=groupBandVO.getEndLoc()%>" class="form-control" --%>
+<!-- 				placeholder="請輸入下車地點" readonly="readonly"> -->
+<!-- 		</div> -->
+<!-- <!-- 		<div id="map" class="col12"></div> --> -->
+<!-- 	</div> -->
 
 
 
@@ -454,7 +839,7 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 	<textarea id="messagesArea" class="panel message-area text-right"
 		readonly></textarea>
 
-	<div id="messa"></div>
+<!-- 	<div id="messa"></div> -->
 
 	<div id="but"></div>
 	<div class="panel input-area">
@@ -473,6 +858,15 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 	<script type="text/javascript" src="http://www.google.com/jsapi"></script>
 	<script type="text/javascript" language="javascript">google.load("jquery", "1.3");</script>
 	<!-- json傳資料 -->
+	<script>
+	function Clickdetails(){
+		$('.Details').show();		
+	}
+	function Fork(){
+		$('.Details').hide();		
+	}
+	</script>
+	
 	<script>
 function groupSelect()
 {
@@ -889,6 +1283,9 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 
 <!-- auto place complete 開始 -->
 <script>
+<%GroupOrderService groupOrderService = new GroupOrderService();
+GroupOrderVO groupOrderVO = groupOrderService.getGroupOrderVOGroupID(groupBandVO.getGroupID());
+%>
 //地圖顯示研究到一半差 直接顯示路線
 setTimeout(function(){
 	  var originInput = document.getElementById('origin-input');
@@ -896,25 +1293,33 @@ setTimeout(function(){
 	  originInput.value='<%=groupBandVO.getStartLoc()%>';
 	  destinationInput.value='<%=groupBandVO.getEndLoc()%>';
 	},1000);
-
-function initMap() {
-  var map = new google.maps.Map(document.getElementById('map'), {
+var map = new google.maps.Map(document.getElementById('map'), {
     mapTypeControl: false,
-    center: {lat: 23.914626, lng: 121.060895},
-    zoom: 7.5
+    center: {lat: <%=groupOrderVO.getStartLat()%>, lng: <%=groupOrderVO.getStartLng()%>},
+    center: {lat: <%=groupOrderVO.getEndLat()%>, lng: <%=groupOrderVO.getEndLng()%>},
+    zoom: 10
   });
+var marker = new google.maps.Marker({
+    position : { <%=groupOrderVO.getStartLat()%>,<%=groupOrderVO.getStartLng()%>},
+    map:map,
+    title:'小明的位置'
+  })
+function initMap() {
+  
 
   new AutocompleteDirectionsHandler(map);
   
 }
-
+var marker = new google.maps.Marker({
+    position : { lat: <%=groupOrderVO.getStartLat()%>, lng: <%=groupOrderVO.getStartLng()%>},//positon 位置
+    map:map, //標示地圖
+    title:'小明的位置'//說明文字(選擇性填寫)
+  })
 /**
  * @constructor
  */
 function AutocompleteDirectionsHandler(map) {
   this.map = map;
-  this.originPlaceId = null;
-  this.destinationPlaceId = null;
   this.travelMode = 'DRIVING';
   this.directionsService = new google.maps.DirectionsService;
   this.directionsDisplay = new google.maps.DirectionsRenderer;
