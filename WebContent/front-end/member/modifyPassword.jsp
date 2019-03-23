@@ -5,13 +5,14 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="jquery-1.12.4.min.js" ></script>
 <meta charset="BIG5">
 <style>
 body{
 	margin:0;
 	padding:0;
 	font-family:sans-serif;
-	background:black;
+	background:#EEEFED;
 }
 .box{
 	width:300px;
@@ -95,6 +96,17 @@ body{
 #errmsg{
 	color:#2ecc71;
 }
+#men img{
+width:200px;
+height:200px;
+text-align:center;
+
+border-radius:24px;
+margin:0 auto;
+margain-top:-150px;
+
+}
+
 </style>
 
 <% 
@@ -125,9 +137,9 @@ if (memberVO == null){
 	</ul>
 	</c:if>
 	</div>
-	<form method="post" action="<%=request.getContextPath()%>/front-end/member/memberSelf.do" class="box">
+	<form method="post" action="<%=request.getContextPath()%>/front-end/member/memberSelf.do" class="box" name="form1">
 		<h1>修改密碼</h1>
-		
+				<div id="men"><img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  onerror="this.src='cat.jpg'"></div>
 				<input type="password" name="password1"  placeholder="Password" value="">
 			
 				
@@ -135,7 +147,7 @@ if (memberVO == null){
 
 				<input type="hidden" name="action"	value="modify_password2">
 				<input type="submit" value="Login">
-		
+		        <img src="cat.jpg"	height="20" width="20" onClick="idwrite(this)">
 		
 		
 		
@@ -143,4 +155,14 @@ if (memberVO == null){
 	<a class="box1" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
 
 </body>
+
+<script >
+
+	function idwrite(name) {
+		form1.password1.value ="123456"
+		form1.password2.value ="123456"
+	}
+
+	</script>
+
 </html>
