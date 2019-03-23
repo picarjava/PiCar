@@ -454,8 +454,8 @@ public class MemberServlet extends HttpServlet {
 			}
 
 		}
-		
-		if ("getOne_For_Update_HOBBY".equals(action)) { //阿君新增FOR前端喜好設定
+
+		if ("getOne_For_Update_HOBBY".equals(action)) { // 阿君新增FOR前端喜好設定
 			// 建立錯誤的collection
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -478,13 +478,12 @@ public class MemberServlet extends HttpServlet {
 			}
 
 		}
-		
-		
-		if ("Update_Hobby".equals(action)) {   //阿君新增FOR前端喜好設定
+
+		if ("Update_Hobby".equals(action)) { // 阿君新增FOR前端喜好設定
 			// 建立錯誤的collection
 			List<String> errorMsgs = new LinkedList<String>();
 			req.setAttribute("errorMsgs", errorMsgs);
-			
+
 			try {
 				String memID = new String(req.getParameter("memID").trim());
 
@@ -497,17 +496,16 @@ public class MemberServlet extends HttpServlet {
 				Integer smoke = new Integer(req.getParameter("smoke"));
 				Integer babySeat = new Integer(req.getParameter("babySeat"));
 
-
 				MemberVO memberVO = new MemberVO();
 				memberVO.setMemID(memID);
 				memberVO.setCreditcard(creditcard);
 				memberVO.setPet(pet);
 				memberVO.setSmoke(smoke);
 				memberVO.setBabySeat(babySeat);
-				
+
 				MemberService memberService = new MemberService();
 				memberVO = memberService.setHobby(memID, creditcard, pet, smoke, babySeat);
-				
+
 				memberVO = memberService.getOneMember(memID);
 				req.getSession().setAttribute("memberVO", memberVO);
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByUpdate.jsp");
@@ -520,7 +518,7 @@ public class MemberServlet extends HttpServlet {
 			}
 
 		}
-		
+
 		if ("insertver2".equals(action)) {
 			List<String> errorMsgs = new LinkedList();
 			req.setAttribute("errorMsgs", errorMsgs);
@@ -545,19 +543,28 @@ public class MemberServlet extends HttpServlet {
 //				if (password == null || password.trim().length() == 0) {
 //					errorMsgs.add("password請勿空白");
 //				}
-				/****************************************亂數密碼測試***/
-				String password = req.getParameter("password").trim();
-				String[] array = new String[] {"0","1","2","3","4","5","6","7","8","9","A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"};
+
+				/**************************************** 亂數密碼測試 ***/
+				String password = null;
+
+				String[] array = new String[] { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D",
+						"E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W",
+						"X", "Y", "Z" };
+
 				String str = "";
-				for (int i =1; i<=10;i++) {
-					 int index = (int)(Math.random() * array.length+1);
-					 str = str +array[index];
+
+				for (int i = 1; i <= 10; i++) {
+					int index = (int) (Math.random() * array.length);
+					System.out.println(index);
+					str = str + array[index];
+					System.out.println(str);
 				}
+
 				password = str;
-				
+
 				DigestService digestSvc = new DigestService();
 				String digestpassword = digestSvc.digest(password);
-				
+
 				/*******************************************/
 				String phone = req.getParameter("phone");
 				if (phone == null || phone.trim().length() == 0) {
@@ -630,35 +637,30 @@ public class MemberServlet extends HttpServlet {
 
 				// 開始新增資料
 				MemberService memberSvc = new MemberService();
-				memberVO = memberSvc.addMember(name, email, digestpassword, phone, creditcard, pet, smoke, gender, token,
-						activityToken, birthday, verified, babySeat, pic);
+				memberVO = memberSvc.addMember(name, email, digestpassword, phone, creditcard, pet, smoke, gender,
+						token, activityToken, birthday, verified, babySeat, pic);
 				req.setAttribute("memberVO", memberVO);
-				
+
 				/****************************/
 				List<MemberVO> last = memberSvc.getAll();
-				String memIDlast = last.get(last.size()-1).getMemID();
-				
-				 String to = email;
-			      String ch_name = name;
-			      String passRandom = password;
-			      String subject = "PICAR管理員密碼通知";
-			      String messageText = "Hello　" + ch_name + "\n"+
-			    		               "歡迎你加入PICAR大家庭！"+ "\n"  +
-			                           "你的會員編號為" + memIDlast +"\n"+
-			                           "此為你之後的登入帳號，"+
-			                           "請先以此密碼登入【 " + passRandom + " 】"+
-			                           "\n" +"登入後台過後再修改你的密碼！謝謝！"; 
-				
-				  MailService mailService = new MailService();
-			      mailService.sendMail(to, subject, messageText);
-			      /****************************/
-			      
-			      
+				String memIDlast = last.get(last.size() - 1).getMemID();
+				;
+				String to = email;
+				String ch_name = name;
+				String passRandom = password;
+				String subject = "PICAR管理員密碼通知";
+				String messageText = "Hello　" + ch_name + "\n" + "歡迎你加入PICAR大家庭！" + "\n" + "你的會員編號為" + memIDlast + "\n"
+						+ "此為你之後的登入帳號，" + "請先以此密碼登入【 " + passRandom + " 】" + "\n" + "登入後台過後再修改你的密碼！謝謝！";
+
+				MailService mailService = new MailService();
+				mailService.sendMail(to, subject, messageText);
+				/****************************/
+
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByInsert.jsp"); // 新增成功後轉交listAllmember_byDAO
 				successView.forward(req, res);
 
 			} catch (Exception e) {
-				errorMsgs.add("請點選喜好：" + e.getMessage());
+				errorMsgs.add("請點選喜好@@@：" + e.getMessage());
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/addMember.jsp");
 				successView.forward(req, res);
 

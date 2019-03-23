@@ -3,128 +3,189 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="com.member.model.*"%>
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
+
+<meta charset="utf-8">
+<title>Andia - Responsive Agency Template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- CSS -->
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400">
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Droid+Sans">
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Lobster">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/prettyPhoto/css/prettyPhoto.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/css/flexslider.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/css/font-awesome.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/css/style.css">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+<!-- Favicon and touch icons -->
+<link rel="shortcut icon" href="assets/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="assets/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="assets/ico/apple-touch-icon-57-precomposed.png">
 <style>
-table {
-	margin-top: 30px;
-}
+ span { 
+ 	text-align: left; 
+ 	　 
+ } 
+
+
 </style>
+
+
+
+</head>
+
 <body>
 	<%
 		MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 	%>
-	<h3>addMember.jsp</h3>
-	<%-- 錯誤表列 --%>
-	<c:if test="${not empty errorMsgs}">
-		<font style="color: red">請修正以下錯誤:</font>
-		<ul>
-			<c:forEach var="message" items="${errorMsgs}">
-				<li style="color: red">${message}</li>
-			</c:forEach>
-		</ul>
-	</c:if>
+	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+<jsp:include page="/front-end/HomeMember/HeadMemberSetting.jsp" />
+	<div class="container">
+                <div class="row">
+                    <div class="contact-form span5">
+                		
+				
+						<h3>addMember.jsp</h3>
+						<%-- 錯誤表列 --%>
+						<c:if test="${not empty errorMsgs}">
+							<font style="color: red">請修正以下錯誤:</font>
+							<ul>
+								<c:forEach var="message" items="${errorMsgs}">
+									<li style="color: red">${message}</li>
+								</c:forEach>
+							</ul>
+						</c:if>
 
-	<form method="post" action="member.do" name="form1"
-		enctype="multipart/form-data">
-		<a href="select_page.jsp">回主頁面</a>
-		<table>
+						<form method="post" action="member.do" name="form1"
+							enctype="multipart/form-data">
+							<a href="select_page.jsp">回主頁面</a><br> 
+							<span class="span">
+
+								會員姓名  ： <input type="text" name="name" size="45"
+								value="" /><br><br>
 
 
-			<tr>
-				<td>會員姓名：</td>
-				<td><input type="text" name="name" size="45"
-					value="<%=(memberVO == null) ? "SAM" : memberVO.getName()%>" /></td>
+								會員信箱  ： <input type="text" name="email" size="45"
+								value="" /><br><br>
 
-			</tr>
-			<tr>
-				<td>會員信箱：</td>
-				<td><input type="text" name="email" size="45"
-					value="<%=(memberVO == null) ? "samchiang74@gmail.com" : memberVO.getEmail()%>" /></td>
-			</tr>
 
-			<!-- 		<tr> -->
-			<!-- 			<td>會員密碼：</td> -->
-			<input type="hidden" name="password" size="45"
-				value="<%=(memberVO == null) ? "greenmomo" : memberVO.getPassword()%>" />
-			<!-- 		</tr> -->
-
-			<tr>
-				<td>會員電話：</td>
-				<td><input type="text" name="phone" size="45"
-					value="<%=(memberVO == null) ? "0920-512-354" : memberVO.getPhone()%>" /></td>
-			</tr>
-
-			<tr>
-				<td>會員信用卡：</td>
-				<td><input type="text" name="creditcard" size="45"
-					value="<%=(memberVO == null) ? "9898-5959-5959-4545" : memberVO.getCreditcard()%>" /></td>
-			</tr>
-
-			<tr>
-				<td>會員寵物喜好設定：</td>
-				<td><input type="radio" name="pet" value="1"> 喜歡 <input
-					type="radio" name="pet" value="0"> 不喜歡<br></td>
-			</tr>
-			<tr>
-				<td>會員抽菸喜好設定：</td>
-				<td><input type="radio" name="smoke" value="1"> 喜歡 <input
-					type="radio" name="smoke" value="0"> 不喜歡<br></td>
-			</tr>
-			<tr>
-				<td>會員性別設定：</td>
-				<td><input type="radio" name="gender" value="1"> 男生 <input
-					type="radio" name="gender" value="0"> 女生<br></td>
-			</tr>
-			<tr>
-				<!-- 			<td>會員代幣：</td> -->
-				<%-- 			<td><input type="text" name="token" size="45" value="<%= (memberVO==null)? "100":memberVO.getToken() %>" ></td>		 --%>
-				<td><input type="hidden" name="token" size="45" value="0"></td>
-			</tr>
-
-			<tr>
-				<!-- 			<td>會員活動代幣：</td> -->
-				<%-- 			<td><input type="text" name="activityToken" size="45" value="<%= (memberVO==null)? "1000":memberVO.getActivityToken() %>" /></td>		 --%>
-				<td><input type="hidden" name="activityToken" size="45"
-					value="0" /></td>
-			</tr>
-			<tr>
-				<td>會員生日:</td>
-				<td><input type="text" name="birthday" id="f_date1"></td>
-			</tr>
-			<tr>
-
-				<input type="hidden" name="verified" value="0">
-			</tr>
-			<tr>
-				<td>嬰兒座椅設定：</td>
-				<td><input type="radio" name="babySeat" value="1"> 需要 <input
-					type="radio" name="babySeat" value="0"> 不需要<br></td>
-			</tr>
-			<tr>
-				<td>會員照片：</td>
-				<!-- 			<td> -->
-				<!-- 			<input type="file" name="pic" > <br></td>	 -->
-				<td><img
-					src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"
-					alt="這是圖片替代文字" onerror="this.src='cat.jpg'" width='200'
-					height="200" id="preview_progressbarTW_img">
-				<td><input type="file" name="pic" onchange="readURL(this)"
-					targetID="preview_progressbarTW_img"></td>
-			</tr>
-
-		</table>
-
-		<input type="hidden" name="action" value="insertver2"> <input
-			type="submit" value="送出新增">
-		<img src="cat.jpg" height="20" width="20" onClick="idwrite(this)">
-	</form>
+								<!-- 		<tr> --> <!-- 			<td>會員密碼：</td> --> 
+								<input type="hidden"	name="password" size="45"	value="" />
+								
+								會員電話 ： <input type="text" name="phone" size="45"	value="" /><br><br>
 
 
 
+								信用卡號 ： <input type="text" name="creditcard" size="45"	value="" /><br><br>
+
+
+
+								寵物喜好： <input type="radio" name="pet" value="1">	 喜歡 
+											<input	type="radio" name="pet" value="0"> 不喜歡<br><br>		
+													
+								 抽菸喜好： <input type="radio" name="smoke" value="1">喜歡
+								 			<input type="radio" name="smoke" value="0"> 不喜歡<br><br>
+								 			 		
+								 會員性別： <input type="radio" name="gender" value="1">男生 
+										<input type="radio" name="gender" value="0"> 女生<br><br>
+										
+							<!-- 			<td>會員代幣：</td> --> <%-- 			<td><input type="text" name="token" size="45" value="<%= (memberVO==null)? "100":memberVO.getToken() %>" ></td>		 --%>
+							
+								<input type="hidden" name="token" size="45" value="0"> 
+								<!-- 			<td>會員活動代幣：</td> -->
+								<%-- 			<td><input type="text" name="activityToken" size="45" value="<%= (memberVO==null)? "1000":memberVO.getActivityToken() %>" /></td>		 --%>
+								<input type="hidden" name="activityToken" size="45" value="0" />
+
+								 嬰兒座椅：
+								<input type="radio" name="babySeat" value="1"> 需要 
+								<input	type="radio" name="babySeat" value="0"> 不需要<br><br> 
+				
+								會員生日 :  <input type="text" name="birthday" id="f_date1"><br>
+
+
+								<input type="hidden" name="verified" value="0">
+								
+								
+								</div>
+								
+								<div class="contact-address span5">
+							<br><br><br> 
+							會員照片： <!-- 			<td> --> <!-- 			<input type="file" name="pic" > <br></td>	 -->
+								 <input
+								type="file" name="pic" onchange="readURL(this)"
+								targetID="preview_progressbarTW_img"><br>
+								<img								
+								alt="請選取照片"  width='350'
+								height="350" id="preview_progressbarTW_img"><br><br>
+
+							 <input type="hidden" name="action" value="insertver2"> <input
+								type="submit" value="送出新增"> <img src="cat.jpg"
+								height="20" width="20" onClick="idwrite(this)">
+								</span>
+						</form>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- 	<div class="contact-us container"> -->
+			<!-- 		<div class="row"> -->
+			<!-- 			<div class="contact-form span7"> -->
+			<!-- 				<p> -->
+			<!-- 					Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do -->
+			<!-- 					eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim -->
+			<!-- 					veniam, quis nostrud exerci tation ullamcorper <a href="">suscipit -->
+			<!-- 						lobortis</a> nisl ut aliquip ex ea commodo consequat. -->
+			<!-- 				</p> -->
+			<!-- 				<form method="post" action="assets/sendmail.php"> -->
+			<!-- 					<label for="name" class="nameLabel">Name</label> <input id="name" -->
+			<!-- 						type="text" name="name" placeholder="Enter your name..."> -->
+			<!-- 					<label for="email" class="emailLabel">Email</label> <input -->
+			<!-- 						id="email" type="text" name="email" -->
+			<!-- 						placeholder="Enter your email..."> <label for="subject">Subject</label> -->
+			<!-- 					<input id="subject" type="text" name="subject" -->
+			<!-- 						placeholder="Your subject..."> <label for="message" -->
+			<!-- 						class="messageLabel">Message</label> -->
+			<!-- 					<textarea id="message" name="message" placeholder="Your message..."></textarea> -->
+			<!-- 					<button type="submit">Send</button> -->
+			<!-- 				</form> -->
+			<!-- 			</div> -->
+			<!-- 			<div class="contact-address span5"> -->
+			<!-- 				<h4>We Are Here</h4> -->
+			<!-- 				<div class="map"></div> -->
+			<!-- 				<h4>Address</h4> -->
+			<!-- 				<p> -->
+			<!-- 					Via Principe Amedeo 9 <br> 10100, Torino, TO, Italy -->
+			<!-- 				</p> -->
+			<!-- 				<p>Phone: 0039 333 12 68 347</p> -->
+			<!-- 			</div> -->
+			<!-- 		</div> -->
+			<!-- 	</div> -->
 </body>
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
@@ -218,23 +279,22 @@ table {
 			reader.readAsDataURL(input.files[0]);
 		}
 	}
-	
 
-    function idwrite(name){
-  	  form1.name.value="SAM"
-//   	  form1.cust_pwd.value="123456"
-//   	  form1.cust_name.value="杜先生"
-//   	  form1.cust_pid.value="H123456789"
-  	  form1.pet.value="1"
-//   	  form1.cust_brd.value="2018-12-01"
-//   	  form1.cust_tel.value="0907077543"
-//   	  form1.cust_addr.value="桃園市中壢區中大路1號"
-//   	  form1.cust_mail.value="toy113355@hotmail.com"
-//   	  form1.cust_niname.value="資策會小小書童" 
-  	 
-    }
+	function idwrite(name) {
+		form1.name.value = "卡比獸"
+		form1.email.value="samchiang74@gmail.com"
+		form1.phone.value="0933-995-225"
+		form1.creditcard.value="1584-5947-2846-5947"
+		form1.pet.value = "1"
+		form1.smoke.value="1"
+		form1.gender.value="1"
+		form1.babySeat.value="1"
+		form1.birthday.value="2000-10-10"
+		//   	  form1.cust_niname.value="資策會小小書童" 
 
+	}
 </script>
+
 
 
 </html>

@@ -29,41 +29,57 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
-<title>Insert title here</title>
+<meta charset="utf-8">
+<title>Andia - Responsive Agency Template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- CSS -->
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400">
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Droid+Sans">
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Lobster">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/prettyPhoto/css/prettyPhoto.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/css/flexslider.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/css/font-awesome.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/css/style.css">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+<!-- Favicon and touch icons -->
+<link rel="shortcut icon" href="assets/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="assets/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <style>
-#table1 {
-	width: 1300px;
-	background-color: #7afec6;
-	margin-top: 100px;
-	margin-bottom: 20px;
-	text-align: center;
-	font-family: Microsoft JhengHei;
+ #table1 { 
+	
+ 	background-color: ; 
+ 	margin-bottom: 20px; 
+ 	text-align: center; 
+ 	font-family: Microsoft JhengHei; 
+ } 
+table,tr,td{
+width: 30%; 
 }
-.box1{
-	width:100px;
-	padding:40px;
-	position:absolute;
-	top:10%;
-	left:10%;
-	transform:translate(-50%,-50%);	
-	text-align:center;
-	font-family:Microsoft JhengHei;
-	border:0;
-	background:none;
-	display:block;
-	margin :20px auto;
-	text-align:center;
-	border:2px solid #2ecc71;
-	padding:14px 10px;	
-	outline:none;
-	color:white;
-	border-radius:24px;
-	transition:2s;
-	cursor:pointer;
-}
-
 </style>
 <body bgcolor="#11e1e9">
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
@@ -72,23 +88,23 @@
 <!-- <a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a><br> -->
 <%-- <a class="box" href=<%=request.getContextPath()%>/front-end/HomeMember/index.jsp> 請按此回會員首頁 </a> --%>
 	<h1 align="center">Hello!!${memberVO.name}，這是你的個人資料</h1>
-	<table align="center" border="1" id="table1">
+	<table align="center" border="1" id="table1"  >
 			
 <%=memberVO.getMemID()%>
 		<tr>
-			<td>memID</td>
+			<td>會員帳號</td>
 			<td>${memberVO.memID}</td>
 		</tr>
 		<tr>
-			<td>name</td>
+			<td>會員姓名</td>
 			<td>${memberVO.name}</td>
 		</tr>
 		<tr>	
-			<td>birthday</td>
+			<td>會員生日</td>
 			<td>${memberVO.birthday}</td>
 		</tr>	
 		<tr>
-			<td>email</td>
+			<td>會員信箱</td>
 			<td>${memberVO.email}</td>
 		</tr>
 <!-- 		<tr>	 -->
@@ -96,37 +112,37 @@
 <%-- 			<td>${memberVO.password}</td> --%>
 <!-- 		</tr> -->
 		<tr>	
-			<td>phone</td>
+			<td>會員電話</td>
 			<td>${memberVO.phone}</td>
 		</tr>
 		<tr>	
-			<td>creditcard</td>
+			<td>信用卡號</td>
 			<td>${memberVO.creditcard}</td>
 		</tr>
 		<tr>	
-			<td>token</td>
+			<td>一般代幣</td>
 			<td>${memberVO.token}</td>
 		</tr>
 		<tr>	
-			<td>activityToken</td>
+			<td>活動代幣</td>
 			<td>${memberVO.activityToken}</td>
 		</tr>
 		<tr>	
-			<td>pet</td>
+			<td>寵物喜好</td>
 			<td><c:choose>
-			  <c:when test="${memberVO.pet == '1'}"> 喜好寵物  </c:when>
-			  <c:when test="${memberVO.pet == '0'}">  不喜好寵物  </c:when>			 
+			  <c:when test="${memberVO.pet == '1'}"> 喜歡  </c:when>
+			  <c:when test="${memberVO.pet == '0'}">  不喜歡  </c:when>			 
 			</c:choose></td>
 		</tr>
 		<tr>
-			<td>smoke</td>
+			<td>抽菸設定</td>
 			<td><c:choose>
 			  <c:when test="${memberVO.smoke == '1'}">抽菸  </c:when>
 			  <c:when test="${memberVO.smoke == '0'}">  不抽菸  </c:when>			 
 			</c:choose></td>
 		</tr>
 		<tr>	
-			<td>gender</td>
+			<td>性     別</td>
 			<td><c:choose>
 			  <c:when test="${memberVO.gender == '1'}">男生  </c:when>
 			  <c:when test="${memberVO.gender == '0'}">女生  </c:when>			 
@@ -134,14 +150,14 @@
 		</tr>	
 		
 		<tr>	
-			<td>babySeat</td>
+			<td>嬰兒座椅</td>
 			<td><c:choose>
 			  <c:when test="${memberVO.babySeat == '1'}">需要  </c:when>
 			  <c:when test="${memberVO.babySeat == '0'}">不需要  </c:when>			 
 			</c:choose></td>			
 		</tr>
 		<tr>	
-			<td>verified</td>
+			<td>驗證狀態</td>
 			<td><c:choose>
 			  <c:when test="${memberVO.verified == '1'}">已經驗證  </c:when>
 			  <c:when test="${memberVO.verified == '0'}">尚未驗證  </c:when>			 
@@ -150,28 +166,28 @@
 		<tr>
 		<td>個人照片</td>
 		<td><img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
-		onerror="this.src='cat.jpg'"></td>
+		></td>
 		</tr>	
 	</table>
 	
 	<table>
 	<tr>
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;">
-			     <input type="submit" value="修改個人資料">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;" class="box1">
+			     <input type="submit" value="修改個人資料" >
 			     <input type="hidden" name="memID"  value="${memberVO.memID}">
 			     <input type="hidden" name="action"	value="getOne_For_Update"></FORM>
 			</td>
 			
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/storeRecord/storeRecord.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/storeRecord/storeRecord.do" style="margin-bottom: 0px;" class="box1">
 			     <input type="submit" value="代幣儲值">
 			     <input type="hidden" name="memID"  value="${memberVO.memID}">
 			     <input type="hidden" name="action"	value="addToken"></FORM>
 			</td>
 			
 			<td>
-			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;">
+			  <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;" class="box1">
 			     <input type="submit" value="喜好設定">
 			     <input type="hidden" name="memID"  value="${memberVO.memID}">
 			     <input type="hidden" name="action"	value="getOne_For_Update_HOBBY">
