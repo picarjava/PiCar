@@ -31,7 +31,11 @@ public class SingleOrderServlet extends HttpServlet{
     
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        doPost(req, resp);
+//    	req.setCharacterEncoding("UTF-8");
+//		resp.setContentType("text/html; charset=UTF-8");
+//		Date endTime=java.sql.Date.valueOf(req.getParameter("endTime"));
+        
+        
     } // doGet()
 
     @Override

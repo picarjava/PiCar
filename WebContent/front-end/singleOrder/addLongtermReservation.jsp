@@ -90,10 +90,10 @@ session.setAttribute("memID",memID);
               <!-- 新增活動表單開始 -->
               <form action="<%=application.getContextPath()%>/singleOrder" method="post" role="form" class="contactForm">
  					<div class="form-group">
-	                   <p>會員編號</p>
-	                  <input type="text" name="memID" class="form-control" value="${memID}"  readonly placeholder="請輸入會員編號" />
+	                   <h3>會員${memID} ${memberVO.name} 您好!  歡迎預約叫車</h3>
+	                  <input type="hidden" type="text" name="memID" class="form-control" value="${memID}"  readonly placeholder="請輸入會員編號" />
 	       			</div>
-	       			<div class="form-row">
+	       			<div class="form-row" >
 		       			<div class="col">
 						<p id="distance"></p>
 						</div>
@@ -104,6 +104,11 @@ session.setAttribute("memID",memID);
 		       			<p id="checkout"></p>
 		       			</div>
 	       			</div>
+	       			<div class="form-row">
+	       			<div class="col">
+		       			<p id="calculate"></p>
+		       			</div>
+		       		</div>	
  					<div class="form-row">
                       <div class="col">
                         <p>上車地點/下車地點</p> 
@@ -140,9 +145,22 @@ session.setAttribute("memID",memID);
 	               <p>開始日期時間 / 結束日期</p>
 	               <div class="input-group mb-3">
 					  <input type="text" id="f_date1" name="startTime"  value="${singleOrder.startTime}" class="form-control" placeholder="請輸入開始日期與時間" aria-label="Recipient's username" aria-describedby="button-addon2">
-					  至<input type="text" id="f_date2" name="endTime"  value="${endTime}" class="form-control" placeholder="請輸入結束日期" aria-label="Recipient's username" aria-describedby="button-addon2">
+					  至<input  onchange="totalDays()" type="text" id="f_date2" name="endTime"  value="${endTime}" class="form-control" placeholder="請輸入結束日期" aria-label="Recipient's username" aria-describedby="button-addon2">
 					</div>
 				</div>
+				<div class="form-row">
+	       			<div class="col">
+		       			<p id="days"></p>
+		       		</div>
+		       		<div class="col">
+		       			<p id="total"></p>
+		       		</div>
+		       	</div>
+		       	<div class="form-row">
+	       			<div class="col">
+		       			<p id="totalCalculate"></p>
+		       		</div>
+		       	</div>
 				
 				<!-- 測試jquery新增日期的HTML -->
 <!-- 		               <div class="alert alert-light"> -->
@@ -285,7 +303,7 @@ AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(
 
 
 
-
+var totalLongterm;
 AutocompleteDirectionsHandler.prototype.route = function() {
   if (!this.originPlaceId || !this.destinationPlaceId) {
     return;
@@ -307,14 +325,16 @@ AutocompleteDirectionsHandler.prototype.route = function() {
     	  
     	  var totalAmount =document.getElementById('totalAmount');
     	  totalAmount.value=parseInt((distance/1000*24.5*0.85)+40);
+    	  totalLongterm=totalAmount.value; <!--存給實體變數-->
     	  
     	  document.getElementById('distance').innerHTML = 
-             "<h3>預估距離</h3>"+ parseInt(distance/1000) + "公里"+distance%1000+"公尺" ;
+             "<h3>預估距離</h3><h4>"+ parseInt(distance/1000) + "公里"+distance%1000+"公尺</h4>" ;
     	  document.getElementById('duration').innerHTML = 
-              "<h3>預估時間</h3>"+parseInt(duration/60/60)+"時"+parseInt(duration/60%60) + "分";
+              "<h3>預估時間</h3><h4>"+parseInt(duration/60/60)+"時"+parseInt(duration/60%60) + "分</h4>";
     	  document.getElementById('checkout').innerHTML = 
-        	  "<h3>預估金額</h3>"+ totalAmount.value +"元";
-          
+        	  "<h3>單趟金額</h3><h4>$"+ totalLongterm+"元</h4>";
+          document.getElementById('calculate').innerHTML = 
+        	  "<h6>"+parseInt(distance/1000) + "公里"+distance%1000+"公尺 X 24.5 元/每公里資費 X 0.85 長期預約折扣+ 40元 基本費/每趟 ="+ totalAmount.value +"元</h6>";
         } else {
           window.alert('Directions request failed due to ' + status);
         }
@@ -503,6 +523,7 @@ var minDateLong=getFutureDate(9); //長期叫車需於三日前預約，且14天
                           return [false, ""]
                      }
                      return [true, ""];
+                     
              }});
 
 
@@ -536,7 +557,7 @@ var minDateLong=getFutureDate(9); //長期叫車需於三日前預約，且14天
            //startDate: '',            '2017/07/10',  // 起始日
            minDate:   minDateLong,            //'-1970-01-01', // 去除今日(不含)之前
            maxDate:   maxDate         //  '+1970-01-01'  // 去除今日(不含)之後
-        });
+       });
         
    
         // ----------------------------------------------------------以下用來排定無法選擇的日期-----------------------------------------------------------
@@ -563,6 +584,7 @@ var minDateLong=getFutureDate(9); //長期叫車需於三日前預約，且14天
                 return [false, ""];
             }
             
+            
             return [true, ""];
         }});
 
@@ -580,10 +602,54 @@ var minDateLong=getFutureDate(9); //長期叫車需於三日前預約，且14天
                      return [true, ""];
              }});
              
-            
+             
+             //計算總天數
+             var days; 
+             function totalDays(){
+            	 var firstday=$("#f_date1").val();
+            	 var y, m,d;
+            	 y=parseInt(firstday.substr(0,4));
+            	 m=parseInt(firstday.substr(5,2));
+            	 d=parseInt(firstday.substr(8,2));
 
+            	 var endday=$("#f_date2").val();
+            	 var yy, mm,dd;
+            	 yy=parseInt(endday.substr(0,4));
+            	 mm=parseInt(endday.substr(5,2));
+            	 dd=parseInt(endday.substr(8));
 
-        
+            	 /*開始相減*/
+				 if(dd<d){
+					 mm=mm-1;
+					 if(yy%4==0){ /*若為閏年 2月是29天 ；大月1、3、5、7、8、10、12； 小月4、6、9、11*/
+						 if(mm==1||3||5||7||8||10||12){
+							 dd=dd+31;
+						 }else if(mm==4||6||9||11){
+							 dd=dd+30;
+					     }else if(mm==2){
+					    	 dd=dd+29;
+					     }
+					 }else{ /*若為平年 2月是28天*/
+						 if(mm==1||3||5||7||8||10||12){
+							 dd=dd+31;
+						 }else if(mm==4||6||9||11){
+							 dd=dd+30;
+					     }else if(mm==2){
+					    	 dd=dd+28;
+					     }
+					 }
+					 /*開始相減*/
+					 days=dd-d+1;
+				 }else{
+					 days=dd-d+1;
+				 }
+				 document.getElementById('days').innerHTML=
+					 "<h3>預約天數</h3><h4>"+days+"天</h4>";
+                 document.getElementById('total').innerHTML=
+                	 "<h3>總金額</h3><h4>$"+totalLongterm*days+"元</h4>";
+                 document.getElementById('totalCalculate').innerHTML=
+                 totalLongterm +"單趟金額/元X"+days+"天=$"+totalLongterm*days+"元";
+             };
 </script>
 
 </html>

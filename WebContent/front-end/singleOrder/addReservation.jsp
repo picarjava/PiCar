@@ -96,8 +96,8 @@ session.setAttribute("memID",memID);
               <!-- 新增活動表單開始 -->
               <form action="<%=application.getContextPath()%>/singleOrder" method="post" role="form" class="contactForm">
  					<div class="form-group">
-	                   <p>會員編號</p>
-	                  <input type="text" name="memID" class="form-control"  readonly value="${memID}"   placeholder="請輸入會員編號" />
+	                   <h3>會員${memID} ${memberVO.name} 您好!  歡迎預約叫車</h3>
+	                  <input type="hidden" type="text" name="memID" class="form-control"  readonly value="${memID}"   placeholder="請輸入會員編號" />
 	       			</div>
 		       		<div class="form-row">
 		       			<div class="col">
@@ -110,6 +110,11 @@ session.setAttribute("memID",memID);
 		       			<p id="checkout"></p>
 		       			</div>
 	       			</div>
+	       			<div class="form-row">
+	       			<div class="col">
+		       			<p id="calculate"></p>
+		       			</div>
+		       		</div>	
  					<div class="form-row">
                       <div class="col">
                         <p>上車地點/下車地點</p> 
@@ -302,11 +307,13 @@ AutocompleteDirectionsHandler.prototype.route = function() {
     	  totalAmount.value=parseInt((distance/1000*24.5)+40);
     	  
     	  document.getElementById('distance').innerHTML = 
-             "<h3>預估距離</h3>"+ parseInt(distance/1000) + "公里"+distance%1000+"公尺" ;
+             "<h3>預估距離</h3><h4>"+ parseInt(distance/1000) + "公里"+distance%1000+"公尺</h4>" ;
     	  document.getElementById('duration').innerHTML = 
-              "<h3>預估時間</h3>"+parseInt(duration/60/60)+"時"+parseInt(duration/60%60) + "分";
+              "<h3>預估時間</h3><h4>"+parseInt(duration/60/60)+"時"+parseInt(duration/60%60) + "分</h4>";
           document.getElementById('checkout').innerHTML = 
-        	  "<h3>預估金額</h3>"+ totalAmount.value +"元";
+        	  "<h3>預估金額</h3><h4>$"+ totalAmount.value +"元</h4>";
+          document.getElementById('calculate').innerHTML = 
+        	  "<h6>"+parseInt(distance/1000) + "公里"+distance%1000+"公尺 X 24.5 元/每公里資費 + 40元 基本費/每趟 ="+ totalAmount.value +"元</h6>";
            
     	  } else {
           window.alert('Directions request failed due to ' + status);
