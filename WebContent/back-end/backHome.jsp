@@ -18,7 +18,7 @@
 <jsp:include page="/back-end/head_back.jsp" />
 </head>
 
-<body>
+<body onload="connect();" onunload="disconnect();">
 
 	<div class="wrapper ">
 		<div class="sidebar" data-color="" data-background-color="black"
@@ -29,10 +29,59 @@
       <jsp:include page="/back-end/sidebar.jsp" />
       
     </div>
-		<jsp:include page="/back-end/pwd_back.jsp" />
 		<jsp:include page="/back-end/kidFooter.jsp" />
 			</div>
 		</div>
-			
 </body>
+
+
+<!-- <!--==========websocket推播 開始=============--> -->
+<!--  <script> -->
+<%-- //  	var MyPoint="/BroadcastOrderServer/${adminID}"; --%>
+<!-- //  	var host=window.location.host; -->
+<!-- //  	var path=window.location.pathname; -->
+<!-- //  	var webCtx=path.substring(0,path.indexOf('/',1)); -->
+<!-- //  	var endPointURL="ws://"+window.location.host+webCtx+MyPoint; -->
+ 	
+<!-- //  	var webSocketTitle =document.getElementById("webSocketTitle"); //狀態標題 -->
+<!-- //  	var statusOutput=document.getElementById("statusOutput");//狀態內容 -->
+ 	
+<!-- //  	var webSocket; -->
+ 	
+<!-- //  	function connect(){ -->
+ 		
+<!-- //  		//建立websocket物件 -->
+<!-- //  		webSocket=new WebSocket(endPointURL); -->
+ 		
+<!-- //  		webSocket.onopen=function(event){ -->
+<!-- //  			updateStatus("WebSocket 成功連線"); -->
+<!-- //  		}; -->
+ 		
+<!-- //  		webSocket.onmessage=function(event){ -->
+<!-- //  			var jsonObj=JSON.parse(event.data); -->
+<!-- //  			var message=jsonObj.message+"\r\n"; -->
+<!-- //   			window.alert(message); -->
+<!-- //  			updateStatus(message); -->
+<!-- //  		}; -->
+ 		
+<!-- //  		webSocket.onclose=function(event){ -->
+ 			
+<!-- //  			updateStatus("WebSocket已離線"); -->
+<!-- //  		}; -->
+<!-- //  	} -->
+ 	
+<!-- //  	function disconnect(){ -->
+<!-- //  		webSocket.close(); -->
+<!-- //  	} -->
+ 	
+<!-- //  	function updateStatus(newStatus){ -->
+<!-- //  		statusOutput.innerHTML= newStatus; -->
+<!-- //  	} -->
+ 	
+ 	
+<!--  </script> -->
+
+<!--  <!--==========websocket推播 結束============--> -->
+
+
 </html>

@@ -19,9 +19,10 @@ String path = request.getContextPath();
 <%AdminVO adminVO=(AdminVO)session.getAttribute("adminVO");
 String adminID=adminVO.getAdminID();
 session.setAttribute("adminID",adminID);
-System.out.println(adminID);
-%> 
+// System.out.println(adminID);
 
+
+%>
 
 <!-- 個人訂單 -->
 <% SingleOrderService service = new SingleOrderService();
@@ -53,7 +54,9 @@ System.out.println(adminID);
     <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
     <meta http-equiv="description" content="This is my page">
 </head>
-<body>
+<body onload="connect();" onunload="disconnect();">
+
+<c:set var="contextPath" value="${singleOrder.memID}"/>
 <div class="wrapper ">
 <jsp:include page="/back-end/kidBodyLeft.jsp" />
 <div class="main-panel">
