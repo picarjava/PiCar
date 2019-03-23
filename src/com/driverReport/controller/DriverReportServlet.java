@@ -10,6 +10,7 @@ import com.admin.model.*;
 import com.driverReport.model.*;
 import com.driver.model.*;
 import com.singleOrder.model.*;
+import Timer.*;
 
 
 public class DriverReportServlet extends HttpServlet {
@@ -200,9 +201,7 @@ public class DriverReportServlet extends HttpServlet {
 					} else if (!memID.trim().matches(memIDReg)) {
 						errorMsgs.add("會員編號輸入格式有誤");
 					}
-					
-					
-				
+							
 					String adminID = req.getParameter("adminID").trim();
 					String adminIDreg = "^[(A)(0-9)]{4}$";
 					if(adminID == null || adminID.trim().length() == 0) {
@@ -242,14 +241,15 @@ public class DriverReportServlet extends HttpServlet {
 					}
 						
 					Integer state = new Integer(req.getParameter("state"));
-					Integer banned = 1;
 					if (state == 1) {
 						//從訂單抓司機ID
+						/********一般訂單********/
 						SingleOrderService SingleOrdersvc = new SingleOrderService();
 						String driverID = SingleOrdersvc.getOneSingleOrder(orderID).getDriverID();
+
 						//抓到司機ID後使用driver方法
 						DriverService driverSvc = new DriverService();
-						driverSvc.updateBanned(driverID);
+						driverSvc.updateBanned(driverID);	
 					}
 					
 					DriverReportVO driverReportVO = new DriverReportVO();
@@ -273,6 +273,12 @@ public class DriverReportServlet extends HttpServlet {
 					/***************************2.開始修改資料*****************************************/
 					DriverReportService driverReportSvc = new DriverReportService();
 					driverReportVO = driverReportSvc.updateDriverReport(dreportID, memID, adminID, orderID, content,time, state);
+					/*****************************/
+					SingleOrderService SingleOrdersvc1 = new SingleOrderService();
+					String driverID = SingleOrdersvc1.getOneSingleOrder(orderID).getDriverID(); //抓上面的orderID
+					countDownTimer counttimer = new countDownTimer(1);   //呼叫counttimer方法
+					counttimer.start(driverID);    //啟動倒數計時器
+						
 					
 					/***************************3.修改完成,準備轉交(Send the Success view)*************/
 					req.setAttribute("driverReportVO", driverReportVO); // 資料庫update成功後,正確的的driverReportVO物件,存入req
