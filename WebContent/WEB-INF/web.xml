@@ -424,6 +424,12 @@
     <url-pattern>/back-end/groupReport/FindGroup.do</url-pattern>
   </servlet-mapping>
   
+<!--    <servlet> -->
+<!--     <servlet-name>DriverMoneyTimer</servlet-name> -->
+<!--     <servlet-class>Timer.DriverMoneyTimer</servlet-class> -->
+<!--     <load-on-startup>3</load-on-startup> -->
+<!--   </servlet> -->
+  
 </web-app>
 
 

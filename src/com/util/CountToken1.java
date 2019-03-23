@@ -17,74 +17,93 @@ public class CountToken1 {
 
 	public void countToken(String memID, Integer amount, String orderID, Integer i) throws Exception {
 
-		System.out.println(memID);
-		System.out.println(amount);
-		System.out.println(orderID);
-
+		System.out.println("會員ID"+memID);
+		System.out.println("單次搭車金額"+amount);
+		System.out.println("訂單編號"+orderID);
 		ActivityTokenService atSvc = new ActivityTokenService();
-		List<ActivityTokenVO> onesActivityToken = new ArrayList();
-		onesActivityToken = atSvc.getOnesALL(memID);
-		Collections.sort(onesActivityToken, new Comparator<ActivityTokenVO>() {
+		int countac = 0;
 
-			@Override
-			public int compare(ActivityTokenVO o1, ActivityTokenVO o2) {
-				int result = (int) ((o1.getDeadline().getTime() - o2.getDeadline().getTime()));
-				return result;
-			}
-
-		});
-
-		Collections.sort(onesActivityToken, new Comparator<ActivityTokenVO>() {
-
-			@Override
-			public int compare(ActivityTokenVO o1, ActivityTokenVO o2) {
-				int result = -(int) ((o1.getTokenAmount() - o2.getTokenAmount()));
-				return result;
-			}
-
-		});
-
-		MemberService memberSvc = new MemberService();
 		Integer count = 0;
 		String memberIDNewest = null;
 		String activityIDNewest = null;
-		if (!onesActivityToken.isEmpty()) {
-			if (onesActivityToken.get(0).getTokenAmount() != 0) {
-				amount = -(amount - onesActivityToken.get(0).getTokenAmount());
-				// 將第一筆資料歸零OR刪除?
-				memberIDNewest = onesActivityToken.get(0).getMemID();
-				activityIDNewest = onesActivityToken.get(0).getActivityID();
-//				atSvc.cancelToken(memberIDNewest, activityIDNewest);
+		int amount1 = 0;
 
-			} else {
-				amount = -amount;
-			}
-			/***************************/
+		MemberService memberSvc = new MemberService();
+		MemberVO memberVO = memberSvc.getOneMember(memID);
+
+		List<ActivityTokenVO> onesActivityToken1 = atSvc.getOnesALL(memID);
+		for (int j = 0; j < onesActivityToken1.size(); j++) {
+			countac += onesActivityToken1.get(j).getTokenAmount();
+			System.out.println(countac + "-活動代幣總額");
+		}
+
+		if (i * amount <= (countac + memberVO.getToken())) {
+
+			while (i-- > 0) {
+				List<ActivityTokenVO> onesActivityToken = atSvc.getOnesALL(memID);
+//		onesActivityToken = atSvc.getOnesALL(memID);
+				Collections.sort(onesActivityToken, new Comparator<ActivityTokenVO>() {
+
+					@Override
+					public int compare(ActivityTokenVO o1, ActivityTokenVO o2) {
+						int result = (int) ((o1.getDeadline().getTime() - o2.getDeadline().getTime()));
+						return result;
+					}
+
+				});
+
+				Collections.sort(onesActivityToken, new Comparator<ActivityTokenVO>() {
+
+					@Override
+					public int compare(ActivityTokenVO o1, ActivityTokenVO o2) {
+						int result = -(int) ((o1.getTokenAmount() - o2.getTokenAmount()));
+						return result;
+					}
+
+				});
+
+				if (!onesActivityToken.isEmpty()) {
+					if (onesActivityToken.get(0).getTokenAmount() != 0) {
+						amount1 = (amount - onesActivityToken.get(0).getTokenAmount());
+						// 將第一筆資料歸零OR刪除?
+						memberIDNewest = onesActivityToken.get(0).getMemID();
+						activityIDNewest = onesActivityToken.get(0).getActivityID();
+//				atSvc.cancelToken(memberIDNewest, activityIDNewest);
+						System.out.println(amount1 + "在71行");
+						System.out.println("================");
+					} else {
+						amount1 = amount;
+					}
+					/***************************/
 //			StoreRecordVO storeRecordVO = new StoreRecordVO();
 
-			MemberVO memberVO = memberSvc.getOneMember(memID);
-			count = memberVO.getToken() + amount;
+					memberVO = memberSvc.getOneMember(memID);
+					count = memberVO.getToken() - amount1;
+					System.out.println(count + "在81行");
+					System.out.println("================");
 //
 //			if (count < 0) {
 //				System.out.println("總金額小於0");
 //				throw new Exception("總金額小於0");
 //
 //			}else {
-			StoreRecordService storeRecordSvc = new StoreRecordService();
+					StoreRecordService storeRecordSvc = new StoreRecordService();
 //				atSvc.cancelToken(memberIDNewest, activityIDNewest);
 //				memberSvc.updateToken(memID, count);
-			try {
-				memberSvc.updateTokenAndCancelTokenManyOrder(memberIDNewest, activityIDNewest, memID, count, i);
-			} catch (RuntimeException e) {
-				throw new Exception(e.getMessage() + "代幣餘額小於零");
+					try {
+						memberSvc.updateTokenAndCancelTokenManyOrder(memberIDNewest, activityIDNewest, memID, count, i);
+					} catch (RuntimeException e) {
+						throw new Exception(e.getMessage() + "代幣餘額小於零");
+					}
+					// 以下不用rollback處理
+					storeRecordSvc.addOrdrID(memID, amount1, orderID);
+
+				}
 			}
-			// 以下不用rollback處理
-			storeRecordSvc.addOrdrID(memID, amount, orderID);
 
-//			}
-
+		} else {
+			throw new Exception( "代幣餘額小於零");
 		}
-
 		/****************/
 	}
 
