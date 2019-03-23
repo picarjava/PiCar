@@ -40,6 +40,7 @@ public class SingleOrderServlet extends HttpServlet {
     // state
     private final static int ESTABLISHED = 1;
     private final static int EXRCUTING = 4;
+    private final static int FINISHED = 5;
     // order type
     private final static int ONE_TIME_RESERVE = 3;
     private final static int LONG_TERM_RESERVE = 4;
@@ -119,6 +120,7 @@ public class SingleOrderServlet extends HttpServlet {
             } else
                 jsonOut.addProperty("state", "Failed");
             
+            System.out.println(jsonOut.toString());
             writer.write(jsonOut.toString());
         } else if ("getNewSingleOrder".equals(action)) {
             List<SingleOrderVO> singleOrderVOs = singleOrderService.getByStateAndOrderType(ESTABLISHED, ONE_TIME_RESERVE)
@@ -183,9 +185,19 @@ public class SingleOrderServlet extends HttpServlet {
             writer.write(jsonObject.toString());
             System.out.println(jsonObject);
         } else if ("getOffPiCar".equals(action)) {
-            String driverID = jsonIn.get(DRIVER_ID).getAsString();
+            String memID = jsonIn.get("memID").getAsString();
             String orderID = jsonIn.get(ORDER_ID).getAsString();
-//            new CountToken().countToken(memID, amount, orderID);
+            if (jsonIn.has("singleOrder")) {
+                SingleOrderVO singleOrderVO = singleOrderService.getOneSingleOrder(orderID);
+                int amount = singleOrderVO.getTotalAmount();
+                try {
+                    new CountToken().countToken(memID, amount, orderID);
+                } catch (Exception e) {
+                    
+                }
+            }
+            
+            singleOrderService.updateStateByOrderID(FINISHED, orderID);
         }
         
         writer.close();
@@ -227,6 +239,8 @@ public class SingleOrderServlet extends HttpServlet {
         singleOrder.setOrderIDs(singleOrderVOs.stream()
                                               .map(SingleOrderVO::getOrderID)
                                               .collect(Collectors.toList()));
+        singleOrder.setDriverID(singleOrderVO.getDriverID());
+        singleOrder.setMemID(singleOrderVO.getMemID());
         singleOrder.setStartLoc(singleOrderVO.getStartLoc());
         singleOrder.setStartLat(singleOrderVO.getStartLat());
         singleOrder.setStartLng(singleOrderVO.getStartLng());

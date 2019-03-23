@@ -38,10 +38,8 @@ public class LocationWebSocket {
     @OnMessage
     public void onMessage(Session session, String message) {
         InputInfo inputInfo = new Gson().fromJson(message, InputInfo.class);
-        driver.put(inputInfo.getDriverID(), new StoredInfo(session, inputInfo.getLatLng()));
-//        String jsonOut = "{\"singleOrder\":\"{\\\"orderID\\\":\\\"SODR042\\\",\\\"driverID\\\":\\\"d001\\\",\\\"endLat\\\":25.05842,\\\"endLng\\\":121.53163,\\\"endLoc\\\":\\\"10491台灣台北市中山區民生東路二段115巷6號\\\",\\\"memId\\\":\\\"M001\\\",\\\"orderType\\\":0,\\\"startLat\\\":25.02511,\\\"startLng\\\":121.55946000000002,\\\"startLoc\\\":\\\"110台灣台北市信義區信安街103巷201弄7號\\\",\\\"state\\\":0}\"}";
+        driver.put(inputInfo.getDriverID(), new StoredInfo(session, inputInfo.getLatLng(), inputInfo.isExecuting()));
         System.out.println(message);
-//        session.getAsyncRemote().sendText(jsonOut);
     }
     
     @OnClose

@@ -97,6 +97,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		private static final String GET_BY_STATE_AND_ORDER_TYPE = "SELECT * FROM GROUP_ORDER WHERE STATE=? AND ORDER_TYPE=?";
 		private static final String GET_BY_STATE_AND_DRIVER_ID = "SELECT * FROM GROUP_ORDER WHERE STATE=? AND DRIVER_ID=?";
 		private static final String UPDATE_DRIVER_ID_BY_GROUP_ID = "UPDATE GROUP_ORDER SET DRIVER_ID=? WHERE GROUP_ID=?";
+		private static final String UPDATE_STATE_BY_GROUP_ID_AND_START_TIME = "UPDATE GROUP_ORDER SET STATE=? WHERE GROUP_ID=? AND START_TIME=?";
 		
 		//逾時訂單使用
 		private static final String DELAY_TIME ="SELECT * FROM GROUP_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP";
@@ -1057,8 +1058,27 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
             preparedStatement = connection.prepareStatement(UPDATE_DRIVER_ID_BY_GROUP_ID);
             preparedStatement.setString(1, driverID);
             preparedStatement.setString(2, groupID);
-            int i = preparedStatement.executeUpdate();
-            System.out.println(i);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        }   
+    }
+    
+    @Override
+    public void updateStateByGroupIDAndGroupID(Integer state, String groupID, Timestamp startTime) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ds.getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_DRIVER_ID_BY_GROUP_ID);
+            preparedStatement.setInt(1, state);
+            preparedStatement.setString(2, groupID);
+            preparedStatement.setTimestamp(3, startTime);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
             throw new RuntimeException(e.getMessage(), e);

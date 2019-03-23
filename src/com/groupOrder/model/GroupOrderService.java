@@ -116,7 +116,11 @@ public class GroupOrderService {
 	    dao.updateDriverIDByGroupID(driverID, groupID);
 	}
 	public Timestamp getStartTimeGgroupID(String groupID) {
-	return 	dao.getStartTimeGgroupID(groupID);
+	    return 	dao.getStartTimeGgroupID(groupID);
+	}
+	
+	public void updateStateByGroupIDAndStartTime(Integer state, String groupID, Timestamp startTime) {
+	    dao.updateStateByGroupIDAndGroupID(state, groupID, startTime);
 	}
 	
     //逾時訂單

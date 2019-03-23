@@ -24,5 +24,6 @@ public interface SingleOrder_interface {
 	public HashSet<SingleOrderVO> listOneSetOfLongterm(Timestamp launchtime);//撈長期訂單2:再透過 撈長期第一筆LAUNCH_TIME ，撈此長期預約的整組
 	List<String> getDelayOrder();//逾時訂單
 	void updateOrderIDToDelay(String orderID);
+    void updateStateByOrderID(Integer state, String orderID);
 
 } // interface SingleOrderInterface

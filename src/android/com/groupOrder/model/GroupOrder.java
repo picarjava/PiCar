@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 
 public class GroupOrder {
     private String groupID;
+    private String memID;
     private String startLoc;
     private String endLoc;
     private Double startLng;
@@ -22,6 +23,14 @@ public class GroupOrder {
 
     public void setGroupID(String groupID) {
         this.groupID = groupID;
+    }
+    
+    public String getMemID() {
+        return memID;
+    }
+
+    public void setMemID(String memID) {
+        this.memID = memID;
     }
 
     public String getStartLoc() {
