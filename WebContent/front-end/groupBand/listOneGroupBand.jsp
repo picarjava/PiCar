@@ -27,38 +27,26 @@
 
 <html>
 <head>
-<link
-	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/favicon.png"
-	rel="icon">
-<link
-	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/apple-touch-icon.png"
-	rel="apple-touch-icon">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans">
+        <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster">
+      <link rel="stylesheet" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/prettyPhoto/css/prettyPhoto.css">
+        <link rel="stylesheet" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/flexslider.css">
+        <link rel="stylesheet" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/font-awesome.css">
+        <link rel="stylesheet" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/css/style.css">
 
+        <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
 
-<!-- Google Fonts -->
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Poppins:300,400,500,700"
-	rel="stylesheet">
-
-<!-- Bootstrap CSS File -->
-<link
-	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-
-<!-- Libraries CSS Files -->
-<link
-	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/font-awesome/css/font-awesome.min.css"
-	rel="stylesheet">
-<link
-	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/lib/animate/animate.min.css"
-	rel="stylesheet">
-
-<!-- Main Stylesheet File -->
-<!-- <link href="css/style.css" rel="stylesheet"> -->
-<!-- <link rel="stylesheet" type="text/css" -->
-<%-- 	href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.datetimepicker.css" /> --%>
-<%-- <script src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.js"></script> --%>
-<%-- <script src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/datetimepicker/jquery.datetimepicker.full.js"></script> --%>
+        <!-- Favicon and touch icons -->
+             <link rel="shortcut icon" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/favicon.ico">
+        <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/apple-touch-icon-144-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/apple-touch-icon-114-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/apple-touch-icon-72-precomposed.png">
+        <link rel="apple-touch-icon-precomposed" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/apple-touch-icon-57-precomposed.png">
 
 <meta charset="UTF-8">
 <title>listOneGroupBand.jsp</title>
@@ -167,9 +155,12 @@ th, td {
 th {
 	background-color: #00BBFF;
 }
+.what-we-do .service {
+    background: #eeeeee;
+}
 </style>
 </head>
-<body onload="connect();" onunload="disconnect();">
+<body onload="connect();" onunload="disconnect();" >
 	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 	<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
 
@@ -183,118 +174,55 @@ th {
 		</ul>
 	</c:if>
 	
-<!-- 	     <div class="services-full-width container"> -->
-<!--             <div class="row"> -->
-<!--                 <div class="services-full-width-text span12"> -->
-<!--                     <h4>Lorem Ipsum Dolor Sit Amet</h4> -->
-<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="violet">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do <strong>eiusmod tempor</strong> incididunt.</p> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
+      <div class="services-full-width container">
+            <div class="row">
+                <div class="services-full-width-text span12">
+                    <h4>Lorem Ipsum Dolor Sit Amet</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="violet">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do <strong>eiusmod tempor</strong> incididunt.</p>
+                </div>
+            </div>
+        </div>
 
-<!--         Services -->
-<!--         <div class="what-we-do container"> -->
-<!--             <div class="row"> -->
-<!--                 <div class="service span3"> -->
-<!--                     <div class="icon-awesome"> -->
-<!--                         <i class="icon-eye-open"></i> -->
-<!--                     </div> -->
-<!--                     <h4>Beautiful Websites</h4> -->
-<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
-<!--                 </div> -->
-<!--                 <div class="service span3"> -->
-<!--                     <div class="icon-awesome"> -->
-<!--                         <i class="icon-table"></i> -->
-<!--                     </div> -->
-<!--                     <h4>Responsive Layout</h4> -->
-<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
-<!--                 </div> -->
-<!--                 <div class="service span3"> -->
-<!--                     <div class="icon-awesome"> -->
-<!--                         <i class="icon-magic"></i> -->
-<!--                     </div> -->
-<!--                     <h4>Awesome Logos</h4> -->
-<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
-<!--                 </div> -->
-<!--                 <div class="service span3"> -->
-<!--                     <div class="icon-awesome"> -->
-<!--                         <i class="icon-print"></i> -->
-<!--                     </div> -->
-<!--                     <h4>High Res Prints</h4> -->
-<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
+        <!-- Services -->
+        <div class="what-we-do container">
+            <div class="row">
+<!--             圖片 -->
+            		<c:forEach var="MemberVO" items="${testList}">
+            		
+                <div class="service span3">
+                    <div class="icon-awesome">
+                 		<div style="width:100px; height:100px; border-radius:50%; overflow:hidden; margin: auto;"> 
+   							<img class="imgss" src="/PiCar/GroupBand?MEM_ID=${MemberVO.memID}">
+						</div>
+                    </div>
+                    <h2>${MemberVO.name}<img class="mar"
+							src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/${MemberVO.gender}.png"
+							width="10px" height="10px"></h2>
+                    <c:if test="${MemberVO.name==memberVO.name}">
+                    <p style="font-size: 20px;">團主</p>
+                    </c:if>
+                      <c:if test="${MemberVO.name!=memberVO.name}">
+                    <p style="font-size: 20px;">團員</p>
+                    </c:if>
+                </div>
+                
+		</c:forEach>
+            </div>
+        </div>
 
-<!--         Services Half Width Text -->
-<!--         <div class="services-half-width container"> -->
-<!--             <div class="row"> -->
-<!--                 <div class="services-half-width-text span6"> -->
-<!--                     <h4>Lorem Ipsum</h4> -->
-<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="violet">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do <strong>eiusmod tempor</strong> incididunt.</p> -->
-<!--                 </div> -->
-<!--                 <div class="services-half-width-text span6"> -->
-<!--                     <h4>Dolor Sit Amet</h4> -->
-<!--                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="violet">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do <strong>eiusmod tempor</strong> incididunt.</p> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-
-<!--         Call To Action -->
-<!--         <div class="call-to-action container"> -->
-<!--             <div class="row"> -->
-<!--                 <div class="call-to-action-text span12"> -->
-<!--                     <div class="ca-text"> -->
-<!--                         <p>Lorem ipsum <span class="violet">dolor sit amet</span>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et ut wisi enim.</p> -->
-<!--                     </div> -->
-<!--                     <div class="ca-button"> -->
-<!--                         <a href="">Try It Now!</a> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
-
-<!--         Footer -->
-<!--         <footer> -->
-<!--             <div class="container"> -->
-<!--                 <div class="row"> -->
-<!--                     <div class="widget span3"> -->
-<!--                         <h4>About Us</h4> -->
-<!--                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et.</p> -->
-<!--                         <p><a href="">Read more...</a></p> -->
-<!--                     </div> -->
-<!--                     <div class="widget span3"> -->
-<!--                         <h4>Latest Tweets</h4> -->
-<!--                         <div class="show-tweets"></div> -->
-<!--                     </div> -->
-<!--                     <div class="widget span3"> -->
-<!--                         <h4>Flickr Photos</h4> -->
-<!--                         <ul class="flickr-feed"></ul> -->
-<!--                     </div> -->
-<!--                     <div class="widget span3"> -->
-<!--                         <h4>Contact Us</h4> -->
-<!--                         <p><i class="icon-map-marker"></i> Address: Via Principe Amedeo 9, 10100, Torino, TO, Italy</p> -->
-<!--                         <p><i class="icon-phone"></i> Phone: 0039 333 12 68 347</p> -->
-<!--                         <p><i class="icon-user"></i> Skype: Andia_Agency</p> -->
-<!--                         <p><i class="icon-envelope-alt"></i> Email: <a href="">contact@andia.co.uk</a></p> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--                 <div class="footer-border"></div> -->
-<!--                 <div class="row"> -->
-<!--                     <div class="copyright span4"> -->
-<!--                         <p>Copyright 2012 Andia - All rights reserved. Template by <a href="http://azmind.com">Azmind</a>.</p> -->
-<!--                     </div> -->
-<!--                     <div class="social span8"> -->
-<!--                         <a class="facebook" href=""></a> -->
-<!--                         <a class="dribbble" href=""></a> -->
-<!--                         <a class="twitter" href=""></a> -->
-<!--                         <a class="pinterest" href=""></a> -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </footer> -->
-
-        <!-- Javascript -->
+        <!-- Services Half Width Text -->
+        <div class="services-half-width container">
+            <div class="row">
+                <div class="services-half-width-text span6">
+                    <h4>Lorem Ipsum</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="violet">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do <strong>eiusmod tempor</strong> incididunt.</p>
+                </div>
+                <div class="services-half-width-text span6">
+                    <h4>Dolor Sit Amet</h4>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper <span class="violet">suscipit lobortis</span> nisl ut aliquip ex ea commodo consequat. Lorem ipsum <strong>dolor sit amet</strong>, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do <strong>eiusmod tempor</strong> incididunt.</p>
+                </div>
+            </div>
+        </div>
 
 	
 	<div style="margin-top: 20px;"></div>
@@ -1103,6 +1031,16 @@ AutocompleteDirectionsHandler.prototype.route = function() {
 <script
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWL8JxUOY0dQZ01M4rCgDU-oHLkP5BORI&libraries=places&callback=initMap"
 	async defer></script>
+	        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
 <!-- auto complete結束 -->
+          <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jquery-1.8.2.min.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/bootstrap/js/bootstrap.min.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jquery.flexslider.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jquery.tweet.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jflickrfeed.js"></script>
 
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jquery.ui.map.min.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jquery.quicksand.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/prettyPhoto/js/jquery.prettyPhoto.js"></script>
+        <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/scripts.js"></script>
 </html>
