@@ -8,6 +8,8 @@ import javax.servlet.http.*;
 
 import com.admin.model.*;
 import com.driverReport.model.*;
+import com.driver.model.*;
+import com.singleOrder.model.*;
 
 
 public class DriverReportServlet extends HttpServlet {
@@ -239,15 +241,16 @@ public class DriverReportServlet extends HttpServlet {
 						errorMsgs.add("請輸入日期");
 					}
 						
-					Integer state = null; 
-					try {
-						state = new Integer(req.getParameter("state").trim());
-					if (state>1 || state==null) 
-							errorMsgs.add("處理狀態只能0或1");
-					} catch (Exception e) {
-						errorMsgs.add("處理狀態錯誤" + e.getMessage());
+					Integer state = new Integer(req.getParameter("state"));
+					Integer banned = 1;
+					if (state == 1) {
+						//從訂單抓司機ID
+						SingleOrderService SingleOrdersvc = new SingleOrderService();
+						String driverID = SingleOrdersvc.getOneSingleOrder(orderID).getDriverID();
+						//抓到司機ID後使用driver方法
+						DriverService driverSvc = new DriverService();
+						driverSvc.updateBanned(driverID);
 					}
-					
 					
 					DriverReportVO driverReportVO = new DriverReportVO();
 						
