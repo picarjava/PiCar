@@ -22,17 +22,17 @@ public class countDownTimer {
     }
 
     class RemindTask extends TimerTask {
-        int runtimer= 60;  //30分鐘
+        int runtimer= 3600;  //ban司機一小時=3600秒
 
         public void run(){
             if (runtimer> 0){
-                System.out.println("倒數"+runtimer+":"+ new java.util.Date());
+//                System.out.println("倒數"+runtimer+":"+ new java.util.Date());
                 runtimer--;
             } else{
-                System.out.println(runtimer+" Time''s up!!  "+ new java.util.Date());
+//                System.out.println(runtimer+" Time''s up!!  "+ new java.util.Date());
                 DriverService driverService = new DriverService();
                 driverService.updateBannedBack(driverID);
-                System.out.println("是誰啊?" + driverID);
+//                System.out.println("是誰啊?" + driverID);
                 timer.cancel(); 
             }
         }

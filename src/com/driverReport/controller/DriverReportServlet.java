@@ -11,6 +11,7 @@ import com.driverReport.model.*;
 import com.driver.model.*;
 import com.singleOrder.model.*;
 import Timer.*;
+import com.groupOrder.model.*;
 
 
 public class DriverReportServlet extends HttpServlet {
@@ -225,7 +226,7 @@ public class DriverReportServlet extends HttpServlet {
 					}
 						
 					String content = req.getParameter("content");
-					String contentReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,50}$";
+					String contentReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_!)]{1,50}$";
 					if (content == null ||content.trim().length()==0) {
 						errorMsgs.add("檢舉內容請勿空白");
 					} else if (!content.trim().matches(contentReg)) {
@@ -241,15 +242,21 @@ public class DriverReportServlet extends HttpServlet {
 					}
 						
 					Integer state = new Integer(req.getParameter("state"));
+		
 					if (state == 1) {
+						String driverID = null;
 						//從訂單抓司機ID
-						/********一般訂單********/
-						SingleOrderService SingleOrdersvc = new SingleOrderService();
-						String driverID = SingleOrdersvc.getOneSingleOrder(orderID).getDriverID();
-
-						//抓到司機ID後使用driver方法
+						if (orderID.contains("GODR")) {
+						GroupOrderService groupOrderSvc = new GroupOrderService();
+						driverID = groupOrderSvc.getOneGroupOrder(orderID).getDriverID();
+						} else {				
+							SingleOrderService SingleOrdersvc = new SingleOrderService();
+							driverID = SingleOrdersvc.getOneSingleOrder(orderID).getDriverID();
+						}
+						//抓到司機ID後使用driver方法來Banned司機
 						DriverService driverSvc = new DriverService();
-						driverSvc.updateBanned(driverID);	
+						driverSvc.updateBanned(driverID);
+						
 					}
 					
 					DriverReportVO driverReportVO = new DriverReportVO();
@@ -274,12 +281,20 @@ public class DriverReportServlet extends HttpServlet {
 					DriverReportService driverReportSvc = new DriverReportService();
 					driverReportVO = driverReportSvc.updateDriverReport(dreportID, memID, adminID, orderID, content,time, state);
 					/*****************************/
-					SingleOrderService SingleOrdersvc1 = new SingleOrderService();
-					String driverID = SingleOrdersvc1.getOneSingleOrder(orderID).getDriverID(); //抓上面的orderID
+
+					String driverID = null;
+					
+					if (orderID.contains("GODR")) {
+					GroupOrderService groupOrderSvc = new GroupOrderService();
+					driverID = groupOrderSvc.getOneGroupOrder(orderID).getDriverID();
+					} else {				
+						SingleOrderService SingleOrdersvc = new SingleOrderService();
+						driverID = SingleOrdersvc.getOneSingleOrder(orderID).getDriverID();
+					}
+								
 					countDownTimer counttimer = new countDownTimer(1);   //呼叫counttimer方法
 					counttimer.start(driverID);    //啟動倒數計時器
 						
-					
 					/***************************3.修改完成,準備轉交(Send the Success view)*************/
 					req.setAttribute("driverReportVO", driverReportVO); // 資料庫update成功後,正確的的driverReportVO物件,存入req
 					String url = "/back-end/driverReport/select_page.jsp";
