@@ -398,7 +398,7 @@ border-radius: 10px;
 }
 </style>
 </head>
-<body onload="connect();" onunload="disconnect();" >
+<body onload="initialize();calcRoute();" >
 	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 	<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
 
@@ -419,20 +419,13 @@ border-radius: 10px;
 			<div class="row">
 				<div class="services-half-width-text span9 textInside">333asd3asdasd</div>
 				<div class="services-half-width-textspan3 mapInside ">
-				<div>
-					<input id="origin-input" type="hidden" name="startLoc"
-				value="<%=groupBandVO.getStartLoc()%>" class="form-control"
-				placeholder="請輸入上車地點" readonly="readonly">
-					</div>
-					<div class="col">
-						<input id="destination-input" type="hidden" name="endLoc"
-							value="<%=groupBandVO.getEndLoc()%>" class="form-control"
-							placeholder="請輸入下車地點" readonly="readonly">
-					</div>
-					<div id="map"></div>
-				</div>
+					<div id="map_canvas"style=" height:100%;width:100%">
+						
+ 					 </div>
+				</div>			
 			</div>
-	</div>
+			
+		</div>
 </div>
 <!-- 團名 -->
 	<div class="row"  style="margin-top: 20px">
@@ -1275,168 +1268,72 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 	}
     
 </script>
-
-
-
-
 </body>
-
+<script src="https://maps.googleapis.com/maps/api/js?libraries=places&key=AIzaSyCWL8JxUOY0dQZ01M4rCgDU-oHLkP5BORI"></script>
 <!-- auto place complete 開始 -->
-<script>
+
 <%GroupOrderService groupOrderService = new GroupOrderService();
 GroupOrderVO groupOrderVO = groupOrderService.getGroupOrderVOGroupID(groupBandVO.getGroupID());
 %>
-//地圖顯示研究到一半差 直接顯示路線
-setTimeout(function(){
-	  var originInput = document.getElementById('origin-input');
-	  var destinationInput = document.getElementById('destination-input');
-	  originInput.value='<%=groupBandVO.getStartLoc()%>';
-	  destinationInput.value='<%=groupBandVO.getEndLoc()%>';
-	},1000);
-var map = new google.maps.Map(document.getElementById('map'), {
-    mapTypeControl: false,
-    center: {lat: <%=groupOrderVO.getStartLat()%>, lng: <%=groupOrderVO.getStartLng()%>},
-    center: {lat: <%=groupOrderVO.getEndLat()%>, lng: <%=groupOrderVO.getEndLng()%>},
-    zoom: 10
-  });
-var marker = new google.maps.Marker({
-    position : { <%=groupOrderVO.getStartLat()%>,<%=groupOrderVO.getStartLng()%>},
-    map:map,
-    title:'小明的位置'
-  })
-function initMap() {
+<script>
+var directionsService = new google.maps.DirectionsService();
+var map;
+var start = "<%=groupBandVO.getStartLoc()%>";
+var end = "<%=groupBandVO.getEndLoc()%>";
+var waypoints = "<%=groupBandVO.getStartLoc()%>,<%=groupBandVO.getEndLoc()%>";
   
-
-  new AutocompleteDirectionsHandler(map);
+//初始化
+function initialize() {
+        //規畫路徑呈現選項
+        var rendererOptions = {
+                suppressMarkers: true
+        };
   
-}
-var marker = new google.maps.Marker({
-    position : { lat: <%=groupOrderVO.getStartLat()%>, lng: <%=groupOrderVO.getStartLng()%>},//positon 位置
-    map:map, //標示地圖
-    title:'小明的位置'//說明文字(選擇性填寫)
-  })
-/**
- * @constructor
- */
-function AutocompleteDirectionsHandler(map) {
-  this.map = map;
-  this.travelMode = 'DRIVING';
-  this.directionsService = new google.maps.DirectionsService;
-  this.directionsDisplay = new google.maps.DirectionsRenderer;
-  this.directionsDisplay.setMap(map);
-
-  var originInput = document.getElementById('origin-input');
-  var destinationInput = document.getElementById('destination-input');
-
-
-
-  var originAutocomplete = new google.maps.places.Autocomplete(originInput);
-  // Specify just the place data fields that you need.
-  originAutocomplete.setFields(['place_id']);
-
-  var destinationAutocomplete =
-      new google.maps.places.Autocomplete(destinationInput);
-  // Specify just the place data fields that you need.
-  destinationAutocomplete.setFields(['place_id']);
-  
-  originInput.value='<%=groupBandVO.getStartLoc()%>';
-  destinationInput.value='<%=groupBandVO.getEndLoc()%>';
-
-  this.setupPlaceChangedListener(originAutocomplete, 'ORIG');
-  this.setupPlaceChangedListener(destinationAutocomplete, 'DEST');
-
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(originInput);
-  this.map.controls[google.maps.ControlPosition.TOP_LEFT].push(
-      destinationInput);
-  
-}
-
-AutocompleteDirectionsHandler.prototype.setupPlaceChangedListener = function(
-    autocomplete,mode) {
-  var me = this;
-  
-  autocomplete.bindTo('bounds', this.map);
-
-  autocomplete.addListener('place_changed', function() {
-    var place = autocomplete.getPlace();
-	    if (!place.place_id) {
-	      window.alert('Please select an option from the dropdown list.');
-	      return;
-	    }
-	    if (mode === 'ORIG') {
-	      me.originPlaceId = place.place_id;
-	    } else {
-	      me.destinationPlaceId = place.place_id;
-	    }
-
-    me.route();
-  });
-};
-
-AutocompleteDirectionsHandler.prototype.route = function() {
-  if (!this.originPlaceId || !this.destinationPlaceId) {
-    return;
-  }
-  
-  var me = this;
-
-  this.directionsService.route(
-      {
-        origin: {'placeId': this.originPlaceId},
-        destination: {'placeId': this.destinationPlaceId},
-        travelMode: this.travelMode
-      },
-      function(response, status) {
-    	  
-    	  if (status === 'OK') {
-          me.directionsDisplay.setDirections(response);
-          //呈現預估時間與距離
-          var distance =response.routes[0].legs[0].distance.value;
-    	  var duration=response.routes[0].legs[0].duration.value;
-    	  
-    	  document.getElementById('distance').innerHTML = 
-             "<h3>預估距離</h3>"+ parseInt(distance/1000) + "公里"+distance%1000+"公尺" ;
-    	  document.getElementById('duration').innerHTML = 
-              "<h3>預估時間</h3>"+parseInt(duration/60/60)+"時"+parseInt(duration/60%60) + "分";
-        } else {
-          window.alert('Directions request failed due to ' + status);
+        directionsDisplay = new google.maps.DirectionsRenderer(rendererOptions);
+        var startPoint = new google.maps.LatLng(24.136845, 120.685009);
+        var myOptions = {
+                zoom: 14,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
+                center: startPoint
         }
-      });
-  
-		  //將地址資料轉為緯經度
-		var startLngInput = document.getElementById('startLng');
-		var startLatInput = document.getElementById('startLat');
-		var endLngInput = document.getElementById('endLng');
-		var endLatInput = document.getElementById('endLat');
-		  
-		  
-		  var geocoder = new google.maps.Geocoder();
-		  geocoder.geocode({'placeId':this.originPlaceId},function(results,status){
-			  
-			  if (status === 'OK') {
-		  			  startLatInput.value =results[0].geometry.location.lat();//得到起點緯經度資料Object
-		  			  startLngInput.value=results[0].geometry.location.lng();
-		  	  }else{
-		  		  window.alert('No results found');
-		  	  }
-		  });
-		  
-		  geocoder.geocode({'placeId':this.destinationPlaceId},function(results,status){
-			  
-			  if (status === 'OK') {
-		  			  endLatInput.value=results[0].geometry.location.lat();//得到迄點緯經度資料Object
-		  			  endLngInput.value=results[0].geometry.location.lng();
-		  	  }else{
-		  		  window.alert('No results found');
-		  	  }
-		  });
+        map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+        directionsDisplay.setMap(map);
 }
+  
+//規畫路徑
+function calcRoute() {
+        if (!waypoints) return;
+  
+        var arrPoint = waypoints.split(",");
+  
+        //經過地點
+        var waypts = [];
+        for (var i = 0; i < arrPoint.length; i++) {
+                waypts.push({
+                        location: arrPoint[i],
+                        stopover: true
+                });
+        }
+  
+        //規畫路徑請求
+        var request = {
+                origin: start,
+                destination: end,
+                waypoints: waypts,
+                optimizeWaypoints: true,
+                travelMode: google.maps.DirectionsTravelMode.DRIVING
+        };
+          
+        directionsService.route(request, function(response, status) {
+                //規畫路徑回傳結果
+                if (status == google.maps.DirectionsStatus.OK) {
+                        directionsDisplay.setDirections(response);
+                }
+        });
+}
+</script>
 
-    </script>
-<script
-	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCWL8JxUOY0dQZ01M4rCgDU-oHLkP5BORI&libraries=places&callback=initMap"
-	async defer></script>
-	        <script src="http://maps.google.com/maps/api/js?sensor=true"></script>
+
 <!-- auto complete結束 -->
           <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/jquery-1.8.2.min.js"></script>
         <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/bootstrap/js/bootstrap.min.js"></script>
