@@ -87,7 +87,7 @@ public class DriverMoneyTimer extends HttpServlet {
 //					Calendar cal = new GregorianCalendar(2011, Calendar.MARCH, 5, 0, 0, 0);
 		GregorianCalendar gcToday = new GregorianCalendar(2019, Calendar.MARCH, 19, 21, 0, 0);
 		java.util.Date today = gcToday.getTime();
-		timer.scheduleAtFixedRate(task, today, 500* 1000); // 第一個參數放入想要執行的結果
+		timer.scheduleAtFixedRate(task, today, 60*10* 1000); // 第一個參數放入想要執行的結果
 
 	}
 

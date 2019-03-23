@@ -776,7 +776,7 @@ public class MemberDAO implements MemberDAO_interface {
 
 			con = ds.getConnection();
 			con.setAutoCommit(false);
-			while (i > 0) {
+			
 				pstmt = con.prepareStatement(CANCELTOKEN);
 				pstmt.setString(1, memberIDNewest);
 				pstmt.setString(2, activityIDNewest);
@@ -796,15 +796,15 @@ public class MemberDAO implements MemberDAO_interface {
 				rs = pstmt2.executeQuery();
 
 				rs.next();
-				System.out.println(rs.getInt("TOKEN"));
+				System.out.println(rs.getInt("TOKEN")+"DAO判斷個人代幣餘額");
 				if (rs.getInt("TOKEN") < 0) {
 
 					throw new SQLException();
 				}
-				con.commit();
-			}
-
+				
 			
+
+			con.commit();
 			con.setAutoCommit(true);
 
 		} catch (SQLException se) {

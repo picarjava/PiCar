@@ -36,6 +36,8 @@ public class PaymentRecordDAO implements PaymentRecordDAO_interface {
 	private static final String GET_ALL_STMT = "SELECT PAYMENT_ID, DRIVER_ID, PAY_AMOUNT, PAY_TIME FROM PAYMENT_RECORD ORDER BY PAYMENT_ID";
 	private static final String GET_DRIVER_ID_STMT_DISTINCT = "SELECT  DISTINCT DRIVER_ID FROM PAYMENT_RECORD ORDER BY DRIVER_ID";
 	
+	private static final String GET_DRIVER_MONEY = "SELECT  SUM(TOTAL_AMOUNT)  FROM SINGLE_ORDER  WHERE DRIVER_ID =?";
+	
 	
 	@Override
 	public void insert(PaymentRecordVO prVO) {
