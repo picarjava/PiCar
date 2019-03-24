@@ -40,11 +40,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 		SimpleDateFormat tFormat = new SimpleDateFormat("yyyy/MM/dd a hh:mm:ss ");
 		TimeConverter timeConverter = new TimeConverter();
 		Date firstime = timeConverter.getThisHourToday(0);// 開始時間為伺服器啟動的當天0點
-<<<<<<< HEAD
 		long period = 1000 * 60 *2    ; // 每12小時執行一次
-=======
-		long period = 1000 * 30    ; // 每12小時執行一次
->>>>>>> eb7f4071e7a06e42b27a951c4576ebb69892f226
 		SingleOrderService singleOrderSvc = new SingleOrderService();
 		HashSet<SingleOrderVO> allUnpaid = new HashSet<SingleOrderVO>();// 待付款訂單
 		TimerTask task = new TimerTask() {
@@ -115,7 +111,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 						if (broadcastMap != null) { // 若有會員在線，則可以進入推播對象的篩選
 							Session isOnline = broadcastMap.get(memID);
 							if (isOnline != null) { // 若此會員有在線，則對此會員進行推播
-								String message = "訂單編號" + orderID + "已於" + excutedTime + "為您扣款";
+								String message = excutedTime+":訂單編號" + orderID + "已為您扣款";
 								String toJsonMessage = "{\"message\":\"" + message + "\"}";
 								if (isOnline.isOpen())
 									isOnline.getAsyncRemote().sendText(toJsonMessage);
@@ -135,14 +131,9 @@ public class DeductSingleReservationTimer extends HttpServlet {
 						if (broadcastMap != null) { // 若有會員在線，則可以進入推播對象的篩選
 							Session isOnline = broadcastMap.get(memID);
 							if (isOnline != null) { // 若此會員有在線，則對此會員進行推播
-								 String message= "訂單編號" + orderID + "因扣款失敗已流單";
+								 String message= excutedTime+" :訂單編號" + orderID + "因扣款失敗已流單";
 								 String toJsonMessage = "{\"message\":\"" + message + "\"}";
-								 try {
-									isOnline.getBasicRemote().sendText(toJsonMessage);
-									} catch (IOException ee) {
-										// TODO Auto-generated catch block
-										ee.printStackTrace();
-								}
+								 isOnline.getAsyncRemote().sendText(toJsonMessage);
 							}
 						}
 					}
