@@ -15,6 +15,60 @@
 <head>
 <jsp:include page="/back-end/head_back.jsp" />
 <title>PICAR BACK-END</title>
+<style>
+
+div.content {
+	width:95%;
+	margin-left:-7%;
+}
+
+#btn1 {
+    padding:10px 20px; 
+    background:#DDDDDD; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px; 
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color:#444444;
+    position: relative;
+	transition: 0.4s;
+
+}
+
+input[type="submit"] {
+    padding:10px 20px; 
+    background:#DDDDDD; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px; 
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color:#444444;
+    position: relative;
+	transition: 0.4s;
+
+}
+
+input[type="submit"]:hover
+{
+    background:rgb(248, 197, 68);
+}
+
+#btn1:hover {
+	background:rgb(248, 197, 68);
+}
+
+select, #i1 {
+	border-radius: 5px; 
+}
+
+</style>
+
+
+
 </head>
 
 <body>
@@ -40,10 +94,9 @@
 
 							<ul id="s1">
 								<form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do">
-									<a>搜尋檢舉司機單號</a> <input type="text" placeholder="(例如:DR001)"
-										name="dreportID"> <input type="hidden" name="action"
-										value="getOne_For_Display"> <input type="submit"
-										value="送出">
+									<a>搜尋檢舉司機單號</a> <input type="text" placeholder="(例如:DR001)" name="dreportID" id="i1"> 
+									<input type="hidden" name="action" value="getOne_For_Display"> 
+									<input type="submit" value="送出">
 								</form>
 								<jsp:useBean id="driverReportSvc1" scope="page"
 									class="com.driverReport.model.DriverReportService" />
@@ -117,37 +170,12 @@
 						</table>
 
 						<%@ include file="page2.file"%>
+                   </div>
+                </div>
+            </div>
+             <jsp:include page="/back-end/kidFooter.jsp" />
+        </div>
+    </div>    
 
-					</div>
-				</div>
-				<footer class="footer">
-					<div class="container-fluid">
-						<nav class="float-left"></nav>
-						<div class="copyright float-right">
-							&copy;
-							<script>
-              document.write(new Date().getFullYear())
-            </script>
-							PICAR.
-						</div>
-						<!-- your footer here -->
-					</div>
-				</footer>
-			</div>
-		</div>
-
-		<!-- Optional JavaScript -->
-		<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-			integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-			integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-			crossorigin="anonymous"></script>
-		<script
-			src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
-			integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-			crossorigin="anonymous"></script>
 </body>
 </html>

@@ -58,6 +58,39 @@ table {
 	font-size:16px;
 }
 
+.modal-body input[type="submit"] 
+{
+	width: 100%;
+    padding:10px 20px; 
+    background:#EEAD0E; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 5px;
+    border-radius: 5px; 
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color:#000000;
+    position: relative;
+	transition: 0.4s;
+}
+
+input[type="submit"] {
+    padding:10px 20px; 
+    background:#DDDDDD; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px; 
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color:#444444;
+    position: relative;
+	transition: 0.4s;
+
+}
+
+
+
 </style>
 
 <%@ page import="com.admin.model.*"%>
@@ -110,8 +143,8 @@ table {
 	            </div>
 	            <div class="modal-body">
 	                    <FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/adminSelf.do" name="form1">
-								輸入新密碼<input class="form-control" type="text" id="p2" name="password"><br>
-								再次輸入新密碼<input class="form-control" type="text" id="p2" name="password2"><br>
+								輸入新密碼<input class="form-control" type="password" id="p2" name="password"><br>
+								再次輸入新密碼<input class="form-control" type="password" id="p2" name="password2"><br>
 		                          	<input type="hidden" name="adminID" value="<%=adminVO.getAdminID()%>"> 
 		                            <input type="hidden" name="adminName" value="<%=adminVO.getAdminName()%>"> 
 		                            <input type="hidden" name="email" value="<%=adminVO.getEmail()%>"> 
@@ -119,11 +152,7 @@ table {
 								<input type="hidden" name="action" value="update"> 
 								<input type="hidden" name="adminID" value="<%=adminVO.getAdminID()%>"> 
 								<!-- 呼叫JS方法判斷新密碼輸入 -->
-								<br>
-								<br>
-								<br>
 								<input type="submit" onclick="return test()" value="確定"> <br>
-								<br>
 	                    </FORM>
 	                  <br>
 	                  <br>

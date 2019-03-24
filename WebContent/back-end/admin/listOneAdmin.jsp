@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.admin.model.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 					<!-- 這支不用session! -->
@@ -62,14 +63,19 @@ th, td {
 							<tr>
 								<th>管理員編號</th>
 								<th>管理員姓名</th>
-								<th>密碼</th>
+<!-- 								<th>密碼</th> -->
 								<th>在職狀態</th>
 							</tr>
 							<tr>
 								<td><%=adminVO.getAdminID()%></td>
 								<td><%=adminVO.getAdminName()%></td>
-								<td><%=adminVO.getPassword()%></td>
-								<td><%=adminVO.getIsEmp()%></td>
+<%-- 								<td><%=adminVO.getPassword()%></td> --%>
+									<td>
+										<c:choose>
+											<c:when test="${adminVO.isEmp=='1'}">在職</c:when>
+											<c:when test="${adminVO.isEmp=='0'}">離職</c:when>
+										</c:choose>
+									</td>
 							</tr>
 						</table>
                    </div>

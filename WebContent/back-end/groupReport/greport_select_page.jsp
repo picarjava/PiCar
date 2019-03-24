@@ -112,7 +112,7 @@ select, #i1 {
 							<ul id="s1">
 								<form METHOD="post" ACTION="groupReport.do">
 									<a>搜尋檢舉揪團單號</a> 
-									<input type="text" placeholder="(例如:GR001)" name="greportID"> 
+									<input type="text" placeholder="(例如:GR001)" name="greportID" id="i1"> 
 									<input type="hidden" name="action" value="getOne_For_Display"> 
 									<input type="submit" value="送出">
 								</form>
