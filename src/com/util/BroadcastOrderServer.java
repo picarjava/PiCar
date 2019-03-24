@@ -22,7 +22,6 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-import android.com.webSocket.WebSocketConfig;
 
 @ServerEndpoint(value="/BroadcastOrderServer/{adminID}", configurator=BroadcastConfig.class)
 public class BroadcastOrderServer {

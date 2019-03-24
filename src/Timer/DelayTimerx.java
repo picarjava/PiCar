@@ -1,9 +1,11 @@
 package Timer;
 
 import java.io.IOException;
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
@@ -44,99 +46,105 @@ public class DelayTimerx extends HttpServlet {
 //	  SELECT * FROM GROUP_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP; 
 //	  
 //	 -- 排成器: 以上的單放到lIST裡面，一一取出來 UPTDATE STAET=6;
-	
-	public void init() {//A.初始化一次排成器
+
+	public void init() {// A.初始化一次排成器
 		timer = new Timer();
 		TimerTask task = new TimerTask() {
 			public void run() {
 
 				Calendar calendar2 = Calendar.getInstance();
-				calendar2.add(Calendar.DATE, 1);    //3天
+				calendar2.add(Calendar.DATE, 1); // 3天
 //				calendar2.add(Calendar.SECOND, 5);
 //				1.拿到一堆訂單
 //				('2019-03-18 05:20:00', 'YYYY-MM-DD HH24:MI:SS')
-				System.out.println("1.現在時間"+new java.sql.Timestamp(System.currentTimeMillis())); 
+				System.out.println("1.現在時間" + new java.sql.Timestamp(System.currentTimeMillis()));
 				List<String> startTimeList = new ArrayList<String>();
 //				Set<SingleOrderVO> startTimeList = new LinkedHashSet();
 				System.out.println("2.");
 				System.out.println(startTimeList);
-				getServletContext().setAttribute("futureOrderMAP", startTimeList);//	給JSP
-				System.out.println("3:"+getServletContext().getAttribute("futureOrderMAP"));
-				
-				System.out.println("過期的單人訂單在這喔"+new SingleOrderService().getDelayOrder());//ok
-				System.out.println("過期的揪團訂單在這喔"+new GroupOrderService().getDelayGOrder());//ok
-				//3/21 01:40進度。已抓到過期訂單。
-//				2.狀態碼改成逾期
+				getServletContext().setAttribute("futureOrderMAP", startTimeList);// 給JSP
+				System.out.println("3:" + getServletContext().getAttribute("futureOrderMAP"));
+
+				System.out.println("過期的單人訂單在這喔" + new SingleOrderService().getDelayOrder());// ok
+				System.out.println("過期的揪團訂單在這喔" + new GroupOrderService().getDelayGOrder());// ok
+				// 3/21 01:40進度。已抓到過期訂單。(1)
 //				System.out.println("UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=?");
-				
+
 //				先拿到目前在線管理員
 				@SuppressWarnings("unchecked")
 				Map<String, Session> broadcastOrderMap = (Map<String, Session>) (getServletContext()
 						.getAttribute("broadcastOrderMap"));
-				System.out.println(broadcastOrderMap);//{A010=org.apache.tomcat.websocket.WsSession@fd5e384}
+				System.out.println(broadcastOrderMap);// {A010=org.apache.tomcat.websocket.WsSession@fd5e384}
 				System.out.println("是否有管理員在線上:" + (broadcastOrderMap != null));
-				
+
 				List<String> singleDelayList = new ArrayList<String>();
-				singleDelayList= new SingleOrderService().getDelayOrder();
+				singleDelayList = new SingleOrderService().getDelayOrder();// 。2.檢查是否已是6 同時做for
 //				if (startTimeList != null) {
-					for (String singledelay : singleDelayList) {// 滾出一群過期單人訂單
-						System.out.println(singledelay+"嗚嗚"); //逾期訂單。字串SODR005	
-						//將狀態碼1-->6
-						new SingleOrderService().updateDelayOrder(singledelay); 
-//						System.out.println(new SingleOrderService().get);
-						System.out.println("--------------------------------");
-						System.out.println(new SingleOrderService().getAllDelay());//[SODR005, SODR010]
+				for (String singledelay : singleDelayList) {// 滾出一群過期單人訂單
+					System.out.println(singledelay + "嗚嗚"); // 逾期訂單(1)。字串SODR005
+					// 2.將狀態碼1-->6 logic1//狀態碼改成逾期
+					new SingleOrderService().updateDelayOrder(singledelay);
+					System.out.println("--------------------------------");
+				}
+				// [SODR005, SODR010] 已經逾期訂單(6)
+				System.out.println(new SingleOrderService().getAllDelay());
+
+//						2.for select
+				List<String> singledelayedList = new SingleOrderService().getAllDelay();
+				for (String singledelayed : singledelayedList) {
 //						if (broadcastOrderMap != null) 
 //						if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()){ // 若有管理員在線，則可以進入推播對象的篩選
-						String adminID= 
-//						new AdminVO()
-						(String) getServletContext().getAttribute("conAdminID")
-//						.getAdminID()
-						;//拿到在線session
-						System.out.println(adminID+"哈哈");//null
-						Session isOnline=broadcastOrderMap.get(adminID);
-						System.out.println(isOnline+"吃");
-						
-						if(isOnline!=null) { //若此會員在線，則推播
-					    String message= "訂單編號"+singledelay+"有問題";
-						String toJsonMessage= "{\"message\":\"" +message+"\"}";	
-							try {
-								isOnline.getBasicRemote().sendText(toJsonMessage);
-								isOnline.getAsyncRemote().sendText("呵呵");
-								isOnline.getAsyncRemote().sendText(singledelay);
-								
-//								 if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()) {
-////								        jsonDelay.addProperty(property, value);
-//								        JsonObject jsonDelay = new JsonObject();
-////								        jsonDelay.addProperty("singleOrder", gson.toJson(singleOrderVO));
-////								        broadcastOrderMap.get(new AdminVO().getAdminID()).getAsyncRemote().sendText(new SingleOrderService().getAllDelay().toString());
-//								        isOnline.getAsyncRemote().sendText("呵呵");
-//								        }
-								
-							} catch (IOException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						}
-//					}
+					///////////
+//						String adminID= 
+////						new AdminVO()
+//						(String) getServletContext().getAttribute("conAdminID")
+////						.getAdminID()
+//						;//拿到在線session
+					///////
+//						System.out.println(adminID+"哈哈");//null
+					Collection<Session> isOnline = broadcastOrderMap.values();
+					System.out.println(isOnline + "吃");
+
+					for (Session allAdmin : isOnline) {
+						System.out.println(allAdmin);
+
+//						if (isOnline != null) { // 若此會員在線，則推播
+//							String message = "訂單編號" + singledelayed + "有問題";
+//							String toJsonMessage = "{\"message\":\"" + message + "\"}";
+////								isOnline.getBasicRemote().sendText(toJsonMessage);
+////								isOnline.getAsyncRemote().sendText("呵呵");
+//							allAdmin.getAsyncRemote().sendText(singledelayed);
+//
+////								 if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()) {
+//////								        jsonDelay.addProperty(property, value);
+////								        JsonObject jsonDelay = new JsonObject();
+//////								        jsonDelay.addProperty("singleOrder", gson.toJson(singleOrderVO));
+//////								        broadcastOrderMap.get(new AdminVO().getAdminID()).getAsyncRemote().sendText(new SingleOrderService().getAllDelay().toString());
+////								        isOnline.getAsyncRemote().sendText("呵呵");
+////								        }
+//
+//						}
 					}
+				}
+//					}
 //			}
-					List<String> groupDelayList = new ArrayList<String>();
-					groupDelayList = new GroupOrderService().getDelayGOrder();
-					for (String groupdelay : groupDelayList) {// 滾出一群過期揪團訂單
-						System.out.println("UPDATE GROUP_ORDER SET STATE ='6' WHERE GORDER_ID=?");
-						System.out.println(groupdelay);
-						new GroupOrderService().updateDelayGOrder(groupdelay);
+				List<String> groupDelayList = new ArrayList<String>();
+				groupDelayList = new GroupOrderService().getDelayGOrder();
+				for (String groupdelay : groupDelayList) {// 滾出一群過期揪團訂單
+					System.out.println("UPDATE GROUP_ORDER SET STATE ='6' WHERE GORDER_ID=?");
+					System.out.println(groupdelay);
+					new GroupOrderService().updateDelayGOrder(groupdelay);
 //						System.out.println(new SingleOrderService().get);
-						System.out.println("=================");}
+					System.out.println("=================");
+				}
 ///////////////////////////////////////////////////////////////////////////////
 //					3.	推播websocket給管理員
-					
+
 //					@SuppressWarnings("unchecked")
 //					Map<String, Session> broadcastOrderMap = (Map<String, Session>) (getServletContext()
 //							.getAttribute("broadcastMap"));
 //					System.out.println("是否有會員在線上:" + (broadcastMap != null));
-					// 推播成功架構
+				// 推播成功架構
 //					if(broadcastMap!=null) {
 //						for(SingleOrderVO allUnpaidOrders:allUnpaid) {
 //	//						String memID= new AdminVO().getAdminID();
@@ -154,8 +162,7 @@ public class DelayTimerx extends HttpServlet {
 //		//					}
 //						}
 //					}
-					
-					
+
 ////						TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
 ////							public void run() {
 ////								// System.out.println("更新日期:"+new
@@ -184,16 +191,17 @@ public class DelayTimerx extends HttpServlet {
 ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
 //				}
 //				sharetimer(startTimeList);//此行跑不到。B.將一群時間傳到另一個方法
-			}//run
-		};//timertask
+			}// run
+		};// timertask
 //		timer.schedule(task, renewTime);
 //		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
-		timer.scheduleAtFixedRate(task, new java.sql.Timestamp(System.currentTimeMillis()), 1000*60); //甲. 每半小時執行一次 搜出隔天訂單 
+		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis());
+		timer.scheduleAtFixedRate(task, now, 1000 * 5); // 甲. 每半小時執行一次
+																										// 搜出隔天訂單
 //		System.out.println("C.現在毫秒數"+new GregorianCalendar().getTimeInMillis());   //TEST
-	}//init
-	// 傳入當日欲更新的hour
-	
-	
+	}// init
+		// 傳入當日欲更新的hour
+
 	public void sharetimer(List<String> startTimeList) {
 		boolean isNew = false;
 		if (!isNew) {
@@ -220,6 +228,7 @@ public class DelayTimerx extends HttpServlet {
 //			}
 		}
 	}
+
 	private TimerTask afterdelay() {// 放入逾時的事情拉
 		TimerTask taskdelay = new TimerTask() {
 			@Override
@@ -229,10 +238,12 @@ public class DelayTimerx extends HttpServlet {
 		};
 		return taskdelay;
 	}
+
 	public void destroy() {
 		timer.cancel();
-		
+
 	}
+
 	public long getRenewTime(int renewHour) {
 		// 取得現在時間
 		Date date = new java.util.Date();

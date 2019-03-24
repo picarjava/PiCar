@@ -796,7 +796,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
 		// TODO Auto-generated method stub
 		
 	}
-	
+	//抓出"已"逾期訂單
     @Override
     public List<String> getAllDelay() {
         List<String> delayedorder = new ArrayList<String>();
