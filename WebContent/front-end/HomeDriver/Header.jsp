@@ -18,7 +18,7 @@
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
     <!-- Favicon and touch icons -->
-    <link rel="shortcut icon" href="assets/ico/favicon.ico">
+         <link rel="shortcut icon" href="assets/ico/logoCAR.png">
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeDriver/assets/ico/apple-touch-icon-144-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeDriver/assets/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeDriver/assets/ico/apple-touch-icon-72-precomposed.png">

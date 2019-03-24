@@ -116,6 +116,9 @@ color: #ffffff;
 .form-control-lg, .input-group-lg>.form-control, .input-group-lg>.input-group-addon, .input-group-lg>.input-group-btn>.btn {
     font-size: 1.1rem;
 }
+.btn{
+
+}
 .buttonS{
     font-family: "Poppins", sans-serif;
     border-radius: 50px;
@@ -267,13 +270,13 @@ width: 100%;
 	 </div>
 	 <div id="innerdate"></div>
 	  <div class="form-group">
-	 <button type="button" id="buttons" onchange="buttones();" class="btn btn-outline-success">請點選輸入日期</button>
-				<select id="days" name="days" style="display: none ;width: 20px;" onchange="timestamps();"></select>
+	 <button type="button" id="buttons" onchange="buttones();" class="btn btn-outline-success" style="margin-top: -10px;">請點選輸入日期</button>
+				<select id="days" name="days" style="display: none ;width: 45px;" onchange="timestamps();"></select>
 				<nobr>時間:</nobr> 
 				<nobr id="datetime" >00:00</nobr> 
 				<nobr>   日期:</nobr> 
 				<input name="startTime" id="start_date" type="text"
-					 onchange="datestamps();" readonly="readonly" size="8" value=" " style="width: 50px;">
+					 onchange="datestamps();" readonly="readonly" size="8" value=" " style="width: 72px;">
 				<nobr id="brs"></nobr>  
 						
 <input name="endTime" id="end_date" type="text"
