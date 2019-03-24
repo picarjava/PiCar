@@ -1,4 +1,4 @@
-package android.com.webSocket;
+package android.com.webSocket.filter;
 
 import java.io.IOException;
 
@@ -9,8 +9,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
-@WebFilter("/orderBroadcast/*")
-public class Filter implements javax.servlet.Filter {
+public class WebSocketFilter implements javax.servlet.Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
@@ -18,5 +17,4 @@ public class Filter implements javax.servlet.Filter {
          ((HttpServletRequest) request).getSession();
          chain.doFilter(request, response);
     }
-
 }

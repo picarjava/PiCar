@@ -15,7 +15,8 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-@ServerEndpoint(value="/orderBroadcast/{memID}", configurator=WebSocketConfig.class)
+//if want get servlet from session need to use filter to get session and on modify handshake put session in endpoint config
+@ServerEndpoint(value="/orderBroadcastWebSocket/{memID}", configurator=WebSocketConfig.class)
 public class OrderBroadcastWebSocket {
     private final static Map<String, Session> member = new ConcurrentHashMap<>();
     private ServletContext servletContext;

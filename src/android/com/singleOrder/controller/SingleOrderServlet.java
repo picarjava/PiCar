@@ -202,8 +202,11 @@ public class SingleOrderServlet extends HttpServlet {
                 Map<String, Session> map = (Map<String, Session>) getServletContext().getAttribute("OrderBroadcast");
                 if(map != null) {
                     Session session = map.get(memID);
-                    if (session != null && session.isOpen())
-                        session.getAsyncRemote().sendText("");
+                    if (session != null && session.isOpen()) {
+                        JsonObject jsonObject = new JsonObject();
+                        jsonObject.addProperty("state", "success");
+                        session.getAsyncRemote().sendText(jsonObject.toString());
+                    }
                 }
             }
             

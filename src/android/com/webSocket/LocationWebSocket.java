@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import android.com.location.model.InputInfo;
 import android.com.location.model.StoredInfo;
 
+// if want get servlet from session need to use filter to get session and on modify handshake put session in endpoint config
 @ServerEndpoint(value="/locationWebSocket/{driverID}", configurator=WebSocketConfig.class)
 public class LocationWebSocket {
     private final static Map<String, StoredInfo> driver = new ConcurrentHashMap<>();
