@@ -7,7 +7,9 @@
 <%@ page import="java.sql.Date"%>
 <%@ page import="com.groupOrder.model.GroupOrderVO"%>
 <%@ page import="com.groupOrder.model.GroupOrderService"%>
-
+<!-- npm install sweetalert --save -->
+<!-- import swal from 'sweetalert'; -->
+<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
 <!-- 登入功能串接 ，將VOmemID指定給 memID-->
 <%@ page import="com.member.model.MemberVO"%>
 <%MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
@@ -248,6 +250,7 @@ $("#DELETELONGTERM").click(function() {
  	
  	var webSocket;
  	
+ 	
  	function connect(){
  		
  		//建立websocket物件
@@ -257,10 +260,11 @@ $("#DELETELONGTERM").click(function() {
  			updateStatus("WebSocket 成功連線");
  		};
  		
+ 		var message=""; //本次連線的推播容器
  		webSocket.onmessage=function(event){
  			var jsonObj=JSON.parse(event.data);
- 			var message=jsonObj.message+"\r\n";
-  			window.alert(message);
+ 			message=jsonObj.message+"\r\n"+"<br>"+message;
+//   		window.alert(message);
  			updateStatus(message);
  		};
  		

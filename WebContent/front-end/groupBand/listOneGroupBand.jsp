@@ -388,7 +388,7 @@ border-radius: 10px;
 }
 </style>
 </head>
-<body onload="initialize();calcRoute();" >
+<body onload="connect();"onunload="disconnect();" >
 	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 	<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
 
@@ -483,7 +483,7 @@ border-radius: 10px;
          			 </div>
          		  </div>
          		  <div class="services-half-width-text span3">
-         		  		<button class="sunbm" type="button" onclick="Clickdetails()">詳情</button>
+         		  		<button class="sunbm" type="button" onclick="Clickdetails();initialize();calcRoute();">詳情</button>
          		  </div>
          	</div>
          </div>
@@ -643,50 +643,9 @@ border-radius: 10px;
 		
 	<div style="margin-top: 20px;"></div>
 	<div>
-		<img  src="/PiCar/GroupBand?groupID=<%=groupBandVO.getGroupID()%>" width="300px" height="100px">
 	</div>
 	<div class="row" style="margin-top: 20px">
 		<c:forEach var="MemberVO" items="${testList}">
-	
-			<div
-				class=" d-inline p-2 bg-primary text-white color${MemberVO.gender}">
-				<div class="marrgin">
-					<img class="imgss" src="/PiCar/GroupBand?MEM_ID=${MemberVO.memID}">
-				</div>
-				<div class="tentcenter" id="gender">
-					<h4 style="color: #000;">${MemberVO.name}<img class="mar"
-							src="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/img/${MemberVO.gender}.png"
-							width="20px" height="25px">
-					</h4>
-				</div>
-				<div style="color: #000;" class="tentce" id="${MemberVO.memID}"></div>
-
-
-				<!-- 				踢人功能 -->
-				<c:if test="${MemberVO.memID!=memberVO.memID}">
-					<%
-						if ("true".equals(GroupLeader)) {
-					%>
-					<FORM METHOD="post"
-						ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"
-						enctype="multipart/form-data" style="margin-bottom: 0px;">
-						<input type="submit" value="踢出"> <input type="hidden"
-							name="groupLeader" value="<%=groupBandVO.getGroupLeader()%>">
-						<input type="hidden" name="groupID" value="${GroupBandVO.groupID}">
-						<input type="hidden" name="startTime"
-							value="<%=groupBandVO.getStartTime()%>"> <input
-							type="hidden" name="memIDs" value="${memberVO.memID }" /> <input
-							type="hidden" name="groupKind"
-							value="<%=groupBandVO.getGroupKind()%>"> <input
-							type="hidden" name="GroupmemID" value="${MemberVO.memID}">
-						<input type="hidden" name="action" value="GroupAdd"> <input
-							type="hidden" name="dropOutbutton" value="Kickingpeople">
-					</FORM>
-					</div>
-					<%
-						}
-					%>
-				</c:if>
 				<!-- 				踢人功能 -->
 		</div>
 			
@@ -709,180 +668,27 @@ if(${MemberVO.memID}.innerHTML=="${memberVO.memID}"){
 </script>
 		</c:forEach>
 	</div>
-	<table    style=" margin-top: 50px;">
-		<tr>
-			<th>揪團ID</th>
-			<th>發起時間</th>
-			<th>簡介</th>
-			<th>揪團種類</th>
-			<th>現在人數</th>
-			<th>上限人數</th>
-			<th>下限人數</th>
-			<th>團名</th>
-			<th>團長</th>
-			<th>上車地點</th>
-			<th>下車地點</th>
-			<th>照片</th>
-			<th>揪團類別</th>
-			<th>總金額</th>
-			<th>上車時間</th>
-			<th>評價分數</th>
-			<th>備註</th>
-
-
-		</tr>
-
-		<tr>
-			<td><%=groupBandVO.getGroupID()%></td>
-			<td><%=groupBandVO.getLaunchTime()%></td>
-			<td><%=groupBandVO.getIntroduction()%></td>
-			<td><%=groupKind[groupBandVO.getGroupKind() - 5]%></td>
-			<td><%=groupBandVO.getCurrenTnum()%></td>
-			<td><%=groupBandVO.getUpperLimit()%></td>
-			<td><%=groupBandVO.getLowerLimit()%></td>
-			<td><%=groupBandVO.getGroupName()%></td>
-			
-				<%MemberService memberServicer = new MemberService();
-	MemberVO memberVOS =  memberServicer.getOneMember(groupBandVO.getGroupLeader()); %>
-			<td><%=memberVOS.getName()%></td>
-			<td><%=groupBandVO.getStartLoc()%></td>
-			<td><%=groupBandVO.getEndLoc()%></td>
-			<td><%=groupBandVO.getPrivates()%></td>
-			<td><img
-				src="/PiCar/GroupBand?groupID=<%=groupBandVO.getGroupID()%>"
-				width="100px" height="100px"></td>			
-			<td><%=groupBandVO.getTotalAmout()/1%>*1人倍率<br><%=groupBandVO.getTotalAmout()/2%>*2人倍率<br><%=groupBandVO.getTotalAmout()/3%>*3人倍率<br><%=groupBandVO.getTotalAmout()/4%>*4人倍率</td>
-
-			<%
-				if (groupBandVO.getGroupKind() == 6) {
-			%>
-			<%
-				GroupOrderService groupOrderservice = new GroupOrderService();
-					Timestamp timestamp = groupOrderservice.getStartTimeGgroupID(groupBandVO.getGroupID());
-					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-					//進行轉換
-					String dateString = sdf.format(groupBandVO.getStartTime());;
-			%>
-
-			<td>
-				<%
-					out.println(dateString.substring(0, 10));
-				%>~<%
-					out.println(timestamp);
-				%>
-			</td>
-			<%
-				} else {
-			%>
-			<td><%=groupBandVO.getStartTime()%></td>
-			<%
-				}
-			%>
-			<td><%=groupBandVO.getRate()%></td>
-			<td><%=groupBandVO.getNote()%></td>
-
-		</tr>
-	</table>
-	<%--判斷是否為團長 GroupBandServlet.java配合上689行--%>
-
-	<%
-		if ("true".equals(GroupLeader)) {
-	%>
-	<h5>修改資料</h5>
-
-	<form
-		action="<%=request.getServletContext().getContextPath()%>/GroupBand"
-		method="POST" enctype="multipart/form-data"
-		style="margin-bottom: 0px;">
-		<input type="submit" value="修改"> <input type="hidden"
-			name="groupID" value="${GroupBandVO.groupID}"> <input
-			type="hidden" name="action" value="getOne_For_Update">
-	</FORM>
-
-	<%
-		}
-	%>
-	<%
-		if (false == dropOut) {
-	%>
-	<h5>加入揪團</h5>
-	<FORM METHOD="post"
-		ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"
-		enctype="multipart/form-data" style="margin-bottom: 0px;">
-		<input type="submit" value="加入"> <input type="hidden"
-			name="groupLeader" value="<%=groupBandVO.getGroupLeader()%>">
-		<input type="hidden" name="groupID" value="${GroupBandVO.groupID}">
-		<input type="hidden" name="startTime"
-			value="<%=groupBandVO.getStartTime()%>"> <input type="hidden"
-			name="memIDs" value="${memberVO.memID }" /> <input type="hidden"
-			name="groupKind" value="<%=groupBandVO.getGroupKind()%>"> <input
-			type="hidden" name="action" value="GroupAdd">
-
-	</FORM>
-	<%
-		} else {
-	%>
-	<FORM METHOD="post"
-		ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"
-		enctype="multipart/form-data" style="margin-bottom: 0px;">
-		<input type="submit" value="退出"> <input type="hidden"
-			name="groupLeader" value="<%=groupBandVO.getGroupLeader()%>">
-		<input type="hidden" name="groupID" value="${GroupBandVO.groupID}">
-		<input type="hidden" name="startTime"
-			value="<%=groupBandVO.getStartTime()%>"> <input type="hidden"
-			name="memIDs" value="${memberVO.memID }" /> <input type="hidden"
-			name="groupKind" value="<%=groupBandVO.getGroupKind()%>"> <input
-			type="hidden" name="action" value="GroupAdd"> <input
-			type="hidden" name="dropOutbutton" value="dropOutbutton">
-	</FORM>
-	<%
-		}
-	%>
-
-
-	<div class="form-row">
-		<div class="col">
-			<p id="distance"></p>
-		</div>
-		<div class="col">
-			<p id="duration"></p>
-		</div>
-	</div>
-<!-- 	<div class="form-row"> -->
-<!-- 		<div class="col"> -->
-<!-- 			<p>上車地點/下車地點</p> -->
-<!-- 			<input id="origin-input" type="text" name="startLoc" -->
-<%-- 				value="<%=groupBandVO.getStartLoc()%>" class="form-control" --%>
-<!-- 				placeholder="請輸入上車地點" readonly="readonly"> -->
-<!-- 		</div> -->
-<!-- 		<div class="col"> -->
-<!-- 			<input id="destination-input" type="text" name="endLoc" -->
-<%-- 				value="<%=groupBandVO.getEndLoc()%>" class="form-control" --%>
-<!-- 				placeholder="請輸入下車地點" readonly="readonly"> -->
-<!-- 		</div> -->
-<!-- <!-- 		<div id="map" class="col12"></div> --> -->
-<!-- 	</div> -->
 
 
 
-	<h1>Chat Room</h1>
-	<h3 id="statusOutput" class="statusOutput"></h3>
-	<textarea id="messagesArea" class="panel message-area text-right"
-		readonly></textarea>
+
+
+	<h3 id="statusOutput" class="statusOutput"  style="display:none"></h3>
+
 
 <!-- 	<div id="messa"></div> -->
 
 	<div id="but"></div>
 	<div class="panel input-area">
 
-		<input id="userName" class="text-field" type="text"
+		<input id="userName" class="text-field" type="hidden"
 			placeholder="使用者名稱" value="${memberVO.name}" disabled="disabled" />
-		<input id="message" class="text-field" type="text" placeholder="訊息"
+		<input id="message" class="text-field" type="hidden" placeholder="訊息"
 			onkeydown="if (event.keyCode == 13) sendMessage();" /> <input
-			type="submit" id="sendMessage" class="button" value="送出"
-			onclick="sendMessage();" /> <input type="button" id="connect"
+			type="hidden" id="sendMessage" class="button" value="送出"
+			onclick="sendMessage();" /> <input type="hidden" id="connect"
 			class="button" value="連線" onclick="connect();" /> <input
-			type="button" id="disconnect" class="button" value="離線"
+			type="hidden" id="disconnect" class="button" value="離線"
 			onclick="disconnect();" />
 	</div>
 

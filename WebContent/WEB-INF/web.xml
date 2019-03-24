@@ -43,11 +43,6 @@
 <!--     <servlet-class>Timer.DelayTimerx</servlet-class> -->
 <!--     <load-on-startup>1</load-on-startup> -->
 <!--   </servlet> -->
-<!--   <servlet> -->
-<!--     <servlet-name>HalfTimer</servlet-name> -->
-<!--     <servlet-class>Timer.HalfCheckTimer</servlet-class> -->
-<!--     <load-on-startup>2</load-on-startup> -->
-<!--   </servlet> -->
    <servlet>
     <servlet-name> DeductSingleReservationTimer</servlet-name>
     <servlet-class>Timer.DeductSingleReservationTimer</servlet-class>
