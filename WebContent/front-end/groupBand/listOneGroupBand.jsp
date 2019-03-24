@@ -388,7 +388,7 @@ border-radius: 10px;
 }
 </style>
 </head>
-<body onload="initialize();calcRoute();" >
+<body onload="initialize();calcRoute();connect();"onunload="disconnect();" >
 	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 	<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
 
