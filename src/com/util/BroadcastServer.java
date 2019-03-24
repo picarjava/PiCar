@@ -29,22 +29,18 @@ public class BroadcastServer {
 	private static final long serialVersionUID = 1L;
 	private static final Map<String,Session> map=(new ConcurrentHashMap<>());
     private static final Set<Session> allSessions=Collections.synchronizedSet(new HashSet<Session>());
-
+    
 	
     
 	@OnOpen
 	public void onOpen(@PathParam("memID")String memID,Session userSession,EndpointConfig config)throws IOException{
 	allSessions.add(userSession);
 	map.put(memID,userSession);
-//	onOpenmemID=memID;
 	ServletContext servletContext = ((HttpSession) config.getUserProperties().get("httpSession")).getServletContext();
     servletContext.setAttribute("broadcastMap", map);
-    
-	String message= "{\"message\":\"" +"Picar推播系統連線成功!"+"\"}";
+    String message="{\"message\":\"" +"Picar推播系統連線成功!"+"\"}";
 	userSession.getBasicRemote().sendText(message);
 	System.out.println(memID+"已連線");
-	
-	
 	}
 	
 	@OnMessage
