@@ -14,10 +14,53 @@
 <html lang="zh">
 <head>
 <style>
-.wrapper {
-    margin-left:-15%;
-    top: 0;
-    height: 100vh;
+
+div.content {
+	width:95%;
+	margin-left:-8%;
+}
+
+#btn1 {
+    padding:10px 20px; 
+    background:#DDDDDD; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px; 
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color:#444444;
+    position: relative;
+	transition: 0.4s;
+
+}
+
+input[type="submit"] {
+    padding:10px 20px; 
+    background:#DDDDDD; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px; 
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color:#444444;
+    position: relative;
+	transition: 0.4s;
+
+}
+
+input[type="submit"]:hover
+{
+    background:rgb(248, 197, 68);
+}
+
+#btn1:hover {
+	background:rgb(248, 197, 68);
+}
+
+select, #i1 {
+	border-radius: 5px; 
 }
 
 </style>
@@ -53,7 +96,7 @@
 							<ul id="s1">
 								<form METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/admin/admin.do">
 									<a>搜尋管理員</a> 
-									<input type="text" placeholder="(例如:A001)" name="adminID"> 
+									<input type="text" placeholder="(例如:A001)" name="adminID" id="i1"> 
 									<input type="hidden" name="action" value="getOne_For_Display"> 
 									<input type="submit" value="送出">
 								</form>
