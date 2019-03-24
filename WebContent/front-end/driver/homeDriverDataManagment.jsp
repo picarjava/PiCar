@@ -8,13 +8,26 @@
 <%@ page import="javax.servlet.http.*"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <title>homeDriverDataManagment.jsp</title>
-    <%--     <jsp:include page="/regna-master/head.jsp" /> --%>
+    <title>司機資料管理</title>
+<%--         <jsp:include page="/regna-master/head.jsp" /> --%>
     <jsp:include page="/front-end/HomeDriver/Header.jsp" />
+    <jsp:include page="/front-end/HomeDriver/HeadDriver.jsp"/> 
 </head>
 <style>
+
+.form-control{
+
+color:blue; 
+}
+
+
+.block{
+position:relative;
+top:70%;
+
+}
+
 </style>
 <body>
     <!-- 登入功能串接 ，將VOmemID指定給 memID-->
@@ -30,7 +43,6 @@
     DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
     session.setAttribute("driverVO",driverVO);
         DriverVO drixx = (DriverVO)session.getAttribute("driverVO");
-        System.out.println(yyy);
         System.out.println(memberVO.getMemID());
         System.out.println(memberVO.getPic());////
     %>
@@ -50,6 +62,7 @@
                     <div class="form">
                         <!--                         <div id="sendmessage">Welcome to PICAR. Thank you!</div> -->
                         <div id="errormessage"></div>
+                        <div class="block">
                         <form method="post" action="<%=request.getContextPath()%>/driver/driver.do" role="form" class="contactForm" style="margin-bottom: 0px;">
                             <div align="center">個人資料</div><br>
                             <div class="input-group mb-3 ">
@@ -139,7 +152,7 @@
                                     <span class="input-group-text" id="basic-addon1">願意共乘載客</span>
                                 </div>
                                 <div class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                    <font color="red">
+                                    <font>
                                         <c:if test="${driverVO.sharedCar == 0}">不接受共乘</c:if>
                                         <c:if test="${driverVO.sharedCar == 1}">接受共乘</c:if>
                                     </font>
@@ -150,7 +163,7 @@
                                     <span class="input-group-text" id="basic-addon1">可載寵物</span>
                                 </div>
                                 <div class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                    <font color="red">
+                                    <font>
                                         <c:if test="${driverVO.pet == 0}">不要寵物</c:if>
                                         <c:if test="${driverVO.pet == 1}">寵物我可以</c:if>
                                     </font>
@@ -161,7 +174,7 @@
                                     <span class="input-group-text" id="basic-addon1">是否抽菸</span>
                                 </div>
                                 <div class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                    <font color="red">
+                                    <font>
                                         <c:if test="${driverVO.smoke == 0}">不接受抽菸</c:if>
                                         <c:if test="${driverVO.smoke == 1}">接受抽菸</c:if>
                                     </font>
@@ -172,15 +185,15 @@
                                     <span class="input-group-text" id="basic-addon1">提供嬰兒座椅</span>
                                 </div>
                                 <div class="form-control" aria-label="Username" aria-describedby="basic-addon1">
-                                    <font color="red">
+                                    <font>
                                         <c:if test="${driverVO.babySeat == 0}">不提供嬰兒座椅</c:if>
                                         <c:if test="${driverVO.babySeat == 1}">提供嬰兒座椅</c:if>
                                     </font>
                                 </div>
                             </div>
-                            <div>
-                                <a href="<%=request.getContextPath()%>/front-end/driver/setting.jsp"><i class="fas fa-coins"></i><br />喜好設定</a>
-                            </div>
+                            <div><button>
+                                <a href="<%=request.getContextPath()%>/front-end/driver/setting.jsp"><br />喜好設定</a>
+                            </button></div>
                             <!--                                     <div align="center">違規狀態</div><br> -->
                             <!--                                     <div class="input-group mb-3"> -->
                             <!--                                         <div class="input-group-prepend"> -->
@@ -194,6 +207,8 @@
                             <%-- <%--                                       <c:if test="${driverVO.banned == 1}">BAN</c:if> --%>
                             <!-- <!--                                         </font> -->
                             <!-- <!--                                       </DIV> -->
+                            </form>
+                            </div>
                     </div>
                     <!--                                     <div class="input-group mb-3"> -->
                     <!--                                         <div class="input-group-prepend"> -->
@@ -210,22 +225,15 @@
                     <!--                                     </div> -->
                     <!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
                     <div class="text-center" class="btn btn-block" class="btn btn-outline-success">
-                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeDriver/index.jsp">返回司機首頁
+                        <button><a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp">返回會員首頁</a>
                             </button>
                     </div>
-                    <div class="text-center" class="btn btn-block" class="btn btn-outline-success">
-                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp">返回會員首頁
-                            </button>
-                    </div>
-                    </form>
                 </div>
-            </div>
-        </div>
-        </div>
+            </div><!--     row justify-content-center -->
+        </div><!-- "container wow fadeInUp" -->
     </section>
     <!-- #contact -->
-    <%--     <jsp:include page="/regna-master/body.jsp" /> --%>
+    <jsp:include page="/regna-master/body.jsp" />
     <jsp:include page="/front-end/HomeDriver/Footer.jsp" />
 </body>
-
 </html>
