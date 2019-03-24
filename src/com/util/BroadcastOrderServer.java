@@ -30,8 +30,11 @@ public class BroadcastOrderServer {
 	private static final Map<String,Session> map=(new ConcurrentHashMap<>());
     private static final Set<Session> allSessions=Collections.synchronizedSet(new HashSet<Session>());
 
-	
-    
+	//收到客戶端 訊息
+    //session 拿websocket
+    //contrll  拿Onopen的map getsession
+//    網頁 跟ajax不同
+  //get(VO.id).getasyncremo.send 。JSON。格式 [string]
 	@OnOpen
 	public void onOpen(@PathParam("adminID")String adminID,Session userSession,EndpointConfig config)throws IOException{
 	allSessions.add(userSession);
@@ -40,7 +43,7 @@ public class BroadcastOrderServer {
 	ServletContext servletContext = ((HttpSession) config.getUserProperties().get("httpSession")).getServletContext();
     servletContext.setAttribute("broadcastOrderMap", map);
     
-	String message= "{\"message\":\"" +"Picar推播系統連線成功!"+"\"}";
+	String message= "{\"message\":\"" +"Picar推播:"+"\"}";
 	userSession.getBasicRemote().sendText(message);
 	System.out.println(adminID+"已連線");
 	

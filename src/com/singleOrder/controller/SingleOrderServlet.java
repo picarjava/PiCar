@@ -4,26 +4,33 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
+import com.admin.model.AdminVO;
 import com.driverReport.model.DriverReportService;
+import com.google.gson.JsonObject;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 import com.util.TimeConverter;
 
 import Timer.RenewDriverRateTimer;
+import android.com.location.model.StoredInfo;
 
 public class SingleOrderServlet extends HttpServlet{
 	
@@ -380,6 +387,16 @@ public class SingleOrderServlet extends HttpServlet{
         
         requestDispatcher = req.getRequestDispatcher(forwordURL);
         requestDispatcher.forward(req, resp);
+        
+//        @SuppressWarnings("unchecked")
+//        Map<String, Session> delaymap = (Map<String, Session>) (getServletContext().getAttribute("broadcastOrderMap"));
+//        if (delaymap != null && !delaymap.entrySet().isEmpty()) {
+////        jsonDelay.addProperty(property, value);
+//        JsonObject jsonDelay = new JsonObject();
+////        jsonDelay.addProperty("singleOrder", gson.toJson(singleOrderVO));
+////        delaymap.get(new AdminVO().getAdminID()).getAsyncRemote().sendText(new SingleOrderService().getAllDelay().toString());
+//        delaymap.get(new AdminVO().getAdminID()).getAsyncRemote().sendText("呵呵");
+//        }
     } // doPost()
     
     private Integer parseInteger(String integer) {

@@ -134,6 +134,9 @@ public class SingleOrderService {
     public void updateDelayOrder(String orderID){
     	 singleOrderDAO.updateOrderIDToDelay(orderID);
     }
-    
+    //已經逾時訂單
+    public List<String> getAllDelay(){
+    	return singleOrderDAO.getAllDelay();
+    }
     
 } // class SingleOrderService

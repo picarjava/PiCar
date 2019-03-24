@@ -14,9 +14,11 @@ import javax.naming.Context;
 import javax.servlet.ServletContext;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpSession;
 import javax.websocket.Session;
 
 import com.admin.model.AdminVO;
+import com.google.gson.JsonObject;
 import com.groupOrder.model.GroupOrderDAO;
 import com.groupOrder.model.GroupOrderService;
 import com.singleOrder.model.SingleOrderDAO;
@@ -65,38 +67,58 @@ public class DelayTimerx extends HttpServlet {
 				System.out.println("過期的揪團訂單在這喔"+new GroupOrderService().getDelayGOrder());//ok
 				//3/21 01:40進度。已抓到過期訂單。
 //				2.狀態碼改成逾期
-				System.out.println("UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=?");
+//				System.out.println("UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=?");
 				
 //				先拿到目前在線管理員
 				@SuppressWarnings("unchecked")
 				Map<String, Session> broadcastOrderMap = (Map<String, Session>) (getServletContext()
 						.getAttribute("broadcastOrderMap"));
+				System.out.println(broadcastOrderMap);//{A010=org.apache.tomcat.websocket.WsSession@fd5e384}
 				System.out.println("是否有管理員在線上:" + (broadcastOrderMap != null));
 				
 				List<String> singleDelayList = new ArrayList<String>();
 				singleDelayList= new SingleOrderService().getDelayOrder();
 //				if (startTimeList != null) {
 					for (String singledelay : singleDelayList) {// 滾出一群過期單人訂單
-						System.out.println(singledelay);
-						new SingleOrderService().updateDelayOrder(singledelay);
+						System.out.println(singledelay+"嗚嗚"); //逾期訂單。字串SODR005	
+						//將狀態碼1-->6
+						new SingleOrderService().updateDelayOrder(singledelay); 
 //						System.out.println(new SingleOrderService().get);
-						System.out.println("=================");
-						
-						if (broadcastOrderMap != null) { // 若有會員在線，則可以進入推播對象的篩選
-						String adminID= new AdminVO().getAdminID();
+						System.out.println("--------------------------------");
+						System.out.println(new SingleOrderService().getAllDelay());//[SODR005, SODR010]
+//						if (broadcastOrderMap != null) 
+//						if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()){ // 若有管理員在線，則可以進入推播對象的篩選
+						String adminID= 
+//						new AdminVO()
+						(String) getServletContext().getAttribute("conAdminID")
+//						.getAdminID()
+						;//拿到在線session
+						System.out.println(adminID+"哈哈");//null
 						Session isOnline=broadcastOrderMap.get(adminID);
+						System.out.println(isOnline+"吃");
 						
 						if(isOnline!=null) { //若此會員在線，則推播
 					    String message= "訂單編號"+singledelay+"有問題";
 						String toJsonMessage= "{\"message\":\"" +message+"\"}";	
 							try {
 								isOnline.getBasicRemote().sendText(toJsonMessage);
+								isOnline.getAsyncRemote().sendText("呵呵");
+								isOnline.getAsyncRemote().sendText(singledelay);
+								
+//								 if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()) {
+////								        jsonDelay.addProperty(property, value);
+//								        JsonObject jsonDelay = new JsonObject();
+////								        jsonDelay.addProperty("singleOrder", gson.toJson(singleOrderVO));
+////								        broadcastOrderMap.get(new AdminVO().getAdminID()).getAsyncRemote().sendText(new SingleOrderService().getAllDelay().toString());
+//								        isOnline.getAsyncRemote().sendText("呵呵");
+//								        }
+								
 							} catch (IOException e) {
 								// TODO Auto-generated catch block
 								e.printStackTrace();
 							}
 						}
-					}
+//					}
 					}
 //			}
 					List<String> groupDelayList = new ArrayList<String>();
@@ -111,7 +133,7 @@ public class DelayTimerx extends HttpServlet {
 //					3.	推播websocket給管理員
 					
 //					@SuppressWarnings("unchecked")
-//					Map<String, Session> broadcastMap = (Map<String, Session>) (getServletContext()
+//					Map<String, Session> broadcastOrderMap = (Map<String, Session>) (getServletContext()
 //							.getAttribute("broadcastMap"));
 //					System.out.println("是否有會員在線上:" + (broadcastMap != null));
 					// 推播成功架構
