@@ -9,9 +9,21 @@
 	session.setAttribute("list", list);
 %>
 
+
 <!doctype html>
 <html lang="zh">
 <head>
+<style>
+.wrapper {
+    margin-left:-15%;
+    top: 0;
+    height: 100vh;
+}
+
+</style>
+
+
+
 <title>PICAR BACK-END</title>
 <jsp:include page="/back-end/head_back.jsp" />
 <%-- <jsp:include page="/back-end/kidHead.jsp" /> --%>
@@ -112,10 +124,9 @@
                         <%@ include file="page2.file"%>
                     </div>
                 </div>
-                <jsp:include page="/back-end/kidFooter.jsp" />
             </div>
+             <jsp:include page="/back-end/kidFooter.jsp" />
         </div>
     </div>    
-
 </body>
 </html>
