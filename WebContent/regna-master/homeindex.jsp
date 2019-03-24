@@ -205,6 +205,7 @@
         margin-bottom: 30px;
 margin-top: -20px;
     }
+    
   	#hero h1 {
   	    margin: 0px 0 10px 0;
   	}

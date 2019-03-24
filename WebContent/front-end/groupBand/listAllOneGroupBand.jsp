@@ -50,6 +50,7 @@
 <head>
 <meta charset="utf-8">
 <title>揪團管理</title>
+  <style>
   table#table-1 {
 	background-color: #CCCCFF;
     border: 2px solid black;
