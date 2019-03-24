@@ -1048,7 +1048,7 @@ var btn = document.createElement("BUTTON");//放甚麼就創甚麼
 	        if(jsonObj.sessionUser=="listsessionUser"||jsonObj.sessionUser=="END")
 	        {
 // 				if(jsonObj.status=="1111"){
-				 groupJoin();
+				 
 				messa.innerHTML="";
 				 groupSelect();
 

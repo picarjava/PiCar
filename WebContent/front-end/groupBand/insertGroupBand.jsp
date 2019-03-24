@@ -271,7 +271,7 @@ width: 100%;
 	 <div id="innerdate"></div>
 	  <div class="form-group">
 	 <button type="button" id="buttons" onchange="buttones();" class="btn btn-outline-success" style="margin-top: -10px;">請點選輸入日期</button>
-				<select id="days" name="days" style="display: none ;width: 45px;" onchange="timestamps();"></select>
+				<select id="days" name="days" style="display: none ;width: 55px;" onchange="timestamps();"></select>
 				<nobr>時間:</nobr> 
 				<nobr id="datetime" >00:00</nobr> 
 				<nobr>   日期:</nobr> 
