@@ -101,7 +101,7 @@ response.setDateHeader ("Expires", 0);
 MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 
 if (memberVO != null){
-	response.sendRedirect("/PiCar/regna-master/homeindex.jsp");
+	response.sendRedirect("/PiCar/front-end/HomeMember/index.jsp");
 }
 %>
 

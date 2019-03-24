@@ -50,7 +50,7 @@ public class GroupTimer1 extends HttpServlet {
 	            	
 	            	Calendar calendar2 = Calendar.getInstance();
 	            	SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
-	            	calendar2.add(Calendar.DATE, 3);
+	            	calendar2.add(Calendar.DATE, 4);
 	            	String three_days_after = sdf2.format(calendar2.getTime());
 	            
 	            	GroupOrderService groupOrderService = new GroupOrderService();
@@ -66,11 +66,12 @@ public class GroupTimer1 extends HttpServlet {
 	            	groupIDList = groupOrderService.get_group_id__start_time(START_TIME,START_TIME_End);
 	            	
 	            	int countmemid;
-	            	
+	            	System.out.println("測試");
 	            	GroupBandVO groupBandVO;
 //	            	判斷是否有到期限的單
 	            	if(groupIDList!=null) {
 	            		//迴圈把所有單拿出來比對
+	            		System.out.println("迴圈");
 	            	for(String groupID:groupIDList) {
 	            		countmemid = groupOrderService.getMemID_groupID_startTime(groupID,START_TIME,START_TIME_End);
 	            		groupBandVO = groupBandService.getOneGroupBand(groupID);
@@ -186,10 +187,12 @@ public class GroupTimer1 extends HttpServlet {
 					int day=Integer.parseInt(strday);
 			 
 			//取得當天00:00:00的GregorianCalendar物件，getTime()取得date物件
+					TimeConverter timeConverter = new TimeConverter();
+					Date firstime = timeConverter.getThisHourToday(0);
 				GregorianCalendar gcToday=new GregorianCalendar(year, month-1, day, 0, 0, 0);
 				java.util.Date today=gcToday.getTime();
 				
-	        timer.scheduleAtFixedRate(task, today,60*1000); 
+	        timer.scheduleAtFixedRate(task, today, 5*60*60*1000); 
 //	        24*60*60*1000
 	        System.out.println("預約訂單扣款排程器於" + "開始每每分鐘執行更新一次");
 	}
