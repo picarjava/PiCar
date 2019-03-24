@@ -19,6 +19,14 @@
 </head>
 
 <style>
+.Gridline{
+	margin: auto;
+    width: 80%;
+    background: #e6e6e6;
+    height: 5px; 
+    margin-bottom: 30px;  
+    margin-top: 20px;
+}
   table#table-1 {
 	background-color: #CCCCFF;
     border: 2px solid black;
@@ -74,6 +82,47 @@
   .text30{
       width: 10%;
   }
+  .radio {
+display:inline;
+  margin: 0.5rem;
+}
+.radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+.radio input[type="radio"] + .radio-label:before {
+  content: '';
+  background: #f4f4f4;
+  border-radius: 100%;
+  border: 1px solid #b4b4b4;
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  position: relative;
+  top: -0.2em;
+  margin-right: 1em;
+  vertical-align: top;
+  cursor: pointer;
+  text-align: center;
+  -webkit-transition: all 250ms ease;
+  transition: all 250ms ease;
+}
+.radio input[type="radio"]:checked + .radio-label:before {
+  background-color: #2dc997;
+  box-shadow: inset 0 0 0 4px #f4f4f4;
+}
+.radio input[type="radio"]:focus + .radio-label:before {
+  outline: none;
+  border-color: #2dc997;
+}
+.radio input[type="radio"]:disabled + .radio-label:before {
+  box-shadow: inset 0 0 0 4px #f4f4f4;
+  border-color: #b4b4b4;
+  background: #b4b4b4;
+}
+.radio input[type="radio"] + .radio-label:empty:before {
+  margin-right: 0;
+}
 </style>
 <body bgcolor='white'>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
@@ -103,12 +152,21 @@
 <ul>
   
   <li>
+  
     <FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/GroupBand"  enctype="multipart/form-data">
-        <input type="radio" name="GROUP_KIND" value="5" checked
-					onclick="groupif(this.value)">揪團
-				<input type="radio" name="GROUP_KIND" value="6"
-					onclick="groupif(this.value)">長期揪團<br>
+     	<div class="radio">
+        	<input type="radio"  id="radio-1" name="GROUP_KIND" value="5" checked
+					onclick="groupif(this.value)">
+			 <label for="radio-1" class="radio-label">揪團</label>
+		 </div>
+		 <div class="radio">
+				<input id="radio-2" type="radio" name="GROUP_KIND" value="6"
+					onclick="groupif(this.value)">
+				<label  for="radio-2" class="radio-label">長期揪團</label>
         
+         </div>
+         <br>
+         <div></div>
         <b>團名</b>
          <input class="text30" type="TEXT" name="GROUP_NAME"><br><br>
          <b>上車地點</b>
@@ -158,6 +216,8 @@
     </FORM>
   </li>
 </ul>
+
+<div class="Gridline"></div>
 
 <%if(request.getAttribute("listgroupBand_ByCompositeQuery")!=null){%>
 <jsp:include page="listgroupBand_ByCompositeQuery.jsp" />
