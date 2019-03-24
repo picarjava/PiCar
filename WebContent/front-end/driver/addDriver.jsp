@@ -5,12 +5,11 @@
 <%@ page import="java.util.*"%>
 <%@ page import="javax.servlet.http.*"%>
 <%@ page import="com.sun.org.apache.xerces.internal.impl.dv.util.Base64" %>
-
-
 <html>
 <head>
 <title>成為司機</title>
 <jsp:include page="/regna-master/head.jsp" />
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 </head>
 
 <body>

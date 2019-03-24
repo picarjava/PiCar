@@ -106,6 +106,7 @@ public class DelayTimerx extends HttpServlet {
 					System.out.println(isOnline + "吃");
 
 					for (Session allAdmin : isOnline) {
+						
 						System.out.println(allAdmin);
 
 //						if (isOnline != null) { // 若此會員在線，則推播
