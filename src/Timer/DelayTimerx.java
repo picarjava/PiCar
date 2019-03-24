@@ -196,8 +196,8 @@ public class DelayTimerx extends HttpServlet {
 		};// timertask
 //		timer.schedule(task, renewTime);
 //		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
-		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis());
-		timer.scheduleAtFixedRate(task, now, 1000 * 5); // 甲. 每半小時執行一次
+		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 365);
+		timer.scheduleAtFixedRate(task, now, 1000 * 60 * 60 * 24 * 365); // 甲. 每半小時執行一次
 																										// 搜出隔天訂單
 //		System.out.println("C.現在毫秒數"+new GregorianCalendar().getTimeInMillis());   //TEST
 	}// init
