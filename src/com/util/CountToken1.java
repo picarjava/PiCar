@@ -77,17 +77,14 @@ public class CountToken1 {
 					}
 					/***************************/
 //			StoreRecordVO storeRecordVO = new StoreRecordVO();
-
+				}else {	
+					amount1 = amount;
+				}	
 					memberVO = memberSvc.getOneMember(memID);
 					count = memberVO.getToken() - amount1;
 					System.out.println(count + "一般代幣剩餘金額");
 					System.out.println("================");
-//
-//			if (count < 0) {
-//				System.out.println("總金額小於0");
-//				throw new Exception("總金額小於0");
-//
-//			}else {
+
 					StoreRecordService storeRecordSvc = new StoreRecordService();
 //				atSvc.cancelToken(memberIDNewest, activityIDNewest);
 //				memberSvc.updateToken(memID, count);
@@ -99,7 +96,7 @@ public class CountToken1 {
 					// 以下不用rollback處理
 					storeRecordSvc.addOrdrID(memID, -amount1, orderID);
 
-				}
+				
 //			}
 
 		} else {
