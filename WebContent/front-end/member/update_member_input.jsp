@@ -175,7 +175,7 @@ response.setDateHeader ("Expires", 0);
 		</tr>
 		<tr>
 			<td>會員照片：</td>
-			<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}" alt="這是圖片替代文字" onerror="this.src='cat.jpg'" width='200' height="200" id="preview_progressbarTW_img">
+			<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}" alt="這是圖片替代文字" onerror="this.src='cat.jpg'"  width="200" height ="200" id="preview_progressbarTW_img">
 		<input type="file" name="pic" onchange="readURL(this)" targetID="preview_progressbarTW_img"></td>
 				
 		
