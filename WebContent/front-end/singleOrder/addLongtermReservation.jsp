@@ -11,7 +11,7 @@
 <head>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 <jsp:include page="/front-end/HomeMember/HeadMemberReservatoin.jsp" />
-    <jsp:include page="/regna-master/head.jsp" />
+    
     <style>
 	#map { 
          height: 500px;  
@@ -51,18 +51,6 @@ session.setAttribute("memID",memID);
 		  </c:forEach>
 		</ul>
 	</c:if>
-
-  <!--==========================
-    Hero Section
-  ============================-->
-  <section id="hero">
-    <div class="hero-container">
-      <h1>Welcome to Picar</h1>
-      <h2>We are team of smart ridesharing </h2>
-      <a href="<%=application.getContextPath()%>/front-end/singleOrder/addReservation.jsp#contact" class="btn-get-started">單程預約</a>
-      <a href="#contact" class="btn-get-started">長期預約</a>
-    </div>
-  </section><!-- #hero -->
   <!--==========================
       預約叫車
     ============================-->
@@ -71,10 +59,7 @@ session.setAttribute("memID",memID);
         <div class="section-header">
           <h3 class="section-title">長期預約</h3>
           <p class="section-description">長期叫車需於三日前預約，且14天內預約天數需達7日以上</p>
-          <form action="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">
-		          <button type="submit" class="btn btn-outline-success" >返回會員首頁</button>
-		  </form>
-        </div>
+         </div>
       </div>
 
       <div class="container wow fadeInUp">
@@ -117,7 +102,7 @@ session.setAttribute("memID",memID);
                       <div class="col">
                         <input id="destination-input" type="text" name="endLoc" value="${singleOrder.endLoc}" class="form-control" placeholder="請輸入下車地點">
                       </div>
-                      <div  id="map" class="col12">
+                      <div  id="map" class="form-row">
                      </div>
                     </div>
                       
@@ -226,7 +211,7 @@ session.setAttribute("memID",memID);
     </div>
   </footer><!-- #footer -->
 
- <jsp:include page="/regna-master/body.jsp" />
+ 
  
 </body>
 <!-- auto place complete 開始 -->

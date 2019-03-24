@@ -40,7 +40,7 @@ session.setAttribute("memID",memID);
 <head>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
     <title>查看排定訂單</title>
-    <jsp:include page="/regna-master/head.jsp" />  
+   
 </head>
 <body onload="connect();" onunload="disconnect();">
     <!-- 錯誤列表開始 -->
@@ -237,7 +237,6 @@ session.setAttribute("memID",memID);
     底部
   ============================-->
     
-    <jsp:include page="/regna-master/body.jsp" />
 </body>
 
 <script>
