@@ -8,9 +8,8 @@
 <%@ page import="com.groupOrder.model.GroupOrderVO"%>
 <%@ page import="com.groupOrder.model.GroupOrderService"%>
 
-<!-- npm install sweetalert --save -->
-<!-- import swal from 'sweetalert'; -->
-<!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
+<!--引用SweetAlert2.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
 <!-- 登入功能串接 ，將VOmemID指定給 memID-->
 <%@ page import="com.member.model.MemberVO"%>
 <%MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
@@ -39,6 +38,8 @@ session.setAttribute("memID",memID);
 <html lang="zh">
 <head>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+<jsp:include page="/front-end/HomeMember/Header.jsp" /> 
+    
     <title>查看排定訂單</title>
    
 </head>
@@ -58,10 +59,10 @@ session.setAttribute("memID",memID);
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">查看排定訂單</h3>
-                    <p>會員${memID}最新即時推播內容:</p><p  ></p>
+                    <p>會員${memID}最新即時推播內容:</p><p id="statusOutput" ></p>
                     
                     <div class="alert alert-info alert-dismissible fade show" role="alert" >
-					  <strong id="statusOutput"></strong> 請確認下方訂單:
+					  <strong i></strong> 請確認下方訂單:
 					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
 					    <span aria-hidden="true">&times;</span>
 					  </button>
@@ -272,9 +273,10 @@ $("#DELETELONGTERM").click(function() {
  		webSocket.onmessage=function(event){
  			var jsonObj=JSON.parse(event.data);
  			message=jsonObj.message+"\r\n"+"<br>"+message;
+//  			window.alert(message);
  			updateStatus(message);
+ 			 swal(message, "請確認", "success");
  			
- 			$(".alert").alert();
  			
  		};
  		
@@ -295,6 +297,6 @@ $("#DELETELONGTERM").click(function() {
  	
  	
  </script>
-
+<jsp:include page="/front-end/HomeMember/Footer.jsp" />
  <!--==========websocket推播 結束============-->
 </html>
