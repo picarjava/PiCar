@@ -763,7 +763,7 @@ public class GroupBandServlet extends HttpServlet {
 									&& numberpeople == false && numberpeoples == false) {
 								errorMsgs.add("揪團人數已滿");
 								numberpeoples = true;
-							} else if (element.getMemID() == null && numberpeoples == false&&groupOrderService.get_memid__memid_groupid(memIDs,groupID)==null) {// 加入糾團完成
+							} else if (element.getMemID() == null && numberpeoples == false) {// 加入糾團完成
 								groupOrderDAO.updateMem(memID, element.getGorderID());
 								// 長期揪團判斷要加
 								groupBandDAO.UpdateCURRENT(groupBandV.getCurrenTnum() + 1, groupID);
