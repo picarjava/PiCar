@@ -101,7 +101,7 @@ width:200px;
 height:200px;
 text-align:center;
 
-border-radius:24px;
+border-radius:100px;
 margin:0 auto;
 margain-top:-150px;
 
@@ -152,7 +152,7 @@ if (memberVO == null){
 		
 		
 	</form>
-	<a class="box1" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
+	<a class="box1" href=/PiCar/front-end/HomeMember/index.jsp> 請按此回首頁 </a>
 
 </body>
 

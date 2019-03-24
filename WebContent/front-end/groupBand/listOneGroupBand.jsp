@@ -388,7 +388,7 @@ border-radius: 10px;
 }
 </style>
 </head>
-<body onload="initialize();calcRoute();" >
+<body onload="connect();"onunload="disconnect();" >
 	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 	<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
 
@@ -483,7 +483,7 @@ border-radius: 10px;
          			 </div>
          		  </div>
          		  <div class="services-half-width-text span3">
-         		  		<button class="sunbm" type="button" onclick="Clickdetails()">詳情</button>
+         		  		<button class="sunbm" type="button" onclick="Clickdetails();initialize();calcRoute();">詳情</button>
          		  </div>
          	</div>
          </div>
