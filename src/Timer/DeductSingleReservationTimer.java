@@ -16,6 +16,7 @@ import javax.websocket.Session;
 import com.singleOrder.model.SingleOrderService;
 import com.singleOrder.model.SingleOrderVO;
 import com.util.CountToken;
+import com.util.CountToken1;
 import com.util.TimeConverter;
 
 public class DeductSingleReservationTimer extends HttpServlet {
@@ -36,7 +37,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 		SimpleDateFormat tFormat = new SimpleDateFormat("yyyy/MM/dd a hh:mm:ss ");
 		TimeConverter timeConverter = new TimeConverter();
 		Date firstime = timeConverter.getThisHourToday(0);// 開始時間為伺服器啟動的當天0點
-		long period = 1000 * 60* 60    ; // 每12小時執行一次
+		long period = 1000 * 60 * 60    ; // 每12小時執行一次
 		SingleOrderService singleOrderSvc = new SingleOrderService();
 		HashSet<SingleOrderVO> allUnpaid = new HashSet<SingleOrderVO>();// 待付款訂單
 		TimerTask task = new TimerTask() {
@@ -79,20 +80,21 @@ public class DeductSingleReservationTimer extends HttpServlet {
 				Map<String, Session> broadcastMap = (Map<String, Session>) (getServletContext()
 						.getAttribute("broadcastMap"));
 				System.out.println("是否有會員在線上:" + (broadcastMap != null));
-
+				int i = allUnpaid.size(); //蔣 改的
 				// 開始扣款
 				SingleOrderService singleOrderSvc = new SingleOrderService();
 
 				for (SingleOrderVO allUnpaidOrders : allUnpaid) {
 					SingleOrderVO singleOrderVO = new SingleOrderVO();
-					CountToken countToken = new CountToken();
+					CountToken1 countToken = new CountToken1(); //蔣 改的
 					String memID = allUnpaidOrders.getMemID();
 					int amount = allUnpaidOrders.getTotalAmount();
 					String orderID = allUnpaidOrders.getOrderID();
+					
 
 					try {
-						countToken.countToken(memID, amount, orderID);
-
+						countToken.countToken(memID, amount, orderID, i);
+						i--; //蔣 改的
 						System.out.println("扣款成功"); // 成功則改狀代碼為1
 
 						singleOrderVO = singleOrderSvc.getOneSingleOrder(orderID);

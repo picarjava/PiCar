@@ -19,6 +19,7 @@ public class CountToken1 {
 
 		System.out.println("會員ID"+memID);
 		System.out.println("單次搭車金額"+amount);
+		System.out.println("搭車天數"+i);
 		System.out.println("訂單編號"+orderID);
 		ActivityTokenService atSvc = new ActivityTokenService();
 		int countac = 0;
@@ -39,7 +40,7 @@ public class CountToken1 {
 
 		if (i * amount <= (countac + memberVO.getToken())) {
 
-			while (i-- > 0) {
+//			while (i-- > 0) {
 				List<ActivityTokenVO> onesActivityToken = atSvc.getOnesALL(memID);
 //		onesActivityToken = atSvc.getOnesALL(memID);
 				Collections.sort(onesActivityToken, new Comparator<ActivityTokenVO>() {
@@ -69,7 +70,7 @@ public class CountToken1 {
 						memberIDNewest = onesActivityToken.get(0).getMemID();
 						activityIDNewest = onesActivityToken.get(0).getActivityID();
 //				atSvc.cancelToken(memberIDNewest, activityIDNewest);
-						System.out.println(amount1 + "在71行");
+						System.out.println(amount1 + "扣除活動幣之後要付款的單筆訂單金額");
 						System.out.println("================");
 					} else {
 						amount1 = amount;
@@ -79,7 +80,7 @@ public class CountToken1 {
 
 					memberVO = memberSvc.getOneMember(memID);
 					count = memberVO.getToken() - amount1;
-					System.out.println(count + "在81行");
+					System.out.println(count + "一般代幣剩餘金額");
 					System.out.println("================");
 //
 //			if (count < 0) {
@@ -96,10 +97,10 @@ public class CountToken1 {
 						throw new Exception(e.getMessage() + "代幣餘額小於零");
 					}
 					// 以下不用rollback處理
-					storeRecordSvc.addOrdrID(memID, amount1, orderID);
+					storeRecordSvc.addOrdrID(memID, -amount1, orderID);
 
 				}
-			}
+//			}
 
 		} else {
 			throw new Exception( "代幣餘額小於零");
