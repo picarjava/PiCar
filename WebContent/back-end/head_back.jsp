@@ -122,7 +122,7 @@ table {
 								<br>
 								<br>
 								<br>
-								<input type="submit" onclick="return test()"> <br>
+								<input type="submit" onclick="return test()" value="確定"> <br>
 								<br>
 	                    </FORM>
 	                  <br>
