@@ -22,6 +22,7 @@
 	integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
 	crossorigin="anonymous">
 <title>updateGroupBand.jsp</title>
+
 <style>
 input[type="file"] {
 	position: absolute;
@@ -33,53 +34,12 @@ input[type="file"] {
 	clip: rect(0, 0, 0, 0);
 	border: 0;
 }
-
 .custom-file-upload {
 	border: 1px solid #ccc;
 	display: inline-block;
 	padding: 6px 12px;
 	cursor: pointer;
 }
-
-table#table-1 {
-	width: 450px;
-	background-color: #008888;
-	margin-top: 5px;
-	margin-bottom: 10px;
-	border: 3px ridge Gray;
-	height: 80px;
-	text-align: center;
-}
-
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
-}
-
-h4 {
-	color: blue;
-	display: inline;
-}
-</style>
-
-<style>
-table {
-	width: 450px;
-	background-color: white;
-	margin-top: 1px;
-	margin-bottom: 1px;
-}
-
-table, th, td {
-	border: 0px solid #CCCCFF;
-}
-
-th, td {
-	padding: 1px;
-}
-</style>
-<style>
 	#map { 
          height: 500px;  
          width: 1100px;
@@ -104,6 +64,10 @@ th, td {
 
 .h3center{
     text-align: center;
+}
+.radio {
+display:inline;
+  margin: 0.5rem;
 }
 .radio {
 display:inline;
@@ -234,33 +198,18 @@ width: 100%;
 			</c:forEach>
 		</ul>
 	</c:if>
-	<table id="table-1">
-
-
-		<tr>
-			<td>
-				<h3>揪團資料修改 -updateGroupBand.jsp</h3>
-			</td>
-			<td>
-				<h4>
-					<a href="listAllGroupBand.jsp">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
+	<div class="about-us container">
+<div class="about-us-text span12">
 	<h3>修改揪團資料</h3>
+	
 
 	<form
 		action="<%=request.getServletContext().getContextPath()%>/GroupBand"
 		method="POST" enctype="multipart/form-data" name="form1">
 
-		<table>
-
-
-
-			<tr>
-				<td>揪團類別</td>
-				<td><select name="groupType">
+ <div class="form-group" >
+				<div>揪團類別</div>
+	<select name="groupType" class="form-control" id="exampleFormControlSelect1" style="height: 50px;">
 						<option value="演唱會"
 							<%if ("演唱會".equals(groupBandVO.getGroupType())) {
 				out.print("selected='selected'");
@@ -285,63 +234,43 @@ width: 100%;
 							<%if ("遊樂園".equals(groupBandVO.getGroupType())) {
 				out.print("selected='selected'");
 			}%>>遊樂園</option>
-				</select></td>
-			</tr>
+				</select>
+	 </div>
 
-
-			<tr>
-				<td>團名</td>
-				<td><div class="col"></div>
-				<input required id="distance" type="TEXT" name="groupName" size="25"
-					value="<%=(groupBandVO == null) ? "" : groupBandVO.getGroupName()%>" /></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>簡介:</td>
-
-				<td><textarea required name="introduction" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "好吃嗎".trim() : groupBandVO.getIntroduction().trim()%></textarea></td>
-				<td></td>
-			</tr>
-			<tr>
-
-				<td>備註:</td>
-
-				<td><textarea required name="note" id="note" rows="3" cols="50"><%=(groupBandVO == null) ? "".trim() : groupBandVO.getNote().trim()%></textarea></td>
-				<td></td>
-			</tr>
-			<tr>
-				<td>揪團圖片</td>
-
-				<td><img id="preview_img"
+			 <div class="form-group">
+	   <div>團名:</div>
+<input style="height: 50px;" required id="width100" type="TEXT" name="groupName" size="25"
+					value="<%=(groupBandVO == null) ? "" : groupBandVO.getGroupName()%>" />
+			</div>
+		 <div class="form-group">	
+ <div>簡介:</div>
+<textarea name="introduction" required id="note exampleFormControlTextarea1" style="width: 100%;" class="form-control" rows="3" cols="50"><%=(groupBandVO == null) ? "".trim() : groupBandVO.getIntroduction().trim()%></textarea>
+		 </div>
+		 <div class="form-group">
+		  <div>備註:</div>
+		 <textarea required name="introduction" id="note exampleFormControlTextarea1"  style="width: 100%;" rows="3" cols="50"><%=(groupBandVO == null) ? "好吃嗎".trim() : groupBandVO.getIntroduction().trim()%></textarea>
+			 </div>
+			
+		<div>揪團圖片:</div>
+		<div><img id="preview_img"
 					src="/PiCar/GroupBand?groupID=${GroupBandVO.groupID}" width="100px"
 					height="100px"> <img id="preview_progressbarTW_img" src="#"
 					width="100px" height="100px" style="display: none" /> <label
 					for="progressbarTWInput" class="custom-file-upload"> <i
 						class="fas fa-file-import"></i> 上傳圖片
 				</label> <input id="progressbarTWInput" type="file" name="photo" size="25"
-					value="<%=groupBandVO.getPhoto()%>" /></td>
-
-			</tr>
-
-
-
-
-
-
-
-
-
-			<tr>
-				<td><input type="hidden" name="action" value="update" /> <input
-					type="hidden" name="groupID" value="<%=groupBandVO.getGroupID()%>">
+					value="<%=groupBandVO.getPhoto()%>" /></div>
+					
+										
+<input type="hidden" name="action" value="update" /> <input
+					type="hidden" name="groupID" value="<%=groupBandVO.getGroupID()%>" >
 					<input  type="hidden" name="LaunchTime"
 					value="<%=groupBandVO.getLaunchTime()%>"> <input id="send"
-					type="submit" value="更改揪團" /></td>
-				<td><input type="reset" value="清除揪團" /></td>
+					type="submit" value="更改揪團" id="send"/>
+				<input type="reset" value="清除揪團" />
 
-			</tr>
-		</table>
-	</form>
+</div>
+</div>
 </body>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
