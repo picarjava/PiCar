@@ -773,8 +773,7 @@ return groupOrderVO;
 	
 	@Override
 	public List<String> getMemID_groupID(String groupID) {
-        List list =new ArrayList<String>();
-		String avgmemID=null;
+        List<String> list =new ArrayList<>();
 		Connection con = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;

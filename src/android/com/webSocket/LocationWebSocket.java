@@ -1,7 +1,6 @@
-package android.com.location.webSocket;
+package android.com.webSocket;
 
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 import javax.servlet.ServletContext;
@@ -17,12 +16,11 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import android.com.location.model.InputInfo;
 import android.com.location.model.StoredInfo;
 
-@ServerEndpoint(value="/locationWebSocket/{driverID}", configurator=LocationWebSocketConfig.class)
+@ServerEndpoint(value="/locationWebSocket/{driverID}", configurator=WebSocketConfig.class)
 public class LocationWebSocket {
     private final static Map<String, StoredInfo> driver = new ConcurrentHashMap<>();
     private ServletContext servletContext;
@@ -31,8 +29,10 @@ public class LocationWebSocket {
     public void onOpen(@PathParam("driverID") String driverID, Session driverSession, EndpointConfig config) {
         driver.put(driverID, new StoredInfo(driverSession));
         System.out.println(driverID + " is connected Session: " + driverSession);
-        servletContext = ((HttpSession) config.getUserProperties().get("httpSession")).getServletContext();
-        servletContext.setAttribute("driverLocation", driver);
+        if (servletContext == null) {
+            servletContext = ((HttpSession) config.getUserProperties().get("httpSession")).getServletContext();
+            servletContext.setAttribute("driverLocation", driver);
+        }
     } // onOpen()
     
     @OnMessage

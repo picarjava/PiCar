@@ -61,7 +61,7 @@ public class Calculate extends HttpServlet {
 //		String driverID = null;
 //		Session session = null;
 
-		List<Map.Entry<String, StoredInfo>> list = null;
+		List<Entry<String, StoredInfo>> list = null;
 
 
 		ServletContext sc = getServletContext();

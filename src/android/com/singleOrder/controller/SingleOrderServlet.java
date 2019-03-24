@@ -76,8 +76,11 @@ public class SingleOrderServlet extends HttpServlet {
                 SingleOrderVO singleOrderVO = gson.fromJson(jsonIn.get("singleOrder").getAsString(), SingleOrderVO.class);
         		Double lat1 = singleOrderVO.getStartLat(); //乘客緯度 /*******
         		Double lng1 = singleOrderVO.getStartLng(); //乘客經度 /*******
-        		List<Map.Entry<String, StoredInfo>> list = new ArrayList<Map.Entry<String, StoredInfo>>(matchDriver.entrySet());
-        		list.sort((d1, d2)-> {
+        		List<Map.Entry<String, StoredInfo>> list = matchDriver.entrySet()
+        		                                                      .stream()
+        		                                                      .filter(d -> !d.getValue().isExecuting())
+        		                                                      .collect(Collectors.toList());
+        		list.sort((d1, d2) -> {
         		    Double lat3 = d1.getValue().getLatlng().getLatitude();
                     Double lon3 = d1.getValue().getLatlng().getLongitude();
                     Double lat4 = d2.getValue().getLatlng().getLatitude();
@@ -193,7 +196,14 @@ public class SingleOrderServlet extends HttpServlet {
                 try {
                     new CountToken().countToken(memID, amount, orderID);
                 } catch (Exception e) {
-                    
+                    System.err.println("扣款失敗");
+                }
+                @SuppressWarnings("unchecked")
+                Map<String, Session> map = (Map<String, Session>) getServletContext().getAttribute("OrderBroadcast");
+                if(map != null) {
+                    Session session = map.get(memID);
+                    if (session != null && session.isOpen())
+                        session.getAsyncRemote().sendText("");
                 }
             }
             
