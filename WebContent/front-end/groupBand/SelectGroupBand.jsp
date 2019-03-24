@@ -123,6 +123,56 @@ display:inline;
 .radio input[type="radio"] + .radio-label:empty:before {
   margin-right: 0;
 }
+.pagination{
+
+
+}
+.buttonS{
+    font-family: "Poppins", sans-serif;
+    border-radius: 50px;
+    padding: 5px 22px;
+    background: #f5f5f5;
+    color: #2dc997;
+    font-style: italic;
+    text-decoration: none;
+    moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border: 2px solid #999999;
+    0 1px 25px 0 rgba(0,0,0,.05) inset,: ;
+    0 -1px 25px 0 rgba(0,0,0,.05) inset: ;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+	display: inline;
+    margin-right: 20px;
+}
+
+.buttonS:hover {
+    font-family: "Poppins", sans-serif;
+    border-radius: 50px;
+    padding: 5px 22px;
+    background: #ddd;    
+    color: #1f7157;
+    font-style: italic;
+    text-decoration: none;
+    moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border: 2px solid #29b387;
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow:
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow:
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+	display: inline;
+    margin-right: 20px;
+}
+.snack{
+	margin-top: 20px;
+}
 </style>
 <body bgcolor='white'>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
@@ -338,6 +388,15 @@ function floatingwindow(){
 }
 
 </script>
+<ul class="pagination">
+    <li><a href="#">&laquo;</a></li>
+    <li><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">&raquo;</a></li>
+</ul>
 
 
 <script>

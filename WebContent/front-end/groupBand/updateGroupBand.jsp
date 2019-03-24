@@ -79,8 +79,152 @@ th, td {
 	padding: 1px;
 }
 </style>
+<style>
+	#map { 
+         height: 500px;  
+         width: 1100px;
+      } 
+        #origin-input, 
+       #destination-input { 
+         background-color: #fff; 
+         font-family: Roboto;  
+         font-size: 15px; 
+         font-weight: 300; 
+         margin-left: 12px; 
+         padding: 1 11px 1 13px; 
+         text-overflow: ellipsis; 
+         width: 350px; 
+       } 
+       body {
+           text-align: left;
+       }
+       .about-us {
+    margin-top: 120px;
+}
+
+.h3center{
+    text-align: center;
+}
+.radio {
+display:inline;
+  margin: 0.5rem;
+}
+.radio input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+}
+.radio input[type="radio"] + .radio-label:before {
+  content: '';
+  background: #f4f4f4;
+  border-radius: 100%;
+  border: 1px solid #b4b4b4;
+  display: inline-block;
+  width: 1.4em;
+  height: 1.4em;
+  position: relative;
+  top: -0.2em;
+  margin-right: 1em;
+  vertical-align: top;
+  cursor: pointer;
+  text-align: center;
+  -webkit-transition: all 250ms ease;
+  transition: all 250ms ease;
+}
+.radio input[type="radio"]:checked + .radio-label:before {
+  background-color: #2dc997;
+  box-shadow: inset 0 0 0 4px #f4f4f4;
+}
+.radio input[type="radio"]:focus + .radio-label:before {
+  outline: none;
+  border-color: #2dc997;
+}
+.radio input[type="radio"]:disabled + .radio-label:before {
+  box-shadow: inset 0 0 0 4px #f4f4f4;
+  border-color: #b4b4b4;
+  background: #b4b4b4;
+}
+.radio input[type="radio"] + .radio-label:empty:before {
+  margin-right: 0;
+}
+a:not([href]):not([tabindex]) {
+color: #2dc997;
+}
+a:not([href]):not([tabindex]):hover{
+color: #ffffff;
+}
+.form-control:hover{
+
+}
+.form-group{
+    margin-top: 20px;
+}
+.form-control-lg, .input-group-lg>.form-control, .input-group-lg>.input-group-addon, .input-group-lg>.input-group-btn>.btn {
+    font-size: 1.1rem;
+}
+.btn{
+
+}
+.buttonS{
+    font-family: "Poppins", sans-serif;
+    border-radius: 50px;
+    padding: 5px 22px;
+    background: #f5f5f5;
+    color: #2dc997;
+    font-style: italic;
+    text-decoration: none;
+    -moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    -webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border-radius: 50px;
+/*     border: 2px solid #2dc997; */
+    0 1px 25px 0 rgba(0,0,0,.05) inset,: ;
+    0 -1px 25px 0 rgba(0,0,0,.05) inset: ;
+    -webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+}
+}
+.buttonS:hover {
+    font-family: "Poppins", sans-serif;
+    border-radius: 50px;
+    padding: 5px 22px;
+    background: #2dc997;
+    color: #f5f5f5;
+    font-style: italic;
+    text-decoration: none;
+    -moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    -webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border-radius: 50px;
+    border: 2px solid #2dc997;
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    -webkit-box-shadow:
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow:
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+}
+.groupType{
+width: 100%;
+}
+label {
+display:;
+}
+#width100{
+width: 100%;
+}
+.form-control{
+width: 100%;
+}
+.form-group{
+width: 100%;
+}
+</style>
 </head>
 <body bgcolor=#aaaaaa>
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+<jsp:include page="/front-end/HomeMember/HeadMemberGroup.jsp" />
 
 	<c:if test="${not empty errorMsgs}">
 		<font style="color: red">請修正以下錯誤:</font>
