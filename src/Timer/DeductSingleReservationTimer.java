@@ -111,7 +111,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 						if (broadcastMap != null) { // 若有會員在線，則可以進入推播對象的篩選
 							Session isOnline = broadcastMap.get(memID);
 							if (isOnline != null) { // 若此會員有在線，則對此會員進行推播
-								String message = excutedTime+":訂單編號" + orderID + "已為您扣款";
+								String message = "訂單編號:" + orderID + "已於"+excutedTime+"為您扣款";
 								String toJsonMessage = "{\"message\":\"" + message + "\"}";
 								if (isOnline.isOpen())
 									isOnline.getAsyncRemote().sendText(toJsonMessage);
@@ -131,7 +131,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 						if (broadcastMap != null) { // 若有會員在線，則可以進入推播對象的篩選
 							Session isOnline = broadcastMap.get(memID);
 							if (isOnline != null) { // 若此會員有在線，則對此會員進行推播
-								 String message= excutedTime+" :訂單編號" + orderID + "因扣款失敗已流單";
+								 String message= " 訂單編號:" + orderID + "於"+excutedTime+"因扣款失敗已流單";
 								 String toJsonMessage = "{\"message\":\"" + message + "\"}";
 								 isOnline.getAsyncRemote().sendText(toJsonMessage);
 							}
