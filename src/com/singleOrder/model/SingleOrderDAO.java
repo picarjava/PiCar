@@ -57,8 +57,9 @@ public class SingleOrderDAO implements SingleOrder_interface {
     private static final String DELAY_TIME ="SELECT * FROM SINGLE_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP";
     //    SELECT STATE ,START_TIME FROM SINGLE_ORDER WHERE ORDER_ID = 'SODR010'
 //     訂單管理排成使用 2.改單 -> 6
-    private static final String UPDATE_STATE_TO_DELAY =	"UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=? ";
+    private static final String UPDATE_STATE_TO_DELAY =	"UPDATE SINGLE_ORDER SET STATE =6 WHERE ORDER_ID=? ";
 
+    private final static String SELECT_ALL_DELAY = "SELECT * FROM SINGLE_ORDER WHERE STATE = 6 ";
     private static DataSource dataSource;
 //    private final static String URL = "jdbc:oracle:thin:@localhost:1521:XE";
 //    private final static String NAME = "PiCar";
@@ -603,8 +604,6 @@ public class SingleOrderDAO implements SingleOrder_interface {
         return list;
     } // getAll()
     
-    
-    
     @Override
     public List<SingleOrderVO> findByStateAndOrderType(Integer state, Integer orderType) {
         List<SingleOrderVO> list = new ArrayList<>();
@@ -797,5 +796,29 @@ public class SingleOrderDAO implements SingleOrder_interface {
 		// TODO Auto-generated method stub
 		
 	}
+	//抓出"已"逾期訂單
+    @Override
+    public List<String> getAllDelay() {
+        List<String> delayedorder = new ArrayList<String>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = dataSource.getConnection();
+            preparedStatement = connection.prepareStatement(SELECT_ALL_DELAY);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                delayedorder.add(resultSet.getString("ORDER_ID"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        } // finally
+        return delayedorder;
+    } // getAll()
 
 } // class SingleOrderDAO

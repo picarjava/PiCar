@@ -20,7 +20,7 @@ import java.util.*;
  * Servlet implementation class GroupTimer
  */
 //@WebServlet("/GroupTimer")
-public class GroupTimer extends HttpServlet {
+public class GroupTimer1 extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
 	int count = 0;      
@@ -100,10 +100,21 @@ public class GroupTimer extends HttpServlet {
 	            			//填入金額
 	            			groupOrderService.UPDATE_Total_AmoutGroupIDState(Amout, groupID,1);
 	            			
-//	            			List<GroupOrderVO> lsit  = groupOrderService.getALL_GroupID_State(groupID, 1);   //用鳩團ID 狀態碼(1)  找出揪團訂單(TABLE) 揪團訂單ID 訂單金額 會員ID
-		            		
-	            			
-	            			
+	            			List<GroupOrderVO> list  = groupOrderService.getALL_GroupID_State(groupID, 1);   //用鳩團ID 狀態碼(1)  找出揪團訂單(TABLE) 揪團訂單ID 訂單金額 會員ID
+	            			int i = list.size();//一筆群組訂單的比數
+	            			CountToken1 countToken = new CountToken1(); 
+	            			for (GroupOrderVO go : list) {
+	            			String memID = go.getMemID();
+		            		Integer amount = go.getTotalAmout();
+		            		String orderID = go.getGorderID();
+			            		try {	
+			            			countToken.countToken(memID, amount, orderID, i);
+			            		}catch(Exception e){
+			            			System.out.println(e.getMessage()+memID+":金額不足");
+			            			
+			            		}
+			            	i--; //蔣 改的		            		
+		            		}
 	            			/*加入成團與扣款成功推播*/
 	            			//推播:得到memID
 	            			List<String> lista =new ArrayList<String>();
@@ -178,13 +189,14 @@ public class GroupTimer extends HttpServlet {
 				GregorianCalendar gcToday=new GregorianCalendar(year, month-1, day, 0, 0, 0);
 				java.util.Date today=gcToday.getTime();
 				
-	        timer.scheduleAtFixedRate(task, today,24*60*60*1000); 
+	        timer.scheduleAtFixedRate(task, today,60*1000); 
 //	        24*60*60*1000
+	        System.out.println("預約訂單扣款排程器於" + "開始每每分鐘執行更新一次");
 	}
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GroupTimer() {
+    public GroupTimer1() {
         super();
         // TODO Auto-generated constructor stub
     }

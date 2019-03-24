@@ -38,16 +38,16 @@
     <servlet-class>Timer.RenewDriverRateTimer</servlet-class>
     <load-on-startup>3</load-on-startup>
   </servlet>
-<!--   <servlet> -->
-<!--     <servlet-name>DelayTimer</servlet-name> -->
-<!--     <servlet-class>Timer.DelayTimerx</servlet-class> -->
-<!--     <load-on-startup>1</load-on-startup> -->
-<!--   </servlet> -->
-   <servlet>
-    <servlet-name> DeductSingleReservationTimer</servlet-name>
-    <servlet-class>Timer.DeductSingleReservationTimer</servlet-class>
-    <load-on-startup>3</load-on-startup>
+  <servlet>
+    <servlet-name>DelayTimer</servlet-name>
+    <servlet-class>Timer.DelayTimerx</servlet-class>
+    <load-on-startup>1</load-on-startup>
   </servlet>
+<!--    <servlet> -->
+<!--     <servlet-name> DeductSingleReservationTimer</servlet-name> -->
+<!--     <servlet-class>Timer.DeductSingleReservationTimer</servlet-class> -->
+<!--     <load-on-startup>3</load-on-startup> -->
+<!--   </servlet> -->
   <servlet>
     <servlet-name>Broadcast</servlet-name>
     <servlet-class>com.broadcast.controller.BroadcastServlet</servlet-class>
@@ -371,19 +371,6 @@
     <dispatcher>ERROR</dispatcher>
     <dispatcher>ASYNC</dispatcher>
   </filter-mapping>
-  <filter>
-    <filter-name>LocationWebSocket</filter-name>
-    <filter-class>android.com.location.filter.LocationWebSockerFilter</filter-class>
-  </filter>
-  <filter-mapping>
-    <filter-name>LocationWebSocket</filter-name>
-    <url-pattern>/locationWebSocket/*</url-pattern>
-    <dispatcher>REQUEST</dispatcher>
-    <dispatcher>FORWARD</dispatcher>
-    <dispatcher>INCLUDE</dispatcher>
-    <dispatcher>ERROR</dispatcher>
-    <dispatcher>ASYNC</dispatcher>
-  </filter-mapping>
   <servlet>
     <servlet-name>AdminSelfServlet</servlet-name>
     <servlet-class>com.admin.controller.AdminSelfServlet</servlet-class>
@@ -424,7 +411,20 @@
 <!--     <servlet-class>Timer.DriverMoneyTimer</servlet-class> -->
 <!--     <load-on-startup>3</load-on-startup> -->
 <!--   </servlet> -->
-  
+  <filter>
+    <filter-name>WebSocketFilter</filter-name>
+    <filter-class>android.com.webSocket.filter.WebSocketFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>WebSocketFilter</filter-name>
+    <url-pattern>/locationWebSocket/*</url-pattern>
+    <url-pattern>/orderBroadcastWebSocket/*</url-pattern>
+    <dispatcher>REQUEST</dispatcher>
+    <dispatcher>FORWARD</dispatcher>
+    <dispatcher>INCLUDE</dispatcher>
+    <dispatcher>ERROR</dispatcher>
+    <dispatcher>ASYNC</dispatcher>
+  </filter-mapping>
 </web-app>
 
 

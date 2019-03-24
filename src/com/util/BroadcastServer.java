@@ -22,7 +22,6 @@ import javax.websocket.Session;
 import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
-import android.com.location.webSocket.LocationWebSocketConfig;
 
 @ServerEndpoint(value="/BroadcastServer/{memID}", configurator=BroadcastConfig.class)
 public class BroadcastServer {

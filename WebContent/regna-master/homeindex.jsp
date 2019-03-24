@@ -233,7 +233,7 @@ margin-top: -20px;
                     <li><a href="#QA">Q&A</a></li>
                     </li>
                     <li class="sig"><a href="<%=request.getServletContext().getContextPath()%>/front-end/member/addMember.jsp" class="Signin "><i class="fas fa-user-plus"></i>註冊</a></li>
-                    <li><a href="<%=request.getServletContext().getContextPath()%>/front-end/login/login.html" class="Signin sift"><i class="fas fa-child"></i>登入</a></li>
+                    <li><a href="<%=request.getServletContext().getContextPath()%>/front-end/login/login.jsp" class="Signin sift"><i class="fas fa-child"></i>登入</a></li>
         </div>
         </ul>
         <ul class="justify-content-center">

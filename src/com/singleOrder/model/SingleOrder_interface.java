@@ -25,5 +25,6 @@ public interface SingleOrder_interface {
 	List<String> getDelayOrder();//逾時訂單
 	void updateOrderIDToDelay(String orderID);
     void updateStateByOrderID(Integer state, String orderID);
+    List<String> getAllDelay();
 
 } // interface SingleOrderInterface

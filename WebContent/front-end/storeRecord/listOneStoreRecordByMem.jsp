@@ -47,7 +47,7 @@
 	<a class="box" href=/PiCar/front-end/HomeMember/index.jsp> 請按此回首頁 </a>
 	<h1 align="center">
 		${storeRecordVO.memID}
-		<%=memberVO.getName()%>
+		${memberVO.name}
 		你好，以下為您的儲值紀錄
 	</h1>
 	<table align="center" border="1" id="table1">
