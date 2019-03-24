@@ -30,36 +30,75 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>listOneStoreRecordMemberFront1.jsp</title>
+<meta charset="utf-8">
+<title>Andia - Responsive Agency Template</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- CSS -->
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400">
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Droid+Sans">
+<link rel="stylesheet"
+	href="http://fonts.googleapis.com/css?family=Lobster">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/prettyPhoto/css/prettyPhoto.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/css/flexslider.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/css/font-awesome.css">
+<link rel="stylesheet"
+	href="<%=request.getContextPath()%>/front-end/HomeMember/assets/css/style.css">
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+            <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+<!-- Favicon and touch icons -->
+<link rel="shortcut icon" href="assets/ico/favicon.ico">
+<link rel="apple-touch-icon-precomposed" sizes="144x144"
+	href="assets/ico/apple-touch-icon-144-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="114x114"
+	href="assets/ico/apple-touch-icon-114-precomposed.png">
+<link rel="apple-touch-icon-precomposed" sizes="72x72"
+	href="assets/ico/apple-touch-icon-72-precomposed.png">
+<link rel="apple-touch-icon-precomposed"
+	href="assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <style>
-#table1 {
-	width: 1300px;
-	background-color: #7afec6;
-	margin-top: 100px;
-	margin-bottom: 20px;
-	text-align: center;
-	font-family: Microsoft JhengHei;
+ #table1 { 
+	
+ 	background-color: ; 
+ 	margin-bottom: 20px; 
+ 	text-align: center; 
+ 	font-family: Microsoft JhengHei; 
+ } 
+table,tr,td{
+width: 40%; 
 }
 </style>
-<body bgcolor="#11e1e9">
-	<h3>listOneStoreRecordMember.jsp</h3>
-	<a href="select_page.jsp">回主頁面</a>
+<body bgcolor="">
+<!-- 	<h3>listOneStoreRecordMember.jsp</h3> -->
+<!-- 	<a href="select_page.jsp">回主頁面</a> -->
 	<h1 align="center">
 		${memberVO.memID}
 		
 		<%=memberVO.getName()%>
 		你好，以下為您的儲值紀錄
 	</h1>
+	<%@ include file="page1.file"%>
 	<table align="center" border="1" id="table1">
 		<tr>
 			<td>儲值ID</td>
-
 			<td>儲值金額</td>
 			<td>儲值時間</td>
 		</tr>
-		<c:forEach var="storeRecordVO" items="${list}">
+		<c:forEach var="storeRecordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
 
 				<td>${storeRecordVO.storeID}</td>
@@ -83,7 +122,7 @@
 
 
 	</table>
-
+<div align="center"><%@ include file="page2.file"%></div>
 
 
 </body>
