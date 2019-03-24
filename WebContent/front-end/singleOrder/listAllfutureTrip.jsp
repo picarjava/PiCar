@@ -7,6 +7,7 @@
 <%@ page import="java.sql.Date"%>
 <%@ page import="com.groupOrder.model.GroupOrderVO"%>
 <%@ page import="com.groupOrder.model.GroupOrderService"%>
+
 <!-- npm install sweetalert --save -->
 <!-- import swal from 'sweetalert'; -->
 <!-- <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> -->
@@ -57,7 +58,15 @@ session.setAttribute("memID",memID);
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">查看排定訂單</h3>
-                    <p>會員${memID}最新即時推播內容:</p><p id="statusOutput"></p>
+                    <p>會員${memID}最新即時推播內容:</p><p  ></p>
+                    
+                    <div class="alert alert-info alert-dismissible fade show" role="alert" >
+					  <strong id="statusOutput"></strong> 請確認下方訂單:
+					  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+					    <span aria-hidden="true">&times;</span>
+					  </button>
+					</div> 
+
                     <form action="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">
 		            <button type="submit" class="btn btn-outline-success" >返回會員首頁</button>
 		            </form>
@@ -264,8 +273,10 @@ $("#DELETELONGTERM").click(function() {
  		webSocket.onmessage=function(event){
  			var jsonObj=JSON.parse(event.data);
  			message=jsonObj.message+"\r\n"+"<br>"+message;
-//   		window.alert(message);
  			updateStatus(message);
+ 			
+ 			$(".alert").alert();
+ 			
  		};
  		
  		webSocket.onclose=function(event){
@@ -281,6 +292,7 @@ $("#DELETELONGTERM").click(function() {
  	function updateStatus(newStatus){
  		statusOutput.innerHTML= newStatus;
  	}
+ 	
  	
  	
  </script>

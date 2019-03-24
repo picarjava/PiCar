@@ -138,9 +138,7 @@
 								 <input
 								type="file" name="pic" onchange="readURL(this)"
 								targetID="preview_progressbarTW_img"><br>
-								<img								
-								alt="請選取照片"  width='350'
-								height="350" id="preview_progressbarTW_img"><br><br>
+								<img	alt="請選取照片"  width="200" height ="200" id="preview_progressbarTW_img"><br><br>
 
 							 <input type="hidden" name="action" value="insertver2"> <input
 								type="submit" value="送出新增"> <img src="cat.jpg"

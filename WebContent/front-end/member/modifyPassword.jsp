@@ -146,7 +146,7 @@ if (memberVO == null){
 				<input type="password" name="password2" placeholder="Password" value="">
 
 				<input type="hidden" name="action"	value="modify_password2">
-				<input type="submit" value="Login">
+				<input type="submit" value="確認">
 		        <img src="cat.jpg"	height="20" width="20" onClick="idwrite(this)">
 		
 		

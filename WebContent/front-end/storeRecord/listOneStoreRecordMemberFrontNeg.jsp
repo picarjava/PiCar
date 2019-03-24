@@ -70,21 +70,21 @@
  	font-family: Microsoft JhengHei; 
  } 
 table,tr,td{
-width: 30%; 
+width: 40%;
 }
 </style>
 <body bgcolor="#11e1e9">
-	<h3>listOneStoreRecordMemberNeg.jsp</h3>
-	<a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
+<!-- 	<h3>listOneStoreRecordMemberNeg.jsp</h3> -->
+<!-- 	<a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a> -->
 	<h1 align="center"> <%=memberVO.getMemID() %> <%=memberVO.getName() %>	你好，以下為您的扣款紀錄</h1>
+	<div class="page1"><%@ include file="page1.file"%></div>
 	<table align="center" border="1" id="table1">
 		<tr>
-			<td>訂單ID</td>
-			
+			<td>訂單ID</td>			
 			<td>扣款金額</td>
 			<td>扣款時間</td>
 		</tr>
-		<c:forEach var="storeRecordVO" items="${list}">
+		<c:forEach var="storeRecordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
 
 				<td>${storeRecordVO.orderID}</td>				
@@ -100,7 +100,7 @@ width: 30%;
 			
 
 	</table>
-
+<div align="center"><%@ include file="page2.file"%></div>
 	<h1 align="center">當前代幣餘額:<%=memberVO.getToken() %></h1>
 
 </body>

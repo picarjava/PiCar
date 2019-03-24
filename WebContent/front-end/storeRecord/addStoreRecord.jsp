@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page  import="com.storeRecord.model.*" %>
+<%@ page import="com.member.model.*" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,7 +19,7 @@ table{
 <body>
 <%
 	StoreRecordVO storeRecordVO =  (StoreRecordVO)request.getAttribute("storeRecordVO");
-
+// 	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
 %>
  <h3>addStoreRecord.jsp</h3>
 <%-- 錯誤表列 --%>
@@ -38,7 +39,7 @@ table{
 	
 		<tr>
 			<td>會員ID：</td>
-			<td><input type="text" name="memID" size="45" value="<%= (storeRecordVO==null)? "會員ID":storeRecordVO.getMemID() %>" readonly/></td>		
+			<td><input type="text" name="memID" size="45" value="${memberVO.memID}" readonly/></td>		
 	
 		</tr>
 		<tr>

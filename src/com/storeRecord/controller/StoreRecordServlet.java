@@ -274,7 +274,7 @@ public class StoreRecordServlet extends HttpServlet {
 				
 				
 				RequestDispatcher succesView = req
-						.getRequestDispatcher("/front-end/storeRecord/listOneStoreRecordByMem.jsp");
+						.getRequestDispatcher("/front-end/activityToken/listOnesAllActivityToken.jsp");
 				succesView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
