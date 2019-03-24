@@ -203,8 +203,10 @@ public class SingleOrderServlet extends HttpServlet {
                 if(map != null) {
                     Session session = map.get(memID);
                     if (session != null && session.isOpen()) {
+                        
                         JsonObject jsonObject = new JsonObject();
                         jsonObject.addProperty("state", "success");
+                        System.out.println(jsonObject.toString());
                         session.getAsyncRemote().sendText(jsonObject.toString());
                     }
                 }
