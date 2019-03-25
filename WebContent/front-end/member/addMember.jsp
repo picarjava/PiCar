@@ -125,8 +125,9 @@
 						targetID="preview_progressbarTW_img"><br>
 						<img	alt="請選取照片"  width="200" height ="200" id="preview_progressbarTW_img"><br><br>
 						<input type="hidden" name="action" value="insertver2"> <input
-						type="submit" value="送出新增"> <img src="cat.jpg"
-						height="20" width="20" onClick="idwrite(this)">
+						type="submit" value="送出新增"> 
+						<img src="cat.jpg" 	height="20" width="20" onClick="idwrite(this)">
+						<img src="cat.jpg" 	height="20" width="20" onClick="idwrite2(this)">
 					</span>
 				</form>
 			</div>
@@ -236,6 +237,19 @@ form1.babySeat.value="1"
 form1.birthday.value="2000-10-10"
 //   	  form1.cust_niname.value="資策會小小書童"
 	}
+	
+function idwrite2(name) {
+	form1.name.value = "卡比獸"
+	form1.email.value="果瑞@gmail.com"
+	form1.phone.value="0933-995-225"
+	form1.creditcard.value="1584-5947-2846-5947"
+	form1.pet.value = "1"
+	form1.smoke.value="1"
+	form1.gender.value="1"
+	form1.babySeat.value="1"
+	form1.birthday.value="2000-10-10"
+//	   	  form1.cust_niname.value="資策會小小書童"
+		}
 </script>
 
 

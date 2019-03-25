@@ -562,8 +562,9 @@ public class MemberServlet extends HttpServlet {
 
 				password = str;
 
-				DigestService digestSvc = new DigestService();
-				String digestpassword = digestSvc.digest(password);
+//				加密作業 暫時取消
+//				DigestService digestSvc = new DigestService();
+//				String digestpassword = digestSvc.digest(password);
 
 				/*******************************************/
 				String phone = req.getParameter("phone");
@@ -615,7 +616,7 @@ public class MemberServlet extends HttpServlet {
 //				memberVO.setMemID(memID);				
 				memberVO.setName(name);
 				memberVO.setEmail(email);
-				memberVO.setPassword(digestpassword);
+				memberVO.setPassword(password);
 				memberVO.setPhone(phone);
 				memberVO.setCreditcard(creditcard);
 				memberVO.setPet(pet);
@@ -637,7 +638,7 @@ public class MemberServlet extends HttpServlet {
 
 				// 開始新增資料
 				MemberService memberSvc = new MemberService();
-				memberVO = memberSvc.addMember(name, email, digestpassword, phone, creditcard, pet, smoke, gender,
+				memberVO = memberSvc.addMember(name, email, password, phone, creditcard, pet, smoke, gender,
 						token, activityToken, birthday, verified, babySeat, pic);
 				req.setAttribute("memberVO", memberVO);
 
@@ -660,7 +661,7 @@ public class MemberServlet extends HttpServlet {
 				successView.forward(req, res);
 
 			} catch (Exception e) {
-				errorMsgs.add("請點選喜好@@@：" + e.getMessage());
+				errorMsgs.add("請點選喜好：" + e.getMessage());
 				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/addMember.jsp");
 				successView.forward(req, res);
 

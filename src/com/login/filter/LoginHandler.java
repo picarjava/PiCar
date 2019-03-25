@@ -60,8 +60,10 @@ public class LoginHandler extends HttpServlet {
 
 		String account = req.getParameter("account").trim();
 		String password = req.getParameter("password").trim();
-		DigestService digestSvc = new DigestService();
-		String digestpassword = digestSvc.digest(password);
+		
+		//密碼轉碼 暫時不用
+//		DigestService digestSvc = new DigestService();
+//		String digestpassword = digestSvc.digest(password);
 
 		HttpSession session = req.getSession();
 		MemberVO memebrVO1 = (MemberVO) session.getAttribute("memberVO");
@@ -69,11 +71,11 @@ public class LoginHandler extends HttpServlet {
 			MemberService memberSvc = new MemberService();
 			
 			MemberVO memberVO = null;
-			if (list.contains(account)) {
+//			if (list.contains(account)) {
 				memberVO = memberSvc.getOneMemberByPass(account, password);
-			} else {
-				memberVO = memberSvc.getOneMemberByPass(account, digestpassword);
-			}
+//			} else {
+//				memberVO = memberSvc.getOneMemberByPass(account, digestpassword);
+//			}
 
 			if (memberVO == null) {
 				out.println("<HTML><HEAD><TITLE>登入畫面</TITLE></HEAD>");

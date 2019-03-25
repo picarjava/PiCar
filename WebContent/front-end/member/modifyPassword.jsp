@@ -6,7 +6,7 @@
 <html>
 <head>
 <script src="jquery-1.12.4.min.js" ></script>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <style>
 body{
 	margin:0;

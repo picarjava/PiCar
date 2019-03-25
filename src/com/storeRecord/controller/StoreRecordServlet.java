@@ -266,15 +266,16 @@ public class StoreRecordServlet extends HttpServlet {
 //				req.setAttribute("sumCount", sumCount);
 
 				MemberService memberSvc = new MemberService();
+				MemberVO memberVO1 = memberSvc.getOneMember(memID);
+				memberSvc.updateToken(memID, memberVO1.getToken() + storeRecordVO.getAmount());
 				MemberVO memberVO = memberSvc.getOneMember(memID);
-				memberSvc.updateToken(memID, memberVO.getToken() + storeRecordVO.getAmount());
-
+				req.setAttribute("memberVO", memberVO);
 				System.out.println("已經插入");
 
 				
 				
 				RequestDispatcher succesView = req
-						.getRequestDispatcher("/front-end/activityToken/listOnesAllActivityToken.jsp");
+						.getRequestDispatcher("/front-end/member/listOneMemberByUpdate.jsp");
 				succesView.forward(req, res);
 			} catch (Exception e) {
 				errorMsgs.add("無法取得要新增的資料：" + e.getMessage());
