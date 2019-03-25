@@ -191,8 +191,7 @@ width: 100%;
 	</c:if>
 	<h4 class="h3center">發起揪團 <span class="badge badge-secondary"></span></h4>
 <div class="about-us-text span12">
-	<form  action="<%=request.getServletContext().getContextPath()%>/GroupBand" method="POST" enctype="multipart/form-data">
-		
+	<form  action="<%=request.getServletContext().getContextPath()%>/GroupBand" name="form1" method="POST" enctype="multipart/form-data">
 		<div class="container">
   <div class="radio">
     <input id="radio-1" type="radio" name="groupKind" value="5" checked
@@ -319,6 +318,7 @@ width: 100%;
 	  </div>
 	  <div class="form-group">
 	  <div>
+	  <img src="cat.jpg" height="20" width="20" onClick="idwrite(this)">
 	 				<input  type="hidden" name="action" value="insert" /> <input class="buttonS"
 					type="submit" value="發起揪團" id="send"/>
 			<input class="buttonS" type="reset" value="清除揪團" />
@@ -904,6 +904,17 @@ function readURL(input){
 
   }
 
+}
+
+
+function idwrite(name) {
+	form1.groupName.value = "中壢資策會CA106"
+	form1.introduction.value="紮實的JAVA工程師職涯體驗"
+// 	form1.startLoc.value = "100台北市中正區北平西路3號"
+// 	form1.endLoc.value="320桃園市中壢區中大路300號"
+// 	form1.startTime.value="29-MAR-19 12.00.00.000000000 AM"
+	form1.note.value="保持一顆真誠的心"
+	//   	  form1.cust_niname.value="資策會小小書童" 
 }
 
 </script>
