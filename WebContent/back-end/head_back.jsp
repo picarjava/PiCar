@@ -86,7 +86,7 @@ input[type="submit"] {
     color:#444444;
     position: relative;
 	transition: 0.4s;
-
+	margin:3px;
 }
 
 
