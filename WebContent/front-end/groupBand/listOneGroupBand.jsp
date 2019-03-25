@@ -56,6 +56,7 @@
 #messagesArea {
 	height: 300px;
 	width: 850px;
+	 box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
 }
 
 #map_canvas {
@@ -141,8 +142,9 @@ th, td {
 	text-align: center;
 }
 .what-we-do .service {
-    background: #eeeeee;
-        height: 190px;
+    background: #e5e5e5;
+    height: 190px;
+    box-shadow:4px 4px 3px rgba(20%,20%,40%,0.5);
 }
 .imgtopStyle{
     margin-bottom: 55px;
@@ -171,6 +173,7 @@ box-shadow:4px 4px 12px 4px rgba(20%,20%,40%,0.5);
     left: 33%;
     position: relative;
     bottom: 25%;
+    
 }
 .buttonS{
     font-family: "Poppins", sans-serif;
@@ -313,6 +316,7 @@ left: 33%;
     position: relative;
 }
 .ChatRoomSpace{
+ box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
     padding-left: 30px;
     padding-right: 5;
     padding-top: 20px;
@@ -338,12 +342,15 @@ width: 850px;
 .Details{
 border-radius: 10px;
   	position: fixed;
-    background-color: #555;
+    background-color: #ccc;
     width: 800px;
-    height: 400px;
+    height: 480px;
     z-index: 995;
     left: 25%;
     top: 30%;
+    box-shadow: 4px 4px 3px rgba(20%,20%,40%,0.5);
+   
+	 
 }
   #topright{
   border-radius: 10px;
@@ -355,27 +362,30 @@ border-radius: 10px;
 .DetailsInside{
     position: absolute;
     border-radius: 10px;
-    background-color: #200;
+    background-color: #fff;
     width: 750px;
-    height: 320px;
+    height: 390px;
     z-index: 994;
     top: 60px;
     left: 3%;
 }
 .DetailsInside .mapInside{
+box-shadow: 0 1px 25px 0 rgba(0,0,0,.2) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
 	    width: 200px;
     background-color: #999;
     border-radius: 10px;
-    height: 270px;
+    height: 350px;
     top: 10px;
     margin-top: 20px;
     /* margin-left: 50px; */
 }
 .DetailsInside .textInside{
-    width: 480px;
-    background-color: #f2f2f2;
+    padding: 20px 20px;
+box-shadow: 0 1px 25px 0 rgba(0,0,0,.1) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    width: 440px;
+    background-color: #cccccc;;
     border-radius: 10px;
-    height: 250px;
+    height: 310px;
     top: 10px;
     margin-top: 20px;
     margin-left: 50px;
@@ -385,6 +395,46 @@ border-radius: 10px;
 .marring{
     margin-bottom: 20px;
 
+}
+.padding {
+	display: inline-block;
+	color: #333;
+	width: 90%;
+	background-color: #fff;
+	padding: 10px;
+	text-align: -webkit-left;
+	border-radius: 10px;
+	margin-left: 10px;
+	margin-right: 20px;
+	box-shadow:4px 4px 3px rgba(20%,20%,40%,0.5);
+	    margin-bottom: 25px;
+}
+.paddingsom4 {
+    display: inline;
+    /* display: inline-block; */
+    color: #333;
+    width: 90%;
+    background-color: #fff;
+    padding: 5px;
+    text-align: -webkit-left;
+    border-radius: 10px;
+    margin-left: 2px;
+    margin-left: 10px;
+    box-shadow: 4px 4px 3px rgba(20%,20%,40%,0.5);
+    margin-bottom: 25px;
+    
+}
+.paddingTime {
+	display: inline-block;
+	color: #333;
+	width: 90%;
+	background-color: #fff;
+	padding: 10px;
+	text-align: -webkit-left;
+	border-radius: 10px;
+	margin-left: 10px;
+	box-shadow:4px 4px 3px rgba(20%,20%,40%,0.5);
+	margin-bottom: 30px;	
 }
 </style>
 </head>
@@ -409,9 +459,9 @@ border-radius: 10px;
 			<div class="row">
 				<div class="services-half-width-text span9 textInside">
 <div class="marring">簡介:</div>
-<div class="marring"><%=groupBandVO.getIntroduction()%></div>
+<div class="padding"><%=groupBandVO.getIntroduction()%></div>
 <div class="marring">上車時間:</div>
-			<div class="marring"><%
+			<div class="paddingTime"><%
 				if (groupBandVO.getGroupKind() == 6) {
 			%>
 			<%
@@ -436,26 +486,20 @@ border-radius: 10px;
 			<%
 				}
 			%></div>
-人數倍率：<br>
-<table style=" max-width:; 
-     background-color: ; 
-     border-collapse: inherit;; 
-     border-spacing: 3px; ">
-<tr>
-<th>
+<div class="marring" style="margin-bottom: 30px;;
+">人數倍率：</div>
+<div class="paddingsom4">
 1人:<%=groupBandVO.getTotalAmout()/1%>   
-</th>
-<th>
+</div>
+<div class="paddingsom4">
 2人:<%=groupBandVO.getTotalAmout()/2%>   
-</th>
-<th>
+</div>
+<div class="paddingsom4">
 3人:<%=groupBandVO.getTotalAmout()/3%>   
-</th>
-<th>
-4人:<%=groupBandVO.getTotalAmout()/4%>   
-</th>
-</tr>
-</table>
+</div>
+<div class="paddingsom4">
+4人:<%=groupBandVO.getTotalAmout()/4%> 
+</div>
 </div>
 				<div class="services-half-width-textspan3 mapInside ">
 					<div id="map_canvas"style=" height:100%;width:100%">						
@@ -470,7 +514,7 @@ border-radius: 10px;
 		<div class="Gridline"></div>
       <div class="services-full-width container" style="margin-top: 45px;">
         <div class="imgtopStyle"> 
-           <img  src="/PiCar/GroupBand?groupID=<%=groupBandVO.getGroupID()%>" style="width: 2000px;  height: 300px;"/>
+           <img  src="/PiCar/GroupBand?groupID=<%=groupBandVO.getGroupID()%>" style="width: 2000px;  height: 500px;"/>
         </div>
       </div>
 	<div class="Gridline"></div>
@@ -546,10 +590,10 @@ border-radius: 10px;
 			<img src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/img/x.png" style="width: 150px;margin: 20px;margin-top: 35px;">
 			</div>
 			<%}else if(x<groupBandVO.getLowerLimit()){%>
-			<div class="service span3" style="background: #ececec;">
+			<div class="service span3" style="background: #ddd;">
 			</div>			
 			<%}else{%>
-			<div class="service span3" style="background: #ddd; ">
+			<div class="service span3" style="background: #ccc; ">
 			</div>
 		<%}}%>
 		

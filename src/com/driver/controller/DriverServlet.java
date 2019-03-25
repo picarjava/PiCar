@@ -200,7 +200,7 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 		Integer banned= 0;//--未被BANNED
 		Date deadline = null;//--
 		Integer onlineCar= 0;//--沒在線上 由session判斷
-		Integer score= 60;//--
+		Integer score= 3;//--
 ////////////////////////////////////////////照片
 		String carType= "PICAR";
 		carType = new String(req.getParameter("carType").trim()); //訊息做字串處理

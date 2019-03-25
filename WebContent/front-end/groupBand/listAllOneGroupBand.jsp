@@ -279,13 +279,7 @@
 							type="hidden" name="groupID" value="${GroupBandVO.groupID}">
 						<input type="hidden" name="memIDs" value="${memberVO.memID}" /> <input
 							type="hidden" name="action" value="GroupJoin">
-						<button type="button" value="${GroupBandVO.groupID}"
-							id="${GroupBandVO.groupID}"
-							onclick="floatingwindowshow('${GroupBandVO.groupID}','${memberVO.memID}')"
-							class="btn btn-lg btn-danger" style="width: 60px; height: 35px;"
-							title="檢舉揪團">
-							<i class="fas fa-exclamation-triangle"></i>
-						</button>
+					
 					</FORM>
 				</div>
 			</div>

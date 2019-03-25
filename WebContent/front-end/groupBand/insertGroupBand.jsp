@@ -167,12 +167,15 @@ label {
 display:;
 }
 #width100{
+  height: 40px;
 width: 100%;
 }
 .form-control{
 width: 100%;
+    height: 40px;
 }
 .form-group{
+
 width: 100%;
 }
 </style>
@@ -189,7 +192,8 @@ width: 100%;
 			</c:forEach>
 		</ul>
 	</c:if>
-	<h4 class="h3center">發起揪團 <span class="badge badge-secondary"></span></h4>
+
+	<h4 class="h3center">發起揪團 </h4>
 <div class="about-us-text span12">
 	<form  action="<%=request.getServletContext().getContextPath()%>/GroupBand" name="form1" method="POST" enctype="multipart/form-data">
 		<div class="container">

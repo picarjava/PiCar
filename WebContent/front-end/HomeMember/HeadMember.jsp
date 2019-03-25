@@ -12,8 +12,9 @@
 <%
 if((MemberVO)session.getAttribute("memberVO")!=null){
 	MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
-	String memID=memberVO.getMemID();
+	String memID=memberVO.getMemID();	
 	session.setAttribute("memID",memID);
+	
 }
 %> 
 
@@ -74,6 +75,10 @@ height: 145px;
 #rigthtop{
 float: right;
 }
+p {
+　font-family: arial; 
+	color:#ffffff;
+}
 </style>
 
     </head>
@@ -98,7 +103,9 @@ float: right;
                 <div class="span12">
                     <div class="navbar">
                             <div class="navbar-inner">
-                         <div id="rigthtop"><form method="post"  action="/PiCar/front-end/HomeMember/logoutHandler.do">			
+                         <div id="rigthtop"><form method="post"  action="/PiCar/front-end/HomeMember/logoutHandler.do">		
+                <p>${memberVO.name}，你好</>
+                
 				<input type="submit" value="登出">	
 				 <input type="hidden" name="logout"	value="logout">	
 				</form></div>

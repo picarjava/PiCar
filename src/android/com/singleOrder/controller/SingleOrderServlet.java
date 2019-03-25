@@ -31,6 +31,7 @@ import com.util.CountToken;
 
 import android.com.location.model.StoredInfo;
 import android.com.singleOrder.model.LongTermOrder;
+import android.com.webSocket.LocationWebSocket;
 
 import com.driver.model.DriverVO;
 import com.member.model.MemberService;
@@ -69,11 +70,10 @@ public class SingleOrderServlet extends HttpServlet {
         String action = jsonIn.get("action").getAsString();
         if ("insert".equals(action)) {
             JsonObject jsonOut = new JsonObject();
-            @SuppressWarnings("unchecked")
-            Map<String, StoredInfo> matchDriver = (ConcurrentHashMap<String, StoredInfo>) getServletContext().getAttribute("driverLocation");
+            Map<String, StoredInfo> matchDriver = LocationWebSocket.getMap();
             if (matchDriver != null && !matchDriver.entrySet().isEmpty()) {
                 int distance = jsonIn.get("distance").getAsInt();
-                SingleOrderVO singleOrderVO = gson.fromJson(jsonIn.get("singleOrder").getAsString(), SingleOrderVO.class);
+                SingleOrderVO singleOrderVO = gson.fromJson(jsonIn.get("singleOrder"), SingleOrderVO.class);
         		Double lat1 = singleOrderVO.getStartLat(); //乘客緯度 /*******
         		Double lng1 = singleOrderVO.getStartLng(); //乘客經度 /*******
         		List<Map.Entry<String, StoredInfo>> list = matchDriver.entrySet()
@@ -110,7 +110,7 @@ public class SingleOrderServlet extends HttpServlet {
     			System.out.println(ChoosenDriver + "被選擇的司機");
     			gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
     			JsonObject jsonObject = new JsonObject();
-                jsonObject.addProperty("singleOrder", gson.toJson(singleOrderVO));
+                jsonObject.add("singleOrder", gson.toJsonTree(singleOrderVO));
     			list.get(0)
                     .getValue()
                     .getSession()
@@ -183,8 +183,8 @@ public class SingleOrderServlet extends HttpServlet {
                                                                .collect(Collectors.toList()));
             gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("singleOrder", gson.toJson(singleOrderVOs));
-            jsonObject.addProperty("longTermOrder", gson.toJson(longTermOrders));
+            jsonObject.add("singleOrder", gson.toJsonTree(singleOrderVOs));
+            jsonObject.add("longTermOrder", gson.toJsonTree(longTermOrders));
             writer.write(jsonObject.toString());
             System.out.println(jsonObject);
         } else if ("getOffPiCar".equals(action)) {

@@ -151,18 +151,19 @@ public class MemberSelfServlet extends HttpServlet {
 					failureView.forward(req, res);
 					return; // 程式中斷
 				}
-
-				DigestService digestSvc = new DigestService();
-				String digestpassword = digestSvc.digest(password2);
+//				密碼轉碼 暫時不用
+//				DigestService digestSvc = new DigestService();
+//				String digestpassword = digestSvc.digest(password2);
 
 				MemberService memberSvc = new MemberService();
-				memberSvc.updatePassVerified(memID, digestpassword);
+				memberSvc.updatePassVerified(memID, password2);
 				// 開始修改資料
 //				MemberService memberSvc = new MemberService();
 //				memberVO = memberSvc.updateMember(memID, password);
 //				req.setAttribute("memberVO", memberVO);
-
-				RequestDispatcher successView = req.getRequestDispatcher("/front-end/HomeMember/index.jsp"); 
+				MemberVO memberVO = memberSvc.getOneMember(memID);
+				req.setAttribute("memberVO", memberVO);
+				RequestDispatcher successView = req.getRequestDispatcher("/front-end/member/listOneMemberByUpdate.jsp"); 
 				successView.forward(req, res);
 				System.out.println("@");
 			} catch (Exception e) {

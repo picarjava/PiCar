@@ -65,8 +65,8 @@ public class DelayTimerx extends HttpServlet {
 				getServletContext().setAttribute("futureOrderMAP", startTimeList);// 給JSP
 				System.out.println("3:" + getServletContext().getAttribute("futureOrderMAP"));
 
-				System.out.println("過期的單人訂單在這喔" + new SingleOrderService().getDelayOrder());// ok
-				System.out.println("過期的揪團訂單在這喔" + new GroupOrderService().getDelayGOrder());// ok
+				System.out.println("過期的單人訂單在這喔" + new SingleOrderService().getDelayOrder());// 過期訂單。(1)
+				System.out.println("過期的揪團訂單在這喔" + new GroupOrderService().getDelayGOrder());// 過期訂單。(1)
 				// 3/21 01:40進度。已抓到過期訂單。(1)
 //				System.out.println("UPDATE SINGLE_ORDER SET STATE ='6' WHERE ORDER_ID=?");
 
@@ -100,31 +100,22 @@ public class DelayTimerx extends HttpServlet {
     //						(String) getServletContext().getAttribute("conAdminID")
     ////						.getAdminID()
     //						;//拿到在線session
+    					//						System.out.println(adminID+"哈哈");//null
     					///////
-    //						System.out.println(adminID+"哈哈");//null
     					Collection<Session> isOnline = broadcastOrderMap.values();
-    					System.out.println(isOnline + "吃");
+    					
+    					System.out.println(isOnline);
+//    					[org.apache.tomcat.websocket.WsSession@6f55ce94]
     
     					for (Session allAdmin : isOnline) {
     						
     						System.out.println(allAdmin);
     
-    //						if (isOnline != null) { // 若此會員在線，則推播
-    //							String message = "訂單編號" + singledelayed + "有問題";
-    //							String toJsonMessage = "{\"message\":\"" + message + "\"}";
-    ////								isOnline.getBasicRemote().sendText(toJsonMessage);
-    ////								isOnline.getAsyncRemote().sendText("呵呵");
-    //							allAdmin.getAsyncRemote().sendText(singledelayed);
-    //
-    ////								 if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()) {
-    //////								        jsonDelay.addProperty(property, value);
-    ////								        JsonObject jsonDelay = new JsonObject();
-    //////								        jsonDelay.addProperty("singleOrder", gson.toJson(singleOrderVO));
-    //////								        broadcastOrderMap.get(new AdminVO().getAdminID()).getAsyncRemote().sendText(new SingleOrderService().getAllDelay().toString());
-    ////								        isOnline.getAsyncRemote().sendText("呵呵");
-    ////								        }
-    //
-    //						}
+    						if (allAdmin != null) { // 若此會員在線，則推播
+    							String message = "訂單編號" + singledelayed + "有問題。請至訂單管理";
+    							String toJsonMessage = "{\"message\":\"" + message + "\"}";
+    							allAdmin.getAsyncRemote().sendText(toJsonMessage);
+    						}
     					}
     				}
     //					}
@@ -194,10 +185,11 @@ public class DelayTimerx extends HttpServlet {
 				}
 			}// run
 		};// timertask
-//		timer.schedule(task, renewTime);
 //		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
-		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 365);
-		timer.scheduleAtFixedRate(task, now, 1000 * 60 * 60 * 24 * 365); // 甲. 每半小時執行一次
+//		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 365);
+		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis() );
+//		timer.scheduleAtFixedRate(task, now, 1000 * 60 * 60 * 24 * 365); // 甲. 每半小時執行一次
+		timer.scheduleAtFixedRate(task, now, 1000 * 5); // 甲. 每半小時執行一次
 																										// 搜出隔天訂單
 //		System.out.println("C.現在毫秒數"+new GregorianCalendar().getTimeInMillis());   //TEST
 	}// init
@@ -232,3 +224,10 @@ public class DelayTimerx extends HttpServlet {
 		return renewTime;
 	}
 }
+////								 if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()) {
+//////								        jsonDelay.addProperty(property, value);
+////								        JsonObject jsonDelay = new JsonObject();
+//////								        jsonDelay.addProperty("singleOrder", gson.toJson(singleOrderVO));
+//////								        broadcastOrderMap.get(new AdminVO().getAdminID()).getAsyncRemote().sendText(new SingleOrderService().getAllDelay().toString());
+////								        isOnline.getAsyncRemote().sendText("呵呵");
+////								        }

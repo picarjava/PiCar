@@ -89,8 +89,8 @@ public class GroupOrderServlet extends HttpServlet {
                                                                  .collect(Collectors.toList()));
             gson = new GsonBuilder().setDateFormat(TIMESTAMP_PATTERN).create();
             JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("groupOrder", gson.toJson(groupOrders));
-            jsonObject.addProperty("longTermGroupOrder", gson.toJson(longTermGroupOrders));
+            jsonObject.add("groupOrder", gson.toJsonTree(groupOrders));
+            jsonObject.add("longTermGroupOrder", gson.toJsonTree(longTermGroupOrders));
             writer.print(jsonObject.toString());
         } else if ("getOffPiCar".equals(action)) {
             String groupID = jsonIn.get(GROUP_ID).getAsString();

@@ -22,8 +22,8 @@
 		response.setHeader("Cache-Control","no-store"); //HTTP 1.1
 		response.setHeader("Pragma","no-cache");        //HTTP 1.0
 		response.setDateHeader ("Expires", 0);
-		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
-
+// 		MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+		
 %>
 
 <!DOCTYPE html>
@@ -151,7 +151,7 @@ top:50%;
 	<h3 align="center">Hello!!${memberVO.name}，這是你的個人資料</h3>
 	<table align="center" border="1" id="table1"  >
 		
-		<!-- <%=memberVO.getMemID()%> -->
+<%-- 		<!-- <%=memberVO.getMemID()%> --> --%>
 		<tr>
 			<td>會員帳號</td>
 			<td colspan="2">${memberVO.memID}</td>
