@@ -16,10 +16,16 @@
 <head>
 <title>PICAR BACK-END</title>
 <jsp:include page="/back-end/head_back.jsp" />
+
+        <script language="javascript">  
+            setInterval("timer.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);   
+        </script>
+
+
 </head>
 
 <body onload="connect();" onunload="disconnect();">
-
+<div id="timer"></div> 
 	<div class="wrapper ">
 		<div class="sidebar" data-color="" data-background-color="black"
 			data-image="../assets/img/sidebar-1.jpg">
@@ -27,14 +33,11 @@
 				<a href="<%=request.getServletContext().getContextPath()%>/back-end/backHome.jsp" class="simple-text logo-normal"> PICAR </a>
 			</div>
       <jsp:include page="/back-end/sidebar.jsp" />
-      
     </div>
 		<jsp:include page="/back-end/kidFooter.jsp" />
 			</div>
 		</div>
 </body>
-
-
 <!-- <!--==========websocket推播 開始=============--> -->
 <!--  <script> -->
 <%-- //  	var MyPoint="/BroadcastOrderServer/${adminID}"; --%>
@@ -81,7 +84,8 @@
  	
 <!--  </script> -->
 
-<!--  <!--==========websocket推播 結束============--> -->
+<!--  <!--==========websocket推播 結束============--> 
+
 
 
 </html>

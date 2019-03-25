@@ -9,11 +9,9 @@
 
 <%	
 	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
-	StoreRecordService storeRecordSvc = new StoreRecordService();	
-	
+	StoreRecordService storeRecordSvc = new StoreRecordService();		
 	List<StoreRecordVO> list = storeRecordSvc.getMemStoreRecordNeg(memberVO.getMemID());
-	pageContext.setAttribute("list", list);
-	
+	pageContext.setAttribute("list", list);	
 %>
 
 
@@ -62,24 +60,36 @@
 	href="assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <style>
- #table1 { 
+table{ 
+	width:600px;
+	border:1px solid #888888;
 	
- 	background-color: ; 
- 	margin-bottom: 20px; 
- 	text-align: center; 
- 	font-family: Microsoft JhengHei; 
+  
  } 
-table,tr,td{
-width: 40%;
+td{
+	border-bottom:1px solid #888888;
+	padding:10px;
+  	font-family: arial; 
+  	font-size:15px;
+}
+#tr{
+	background-color:#7788aa;
+	color:#ffffff;
+	 
+  	
+}
+tr:nth-child(even){
+	background-color:e8e8e8;
+	
 }
 </style>
 <body bgcolor="#11e1e9">
 <!-- 	<h3>listOneStoreRecordMemberNeg.jsp</h3> -->
 <!-- 	<a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a> -->
-	<h1 align="center"> <%=memberVO.getMemID() %> <%=memberVO.getName() %>	你好，以下為您的扣款紀錄</h1>
-	<div class="page1"><%@ include file="page1.file"%></div>
-	<table align="center" border="1" id="table1">
-		<tr>
+	<h2 align="center"> <%=memberVO.getMemID() %> <%=memberVO.getName() %>	你好，以下為您的扣款紀錄</h2>
+	<div class="page1" align="center"><%@ include file="page1.file"%></div>
+	<table  align="center">
+		<tr id="tr">
 			<td>訂單ID</td>			
 			<td>扣款金額</td>
 			<td>扣款時間</td>
@@ -89,7 +99,7 @@ width: 40%;
 
 				<td>${storeRecordVO.orderID}</td>				
 				<td>${-storeRecordVO.amount}</td>
-				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${storeRecordVO.saveDate}" /></td>				
+				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${storeRecordVO.saveDate}" /></td>				
 			</tr>
 		</c:forEach>
 <!-- 		<tr> -->
@@ -100,8 +110,8 @@ width: 40%;
 			
 
 	</table>
-<div align="center"><%@ include file="page2.file"%></div>
-	<h1 align="center">當前代幣餘額:<%=memberVO.getToken() %></h1>
+			<div align="center"><%@ include file="page2.file"%></div>
+			<h2 align="center">當前代幣餘額:<%=memberVO.getToken() %></h2>
 
 </body>
 </html>

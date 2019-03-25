@@ -15,9 +15,9 @@
 	color:red;
 }
 </style>
-
+<jsp:include page="/back-end/btnCss.jsp" />
 </head>
-<body bgcolor="#c1ece9">
+<body>
 <jsp:include page="/back-end/kidBodyLeft.jsp" />
 <h3>select_page.jsp</h3>
 	<div id="errmsg">

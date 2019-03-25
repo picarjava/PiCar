@@ -35,8 +35,6 @@ getServletContext().setAttribute("conAdminID",adminID);
 <% MemberDAO memberdao = new MemberDAO();
 %>
 <%-- <c:if test="${singleOrder.driverID eq driverID && singleOrder.state !=0&& singleOrder.state !=1 && singleOrder.state != 4 && singleOrder.state !=6}"> --%>
-
-
 <jsp:useBean id="groupBandSvc" scope="page" class="com.groupBand.model.GroupBandService" />
 <jsp:useBean id="groupBandVO" scope="page" class="com.groupBand.model.GroupBandVO" />
 <jsp:useBean id="singleOrderVO" scope="page" class="com.singleOrder.model.SingleOrderVO" />
@@ -53,38 +51,58 @@ getServletContext().setAttribute("conAdminID",adminID);
     <meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
     <meta http-equiv="description" content="This is my page">
     <style>
-table, tr, td, th {
-	background-color: white;
-	border: 1px solid #aaa;
-	text-align: center;
-	padding: 5px;
-	text-align: center;
-	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro',
-		'Noto Sans CJK SC', monospace;
-}
+/*         table, tr, td, th { */
+/*     background-color: white; */
+/*     border: 1px solid #aaa; */
+/*     text-align: center; */
+/*     padding: 5px; */
+/*     text-align: center; */
+/*     font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', */
+/*         'Noto Sans CJK SC', monospace; */
+/* } */
 
-table {
-	width: 100%;
-}
+/* table { */
+/*     width: 100%; */
+/* } */
+   table{
+   	border-collapse: collapse;
+   	width: 500px; 	
+/*    	/*自動斷行*/英文*/
+/*    	word-wrap: break-word; */
+/*    	table-layout: fixed; */
+   }	
 
 .col-9 {
-	margin-top: -15px;
-	margin-left: -200px;
-	margin-bottom: 1rem;
+    margin-top: -15px;
+    margin-left: -200px;
+    margin-bottom: 1rem;
 }
 
 #error {
-	margin-left: 20px;
+    margin-left: 20px;
 }
 
 #s3 {
-	width: 186px;
+    width: 186px;
+}
+.avg{
+width:800px;
+}
+#timer {
+margin-top: 3%;
+margin-left: 3%;
+font-size: 200%;
+
 }
 </style>
-
+        <script language="javascript">  
+            setInterval("timer.innerHTML=new Date().toLocaleString()+' 星期'+'日一二三四五六'.charAt(new Date().getDay());",1000);   
+        </script>
+    <jsp:include page="/back-end/btnCss.jsp" />
 </head>
 
 <body onload="connect();" onunload="disconnect();">
+<div id="timer"></div> 
     <c:set var="contextPath" value="${singleOrder.memID}" />
     <div class="wrapper ">
         <jsp:include page="/back-end/kidBodyLeft.jsp" />
@@ -92,105 +110,105 @@ table {
             <div class="content">
                 <div class="container-fluid">
                     <div class="container-fluid">
-                    <div class="col-9">
-                        <!-- 錯誤列表開始 -->
-                        <%List errorMsgs=(List<String>)request.getAttribute("errorMsgs");%>
-                        <c:if test="${not empty errorMsgs}">
-                            <ul class="list-group">
-                                <li class="list-group-item active">Opps!錯誤訊息回報</li>
-                                <c:forEach var="massage" items="${errorMsgs}">
-                                    <li class="list-group-item">${massage}</li>
-                                </c:forEach>
-                            </ul>
-                        </c:if>
-                        <!-- 錯誤列表結束 -->
-                        <div class="container wow fadeInUp">
-                            <div class="section-header">
-                                <h3 class="section-title">訂單管理</h3>
-                                <p>管理員${adminID}最新即時推播內容:</p>
-                                <p id="statusOutput"></p>
+                        <div class="col-9">
+                            <!-- 錯誤列表開始 -->
+                            <%List errorMsgs=(List<String>)request.getAttribute("errorMsgs");%>
+                            <c:if test="${not empty errorMsgs}">
+                                <ul class="list-group">
+                                    <li class="list-group-item active">Opps!錯誤訊息回報</li>
+                                    <c:forEach var="massage" items="${errorMsgs}">
+                                        <li class="list-group-item">${massage}</li>
+                                    </c:forEach>
+                                </ul>
+                            </c:if>
+                            <!-- 錯誤列表結束 -->
+                            <div class="container wow fadeInUp">
+                                <div class="section-header">
+                                    <h3 class="section-title">訂單管理</h3>
+                                    <p>管理員${adminID}最新即時推播內容:</p>
+                                    <p id="statusOutput"></p>
+                                </div>
                             </div>
+                            <table class="table">
+                                <thead class="thead-dark" class="avg">
+                                    <tr>
+                                    <tr></tr>
+                                    <tr>
+                                        <th scope="col" class="avg">訂單編號 </th>
+                                        <th scope="col" class="avg">乘車時間 </th>
+                                        <th scope="col" class="avg">訂單種類 </th>
+                                        <th scope="col" class="avg">乘客編號 </th>
+                                        <th scope="col" class="avg">乘客名稱 </th>
+                                        <th scope="col" class="avg">乘客電話 </th>
+                                        <th scope="col" class="avg">乘車地點 </th>
+                                        <th scope="col" class="avg">乘車目的地 </th>
+                                        <th scope="col" class="avg">訂單總金額 </th>
+                                        <th scope="col" class="avg">訂單狀態 </th>
+                                        <th scope="col" class="avg">重新叫車</th>
+                                        <th scope="col" class="avg">退款</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="singleOrder" items="${singleOrderlist}">
+                                        <!-- 逾期訂單:篩選狀態碼為 6:逾期未處理-->
+                                        <c:if test="${singleOrder.state eq 6}">
+                                            <tr>
+                                                <th scope="row">${singleOrder.orderID}</th>
+                                                <td>
+                                                    <fmt:formatDate type="both" value="${singleOrder.startTime}" pattern="yyyy-MM-dd mm:ss" />
+                                                </td>
+                                                <td>
+                                                    <c:forEach var="orderType" items="${orderTypeMap}">
+                                                        ${orderType.key eq singleOrder.orderType ? orderType.value: ""}
+                                                    </c:forEach>
+                                                </td>
+                                                <td>
+                                                    <c:set var="orderMem" value="${singleOrder.memID}" />
+                                                    <!--                                 預設當前頁面  -->
+                                                    <% 
+                                  String orderMem = (String)pageContext.getAttribute("orderMem");
+//                                SingleOrderVO singleOrder = (SingleOrderVO)pageContext.getAttribute("orderMem");//不需要
+                                  System.out.println("-------------------------");
+//                                List<SingleOrderVO> singleOrderlist = service.getAll();
+                                  MemberVO members = memberdao.findByPrimaryKey(orderMem);
+//                                System.out.print(members.getName());
+                                  %>
+                                                    <%= members.getMemID() %>
+                                                </td>
+                                                <td>
+                                                    <%= members.getName() %>
+                                                </td>
+                                                <td>
+                                                    <%= members.getPhone() %>
+                                                </td>
+                                                <td>${singleOrder.startLoc}</td>
+                                                <td>${singleOrder.endLoc}</td>
+                                                <td>${singleOrder.totalAmount}</td>
+                                                <td>
+                                                    <c:forEach var="state" items="${stateMap}">
+                                                        ${state.key eq singleOrder.state ? state.value: ""}
+                                                    </c:forEach>
+                                                </td>
+                                                <td><button type="submit">叫車</button>
+                                                </td>
+                                                <td>
+                                                    <button type="submit">退款</button>
+                                                </td>
+                                                <!--                                  <td> -->
+                                                <%--                                  <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" > --%>
+                                                <!--                                    <div class="text-center"><button type="submit" class="btn btn-light">取消</button> -->
+                                                <!--                                        /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
+                                                <!--                                        <input type="hidden" name="action" value="DELETE"> -->
+                                                <%--                                        <input type="hidden" name="orderID" value="${singleOrder.orderID}"> --%>
+                                                <!--                                     </div> -->
+                                                <!--                                  </Form> -->
+                                                <!--                                  </td> -->
+                                            </tr>
+                                        </c:if>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
-                        <table class="table">
-                            <thead class="thead-dark">
-                                <tr>
-                                <tr></tr>
-                                <tr>
-                                    <th scope="col">訂單編號 </th>
-                                    <th scope="col">乘車時間 </th>
-                                    <th scope="col">訂單種類 </th>
-                                    <th scope="col">乘客編號 </th>
-                                    <th scope="col">乘客名稱 </th>
-                                    <th scope="col">乘客電話 </th>
-                                    <th scope="col">乘車地點 </th>
-                                    <th scope="col">乘車目的地 </th>
-                                    <th scope="col">訂單總金額 </th>
-                                    <th scope="col">訂單狀態 </th>
-                                    <th scope="col">重新叫車</th>
-                                    <th scope="col">退款</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="singleOrder" items="${singleOrderlist}">
-                                    <!-- 逾期訂單:篩選狀態碼為 6:逾期未處理-->
-                                    <c:if test="${singleOrder.state eq 6}">
-                                        <tr>
-                                            <th scope="row">${singleOrder.orderID}</th>
-                                            <td>
-                                                <fmt:formatDate type="both" value="${singleOrder.startTime}" pattern="yyyy-MM-dd mm:ss" />
-                                            </td>
-                                            <td>
-                                                <c:forEach var="orderType" items="${orderTypeMap}">
-                                                    ${orderType.key eq singleOrder.orderType ? orderType.value: ""}
-                                                </c:forEach>
-                                            </td>
-                                            <td>
-                                                <c:set var="orderMem" value="${singleOrder.memID}" />
-                                                <!-- 							     預設當前頁面  -->
-                                                <% 
-							      String orderMem = (String)pageContext.getAttribute("orderMem");
-// 							      SingleOrderVO singleOrder = (SingleOrderVO)pageContext.getAttribute("orderMem");//不需要
-							      System.out.println("-------------------------");
-// 							      List<SingleOrderVO> singleOrderlist = service.getAll();
-							      MemberVO members = memberdao.findByPrimaryKey(orderMem);
-// 							      System.out.print(members.getName());
-							      %>
-                                                <%= members.getMemID() %>
-                                            </td>
-                                            <td>
-                                                <%= members.getName() %>
-                                            </td>
-                                            <td>
-                                                <%= members.getPhone() %>
-                                            </td>
-                                            <td>${singleOrder.startLoc}</td>
-                                            <td>${singleOrder.endLoc}</td>
-                                            <td>${singleOrder.totalAmount}</td>
-                                            <td>
-                                                <c:forEach var="state" items="${stateMap}">
-                                                    ${state.key eq singleOrder.state ? state.value: ""}
-                                                </c:forEach>
-                                            </td>
-                                            <td><button>重新叫車</button>
-                                            </td>
-                                            <td>
-                                                <button>退款</button>
-                                            </td>
-                                            <!-- 							      <td> -->
-                                            <%-- 							      <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" > --%>
-                                            <!-- 								    <div class="text-center"><button type="submit" class="btn btn-light">取消</button> -->
-                                            <!-- 								      	/*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
-                                            <!-- 		                				<input type="hidden" name="action" value="DELETE"> -->
-                                            <%-- 		                				<input type="hidden" name="orderID" value="${singleOrder.orderID}"> --%>
-                                            <!-- 								     </div> -->
-                                            <!-- 								  </Form> -->
-                                            <!-- 							      </td> -->
-                                        </tr>
-                                    </c:if>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
                     </div>
                 </div>
                 <jsp:include page="/back-end/kidFooter.jsp" />
@@ -224,16 +242,16 @@ function connect() {
         var jsonObj = JSON.parse(event.data);
         var message = jsonObj.message + "\r\n";
         window.alert(message);
-		debugger;
-//         window.alert("${AllDelay}");
         debugger;
-// console.log(Alldelay);
+        //         window.alert("${AllDelay}");
+        debugger;
+        // console.log(Alldelay);
         updateStatus(message);
     };
-    
-    if("${AllDelay}" != null){
-    	window.alert("逾時訂單"+"${AllDelay}");
-    	debugger;
+
+    if ("${AllDelay}" != null) {
+        window.alert("逾時訂單" + "${AllDelay}");
+        debugger;
     }
 
     webSocket.onclose = function(event) {
@@ -251,4 +269,5 @@ function updateStatus(newStatus) {
 }
 </script>
 <!--==========websocket推播 結束============-->
+
 </html>

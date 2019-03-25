@@ -74,7 +74,7 @@ public class DelayTimerx extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				Map<String, Session> broadcastOrderMap = (Map<String, Session>) (getServletContext()
 						.getAttribute("broadcastOrderMap"));
-				if (broadcastOrderMap != null) {
+				if (broadcastOrderMap != null) {//在init若 沒攔截。則null exception 截斷
     				System.out.println(broadcastOrderMap);// {A010=org.apache.tomcat.websocket.WsSession@fd5e384}
     				System.out.println("是否有管理員在線上:" + (broadcastOrderMap != null));
     
@@ -196,49 +196,13 @@ public class DelayTimerx extends HttpServlet {
 		};// timertask
 //		timer.schedule(task, renewTime);
 //		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
-		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis());
-		timer.scheduleAtFixedRate(task, now, 1000 * 5); // 甲. 每半小時執行一次
+		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 365);
+		timer.scheduleAtFixedRate(task, now, 1000 * 60 * 60 * 24 * 365); // 甲. 每半小時執行一次
 																										// 搜出隔天訂單
 //		System.out.println("C.現在毫秒數"+new GregorianCalendar().getTimeInMillis());   //TEST
 	}// init
 		// 傳入當日欲更新的hour
 
-	public void sharetimer(List<String> startTimeList) {
-		boolean isNew = false;
-		if (!isNew) {
-			// 迴圈滾出來 C.
-//			if (startTimeList != null) {
-//				for (String starttime : startTimeList) {// 滾出一群時間
-////				 System.out.println(starttime);
-//					long num = Long.parseLong(starttime);// 動態計算出到開始時間
-//					System.out.println(num);
-//					System.out.println("=================");
-//					TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
-//						public void run() {
-//							// System.out.println("更新日期:"+new
-//							// java.util.Date()+"司機編號"+driverID+"最新評價為:"+rateAve+ "分");
-//							TimerTask taskdelay = null;
-//							taskdelay = afterdelay();
-////							new Timer().schedule(taskdelay, 1000 * 60 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
-//							new Timer().schedule(taskdelay, 1000 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
-//						}
-//					};
-////					new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
-//					new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
-//				}
-//			}
-		}
-	}
-
-	private TimerTask afterdelay() {// 放入逾時的事情拉
-		TimerTask taskdelay = new TimerTask() {
-			@Override
-			public void run() {
-				new SingleOrderDAO().update_state_to_delay();
-			}
-		};
-		return taskdelay;
-	}
 
 	public void destroy() {
 		timer.cancel();

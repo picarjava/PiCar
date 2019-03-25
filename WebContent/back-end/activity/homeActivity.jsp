@@ -6,6 +6,7 @@
 <head>
   <title>活動資訊管理</title>
   <jsp:include page="/back-end/head_back.jsp" />
+<jsp:include page="/back-end/btnCss.jsp" />
 </head>
 
 <body>

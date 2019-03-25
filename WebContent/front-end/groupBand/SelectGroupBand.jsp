@@ -53,7 +53,11 @@
  #messageboards{
  	margin-top: 40px;
  }   
-    
+  .iconsw {  
+  }
+    .iconsw:hover{  
+     filter:hue-rotate(70deg);
+  }
 </style>
 
 <style>
@@ -123,6 +127,56 @@ display:inline;
 .radio input[type="radio"] + .radio-label:empty:before {
   margin-right: 0;
 }
+.pagination{
+
+
+}
+.buttonS{
+    font-family: "Poppins", sans-serif;
+    border-radius: 50px;
+    padding: 5px 22px;
+    background: #f5f5f5;
+    color: #333333;
+    font-style: italic;
+    text-decoration: none;
+    moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border: 2px solid #999999;
+    0 1px 25px 0 rgba(0,0,0,.05) inset,: ;
+    0 -1px 25px 0 rgba(0,0,0,.05) inset: ;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+	display: inline;
+    margin-right: 20px;
+}
+
+.buttonS:hover {
+    font-family: "Poppins", sans-serif;
+    border-radius: 50px;
+    padding: 5px 22px;
+    background: #ddd;    
+    color: #1f7157;
+    font-style: italic;
+    text-decoration: none;
+    moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    border: 2px solid #29b387;
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    webkit-box-shadow:
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+    box-shadow:
+        0 1px 25px 0 rgba(0,0,0,.05) inset,
+        0 -1px 25px 0 rgba(0,0,0,.05) inset;
+	display: inline;
+    margin-right: 20px;
+}
+.snack{
+	margin-top: 20px;
+}
 </style>
 <body bgcolor='white'>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
@@ -165,8 +219,8 @@ display:inline;
 				<label  for="radio-2" class="radio-label">長期揪團</label>
         
          </div>
-         <br>
-         <div></div>
+         
+         <div style="margin-top:20px;"></div>
         <b>團名</b>
          <input class="text30" type="TEXT" name="GROUP_NAME"><br><br>
          <b>上車地點</b>
@@ -211,7 +265,7 @@ display:inline;
        
  
         <input type="hidden" name="action" value="listgroupBand_ByCompositeQuery">
-        <input type="submit" value="送出">
+        <input class="buttonS" type="submit" value="送出">
         <input class="buttonS" type="reset" value="清除" />
     </FORM>
   </li>
@@ -338,6 +392,7 @@ function floatingwindow(){
 }
 
 </script>
+
 
 
 <script>

@@ -8,6 +8,7 @@
 <jsp:include page="/back-end/head_back.jsp" />
 <meta charset="UTF-8">
 <title>update_member_input.jsp</title>
+<jsp:include page="/back-end/btnCss.jsp" />
 </head>
 <style>
 table{
