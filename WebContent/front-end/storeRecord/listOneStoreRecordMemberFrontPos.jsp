@@ -71,15 +71,27 @@
 	href="assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <style>
- #table1 { 
-	
- 	background-color: ; 
- 	margin-bottom: 20px; 
- 	text-align: center; 
- 	font-family: Microsoft JhengHei; 
+table{ 
+	width:600px;
+	border:1px solid #888888;  
  } 
-table,tr,td{
-width: 40%; 
+td{
+	border:1px solid #333333;
+	padding:10px;
+  	font-family: arial; 
+  	font-size:15px;
+  	width:200px;
+  	align="center"
+}
+tr{
+	align="center"	
+}
+#tr{
+	background-color:#7788aa;
+	color:#ffffff;  	
+}
+tr:nth-child(even){
+	background-color:e8e8e8;	
 }
 </style>
 <body bgcolor="">
@@ -91,24 +103,20 @@ width: 40%;
 		<%=memberVO.getName()%>
 		你好，以下為您的儲值紀錄
 	</h1>
-	<%@ include file="page1.file"%>
+	<div class="page1" align="center"><%@ include file="page1.file"%></div>
 	<table align="center" border="1" id="table1">
-		<tr>
+		<tr id="tr">
 			<td>儲值ID</td>
 			<td>儲值金額</td>
 			<td>儲值時間</td>
 		</tr>
 		<c:forEach var="storeRecordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
-			<tr>
+		<tr>
 
-				<td>${storeRecordVO.storeID}</td>
-				<td>${storeRecordVO.amount}</td>
-				<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss"  	value="${storeRecordVO.saveDate}" /></td>
-
-
-
-
-			</tr>
+			<td>${storeRecordVO.storeID}</td>
+			<td>${storeRecordVO.amount}</td>
+			<td><fmt:formatDate pattern="yyyy-MM-dd HH:mm"  	value="${storeRecordVO.saveDate}" /></td>
+		</tr>
 		</c:forEach>
 <!-- 		<tr> -->
 <!-- 			<td colspan="1">總儲值金額</td> -->
@@ -122,7 +130,7 @@ width: 40%;
 
 
 	</table>
-<div align="center"><%@ include file="page2.file"%></div>
+		<div align="center"><%@ include file="page2.file"%></div>
 
 
 </body>
