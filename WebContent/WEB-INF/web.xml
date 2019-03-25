@@ -365,6 +365,7 @@
 <!--     <url-pattern>/front-end/member/*</url-pattern>     -->
     <url-pattern>/front-end/singleOrder/*</url-pattern>    
     <url-pattern>/front-end/storeRecord/*</url-pattern>    
+    <url-pattern>/front-end/HomeMember/HeadMember.jsp</url-pattern>
     <dispatcher>REQUEST</dispatcher>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>INCLUDE</dispatcher>
