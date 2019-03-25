@@ -1,5 +1,19 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.*"%>
 
+ <!--引用SweetAlert2.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
+<!-- 登入功能串接 ，將VOmemID指定給 memID-->
+<%@ page import="com.admin.model.*"%>
+<%
+if((AdminVO)session.getAttribute("adminVO")!=null){
+	AdminVO adminVO=(AdminVO)session.getAttribute("adminVO");
+	String adminID=adminVO.getAdminID();
+	session.setAttribute("adminID",adminID);
+}
+%> 
+ 
  
 <!-- Required meta tags -->
 <meta charset="utf-8">
@@ -92,7 +106,9 @@ input[type="submit"] {
 
 
 </style>
+ <body onload="connect();" onunload="disconnect();">
 
+</body>
 <%@ page import="com.admin.model.*"%>
 <%
 	AdminVO adminVO = (AdminVO) session.getAttribute("adminVO");
@@ -187,3 +203,73 @@ input[type="submit"] {
 	        }
 	
 </script>
+
+<!--==========websocket推播 開始=============-->
+<script>
+var MyPoint = "/BroadcastOrderServer/${adminID}";
+var host = window.location.host;
+var path = window.location.pathname;
+var webCtx = path.substring(0, path.indexOf('/', 1));
+var endPointURL = "ws://" + window.location.host + webCtx + MyPoint;
+
+var webSocketTitle = document.getElementById("webSocketTitle"); //狀態標題
+var statusOutput = document.getElementById("statusOutput"); //狀態內容
+
+var webSocket;
+
+function connect() {
+
+    //建立websocket物件
+    webSocket = new WebSocket(endPointURL);
+
+    webSocket.onopen = function(event) {
+        updateStatus("WebSocket 成功連線");
+    };
+
+//     webSocket.onmessage = function(event) {
+//         var jsonObj = JSON.parse(event.data);
+//         var message = jsonObj.message + "\r\n";
+//         window.alert(message);
+//         debugger;
+//         //         window.alert("${AllDelay}");
+//         debugger;
+//         // console.log(Alldelay);
+//         updateStatus(message);
+//     };
+
+		var message=""; //本次連線的推播容器
+ 		webSocket.onmessage=function(event){
+ 			var jsonObj=JSON.parse(event.data);
+ 			message=jsonObj.message+"\r\n"+"<br>"+message;
+//  			window.alert(message);
+ 			updateStatus(message);
+ 			
+ 			swal(message, "請至【訂單管理】查詢處理", "success");
+ 			
+//  			else{
+//  				swal(message, "歡迎使用Picar智慧叫車系統", "success");
+//  				count++;
+//  			}
+ 		};
+
+    if ("${AllDelay}" != null) {
+        window.alert("逾時訂單" + "${AllDelay}");
+        debugger;
+    }
+
+    webSocket.onclose = function(event) {
+
+        updateStatus("WebSocket已離線");
+    };
+}
+
+function disconnect() {
+    webSocket.close();
+}
+
+function updateStatus(newStatus) {
+    statusOutput.innerHTML = newStatus;
+}
+</script>
+<!--==========websocket推播 結束============-->
+
