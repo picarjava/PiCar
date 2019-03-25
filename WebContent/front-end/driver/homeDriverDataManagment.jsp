@@ -202,12 +202,12 @@ margin-top:5%;
                             <!--                                         </div> -->
                             <!--                                         <input type="text" class="form-control" placeholder="1" -->
                             <!--                                         aria-label="Username" aria-describedby="basic-addon1" readonly> -->
-                            <!-- <!--                                         <DIV> -->
-                            <!-- <!--                                         <font color="black"> -->
-                            <%-- <%--                                         <c:if test="${driverVO.banned == 0}">表現不錯，沒被BAN</c:if> --%>
-                            <%-- <%--                                       <c:if test="${driverVO.banned == 1}">BAN</c:if> --%>
-                            <!-- <!--                                         </font> -->
-                            <!-- <!--                                       </DIV> -->
+															<DIV>
+                                                            <font color="black">
+                                                            <c:if test="${driverVO.banned == 0}">表現不錯，沒被BAN</c:if> 
+                                                            <c:if test="${driverVO.banned == 1}">你被BAN囉，24小時後才能解除封印。</c:if> 
+                                                            </font>
+                                                            </DIV> 
                         </div>
                     </div>
                     <!--                                     <div class="input-group mb-3"> -->
