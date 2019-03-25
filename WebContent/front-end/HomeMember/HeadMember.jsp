@@ -67,7 +67,7 @@ float: right;
 
     </head>
 
-    <body>
+    <body >
     
 <%-- <%--         <% --%> 
 <!-- //     MemberVO memberVO = (MemberVO)session.getAttribute("memberVO"); -->
@@ -155,6 +155,6 @@ float: right;
 <%--         <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/scripts.js"></script> --%>
 
     </body>
-
+    
 </html>
 

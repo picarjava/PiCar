@@ -245,8 +245,7 @@ $("#DELETELONGTERM").click(function() {
 	window.alert("同一筆長期預約訂單將一併刪除");
 });
 </script>
-
-<!--==========websocket推播 開始=============-->
+   <!--==========websocket推播 開始=============-->
  <script>
  	var MyPoint="/BroadcastServer/${memID}";
  	var host=window.location.host;
@@ -269,19 +268,23 @@ $("#DELETELONGTERM").click(function() {
  			updateStatus("WebSocket 成功連線");
  		};
  		
+ 		
  		var message=""; //本次連線的推播容器
  		webSocket.onmessage=function(event){
  			var jsonObj=JSON.parse(event.data);
  			message=jsonObj.message+"\r\n"+"<br>"+message;
 //  			window.alert(message);
  			updateStatus(message);
- 			 swal(message, "請確認", "success");
  			
+ 			swal(message, "請至【訂單查詢】確認", "success");
  			
+//  			else{
+//  				swal(message, "歡迎使用Picar智慧叫車系統", "success");
+//  				count++;
+//  			}
  		};
  		
  		webSocket.onclose=function(event){
- 			
  			updateStatus("WebSocket已離線");
  		};
  	}
@@ -297,6 +300,8 @@ $("#DELETELONGTERM").click(function() {
  	
  	
  </script>
-<jsp:include page="/front-end/HomeMember/Footer.jsp" />
+
  <!--==========websocket推播 結束============-->
+
+ <jsp:include page="/front-end/HomeMember/Footer.jsp" />
 </html>
