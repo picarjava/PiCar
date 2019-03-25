@@ -1,5 +1,7 @@
 package android.com.webSocket;
 
+import java.lang.reflect.Type;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -17,8 +19,10 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import android.com.location.model.InputInfo;
+import android.com.location.model.LatLng;
 import android.com.location.model.StoredInfo;
 
 // if want get servlet from session need to use filter to get session and on modify handshake put session in endpoint config
@@ -39,8 +43,26 @@ public class LocationWebSocket {
     
     @OnMessage
     public void onMessage(Session session, String message) {
-        JsonObject jsonObject = new Gson().fromJson(message, JsonObject.class);
-        InputInfo inputInfo = new Gson().fromJson(jsonObject.get("outputInfo"), InputInfo.class);
+        Gson gson = new Gson();
+        JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
+        InputInfo inputInfo = gson.fromJson(jsonObject.get("outputInfo"), InputInfo.class);
+        if (jsonObject.has("memID")) {
+            @SuppressWarnings("unchecked")
+            Map<String, Session> map = (Map<String, Session>) servletContext.getAttribute("OrderBroadcast");
+            String memID = jsonObject.get("memID").getAsString();
+            if (map != null) {
+                Session memSession = map.get(memID);
+                if (memSession != null && memSession.isOpen()) {
+                    JsonObject jsonObjectOut = new JsonObject();
+                    jsonObjectOut.addProperty("state", "callCar");
+                    jsonObjectOut.addProperty("getIn", jsonObject.get("getIn").getAsBoolean());
+                    jsonObjectOut.add("latLngs", jsonObject.get("latLngs"));
+                    memSession.getAsyncRemote().sendText(jsonObjectOut.toString());
+                } else
+                    System.err.println("mem session is not exist!");
+            } else
+                System.err.println("OrderBroadcast map is null");
+        }
         driver.put(inputInfo.getDriverID(), new StoredInfo(session, inputInfo.getLatLng(), inputInfo.isExecuting()));
         System.out.println(message);
     }
@@ -62,5 +84,9 @@ public class LocationWebSocket {
     @OnError
     public void onError(Session session, Throwable e) {
         System.err.println(e.getMessage());
+    }
+    
+    public static Map<String, StoredInfo> getMap() {
+        return LocationWebSocket.driver;
     }
 }

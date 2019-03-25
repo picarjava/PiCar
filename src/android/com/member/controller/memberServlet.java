@@ -57,7 +57,7 @@ public class memberServlet extends HttpServlet {
                 MemberVO memberVO = MemberVO.castToAndroidMemberVO(serivce.getOneByEmailAndPassword(account, password));
                 if (memberVO != null) {
                     jsonObject.addProperty("auth", "OK");
-                    jsonObject.addProperty("member", gson.toJson(memberVO));
+                    jsonObject.add("member", gson.toJsonTree(memberVO));
                 } else
                     jsonObject.addProperty("auth", "Failed");
                 
