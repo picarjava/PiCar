@@ -76,17 +76,15 @@ float: right;
 
     <body>
     
-<%--             <% --%>
-<!-- //     MemberVO memberVO = (MemberVO)session.getAttribute("memberVO"); -->
-<!-- //     DriverService driSrc = new DriverService(); -->
+<%          
+    MemberVO memberVO = (MemberVO)session.getAttribute("memberVO"); 
+     DriverService driSrc = new DriverService(); 
     
-   
-<!-- //     DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID()); -->
-<!-- //     if(driverVO!=null){ -->
-<!-- //     session.setAttribute("driverVO",driverVO); -->
-<!-- //     DriverVO drixx = (DriverVO)session.getAttribute("driverVO"); -->
-<!-- //     } -->
-<%-- 	%> --%>
+     DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
+     if(driverVO!=null){
+     session.setAttribute("driverVO",driverVO);
+     }
+%>
 
         <!-- Header -->
         <div class="container">

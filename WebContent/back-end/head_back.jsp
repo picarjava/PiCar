@@ -120,7 +120,7 @@ input[type="submit"] {
 <!-- 									<i class="material-icons">notifications</i> Notifications -->
 <!-- 							</a></li> -->
 				              <p id="p1"><font color=black> ${adminVO.adminName} </font>您好   </p>
-				                <FORM METHOD="post" ACTION="logoutHandlerBackEnd.do">
+				                <FORM METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/back-end/logoutHandlerBackEnd.do">
 									<input type="hidden" name="action" value="logout">
 									<input type="submit" name="logout" value="登出">				
 								</FORM>

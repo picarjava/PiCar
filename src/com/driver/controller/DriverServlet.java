@@ -141,11 +141,11 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 //		HttpSession session1 = req.getSession();
 //		String memID = (String)(session1.getAttribute("MEM_ID"));
 		String plateNum = (String)req.getParameter("plateNum").trim();
-		String enameReg = "[a-zA-Z]{3}[0-9]{3,4}";
+		String enameReg = "[A-Z]{3}-[0-9]{3,4}";
 		if (plateNum == null || plateNum.trim().length() == 0) {
 			errorMsgs.add("車牌號碼請勿空白");
 		}else if (!plateNum.trim().matches(enameReg)) { //// 以下練習正則(規)表示式(regular-expression)
-			errorMsgs.add("車牌號碼: 例如ABC0001");
+			errorMsgs.add("車牌號碼: 例如ABC-0001");
 		}
 		///////////////////////////區域變數給初始值--圖片
 		byte[] licence = null;

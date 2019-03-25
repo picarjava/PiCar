@@ -8,7 +8,7 @@
 <html>
 <head>
 <title>成為司機</title>
-<jsp:include page="/regna-master/head.jsp" />
+<%-- <jsp:include page="/regna-master/head.jsp" /> --%>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 </head>
 
@@ -28,14 +28,14 @@ session.setAttribute("memID",memID);
 	
 	<!--  Session得到的MemberVO原本沒有照片，若新增照片 ，要先拿出MEMID 透過SERVEICE 查詢這位會員的新資料，拿到新的MemberVO 裡面才有照片 -->
 	<jsp:useBean id="memberSvc" class="com.member.model.MemberService"/>
-	${memberSvc.getOneMember(memberVO.memID).memID}
+<%-- 	${memberSvc.getOneMember(memberVO.memID).memID} --%>
 
 	<%
 		LinkedList errorMsgs = (LinkedList) request.getAttribute("errorMsgs");
 	%>
 	<!-- 錯誤列表 -->
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
-			<li class="list-group-item active">Opps!錯誤訊息回報</li>
+			<li class="list-group-item active">您好!請填寫</li>
 			<c:forEach var="massage" items="${errorMsgs}">
 				<li class="list-group-item">${massage}</li>
 			</c:forEach>
@@ -75,7 +75,7 @@ session.setAttribute("memID",memID);
 							<div class="form-group">
 								<p>車牌號碼</p>
 								<input type="text" required name="plateNum" class="form-control"
-									 placeholder="請輸入車牌號碼例如:ABC1234" />
+									 placeholder="請輸入車牌號碼例如:ABC-1234" />
 							</div>
 							<div class="form-group">
 								<p>車型</p>
