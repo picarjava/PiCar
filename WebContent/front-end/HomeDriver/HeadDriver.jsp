@@ -76,12 +76,12 @@ width: 100px;
                                 <span class="icon-bar"></span>
                             </a>
                             <h1>
-                                <a class="brand" href="index.html">Andia - a super cool design agency...</a>
+                                <a class="brand" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeDriver/index.jsp">Andia - a super cool design agency...</a>
                             </h1>
                             <div class="nav-collapse collapse">
                                 <ul class="nav pull-right">
                                                                         <li class="current-page widthes">
-                                        <a href="index.html"><i class="icon-home"></i><br />司機首頁</a>
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeDriver/index.jsp"><i class="icon-home"></i><br />司機首頁</a>
                                     </li>
                                     <li class="widthes">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/listAllfutureDriverTask.jsp"><i class="icon-camera"></i><br />未來訂單</a>

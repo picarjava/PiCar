@@ -65,7 +65,7 @@ session.setAttribute("memID",memID);
 					<div class="form">
 						<!-- 成為司機開始 -->
 
-						<form action="driver.do" method="post" enctype="multipart/form-data">
+						<form action="driver.do" name="form1" method="post" enctype="multipart/form-data">
 
 							<div class="form-group">
 								<p>會員編號</p>
@@ -76,6 +76,7 @@ session.setAttribute("memID",memID);
 								<p>車牌號碼</p>
 								<input type="text" required name="plateNum" class="form-control"
 									 placeholder="請輸入車牌號碼例如:ABC-1234" />
+									 <img src="cat.jpg"	height="20" width="20" onClick="idwrite(this)">
 							</div>
 							<div class="form-group">
 								<p>車型</p>
@@ -190,7 +191,10 @@ session.setAttribute("memID",memID);
 
 var btn= document.getElementById("btn");
 $(btn).css("color","blue");
-
+function idwrite(name) {
+	form1.plateNum.value="PCR-0329"
+//	   	  form1.cust_niname.value="資策會小小書童"
+		}
 
 </script>
 </body>

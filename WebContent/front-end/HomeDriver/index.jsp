@@ -76,7 +76,7 @@ width: 100px;
                                 <span class="icon-bar"></span>
                             </a>
                             <h1>
-                                <a class="brand" href="index.html">Picar - a super cool smart ride system...</a>
+                                <a class="brand" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeDriver/index.jsp">Picar - a super cool smart ride system...</a>
                             </h1>
                             <div class="nav-collapse collapse">
                                 <ul class="nav pull-right">

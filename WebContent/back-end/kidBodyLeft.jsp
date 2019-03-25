@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-		<div class="sidebar" data-color="azure" data-background-color="white"
+		<div class="sidebar" data-color="azure" data-color="" data-background-color="black"
 			data-image="<%=request.getServletContext().getContextPath()%>/back-end/assets/img/sidebar-1.jpg">
 <!-- 			data-image="../assets/img/sidebar-1.jpg"> -->
 			<div class="logo">

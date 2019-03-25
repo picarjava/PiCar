@@ -12,6 +12,7 @@
 <body>
     <div class="wrapper ">
         <jsp:include page="/back-end/kidBodyLeft.jsp" />
+<%--         <jsp:include page="/back-end/sidebar.jsp" /> --%>
         <div class="main-panel">
                         <div class="content">
                 <div class="container-fluid">
