@@ -114,7 +114,7 @@ select, #i1 {
 									<a>搜尋檢舉揪團單號</a> 
 									<input type="text" placeholder="(例如:GR001)" name="greportID" id="i1"> 
 									<input type="hidden" name="action" value="getOne_For_Display"> 
-									<input type="submit" value="送出">
+									<input type="submit" value="查詢">
 								</form>
 								
 								<jsp:useBean id="groupReportSvc1" scope="page" class="com.groupReport.model.GroupReportService" />
@@ -127,7 +127,7 @@ select, #i1 {
 										</c:forEach>
 									</select> 
 									<input type="hidden" name="action" value="getOne_For_Display">
-									<input type="submit" value="送出">
+									<input type="submit" value="查詢">
 								</FORM>
 								
 								<ul>
