@@ -7,6 +7,8 @@
 <html lang="en">
 <head>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
+ <jsp:include page="/front-end/HomeMember/Header.jsp" /> 
+   
     <meta charset="UTF-8"/>
     <title>司機評價</title>
     <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">
@@ -42,4 +44,5 @@
     </form>
 </div>
 </body>
+ <jsp:include page="/front-end/HomeMember/Footer.jsp" />
 </html>

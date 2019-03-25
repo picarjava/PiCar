@@ -322,7 +322,7 @@ public class ActivServlet extends HttpServlet {
 				successPage.forward(req, res);
 				/************* 4.處理例外 **************/
 			} catch (Exception e) {
-				errorMsgs.add("無法刪除" + e.getMessage());
+				errorMsgs.add("本活動已有會員領取活動代幣，故無法刪除；如欲刪除請待本於活動結束。");
 				RequestDispatcher failurePage = req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
 				failurePage.forward(req, res);
 			}

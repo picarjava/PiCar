@@ -2,6 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.activity.model.*" %>
 <%@ page import="java.util.*" %>
+<jsp:include page="/back-end/btnCss.jsp" />
 <html>
 <head>
   <title>請修改此筆活動資訊</title>

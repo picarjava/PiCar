@@ -5,7 +5,7 @@
 
 <!DOCTYPE html>
 <html lang="zh">
-
+<jsp:include page="/back-end/btnCss.jsp" />
 <head>
     <jsp:include page="/back-end/head_back.jsp" />
     <title>後台所有活動列表</title>
@@ -24,24 +24,23 @@
     
     <%LinkedList errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <!-- 錯誤列表 -->
-    
-    <c:if test="${not empty errorMsgs}"><ul class="list-group">
+    <c:if test="${not empty errorMsgs}">
+       <ul class="list-group">
 		  <li class="list-group-item active">Opps!錯誤訊息回報</li>
 		  <c:forEach var="massage" items="${errorMsgs}">
 		  <li class="list-group-item">${massage}</li>
 		  </c:forEach>
 		</ul>
 	</c:if>
+ 
+    
    
  
         <section id="contact">
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">後台所有活動列表</h3>
-                     
-                    <form action="<%=request.getContextPath()%>/back-end/activity/homeActivity.jsp">
-			          <div class="text-center"><button type="submit" class="btn btn-outline-success">返回</button></div>
-			         </form>
+                    
                 </div>
             </div>
             <div class="container wow fadeInUp">
