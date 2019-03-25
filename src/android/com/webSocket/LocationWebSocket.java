@@ -16,6 +16,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 
 import android.com.location.model.InputInfo;
 import android.com.location.model.StoredInfo;
@@ -38,7 +39,8 @@ public class LocationWebSocket {
     
     @OnMessage
     public void onMessage(Session session, String message) {
-        InputInfo inputInfo = new Gson().fromJson(message, InputInfo.class);
+        JsonObject jsonObject = new Gson().fromJson(message, JsonObject.class);
+        InputInfo inputInfo = new Gson().fromJson(jsonObject.get("outputInfo"), InputInfo.class);
         driver.put(inputInfo.getDriverID(), new StoredInfo(session, inputInfo.getLatLng(), inputInfo.isExecuting()));
         System.out.println(message);
     }
