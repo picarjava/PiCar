@@ -291,7 +291,11 @@ th, td {
 	border-radius: 30px;
 	margin-bottom: 10px;
 	box-shadow:4px 4px 3px rgba(20%,20%,40%,0.5);
+	    filter: brightness(0.8);
 }	
+.boderRi:hover {
+	filter: brightness(1);
+}
 .floatSquare{
 
 
@@ -345,12 +349,12 @@ th, td {
 				enctype="multipart/form-data">
 				<div class="radio">
 					<input type="radio" id="radio-1" name="GROUP_KIND" value="5"
-						checked onclick="groupif(this.value)"> <label
+						checked> <label
 						for="radio-1" class="radio-label">揪團</label>
 				</div>
 				<div class="radio">
 					<input id="radio-2" type="radio" name="GROUP_KIND" value="6"
-						onclick="groupif(this.value)"> <label for="radio-2"
+						> <label for="radio-2"
 						class="radio-label">長期揪團</label>
 
 				</div>
