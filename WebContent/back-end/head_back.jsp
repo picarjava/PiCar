@@ -223,7 +223,7 @@ function connect() {
     webSocket = new WebSocket(endPointURL);
 
     webSocket.onopen = function(event) {
-        updateStatus("WebSocket 成功連線");
+//         updateStatus("WebSocket 成功連線");
     };
 
 //     webSocket.onmessage = function(event) {
@@ -242,7 +242,7 @@ function connect() {
  			var jsonObj=JSON.parse(event.data);
  			message=jsonObj.message+"\r\n"+"<br>"+message;
 //  			window.alert(message);
- 			updateStatus(message);
+//  			updateStatus(message);
  			
  			swal(message, "請至【訂單管理】查詢處理", "success");
  			
@@ -258,8 +258,7 @@ function connect() {
     }
 
     webSocket.onclose = function(event) {
-
-        updateStatus("WebSocket已離線");
+//         updateStatus("WebSocket已離線");
     };
 }
 
@@ -267,9 +266,9 @@ function disconnect() {
     webSocket.close();
 }
 
-function updateStatus(newStatus) {
-    statusOutput.innerHTML = newStatus;
-}
+// function updateStatus(newStatus) {
+//     statusOutput.innerHTML = newStatus;
+// }
 </script>
 <!--==========websocket推播 結束============-->
 

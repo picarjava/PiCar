@@ -42,8 +42,8 @@ public class BroadcastOrderServer {
 	ServletContext servletContext = ((HttpSession) config.getUserProperties().get("httpSession")).getServletContext();
     servletContext.setAttribute("broadcastOrderMap", map);
     
-	String message= "{\"message\":\"" +"Picar推播:"+"\"}";
-	userSession.getBasicRemote().sendText(message);
+//	String message= "{\"message\":\"" +"Picar推播:"+"\"}";
+//	userSession.getBasicRemote().sendText(message);
 	System.out.println(adminID+"已連線");
 	
 	

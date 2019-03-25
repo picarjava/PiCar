@@ -92,7 +92,6 @@ public class DelayTimerx extends HttpServlet {
     //						2.for select
     				List<String> singledelayedList = new SingleOrderService().getAllDelay();
     				for (String singledelayed : singledelayedList) {
-    //						if (broadcastOrderMap != null) 
     //						if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()){ // 若有管理員在線，則可以進入推播對象的篩選
     					///////////
     //						String adminID= 
@@ -101,9 +100,7 @@ public class DelayTimerx extends HttpServlet {
     ////						.getAdminID()
     //						;//拿到在線session
     					//						System.out.println(adminID+"哈哈");//null
-    					///////
     					Collection<Session> isOnline = broadcastOrderMap.values();
-    					
     					System.out.println(isOnline);
 //    					[org.apache.tomcat.websocket.WsSession@6f55ce94]
     
@@ -112,7 +109,7 @@ public class DelayTimerx extends HttpServlet {
     						System.out.println(allAdmin);
     
     						if (allAdmin != null) { // 若此會員在線，則推播
-    							String message = "訂單編號" + singledelayed + "有問題。請至訂單管理";
+    							String message = "訂單編號" + singledelayed + "已逾時。請至訂單管理處理謝謝";
     							String toJsonMessage = "{\"message\":\"" + message + "\"}";
     							allAdmin.getAsyncRemote().sendText(toJsonMessage);
     						}
@@ -120,9 +117,23 @@ public class DelayTimerx extends HttpServlet {
     				}
     //					}
     //			}
+//    				目前進度。差grouporder推播--->退款--->重新叫車
     				List<String> groupDelayList = new GroupOrderService().getDelayGOrder();
     				for (String groupdelay : groupDelayList) {// 滾出一群過期揪團訂單
     					System.out.println("UPDATE GROUP_ORDER SET STATE ='6' WHERE GORDER_ID=?");
+    					Collection<Session> isGOnline = broadcastOrderMap.values();
+    					System.out.println(isGOnline);
+    					
+    						for (Session allAdminG : isGOnline) {
+    						
+    						System.out.println(allAdminG);
+    
+    						if (allAdminG != null) { // 若此會員在線，則推播
+    							String message = "訂單編號" + groupdelay + "已逾時。請至訂單管理處理謝謝";
+    							String toJsonMessage = "{\"message\":\"" + message + "\"}";
+    							allAdminG.getAsyncRemote().sendText(toJsonMessage);
+    						}
+    					}
     					System.out.println(groupdelay);
     					new GroupOrderService().updateDelayGOrder(groupdelay);
     //						System.out.println(new SingleOrderService().get);
@@ -164,20 +175,7 @@ public class DelayTimerx extends HttpServlet {
     ////								new Timer().schedule(taskdelay, 1000 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
     ////							}
     ////						};
-    ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
-    ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
     //						// 排成器delaytask 5分鐘後 1.狀態碼改成逾期2.推播websocket給管理員 
-    //						//
-    ////						TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
-    ////							public void run() {
-    ////								// System.out.println("更新日期:"+new
-    ////								// java.util.Date()+"司機編號"+driverID+"最新評價為:"+rateAve+ "分");
-    ////								TimerTask taskdelay = null;
-    ////								taskdelay = afterdelay();
-    //////								new Timer().schedule(taskdelay, 1000 * 60 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
-    ////								new Timer().schedule(taskdelay, 1000 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
-    ////							}
-    ////						};
     ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
     ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
     //				}
