@@ -29,6 +29,7 @@ public class BroadcastServer {
 	private static final Map<String,Session> map=(new ConcurrentHashMap<>());
     private static final Set<Session> allSessions=Collections.synchronizedSet(new HashSet<Session>());
     
+    
 	
     
 	@OnOpen
@@ -37,9 +38,12 @@ public class BroadcastServer {
 	map.put(memID,userSession);
 	ServletContext servletContext = ((HttpSession) config.getUserProperties().get("httpSession")).getServletContext();
     servletContext.setAttribute("broadcastMap", map);
-    String message="{\"message\":\"" +"Picar推播系統連線成功!"+"\"}";
-	userSession.getBasicRemote().sendText(message);
-	System.out.println(memID+"已連線");
+    
+	    String message="{\"message\":\"" +"Picar推播系統連線成功!"+"\"}";
+	    userSession.getBasicRemote().sendText(message);
+	    System.out.println(memID+"已連線");
+	   
+   
 	}
 	
 	@OnMessage
@@ -58,8 +62,9 @@ public class BroadcastServer {
 	}
 	
 	@OnClose
-	public void onClose(Session userSession, CloseReason reason) {
+	public void onClose(@PathParam("memID")String memID,Session userSession, CloseReason reason) {
 		allSessions.remove(userSession);
+		map.remove(memID);
 		System.out.println(userSession.getId()+"Disconnect:"+Integer.toString(reason.getCloseCode().getCode()));
 	}
 }

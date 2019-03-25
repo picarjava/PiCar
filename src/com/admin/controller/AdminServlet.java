@@ -263,7 +263,7 @@ public class AdminServlet extends HttpServlet {
 				    		               "歡迎你加入PICAR大家庭！"+ "\n"  +
 				                           "你的管理員編號為" + id +"\n"+
 				                           "此為你之後的登入帳號，"+
-				                           "請先以此密碼登入【 " + passRandom + " 】"+
+				                           "請先以此密碼登入【"+passRandom+"】"+
 				                           "\n" +"登入後台過後再修改你的密碼！謝謝！"; 
 					
 					  MailService mailService = new MailService();

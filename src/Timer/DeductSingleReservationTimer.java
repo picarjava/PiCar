@@ -79,11 +79,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 					}
 				}
 
-				// 先拿到目前在線會員
-				@SuppressWarnings("unchecked")
-				Map<String, Session> broadcastMap = (Map<String, Session>) (getServletContext()
-						.getAttribute("broadcastMap"));
-				System.out.println("是否有會員在線上:" + (broadcastMap != null));
+				
 				int i = allUnpaid.size(); //蔣 改的
 				// 開始扣款
 				SingleOrderService singleOrderSvc = new SingleOrderService();
@@ -108,6 +104,12 @@ public class DeductSingleReservationTimer extends HttpServlet {
 								singleOrderVO.getEndLoc(), singleOrderVO.getStartLng(), singleOrderVO.getStartLat(),
 								singleOrderVO.getEndLng(), singleOrderVO.getEndLat(), singleOrderVO.getTotalAmount(),
 								singleOrderVO.getRate());
+						
+						// 每次都重抓目前在線會員放進MAP
+						@SuppressWarnings("unchecked")
+						Map<String, Session> broadcastMap = (Map<String, Session>) (getServletContext()
+								.getAttribute("broadcastMap"));
+						System.out.println("是否有會員在線上:" + (broadcastMap != null));
 
 						if (broadcastMap != null) { // 若有會員在線，則可以進入推播對象的篩選
 							Session isOnline = broadcastMap.get(memID);
@@ -129,6 +131,14 @@ public class DeductSingleReservationTimer extends HttpServlet {
 								singleOrderVO.getStartLoc(), singleOrderVO.getEndLoc(), singleOrderVO.getStartLng(),
 								singleOrderVO.getStartLat(), singleOrderVO.getEndLng(), singleOrderVO.getEndLat(),
 								singleOrderVO.getTotalAmount(), singleOrderVO.getRate());
+						
+						// 每次都重抓目前在線會員放進MAP
+						@SuppressWarnings("unchecked")
+						Map<String, Session> broadcastMap = (Map<String, Session>) (getServletContext()
+								.getAttribute("broadcastMap"));
+						System.out.println("是否有會員在線上:" + (broadcastMap != null));
+						
+						
 						if (broadcastMap != null) { // 若有會員在線，則可以進入推播對象的篩選
 							Session isOnline = broadcastMap.get(memID);
 							if (isOnline != null) { // 若此會員有在線，則對此會員進行推播
