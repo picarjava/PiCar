@@ -9,7 +9,7 @@
 <head>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 	<title>單程的檢舉司機單</title>
-	<jsp:include page="/regna-master/head.jsp" />  
+	 
 </head>
 <body>
 
@@ -69,6 +69,5 @@ String memID=(String)request.getAttribute("memID");
 <!--     底部 -->
 <!--   ============================--> 
     
-    <jsp:include page="/regna-master/body.jsp" />
 </body>
 </html>

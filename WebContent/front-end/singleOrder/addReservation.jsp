@@ -9,10 +9,13 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
-<jsp:include page="/front-end/HomeMember/HeadMemberReservatoin.jsp" />
+<jsp:include page="/front-end/HomeMember/HeadMember.jsp"/>
+<jsp:include page="/front-end/HomeMember/HeadMemberReservatoin.jsp"/>
+
+ 
+  
     <title>預約叫車</title>
-    <jsp:include page="/regna-master/head.jsp" />
+   
  
 <style>
 	#map { 
@@ -58,17 +61,6 @@ session.setAttribute("memID",memID);
 	</c:if>
 
   <!--==========================
-    Hero Section
-  ============================-->
-  <section id="hero">
-    <div class="hero-container">
-      <h1>Welcome to Picar</h1>
-      <h2>We are team of smart ridesharing </h2>
-      <a href="#contact" class="btn-get-started">單程預約</a>
-      <a href="<%=application.getContextPath()%>/front-end/singleOrder/addLongtermReservation.jsp#contact" class="btn-get-started">長期預約</a>
-    </div>
-  </section><!-- #hero -->
-  <!--==========================
       預約叫車
     ============================-->
     <section id="contact">
@@ -76,9 +68,6 @@ session.setAttribute("memID",memID);
         <div class="section-header">
           <h3 class="section-title">單程預約</h3>
           <p class="section-description"> 請新增一筆預約單程訂單</p>
-          <form action="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">
-		          <button type="submit" class="btn btn-outline-success" >返回會員首頁</button>
-		  </form>
         </div>
       </div>
 
@@ -208,7 +197,7 @@ session.setAttribute("memID",memID);
     </div>
   </footer><!-- #footer -->
 
- <jsp:include page="/regna-master/body.jsp" />
+ 
  
  
  

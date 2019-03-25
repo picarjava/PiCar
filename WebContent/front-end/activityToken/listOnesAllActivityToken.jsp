@@ -31,7 +31,7 @@ session.setAttribute("memID",memID);
 
    <jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontNeg.jsp"/> 
     <title>查詢活動代幣明細</title>
-   <jsp:include page="/regna-master/head.jsp" />
+  
    
 </head>
 
@@ -58,9 +58,7 @@ session.setAttribute("memID",memID);
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">查詢活動代幣明細</h3>
-                    <form action="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">
-			          <div class="text-center"><button type="submit" class="btn btn-outline-success">返回會員首頁</button></div>
-			         </form>
+                   
                 </div>
             </div>
             <div class="container wow fadeInUp">
@@ -99,8 +97,7 @@ session.setAttribute("memID",memID);
     <!--==========================
     底部
   ============================-->
-    
-   <jsp:include page="/regna-master/body.jsp" />
+ 
 </body>
 
 </html>

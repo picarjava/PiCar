@@ -74,170 +74,135 @@ public class DelayTimerx extends HttpServlet {
 				@SuppressWarnings("unchecked")
 				Map<String, Session> broadcastOrderMap = (Map<String, Session>) (getServletContext()
 						.getAttribute("broadcastOrderMap"));
-				System.out.println(broadcastOrderMap);// {A010=org.apache.tomcat.websocket.WsSession@fd5e384}
-				System.out.println("是否有管理員在線上:" + (broadcastOrderMap != null));
-
-				List<String> singleDelayList = new ArrayList<String>();
-				singleDelayList = new SingleOrderService().getDelayOrder();// 。2.檢查是否已是6 同時做for
-//				if (startTimeList != null) {
-				for (String singledelay : singleDelayList) {// 滾出一群過期單人訂單
-					System.out.println(singledelay + "嗚嗚"); // 逾期訂單(1)。字串SODR005
-					// 2.將狀態碼1-->6 logic1//狀態碼改成逾期
-					new SingleOrderService().updateDelayOrder(singledelay);
-					System.out.println("--------------------------------");
+				if (broadcastOrderMap != null) {//在init若 沒攔截。則null exception 截斷
+    				System.out.println(broadcastOrderMap);// {A010=org.apache.tomcat.websocket.WsSession@fd5e384}
+    				System.out.println("是否有管理員在線上:" + (broadcastOrderMap != null));
+    
+    				List<String> singleDelayList = new SingleOrderService().getDelayOrder();// 。2.檢查是否已是6 同時做for
+    //				if (startTimeList != null) {
+    				for (String singledelay : singleDelayList) {// 滾出一群過期單人訂單
+    					System.out.println(singledelay + "嗚嗚"); // 逾期訂單(1)。字串SODR005
+    					// 2.將狀態碼1-->6 logic1//狀態碼改成逾期
+    					new SingleOrderService().updateDelayOrder(singledelay);
+    					System.out.println("--------------------------------");
+    				}
+    				// [SODR005, SODR010] 已經逾期訂單(6)
+    				System.out.println(new SingleOrderService().getAllDelay());
+    
+    //						2.for select
+    				List<String> singledelayedList = new SingleOrderService().getAllDelay();
+    				for (String singledelayed : singledelayedList) {
+    //						if (broadcastOrderMap != null) 
+    //						if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()){ // 若有管理員在線，則可以進入推播對象的篩選
+    					///////////
+    //						String adminID= 
+    ////						new AdminVO()
+    //						(String) getServletContext().getAttribute("conAdminID")
+    ////						.getAdminID()
+    //						;//拿到在線session
+    					///////
+    //						System.out.println(adminID+"哈哈");//null
+    					Collection<Session> isOnline = broadcastOrderMap.values();
+    					System.out.println(isOnline + "吃");
+    
+    					for (Session allAdmin : isOnline) {
+    						
+    						System.out.println(allAdmin);
+    
+    //						if (isOnline != null) { // 若此會員在線，則推播
+    //							String message = "訂單編號" + singledelayed + "有問題";
+    //							String toJsonMessage = "{\"message\":\"" + message + "\"}";
+    ////								isOnline.getBasicRemote().sendText(toJsonMessage);
+    ////								isOnline.getAsyncRemote().sendText("呵呵");
+    //							allAdmin.getAsyncRemote().sendText(singledelayed);
+    //
+    ////								 if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()) {
+    //////								        jsonDelay.addProperty(property, value);
+    ////								        JsonObject jsonDelay = new JsonObject();
+    //////								        jsonDelay.addProperty("singleOrder", gson.toJson(singleOrderVO));
+    //////								        broadcastOrderMap.get(new AdminVO().getAdminID()).getAsyncRemote().sendText(new SingleOrderService().getAllDelay().toString());
+    ////								        isOnline.getAsyncRemote().sendText("呵呵");
+    ////								        }
+    //
+    //						}
+    					}
+    				}
+    //					}
+    //			}
+    				List<String> groupDelayList = new GroupOrderService().getDelayGOrder();
+    				for (String groupdelay : groupDelayList) {// 滾出一群過期揪團訂單
+    					System.out.println("UPDATE GROUP_ORDER SET STATE ='6' WHERE GORDER_ID=?");
+    					System.out.println(groupdelay);
+    					new GroupOrderService().updateDelayGOrder(groupdelay);
+    //						System.out.println(new SingleOrderService().get);
+    					System.out.println("=================");
+    				}
+    ///////////////////////////////////////////////////////////////////////////////
+    //					3.	推播websocket給管理員
+    
+    //					@SuppressWarnings("unchecked")
+    //					Map<String, Session> broadcastOrderMap = (Map<String, Session>) (getServletContext()
+    //							.getAttribute("broadcastMap"));
+    //					System.out.println("是否有會員在線上:" + (broadcastMap != null));
+    				// 推播成功架構
+    //					if(broadcastMap!=null) {
+    //						for(SingleOrderVO allUnpaidOrders:allUnpaid) {
+    //	//						String memID= new AdminVO().getAdminID();
+    //							Session isOnline=broadcastMap.get(memID);
+    //							
+    //							if(isOnline!=null) { //若此會員在線，則推播
+    //						    String message= "訂單編號"+groupdelay.getOrderID()+"已為您扣款";
+    //							String toJsonMessage= "{\"message\":\"" +message+"\"}";	
+    //								try {
+    //									isOnline.getBasicRemote().sendText(toJsonMessage);
+    //								} catch (IOException e) {
+    //									// TODO Auto-generated catch block
+    //									e.printStackTrace();
+    //								}
+    //		//					}
+    //						}
+    //					}
+    
+    ////						TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
+    ////							public void run() {
+    ////								// System.out.println("更新日期:"+new
+    ////								// java.util.Date()+"司機編號"+driverID+"最新評價為:"+rateAve+ "分");
+    ////								TimerTask taskdelay = null;
+    ////								taskdelay = afterdelay();
+    //////								new Timer().schedule(taskdelay, 1000 * 60 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
+    ////								new Timer().schedule(taskdelay, 1000 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
+    ////							}
+    ////						};
+    ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
+    ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
+    //						// 排成器delaytask 5分鐘後 1.狀態碼改成逾期2.推播websocket給管理員 
+    //						//
+    ////						TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
+    ////							public void run() {
+    ////								// System.out.println("更新日期:"+new
+    ////								// java.util.Date()+"司機編號"+driverID+"最新評價為:"+rateAve+ "分");
+    ////								TimerTask taskdelay = null;
+    ////								taskdelay = afterdelay();
+    //////								new Timer().schedule(taskdelay, 1000 * 60 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
+    ////								new Timer().schedule(taskdelay, 1000 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
+    ////							}
+    ////						};
+    ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
+    ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
+    //				}
+    //				sharetimer(startTimeList);//此行跑不到。B.將一群時間傳到另一個方法
 				}
-				// [SODR005, SODR010] 已經逾期訂單(6)
-				System.out.println(new SingleOrderService().getAllDelay());
-
-//						2.for select
-				List<String> singledelayedList = new SingleOrderService().getAllDelay();
-				for (String singledelayed : singledelayedList) {
-//						if (broadcastOrderMap != null) 
-//						if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()){ // 若有管理員在線，則可以進入推播對象的篩選
-					///////////
-//						String adminID= 
-////						new AdminVO()
-//						(String) getServletContext().getAttribute("conAdminID")
-////						.getAdminID()
-//						;//拿到在線session
-					///////
-//						System.out.println(adminID+"哈哈");//null
-					Collection<Session> isOnline = broadcastOrderMap.values();
-					System.out.println(isOnline + "吃");
-
-					for (Session allAdmin : isOnline) {
-						System.out.println(allAdmin);
-
-//						if (isOnline != null) { // 若此會員在線，則推播
-//							String message = "訂單編號" + singledelayed + "有問題";
-//							String toJsonMessage = "{\"message\":\"" + message + "\"}";
-////								isOnline.getBasicRemote().sendText(toJsonMessage);
-////								isOnline.getAsyncRemote().sendText("呵呵");
-//							allAdmin.getAsyncRemote().sendText(singledelayed);
-//
-////								 if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()) {
-//////								        jsonDelay.addProperty(property, value);
-////								        JsonObject jsonDelay = new JsonObject();
-//////								        jsonDelay.addProperty("singleOrder", gson.toJson(singleOrderVO));
-//////								        broadcastOrderMap.get(new AdminVO().getAdminID()).getAsyncRemote().sendText(new SingleOrderService().getAllDelay().toString());
-////								        isOnline.getAsyncRemote().sendText("呵呵");
-////								        }
-//
-//						}
-					}
-				}
-//					}
-//			}
-				List<String> groupDelayList = new ArrayList<String>();
-				groupDelayList = new GroupOrderService().getDelayGOrder();
-				for (String groupdelay : groupDelayList) {// 滾出一群過期揪團訂單
-					System.out.println("UPDATE GROUP_ORDER SET STATE ='6' WHERE GORDER_ID=?");
-					System.out.println(groupdelay);
-					new GroupOrderService().updateDelayGOrder(groupdelay);
-//						System.out.println(new SingleOrderService().get);
-					System.out.println("=================");
-				}
-///////////////////////////////////////////////////////////////////////////////
-//					3.	推播websocket給管理員
-
-//					@SuppressWarnings("unchecked")
-//					Map<String, Session> broadcastOrderMap = (Map<String, Session>) (getServletContext()
-//							.getAttribute("broadcastMap"));
-//					System.out.println("是否有會員在線上:" + (broadcastMap != null));
-				// 推播成功架構
-//					if(broadcastMap!=null) {
-//						for(SingleOrderVO allUnpaidOrders:allUnpaid) {
-//	//						String memID= new AdminVO().getAdminID();
-//							Session isOnline=broadcastMap.get(memID);
-//							
-//							if(isOnline!=null) { //若此會員在線，則推播
-//						    String message= "訂單編號"+groupdelay.getOrderID()+"已為您扣款";
-//							String toJsonMessage= "{\"message\":\"" +message+"\"}";	
-//								try {
-//									isOnline.getBasicRemote().sendText(toJsonMessage);
-//								} catch (IOException e) {
-//									// TODO Auto-generated catch block
-//									e.printStackTrace();
-//								}
-//		//					}
-//						}
-//					}
-
-////						TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
-////							public void run() {
-////								// System.out.println("更新日期:"+new
-////								// java.util.Date()+"司機編號"+driverID+"最新評價為:"+rateAve+ "分");
-////								TimerTask taskdelay = null;
-////								taskdelay = afterdelay();
-//////								new Timer().schedule(taskdelay, 1000 * 60 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
-////								new Timer().schedule(taskdelay, 1000 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
-////							}
-////						};
-////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
-////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
-//						// 排成器delaytask 5分鐘後 1.狀態碼改成逾期2.推播websocket給管理員 
-//						//
-////						TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
-////							public void run() {
-////								// System.out.println("更新日期:"+new
-////								// java.util.Date()+"司機編號"+driverID+"最新評價為:"+rateAve+ "分");
-////								TimerTask taskdelay = null;
-////								taskdelay = afterdelay();
-//////								new Timer().schedule(taskdelay, 1000 * 60 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
-////								new Timer().schedule(taskdelay, 1000 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
-////							}
-////						};
-////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
-////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
-//				}
-//				sharetimer(startTimeList);//此行跑不到。B.將一群時間傳到另一個方法
 			}// run
 		};// timertask
 //		timer.schedule(task, renewTime);
 //		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
-		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis());
-		timer.scheduleAtFixedRate(task, now, 1000 * 5); // 甲. 每半小時執行一次
+		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 365);
+		timer.scheduleAtFixedRate(task, now, 1000 * 60 * 60 * 24 * 365); // 甲. 每半小時執行一次
 																										// 搜出隔天訂單
 //		System.out.println("C.現在毫秒數"+new GregorianCalendar().getTimeInMillis());   //TEST
 	}// init
 		// 傳入當日欲更新的hour
 
-	public void sharetimer(List<String> startTimeList) {
-		boolean isNew = false;
-		if (!isNew) {
-			// 迴圈滾出來 C.
-//			if (startTimeList != null) {
-//				for (String starttime : startTimeList) {// 滾出一群時間
-////				 System.out.println(starttime);
-//					long num = Long.parseLong(starttime);// 動態計算出到開始時間
-//					System.out.println(num);
-//					System.out.println("=================");
-//					TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
-//						public void run() {
-//							// System.out.println("更新日期:"+new
-//							// java.util.Date()+"司機編號"+driverID+"最新評價為:"+rateAve+ "分");
-//							TimerTask taskdelay = null;
-//							taskdelay = afterdelay();
-////							new Timer().schedule(taskdelay, 1000 * 60 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
-//							new Timer().schedule(taskdelay, 1000 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
-//						}
-//					};
-////					new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
-//					new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
-//				}
-//			}
-		}
-	}
-
-	private TimerTask afterdelay() {// 放入逾時的事情拉
-		TimerTask taskdelay = new TimerTask() {
-			@Override
-			public void run() {
-				new SingleOrderDAO().update_state_to_delay();
-			}
-		};
-		return taskdelay;
-	}
 
 	public void destroy() {
 		timer.cancel();

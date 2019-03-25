@@ -24,7 +24,7 @@
 <html>
 <head>
 <title>查看揪團歷史訂單</title>
-	<jsp:include page="/regna-master/head.jsp" />  
+	
 </head>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 <body>
@@ -132,7 +132,6 @@
     底部:include body樣板
   ============================-->
     
-    <jsp:include page="/regna-master/body.jsp" />
 
 </body>
 </html>

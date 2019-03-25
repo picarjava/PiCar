@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.groupBand.model.GroupBandService;
 import com.groupBand.model.GroupBandVO;
 import com.groupOrder.model.GroupOrderService;
+import com.singleOrder.model.SingleOrderDAO;
 
 public class DelayTimer extends HttpServlet{
     Timer timer=new Timer();
@@ -160,6 +161,44 @@ public class DelayTimer extends HttpServlet{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	public void sharetimer(List<String> startTimeList) {
+		boolean isNew = false;
+		if (!isNew) {
+			// 迴圈滾出來 C.
+//			if (startTimeList != null) {
+//				for (String starttime : startTimeList) {// 滾出一群時間
+////				 System.out.println(starttime);
+//					long num = Long.parseLong(starttime);// 動態計算出到開始時間
+//					System.out.println(num);
+//					System.out.println("=================");
+//					TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
+//						public void run() {
+//							// System.out.println("更新日期:"+new
+//							// java.util.Date()+"司機編號"+driverID+"最新評價為:"+rateAve+ "分");
+//							TimerTask taskdelay = null;
+//							taskdelay = afterdelay();
+////							new Timer().schedule(taskdelay, 1000 * 60 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
+//							new Timer().schedule(taskdelay, 1000 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
+//						}
+//					};
+////					new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
+//					new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
+//				}
+//			}
+		}
+	}
+
+	private TimerTask afterdelay() {// 放入逾時的事情拉
+		TimerTask taskdelay = new TimerTask() {
+			@Override
+			public void run() {
+				new SingleOrderDAO().update_state_to_delay();
+			}
+		};
+		return taskdelay;
+	}
+	
 	public void destroy() {
 		
 		

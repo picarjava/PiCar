@@ -29,7 +29,7 @@ session.setAttribute("memID",memID);
 <head>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 	<title>查看個人歷史訂單</title>
-	<jsp:include page="/regna-master/head.jsp" />  
+	
 </head>
 <body>
 <!-- 錯誤列表開始 -->
@@ -170,8 +170,6 @@ session.setAttribute("memID",memID);
 <!-- </div> -->
 	<!-- Modal結束 -->
 
-
-	<jsp:include page="/regna-master/body.jsp" />
 </body>
 
 </html>

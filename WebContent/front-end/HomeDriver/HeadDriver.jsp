@@ -19,8 +19,8 @@
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,400">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Droid+Sans">
         <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Lobster">
-        <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-        <link rel="stylesheet" href="assets/prettyPhoto/css/prettyPhoto.css">
+        <link rel="stylesheet" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeDriver/assets/bootstrap/css/bootstrap.min.css">
+        <link rel="stylesheet" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeDriver/assets/prettyPhoto/css/prettyPhoto.css">
         <link rel="stylesheet" href="assets/css/flexslider.css">
         <link rel="stylesheet" href="assets/css/font-awesome.css">
         <link rel="stylesheet" href="assets/css/style.css">
@@ -31,7 +31,7 @@
         <![endif]-->
 
         <!-- Favicon and touch icons -->
-        <link rel="shortcut icon" href="assets/ico/favicon.ico">
+           <link rel="shortcut icon" href="assets/ico/logoCAR.png">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="assets/ico/apple-touch-icon-144-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="assets/ico/apple-touch-icon-72-precomposed.png">
@@ -80,23 +80,26 @@ width: 100px;
                             </h1>
                             <div class="nav-collapse collapse">
                                 <ul class="nav pull-right">
-                                    <li class="current-page widthes">
+                                                                        <li class="current-page widthes">
                                         <a href="index.html"><i class="icon-home"></i><br />司機首頁</a>
                                     </li>
                                     <li class="widthes">
-                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/listAllfutureDriverTask.jsp"><i class="icon-camera"></i><br />訂單管理</a>
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/listAllfutureDriverTask.jsp"><i class="icon-camera"></i><br />未來訂單</a>
                                     </li>
                                     <li class="widthes">
-                                        <a href="#"><i class="icon-comments"></i><br />Blog</a>
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/homeDriverDataManagment.jsp"><i class="icon-camera"></i><br />司機資料</a>
                                     </li>
                                     <li class="widthes">
-                                        <a href="services.html"><i class="icon-tasks"></i><br />Services</a>
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/setting.jsp"><i class="icon-camera"></i><br />喜好設定</a>
                                     </li>
                                     <li class="widthes">
-                                        <a href="about.html"><i class="icon-user"></i><br />About</a>
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/listPastSingleDriverTask.jsp"><i class="icon-camera"></i><br />單人歷史</a>
                                     </li>
                                     <li class="widthes">
-                                        <a href="contact.html"><i class="icon-envelope-alt"></i><br />Contact</a>
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/groupOrder/listPastGroupDriverTask.jsp"><i class="icon-camera"></i><br />揪團歷史</a>
+                                    </li>
+                                    <li class="widthes">
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp"><i class="icon-camera"></i><br />會員首頁</a>
                                     </li>
                                 </ul>
                             </div>

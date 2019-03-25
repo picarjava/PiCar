@@ -28,7 +28,9 @@ session.setAttribute("driverID", driverID);
 <html>
 <head>
 	<title>查看司機個人歷史訂單</title>
-	<jsp:include page="/regna-master/head.jsp" />  
+	<jsp:include page="/front-end/HomeDriver/HeadDriver.jsp" /> 
+    <jsp:include page="/front-end/HomeDriver/Header.jsp" /> 
+   
 </head>
 <body>
 <!-- 錯誤列表開始 -->
@@ -109,8 +111,7 @@ session.setAttribute("driverID", driverID);
     <!--==========================
     底部
   ============================-->
-    
-    <jsp:include page="/regna-master/body.jsp" />
+     <jsp:include page="/front-end/HomeDriver/Footer.jsp" /> 
 </body>
 
 </html>

@@ -8,7 +8,6 @@
   <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
   <title>請輸入活動代碼</title>
  
-  <jsp:include page="/regna-master/head.jsp" />
 
 
 <!-- 會員登入功能串接 ，將VOmemID指定給 memID-->
@@ -96,8 +95,6 @@ session.setAttribute("memID",memID);
   <!--==========================
     底部
   ============================-->
-  
-  <jsp:include page="/regna-master/body.jsp" />
   
 </body>
 </html>
