@@ -46,16 +46,42 @@
 	href="assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <style>
- #table1 { 
-	
- 	background-color: ; 
- 	margin-bottom: 20px; 
- 	text-align: center; 
- 	font-family: Microsoft JhengHei; 
- } 
-table,tr,td{
-width: 30%; 
+#table1 {
+
+background-color: ;
+margin-bottom: 20px;
+text-align: center;
+font-family: Microsoft JhengHei;
 }
+/* table,tr,td{
+width: 30%;
+} */
+table{
+width:650px;
+border:1px solid #888888;
+}
+td{
+border-bottom:1px solid #888888;
+padding:10px;
+font-family: arial;
+font-size:15px;
+}
+td:nth-child(1){
+width:150px;
+text-align:center;
+}
+td:nth-child(2){
+width:200px;
+}
+tr{
+/* background-color:#7788aa; */
+color:#888888;
+height: 20px;
+}
+tr:nth-child(even){
+background-color:e8e8e8;
+}
+
 </style>
 <body>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
@@ -65,7 +91,7 @@ response.setHeader("Cache-Control","no-store"); //HTTP 1.1
 response.setHeader("Pragma","no-cache");        //HTTP 1.0
 response.setDateHeader ("Expires", 0);
 %>
- <h3>update_member_input.jsp</h3>
+<!--  <h3>update_member_input.jsp</h3> -->
  
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -78,117 +104,118 @@ response.setDateHeader ("Expires", 0);
 </c:if>
 
 <form method="post" action="member.do" name="form1" enctype="multipart/form-data">
-<a id="GIbutton" href="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">請按此回會員首頁</a><br>
-<a  href=listOneMemberByUpdate.jsp> 請按此回上一頁 </a>
-	<table align="center" border="1" id="table1"  >
-		<tr>
-			<td>會員編號：</td>
-			<td>  <%= memberVO.getMemID() %>   </td>		
-	
+	<a id="GIbutton" href="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">請按此回會員首頁</a><br>
+	<a  href=listOneMemberByUpdate.jsp> 請按此回上一頁 </a>
+<table align="center" border="1" id="table1"  >
+	<tr>
+		<td>會員編號：</td>
+		<td colspan="2">  <%= memberVO.getMemID() %> </td>		
 		</tr>
-	
+		
 		<tr>
 			<td>會員姓名：</td>
-			<td><input type="text" name="name" size="45" value="<%=memberVO.getName() %>" /></td>		
-	
-		</tr>
-		<tr>
-			<td>會員信箱：</td>
-			<td><input type="text" name="email" size="45" value="<%=memberVO.getEmail() %>" /></td>		
-		</tr>
-		
-<!-- 		<tr> -->
-<!-- 			<td>會員密碼：</td> -->
-			<input type="hidden" name="password" size="45" value="<%=memberVO.getPassword() %>" />	
-<!-- 		</tr> -->
-		
-		<tr>
-			<td>會員電話：</td>
-			<td><input type="text" name="phone" size="45" value="<%=memberVO.getPhone() %>" /></td>		
-		</tr>
-		
-		<tr>
-			<td>會員信用卡：</td>
-			<td><input type="text" name="creditcard" size="45" value="<%=memberVO.getCreditcard() %>" /></td>		
-		</tr>
-		
-		
-		<tr>
-			<td>會員寵物喜好：</td>
-			<td><c:choose>
-			  <c:when test="${memberVO.verified == '1'}">喜歡寵物  </c:when>
-			  <c:when test="${memberVO.verified == '0'}">不喜歡寵物  </c:when>			 
-			</c:choose>			
-			<input type = "hidden" name="pet" value= "<%=memberVO.getPet() %>"></td>		
-		</tr>
-		<tr>
-			<td>會員抽菸喜好：</td>
-			<td><c:choose>
-			  <c:when test="${memberVO.verified == '1'}">抽菸  </c:when>
-			  <c:when test="${memberVO.verified == '0'}">不抽菸  </c:when>			 
-			</c:choose>			
-			<input type = "hidden" name="smoke" value= "<%=memberVO.getSmoke() %>"></td>		
-		</tr>
-		<tr>
-			<td>會員性別：</td>
-			<td><c:choose>
-			  <c:when test="${memberVO.gender == '1'}">男生  </c:when>
-			  <c:when test="${memberVO.gender == '0'}">女生  </c:when>			 
-			</c:choose>
-			<input type = "hidden" name="gender" value= "<%=memberVO.getGender() %>">
-			</td>		
-		</tr>
-		<tr>
-			<td>會員代幣：</td>			
-			<td><%=memberVO.getToken() %>
-			<input type="hidden" name="token" size="45" value="<%=memberVO.getToken() %>" ></td>		
-		</tr>
-		
-		<tr>
-			<td>會員活動代幣：</td>
-			<td><%=memberVO.getActivityToken() %>
-			<input type="hidden" name="activityToken" size="45" value="<%=memberVO.getActivityToken() %>" />
-			</td>		
-		</tr>
-		<tr> 
-			<td>會員生日:</td>
-			<td><%=memberVO.getBirthday() %>
-			<input type="hidden" name="birthday" id="f_date1" ></td>
-		</tr>		
-		<tr>
-			<td>會員驗證狀態：</td>
-			<td>
-			<c:choose>
-			  <c:when test="${memberVO.verified == '1'}">已經驗證  </c:when>
-			  <c:when test="${memberVO.verified == '0'}">尚未驗證  </c:when>			 
-			</c:choose>
-			<input type = "hidden" name="verified" value= "<%=memberVO.getVerified() %>"></td>		
-		</tr>
-		<tr>
-			<td>嬰兒座椅設定：</td>
-			<td>
-			<c:choose>
-			  <c:when test="${memberVO.babySeat == '1'}">需要  </c:when>
-			  <c:when test="${memberVO.babySeat == '0'}">不需要  </c:when>			 
-			</c:choose>
-			<input type = "hidden" name="babySeat" value= "<%=memberVO.getBabySeat() %>"></td>		
-		</tr>
-		<tr>
-			<td>會員照片：</td>
-			<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}" alt="這是圖片替代文字" onerror="this.src='cat.jpg'"  width="200" height ="200" id="preview_progressbarTW_img">
-		<input type="file" name="pic" onchange="readURL(this)" targetID="preview_progressbarTW_img"></td>
-				
-		
-			 
-		</tr>
-		
-		
-		
-	</table>                          
-	<input type="hidden" name="memID" value="<%=memberVO.getMemID() %> ">
-	<input type="hidden" name="action" value="update">
-	<input type="submit" value="submit">
-</form>
+			<td><input type="text" name="name" size="45" value="<%=memberVO.getName() %>" /></td>
+			<td rowspan="11">
+				<img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}" alt="這是圖片替代文字" onerror="this.src='cat.jpg'"  width="200" height ="200" id="preview_progressbarTW_img">
+				<input type="file" name="pic" onchange="readURL(this)" targetID="preview_progressbarTW_img"></td>
+			</tr>
+			<tr>
+				<td>會員信箱：</td>
+				<td><input type="text" name="email" size="45" value="<%=memberVO.getEmail() %>" /></td>
+			</tr>
+			
+			<!-- 		<tr> -->
+			<!-- 			<td>會員密碼：</td> -->
+			<input type="hidden" name="password" size="45" value="<%=memberVO.getPassword() %>" />
+			<!-- 		</tr> -->
+			
+			<tr>
+				<td>會員電話：</td>
+				<td><input type="text" name="phone" size="45" value="<%=memberVO.getPhone() %>" /></td>
+			</tr>
+			
+			<tr>
+				<td>信用卡號：</td>
+				<td><input type="text" name="creditcard" size="45" value="<%=memberVO.getCreditcard() %>" /></td>
+			</tr>
+			
+			
+			<tr>
+				<td>寵物喜好：</td>
+				<td><c:choose>
+					<c:when test="${memberVO.verified == '1'}">喜歡寵物  </c:when>
+					<c:when test="${memberVO.verified == '0'}">不喜歡寵物  </c:when>
+					</c:choose>
+					<input type = "hidden" name="pet" value= "<%=memberVO.getPet() %>"></td>
+				</tr>
+				<tr>
+					<td>抽菸喜好：</td>
+					<td><c:choose>
+						<c:when test="${memberVO.verified == '1'}">抽菸  </c:when>
+						<c:when test="${memberVO.verified == '0'}">不抽菸  </c:when>
+						</c:choose>
+						<input type = "hidden" name="smoke" value= "<%=memberVO.getSmoke() %>"></td>
+					</tr>
+					<tr>
+						<td>會員性別：</td>
+						<td><c:choose>
+							<c:when test="${memberVO.gender == '1'}">男生  </c:when>
+							<c:when test="${memberVO.gender == '0'}">女生  </c:when>
+							</c:choose>
+							<input type = "hidden" name="gender" value= "<%=memberVO.getGender() %>">
+						</td>
+					</tr>
+					<tr>
+						<td>一般代幣：</td>
+						<td><%=memberVO.getToken() %>
+						<input type="hidden" name="token" size="45" value="<%=memberVO.getToken() %>" ></td>
+					</tr>
+					
+<!-- 					<tr> -->
+<!-- 						<td>活動代幣：</td> -->
+<%-- 						<td><%=memberVO.getActivityToken() %> --%>
+							<input type="hidden" name="activityToken" size="45" value="<%=memberVO.getActivityToken() %>" />
+<!-- 						</td> -->
+<!-- 					</tr> -->
+					<tr>
+						<td>會員生日:</td>
+						<td><%=memberVO.getBirthday() %>
+						<input type="hidden" name="birthday" id="f_date1" ></td>
+					</tr>
+					<tr>
+						<td>驗證狀態：</td>
+						<td>
+							<c:choose>
+							<c:when test="${memberVO.verified == '1'}">已經驗證  </c:when>
+							<c:when test="${memberVO.verified == '0'}">尚未驗證  </c:when>
+							</c:choose>
+							<input type = "hidden" name="verified" value= "<%=memberVO.getVerified() %>"></td>
+						</tr>
+						<tr>
+							<td>座椅設定：</td>
+							<td>
+								<c:choose>
+								<c:when test="${memberVO.babySeat == '1'}">需要  </c:when>
+								<c:when test="${memberVO.babySeat == '0'}">不需要  </c:when>
+								</c:choose>
+								<input type = "hidden" name="babySeat" value= "<%=memberVO.getBabySeat() %>"></td>
+								
+							</tr>
+							<!-- 		<tr> -->
+							<!-- 			<td>會員照片：</td> -->
+							<!-- 			<td></td> -->
+							
+							
+							
+							<!-- 		</tr> -->
+							
+							
+							
+						</table>
+							<input type="hidden" name="memID" value="<%=memberVO.getMemID() %> ">
+							<input type="hidden" name="action" value="update">
+							<input type="submit" value="submit">
+						</form>
 <script>
 input.getAttribute("targetID")
 getElementById(preview_progressbarTW_img)
