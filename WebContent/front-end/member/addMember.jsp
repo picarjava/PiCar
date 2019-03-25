@@ -61,113 +61,93 @@
 
 <body>
 	<%
-		MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
 	%>
 	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
-<jsp:include page="/front-end/HomeMember/HeadMemberSetting.jsp" />
+	<jsp:include page="/front-end/HomeMember/HeadMemberSetting.jsp" />
 	<div class="container">
-                <div class="row">
-                    <div class="contact-form span5">
-                		
+		<div class="row">
+			<div class="contact-form span5">
 				
-						<h3>addMember.jsp</h3>
-						<%-- 錯誤表列 --%>
-						<c:if test="${not empty errorMsgs}">
-							<font style="color: red">請修正以下錯誤:</font>
-							<ul>
-								<c:forEach var="message" items="${errorMsgs}">
-									<li style="color: red">${message}</li>
-								</c:forEach>
-							</ul>
-						</c:if>
-
-						<form method="post" action="member.do" name="form1" enctype="multipart/form-data">
-							<a href="select_page.jsp">回主頁面</a><br> 
-							<span class="span">
-
-								會員姓名  ： <input type="text" name="name" size="45"
-								value="" /><br><br>
-
-
-								會員信箱  ： <input type="text" name="email" size="45"
-								value="" /><br><br>
-
-
-								<!-- 		<tr> --> <!-- 			<td>會員密碼：</td> --> 
-								<input type="hidden"	name="password" size="45"	value="" />
-								
-								會員電話 ： <input type="text" name="phone" size="45"	value="" /><br><br>
-
-
-
-								信用卡號 ： <input type="text" name="creditcard" size="45"	value="" /><br><br>
-
-
-
-								寵物喜好： <input type="radio" name="pet" value="1">	 喜歡 
-											<input	type="radio" name="pet" value="0"> 不喜歡<br><br>		
-													
-								 抽菸喜好： <input type="radio" name="smoke" value="1">喜歡
-								 			<input type="radio" name="smoke" value="0"> 不喜歡<br><br>
-								 			 		
-								 會員性別： <input type="radio" name="gender" value="1">男生 
-										<input type="radio" name="gender" value="0"> 女生<br><br>
-										
-							<!-- 			<td>會員代幣：</td> --> <%-- 			<td><input type="text" name="token" size="45" value="<%= (memberVO==null)? "100":memberVO.getToken() %>" ></td>		 --%>
-							
-								<input type="hidden" name="token" size="45" value="0"> 
-								<!-- 			<td>會員活動代幣：</td> -->
-								<%-- 			<td><input type="text" name="activityToken" size="45" value="<%= (memberVO==null)? "1000":memberVO.getActivityToken() %>" /></td>		 --%>
-								<input type="hidden" name="activityToken" size="45" value="0" />
-
-								 嬰兒座椅：
-								<input type="radio" name="babySeat" value="1"> 需要 
-								<input	type="radio" name="babySeat" value="0"> 不需要<br><br> 
 				
-								會員生日 :  <input type="text" name="birthday" id="f_date1"><br>
-
-
-								<input type="hidden" name="verified" value="0">
-								
-								
-								</div>
-								
-								<div class="contact-address span5">
-							<br><br><br> 
-							會員照片： <!-- 			<td> --> <!-- 			<input type="file" name="pic" > <br></td>	 -->
-								 <input
-								type="file" name="pic" onchange="readURL(this)"
-								targetID="preview_progressbarTW_img"><br>
-								<img	alt="請選取照片"  width="200" height ="200" id="preview_progressbarTW_img"><br><br>
-
-							 <input type="hidden" name="action" value="insertver2"> <input
-								type="submit" value="送出新增"> <img src="cat.jpg"
-								height="20" width="20" onClick="idwrite(this)">
-								</span>
-						</form>
-						</div>
+				<h3>addMember.jsp</h3>
+				<%-- 錯誤表列 --%>
+				<c:if test="${not empty errorMsgs}">
+				<font style="color: red">請修正以下錯誤:</font>
+				<ul>
+					<c:forEach var="message" items="${errorMsgs}">
+					<li style="color: red">${message}</li>
+					</c:forEach>
+				</ul>
+				</c:if>
+				<form method="post" action="member.do" name="form1" enctype="multipart/form-data">
+					<a href="select_page.jsp">回主頁面</a><br>
+					<span class="span">
+						會員姓名  ： <input type="text" name="name" size="45"
+						value="" /><br><br>
+						會員信箱  ： <input type="text" name="email" size="45"
+						value="" /><br><br>
+						<!-- 		<tr> --> <!-- 			<td>會員密碼：</td> -->
+						<input type="hidden"	name="password" size="45"	value="" />
+						
+						會員電話 ： <input type="text" name="phone" size="45"	value="" /><br><br>
+						信用卡號 ： <input type="text" name="creditcard" size="45"	value="" /><br><br>
+						寵物喜好： <input type="radio" name="pet" value="1">	 喜歡
+						<input	type="radio" name="pet" value="0"> 不喜歡<br><br>
+						
+						抽菸喜好： <input type="radio" name="smoke" value="1">喜歡
+						<input type="radio" name="smoke" value="0"> 不喜歡<br><br>
+						
+						會員性別： <input type="radio" name="gender" value="1">男生
+						<input type="radio" name="gender" value="0"> 女生<br><br>
+						
+						<!-- 			<td>會員代幣：</td> --> <%-- 			<td><input type="text" name="token" size="45" value="<%= (memberVO==null)? "100":memberVO.getToken() %>" ></td>		 --%>
+						
+						<input type="hidden" name="token" size="45" value="0">
+						<!-- 			<td>會員活動代幣：</td> -->
+						<%-- 			<td><input type="text" name="activityToken" size="45" value="<%= (memberVO==null)? "1000":memberVO.getActivityToken() %>" /></td>		 --%>
+						<input type="hidden" name="activityToken" size="45" value="0" />
+						嬰兒座椅：
+						<input type="radio" name="babySeat" value="1"> 需要
+						<input	type="radio" name="babySeat" value="0"> 不需要<br><br>
+						
+						會員生日 :  <input type="text" name="birthday" id="f_date1"><br>
+						<input type="hidden" name="verified" value="0">
+						
+						
 					</div>
-				</div>
+					
+					<div class="contact-address span5">
+						<br><br><br>
+						會員照片： <!-- 			<td> --> <!-- 			<input type="file" name="pic" > <br></td>	 -->
+						<input
+						type="file" name="pic" onchange="readURL(this)"
+						targetID="preview_progressbarTW_img"><br>
+						<img	alt="請選取照片"  width="200" height ="200" id="preview_progressbarTW_img"><br><br>
+						<input type="hidden" name="action" value="insertver2"> <input
+						type="submit" value="送出新增"> <img src="cat.jpg"
+						height="20" width="20" onClick="idwrite(this)">
+					</span>
+				</form>
 			</div>
-
-
+		</div>
+	</div>
+</div>
 </body>
 <!-- =========================================以下為 datetimepicker 之相關設定========================================== -->
 
 <link rel="stylesheet" type="text/css"
 	href="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.css" />
-<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
-<script
+	<script src="<%=request.getContextPath()%>/datetimepicker/jquery.js"></script>
+	<script
 	src="<%=request.getContextPath()%>/datetimepicker/jquery.datetimepicker.full.js"></script>
-
-<style>
-.xdsoft_datetimepicker .xdsoft_datepicker {
-	width: 300px; /* width:  300px; */
-}
-
-.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
-	height: 151px; /* height:  151px; */
-}
+	<style>
+	.xdsoft_datetimepicker .xdsoft_datepicker {
+		width: 300px; /* width:  300px; */
+	}
+	.xdsoft_datetimepicker .xdsoft_timepicker .xdsoft_time_box {
+		height: 151px; /* height:  151px; */
+	}
 </style>
 
 <script>
@@ -231,32 +211,30 @@
 	//              return [true, ""];
 	//      }});
 
-	input.getAttribute("targetID")
-	getElementById(preview_progressbarTW_img)
-	function readURL(input) {
-		if (input.files && input.files[0]) {
-			var imageTagID = input.getAttribute("targetID");
-			var reader = new FileReader();
-			reader.onload = function(e) {
-				var img = document.getElementById(imageTagID);
-				img.setAttribute("src", e.target.result);
-			}
-			reader.readAsDataURL(input.files[0]);
-		}
-	}
-
-	function idwrite(name) {
-		form1.name.value = "卡比獸"
-		form1.email.value="samchiang74@gmail.com"
-		form1.phone.value="0933-995-225"
-		form1.creditcard.value="1584-5947-2846-5947"
-		form1.pet.value = "1"
-		form1.smoke.value="1"
-		form1.gender.value="1"
-		form1.babySeat.value="1"
-		form1.birthday.value="2000-10-10"
-		//   	  form1.cust_niname.value="資策會小小書童" 
-
+input.getAttribute("targetID")
+getElementById(preview_progressbarTW_img)
+function readURL(input) {
+if (input.files && input.files[0]) {
+var imageTagID = input.getAttribute("targetID");
+var reader = new FileReader();
+reader.onload = function(e) {
+var img = document.getElementById(imageTagID);
+img.setAttribute("src", e.target.result);
+}
+reader.readAsDataURL(input.files[0]);
+}
+}
+function idwrite(name) {
+form1.name.value = "卡比獸"
+form1.email.value="samchiang74@gmail.com"
+form1.phone.value="0933-995-225"
+form1.creditcard.value="1584-5947-2846-5947"
+form1.pet.value = "1"
+form1.smoke.value="1"
+form1.gender.value="1"
+form1.babySeat.value="1"
+form1.birthday.value="2000-10-10"
+//   	  form1.cust_niname.value="資策會小小書童"
 	}
 </script>
 
