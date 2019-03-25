@@ -9,7 +9,9 @@
 <head>
 <jsp:include page="/back-end/head_back.jsp" />
 <meta charset="UTF-8">
-<title>listALLRate</title>
+<title>全部費率</title>
+<jsp:include page="/back-end/btnCss.jsp" />
+
 </head>
 
 <body>

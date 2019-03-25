@@ -15,7 +15,18 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="/back-end/head_back.jsp" />
-<!-- <title>listAllmember_byDAO.jsp</title> -->
+<title>會員管理</title>
+
+<jsp:include page="/back-end/btnCss.jsp" />
+<style>
+    div.content {
+	width:95%;
+	margin-left:-25%;
+}
+/* .footer{ */
+/* margin-bottem:-1%; */
+/* } */
+</style>
 </head>
 
 <body bgcolor="#11e1e9">
@@ -125,10 +136,10 @@
 	</c:forEach>
 	</table>
 	</div>
-	<jsp:include page="/back-end/kidFooter.jsp" />
 	<div align="center"><%@ include file="page2.file"%></div>
 	</div>
 	</div>
 	</div>
 </body>
+	<jsp:include page="/back-end/kidFooter.jsp" />
 </html>

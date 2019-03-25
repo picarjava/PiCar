@@ -182,13 +182,13 @@ public class DriverServlet extends HttpServlet {//路徑在專案底下 讀圖�
 			errorMsgs.add("請上傳駕照");	
 				break;
 			case "criminal":
-			errorMsgs.add("請上傳criminal");	
+			errorMsgs.add("請上傳良民證");	
 				break;
 			case "trafficRecord":
-			errorMsgs.add("請上傳trafficRecord");	
+			errorMsgs.add("請上傳肇事紀錄");	
 				break;
 			case "idNum":
-			errorMsgs.add("請上傳idNum");	
+			errorMsgs.add("請上傳身分證");	
 				break;
 //			default:
 //				break;
@@ -443,7 +443,6 @@ if("GET_ONE_FOR_BANNEDs".equals(action)){
 	RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
 	failurePage.forward(req, res);
 }
-
 ////////////////////////////////////////////////////////////////////////////////
 //	給後端update使用()可參考全寫法
 //	DEADLINE DATE
@@ -472,7 +471,6 @@ if ("Update_Hobby".equals(action)) {   //新增FOR司機前端喜好設定//ok
 		Integer pet = new Integer(req.getParameter("pet"));
 		Integer smoke = new Integer(req.getParameter("smoke"));
 		Integer babySeat = new Integer(req.getParameter("babySeat"));
-
 
 		DriverVO driverVO = new DriverVO();
 		driverVO.setDriverID(driverID);

@@ -45,7 +45,7 @@ session.setAttribute("driverID", driverID);
 <head>
     <title>查看司機未來訂單</title>
     <jsp:include page="/front-end/HomeDriver/HeadDriver.jsp"/> 
-    <jsp:include page="/front-end/HomeDriver/Header.jsp" /> 
+<%--     <jsp:include page="/front-end/HomeDriver/Header.jsp" />  --%>
    
 </head>
 <body>
@@ -183,7 +183,7 @@ session.setAttribute("driverID", driverID);
     底部
   ============================-->
     
-     <jsp:include page="/front-end/HomeDriver/Footer.jsp" />  
+<%--      <jsp:include page="/front-end/HomeDriver/Footer.jsp" />   --%>
 </body>
 
 </html>

@@ -13,6 +13,8 @@
 <head>
     <title>司機會員管理</title>
     <jsp:include page="/back-end/head_back.jsp" />
+    <jsp:include page="/back-end/btnCss.jsp" />
+      
 </head>
 <body>
     <div class="wrapper ">
@@ -38,17 +40,16 @@
                                 <th>查詢一筆司機</th>
                                 <th>查詢全部司機</th>
                             </tr>
-                            <%@ include file="page1.file"%>
                             <tr>
                                 <td>
                                     <form class="form-inline" <%-- action="<%=request.getContextPath()%>/back-end/driver/listOneDriver.jsp" --%>
                                         action="
                                         <%=request.getServletContext().getContextPath()%>/back-end/driver/driver.do"
                                         method="post">
-                                        <input class="form-control mr-sm-2" name="driverID" type="text" placeholder="請輸入司機編號(eg.D001)" aria-label="Search">
+                                        <input class="form-control mr-sm-2" name="driverID" id="i1" type="text" placeholder="請輸入司機編號(eg.D001)" aria-label="Search">
                                         <!--隱藏的參數action讓controller抓-->
                                         <input type="hidden" name="action" value="GET_ONE_BACK">
-                                        <button type="submit">查詢一筆司機</button>
+                                        <button type="submit">查詢</button>
                                     </form>
                                 </td>
 <%--                                 <jsp:useBean id="driversrV" scope="page" class="com.driver.model.DriverService" /> --%>
@@ -66,12 +67,16 @@
 <!--                                 </td> -->
                                 <td>
                                     <form class="form-inline" action="<%=request.getContextPath()%>/back-end/driver/listAllDriver.jsp" method="post">
-                                        <button type="submit">查詢全部司機</button>
+                                        <button type="submit" id="i1">查詢</button>
                                     </form>
+                                    
+                                    
+                                    
+                                    
+                                    
                                 </td>
                             </tr>
                         </table>
-                        <%@ include file="page2.file"%>
                     </div>
                 </div>
                 <jsp:include page="/back-end/kidFooter.jsp" />
