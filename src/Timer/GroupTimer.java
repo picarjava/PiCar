@@ -37,11 +37,7 @@ public class GroupTimer extends HttpServlet {
 	                   
 	            public void run(){
 	            	
-	            	//推播: 先拿到目前在線會員
-    				@SuppressWarnings("unchecked")
-    				Map<String, Session> broadcastMap = (Map<String, Session>) (getServletContext()
-    						.getAttribute("broadcastMap"));
-    				System.out.println("是否有會員在線上:" + (broadcastMap != null));
+	            	
     				//推播:先拿到執行時間
     				Date date = new Date(this.scheduledExecutionTime());
     				SimpleDateFormat tFormat = new SimpleDateFormat("yyyy/MM/dd a hh:mm:ss ");
@@ -110,6 +106,12 @@ public class GroupTimer extends HttpServlet {
 	            			lista=groupOrderService.getMemID_groupID(groupID);
 	            			for(String listss :lista){
 	            				String memID=listss;
+	            				
+	            				// 每次都重抓目前在線會員放進MAP
+								@SuppressWarnings("unchecked")
+								Map<String, Session> broadcastMap = (Map<String, Session>) (getServletContext()
+										.getAttribute("broadcastMap"));
+								System.out.println("是否有會員在線上:" + (broadcastMap != null));
 	            				if (broadcastMap != null) { // 若有會員在線，則可以進入推播對象的篩選
 									Session isOnline = broadcastMap.get(memID);
 									if (isOnline != null) { // 若此會員有在線，則對此會員進行推播

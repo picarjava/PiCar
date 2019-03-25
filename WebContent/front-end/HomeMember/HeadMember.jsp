@@ -5,6 +5,17 @@
 <%@ page import="com.member.model.*"%>
 <%@ page import="java.util.*"%>
 
+<!--引用SweetAlert2.js-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
+<!-- 登入功能串接 ，將VOmemID指定給 memID-->
+<%@ page import="com.member.model.MemberVO"%>
+<%
+if((MemberVO)session.getAttribute("memberVO")!=null){
+	MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
+	String memID=memberVO.getMemID();
+	session.setAttribute("memID",memID);
+}
+%> 
 
 <!DOCTYPE html>
 <html lang="en">
@@ -67,7 +78,7 @@ float: right;
 
     </head>
 
-    <body >
+    <body onload="connect();" onunload="disconnect();">
     
 <%-- <%--         <% --%> 
 <!-- //     MemberVO memberVO = (MemberVO)session.getAttribute("memberVO"); -->
@@ -155,6 +166,63 @@ float: right;
 <%--         <script src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/js/scripts.js"></script> --%>
 
     </body>
+    
+     <!--==========websocket推播 開始=============-->
+ <script>
+ 	var MyPoint="/BroadcastServer/${memID}";
+ 	var host=window.location.host;
+ 	var path=window.location.pathname;
+ 	var webCtx=path.substring(0,path.indexOf('/',1));
+ 	var endPointURL="ws://"+window.location.host+webCtx+MyPoint;
+ 	
+ 	var webSocketTitle =document.getElementById("webSocketTitle"); //狀態標題
+//  	var statusOutput=document.getElementById("statusOutput");//狀態內容
+ 	
+ 	var webSocket;
+ 	
+ 	
+ 	function connect(){
+ 		
+ 		//建立websocket物件
+ 		webSocket=new WebSocket(endPointURL);
+ 		
+ 		webSocket.onopen=function(event){
+//  			updateStatus("WebSocket 成功連線");
+ 		};
+ 		
+ 		
+ 		var message=""; //本次連線的推播容器
+ 		webSocket.onmessage=function(event){
+ 			var jsonObj=JSON.parse(event.data);
+ 			message=jsonObj.message+"\r\n"+"<br>"+message;
+//  			window.alert(message);
+//  			updateStatus(message);
+ 			
+ 			swal(message, "請至【訂單查詢】確認", "success");
+ 			
+//  			else{
+//  				swal(message, "歡迎使用Picar智慧叫車系統", "success");
+//  				count++;
+//  			}
+ 		};
+ 		
+ 		webSocket.onclose=function(event){
+//  			updateStatus("WebSocket已離線");
+ 		};
+ 	}
+ 	
+ 	function disconnect(){
+ 		webSocket.close();
+ 	}
+ 	
+//  	function updateStatus(newStatus){
+//  		statusOutput.innerHTML= newStatus;
+//  	}
+ 	
+ 	
+ </script>
+
+ <!--==========websocket推播 結束============-->
     
 </html>
 

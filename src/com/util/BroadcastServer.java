@@ -39,8 +39,8 @@ public class BroadcastServer {
 	ServletContext servletContext = ((HttpSession) config.getUserProperties().get("httpSession")).getServletContext();
     servletContext.setAttribute("broadcastMap", map);
     
-	    String message="{\"message\":\"" +"Picar推播系統連線成功!"+"\"}";
-	    userSession.getBasicRemote().sendText(message);
+//	    String message="{\"message\":\"" +"Picar推播系統連線成功!"+"\"}";
+//	    userSession.getBasicRemote().sendText(message);
 	    System.out.println(memID+"已連線");
 	   
    

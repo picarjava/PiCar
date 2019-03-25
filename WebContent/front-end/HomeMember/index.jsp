@@ -88,13 +88,16 @@ float: right;
     <body onload="connect();" onunload="disconnect();">
     
 <%          
-    MemberVO memberVO = (MemberVO)session.getAttribute("memberVO"); 
-     DriverService driSrc = new DriverService(); 
-    
-     DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());
-     if(driverVO!=null){
-     session.setAttribute("driverVO",driverVO);
-     }
+	 if(session.getAttribute("memberVO")!=null){
+		 MemberVO memberVO = (MemberVO)session.getAttribute("memberVO"); 
+	     DriverService driSrc = new DriverService(); 
+	    
+	     DriverVO driverVO  = driSrc.getOneDriverBymemID(memberVO.getMemID());	
+	     if(driverVO!=null){
+	         session.setAttribute("driverVO",driverVO);
+	         }
+	 }
+     
 %>
 
         <!-- Header -->
