@@ -13,27 +13,29 @@
 <jsp:include page="/front-end/HomeMember/HeadMemberReservatoin.jsp"/>
 
  
-  
     <title>預約叫車</title>
    
  
 <style>
 	#map { 
          height: 500px;  
-         width: 850px;
+         width: 1200px;
+        
       } 
         #origin-input, 
        #destination-input { 
          background-color: #fff; 
          font-family: Roboto;  
-         font-size: 15px; 
-         font-weight: 300; 
-         margin-left: 12px; 
+         font-size: 18px; 
+         font-weight: 400; 
+         margin-left: 15px; 
          padding: 1 11px 1 13px; 
          text-overflow: ellipsis; 
-         width: 350px; 
+         width: 400px; 
        } 
-       
+      .form-row {
+		    display: inline-block;    /* 如需支持IE8以下版本，用浮动来做 */
+		}
 
 </style>
 </head>
@@ -67,7 +69,7 @@ session.setAttribute("memID",memID);
       <div class="container wow fadeInUp">
         <div class="section-header">
           <h3 class="section-title">單程預約</h3>
-          <p class="section-description"> 請新增一筆預約單程訂單</p>
+          <h4 class="section-description">單程叫車需於三日前預約</h4>
         </div>
       </div>
 
@@ -78,8 +80,6 @@ session.setAttribute("memID",memID);
             </div>
           </div>
           
-          
-
           <div class="col-lg-9 col-md-8">
             <div class="form">
               <!-- 新增活動表單開始 -->
@@ -88,19 +88,19 @@ session.setAttribute("memID",memID);
 	                   <h3>會員${memID} ${memberVO.name} 您好!  歡迎預約叫車</h3>
 	                  <input type="hidden" type="text" name="memID" class="form-control"  readonly value="${memID}"   placeholder="請輸入會員編號" />
 	       			</div>
-		       		<div class="form-row">
-		       			<div class="col">
-						<p id="distance"></p>
+		       		<div  class="form-row">
+		       			<div class="span">
+						<p id="distance" ></p>
 						</div>
-						<div class="col">
+						<div class="span">
 		       			<p id="duration"></p>
 		       			</div>
-		       			<div class="col">
+		       			<div class="span" >
 		       			<p id="checkout"></p>
 		       			</div>
 	       			</div>
 	       			<div class="form-row">
-	       			<div class="col">
+	       			    <div class="span">
 		       			<p id="calculate"></p>
 		       			</div>
 		       		</div>	
@@ -300,7 +300,7 @@ AutocompleteDirectionsHandler.prototype.route = function() {
     	  document.getElementById('duration').innerHTML = 
               "<h3>預估時間</h3><h4>"+parseInt(duration/60/60)+"時"+parseInt(duration/60%60) + "分</h4>";
           document.getElementById('checkout').innerHTML = 
-        	  "<h3>預估金額</h3><h4>$"+ totalAmount.value +"元</h4>";
+        	  "<h3>總金額</h3><h4>$"+ totalAmount.value +"元</h4>";
           document.getElementById('calculate').innerHTML = 
         	  "<h6>"+parseInt(distance/1000) + "公里"+distance%1000+"公尺 X 24.5 元/每公里資費 + 40元 基本費/每趟 ="+ totalAmount.value +"元</h6>";
            

@@ -3,7 +3,7 @@
 <%@ page import="com.activity.model.*" %>
 
 <%@ page import="java.util.*" %>
-
+<jsp:include page="/back-end/btnCss.jsp" />
 <html>
 <head>
   <title>後台新增活動資訊</title>

@@ -15,20 +15,24 @@
     <style>
 	#map { 
          height: 500px;  
-         width: 850px;
+         width: 1200px;
       } 
         #origin-input, 
        #destination-input { 
          background-color: #fff; 
          font-family: Roboto;  
-         font-size: 15px; 
-         font-weight: 300; 
-         margin-left: 12px; 
+         font-size: 18px; 
+         font-weight: 400; 
+         margin-left: 15px; 
          padding: 1 11px 1 13px; 
          text-overflow: ellipsis; 
-         width: 350px; 
+         width: 400px; 
        } 
-       
+        .form-row {
+		    display: inline-block;    /* 如需支持IE8以下版本，用浮动来做 */
+		}
+		
+		
 </style>
 </head>
 <!-- 登入功能串接 ，將VOmemID指定給 memID-->
@@ -58,7 +62,7 @@ session.setAttribute("memID",memID);
       <div class="container wow fadeInUp">
         <div class="section-header">
           <h3 class="section-title">長期預約</h3>
-          <p class="section-description">長期叫車需於三日前預約，且14天內預約天數需達7日以上</p>
+          <h4 class="section-description">長期叫車需於三日前預約，預約天數需達7日以上即享85折優惠</h4>
          </div>
       </div>
 
@@ -79,23 +83,23 @@ session.setAttribute("memID",memID);
 	                  <input type="hidden" type="text" name="memID" class="form-control" value="${memID}"  readonly placeholder="請輸入會員編號" />
 	       			</div>
 	       			<div class="form-row" >
-		       			<div class="col">
+		       			<div class="span">
 						<p id="distance"></p>
 						</div>
-						<div class="col">
+						<div class="span">
 		       			<p id="duration"></p>
 		       			</div>
-		       			<div class="col">
+		       			<div class="span">
 		       			<p id="checkout"></p>
 		       			</div>
 	       			</div>
 	       			<div class="form-row">
-	       			<div class="col">
+	       			    <div class="span">
 		       			<p id="calculate"></p>
 		       			</div>
 		       		</div>	
  					<div class="form-row">
-                      <div class="col">
+                      <div class="span">
                         <p>上車地點/下車地點</p> 
                         <input id="origin-input" type="text" name="startLoc" value="${singleOrder.startLoc}" class="form-control" placeholder="請輸入上車地點">
                       </div>
@@ -134,15 +138,15 @@ session.setAttribute("memID",memID);
 					</div>
 				</div>
 				<div class="form-row">
-	       			<div class="col">
+	       			<div class="span">
 		       			<p id="days"></p>
 		       		</div>
-		       		<div class="col">
+		       		<div class="span">
 		       			<p id="total"></p>
 		       		</div>
 		       	</div>
 		       	<div class="form-row">
-	       			<div class="col">
+	       			<div class="span">
 		       			<p id="totalCalculate"></p>
 		       		</div>
 		       	</div>
