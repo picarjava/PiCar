@@ -81,15 +81,26 @@ public class DelayTimerx extends HttpServlet {
     				List<String> singleDelayList = new SingleOrderService().getDelayOrder();// 。2.檢查是否已是6 同時做for
     //				if (startTimeList != null) {
     				for (String singledelay : singleDelayList) {// 滾出一群過期單人訂單
-    					System.out.println(singledelay + "嗚嗚"); // 逾期訂單(1)。字串SODR005
+    					System.out.println(singledelay ); // 逾期訂單(1)。字串SODR005
     					// 2.將狀態碼1-->6 logic1//狀態碼改成逾期
     					new SingleOrderService().updateDelayOrder(singledelay);
     					System.out.println("--------------------------------");
     				}
     				// [SODR005, SODR010] 已經逾期訂單(6)
     				System.out.println(new SingleOrderService().getAllDelay());
+//    				
+//    				List<String> groupDelayList = new SingleOrderService().getDelayOrder();// 。2.檢查是否已是6 同時做for
+//    				//				if (startTimeList != null) {
+//    				for (String singledelay : singleDelayList) {// 滾出一群過期單人訂單
+//    					System.out.println(singledelay ); // 逾期訂單(1)。字串SODR005
+//    					// 2.將狀態碼1-->6 logic1//狀態碼改成逾期
+//    					new SingleOrderService().updateDelayOrder(singledelay);
+//    					System.out.println("--------------------------------");
+//    				}
+//    				// [SODR005, SODR010] 已經逾期訂單(6)
+//    				System.out.println(new SingleOrderService().getAllDelay());
     
-    //						2.for select
+    //				2.for select
     				List<String> singledelayedList = new SingleOrderService().getAllDelay();
     				for (String singledelayed : singledelayedList) {
     //						if (broadcastOrderMap != null && !broadcastOrderMap.entrySet().isEmpty()){ // 若有管理員在線，則可以進入推播對象的篩選
@@ -109,7 +120,7 @@ public class DelayTimerx extends HttpServlet {
     						System.out.println(allAdmin);
     
     						if (allAdmin != null) { // 若此會員在線，則推播
-    							String message = "訂單編號" + singledelayed + "已逾時。請至訂單管理處理謝謝";
+    							String message = "單人訂單編號" + singledelayed + "已逾時。請至訂單管理處理謝謝";
     							String toJsonMessage = "{\"message\":\"" + message + "\"}";
     							allAdmin.getAsyncRemote().sendText(toJsonMessage);
     						}
@@ -129,39 +140,23 @@ public class DelayTimerx extends HttpServlet {
     						System.out.println(allAdminG);
     
     						if (allAdminG != null) { // 若此會員在線，則推播
-    							String message = "訂單編號" + groupdelay + "已逾時。請至訂單管理處理謝謝";
+    							String message = "揪團訂單編號" + groupdelay + "已逾時。請至訂單管理處理謝謝";
     							String toJsonMessage = "{\"message\":\"" + message + "\"}";
     							allAdminG.getAsyncRemote().sendText(toJsonMessage);
     						}
     					}
-    					System.out.println(groupdelay);
     					new GroupOrderService().updateDelayGOrder(groupdelay);
     //						System.out.println(new SingleOrderService().get);
-    					System.out.println("=================");
     				}
     ///////////////////////////////////////////////////////////////////////////////
     //					3.	推播websocket給管理員
     
-    //					@SuppressWarnings("unchecked")
-    //					Map<String, Session> broadcastOrderMap = (Map<String, Session>) (getServletContext()
-    //							.getAttribute("broadcastMap"));
-    //					System.out.println("是否有會員在線上:" + (broadcastMap != null));
     				// 推播成功架構
     //					if(broadcastMap!=null) {
     //						for(SingleOrderVO allUnpaidOrders:allUnpaid) {
     //	//						String memID= new AdminVO().getAdminID();
     //							Session isOnline=broadcastMap.get(memID);
     //							
-    //							if(isOnline!=null) { //若此會員在線，則推播
-    //						    String message= "訂單編號"+groupdelay.getOrderID()+"已為您扣款";
-    //							String toJsonMessage= "{\"message\":\"" +message+"\"}";	
-    //								try {
-    //									isOnline.getBasicRemote().sendText(toJsonMessage);
-    //								} catch (IOException e) {
-    //									// TODO Auto-generated catch block
-    //									e.printStackTrace();
-    //								}
-    //		//					}
     //						}
     //					}
     

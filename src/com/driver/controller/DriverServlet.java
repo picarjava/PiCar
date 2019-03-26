@@ -347,18 +347,7 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	String actionS=new String(req.getParameter("actionS").trim());
 	String actionP=new String(req.getParameter("actionP").trim());
  	SimpleDateFormat sdf2 = new SimpleDateFormat("YYYY-MM-DD");
-//	java.sql.Date deadline = date.add(Calendar.HOUR, 24);//--
  	Integer verified= new Integer(req.getParameter("verified"));
-//	// util.Date → util.Calendar
-//	java.util.Date date = new java.util.Date();
-//	Calendar cal = Calendar.getInstance();
-//	cal.setTime(date);
-//	// util.Calendar → util.Date
-//	java.util.Date date2 = cal.getTime();
-//	// util.Date → sql.Date
-//	java.util.Date date5 = new java.util.Date();
-//	java.sql.Date sqlDate2 = new java.sql.Date(date5.getTime());
-//	String one_day_after = sdf2.format(date.getTime());
  	DriverService driverSvc=new DriverService();
 	Calendar calendar2 = Calendar.getInstance();
 	SimpleDateFormat dateform = new SimpleDateFormat("yyyy-MM-dd");
@@ -366,8 +355,6 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 	String oneday_after = dateform.format(calendar2.getTime());
 	
 	List<String> deadlineList =new ArrayList<String>();
-//	System.out.println("有獨到這一行");
-	
 	long long_now =  new java.util.Date().getTime();
 //	System.out.println(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new java.sql.Timestamp(long_now)));
 	/*************2查詢資料:調出某一筆的vo**************/
@@ -409,9 +396,13 @@ if("GET_ONE_FOR_CHECK".equals(action)){
 		RequestDispatcher failureView = req.getRequestDispatcher("/back-end/driver/");//??
  failureView.forward(req, res);
 	}
+	
 	/*************4.處理例外:回listALL原頁面**************/
 }catch(Exception e){
 }
+	RequestDispatcher success = req.getRequestDispatcher("/back-end/driver/listAllDriver.jsp");
+	success.forward(req, res);
+
 }
 //////////////////////////////////////////////////
 //來自back-end/listAllDriver.jsp 修改  ban deadline ==0 (後台banned司機  )//??沒用

@@ -129,7 +129,7 @@ public class DriverService {
 
 		return driverVO;
 	}
-	//新增FOR前端設定喜好設定
+	//新增FOR驗證司機
 	public DriverVO setForVerified(Integer verified, String driverID) {
 		
 		DriverVO driverVO = new DriverVO();
