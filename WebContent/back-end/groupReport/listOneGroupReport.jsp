@@ -1,5 +1,6 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="com.groupReport.model.*"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%-- 此頁暫練習採用 Script 的寫法取值 --%>
 
 <%
@@ -89,7 +90,7 @@ body, h3 {
 										<th>管理員編號</th>
 										<th>檢舉內容</th>
 										<th>檢舉日期</th>
-<!-- 										<th>處理狀態</th> -->
+										<th>處理狀態</th>
 									</tr>
 									<tr>
 										<td><%=groupReportVO.getGreportID()%></td>
@@ -98,7 +99,11 @@ body, h3 {
 										<td><%=groupReportVO.getAdminID()%></td>
 										<td><%=groupReportVO.getContent()%></td>
 										<td><%=groupReportVO.getTime()%></td>
-<%-- 										<td><%=groupReportVO.getState()%></td> --%>
+										<td><c:choose>
+											<c:when test="${driverReportVO.state=='1'}">已處理</c:when>
+											<c:when test="${driverReportVO.state=='0'}">未處理</c:when>
+											</c:choose>
+										</td>
 									</tr>
 								</table>
 							<br>
