@@ -15,150 +15,139 @@ DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverRep
 <html>
 <head>
 <title>PICAR BACK-END</title>
-<!-- Required meta tags -->
+<jsp:include page="/back-end/head_back.jsp" />
 <meta charset="utf-8">
-<meta
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
-	name="viewport" />
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-<!--     Fonts and icons     -->
-<link rel="stylesheet" type="text/css"
-	href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-<!-- Material Kit CSS -->
-<link href="assets/css/material-dashboard.css" rel="stylesheet" />
 <style>
-table, tr, td, th {
-	background-color: white;
-	border: 1px solid #aaa;
-	text-align: center;
-	padding: 5px;
-	margin-left: 10%;
-	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro',
-		'Noto Sans CJK SC', monospace;
-}
 
-table {
-	width: 80%;
-}
-
-.col-9 {
-	margin-top: -15px;
-	margin-left: -55px;
-	margin-bottom: 1rem;
-}
-
-h4 {
-	padding-left: 50%;
-	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro',
-		'Noto Sans CJK SC', monospace;
-}
-
-h3 {
-	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro',
-		'Noto Sans CJK SC', monospace;
+div.content {
+	width:95%;
+	margin-left:-7%;
 }
 
 #btn1 {
-	padding: 20px;
-	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro',
-		'Noto Sans CJK SC', monospace;
-	margin-left: 48%;
+    padding:10px 20px; 
+    background:#DDDDDD; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px; 
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color:#444444;
+    position: relative;
+	transition: 0.4s;
+	margin-left:0%;
 }
 
-.form-control {
-	background: no-repeat center bottom, center calc(100% - 1px);
-	border: 0;
-	transition: background 0s ease-out;
-	padding-left: 480px;
-	padding-right: 0;
-	border-radius: 0;
-	font-size: 14px;
+input[type="submit"] {
+    padding:10px 20px; 
+    background:#DDDDDD; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px; 
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color:#444444;
+    position: relative;
+	transition: 0.4s;
+	position:center;
 }
 
-#s2 {
-	font-size: 20px;
+input[type="submit"]:hover
+{
+    background:rgb(248, 197, 68);
 }
+
+#btn1:hover {
+	background:rgb(248, 197, 68);
+}
+
+select, #i1 {
+	border-radius: 5px; 
+}
+
 </style>
 
+
 </head>
-<body bgcolor='white'>
+<body>
+	<div class="wrapper ">
+		<jsp:include page="/back-end/kidBodyLeft.jsp" />
+		<div class="main-panel">
+			<div class="content">
+				<div class="container-fluid">
+					<!-- your content here -->
+					<div class="container-fluid">
+						<div class="col-9">
 
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>檢舉司機資料修改 - update_DriverReport_input.jsp</h3>
-				<h4>
-					<a href="select_page.jsp">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
+							<%-- 錯誤表列 --%>
+							<c:if test="${not empty errorMsgs}">
+								<font style="color: red" id="error">請修正以下錯誤：</font>
+								<ul>
+									<c:forEach var="message" items="${errorMsgs}">
+										<li style="color: red">${message}</li>
+									</c:forEach>
+								</ul>
+							</c:if>
 
-	<h4>資料修改</h4>
-	<%-- 錯誤表列 --%>
-	<table>
-		<c:if test="${not empty errorMsgs}">
-			<font style="color: red">請修正以下錯誤:</font>
-			<ul>
-				<c:forEach var="message" items="${errorMsgs}">
-					<li style="color: red">${message}</li>
-				</c:forEach>
-			</ul>
-		</c:if>
-	</table>
-
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do" name="form1">
-		<table>
-			<tr>
-				<td>檢舉司機單號<font color=red></font></td>
-				<td><input class="form-control" type="text" size="45"
-					value="<%=driverReportVO.getDreportID()%>"
-					placeholder="Readonly input here..." readonly></td>
-			</tr>
-			<tr>
-				<td>會員編號</td>
-				<td><input class="form-control" type="TEXT" name="memID"
-					size="45" value="<%=driverReportVO.getMemID()%>"
-					placeholder="Readonly input here..." readonly /></td>
-			</tr>
-			<tr>
-				<td>管理員編號</td>
-				<td><input class="form-control" type="TEXT" name="adminID" size="45"
-					value="<%=adminVO.getAdminID()%>" readonly/></td>
-			</tr>
-			<tr>
-				<td>檢舉日期</td>
-				<td><input class="form-control" name="time" id="f_date1" size="45" type="text" readonly></td>
-			</tr>
-			<tr>
-				<td>訂單編號</td>
-				<td><input class="form-control" type="TEXT" name="orderID" size="45"
-					value="<%=driverReportVO.getOrderID()%>" readonly/></td>
-			</tr>
-			<tr>
-				<td>內容</td>
-				<td><input class="form-control" type="TEXT" name="content" size="45"
-					value="<%=driverReportVO.getContent()%>" readonly/></td>
-			</tr>
-			<tr>
-				<td>處理狀態</td>
-				<td><select name="state" class="form-control form-control-lg"
-					id="s2">
-						<option value="1" ${(driverReportVO.state=='1') ? 'selected' : ''}>已處理
+							<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do" name="form1">
+								<table>
+									<tr>
+										<td>檢舉司機單號<font color=red></font></td>
+										<td><input class="form-control" type="text" size="45"
+											value="<%=driverReportVO.getDreportID()%>"
+											placeholder="Readonly input here..." readonly></td>
+									</tr>
+									<tr>
+										<td>會員編號</td>
+										<td><input class="form-control" type="TEXT" name="memID"
+											size="45" value="<%=driverReportVO.getMemID()%>"
+											placeholder="Readonly input here..." readonly /></td>
+									</tr>
+									<tr>
+										<td>管理員編號</td>
+										<td><input class="form-control" type="TEXT" name="adminID" size="45"
+											value="<%=adminVO.getAdminID()%>" readonly/></td>
+									</tr>
+									<tr>
+										<td>檢舉日期</td>
+										<td><input class="form-control" name="time" id="f_date1" size="45" type="text" readonly></td>
+									</tr>
+									<tr>
+										<td>訂單編號</td>
+										<td><input class="form-control" type="TEXT" name="orderID" size="45"
+											value="<%=driverReportVO.getOrderID()%>" readonly/></td>
+									</tr>
+									<tr>
+										<td>內容</td>
+										<td><input class="form-control" type="TEXT" name="content" size="45"
+											value="<%=driverReportVO.getContent()%>" readonly/></td>
+									</tr>
+									<tr>
+										<td>處理狀態</td>
+										<td><select name="state" class="form-control form-control-lg"
+											id="s2">
+												<option value="1" ${(driverReportVO.state=='1') ? 'selected' : ''}>已處理
+												
+												<option value="0" ${(driverReportVO.state=='0') ? 'selected' : ''}>未處理
+												
+										</select></td>
+									</tr>
 						
-						<option value="0" ${(driverReportVO.state=='0') ? 'selected' : ''}>未處理
-						
-				</select></td>
-			</tr>
-
-		</table>
-		<br> <input type="hidden" name="action" value="update"> <input
-			type="hidden" name="dreportID"
-			value="<%=driverReportVO.getDreportID()%>"> <input
-			type="submit" value="送出修改" id="btn1">
-	</FORM>
+								</table>
+								<br> 
+								<input type="hidden" name="action" value="update"> 
+								<input type="hidden" name="dreportID" value="<%=driverReportVO.getDreportID()%>"> 
+								<input type="submit" value="送出修改" id="btn1">
+							</FORM>
+	                   </div>
+	                </div>
+	            </div>
+	             <jsp:include page="/back-end/kidFooter.jsp" />
+	        </div>
+	    </div> 
+	   </div>   														
 </body>
 
 
