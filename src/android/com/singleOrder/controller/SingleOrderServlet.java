@@ -9,7 +9,6 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 import javax.servlet.ServletException;
@@ -157,8 +156,7 @@ public class SingleOrderServlet extends HttpServlet {
             JsonObject jsonObject = new JsonObject();
             if (singleOrderVO != null && driverID != null && driverID.equals(singleOrderVO.getDriverID())) {
                 singleOrderService.updateDriverIDAndStateByOrderID(driverID, EXRCUTING, orderID);
-                @SuppressWarnings("unchecked")
-                Map<String, StoredInfo> driverLocation = (Map<String, StoredInfo>) getServletContext().getAttribute("driverLocation");
+                Map<String, StoredInfo> driverLocation = LocationWebSocket.getMap();
                 Session session = driverLocation.get(driverID).getSession();
                 if (session != null && session.isOpen()) {
                     System.out.println("send");

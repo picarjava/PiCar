@@ -45,7 +45,7 @@ public class OrderBroadcastWebSocket {
             } // if
         } // for
         
-        String text = String.format("session ID = %s, disconnected; close code = %d; reason phrase = %s",
+        String text = String.format("member session ID = %s, disconnected; close code = %d; reason phrase = %s",
                                     session.getId(), reason.getCloseCode().getCode(), reason.getReasonPhrase());
         System.out.println(text);
     }
@@ -53,5 +53,9 @@ public class OrderBroadcastWebSocket {
     @OnError
     public void onError(Session session, Throwable e) {
         System.err.println(e.getMessage());
+    }
+    
+    public static Map<String, Session> getMap() {
+        return member;
     }
 }

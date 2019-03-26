@@ -1,7 +1,5 @@
 package android.com.webSocket;
 
-import java.lang.reflect.Type;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -19,10 +17,8 @@ import javax.websocket.server.ServerEndpoint;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
 
 import android.com.location.model.InputInfo;
-import android.com.location.model.LatLng;
 import android.com.location.model.StoredInfo;
 
 // if want get servlet from session need to use filter to get session and on modify handshake put session in endpoint config
@@ -47,8 +43,7 @@ public class LocationWebSocket {
         JsonObject jsonObject = gson.fromJson(message, JsonObject.class);
         InputInfo inputInfo = gson.fromJson(jsonObject.get("outputInfo"), InputInfo.class);
         if (jsonObject.has("memID")) {
-            @SuppressWarnings("unchecked")
-            Map<String, Session> map = (Map<String, Session>) servletContext.getAttribute("OrderBroadcast");
+            Map<String, Session> map = OrderBroadcastWebSocket.getMap();
             String memID = jsonObject.get("memID").getAsString();
             if (map != null) {
                 Session memSession = map.get(memID);
@@ -76,7 +71,7 @@ public class LocationWebSocket {
             } // if
         } // for
         
-        String text = String.format("session ID = %s, disconnected; close code = %d; reason phrase = %s",
+        String text = String.format("driver session ID = %s, disconnected; close code = %d; reason phrase = %s",
                                     session.getId(), reason.getCloseCode().getCode(), reason.getReasonPhrase());
         System.out.println(text);
     }
