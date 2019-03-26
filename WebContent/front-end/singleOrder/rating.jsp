@@ -9,6 +9,19 @@
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
  <jsp:include page="/front-end/HomeMember/Header.jsp" /> 
    
+   <style>
+   .glyphicon {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+   </style>
     <meta charset="UTF-8"/>
     <title>司機評價</title>
     <link rel="stylesheet" type="text/css" href="http://www.jq22.com/jquery/bootstrap-3.3.4.css">

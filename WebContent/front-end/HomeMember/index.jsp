@@ -122,7 +122,7 @@ p {
                             <h1>
                                 <a class="brand" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp">Andia - a super cool design agency...</a>
                             </h1>
-                            <div class="nav-collapse collapse">
+                            <div class="nav-collapse collapse" style="position:absolute;top:0%;left:23%;">
                                 <ul class="nav pull-right">
                                     <li class="current-page widthes dropdown">
                                     <div class="rectangle"></div>
