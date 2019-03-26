@@ -1,5 +1,16 @@
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
+
+<style>
+
+p {
+
+font-family: "FangSong";
+}
+
+</style>
+
+
 		<div class="sidebar" data-color="azure" data-color="" data-background-color="black"
 			data-image="<%=request.getServletContext().getContextPath()%>/back-end/assets/img/sidebar-1.jpg">
 <!-- 			data-image="../assets/img/sidebar-1.jpg"> -->
@@ -28,13 +39,13 @@
 					</a></li>
 			<li class="nav-item ">
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/member/listAllmember_byDAO.jsp">
-              <i class="material-icons">content_paste</i>
+              <i class="material-icons">person</i>
               <p>乘客會員管理</p>
             </a>
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/driver/driverMemberManagement.jsp">
-              <i class="material-icons">content_paste</i>
+              <i class="material-icons">person</i>
               <p>司機會員管理</p>
             </a>
           </li>

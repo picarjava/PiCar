@@ -69,11 +69,6 @@
                                     <form class="form-inline" action="<%=request.getContextPath()%>/back-end/driver/listAllDriver.jsp" method="post">
                                         <button type="submit" id="i1">查詢</button>
                                     </form>
-                                    
-                                    
-                                    
-                                    
-                                    
                                 </td>
                             </tr>
                         </table>
