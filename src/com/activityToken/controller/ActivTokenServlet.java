@@ -229,9 +229,9 @@ public class ActivTokenServlet extends HttpServlet {
 			/*************4.處理例外 回原頁面**************/
 			}catch(Exception e) {
 				errorMsgs.add("無法此筆資料:"+e.getMessage());
+				RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
+				failurePage.forward(req, res);
 			}
-			RequestDispatcher failurePage=req.getRequestDispatcher("/back-end/activity/listAllActivity.jsp");
-			failurePage.forward(req, res);
 		}//GET_ALL_STMT的if
 	}
 }
