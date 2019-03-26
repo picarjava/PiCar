@@ -116,7 +116,7 @@ response.setDateHeader ("Expires", 0);
 			<td>會員姓名：</td>
 			<td><input type="text" name="name" size="45" value="<%=memberVO.getName() %>" /></td>
 			<td rowspan="11">
-				<img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}" alt="這是圖片替代文字" onerror="this.src='cat.jpg'"  width="200" height ="200" id="preview_progressbarTW_img">
+				<img src="/PiCar/front-end/member/member.do?memID=${memberVO.memID}" alt="這是圖片替代文字" onerror="this.src='cat.jpg'"  width="200" height ="200" id="preview_progressbarTW_img">
 				<input type="file" name="pic" onchange="readURL(this)" targetID="preview_progressbarTW_img"></td>
 			</tr>
 			<tr>

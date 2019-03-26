@@ -142,7 +142,7 @@ pageContext.setAttribute("list", list);
 <%-- 									<c:when test="${memberVO.babySeat == '1'}">需要  </c:when> --%>
 <%-- 									<c:when test="${memberVO.babySeat == '0'}">不需要  </c:when> --%>
 <%-- 								</c:choose></td> --%>
-								<td><img src="http://localhost:8081/PiCar/back-end/member/member.do?memID=${memberVO.memID}"  width="130" height="130" onerror="this.src='cat.jpg'"></td>
+								<td><img src="/PiCar/back-end/member/member.do?memID=${memberVO.memID}"  width="130" height="130" onerror="this.src='cat.jpg'"></td>
 								
 								<td >
 									<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/member/member.do" style="margin-bottom: 0px;">
