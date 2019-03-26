@@ -54,6 +54,10 @@ pageContext.setAttribute("list", list);
 		td:nth-child(last){			
 			width:30px;			
 		}
+		th{
+		font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+		border:1px solid #333333;
+		}
 		</style>
 	</head>
 	<body bgcolor="#11e1e9">
@@ -83,22 +87,22 @@ pageContext.setAttribute("list", list);
 						<div class="page1"><%@ include file="page1.file"%></div>
 						<table align="center"  >
 							<tr id="tr1">
-								<td width="100px">會員帳號</td>
-								<td>會員姓名</td>
-								<td>會員信箱</td>
+								<th >會員帳號</td>
+								<th>會員姓名</td>
+								<th>會員信箱</td>
 								<!-- <td>password</td> -->
-								<td>會員電話</td>
+								<th>會員電話</td>
 <!-- 								<td>信用卡號</td> -->
 <!-- 								<td>寵物設定</td> -->
 <!-- 								<td>抽菸設定</td> -->
-								<td>會員性別</td>
-								<td>一般代幣</td>
+								<th>會員性別</td>
+								<th>一般代幣</td>
 <!-- 								<td>活動代幣</td> -->
-								<td>會員生日</td>
-								<td>會員權限</td>
+								<th>會員生日</td>
+								<th>會員權限</td>
 <!-- 								<td>嬰兒座椅</td> -->
-								<td>個人照片</td>
-								<td>修改</td>
+								<th>個人照片</td>
+								<th>修改</td>
 								<!-- 			<td>刪除</td> -->
 							</tr>
 							<c:forEach var="memberVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -154,7 +158,7 @@ pageContext.setAttribute("list", list);
 									<!-- 			</td> -->
 									<!-- 		</form>		 -->
 									
-								</form>
+<!-- 								</form> -->
 							</tr>
 							</c:forEach>
 						</table>

@@ -19,7 +19,7 @@ table{
 <%
 	MemberVO memberVO =  (MemberVO)request.getAttribute("memberVO");
 %>
- <h3>update_member_input.jsp</h3>
+<!--  <h3>update_member_input.jsp</h3> -->
  <jsp:include page="/back-end/kidBodyLeft.jsp" />
 <%-- 錯誤表列 --%>
 <c:if test="${not empty errorMsgs}">
@@ -32,7 +32,7 @@ table{
 </c:if>
 
 <form method="post" action="member.do" name="form1">
-<a href="select_page.jsp">回主頁面</a>
+<!-- <a href="select_page.jsp">回主頁面</a> -->
 	<table>
 		<tr>
 			<td>會員編號：</td>
