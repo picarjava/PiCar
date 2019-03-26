@@ -32,6 +32,15 @@
 		    display: inline-block;    /* 如需支持IE8以下版本，用浮动来做 */
 		}
 		
+		h1, h2, h3, h4, h5, h6 {
+		    margin: 10px 0;
+		    font-family: inherit;
+		    font-weight: bold;
+		    line-height: 20px;
+		    color: black;
+		    text-rendering: optimizelegibility;
+		}
+		
 		
 </style>
 </head>

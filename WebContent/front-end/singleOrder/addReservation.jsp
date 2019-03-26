@@ -36,8 +36,16 @@
       .form-row {
 		    display: inline-block;    /* 如需支持IE8以下版本，用浮动来做 */
 		}
-
-</style>
+		
+		h1, h2, h3, h4, h5, h6 {
+		    margin: 10px 0;
+		    font-family: inherit;
+		    font-weight: bold;
+		    line-height: 20px;
+		    color: black;
+		    text-rendering: optimizelegibility;
+		}
+		</style>
 </head>
 
 <!-- 登入功能串接 ，將VOmemID指定給 memID-->
@@ -90,7 +98,7 @@ session.setAttribute("memID",memID);
 	       			</div>
 		       		<div  class="form-row">
 		       			<div class="span">
-						<p id="distance" ></p>
+						<p id="distance"></p>
 						</div>
 						<div class="span">
 		       			<p id="duration"></p>
@@ -170,37 +178,6 @@ session.setAttribute("memID",memID);
 
       </div>
     </section><!-- #contact -->
-
-  <!--==========================
-    Footer
-  ============================-->
-  <footer id="footer">
-    <div class="footer-top">
-      <div class="container">
-
-      </div>
-    </div>
-
-    <div class="container">
-      <div class="copyright">
-        &copy; Copyright <strong>Regna</strong>. All Rights Reserved
-      </div>
-      <div class="credits">
-        <!--
-          All the links in the footer should remain intact.
-          You can delete the links only if you purchased the pro version.
-          Licensing information: https://bootstrapmade.com/license/
-          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Regna
-        -->
-        Bootstrap Templates by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-      </div>
-    </div>
-  </footer><!-- #footer -->
-
- 
- 
- 
- 
 </body>
 
 <!-- auto place complete 開始 -->
