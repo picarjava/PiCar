@@ -67,6 +67,7 @@
   
  } 
 td{
+	border:1px solid #333333;
 	border-bottom:1px solid #888888;
 	padding:10px;
   	font-family: arial; 
@@ -111,7 +112,7 @@ tr:nth-child(even){
 
 	</table>
 			<div align="center"><%@ include file="page2.file"%></div>
-			<h3 align="center">目前餘額:<%=memberVO.getToken() %></h3>
+<%-- 			<h3 align="center">目前餘額:<%=memberVO.getToken() %></h3> --%>
 
 </body>
 </html>

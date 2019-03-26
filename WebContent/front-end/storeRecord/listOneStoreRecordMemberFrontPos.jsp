@@ -10,17 +10,19 @@
 <%
 	//給小編的
 	//以下為了用迴圈將儲值紀錄列出
-	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+	MemberVO memberVO1 = (MemberVO)session.getAttribute("memberVO");
 	StoreRecordService storeRecordSvc = new StoreRecordService();	
 	
-	List<StoreRecordVO> list = storeRecordSvc.getMemStoreRecordPos(memberVO.getMemID());
+	List<StoreRecordVO> list = storeRecordSvc.getMemStoreRecordPos(memberVO1.getMemID());
 	pageContext.setAttribute("list", list);
-
+	
 // 	List<StoreRecordVO> list = (List) request.getAttribute("list");
 // 	StoreRecordVO storeRecordVO = (StoreRecordVO) request.getAttribute("storeRecordVO");
 	//以下為了取得姓名
-// 	MemberService memberSvc = new MemberService();
-// 	MemberVO memberVO = memberSvc.getOneMember(storeRecordVO.getMemID());
+	MemberService memberSvc = new MemberService();
+	MemberVO memberVO = memberSvc.getOneMember(memberVO1.getMemID());
+	
+	request.getSession().setAttribute("memberVO", memberVO);
 	//以下為了得到加總金額
 // 	Integer sumCount = (Integer) request.getAttribute("sumCount");
 %>
@@ -100,7 +102,7 @@ tr:nth-child(even){
 	<h1 align="center">
 <%-- 		${memberVO.memID} --%>
 		
-		<h3><%=memberVO.getName()%>	你好，以下為您的儲值紀錄</h3>
+		<h3><%=memberVO1.getName()%>	你好，以下為您的儲值紀錄</h3>
 	</h1>
 	<div class="page1" align="center"><%@ include file="page1.file"%></div>
 	<table align="center" border="1" id="table1">
