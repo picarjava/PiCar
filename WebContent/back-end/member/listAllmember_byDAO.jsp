@@ -17,35 +17,42 @@ pageContext.setAttribute("list", list);
 		<jsp:include page="/back-end/btnCss.jsp" />
 		<style>
 		div.content {
-			width:95%;
-			margin-left:-25%;
+/* 			width:95%; */
+ 		margin-left:-25%; 
 		}
 		/* .footer{ */
 		/* margin-bottem:-1%; */
 		/* } */
 		table{
-			width="1000px"
-			border:1px solid #888888;
+			width:1200px;
+			border:1px solid #ffffff;
+					
 		}
 		td{
 			border:1px solid #333333;
 			padding:10px;
 			font-family: arial;
-			font-size:15px;
-			width:200px;
-			align="center"
+			font-size:12px;	
+			width:120px;
+			align:center;
+			
 		}
 		tr:nth-child(1){
-			align="center"
+			align:center;
 			background-color:#7788aa;
-				color:#888888;
+			color:#888888;
+			
 		}
-		#tr{
-			background-color:#7788aa;
-				color:#888888;
+		#tr1{
+			background-color:#blue;
+			color:#888888;
+			font-family:fantasy;
 		}
 		tr:nth-child(even){
-				background-color:#e8e8e8;
+			background-color:#e8e8e8;
+		}
+		td:nth-child(last){			
+			width:30px;			
 		}
 		</style>
 	</head>
@@ -55,7 +62,7 @@ pageContext.setAttribute("list", list);
 			<div class="main-panel">
 				<div class="content">
 					<div class="container-fluid">
-						 <h3>listAllmember_byDAO.jsp</h3>
+<!-- 						 <h3>listAllmember_byDAO.jsp</h3> -->
 						<div id="errmsg">
 							<c:if test="${not empty errorMsgs}">
 							<ul>
@@ -67,29 +74,29 @@ pageContext.setAttribute("list", list);
 							</ul>
 							</c:if>
 						</div>
-						<h1 align="center">管理員你好，這是Picar會員資料</h1>
+						<h3 align="center">管理員你好，這是Picar會員資料</h3>
 						<div class="page1">
-							<a href="select_page.jsp">查詢主頁面</a>
+<!-- 							<a href="select_page.jsp">查詢主頁面</a> -->
 						</div>
 						<br>
 						<br>
 						<div class="page1"><%@ include file="page1.file"%></div>
-						<table align="center"  width="1000">
-							<tr>
+						<table align="center"  >
+							<tr id="tr1">
 								<td width="100px">會員帳號</td>
 								<td>會員姓名</td>
 								<td>會員信箱</td>
 								<!-- <td>password</td> -->
 								<td>會員電話</td>
-								<td>信用卡號</td>
-								<td>寵物設定</td>
-								<td>抽菸設定</td>
+<!-- 								<td>信用卡號</td> -->
+<!-- 								<td>寵物設定</td> -->
+<!-- 								<td>抽菸設定</td> -->
 								<td>會員性別</td>
 								<td>一般代幣</td>
-								<td>活動代幣</td>
+<!-- 								<td>活動代幣</td> -->
 								<td>會員生日</td>
 								<td>會員權限</td>
-								<td>嬰兒座椅</td>
+<!-- 								<td>嬰兒座椅</td> -->
 								<td>個人照片</td>
 								<td>修改</td>
 								<!-- 			<td>刪除</td> -->
@@ -102,16 +109,16 @@ pageContext.setAttribute("list", list);
 								<!-- <td></td> -->
 								<%-- 			<td>${memberVO.password}</td> --%>
 								<td>${memberVO.phone}</td>
-								<td>${memberVO.creditcard}</td>
-								<td><c:choose>
-									<c:when test="${memberVO.pet == '1'}"> 喜好寵物  </c:when>
-									<c:when test="${memberVO.pet == '0'}">  不喜好寵物  </c:when>
-								</c:choose></td>
+<%-- 								<td>${memberVO.creditcard}</td> --%>
+<%-- 								<td><c:choose> --%>
+<%-- 									<c:when test="${memberVO.pet == '1'}"> 喜好寵物  </c:when> --%>
+<%-- 									<c:when test="${memberVO.pet == '0'}">  不喜好寵物  </c:when> --%>
+<%-- 								</c:choose></td> --%>
 								
-								<td><c:choose>
-									<c:when test="${memberVO.smoke == '1'}">抽菸  </c:when>
-									<c:when test="${memberVO.smoke == '0'}">  不抽菸  </c:when>
-								</c:choose></td>
+<%-- 								<td><c:choose> --%>
+<%-- 									<c:when test="${memberVO.smoke == '1'}">抽菸  </c:when> --%>
+<%-- 									<c:when test="${memberVO.smoke == '0'}">  不抽菸  </c:when> --%>
+<%-- 								</c:choose></td> --%>
 								
 								<td><c:choose>
 									<c:when test="${memberVO.gender == '1'}">男生  </c:when>
@@ -119,7 +126,7 @@ pageContext.setAttribute("list", list);
 								</c:choose></td>
 								
 								<td>${memberVO.token}</td>
-								<td>${memberVO.activityToken}</td>
+<%-- 								<td>${memberVO.activityToken}</td> --%>
 								<td>${memberVO.birthday}</td>
 								
 								<td><c:choose>
@@ -127,13 +134,13 @@ pageContext.setAttribute("list", list);
 									<c:when test="${memberVO.verified == '0'}">停權  </c:when>
 								</c:choose></td>
 								
-								<td><c:choose>
-									<c:when test="${memberVO.babySeat == '1'}">需要  </c:when>
-									<c:when test="${memberVO.babySeat == '0'}">不需要  </c:when>
-								</c:choose></td>
-								<td><img src="http://localhost:8081/PiCar/back-end/member/member.do?memID=${memberVO.memID}"  width="200" height="200" onerror="this.src='cat.jpg'"></td>
+<%-- 								<td><c:choose> --%>
+<%-- 									<c:when test="${memberVO.babySeat == '1'}">需要  </c:when> --%>
+<%-- 									<c:when test="${memberVO.babySeat == '0'}">不需要  </c:when> --%>
+<%-- 								</c:choose></td> --%>
+								<td><img src="http://localhost:8081/PiCar/back-end/member/member.do?memID=${memberVO.memID}"  width="130" height="130" onerror="this.src='cat.jpg'"></td>
 								
-								<td>
+								<td >
 									<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/member/member.do" style="margin-bottom: 0px;">
 										<input type="submit" value="修改">
 										<input type="hidden" name="memID"  value="${memberVO.memID}">
