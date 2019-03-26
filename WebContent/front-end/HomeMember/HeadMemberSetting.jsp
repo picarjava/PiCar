@@ -12,12 +12,12 @@
     <head>
     <style>
      #GIbutton {
-    font-family: "Poppins", sans-serif;
+    font-family:Microsoft JhengHei;
     border-radius: 50px;
-    padding: 5px 22px;
+    padding:5px 10px;	
     background: #f5f5f5;
-    color: #2dc997;
-    font-style: italic;
+    color:black;
+/*     font-style: italic; */
     text-decoration: none;
     -moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
     -webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
@@ -35,7 +35,7 @@
     padding: 5px 22px;
     background: #2dc997;
     color: #f5f5f5;
-    font-style: italic;
+/*     font-style: italic; */
     text-decoration: none;
     -moz-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
     -webkit-box-shadow: 0 1px 25px 0 rgba(0,0,0,.05) inset, 0 -1px 25px 0 rgba(0,0,0,.05) inset;
@@ -55,6 +55,7 @@
     <div>
 <a id="GIbutton" href=/PiCar/regna-master/homeindex.jsp>請按此回首頁</a>
 <a id="GIbutton" href="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">請按此回會員首頁</a>
+
 <%-- <a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/listAllOneGroupBand.jsp">揪團管理</a> --%>
 </div>
     </body>

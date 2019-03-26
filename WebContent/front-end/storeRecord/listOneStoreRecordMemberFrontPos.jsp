@@ -71,11 +71,11 @@
 	href="assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <style>
-table{ 
+#table1{ 
 	width:600px;
 	border:1px solid #888888;  
  } 
-td{
+#td{
 	border:1px solid #333333;
 	padding:10px;
   	font-family: arial; 
@@ -98,17 +98,16 @@ tr:nth-child(even){
 <!-- 	<h3>listOneStoreRecordMember.jsp</h3> -->
 <!-- 	<a href="select_page.jsp">回主頁面</a> -->
 	<h1 align="center">
-		${memberVO.memID}
+<%-- 		${memberVO.memID} --%>
 		
-		<%=memberVO.getName()%>
-		你好，以下為您的儲值紀錄
+		<h3><%=memberVO.getName()%>	你好，以下為您的儲值紀錄</h3>
 	</h1>
 	<div class="page1" align="center"><%@ include file="page1.file"%></div>
 	<table align="center" border="1" id="table1">
 		<tr id="tr">
-			<td>儲值ID</td>
-			<td>儲值金額</td>
-			<td>儲值時間</td>
+			<td id="td">儲值ID</td>
+			<td id="td">儲值金額</td>
+			<td id="td">儲值時間</td>
 		</tr>
 		<c:forEach var="storeRecordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 		<tr>

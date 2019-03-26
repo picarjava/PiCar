@@ -60,7 +60,7 @@
 	href="assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
 <style>
-table{ 
+#table1{ 
 	width:600px;
 	border:1px solid #888888;
 	
@@ -86,13 +86,13 @@ tr:nth-child(even){
 <body bgcolor="#11e1e9">
 <!-- 	<h3>listOneStoreRecordMemberNeg.jsp</h3> -->
 <!-- 	<a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a> -->
-	<h2 align="center"> <%=memberVO.getMemID() %> <%=memberVO.getName() %>	你好，以下為您的扣款紀錄</h2>
+	<h3 align="center"> <%=memberVO.getName() %>	你好，以下為您的扣款紀錄</h3>
 	<div class="page1" align="center"><%@ include file="page1.file"%></div>
-	<table  align="center">
+	<table  align="center" id="table1">
 		<tr id="tr">
-			<td>訂單ID</td>			
-			<td>扣款金額</td>
-			<td>扣款時間</td>
+			<td id="td">訂單ID</td>			
+			<td id="td">扣款金額</td>
+			<td id="td">扣款時間</td>
 		</tr>
 		<c:forEach var="storeRecordVO" items="${list}" begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
 			<tr>
@@ -111,7 +111,7 @@ tr:nth-child(even){
 
 	</table>
 			<div align="center"><%@ include file="page2.file"%></div>
-			<h2 align="center">當前代幣餘額:<%=memberVO.getToken() %></h2>
+			<h3 align="center">目前餘額:<%=memberVO.getToken() %></h3>
 
 </body>
 </html>

@@ -119,14 +119,15 @@ tr:nth-child(even){
 background-color:e8e8e8;
 }
 .box1 input[type="submit"]{
+	
+	font-family:Microsoft JhengHei;
 	border:0;
-	background:none;
+	background:#f5f5f5;
 	display:block;
-	margin :20px auto;
+	margin :10px auto;
 	text-align:center;
 	border:2px solid #2ecc71;
-	padding:14px 10px;
-	
+	padding:5px 10px;	
 	outline:none;
 	color:black;
 	border-radius:24px;
@@ -141,14 +142,37 @@ margin-top:150px;
 margin-left:50px;
 top:50%;
 }
+#div1{
+float:left;
+margin-left:100px;
+}
+#div2{
+float:right;
+margin-right:100px;
+}
+#div3{
+float:right;
+margin-right:100px;
+}
+form{margin:0px; display:inline}
 </style>
 <body bgcolor="#11e1e9">
 	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
-	<jsp:include page="/front-end/HomeMember/HeadMemberSetting.jsp" />
+<%-- 	<jsp:include page="/front-end/HomeMember/HeadMemberSetting.jsp" /> --%>
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;" class="box1" style="display:inline">
+	<input type="submit" value="修改個人資料" >
+	<input type="hidden" name="memID"  value="${memberVO.memID}">
+	<input type="hidden" name="action"	value="getOne_For_Update"></FORM>
+					
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/storeRecord/storeRecord.do" style="margin-bottom: 0px;" class="box1" style="display:inline">
+	<input type="submit" value="代幣儲值">
+	<input type="hidden" name="memID"  value="${memberVO.memID}">
+	<input type="hidden" name="action"	value="addToken"></FORM>
+						
 	<!-- <h3>listOneMemberByUpdate.jsp</h3> -->
 	<!-- <a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a><br> -->
 	<%-- <a class="box" href=<%=request.getContextPath()%>/front-end/HomeMember/index.jsp> 請按此回會員首頁 </a> --%>
-	<h3 align="center">Hello!!${memberVO.name}，這是你的個人資料</h3>
+	<div id="div1"><h3 align="center">Hello!!${memberVO.name}，這是你的個人資料</h3>
 	<table align="center" border="1" id="table1"  >
 		
 <%-- 		<!-- <%=memberVO.getMemID()%> --> --%>
@@ -234,47 +258,37 @@ top:50%;
 <%-- 			<td><img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200" --%>
 <!-- 			></td> -->
 <!-- 		</tr> -->
-	</table>
+	</table></div>
 	
-	<table>
-		<tr>
-			<td>
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;" class="box1">
-					<input type="submit" value="修改個人資料" >
-					<input type="hidden" name="memID"  value="${memberVO.memID}">
-					<input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-				</td>
+
+<%-- 				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;" class="box1"> --%>
+<!-- 					<input type="submit" value="修改個人資料" > -->
+<%-- 					<input type="hidden" name="memID"  value="${memberVO.memID}"> --%>
+<!-- 					<input type="hidden" name="action"	value="getOne_For_Update"></FORM> -->
 				
-				<td>
-					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/storeRecord/storeRecord.do" style="margin-bottom: 0px;" class="box1">
-						<input type="submit" value="代幣儲值">
-						<input type="hidden" name="memID"  value="${memberVO.memID}">
-						<input type="hidden" name="action"	value="addToken"></FORM>
-					</td>
+<%-- 					<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/storeRecord/storeRecord.do" style="margin-bottom: 0px;" class="box1"> --%>
+<!-- 						<input type="submit" value="代幣儲值"> -->
+<%-- 						<input type="hidden" name="memID"  value="${memberVO.memID}"> --%>
+<!-- 						<input type="hidden" name="action"	value="addToken"></FORM> -->
 					
-					<td>
-						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;" class="box1">
-							<input type="submit" value="喜好設定">
-							<input type="hidden" name="memID"  value="${memberVO.memID}">
-							<input type="hidden" name="action"	value="getOne_For_Update_HOBBY">
-						</FORM>
-					</td>
-					
-					<td>
-						<form action="<%=application.getContextPath()%>/location" method="POST" class="box1">
-							<input type="hidden" name="memID" value="${locationVO.memID}"/>
-							<input type="hidden" name="location" value="${locationVO.location}"/>
-							<input type="hidden" name="action" value="getUpdateLocation"/>
-							<input type="submit" value="常用地點"/>
-						</form>
-					</td>
-					
-					<td>
-						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/memberSelf.do" style="margin-bottom: 0px;" class="box1">
-							<input type="submit" value="修改密碼">
-							<input type="hidden" name="memID"  value="${memberVO.memID}">
-							<input type="hidden" name="action"	value="modify_password"></FORM>
-						</td>
+<%-- 						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;" class="box1"> --%>
+<!-- 							<input type="submit" value="喜好設定"> -->
+<%-- 							<input type="hidden" name="memID"  value="${memberVO.memID}"> --%>
+<!-- 							<input type="hidden" name="action"	value="getOne_For_Update_HOBBY"> -->
+<!-- 						</FORM> -->
+				
+<%-- 						<form action="<%=application.getContextPath()%>/location" method="POST" class="box1"> --%>
+<%-- 							<input type="hidden" name="memID" value="${locationVO.memID}"/> --%>
+<%-- 							<input type="hidden" name="location" value="${locationVO.location}"/> --%>
+<!-- 							<input type="hidden" name="action" value="getUpdateLocation"/> -->
+<!-- 							<input type="submit" value="常用地點"/> -->
+<!-- 						</form> -->
+				
+<%-- 						<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/memberSelf.do" style="margin-bottom: 0px;" class="box1"> --%>
+<!-- 							<input type="submit" value="修改密碼"> -->
+<%-- 							<input type="hidden" name="memID"  value="${memberVO.memID}"> --%>
+<!-- 							<input type="hidden" name="action"	value="modify_password"></FORM> -->
+						
 						
 <!-- 						<td> -->
 <!-- 							<form method="post" action="logoutHandler.do"> -->
@@ -282,7 +296,10 @@ top:50%;
 <!-- 								<input type="hidden" name="logout"	value="logout"> -->
 <!-- 							</form> -->
 <!-- 						</td> -->
-					</tr>
-				</table>
+
+ <div id="div2"><jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontPos.jsp"/></div> 
+
+  <div id="div3"> <jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontNeg.jsp"/> </div>
+				
 			</body>
 </html>
