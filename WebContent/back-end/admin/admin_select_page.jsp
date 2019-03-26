@@ -27,7 +27,8 @@ div.content {
     cursor:pointer;
     -webkit-border-radius: 10px;
     border-radius: 5px; 
-    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+/*     font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace; */
+    font-family: "FangSong";
     font-size: 16px;
     color:#444444;
     position: relative;
@@ -42,7 +43,7 @@ input[type="submit"] {
     cursor:pointer;
     -webkit-border-radius: 10px;
     border-radius: 5px; 
-    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-family: "FangSong";
     font-size: 16px;
     color:#444444;
     position: relative;

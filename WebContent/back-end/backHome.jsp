@@ -32,7 +32,7 @@ font-size: 200%;
 }
 
 
-p {
+.sidebar-wrapper {
 
 font-family: "FangSong";
 }
