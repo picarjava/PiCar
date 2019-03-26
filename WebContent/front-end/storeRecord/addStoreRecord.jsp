@@ -89,8 +89,8 @@ height:50px;
 			<input type="text" name=pan_no2 size=4 value="" maxlength=4 size="10" onKeyUp="setBlur(this,'pan_no3');">-
 			<input type="text" name=pan_no3 size=4 value="" maxlength=4 size="10" onKeyUp="setBlur(this,'pan_no4');">-
 			<input type="text" name=pan_no4 size=4 value="" maxlength=4 size="10" >
-			</td>					<br>
-		</tr>2
+			</td>					
+		</tr>
 		<%-- <tr>
 			<td>撥款日期：</td>
 			<td><input type="text" name="payTime"  id="f_date1" size="45" >

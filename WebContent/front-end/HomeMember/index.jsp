@@ -79,7 +79,10 @@ float: right;
  .TOPMENU:hover {
 	
 	}
-
+p {
+　font-family: arial; 
+	color:#ffffff;
+}
 
 </style>
 
@@ -107,7 +110,8 @@ float: right;
                     <div class="navbar">
                         <div class="navbar-inner">
                          <div id="rigthtop"><form method="post"  action="logoutHandler.do">			
-				<input type="submit" value="登出">	
+				 
+				<input type="submit" value="登出"><br><br><p>${memberVO.name}，你好</p>
 				 <input type="hidden" name="logout"	value="logout">	
 				</form></div>
                             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
