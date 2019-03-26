@@ -27,9 +27,7 @@ session.setAttribute("memID",memID);
 
 <head>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
-   <jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontPos.jsp"/> 
-
-   <jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontNeg.jsp"/> 
+  
     <title>查詢活動代幣明細</title>
   
    

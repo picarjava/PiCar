@@ -103,12 +103,13 @@ p {
                 <div class="span12">
                     <div class="navbar">
                             <div class="navbar-inner">
-                         <div id="rigthtop"><form method="post"  action="/PiCar/front-end/HomeMember/logoutHandler.do">		
-                <p>${memberVO.name}，你好</>
-                
+                         <div id="rigthtop">
+                <form method="post"  action="/PiCar/front-end/HomeMember/logoutHandler.do">	
 				<input type="submit" value="登出">	
 				 <input type="hidden" name="logout"	value="logout">	
-				</form></div>
+				</form>
+                <p>${memberVO.name}，你好</>
+               </div>
                             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -134,12 +135,10 @@ p {
                                     <li class="widthes">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/member/listOneMemberByUpdate.jsp"><i class="fas fa-cog"></i><br />設定</a>
                                     </li>
-                                     <li class="widthes">
-                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/activityToken/listOnesAllActivityToken.jsp"><i class="fas fa-coins"></i><br />代幣管理</a>
-                                    </li>
                                       <li class="widthes">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/activityToken/addActivityToken.jsp"><i class="fas fa-coins"></i><br />免費代幣</a>
                                     </li>
+                                     
                                     <li class="widthes">
 						      <c:if test="${empty driverVO.driverID}">
 						      <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/addDriver.jsp"><i class="icon-user"></i><br />成為司機</a>
@@ -147,6 +146,9 @@ p {
 						      <c:if test="${not empty driverVO.driverID}">
 						      <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/homeDriverDataManagment.jsp"><i class="icon-user"></i><br />司機頁面</a>
 						      </c:if>
+                                    </li>
+                                    <li class="widthes">
+                                        <a href="<%=request.getServletContext().getContextPath()%>/regna-master/homeindex.jsp"><i class="fas fa-coins"></i><br />登出</a>
                                     </li>
                                 </ul>
                             </div>

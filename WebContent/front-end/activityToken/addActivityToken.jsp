@@ -67,6 +67,7 @@ session.setAttribute("memID",memID);
 			  </nav>
 		 </section>
 				<!-- 查詢nav bar結束 -->
+				<jsp:include page="/front-end/activityToken/listOnesAllActivityToken.jsp"/>
 				<!--==========================
 			    Footer
 			  ============================-->
