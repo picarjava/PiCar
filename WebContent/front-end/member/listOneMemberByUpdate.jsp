@@ -145,6 +145,7 @@ top:50%;
 #div1{
 float:left;
 margin-left:100px;
+margin-top:50px;
 }
 #div2{
 float:right;
@@ -156,13 +157,15 @@ margin-right:100px;
 }
 #div4{
 display:inline;
+aligh:center;
+margin-left:400px;
 }
-form{margin:0px; display:inline}
+form{margin:0px; display:inline-block }
 </style>
 <body bgcolor="#11e1e9">
 	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 <%-- 	<jsp:include page="/front-end/HomeMember/HeadMemberSetting.jsp" /> --%>
-	<div id="div4" style="display:inline;">
+	<div id="div4" >
 	
 	
 	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;" class="box1" >
