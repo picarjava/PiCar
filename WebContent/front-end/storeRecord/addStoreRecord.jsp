@@ -6,13 +6,13 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src="jquery-1.12.4.min.js" >$('#post-form').one('submit', otherDoPost); </script>
 <meta charset="UTF-8">
 <title>Andia - Responsive Agency Template</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="">
 <meta name="author" content="">
 
-<script src="jquery-1.12.4.min.js" >$('#post-form').one('submit', otherDoPost); </script>
 
 </head>
 <style>
@@ -83,13 +83,16 @@ height:50px;
 		<tr id="tr3">
 			<td >輸入信用卡號：</td>
 <!-- 			<td><input type="text"  size="45"  /> -->
-			<td>
+
+			<td>			
+				<input style="width:70px" type="text" name="pan_no1" maxlength="4" size="4" onKeyUp="next(this)">-  
+				<input style="width:70px" type="text" name="pan_no2" maxlength="4" size="4" onKeyUp="next(this)">- 
+				<input style="width:70px" type="text" name="pan_no3" maxlength="4" size="4" onKeyUp="next(this)">-
+				<input style="width:70px" type="text" name="pan_no4" maxlength="4" size="4" onKeyUp="next(this)">
+			</td>	
 			
-			<input type="text" name=pan_no1 size=4 value="" maxlength=4  size="10" onKeyUp="setBlur(this,'pan_no2');">-
-			<input type="text" name=pan_no2 size=4 value="" maxlength=4 size="10" onKeyUp="setBlur(this,'pan_no3');">-
-			<input type="text" name=pan_no3 size=4 value="" maxlength=4 size="10" onKeyUp="setBlur(this,'pan_no4');">-
-			<input type="text" name=pan_no4 size=4 value="" maxlength=4 size="10" >
-			</td>					
+						
+							
 		</tr>
 		<%-- <tr>
 			<td>撥款日期：</td>
@@ -112,17 +115,18 @@ height:50px;
 	
 </form>
 <script>
-	
 
-  function setBlur(obj,target2)
-  {
-     var target =document.getElementById(target2);
-       if( obj.value.length ==obj.getAttribute('maxlength'))
-           {
-               target.focus();
-           }
-       return;
-  } 
+
+function next(obj) {  
+    if (obj.value.length == obj.maxLength) {  
+        do {  
+            obj = obj.nextSibling;  
+        } while (obj.nodeName != "INPUT");  
+        obj.focus();  
+    }         
+}  
+document.forms[0].N1.focus();  
+
 
 		
 </script>

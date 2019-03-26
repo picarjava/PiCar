@@ -8,7 +8,17 @@
   <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
   <title>請輸入活動代碼</title>
  
+<style>
+.navbar .nav {
+   
+    left: 50%;
+    
+   
+}
 
+
+	
+</style>
 
 <!-- 會員登入功能串接 ，將VOmemID指定給 memID-->
 <%@ page import="com.member.model.MemberVO"%>
@@ -39,21 +49,18 @@ session.setAttribute("memID",memID);
 	     <div class="container wow fadeInUp">
 	      	<div class="col-lg-12 col-md-12">
 		        <div class="section-header">
-		        <form action="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">
-		          <button type="submit" class="btn btn-outline-success" >返回會員首頁</button>
-		        </form>
 		          <h3 class="section-title">請輸入活動序號 </h3>
 		          <jsp:useBean id="memberSvc" class="android.com.member.model.MemberService"/>
-		          <p class="section-description">會員編號 ${memID} </p>
+		          <p class="section-description">會員編號 ${memID}</p>
 		        </div>	
 			</div>      
 	     </div>
 	          <!-- 查詢nav bar開始 -->
-	          <nav class="navbar navbar-light bg-light justify-content-center" >
+	          <nav   class="navbar navbar-light bg-light justify-content-center">
 	          <form class="form-inline" action="<%=request.getContextPath()%>/activityToken/ActivTokenServlet" method="post">
-				<ul class="nav nav-tabs">
+				<ul class="nav nav-tabs"  style="left:35%;">
 					<li class="nav-item">
-					<input type="text" class="form-control mr-sm-2" name="activityCode" value="${activityVO.activityCode}" placeholder="請輸入活動序號" >
+					<input style="height: 30px;" type="text" class="form-control mr-sm-2" name="activityCode" value="${activityVO.activityCode}" placeholder="請輸入活動序號" >
 					</li>
 				  	<li class="nav-item">
 					<button class="btn btn-outline-success my-2 my-sm-0" type="submit">立即領取活動代幣</button>
@@ -63,7 +70,6 @@ session.setAttribute("memID",memID);
 				   <input type="hidden" name="action" value="INSERT_F0R_GET_ONES_ALL">
 				   <input type="hidden" name="memID" value="${memID}">
 				</form>
-				
 			  </nav>
 		 </section>
 				<!-- 查詢nav bar結束 -->

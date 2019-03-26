@@ -154,21 +154,36 @@ margin-right:100px;
 float:right;
 margin-right:100px;
 }
+#div4{
+display:inline;
+}
 form{margin:0px; display:inline}
 </style>
 <body bgcolor="#11e1e9">
 	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 <%-- 	<jsp:include page="/front-end/HomeMember/HeadMemberSetting.jsp" /> --%>
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;" class="box1" style="display:inline">
-	<input type="submit" value="修改個人資料" >
+	<div id="div4" style="display:inline;">
+	
+	
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/member.do" style="margin-bottom: 0px;" class="box1" >
+	<input type="submit" value="修改資料" >
 	<input type="hidden" name="memID"  value="${memberVO.memID}">
 	<input type="hidden" name="action"	value="getOne_For_Update"></FORM>
-					
-	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/storeRecord/storeRecord.do" style="margin-bottom: 0px;" class="box1" style="display:inline">
-	<input type="submit" value="代幣儲值">
+	
+				
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/storeRecord/storeRecord.do" style="margin-bottom: 0px;" class="box1" >
+	<input type="submit" value="儲值">
 	<input type="hidden" name="memID"  value="${memberVO.memID}">
 	<input type="hidden" name="action"	value="addToken"></FORM>
-						
+	
+	
+	<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/member/memberSelf.do" style="margin-bottom: 0px;" class="box1">
+	<input type="submit" value="修改密碼">
+	<input type="hidden" name="memID"  value="${memberVO.memID}">
+	<input type="hidden" name="action"	value="modify_password"></FORM>
+	
+	
+	</div>					
 	<!-- <h3>listOneMemberByUpdate.jsp</h3> -->
 	<!-- <a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a><br> -->
 	<%-- <a class="box" href=<%=request.getContextPath()%>/front-end/HomeMember/index.jsp> 請按此回會員首頁 </a> --%>
@@ -210,7 +225,7 @@ form{margin:0px; display:inline}
 			<td>${memberVO.creditcard}</td>
 		</tr>
 		<tr>
-			<td>一般代幣</td>
+			<td>剩餘金額</td>
 			<td>${memberVO.token}</td>
 		</tr>
 <!-- 		<tr> -->
@@ -299,7 +314,7 @@ form{margin:0px; display:inline}
 
  <div id="div2"><jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontPos.jsp"/></div> 
 
-  <div id="div3"> <jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontNeg.jsp"/> </div>
+ <div id="div3"><jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontNeg.jsp"/></div>
 				
 			</body>
 </html>

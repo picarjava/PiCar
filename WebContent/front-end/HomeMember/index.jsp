@@ -79,11 +79,30 @@ float: right;
  .TOPMENU:hover {
 	
 	}
-p {
-　font-family: arial; 
-	color:#ffffff;
+#p {
+　font-family:Microsoft JhengHei;
+	color:white;
+	align:right;
 }
-
+.box1 input[type="submit"]{
+	
+	font-family:Microsoft JhengHei;
+	border:0;
+	background:#f5f5f5;
+	display:block;
+	margin :10px auto;
+	text-align:center;
+/* 	border:2px solid #2ecc71; */
+	padding:5px 10px;	
+	outline:none;
+	color:black;
+	border-radius:24px;
+	transition:2s;
+	cursor:pointer;
+}
+.box1 input[type="submit"]:hover{
+	background:yellow;
+}
 </style>
 
     </head>
@@ -109,11 +128,15 @@ p {
                 <div class="span12">
                     <div class="navbar">
                         <div class="navbar-inner">
-                         <div id="rigthtop"><form method="post"  action="logoutHandler.do">			
+                        
+                         <div id="rigthtop"><form method="post"  action="logoutHandler.do" class="box1">			
 				 
-				<input type="submit" value="登出"><br><br><p>${memberVO.name}，你好</p>
+				<input type="submit" value="登出">
 				 <input type="hidden" name="logout"	value="logout">	
-				</form></div>
+				</form>
+				<p id="p">${memberVO.name}，你好</p>
+				</div>
+				
                             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -132,7 +155,7 @@ p {
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/addReservation.jsp"><i class="fas fa-car"></i><br />預約叫車</a>
                                     </li>
                                     <li class="widthes dropdown">
-                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/SelectGroupBand.jsp"><i class="icon-comments"></i><br />糾團</a>
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/SelectGroupBand.jsp"><i class="icon-comments"></i><br />揪團</a>
                                     </li>
                                     <li class="widthes dropdown">
                                         <a href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/listAllfutureTrip.jsp"><i class="icon-tasks"></i><br />訂單查詢</a>

@@ -98,17 +98,6 @@ select, #i1 {
 	                            </c:if>
 	                        </div>
 
-							<%-- 錯誤表列 --%>
-							<c:if test="${not empty errorMsgs}">
-								<font style="color: red" id="error">請修正以下錯誤：</font>
-								<ul>
-									<c:forEach var="message" items="${errorMsgs}">
-										<li style="color: red">${message}</li>
-									</c:forEach>
-								</ul>
-							</c:if>
-
-
 							<ul id="s1">
 								<form METHOD="post" ACTION="groupReport.do">
 									<a>搜尋檢舉揪團單號</a> 
@@ -130,9 +119,9 @@ select, #i1 {
 									<input type="submit" value="查詢">
 								</FORM>
 								
-								<ul>
-									<li><a href='addGroupReport.jsp'>(測試)新增檢舉揪團單</a></li>
-								</ul>
+<!-- 								<ul> -->
+<!-- 									<li><a href='addGroupReport.jsp'>(測試)新增檢舉揪團單</a></li> -->
+<!-- 								</ul> -->
 							</ul>
 
 

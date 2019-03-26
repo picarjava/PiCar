@@ -13,7 +13,12 @@
 <jsp:include page="/back-end/btnCss.jsp" />
 
 </head>
-
+<style>
+th{
+	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+		
+}
+</style>
 <body>
 <div class="wrapper ">
 <jsp:include page="/back-end/kidBodyLeft.jsp" />
@@ -26,18 +31,20 @@
 	<div class="main-panel">
 	<div class="content">
 <!-- 	<a href="select_page.jsp">回主畫面</a> -->
-	
-	<c:forEach var="rateVO" items="${list}">
+
 		<table border="1" id="table1">
 
 			<tr>
-				<td>費率ID</td>
-				<td>費率名稱</td>
-				<td>費率(NTDS/KM)</td>
-				<td>基本費率(NTDS)</td>
-				<td>修改</td>
+				<th>費率ID</th>
+				<th>費率名稱</th>
+				<th>費率(NTDS/KM)</th>
+				<th>基本費率(NTDS)</th>
+<!-- 				<td>修改</td> -->
 <!-- 				<td>刪除</td> -->
 			</tr>
+	
+	<c:forEach var="rateVO" items="${list}">
+	
 
 			<tr>
 				<td>${rateVO.rateID}</td>
@@ -46,15 +53,15 @@
 				<td>${rateVO.rateBasic}</td>
 
 
-				<td>
-					<form method="post"	action="<%=request.getContextPath()%>/back-end/rate/rate.do">
-						<input type="submit" value="修改"> 
-						<input type="hidden" name="rateID" value="${rateVO.rateID}"> 
-						<input type="hidden" name="action" value="getOne_For_Update">
+<!-- 				<td> -->
+<%-- 					<form method="post"	action="<%=request.getContextPath()%>/back-end/rate/rate.do"> --%>
+<!-- 						<input type="submit" value="修改">  -->
+<%-- 						<input type="hidden" name="rateID" value="${rateVO.rateID}">  --%>
+<!-- 						<input type="hidden" name="action" value="getOne_For_Update"> -->
 				
-				    </form>
-				 </td>
-				 </tr>
+<!-- 				    </form> -->
+<!-- 				 </td> -->
+				</tr>
 <!-- 				<td> -->
 <%-- 					<form method="post" action="<%=request.getContextPath()%>/back-end/rate/rate.do"> --%>
 <!-- 						<input type="submit" value="刪除"> -->
@@ -63,9 +70,10 @@
 <!-- 					</form> -->
 
 <!-- 				</td> -->
-		</table>
+		
 
 	</c:forEach>
+	</table>
 </div>
 </div>
 </div>
