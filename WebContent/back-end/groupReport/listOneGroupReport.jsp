@@ -8,81 +8,115 @@
 
 <html>
 <head>
-<title>檢舉揪團資料 - listGroupDriverReport.jsp</title>
-
+<title>檢舉揪團資料查詢</title>
+<jsp:include page="/back-end/head_back.jsp" />
 <style>
-table#table-1 {
-	background-color: #CCCCFF;
-	border: 2px solid black;
-	text-align: center;
+div.content {
+	width:95%;
+	margin-left:-7%;
 }
 
-table#table-1 h4 {
-	color: red;
-	display: block;
-	margin-bottom: 1px;
+#btn1 {
+    padding:10px 20px; 
+    background:#DDDDDD; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px; 
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color:#444444;
+    position: relative;
+	transition: 0.4s;
+
 }
 
-h4 {
-	color: blue;
-	display: inline;
+input[type="submit"] {
+    padding:10px 20px; 
+    background:#DDDDDD; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px; 
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color:#444444;
+    position: relative;
+	transition: 0.4s;
+
+}
+
+input[type="submit"]:hover
+{
+    background:rgb(248, 197, 68);
+}
+
+#btn1:hover {
+	background:rgb(248, 197, 68);
+}
+
+select, #i1 {
+	border-radius: 5px; 
+}
+
+body, h3 {
+ 	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
 }
 </style>
-
-<style>
-table {
-	width: 1000px;
-	background-color: white;
-	margin-top: 5px;
-	margin-bottom: 5px;
-}
-
-table, th, td {
-	border: 1px solid #CCCCFF;
-}
-
-th, td {
-	padding: 5px;
-	text-align: center;
-}
-</style>
-
 </head>
-<body bgcolor='white'>
+<body>
+    <div class="wrapper ">
+        <jsp:include page="/back-end/kidBodyLeft.jsp" />
+        <div class="main-panel">
+            <div class="content">
+                <div class="container-fluid">
+                    <div class="container-fluid">
+                        <div class="col-9">
+	                        <div>
+								<table id="table-1">
+									<tr>
+										<td>
+											<h3>檢舉揪團資料查詢結果</h3>
+										</td>
+									</tr>
+								</table>
 
-	<h4>此頁暫練習採用 Script 的寫法取值:</h4>
-	<table id="table-1">
-		<tr>
-			<td>
-				<h3>檢舉司機資料 - listOneGroupReport.jsp</h3>
-				<h4>
-					<a href="greport_select_page.jsp"><img src="images/back1.gif"
-						width="100" height="32" border="0">回首頁</a>
-				</h4>
-			</td>
-		</tr>
-	</table>
-
-	<table>
-		<tr>
-			<th>檢舉揪團單號</th>
-			<th>會員編號</th>
-			<th>揪團編號</th>
-			<th>管理員編號</th>
-			<th>檢舉內容</th>
-			<th>檢舉日期</th>
-			<th>處理狀態</th>
-		</tr>
-		<tr>
-			<td><%=groupReportVO.getGreportID()%></td>
-			<td><%=groupReportVO.getMemID()%></td>
-			<td><%=groupReportVO.getGroupID()%></td>
-			<td><%=groupReportVO.getAdminID()%></td>
-			<td><%=groupReportVO.getContent()%></td>
-			<td><%=groupReportVO.getTime()%></td>
-			<td><%=groupReportVO.getState()%></td>
-		</tr>
-	</table>
+								<table>
+									<tr>
+										<th>檢舉揪團單號</th>
+										<th>會員編號</th>
+										<th>揪團編號</th>
+										<th>管理員編號</th>
+										<th>檢舉內容</th>
+										<th>檢舉日期</th>
+<!-- 										<th>處理狀態</th> -->
+									</tr>
+									<tr>
+										<td><%=groupReportVO.getGreportID()%></td>
+										<td><%=groupReportVO.getMemID()%></td>
+										<td><%=groupReportVO.getGroupID()%></td>
+										<td><%=groupReportVO.getAdminID()%></td>
+										<td><%=groupReportVO.getContent()%></td>
+										<td><%=groupReportVO.getTime()%></td>
+<%-- 										<td><%=groupReportVO.getState()%></td> --%>
+									</tr>
+								</table>
+							<br>
+							<form action="<%=request.getContextPath()%>/back-end/groupReport/greport_select_page.jsp">
+								<div class="text-center">
+									<input type="submit" value="返回上一頁">
+								</div>
+							</form>	
+                   	 </div>
+                </div>
+            </div>
+             <jsp:include page="/back-end/kidFooter.jsp" />
+        </div>
+    </div>    						
+</div>
+</div>
+				
+											
 
 </body>
 </html>
