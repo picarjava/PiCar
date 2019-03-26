@@ -32,6 +32,10 @@ input[type="submit"] {
 
 }
 
+h2, table {
+ 	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+}
+
 input[type="submit"]:hover
 {
     background:rgb(248, 197, 68);
@@ -50,7 +54,7 @@ input[type="submit"]:hover
                     <div class="container-fluid">
                         <div class="col-9">
 
-					<h4>新增管理員</h4>
+					<h2>處理檢舉揪團</h2>
 
 					<%-- 錯誤表列 --%>
 					<c:if test="${not empty errorMsgs}">
