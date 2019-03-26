@@ -38,4 +38,7 @@ List<GroupOrderVO> getALL_GroupID_State(String groupid, Integer state);
 List<String> getMemID_groupID(String groupID);
 void updateStateByGroupIDAndGroupID(Integer state, String groupID, Timestamp startTime);
 public GroupOrderVO getGroupOrderVOGroupID(String groupID);
+public List<String> getGDelayOrder();
+void updateGOrderIDToDelayG(String orderID);
+List<String> getAllGDelay();
 }

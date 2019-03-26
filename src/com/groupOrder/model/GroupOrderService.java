@@ -134,15 +134,25 @@ public class GroupOrderService {
     		return dao.getMemID_groupID(groupID); 	
     }
     
+    //逾時訂單1.
+    public List<String> getGDelayOrder(){
+    	return dao.getGDelayOrder();
+    }
+    
     //逾時訂單2.
     public void updateDelayGOrder(String gorderID){
-    	dao.updateGOrderIDToDelay(gorderID);
+    	dao.updateGOrderIDToDelayG(gorderID);
     }
     public GroupOrderVO getGroupOrderVOGroupID(String groupID) {
     
     	return dao.getGroupOrderVOGroupID(groupID); 	
     }
     
+    //已經逾時訂單
+    public List<String> getAllGDelay(){
+    	return dao.getAllGDelay();
+    }
+   
     
     
 }

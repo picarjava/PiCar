@@ -38,7 +38,6 @@ public class DelayTimerx extends HttpServlet {
 //	--//	--//逾時訂單
 //	--//	--條件1:開始時間+五分鐘<=現在時間
 //	--//	--條件2:STATE=1
-//	--//
 //	--//	--撈單人訂單 
 //	  SELECT * FROM SINGLE_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP;
 //	--DAO。SELECT * FROM SINGLE_ORDER WHERE STATE=1 AND (START_TIME+(1/24/60)*5) = ? <= CURRENT_TIMESTAMP
@@ -87,16 +86,16 @@ public class DelayTimerx extends HttpServlet {
     					System.out.println("--------------------------------");
     				}
     				// [SODR005, SODR010] 已經逾期訂單(6)
-    				System.out.println(new SingleOrderService().getAllDelay());
+//    				System.out.println(new SingleOrderService().getAllDelay());
 //    				
-//    				List<String> groupDelayList = new SingleOrderService().getDelayOrder();// 。2.檢查是否已是6 同時做for
+    				List<String> groupDelayList = new GroupOrderService().getGDelayOrder();// 。2.檢查是否已是6 同時做for
 //    				//				if (startTimeList != null) {
-//    				for (String singledelay : singleDelayList) {// 滾出一群過期單人訂單
-//    					System.out.println(singledelay ); // 逾期訂單(1)。字串SODR005
+    				for (String groupdelay : groupDelayList) {// 滾出一群過期揪團訂單
+    					System.out.println(groupdelay); // 逾期訂單(1)。字串SODR005
 //    					// 2.將狀態碼1-->6 logic1//狀態碼改成逾期
-//    					new SingleOrderService().updateDelayOrder(singledelay);
-//    					System.out.println("--------------------------------");
-//    				}
+    					new GroupOrderService().updateDelayGOrder(groupdelay);
+    					System.out.println("--------------------------------");
+    				}
 //    				// [SODR005, SODR010] 已經逾期訂單(6)
 //    				System.out.println(new SingleOrderService().getAllDelay());
     
@@ -112,13 +111,13 @@ public class DelayTimerx extends HttpServlet {
     //						;//拿到在線session
     					//						System.out.println(adminID+"哈哈");//null
     					Collection<Session> isOnline = broadcastOrderMap.values();
-    					System.out.println(isOnline);
+//    					System.out.println(isOnline);
 //    					[org.apache.tomcat.websocket.WsSession@6f55ce94]
     
     					for (Session allAdmin : isOnline) {
     						
-    						System.out.println(allAdmin);
-    
+//    						System.out.println(allAdmin);
+//    
     						if (allAdmin != null) { // 若此會員在線，則推播
     							String message = "單人訂單編號" + singledelayed + "已逾時。請至訂單管理處理謝謝";
     							String toJsonMessage = "{\"message\":\"" + message + "\"}";
@@ -128,9 +127,10 @@ public class DelayTimerx extends HttpServlet {
     				}
     //					}
     //			}
-//    				目前進度。差grouporder推播--->退款--->重新叫車
-    				List<String> groupDelayList = new GroupOrderService().getDelayGOrder();
-    				for (String groupdelay : groupDelayList) {// 滾出一群過期揪團訂單
+//    				目前進度。差grouporder推播(OK)--->退款--->重新叫車
+//    				bug1.GODR004重複出現
+    				List<String> groupDelayedList = new GroupOrderService().getAllGDelay();
+    				for (String groupdelay : groupDelayedList) {// 滾出一群過期揪團訂單
     					System.out.println("UPDATE GROUP_ORDER SET STATE ='6' WHERE GORDER_ID=?");
     					Collection<Session> isGOnline = broadcastOrderMap.values();
     					System.out.println(isGOnline);
@@ -145,7 +145,6 @@ public class DelayTimerx extends HttpServlet {
     							allAdminG.getAsyncRemote().sendText(toJsonMessage);
     						}
     					}
-    					new GroupOrderService().updateDelayGOrder(groupdelay);
     //						System.out.println(new SingleOrderService().get);
     				}
     ///////////////////////////////////////////////////////////////////////////////
@@ -159,7 +158,6 @@ public class DelayTimerx extends HttpServlet {
     //							
     //						}
     //					}
-    
     ////						TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
     ////							public void run() {
     ////								// System.out.println("更新日期:"+new
@@ -181,8 +179,8 @@ public class DelayTimerx extends HttpServlet {
 //		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
 //		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 365);
 		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis() );
-		timer.scheduleAtFixedRate(task, now, 1000 * 60 * 60 * 24 * 365); // 甲. 每半小時執行一次
-//		timer.scheduleAtFixedRate(task, now, 1000 * 5); // 甲. 每半小時執行一次
+//		timer.scheduleAtFixedRate(task, now, 1000 * 60 * 60 * 24 * 365); // 甲. 每半小時執行一次
+		timer.scheduleAtFixedRate(task, now, 1000 * 5); // 甲. 每半小時執行一次
 																										// 搜出隔天訂單
 //		System.out.println("C.現在毫秒數"+new GregorianCalendar().getTimeInMillis());   //TEST
 	}// init

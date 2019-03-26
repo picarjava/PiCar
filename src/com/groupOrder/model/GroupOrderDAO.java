@@ -105,11 +105,18 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		//逾時訂單使用
 		private static final String DELAY_TIME ="SELECT * FROM GROUP_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP";
 
+//	    訂單管理排成使用1.撈單
+	    private static final String GDELAY_TIME ="SELECT * FROM GROUP_ORDER WHERE STATE=1 AND START_TIME+(1/24/60)*5 <= CURRENT_TIMESTAMP";
+
+//	     訂單管理排成使用 2.改單 -> 6
+	    private static final String UPDATE_STATE_TO_GDELAY =	"UPDATE GROUP_ORDER SET STATE =6 WHERE GORDER_ID=? ";
+
+	    
 		private static final String  GET_MEM_ID_GROUP_ID=
 				"SELECT DISTINCT MEM_ID FROM GROUP_ORDER WHERE GROUP_ID=?";
 		
 		private static final String UPDATE_GROUP_STATE_TO_DELAY =	"UPDATE GROUP_ORDER SET STATE ='6' WHERE GORDER_ID=? ";
-		
+	    private final static String SELECT_ALL_GDELAY = "SELECT * FROM GROUP_ORDER WHERE STATE = 6 ";
 		@Override
 		public GroupOrderVO getGroupOrderVOGroupID(String groupID) {
 
@@ -1238,6 +1245,76 @@ return groupOrderVO;
 	            closeConnection(connection);
 	        }
 	    }
+	
+	//定時撈出逾期訂單
+    public List<String> getGDelayOrder(){
+    	List<String> delayGOrder=new ArrayList<String>();
+    	
+    	Connection con = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+        	con=ds.getConnection();
+			pstmt=con.prepareStatement(GDELAY_TIME);
+			rs=pstmt.executeQuery();
+			while(rs.next()) {
+				delayGOrder.add(rs.getString("GORDER_ID"));
+			}
+        	
+        }catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closeResultSet(rs);
+            closePreparedStatement(pstmt);
+            closeConnection(con);
+        } // finally
+    	return delayGOrder;
+    }
+    
+    
+    @Override
+    public void updateGOrderIDToDelayG(String orderID) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        try {
+            connection = ds.getConnection();
+            preparedStatement = connection.prepareStatement(UPDATE_STATE_TO_GDELAY);
+            int index = 1;
+            preparedStatement.setString(index++, orderID);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        }
+    }
+    
+    @Override
+    public List<String> getAllGDelay() {
+        List<String> delayedgorder = new ArrayList<String>();
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            connection = ds.getConnection();
+            preparedStatement = connection.prepareStatement(SELECT_ALL_GDELAY);
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                delayedgorder.add(resultSet.getString("GORDER_ID"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        } // finally
+        return delayedgorder;
+    } // getAll()
 
 
 		

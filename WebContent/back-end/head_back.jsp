@@ -252,10 +252,10 @@ function connect() {
 //  			}
  		};
 
-    if ("${AllDelay}" != null) {
-        window.alert("逾時訂單" + "${AllDelay}");
-        debugger;
-    }
+//     if ("${AllDelay}" != null) {
+//         window.alert("逾時訂單" + "${AllDelay}");
+//         debugger;
+//     }
 
     webSocket.onclose = function(event) {
 //         updateStatus("WebSocket已離線");
