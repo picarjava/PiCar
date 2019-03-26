@@ -12,7 +12,61 @@
 <jsp:include page="/back-end/head_back.jsp" />
 <meta charset="utf-8">
 <title>管理員資料新增 - addAdmin.jsp</title>
+<style>
 
+
+h4 {
+	font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+}
+
+div.content {
+	width:95%;
+}
+
+#btn1 {
+    padding:10px 20px; 
+    background:#DDDDDD; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px; 
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color:#444444;
+    position: relative;
+	transition: 0.4s;
+
+}
+
+input[type="submit"] {
+    padding:10px 20px; 
+    background:#DDDDDD; 
+    border:0 none;
+    cursor:pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px; 
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color:#444444;
+    position: relative;
+	transition: 0.4s;
+
+}
+
+input[type="submit"]:hover
+{
+    background:rgb(248, 197, 68);
+}
+
+#btn1:hover {
+	background:rgb(248, 197, 68);
+}
+
+select, #i1 {
+	border-radius: 5px; 
+}
+
+</style>
 </head>
 <body bgcolor='white'>
     <div class="wrapper ">
