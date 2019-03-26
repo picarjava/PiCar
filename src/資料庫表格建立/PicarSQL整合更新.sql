@@ -545,13 +545,13 @@ CREATE TABLE GROUP_BAND(
  CURRENT_NUM NUMBER (1)   NOT NULL,
  UPPER_LIMIT NUMBER (1)   NOT NULL,
  LOWER_LIMIT NUMBER (1)   NOT NULL,
- GROUP_NAME   VARCHAR2 (60)  NOT NULL,
+ GROUP_NAME   VARCHAR2 (80)  NOT NULL,
  GROUP_LEADER VARCHAR2 (5)   NOT NULL,
  START_LOC VARCHAR2 (100CHAR)   NOT NULL,
  END_LOC   VARCHAR2 (100CHAR)   NOT NULL,
  PRIVATES NUMBER (1)   NOT NULL,
  PHOTO BLOB    ,
- GROUP_TYPE VARCHAR2 (30)   ,
+ GROUP_TYPE VARCHAR2 (80)   ,
  TOTAL_AMOUT NUMBER (10)    NOT NULL,
  START_TIME TIMESTAMP    ,
  RATE NUMBER       (1)   ,
@@ -566,8 +566,8 @@ CREATE SEQUENCE GROUP_BAND_SEQ
     NOMAXVALUE
     CACHE 10;
     
-INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp('2019/02/04','yyyy/mm/dd'),EMPTY_CLOB(),0,1,4,2,'五月天演唱會','M001','桃園火車站','中壢火車站',1,EMPTY_BLOB(),'演唱會',5000,to_timestamp('2019/02/15','yyyy/mm/dd'),5,'不錯ㄟ',5);
-INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp('2019/02/05','yyyy/mm/dd'),EMPTY_CLOB(),0,1,4,2,'道地ㄟ美食','M001','台南火車站','高雄火車站',1,EMPTY_BLOB(),'美食',2500,to_timestamp ('2019/02/10','yyyy/mm/dd'),5,'好吃ㄟ',6);
+INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp ('2019/03/25 04:05:20' , 'yyyy/mm/dd hh24:mi:ss'),EMPTY_CLOB(),0,1,2,2,'寶可夢美食無法抗拒，上百種寶可夢餐。','M003','台灣台北市','台灣台中市東區復興路四段台中火車站(東站)',0,EMPTY_BLOB(),'美食',4401,to_timestamp ('2019/04/09 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),5,'嚴禁帶寶貝球，寶可夢只可食用，不可捕捉。',5);
+
 --揪團成員
 CREATE TABLE GROUP_MEM( 
 GROUP_ID VARCHAR2 (5)  NOT NULL,
@@ -611,9 +611,9 @@ CACHE 10;
 
 --
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G001','D001','M001',0,1500,to_timestamp ('2019/02/5 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/08 09:20:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/08 09:50:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,5,0,'無','桃園火車站','中壢火車站');
+,'G001',null,'M003',0,0,to_timestamp ('2019/03/25 04:05:20' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp ('2019/04/09 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),null,121.565,25.033,120.685,24.136,5,0,'無','台灣台北市','台灣台中市東區復興路四段台中火車站(東站)');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
-,'G002','D002','M002',0,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,5,0,'無','台南火車站','高雄火車站');
+,'G001',null,null,0,0,to_timestamp ('2019/03/25 04:05:20' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp ('2019/04/09 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),null,121.565,25.033,120.685,24.136,5,0,'無','台灣台北市','台灣台中市東區復興路四段台中火車站(東站)');
 --新增10筆揪團訂單假資料--
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
 ,'G002','D001','M001',0,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,5,0,'無','台南火車站','高雄火車站');
