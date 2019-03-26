@@ -241,12 +241,12 @@ public class GroupBandServlet extends HttpServlet {
 				String content = " ";
 
 				String introduction = req.getParameter("introduction");
-				String introduc = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{1,20}$";
-				if (introduction == null || introduction.trim().length() == 0) {
-					errorMsgs.add("簡介: 請勿空白");
-				} else if (!introduction.trim().matches(introduc)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("簡介: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-				}
+//				String introduc = "^[(\\u4e00-\\u9fa5)(a-zA-Z0-9_)]{1,20}$";
+//				if (introduction == null || introduction.trim().length() == 0) {
+//					errorMsgs.add("簡介: 請勿空白");
+//				} else if (!introduction.trim().matches(introduc)) { // 以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("簡介: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+//				}
 
 				Integer groupStatus = 0;
 
@@ -257,12 +257,12 @@ public class GroupBandServlet extends HttpServlet {
 				Integer lowerLimit = new Integer(req.getParameter("lowerlimit").trim());
 
 				String groupName = req.getParameter("groupName");
-				String groupN = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
-				if (groupName == null || groupName.trim().length() == 0) {
-					errorMsgs.add("團名: 請勿空白");
-				} else if (!groupName.trim().matches(groupN)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("團名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-				}
+//				String groupN = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
+//				if (groupName == null || groupName.trim().length() == 0) {
+//					errorMsgs.add("團名: 請勿空白");
+//				} else if (!groupName.trim().matches(groupN)) { // 以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("團名: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+//				}
 
 				String groupLeader = req.getParameter("memIDs");
 
@@ -366,12 +366,12 @@ public class GroupBandServlet extends HttpServlet {
 				Integer rate = 5;
 
 				String note = req.getParameter("note");
-				String notes = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
-				if (note == null || note.trim().length() == 0) {
-					errorMsgs.add("備註: 請勿空白");
-				} else if (!note.trim().matches(notes)) { // 以下練習正則(規)表示式(regular-expression)
-					errorMsgs.add("備註: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
-				}
+//				String notes = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,20}$";
+//				if (note == null || note.trim().length() == 0) {
+//					errorMsgs.add("備註: 請勿空白");
+//				} else if (!note.trim().matches(notes)) { // 以下練習正則(規)表示式(regular-expression)
+//					errorMsgs.add("備註: 只能是中、英文字母、數字和_ , 且長度必需在2到10之間");
+//				}
 
 				GroupBandVO groupBandVO = new GroupBandVO();
 				GroupBandDAO groupBandDAO = new GroupBandDAO();
