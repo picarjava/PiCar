@@ -75,9 +75,29 @@ height: 145px;
 #rigthtop{
 float: right;
 }
-p {
-　font-family: arial; 
-	color:#ffffff;
+#p {
+　font-family:Microsoft JhengHei;
+	color:white;
+	align:right;
+}
+.box1 input[type="submit"]{
+	
+	font-family:Microsoft JhengHei;
+	border:0;
+	background:#f5f5f5;
+	display:block;
+	margin :10px auto;
+	text-align:center;
+/* 	border:2px solid #2ecc71; */
+	padding:5px 10px;	
+	outline:none;
+	color:black;
+	border-radius:24px;
+	transition:2s;
+	cursor:pointer;
+}
+.box1 input[type="submit"]:hover{
+	background:yellow;
 }
 </style>
 
@@ -103,13 +123,15 @@ p {
                 <div class="span12">
                     <div class="navbar">
                             <div class="navbar-inner">
+                              
                          <div id="rigthtop">
-                <form method="post"  action="/PiCar/front-end/HomeMember/logoutHandler.do">	
+                <form method="post"  action="/PiCar/front-end/HomeMember/logoutHandler.do" class="box1">	
 				<input type="submit" value="登出">	
 				 <input type="hidden" name="logout"	value="logout">	
 				</form>
-                <p>${memberVO.name}，你好</>
+               <p id="p">${memberVO.name}，你好</p>
                </div>
+              
                             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span>
@@ -148,7 +170,7 @@ p {
 						      </c:if>
                                     </li>
                                     <li class="widthes">
-                                        <a href="<%=request.getServletContext().getContextPath()%>/regna-master/homeindex.jsp"><i class="fas fa-coins"></i><br />登出</a>
+                                        <a href="<%=request.getServletContext().getContextPath()%>/front-end/member/logoutHandler.do"><i class="fas fa-coins"></i><br />登出</a>
                                     </li>
                                 </ul>
                             </div>
