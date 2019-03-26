@@ -175,9 +175,7 @@ float: right;
 						      <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/homeDriverDataManagment.jsp"><i class="icon-user"></i><br />司機頁面</a>
 						      </c:if>
                                     </li>
-                                    <li class="widthes">
-                                        <a href="<%=request.getServletContext().getContextPath()%>/regna-master/homeindex.jsp"><i class="fas fa-coins"></i><br />登出</a>
-                                    </li>
+                                   
                                 </ul>
                                
                             </div>

@@ -5,6 +5,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
 
 <meta charset="utf-8">
@@ -61,7 +62,18 @@
 
 <body>
 	<%
-	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+// 	MemberVO memberVO = (MemberVO) request.getAttribute("memberVO");
+	
+	response.setHeader("Cache-Control","no-store"); //HTTP 1.1
+	response.setHeader("Pragma","no-cache");        //HTTP 1.0
+	response.setDateHeader ("Expires", 0);
+
+	MemberVO memberVO = (MemberVO)session.getAttribute("memberVO");
+
+	if (memberVO != null){
+		response.sendRedirect("/PiCar/front-end/HomeMember/index.jsp");
+	}
+	
 	%>
 	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 	<jsp:include page="/front-end/HomeMember/HeadMemberSetting.jsp" />
