@@ -26,8 +26,7 @@
 <style>
 
 div.content {
-	width:95%;
-	margin-left:-7%;
+	margin-left:-5%;
 }
 
 #btn1 {
@@ -78,17 +77,18 @@ button[type="submit"]:hover
 }
 
 button[type="submit"] {
-    padding:10px 20px; 
-    background:#DDDDDD; 
-    border:0 none;
-    cursor:pointer;
+    padding: 10px 20px;
+    background: #DDDDDD;
+    border: 0 none;
+    cursor: pointer;
     -webkit-border-radius: 10px;
-    border-radius: 5px; 
+    border-radius: 5px;
     font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
     font-size: 16px;
-    color:#444444;
+    color: #444444;
     position: relative;
-	transition: 0.4s;
+    transition: 0.4s;
+    margin-top: 20px;
 }
 
 </style>
