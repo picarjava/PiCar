@@ -51,10 +51,8 @@ public class DriverServlet extends HttpServlet {
                 if (memberVO != null) {
                     DriverService driverService = new DriverService();
                     driverVO = driverService.getOneDriverBymemID(memberVO.getMemID());
-                    if (driverVO != null)
+                    if (driverVO != null) {
                        vo = downDriverVO(driverVO);
-                    
-                    if (vo != null) {
                        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
                        if (vo.getVerified() == 1)
                            jsonOut.addProperty("auth", "OK");
@@ -65,10 +63,11 @@ public class DriverServlet extends HttpServlet {
                        jsonOut.add("driver", gson.toJsonTree(vo));
                     }  else
                        jsonOut.addProperty("auth", "Failed");
-                    
-                    writer.print(jsonOut);
-                    writer.close();
-                } // if
+                } else
+                    jsonOut.addProperty("auth", "Failed");
+                
+                writer.print(jsonOut);
+                writer.close();
             } // if
         } // if
     }
