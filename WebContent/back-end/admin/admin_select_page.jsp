@@ -16,8 +16,12 @@
 <style>
 
 div.content {
-	width:95%;
-	margin-left:-8%;
+	width:100%;                     
+	margin-left:-8%;                   //改100
+}
+
+#s1 {
+	width:100%;                     //新增
 }
 
 #btn1 {
