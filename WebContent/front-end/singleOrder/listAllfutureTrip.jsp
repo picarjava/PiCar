@@ -95,8 +95,9 @@ session.setAttribute("memID",memID);
 							  <tbody>
 		
 		<c:forEach var="singleOrder" items="${singleOrderlist}" >			  
-			 <c:if test="${singleOrder.memID eq memID && singleOrder.state eq 0|| singleOrder.state eq 1 || singleOrder.state eq 4}">
-						 		<tr>	 
+			 <c:if test="${singleOrder.memID eq memberVO.memID}">
+						 <c:if test="${singleOrder.state eq 0 || singleOrder.state eq 1 || singleOrder.state eq 4 }">	
+						 	<tr>
 							      <th scope="row">
 							      <fmt:formatDate  type="both" value="${singleOrder.startTime}" pattern="yyyy-MM-dd mm:ss" />
 							      </th>
@@ -149,6 +150,7 @@ session.setAttribute("memID",memID);
 						 		  </c:forEach>
 						 		  </td>
 							    </tr>
+			</c:if>	
 		</c:if>					    
 		</c:forEach>
 							</tbody>
@@ -187,8 +189,11 @@ session.setAttribute("memID",memID);
 						  
 						  
 	<c:forEach var="groupOrder" items="${groupOrderlist}" >			  
-		 	 <c:if test="${groupOrder.memID eq memID&& groupOrder.state eq 0|| groupOrder.state eq 1 || groupOrder.state eq 4}">
+		 	 <c:if test="${groupOrder.memID eq memberVO.memID }">
+					 <c:if test="${groupOrder.state eq 0|| groupOrder.state eq 1 || groupOrder.state eq 4}">		
+					 
 					 		<tr>
+					 		
 					 			  <th scope="row">
 							      <fmt:formatDate type="BOTH" value="${groupOrder.startTime}" pattern="yyyy/MM/dd/ mm:ss"/>
 							      </th>
@@ -217,7 +222,7 @@ session.setAttribute("memID",memID);
 						 		  </c:forEach>
 							   </td>
 						     </tr>  
-						   
+			</c:if>			   
 	</c:if>		
 	</c:forEach>
  						</tbody>

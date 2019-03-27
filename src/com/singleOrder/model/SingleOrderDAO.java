@@ -31,6 +31,7 @@ public class SingleOrderDAO implements SingleOrder_interface {
                                                                   "END_LNG, END_LAT, TOTAL_AMOUNT, ORDER_TYPE, " +
                                                                   "NOTE, LAUNCH_TIME) " + 
                                                                   "VALUES ('SODR'||LPAD(to_char(SEQ_SINGLE_ORDER.NEXTVAL),3,'0'), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)";
+    private final static String SELECT_FUTURE_STMT = "SELECT * FROM SINGLE_ORDER WHERE STATE=0 OR STATE=1 OR STATE=4 AND MEM_ID=?";
     //小編新增司機查評價平均
     private final static String DRIVER_RATE_AVE_STMT ="SELECT AVG(RATE) AS Avg_RATE FROM SINGLE_ORDER  WHERE DRIVER_ID =?";
     //小編新增一個刪除語法
@@ -86,6 +87,8 @@ public class SingleOrderDAO implements SingleOrder_interface {
 //        singleOrderDAO.insert(singleOrderVO);
 //        System.out.println(singleOrderDAO.getAll());
 //    } // main()
+    /* SELECT_FUTURE_STMT 小編新增查未來訂單*/
+    
     
     /*小編預約訂單排程器用*/
   //撈單程訂單:三天前 可撈單程
