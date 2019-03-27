@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="com.member.model.*"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -9,12 +9,12 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <style>
 #table1 {
-	width: 1300px;
+	width: 1000px;
 	background-color: #7afec6;
 	margin-top: 100px;
 	margin-bottom: 20px;
@@ -44,10 +44,10 @@
 			<td>email</td>
 			<td>${memberVO.email}</td>
 		</tr>
-		<tr>	
-			<td>password</td>
+<!-- 		<tr>	 -->
+<!-- 			<td>password</td> -->
 <%-- 			<td>${memberVO.password}</td> --%>
-		</tr>
+<!-- 		</tr> -->
 		<tr>	
 			<td>phone</td>
 			<td>${memberVO.phone}</td>
@@ -103,7 +103,7 @@
 		
 		<tr>
 		<td>個人照片</td>
-		<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
+		<td><img src="/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
 		onerror="this.src='cat.jpg'"></td>
 		</tr>	
 	

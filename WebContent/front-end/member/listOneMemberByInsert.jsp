@@ -143,7 +143,7 @@ width: 30%;
 		</tr>
 		<tr>
 		<td>個人照片</td>
-		<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${lastMem}"  width='200' height="200"
+		<td><img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${lastMem}"  width='200' height="200"
 		onerror="this.src='cat.jpg'"></td>
 		</tr>
 			

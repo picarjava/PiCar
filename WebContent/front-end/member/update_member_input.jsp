@@ -217,19 +217,20 @@ response.setDateHeader ("Expires", 0);
 							<input type="submit" value="submit">
 						</form>
 <script>
-input.getAttribute("targetID")
-getElementById(preview_progressbarTW_img)
-function readURL(input){
-  if(input.files && input.files[0]){
-    var imageTagID = input.getAttribute("targetID");
-    var reader = new FileReader();
-    reader.onload = function (e) {
-       var img = document.getElementById(imageTagID);
-       img.setAttribute("src", e.target.result);
-    }
-    reader.readAsDataURL(input.files[0]);
-  }
-}
+
+	input.getAttribute("targetID")
+	getElementById(preview_progressbarTW_img)
+	function readURL(input) {
+		if (input.files && input.files[0]) {
+			var imageTagID = input.getAttribute("targetID");
+			var reader = new FileReader();
+			reader.onload = function(e) {
+				var img = document.getElementById(imageTagID);
+				img.setAttribute("src", e.target.result);
+			}
+			reader.readAsDataURL(input.files[0]);
+		}
+	}
 </script>
 
 

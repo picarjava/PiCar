@@ -12,8 +12,11 @@
 </head>
 <style>
 table{
-	margin-top:30px;
+	margin-top:80px;
+	width:500px;
+	margin-left:300px;
 }
+
 </style>
 <body>
 <%
@@ -57,13 +60,13 @@ table{
 			</td>		
 		</tr>
 		
-		<tr>
-			<td>會員密碼：</td>
-			<td>
+<!-- 		<tr> -->
+<!-- 			<td>會員密碼：</td> -->
+<!-- 			<td> -->
 <%-- 			<%=memberVO.getPassword() %> --%>
 			<input type="hidden" name="password" size="45" value="<%=memberVO.getPassword() %>" />
-			</td>		
-		</tr>
+<!-- 			</td>		 -->
+<!-- 		</tr> -->
 		
 		<tr>
 			<td>會員電話：</td>
@@ -74,7 +77,7 @@ table{
 		</tr>
 		
 		<tr>
-			<td>會員信用卡：</td>
+			<td>信用卡號：</td>
 			<td>
 			<%=memberVO.getCreditcard() %>
 			<input type="hidden" name="creditcard" size="45" value="<%=memberVO.getCreditcard() %>" />
@@ -82,7 +85,7 @@ table{
 		</tr>
 		
 		<tr>
-			<td>會員寵物喜好設定：</td>
+			<td>寵物喜好：</td>
 			<td><c:choose>
 			  <c:when test="${memberVO.pet == '1'}">喜歡寵物  </c:when>
 			  <c:when test="${memberVO.pet == '0'}">不喜歡寵物  </c:when>			 
@@ -91,7 +94,7 @@ table{
 		</tr>
 		
 		<tr>
-			<td>會員抽菸喜好設定：</td>
+			<td>抽菸喜好：</td>
 			<td><c:choose>
 			  <c:when test="${memberVO.smoke == '1'}">抽菸  </c:when>
 			  <c:when test="${memberVO.smoke == '0'}">不抽菸  </c:when>			 
@@ -110,13 +113,13 @@ table{
 		</tr>
 		
 		<tr>
-			<td>會員代幣：</td>			
+			<td>儲值金額：</td>			
 			<td><%=memberVO.getToken() %>
 			<input type="hidden" name="token" size="45" value="<%=memberVO.getToken() %>" ></td>		
 		</tr>
 		
 		<tr>
-			<td>會員活動代幣：</td>
+			<td>活動代幣：</td>
 			<td><%=memberVO.getActivityToken() %>
 			<input type="hidden" name="activityToken" size="45" value="<%=memberVO.getActivityToken() %>" />
 			</td>		
@@ -129,7 +132,7 @@ table{
 		</tr>	
 			
 		<tr>
-			<td>會員驗證狀態：</td>
+			<td>驗證狀態：</td>
 			<td>
 			<select name="verified">
 			<option value="1" ${(memberVO.verified == '1')?'selected':'' }>驗證
@@ -139,7 +142,7 @@ table{
 		</tr>
 	
 		<tr>
-			<td>嬰兒座椅設定：</td>
+			<td>嬰兒座椅：</td>
 			<td><c:choose>
 			  <c:when test="${memberVO.babySeat == '1'}">需要  </c:when>
 			  <c:when test="${memberVO.babySeat == '0'}">不需要  </c:when>
@@ -150,7 +153,7 @@ table{
 		
 		<tr>
 		<td>個人照片</td>
-		<td><img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
+		<td><img src="/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
 		onerror="this.src='cat.jpg'"></td>
 		</tr>	
 		
