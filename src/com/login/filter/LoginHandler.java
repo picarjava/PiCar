@@ -79,14 +79,14 @@ public class LoginHandler extends HttpServlet {
 
 			if (memberVO == null) {
 				out.println("<HTML><HEAD><TITLE>登入畫面</TITLE></HEAD>");
-				out.println("<BODY>你的帳號，密碼無效<BR>");
+				out.println("<BODY><br><div  style=\"margin-left:500px;margin-top:200px;background-color:#FFAC55;width:450px;height:100px;\">你的帳號，密碼無效<BR>");
 				out.println("<BODY>五秒後將自動跳轉回登入畫面<BR>");
 
 				// 加入計時器自動跳轉
 				res.setHeader("Refresh", "5; URL=" + req.getContextPath() + "/front-end/login/login.html");
 				out.println("請按此重新登入<a href=" + req.getContextPath() + "/front-end/login/login.jsp> 重新登入 </a><br>"); // 密碼錯誤的時候要去的地方
 				out.println("請按此回首頁<a href=" + req.getContextPath() + "/regna-master/homeindex.jsp> 回首頁 </a>");
-				out.println("</BODY></HTML>");
+				out.println("</div></BODY></HTML>");
 
 			} else {
 //			HttpSession session = req.getSession();
