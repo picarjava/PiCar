@@ -222,10 +222,9 @@ ul, menu, dir {
 							</c:forEach>
 							</thead>
 						</table>
-					</div>
 						<%@ include file="page2.file"%>
+					</div>	
                    </div>
-                
             </div>
              <jsp:include page="/back-end/kidFooter.jsp" />
         </div>
