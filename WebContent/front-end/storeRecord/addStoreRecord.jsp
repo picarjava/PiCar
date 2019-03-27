@@ -104,7 +104,7 @@ height:50px;
 	</table><br>                          
 	
 	<input type="hidden" name="action" value="insert">
-	<input type="submit" value="結帳" id="submit" ID="post-form">
+	<input type="button" onclick="alert()" value="結帳"  ID="post-form">
 <%-- 	<input  type="hidden"  name="url" value=<%=request.getRequestURL()%>>  --%>
 	
 	
@@ -126,6 +126,11 @@ function next(obj) {
     }         
 }  
 document.forms[0].N1.focus();  
+
+ function alert(){
+	 swal("刷卡成功 !", "已為您儲值!", "success");
+	 $('#post-form').submit(); 
+ }
 
 
 		
