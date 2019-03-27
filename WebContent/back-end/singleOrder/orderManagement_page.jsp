@@ -26,6 +26,9 @@ getServletContext().setAttribute("conAdminID",adminID);
    List<String> AllDelay= new SingleOrderService().getAllDelay();
    session.setAttribute("AllDelay",AllDelay);
    System.out.println((new SingleOrderService()).getAllDelay()); 
+   
+   
+   
 %>
 <!-- 揪團訂單 -->
 <% GroupOrderService groupOrderSvc=new GroupOrderService();
@@ -190,11 +193,13 @@ font-size: 200%;
                                                         ${state.key eq singleOrder.state ? state.value: ""}
                                                     </c:forEach>
                                                 </td>
-                                                <td><button type="submit">叫車</button>
+                                                <td><button class="call" type="submit">叫車</button>
                                                 </td>
+                                                <div>
                                                 <td>
-                                                    <button type="submit">退款</button>
+                                                    <button class="repay" type="submit">退款</button>
                                                 </td>
+                                                </div>
                                                 <!--                                  <td> -->
                                                 <%--                                  <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" > --%>
                                                 <!--                                    <div class="text-center"><button type="submit" class="btn btn-light">取消</button> -->
@@ -217,6 +222,25 @@ font-size: 200%;
         </div>
     </div>
 </body>
+<script>
 
+$(".call").click(function(e){
+// 	$('#call').attr('disabled', true);
+	e.target.disabled = true;
+	debugger;
+	  window.alert("已幫您重新叫車");
+	});
+	
+$(".repay").click(function(){
+	e.target.disabled = true;
+	debugger;
+	window.alert("已幫您退款");
+
+});
+//if ("${AllDelay}" != null) {
+//window.alert("逾時訂單" + "${AllDelay}");
+//debugger;
+//}
+</script>
 
 </html>

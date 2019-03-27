@@ -56,10 +56,14 @@ public class DriverServlet extends HttpServlet {
                     
                     if (vo != null) {
                        gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
-                       jsonOut.addProperty("auth", "OK");
+                       if (vo.getVerified() == 1)
+                           jsonOut.addProperty("auth", "OK");
+                       else
+                           jsonOut.addProperty("auth", "Unverified");
+                       
                        jsonOut.addProperty("driverName", memberVO.getName());
                        jsonOut.add("driver", gson.toJsonTree(vo));
-                    } else
+                    }  else
                        jsonOut.addProperty("auth", "Failed");
                     
                     writer.print(jsonOut);
