@@ -2,13 +2,13 @@
 
   <%if (rowsPerPage<rowNumber) {%>
     <%if(pageIndex>=rowsPerPage){%>
-        <A href="<%=request.getRequestURI()%>?whichPage=1&lightBox1=true">至第一頁</A>&nbsp;
-        <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>&lightBox1=true">上一頁 </A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=1&lightBox=true">至第一頁</A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage-1%>&lightBox=true">上一頁 </A>&nbsp;
     <%}%>
   
     <%if(pageIndex<pageIndexArray[pageNumber-1]){%>
-        <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>&lightBox1=true">下一頁 </A>&nbsp;
-        <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>&lightBox1=true">至最後一頁</A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=<%=whichPage+1%>&lightBox=true">下一頁 </A>&nbsp;
+        <A href="<%=request.getRequestURI()%>?whichPage=<%=pageNumber%>&lightBox=true">至最後一頁</A>&nbsp;
     <%}%>
   <%}%>  
 
@@ -21,7 +21,7 @@
             <option value="<%=i%>">跳至第<%=i%>頁
          <%}%> 
        </select>
-       <input type="hidden" name="lightBox1" value="lightBox1" >  
+       <input type="hidden" name="lightBox" value="lightBox" >  
        <input type="submit" value="確定" >  
     </FORM>
   <%}%>

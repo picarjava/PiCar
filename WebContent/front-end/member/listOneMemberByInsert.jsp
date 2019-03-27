@@ -72,7 +72,7 @@ width: 30%;
 <%-- 	<jsp:include page="/front-end/HomeMember/HeadMemberSetUp.jsp" /> --%>
 <!-- <h3>listOneMemberByInsert.jsp</h3> -->
 <a class="box" href=/PiCar/front-end/login/login.jsp> 請按此登入 </a>
-	<h1 align="center">Hello!!<%=memberVO.getName()%>，這是您的個人資料，恭喜你成為會員，請於申請信箱取得帳號密碼</h1>
+	<h1 align="center">Hello!!<%=memberVO.getName()%>，恭喜你成為會員，請於申請信箱取得帳號密碼</h1>
 	<table align="center" border="1" id="table1">
 		
 		<tr>

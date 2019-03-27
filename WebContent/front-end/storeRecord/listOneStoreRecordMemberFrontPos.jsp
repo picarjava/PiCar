@@ -131,7 +131,7 @@ tr:nth-child(even){
 
 
 	</table>
-		<div align="center"><%@ include file="page2.file"%></div>
+		<div align="center"><%@ include file="page2-1.file"%></div>
 
 
 </body>

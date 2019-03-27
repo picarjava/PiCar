@@ -346,6 +346,23 @@ form{margin:0px; display:inline-block }
 	}
 	
 	%>	
+	
+		<%String lightBox1 =request.getParameter("lightBox1");
+	if(lightBox1!=null){
+		%>
+		<script>
+		$('#Deduction').show();
+		</script>
+	<%	
+	}
+	
+	%>	
+	
+	
+	
+	
+	
+	
 		
 	<!-- <h3>listOneMemberByUpdate.jsp</h3> -->
 	<!-- <a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a><br> -->
