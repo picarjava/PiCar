@@ -9,7 +9,7 @@
 <%@ page import="com.groupOrder.model.GroupOrderService"%>
 
 <!--引用SweetAlert2.js-->
-<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
 <!-- 登入功能串接 ，將VOmemID指定給 memID-->
 <%@ page import="com.member.model.MemberVO"%>
 <%MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
@@ -95,8 +95,9 @@ session.setAttribute("memID",memID);
 							  <tbody>
 		
 		<c:forEach var="singleOrder" items="${singleOrderlist}" >			  
-			 <c:if test="${singleOrder.memID eq memID && singleOrder.state eq 0|| singleOrder.state eq 1 || singleOrder.state eq 4}">
-						 		<tr>	 
+			 <c:if test="${singleOrder.memID eq memberVO.memID}">
+						 <c:if test="${singleOrder.state eq 0 || singleOrder.state eq 1 || singleOrder.state eq 4 }">	
+						 	<tr>
 							      <th scope="row">
 							      <fmt:formatDate  type="both" value="${singleOrder.startTime}" pattern="yyyy-MM-dd mm:ss" />
 							      </th>
@@ -133,8 +134,8 @@ session.setAttribute("memID",memID);
 							       
 							        <c:if test="${singleOrder.state eq 0 and singleOrder.orderType eq 4}">
 							         <td >
-							           <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
-									    <div class="text-center"><button id="DELETELONGTERM" onclick="alert()" type="button" class="btn btn-light">取消長期預約</button>
+							           <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder"  id="DELETELONGTERM">
+									    <div class="text-center"><button  onclick="alert()"  type="button" class="btn btn-light">取消長期預約</button>
 									    <!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
 			                				<input type="hidden" name="action" value="DELETELONGTERM">
 			                				<input type="hidden" name="orderID" value="${singleOrder.orderID}">
@@ -149,6 +150,7 @@ session.setAttribute("memID",memID);
 						 		  </c:forEach>
 						 		  </td>
 							    </tr>
+			</c:if>	
 		</c:if>					    
 		</c:forEach>
 							</tbody>
@@ -187,8 +189,11 @@ session.setAttribute("memID",memID);
 						  
 						  
 	<c:forEach var="groupOrder" items="${groupOrderlist}" >			  
-		 	 <c:if test="${groupOrder.memID eq memID&& groupOrder.state eq 0|| groupOrder.state eq 1 || groupOrder.state eq 4}">
+		 	 <c:if test="${groupOrder.memID eq memberVO.memID }">
+					 <c:if test="${groupOrder.state eq 0|| groupOrder.state eq 1 || groupOrder.state eq 4}">		
+					 
 					 		<tr>
+					 		
 					 			  <th scope="row">
 							      <fmt:formatDate type="BOTH" value="${groupOrder.startTime}" pattern="yyyy/MM/dd/ mm:ss"/>
 							      </th>
@@ -217,7 +222,7 @@ session.setAttribute("memID",memID);
 						 		  </c:forEach>
 							   </td>
 						     </tr>  
-						   
+			</c:if>			   
 	</c:if>		
 	</c:forEach>
  						</tbody>
@@ -242,6 +247,9 @@ session.setAttribute("memID",memID);
     function alert(){
 // 	window.alert("同一筆長期預約訂單將一併刪除");
 
+// 		swal("${memberVO.name}，您確定要刪除嗎?", "同一筆長期預約訂單將一併刪除唷", "success");
+// 		 $('DELETELONGTERM').submit();
+
     	swal({
     		  title: "${memberVO.name}，您確定要刪除嗎?",
     		  text: "同一筆長期預約訂單將一併刪除唷",
@@ -254,13 +262,12 @@ session.setAttribute("memID",memID);
     		    swal("已為您刪除長期訂單", {
     		      icon: "success",
     		    });
-    		    $('DELETELONGTERM').submit();
+    		    $('#DELETELONGTERM').submit();
     		  } else {
     		    swal("已為您保留長期訂單");
     		  }
     		});
 
-    	
     };
 </script>
    <!--==========websocket推播 開始=============-->

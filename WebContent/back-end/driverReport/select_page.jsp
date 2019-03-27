@@ -20,23 +20,16 @@
 <style>
 
 div.content {
-	width:95%;
-	margin-left:-7%;
+	margin-left:-5%;
 }
 
-#btn1 {
-    padding:10px 20px; 
-    background:#DDDDDD; 
-    border:0 none;
-    cursor:pointer;
-    -webkit-border-radius: 10px;
-    border-radius: 5px; 
-    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
-    font-size: 16px;
-    color:#444444;
-    position: relative;
-	transition: 0.4s;
-
+table, tr, td, th {
+    background-color: white;
+    border: 1px solid #aaa;
+    text-align: center;
+    padding: 5px;
+    text-align: center;
+    margin:auto;
 }
 
 input[type="submit"] {
@@ -54,13 +47,35 @@ input[type="submit"] {
 
 }
 
+button[type="submit"] {
+	margin-top:5px;
+}
+
+button[type="submit"] {
+	width: 150px;
+	height: 40px;
+    padding: 10px 20px;
+    background: #DDDDDD;
+    border: 0 none;
+    cursor: pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px;
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color: #444444;
+    position: relative;
+    transition: 0.4s;
+    margin-top: 20px;
+}
+
 input[type="submit"]:hover
 {
     background:rgb(248, 197, 68);
 }
 
-#btn1:hover {
-	background:rgb(248, 197, 68);
+button[type="submit"]:hover
+{
+    background:rgb(248, 197, 68);
 }
 
 select, #i1 {
@@ -68,8 +83,6 @@ select, #i1 {
 }
 
 </style>
-
-
 
 </head>
 
@@ -160,27 +173,39 @@ select, #i1 {
 									<td>${driverReportVO.orderID}</td>
 									<td>${driverReportVO.content}</td>
 									<td>${driverReportVO.time}</td>
-									<td><c:choose>
-											<c:when test="${driverReportVO.state=='1'}">已處理</c:when>
-											<c:when test="${driverReportVO.state=='0'}">未處理</c:when>
-										</c:choose></td>
+									<td>
+									
+						      <c:if test="${driverReportVO.state == 0}">
+						      <Form METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/back-end/driverReport/driverReport.do" >
+							    <div class="text-center">
+							    <button type="submit">未處理</button>
+							    <input type="hidden" name="dreportID" value="${driverReportVO.dreportID}">
+	                			<input type="hidden" name="action" value="getOne_For_Update">
+							     </div>
+							  </Form>
+						      </c:if>
+						      		      
+						      <c:if test="${driverReportVO.state == 1}">已處理</c:if>									
+										
+<%-- 										<c:choose> --%>
+<%-- 											<c:when test="${driverReportVO.state=='1'}">已處理</c:when> --%>
+<%-- 											<c:when test="${driverReportVO.state=='0'}">未處理</c:when> --%>
+<%-- 										</c:choose></td> --%>
 
 
-									<td>
-										<FORM METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do"
-											style="margin-bottom: 0px;">
-											<input type="submit" value="修改"> <input type="hidden"
-												name="dreportID" value="${driverReportVO.dreportID}">
-											<input type="hidden" name="action" value="getOne_For_Update">
-										</FORM>
-									</td>
-									<td>
-										<FORM METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do"
-											style="margin-bottom: 0px;">
-											<input type="submit" value="刪除"> <input type="hidden"
-												name="dreportID" value="${driverReportVO.dreportID}">
+<!-- 									<td> -->
+<!-- 										<FORM METHOD="post" -->
+<%-- 											ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do" --%>
+<!-- 											style="margin-bottom: 0px;"> -->
+<!-- 											<input type="submit" value="修改"> 
+												<input type="hidden" name="dreportID" value="${driverReportVO.dreportID}"> --%>
+<!-- 											<input type="hidden" name="action" value="getOne_For_Update"> -->
+<!-- 										</FORM> -->
+<!-- 									</td> -->
+									<td>								
+										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/driverReport/driverReport.do" style="margin-bottom: 0px;">
+											<input type="submit" value="刪除"> 
+											<input type="hidden" name="dreportID" value="${driverReportVO.dreportID}">
 											<input type="hidden" name="action" value="delete">
 										</FORM>
 									</td>

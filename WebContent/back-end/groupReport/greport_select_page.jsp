@@ -26,8 +26,7 @@
 <style>
 
 div.content {
-	width:95%;
-	margin-left:-7%;
+	margin-left:-5%;
 }
 
 #btn1 {
@@ -71,6 +70,25 @@ input[type="submit"]:hover
 
 select, #i1 {
 	border-radius: 5px; 
+}
+button[type="submit"]:hover
+{
+    background:rgb(248, 197, 68);
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background: #DDDDDD;
+    border: 0 none;
+    cursor: pointer;
+    -webkit-border-radius: 10px;
+    border-radius: 5px;
+    font-family: 'Microsoft JhengHei', 'Fira Code', 'Source Code Pro', 'Noto Sans CJK SC', monospace;
+    font-size: 16px;
+    color: #444444;
+    position: relative;
+    transition: 0.4s;
+    margin-top: 20px;
 }
 
 </style>
@@ -152,10 +170,24 @@ select, #i1 {
 									<td>${groupReportVO.content}</td>
 									<td>${groupReportVO.time}</td>
 									<td>
-										<c:choose>
-											<c:when test="${groupReportVO.state=='1'}">已處理</c:when>
-											<c:when test="${groupReportVO.state=='0'}">未處理</c:when>
-										</c:choose></td>
+									
+								  <c:if test="${groupReportVO.state == 0}">
+							      <Form METHOD="post" ACTION="<%=request.getServletContext().getContextPath()%>/back-end/groupReport/groupReport.do" >
+								    <div class="text-center">
+								    <button type="submit">確認檢舉</button>
+								    <input type="hidden" name="greportID" value="${groupReportVO.greportID}">
+		                			<input type="hidden" name="action" value="getOne_For_Update">
+								    </div>
+								  </Form>
+							      </c:if>
+							      		      
+							      <c:if test="${groupReportVO.state == 1}">已處理</c:if>		
+																	
+									
+<%-- 										<c:choose> --%>
+<%-- 											<c:when test="${groupReportVO.state=='1'}">已處理</c:when> --%>
+<%-- 											<c:when test="${groupReportVO.state=='0'}">未處理</c:when> --%>
+<%-- 										</c:choose></td> --%>
 										
 									<td>
 										<FORM METHOD="post"
@@ -165,21 +197,23 @@ select, #i1 {
 											<input type="submit" value="查看內容"> 
 									    </FORM>
 									</td>	
+<!-- 									<td> -->
+<!-- 										<FORM METHOD="post" -->
+<%-- 											ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do" style="margin-bottom: 0px;"> --%>
+<!-- 											<input type="submit" value="確認檢舉"> 
+												<input type="hidden" name="greportID" value="${groupReportVO.greportID}"> --%>
+<!-- 											<input type="hidden" name="action" value="getOne_For_Update"> -->
+<!-- 										</FORM> -->
+<!-- 									</td> -->
 									<td>
-										<FORM METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do" style="margin-bottom: 0px;">
-											<input type="submit" value="確認檢舉"> <input type="hidden"
-												name="greportID" value="${groupReportVO.greportID}">
-											<input type="hidden" name="action" value="getOne_For_Update">
-										</FORM>
-									</td>
-									<td>
-										<FORM METHOD="post"
-											ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do" style="margin-bottom: 0px;">
+									<c:if test="${groupReportVO.state == 0}">
+										<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/back-end/groupReport/groupReport.do" style="margin-bottom: 0px;">
 											<input type="submit" value="退回檢舉"> 
 											<input type="hidden" name="greportID" value="${groupReportVO.greportID}">
 											<input type="hidden" name="action" value="delete">
 									    </FORM>
+									</c:if>     
+									<c:if test="${groupReportVO.state == 1}">退回檢舉</c:if>   
 									</td>							
 								</tr>
 							</c:forEach>

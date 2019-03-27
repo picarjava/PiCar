@@ -26,17 +26,6 @@ font-family: "FangSong";
               <p>管理員管理</p>
             </a>
           </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/groupReport/greport_select_page.jsp">
-              <i class="material-icons">dashboard</i>
-              <p>檢舉揪團管理</p>
-            </a>
-          </li>
-		  <li class="nav-item ">
-		  <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/driverReport/select_page.jsp">
-			<i class="material-icons">dashboard</i>
-					<p>檢舉司機管理</p>
-					</a></li>
 			<li class="nav-item ">
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/member/listAllmember_byDAO.jsp">
               <i class="material-icons">person</i>
@@ -50,6 +39,17 @@ font-family: "FangSong";
             </a>
           </li>
           <li class="nav-item ">
+            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/groupReport/greport_select_page.jsp">
+              <i class="material-icons">dashboard</i>
+              <p>檢舉揪團管理</p>
+            </a>
+          </li>
+		  <li class="nav-item ">
+		  <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/driverReport/select_page.jsp">
+			<i class="material-icons">dashboard</i>
+					<p>檢舉司機管理</p>
+					</a></li>
+          <li class="nav-item ">
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/rate/listAllRate.jsp">
               <i class="material-icons">content_paste</i>
               <p>資費管理</p>
@@ -57,7 +57,7 @@ font-family: "FangSong";
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/singleOrder/orderManagement_page.jsp">
-              <i class="material-icons">content_paste</i>
+              <i class="material-icons">location_ons</i>
               <p>訂單管理</p>
             </a>
           </li>

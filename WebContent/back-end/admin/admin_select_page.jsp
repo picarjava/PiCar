@@ -17,7 +17,7 @@
 
 div.content {
 	width:100%;                     
-	margin-left:-8%;                   //改100
+	margin-left:-5%;                   //改100
 }
 
 #s1 {
