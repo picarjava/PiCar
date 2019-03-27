@@ -363,15 +363,15 @@ th, td {
 				<b>團名</b> <input class="text30" type="TEXT" name="GROUP_NAME"><br>
 				<br> <b>上車地點</b> <select name="START_LOC" class="text30">
 					<option value="">請選擇</option>
-					<option value="臺北">臺北市</option>
+					<option value="台北">台北市</option>
 					<option value="新北">新北市</option>
 					<option value="桃園">桃園市</option>
 					<option value="基隆">基隆市</option>
-					<option value="宜蘭">宜蘭市</option>
+					<option value="宜蘭市">宜蘭市</option>
 					<option value="新竹">新竹市</option>
-					<option value="臺中">臺中市</option>
+					<option value="台中">台中市</option>
 					<option value="彰化">彰化市</option>
-					<option value="臺南">臺南市</option>
+					<option value="台南">台南市</option>
 					<option value="嘉義市">嘉義市</option>
 					<option value="高雄">高雄市</option>
 					<option value="新竹">新竹縣</option>
@@ -381,8 +381,8 @@ th, td {
 					<option value="雲林">雲林縣</option>
 					<option value="嘉義縣">嘉義縣</option>
 					<option value="屏東">屏東縣</option>
-					<option value="屏東">宜蘭縣</option>
-					<option value="臺東">臺東縣</option>
+					<option value="宜蘭縣">宜蘭縣</option>
+					<option value="台東">台東縣</option>
 					<option value="澎湖">澎湖縣</option>
 				</select><br> <br> <b>上車日期</b> <input class="text30"
 					name="START_TIME" id="start_date" type="text" size="15"> <br>
