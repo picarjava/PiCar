@@ -63,21 +63,14 @@
 .marrgin{
 margin-top:30px;
 }
-</styl
 </style>
     </head>
-
-    <body>
-        <div>
-		<img id="GroupTitles" src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/img/Order.png">
-		<img id="GroupAnimation" src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/img/Orderanimated.png">
+<body>
+	<div>
+		<img id="GroupTitles" src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/img/Selete.png">
+		<img id="GroupAnimation" src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/img/Seleteanimated.png">
 	</div>
-   <div class="marrgin">
-<a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/addReservation.jsp">單程預約</a>
-<a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/singleOrder/addLongtermReservation.jsp">長期預約</a>
-
-</div>
-    </body>
+</body>
 
 </html>
 

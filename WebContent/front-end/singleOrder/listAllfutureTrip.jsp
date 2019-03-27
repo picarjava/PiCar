@@ -39,11 +39,12 @@ session.setAttribute("memID",memID);
 <head>
 <jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
 <jsp:include page="/front-end/HomeMember/Header.jsp" /> 
-    
+<jsp:include page="/front-end/HomeMember/HeadMemberfutureTrip.jsp" /> 
     <title>查看排定訂單</title>
    
 </head>
 <body onload="connect();" onunload="disconnect();">
+
     <!-- 錯誤列表開始 -->
     <%List errorMsgs=(List<String>)request.getAttribute("errorMsgs");%>
     <c:if test="${not empty errorMsgs}"><ul class="list-group">

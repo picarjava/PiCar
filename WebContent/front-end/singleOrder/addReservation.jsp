@@ -58,6 +58,7 @@ session.setAttribute("memID",memID);
 
 
 <body>
+
  <!-- 錯誤列表 -->
     <%
         List<String> errorMsgs=(List<String>)request.getAttribute("errorMsgs");
