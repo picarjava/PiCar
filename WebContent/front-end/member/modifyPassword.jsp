@@ -147,7 +147,7 @@ if (memberVO == null){
 
 				<input type="hidden" name="action"	value="modify_password2">
 				<input type="submit" value="確認">
-		        <img src="cat.jpg"	height="20" width="20" onClick="idwrite(this)">
+		        <img src="pic/m001.png"	height="20" width="20" onClick="idwrite(this)">
 		
 		
 		

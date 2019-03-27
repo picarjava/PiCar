@@ -9,6 +9,18 @@
             </a>
           </li>
           <li class="nav-item ">
+            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/member/listAllmember_byDAO.jsp">
+              <i class="material-icons">person</i>
+              <p>乘客會員管理</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/driver/driverMemberManagement.jsp">
+              <i class="material-icons">person</i>
+              <p>司機會員管理</p>
+            </a>
+          </li>
+          <li class="nav-item ">
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/groupReport/greport_select_page.jsp">
               <i class="material-icons">dashboard</i>
               <p>檢舉揪團管理</p>
@@ -16,20 +28,8 @@
           </li>
           <li class="nav-item ">
             <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/driverReport/select_page.jsp">
-              <i class="material-icons">content_paste</i>
+              <i class="material-icons">dashboard</i>
               <p>檢舉司機管理</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/member/listAllmember_byDAO.jsp">
-              <i class="material-icons">content_paste</i>
-              <p>乘客會員管理</p>
-            </a>
-          </li>
-          <li class="nav-item ">
-            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/driver/driverMemberManagement.jsp">
-              <i class="material-icons">content_paste</i>
-              <p>司機會員管理</p>
             </a>
           </li>
           <li class="nav-item ">

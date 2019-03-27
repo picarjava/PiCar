@@ -26,9 +26,6 @@ getServletContext().setAttribute("conAdminID",adminID);
    List<String> AllDelay= new SingleOrderService().getAllDelay();
    session.setAttribute("AllDelay",AllDelay);
    System.out.println((new SingleOrderService()).getAllDelay()); 
-   
-   
-   
 %>
 <!-- 揪團訂單 -->
 <% GroupOrderService groupOrderSvc=new GroupOrderService();
@@ -43,7 +40,6 @@ getServletContext().setAttribute("conAdminID",adminID);
 <jsp:useBean id="singleOrderVO" scope="page" class="com.singleOrder.model.SingleOrderVO" />
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <title>訂單管理頁面</title>

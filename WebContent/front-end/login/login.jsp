@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="BIG5">
+<script src="jquery-1.12.4.min.js" ></script>
+<meta charset="UTF-8">
 <style>
 body{
 	margin:0;
@@ -109,7 +110,7 @@ if (memberVO != null){
 <title>Insert title here</title>
 </head>
 <body>
-	<form method="post" action="loginHandler.do" class="box">
+	<form method="post" action="loginHandler.do" class="box" name="form1">
 		<h1>Login</h1>
 		
 				<input type="text" name="account"  placeholder="Usernsme" value="">
@@ -122,9 +123,46 @@ if (memberVO != null){
 		
 		
 		
-		
+	<img src="PIC/M001.png"	height="20" width="20" onClick="idwrite(this)">	
+	<img src="PIC/M005.png"	height="20" width="20" onClick="idwrite1(this)">	
+	<img src="PIC/M006.jpg"	height="20" width="20" onClick="idwrite2(this)">	
+	<img src="PIC/M007.jpg"	height="20" width="20" onClick="idwrite3(this)">	
+	<img src="PIC/M008.png"	height="20" width="20" onClick="idwrite4(this)">	
+	<img src="PIC/M011.png"	height="20" width="20" onClick="idwrite5(this)">	
 	</form>
+	
 	<a class="box1" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
 
 </body>
+
+<script>
+	function idwrite(name) {
+		form1.account.value = "M001"
+		form1.password.value = "123456"
+	}
+	function idwrite1(name) {
+		form1.account.value = "M005"
+		form1.password.value = "123456"
+	}
+	function idwrite2(name) {
+		form1.account.value = "M006"
+		form1.password.value = "123456"
+	}
+	function idwrite3(name) {
+		form1.account.value = "M007"
+		form1.password.value = "123456"
+	}
+	function idwrite4(name) {
+		form1.account.value = "M008"
+		form1.password.value = "123456"
+	}
+	function idwrite(name) {
+		form1.account.value = "M011"
+		form1.password.value = "123456"
+	}
+	function idwrite5(name) {
+		form1.account.value = "M001"
+		form1.password.value = "123456"
+	}
+</script>
 </html>

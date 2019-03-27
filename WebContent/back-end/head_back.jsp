@@ -116,7 +116,7 @@ font-family: "FangSong";
 </style>
  <body onload="connect();" onunload="disconnect();">
 
-</body>
+
 <%@ page import="com.admin.model.*"%>
 <%
 	AdminVO adminVO = (AdminVO) session.getAttribute("adminVO");
@@ -185,7 +185,7 @@ font-family: "FangSong";
 	            </div>
 	          </div>
 	        </div>
-	        
+</body>	        
 <script type="text/javascript">
 	        function test(){
 	        var f = document.form1;

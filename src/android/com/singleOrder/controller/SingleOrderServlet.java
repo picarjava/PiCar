@@ -31,6 +31,7 @@ import com.util.CountToken;
 import android.com.location.model.StoredInfo;
 import android.com.singleOrder.model.LongTermOrder;
 import android.com.webSocket.LocationWebSocket;
+import android.com.webSocket.OrderBroadcastWebSocket;
 
 import com.driver.model.DriverVO;
 import com.member.model.MemberService;
@@ -156,8 +157,8 @@ public class SingleOrderServlet extends HttpServlet {
             String memID = jsonIn.get("memID").getAsString();
             SingleOrderVO singleOrderVO = singleOrderService.getOneSingleOrder(orderID);
             JsonObject jsonObject = new JsonObject();
-            if (singleOrderVO != null && driverID != null && driverID.equals(singleOrderVO.getDriverID())
-                    && memID != null && memID.equals(singleOrderVO.getMemID())) {
+            if (singleOrderVO != null && driverID != null && driverID.equals(singleOrderVO.getDriverID()) &&
+                memID != null && memID.equals(singleOrderVO.getMemID())) {
                 singleOrderService.updateDriverIDAndStateByOrderID(driverID, EXRCUTING, orderID);
                 Map<String, StoredInfo> driverLocation = LocationWebSocket.getMap();
                 Session session = driverLocation.get(driverID).getSession();
@@ -165,12 +166,12 @@ public class SingleOrderServlet extends HttpServlet {
                     System.out.println("send");
                     jsonObject.addProperty("state", "OK");
                     session.getAsyncRemote().sendText(jsonObject.toString());
-                }
-            } else {
-                jsonObject = new JsonObject();
+                } else
+                    jsonObject.addProperty("state", "Failed");
+            } else
                 jsonObject.addProperty("state", "Failed");
-                writer.print(jsonObject.toString());
-            }
+            
+            writer.print(jsonObject.toString());
         } else if ("getScheduledOrder".equals(action)) {
             String driverID = jsonIn.get(DRIVER_ID).getAsString();
             Map<Integer, List<SingleOrderVO>> map = singleOrderService.getByStateAndDriverID(ESTABLISHED, driverID)
@@ -196,20 +197,18 @@ public class SingleOrderServlet extends HttpServlet {
                 int amount = singleOrderVO.getTotalAmount();
                 try {
                     new CountToken().countToken(memID, amount, orderID);
+                    Map<String, Session> map = OrderBroadcastWebSocket.getMap();
+                    if(map != null) {
+                        Session session = map.get(memID);
+                        if (session != null && session.isOpen()) {
+                            JsonObject jsonObject = new JsonObject();
+                            jsonObject.addProperty("state", "success");
+                            System.out.println(jsonObject.toString());
+                            session.getAsyncRemote().sendText(jsonObject.toString());
+                        }
+                    }
                 } catch (Exception e) {
                     System.err.println("扣款失敗");
-                }
-                @SuppressWarnings("unchecked")
-                Map<String, Session> map = (Map<String, Session>) getServletContext().getAttribute("OrderBroadcast");
-                if(map != null) {
-                    Session session = map.get(memID);
-                    if (session != null && session.isOpen()) {
-                        
-                        JsonObject jsonObject = new JsonObject();
-                        jsonObject.addProperty("state", "success");
-                        System.out.println(jsonObject.toString());
-                        session.getAsyncRemote().sendText(jsonObject.toString());
-                    }
                 }
             }
             

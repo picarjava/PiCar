@@ -651,7 +651,7 @@ public class MemberServlet extends HttpServlet {
 				String passRandom = password;
 				String subject = "PICAR管理員密碼通知";
 				String messageText = "Hello　" + ch_name + "\n" + "歡迎你加入PICAR大家庭！" + "\n" + "你的會員編號為" + memIDlast + "\n"
-						+ "此為你之後的登入帳號，" + "請先以此密碼登入【 " + passRandom + " 】" + "\n" + "登入後台過後再修改你的密碼！謝謝！";
+						+ "此為你之後的登入帳號，" + "請先以此密碼登入【"+passRandom+"】" + "\n" + "登入後台過後再修改你的密碼！謝謝！";
 
 				MailService mailService = new MailService();
 				mailService.sendMail(to, subject, messageText);
