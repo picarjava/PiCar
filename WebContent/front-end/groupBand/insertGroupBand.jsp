@@ -912,12 +912,12 @@ function readURL(input){
 
 
 function idwrite(name) {
-	form1.groupName.value = "中壢資策會CA106"
-	form1.introduction.value="紮實的JAVA工程師職涯體驗"
+	form1.groupName.value = "皮卡皮卡皮卡卡"
+	form1.introduction.value="皮卡丘皮卡皮卡"
 // 	form1.startLoc.value = "100台北市中正區北平西路3號"
 // 	form1.endLoc.value="320桃園市中壢區中大路300號"
 // 	form1.startTime.value="29-MAR-19 12.00.00.000000000 AM"
-	form1.note.value="保持一顆真誠的心"
+	form1.note.value="皮卡赳赳"
 	//   	  form1.cust_niname.value="資策會小小書童" 
 }
 
