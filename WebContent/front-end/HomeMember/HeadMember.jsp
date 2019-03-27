@@ -84,7 +84,7 @@ float: right;
 	
 	font-family:Microsoft JhengHei;
 	border:0;
-	background:#f5f5f5;
+/* 	background:#f5f5f5; */
 	display:block;
 	margin :10px auto;
 	text-align:center;
@@ -97,7 +97,7 @@ float: right;
 	cursor:pointer;
 }
 .box1 input[type="submit"]:hover{
-	background:yellow;
+	background:#2dc997;
 }
 </style>
 

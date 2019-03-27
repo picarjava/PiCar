@@ -67,15 +67,9 @@ margin-top:30px;
     </head>
 <body>
 	<div>
-		<img id="GroupTitles" src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/img/Group.png">
-		<img id="GroupAnimation" src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/img/GroupAnimation.png">
-	</div>
-	<div class="marrgin">
-		<a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/insertGroupBand.jsp">發起揪團</a>
-		<a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/SelectGroupBand.jsp">加入揪團</a>
-		<a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/listAllOneGroupBand.jsp">揪團管理</a>
-	</div>
-
+		<img id="GroupTitles" src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/img/setUp.png">
+		<img id="GroupAnimation" src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/img/setUpAnimation.png">
+	</div>	
 </body>
 
 </html>
