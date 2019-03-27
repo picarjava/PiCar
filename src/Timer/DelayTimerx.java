@@ -99,6 +99,7 @@ public class DelayTimerx extends HttpServlet {
 //    				// [SODR005, SODR010] 已經逾期訂單(6)
 //    				System.out.println(new SingleOrderService().getAllDelay());
     
+    				//					3.	推播websocket給管理員
     //				2.for select
     				List<String> singledelayedList = new SingleOrderService().getAllDelay();
     				for (String singledelayed : singledelayedList) {
@@ -148,40 +149,13 @@ public class DelayTimerx extends HttpServlet {
     //						System.out.println(new SingleOrderService().get);
     				}
     ///////////////////////////////////////////////////////////////////////////////
-    //					3.	推播websocket給管理員
-    
-    				// 推播成功架構
-    //					if(broadcastMap!=null) {
-    //						for(SingleOrderVO allUnpaidOrders:allUnpaid) {
-    //	//						String memID= new AdminVO().getAdminID();
-    //							Session isOnline=broadcastMap.get(memID);
-    //							
-    //						}
-    //					}
-    ////						TimerTask delaytask = new TimerTask() {//D.執行下一個排成器
-    ////							public void run() {
-    ////								// System.out.println("更新日期:"+new
-    ////								// java.util.Date()+"司機編號"+driverID+"最新評價為:"+rateAve+ "分");
-    ////								TimerTask taskdelay = null;
-    ////								taskdelay = afterdelay();
-    //////								new Timer().schedule(taskdelay, 1000 * 60 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
-    ////								new Timer().schedule(taskdelay, 1000 * 5);// 開始五分鐘後發生的事情 各位觀眾跟我一起倒數好嗎?
-    ////							}
-    ////						};
-    //						// 排成器delaytask 5分鐘後 1.狀態碼改成逾期2.推播websocket給管理員 
-    ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘
-    ////						new Timer().schedule(delaytask, num);// 動態計算出到開始時間時 開始時要記時5分鐘//TEST
-    //				}
-    //				sharetimer(startTimeList);//此行跑不到。B.將一群時間傳到另一個方法
 				}
 			}// run
 		};// timertask
-//		timer.schedule(task, new GregorianCalendar().getTimeInMillis(), 1000*30); //TEST
 //		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 365);
 		Timestamp now = new java.sql.Timestamp(System.currentTimeMillis() );
-//		timer.scheduleAtFixedRate(task, now, 1000 * 60 * 60 * 24 * 365); // 甲. 每半小時執行一次
-		timer.scheduleAtFixedRate(task, now, 1000 * 5); // 甲. 每半小時執行一次
-																										// 搜出隔天訂單
+		timer.scheduleAtFixedRate(task, now, 1000 * 60 * 60 * 24 * 365); // 甲. 每半小時執行一次
+//		timer.scheduleAtFixedRate(task, now, 1000 * 5); // 甲. 每半小時執行一次
 //		System.out.println("C.現在毫秒數"+new GregorianCalendar().getTimeInMillis());   //TEST
 	}// init
 		// 傳入當日欲更新的hour
