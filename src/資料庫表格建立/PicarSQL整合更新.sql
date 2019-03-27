@@ -102,17 +102,17 @@ VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '皮卡丘', 'Pikachu@gmail.com', '12
 INSERT INTO MEMBER 
 VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '妙蛙種子', 'Bulbasaur@gmail.com', '123456', '0912-628-817', '9593-9897-1950-1812', 0, 1, 0, NULL, 50, TO_DATE('1988-07-15','YYYY-MM-DD'), 1, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '小火龍', '123', '123', '0928-951-477', '9593-9897-9451-1556', 1, 1, 1, 500, NULL, TO_DATE('1985-06-06','YYYY-MM-DD'), 0, 0, NULL);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '小火龍', '1234', '123456', '0928-951-477', '9593-9897-9451-1556', 1, 1, 1, 500, NULL, TO_DATE('1985-06-06','YYYY-MM-DD'), 0, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '傑尼龜', '123', '123', '0933-258-746', '9593-9897-1584-7845', 0, 0, 0, 1000, 55, TO_DATE('1995-02-09','YYYY-MM-DD'), 0, 0, NULL);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '大衛海鮮', '12345', '123456', '0933-258-746', '9593-9897-1584-7845', 0, 0, 0, 1000, 55, TO_DATE('1995-02-09','YYYY-MM-DD'), 0, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '伊布', '123', '123', '0935-336-681', '9593-9897-9585-5541', 0, 0, 0, 2000, 10, TO_DATE('1986-11-23','YYYY-MM-DD'), 1, 1, NULL);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '比比鳥', '123', '123456', '0935-336-681', '9593-9897-9585-5541', 0, 0, 0, 2000, 10, TO_DATE('1986-11-23','YYYY-MM-DD'), 1, 1, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '比比鳥', 'Pidgeotto@gmail.com', '123456', '0965-154-515', '9593-9897-6666-7777', 1, 1, 0, null, null, TO_DATE('1990-11-07','YYYY-MM-DD'), 0, 0, NULL);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '伊布', 'Pidgeotto@gmail.com', '123456', '0965-154-515', '9593-9897-6666-7777', 1, 1, 0, null, null, TO_DATE('1990-11-07','YYYY-MM-DD'), 0, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '可達鴨', 'Psyduck@gmail.com', '123456', '0935-333-515', '9593-9897-3322-1145', 1, 1, 0, null, null, TO_DATE('1990-05-20','YYYY-MM-DD'), 0, 0, NULL);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '新垣結衣', 'Psyduck@gmail.com', '123456', '0935-333-515', '9593-9897-3322-1145', 1, 1, 0, null, null, TO_DATE('1990-05-20','YYYY-MM-DD'), 0, 0, NULL);
 INSERT INTO MEMBER 
-VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '卡蒂狗', 'Growlithe@gmail.com', '123456', '0974-154-212', '9593-9897-1010-0302', 1, 1, 0, null, null, TO_DATE('1984-12-25','YYYY-MM-DD'), 0, 0, NULL);
+VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '傑尼龜', 'Growlithe@gmail.com', '123456', '0974-154-212', '9593-9897-1010-0302', 1, 1, 0, null, null, TO_DATE('1984-12-25','YYYY-MM-DD'), 0, 0, NULL);
 INSERT INTO MEMBER 
 VALUES('M'||LPAD(MEM_SEQ.NEXTVAL, 3, '0'), '鬼斯', 'Gastly@gmail.com', '123456', '0965-858-454', '9593-9897-2018-7885', 1, 1, 0, null, null, TO_DATE('1984-03-01','YYYY-MM-DD'), 0, 0, NULL);
 INSERT INTO MEMBER 
@@ -567,6 +567,14 @@ CREATE SEQUENCE GROUP_BAND_SEQ
     CACHE 10;
     
 INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp ('2019/03/25 04:05:20' , 'yyyy/mm/dd hh24:mi:ss'),EMPTY_CLOB(),0,1,2,2,'寶可夢美食無法抗拒，上百種寶可夢餐。','M003','台灣台北市','台灣台中市東區復興路四段台中火車站(東站)',0,EMPTY_BLOB(),'美食',4401,to_timestamp ('2019/04/09 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),5,'嚴禁帶寶貝球，寶可夢只可食用，不可捕捉。',5);
+INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp ('2019/03/25 04:05:20' , 'yyyy/mm/dd hh24:mi:ss'),EMPTY_CLOB(),0,1,4,2,'寶可夢美食無法抗拒，上百種寶可夢餐。','M008','台灣台北市台北車站','台灣台中市東區復興路四段台中火車站(東站)',0,EMPTY_BLOB(),'美食',4401,to_timestamp ('2019/04/09 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),5,'嚴禁帶寶貝球，寶可夢只可食用，不可捕捉。',5);
+
+INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp ('2019/03/25 04:05:20' , 'yyyy/mm/dd hh24:mi:ss'),EMPTY_CLOB(),1,1,4,2,'聽說高雄岡山的魚肉好吃嗎是在說鯉魚王ㄟ，揪團一起去探索','M002','台灣台南市永康區中正路台南應用科技大學','台灣高雄岡山區崑山西巷崑山宮',0,EMPTY_BLOB(),'旅遊',4401,to_timestamp ('2019/03/31 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),5,'一起去岡山掉魚',5);
+INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp ('2019/03/31 04:05:20' , 'yyyy/mm/dd hh24:mi:ss'),EMPTY_CLOB(),1,1,2,2,'麻辣川燙肯泰羅，跟上大衛的腳步。','M002','台灣桃園市中壢區中大路TibaMe x 資策會中壢中心','台灣桃園市中壢區中央東路小蒙牛頂級麻辣養生鍋-中壢店',0,EMPTY_BLOB(),'美食',4401,to_timestamp ('2019/03/31 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),5,'保證肉質鮮美，網友大力推薦。',5);
+INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp ('2019/2/20 04:05:20' , 'yyyy/mm/dd hh24:mi:ss'),EMPTY_CLOB(),1,1,2,2,'一起去寶可夢運動中心與妳的寶可夢一起運動，強健身心。','M002','台灣台北市中正區開封街一段台北車站 AS Hair Salon','台灣桃園市中壢區三光路中壢國民運動中心全適達泳裝專賣店',0,EMPTY_BLOB(),'美食',4401,to_timestamp ('2019/03/31 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),5,'不夠壯寶可夢小心受傷。',5);
+INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp ('2019/03/29 04:05:20' , 'yyyy/mm/dd hh24:mi:ss'),EMPTY_CLOB(),1,1,4,2,'走吧走吧走吧，前往台北工作摟','M001','台灣桃園市中壢區中大路TibaMe x 資策會中壢中心','台灣台北市信義區信義路五段台北101',0,EMPTY_BLOB(),'旅遊',4401,to_timestamp ('2019/03/31 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),5,'在資策會的努力，終於要開花結果了，加油一起去。地點在資策會不要去錯毆。',5);
+INSERT INTO GROUP_BAND VALUES('G'||LPAD(to_char(GROUP_BAND_SEQ.NEXTVAL),3,'0'),EMPTY_CLOB(),to_timestamp ('2019/02/28 04:05:20' , 'yyyy/mm/dd hh24:mi:ss'),EMPTY_CLOB(),1,1,4,2,'胖丁要在台北小巨蛋開唱，大家一起去聽','M008','台灣桃園市中壢區中大路TibaMe x 資策會中壢中心','台灣台北市信義區信義路五段台北101',0,EMPTY_BLOB(),'演唱會',4401,to_timestamp ('2019/03/31 15:05:20' , 'yyyy/mm/dd hh24:mi:ss'),5,'快點來阿，一起去追星，要來的記得帶錢可以買伴手禮。',5);
+
 
 --揪團成員
 CREATE TABLE GROUP_MEM( 
@@ -635,6 +643,10 @@ INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
 ,'G002',null,'M001',8,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,6,0,'無','台南火車站','高雄火車站');
 INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
 ,'G002','D001','M001',9,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,6,0,'無','台南火車站','高雄火車站');
+INSERT INTO GROUP_ORDER VALUES('GODR'||LPAD(to_char(GODR_ID_SEQ.NEXTVAL),3,'0')
+,'G002','D001','M001',9,500,to_timestamp ('2019/02/8 20:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/02/10 08:07:25' , 'yyyy/mm/dd hh24:mi:ss'),to_timestamp('2019/2/10 10:20:25' , 'yyyy/mm/dd hh24:mi:ss') ,245.568,245.568,245.568,245.568,6,0,'無','台灣台南市歸仁區歸仁大道台南高鐵站','台灣台北市松山區南京東路四段台北小巨蛋');
+
+
 
 --建立檢舉揪團TABLE--
 CREATE TABLE GROUP_REPORT(
