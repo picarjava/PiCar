@@ -76,9 +76,9 @@ select, #i1 {
 <body>
 	<div class="wrapper ">
 		<jsp:include page="/back-end/kidBodyLeft.jsp" />
-		<div class="main-panel">
-			<div class="content">
-				<div class="container-fluid">
+		<div class=""style="margin-top: 10%;">
+			<div class="">
+				
 					<!-- your content here -->
 					<div class="container-fluid">
 						<div class="col-9">
@@ -118,20 +118,21 @@ select, #i1 {
 
 
 						</div>
-
-						<table id="t1">
-							<tr>
-								<th>檢舉司機單號</th>
-								<th>司機編號</th>
+					<div class="container wow fadeInUp" style="visibility: visible;animation-name: fadeInUp;">
+						<table class="table">
+							<thead class="thead-dark">
+								<tr>
+									<th>檢舉司機單號</th>
+									<th>司機編號</th>
 <!-- 								<th>管理員編號</th> -->
-								<th>訂單編號</th>
-								<th>檢舉內容</th>
-								<th>檢舉日期</th>
-								<th>處理狀態</th>
-								<th colspan="2">編輯</th>
+									<th>訂單編號</th>
+									<th>檢舉內容</th>
+									<th>檢舉日期</th>
+									<th>處理狀態</th>
+									<th colspan="2">編輯</th>
 
 
-							</tr>
+								</tr>
 							<%@ include file="page1.file"%>
 							<c:forEach var="driverReportVO" items="${list}"
 								begin="<%=pageIndex%>" end="<%=pageIndex+rowsPerPage-1%>">
@@ -185,11 +186,12 @@ select, #i1 {
 									</td>
 								</tr>
 							</c:forEach>
+							</thead>
 						</table>
-
+					</div>
 						<%@ include file="page2.file"%>
                    </div>
-                </div>
+                
             </div>
              <jsp:include page="/back-end/kidFooter.jsp" />
         </div>
