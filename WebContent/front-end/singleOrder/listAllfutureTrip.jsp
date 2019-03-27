@@ -9,7 +9,7 @@
 <%@ page import="com.groupOrder.model.GroupOrderService"%>
 
 <!--引用SweetAlert2.js-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script>
+<!--     <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/7.33.1/sweetalert2.all.min.js"></script> -->
 <!-- 登入功能串接 ，將VOmemID指定給 memID-->
 <%@ page import="com.member.model.MemberVO"%>
 <%MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
@@ -133,7 +133,7 @@ session.setAttribute("memID",memID);
 							        <c:if test="${singleOrder.state eq 0 and singleOrder.orderType eq 4}">
 							         <td >
 							           <Form METHOD="post" ACTION="<%=request.getContextPath()%>/singleOrder" >
-									    <div class="text-center"><button id="DELETELONGTERM" type="submit" class="btn btn-light">取消長期預約</button>
+									    <div class="text-center"><button id="DELETELONGTERM" onclick="alert()" type="button" class="btn btn-light">取消長期預約</button>
 									    <!-- /*放隱藏的標籤，讓Controller抓到參數進行操作*/ -->
 			                				<input type="hidden" name="action" value="DELETELONGTERM">
 			                				<input type="hidden" name="orderID" value="${singleOrder.orderID}">
@@ -237,9 +237,30 @@ session.setAttribute("memID",memID);
 </body>
 
 <script>
-$("#DELETELONGTERM").click(function() {
-	window.alert("同一筆長期預約訂單將一併刪除");
-});
+
+    function alert(){
+// 	window.alert("同一筆長期預約訂單將一併刪除");
+
+    	swal({
+    		  title: "${memberVO.name}，您確定要刪除嗎?",
+    		  text: "同一筆長期預約訂單將一併刪除唷",
+    		  icon: "warning",
+    		  buttons: true,
+    		  dangerMode: true,
+    		})
+    		.then((willDelete) => {
+    		  if (willDelete) {
+    		    swal("已為您刪除長期訂單", {
+    		      icon: "success",
+    		    });
+    		    $('DELETELONGTERM').submit();
+    		  } else {
+    		    swal("已為您保留長期訂單");
+    		  }
+    		});
+
+    	
+    };
 </script>
    <!--==========websocket推播 開始=============-->
  <script>

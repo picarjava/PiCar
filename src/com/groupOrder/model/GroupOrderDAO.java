@@ -99,6 +99,7 @@ public class GroupOrderDAO implements GroupOrderDAO_interface {
 		
 		private static final String GET_BY_STATE_AND_ORDER_TYPE = "SELECT * FROM GROUP_ORDER WHERE STATE=? AND ORDER_TYPE=?";
 		private static final String GET_BY_STATE_AND_DRIVER_ID = "SELECT * FROM GROUP_ORDER WHERE STATE=? AND DRIVER_ID=?";
+		private static final String GET_BY_MEM_ID_AND_GROUP_ID = "SELECT * FROM GROUP_OREDER WHERE MEM_ID=? AND GROUP_ID=?";
 		private static final String UPDATE_DRIVER_ID_BY_GROUP_ID = "UPDATE GROUP_ORDER SET DRIVER_ID=? WHERE GROUP_ID=?";
 		private static final String UPDATE_STATE_BY_GROUP_ID_AND_START_TIME = "UPDATE GROUP_ORDER SET STATE=? WHERE GROUP_ID=? AND START_TIME=?";
 		
@@ -1142,7 +1143,32 @@ return groupOrderVO;
             closePreparedStatement(preparedStatement);
             closeConnection(connection);
         }
+    }
+    
+    @Override
+    public GroupOrderVO getByMemIDAndGroupID(String memID, String groupID) {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        GroupOrderVO groupOrderVO = null;
+        try {
+            connection = ds.getConnection();
+            preparedStatement = connection.prepareStatement(GET_BY_MEM_ID_AND_GROUP_ID);
+            preparedStatement.setString(1, memID);
+            preparedStatement.setString(2, groupID);
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                getGroupOrderVO(resultSet);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e.getMessage(), e);
+        } finally {
+            closeResultSet(resultSet);
+            closePreparedStatement(preparedStatement);
+            closeConnection(connection);
+        }
         
+        return groupOrderVO;
     }
     
     private GroupOrderVO getGroupOrderVO(ResultSet resultSet) throws SQLException {

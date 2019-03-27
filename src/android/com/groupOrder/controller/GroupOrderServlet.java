@@ -14,17 +14,22 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import com.groupOrder.model.GroupOrderService;
 import com.groupOrder.model.GroupOrderVO;
+import com.singleOrder.model.SingleOrderVO;
 
 import android.com.groupOrder.model.GroupOrder;
+import android.com.location.model.StoredInfo;
+import android.com.webSocket.LocationWebSocket;
 
 public class GroupOrderServlet extends HttpServlet {
     private final static int ESTABLISHED = 1;
+    private final static int EXRCUTING = 4;
     private final static int FINISHED = 5;
     private final static int ONE_TIME_GROUP_RESERVE = 5;
     private final static int LONG_TERM_GROUP_RESERVE = 6;
@@ -72,6 +77,38 @@ public class GroupOrderServlet extends HttpServlet {
             System.out.println(driverID + " " + groupID);
             if (driverID != null)
                 service.updateDriverIDByGroupID(driverID, groupID);
+        }else if ("getInPiCar".equals(action)) {
+            String driverID = jsonIn.get(DRIVER_ID).getAsString();
+            String groupID = jsonIn.get(GROUP_ID).getAsString();
+            String memID = jsonIn.get("memID").getAsString();
+            JsonObject jsonObject = new JsonObject();
+            if ( driverID != null && memID != null) {
+                GroupOrderVO groupOrderVO = service.getByMemIDAndGroupID(memID, groupID);
+                if (groupOrderVO != null) {
+                    Timestamp startTime = new Timestamp(jsonIn.get("startTime").getAsLong());
+                    if (jsonIn.has("startTime")) {
+                        service.updateStateByGroupIDAndStartTime(EXRCUTING, groupID, startTime);
+                    } else {
+                        service.UPDATE_STATE__GROUP_ID(EXRCUTING, groupID);
+                    }
+                    
+                    Map<String, StoredInfo> driverLocation = LocationWebSocket.getMap();
+                    Session session = driverLocation.get(driverID).getSession();
+                    if (session != null && session.isOpen()) {
+                        System.out.println("send");
+                        jsonObject.addProperty("state", "OK");
+                        session.getAsyncRemote().sendText(jsonObject.toString());
+                    }
+                } else {
+                    jsonObject = new JsonObject();
+                    jsonObject.addProperty("state", "Failed");
+                    writer.print(jsonObject.toString());
+                }
+            } else {
+                jsonObject = new JsonObject();
+                jsonObject.addProperty("state", "Failed");
+                writer.print(jsonObject.toString());
+            }
         } else if ("getScheduledOrder".equals(action)) {
             String driverID = jsonIn.get(DRIVER_ID).getAsString();
             Map<Integer, List<GroupOrderVO>> map = service.getByStateAndDriverID(ESTABLISHED, driverID)

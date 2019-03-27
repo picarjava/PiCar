@@ -41,4 +41,5 @@ public GroupOrderVO getGroupOrderVOGroupID(String groupID);
 public List<String> getGDelayOrder();
 void updateGOrderIDToDelayG(String orderID);
 List<String> getAllGDelay();
+GroupOrderVO getByMemIDAndGroupID(String memID, String groupID);
 }

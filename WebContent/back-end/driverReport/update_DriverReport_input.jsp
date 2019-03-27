@@ -12,6 +12,9 @@ DriverReportVO driverReportVO = (DriverReportVO) request.getAttribute("driverRep
 	AdminVO adminVO = (AdminVO) session.getAttribute("adminVO");
 %>
 
+<jsp:useBean id="singleOrderSvc" scope="page" class="com.singleOrder.model.SingleOrderService" />
+<jsp:useBean id="groupOrderSvc" scope="page" class="com.groupOrder.model.GroupOrderService" />
+
 <html>
 <head>
 <title>PICAR BACK-END</title>
@@ -67,6 +70,11 @@ select, #i1 {
 	border-radius: 5px; 
 }
 
+#tt1 {
+	text-align:left;
+	color:red;
+}
+
 </style>
 
 
@@ -100,13 +108,24 @@ select, #i1 {
 											placeholder="Readonly input here..." readonly></td>
 									</tr>
 									<tr>
-										<td>會員編號</td>
-										<td><input class="form-control" type="TEXT" name="memID"
-											size="45" value="<%=driverReportVO.getMemID()%>"
-											placeholder="Readonly input here..." readonly /></td>
+										<td>司機編號</td>
+									<td id="tt1">
+										<c:forEach var="singleOrederVO" items="${singleOrderSvc.all}">
+						                    <c:if test="${driverReportVO.orderID==singleOrederVO.orderID}">
+							                    	${singleOrederVO.driverID}
+						                    </c:if>
+						                </c:forEach>   
+						                
+						                <c:forEach var="groupOrderVO" items="${groupOrderSvc.all}">
+						                    <c:if test="${driverReportVO.orderID==groupOrderVO.gorderID}">
+							                    ${groupOrderVO.driverID}
+						                    </c:if>
+						                </c:forEach>    
+									</td>	
+									<input class="form-control" type="hidden" name="memID" size="45" value="<%=driverReportVO.getMemID()%>" placeholder="Readonly input here..." readonly />
 									</tr>
 									<tr>
-										<td>管理員編號</td>
+										<td>管理員	編號</td>
 										<td><input class="form-control" type="TEXT" name="adminID" size="45"
 											value="<%=adminVO.getAdminID()%>" readonly/></td>
 									</tr>

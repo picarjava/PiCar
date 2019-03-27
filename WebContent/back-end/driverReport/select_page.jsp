@@ -2,13 +2,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="java.util.*"%>
 <%@ page import="com.driverReport.model.*"%>
+
 <%
 	DriverReportService driverReportSvc = new DriverReportService();
 	List<DriverReportVO> list = driverReportSvc.getAll();
 	pageContext.setAttribute("list", list);
 %>
 
-
+<jsp:useBean id="singleOrderSvc" scope="page" class="com.singleOrder.model.SingleOrderService" />
+<jsp:useBean id="groupOrderSvc" scope="page" class="com.groupOrder.model.GroupOrderService" />
 
 <!doctype html>
 <html lang="zh">
@@ -120,7 +122,7 @@ select, #i1 {
 						<table id="t1">
 							<tr>
 								<th>檢舉司機單號</th>
-								<th>會員編號</th>
+								<th>司機編號</th>
 <!-- 								<th>管理員編號</th> -->
 								<th>訂單編號</th>
 								<th>檢舉內容</th>
@@ -136,8 +138,24 @@ select, #i1 {
 
 								<tr>
 									<td>${driverReportVO.dreportID}</td>
-									<td>${driverReportVO.memID}</td>
+									<td>
+										<c:forEach var="singleOrederVO" items="${singleOrderSvc.all}">
+						                    <c:if test="${driverReportVO.orderID==singleOrederVO.orderID}">
+							                    	${singleOrederVO.driverID}
+						                    </c:if>
+						                </c:forEach>   
+						                
+						                <c:forEach var="groupOrderVO" items="${groupOrderSvc.all}">
+						                    <c:if test="${driverReportVO.orderID==groupOrderVO.gorderID}">
+							                    ${groupOrderVO.driverID}
+						                    </c:if>
+						                </c:forEach>    
+									</td>
 <%-- 									<td>${driverReportVO.adminID}</td> --%>
+
+
+
+
 									<td>${driverReportVO.orderID}</td>
 									<td>${driverReportVO.content}</td>
 									<td>${driverReportVO.time}</td>
