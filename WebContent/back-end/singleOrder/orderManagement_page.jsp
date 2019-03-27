@@ -227,7 +227,7 @@ $(".call").click(function(e){
 	  window.alert("已幫您重新叫車");
 	});
 	
-$(".repay").click(function(){
+$(".repay").click(function(e){
 	e.target.disabled = true;
 	debugger;
 	window.alert("已幫您退款");
