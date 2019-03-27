@@ -171,11 +171,13 @@ float: right;
 						      <c:if test="${empty driverVO.driverID}">
 						      <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/addDriver.jsp"><i class="icon-user"></i><br />成為司機</a>
 						      </c:if>
-						      <c:if test="${not empty driverVO.driverID}">
+						      <c:if test="${(not empty driverVO.driverID) and (driverVO.verified == 0)}">
+						      <a href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp"><i class="icon-user"></i><br />成為司機(待驗證)</a>
+						      </c:if>
+						      <c:if test="${(not empty driverVO.driverID) and (driverVO.verified == 1)}">
 						      <a href="<%=request.getServletContext().getContextPath()%>/front-end/driver/homeDriverDataManagment.jsp"><i class="icon-user"></i><br />司機頁面</a>
 						      </c:if>
                                     </li>
-                                   
                                 </ul>
                                
                             </div>

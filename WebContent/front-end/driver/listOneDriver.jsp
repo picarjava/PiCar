@@ -8,8 +8,8 @@
 <head>
   <title>司機資料管理</title>
 
-<jsp:include page="/regna-master/head.jsp" />
-  
+<%-- <jsp:include page="/regna-master/head.jsp" /> --%>
+<jsp:include page="/front-end/HomeDriver/Header.jsp" />  
 </head>
 
 <body>
@@ -83,45 +83,30 @@ session.setAttribute("xxx", xxx);
                        <div class="card" style="width: 18rem;">
                         </div>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" class="form-control">
                       <p>駕照</p>
-                      <input type="file" class="form-control" name="licence" value="${driverVO.licence}" placeholder="請輸入駕照"  /> 
-                       <div class="card" style="width: 18rem;">
+                       <div class="card" style="width: 18rem;" >
                           <img src="driver.do?driverID=${lastDriver}&pic=1" width="300" height="150" class="card-img-top" alt="..." >
                         </div>      
                    </div>
                     <div class="form-group">
                       <p>良民證</p>
-                      <input type="file" class="form-control" name="criminal" value="${driverVO.criminal}" placeholder="請輸入肇事紀錄"  />
                        <div class="card" style="width: 18rem;">
                           <img src="driver.do?driverID=${lastDriver}&pic=2" width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
                     <div class="form-group">
                       <p>肇事紀錄</p>
-                      <input type="file" class="form-control" name="trafficRecord" value="${driverVO.trafficRecord}" placeholder="請輸入肇事紀錄"  />
                        <div class="card" style="width: 18rem;">
                           <img src="driver.do?driverID=${lastDriver}&pic=3" width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
                     <div class="form-group">
                       <p>身分證</p>
-                      <input type="file" class="form-control" name="idNum" value="${driverVO.idNum}" placeholder="請輸入身分證"  />
                        <div class="card" style="width: 18rem;">
                           <img src="driver.do?driverID=${lastDriver}&pic=4"  width="300" height="150" class="card-img-top" alt="..." >
                         </div>
                     </div>
-                    
-<!--                     <div class="form-group"> -->
-<!--                       <p>大頭照</p> -->
-<%--                       <input type="file" class="form-control" name="photo" value="${driverVO.photo}" /> --%>
-<!--                        <div class="card" style="width: 18rem;"> -->
-<%-- <%--                           <img src="driver.do?driverID=<%=driverVO.getDriverID()%>&pic=5"  width="300" height="150" class="card-img-top" alt="..." >  --%>
-<%--                           <img src="driver.do?driverID=${driverVO.driverID}&pic=5"  width="300" height="150" class="card-img-top" alt="..." > --%>
-<%-- <%--                                <img src="http://localhost:8081/PiCar/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200">      --%>
-<!--                         </div> -->
-<!--                     </div> -->
-
                     <div class="form-group">
                       <p>會員照片</p>
 							<img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"
@@ -180,33 +165,8 @@ session.setAttribute("xxx", xxx);
             </div><!-- row結尾 -->
           </div>
     </section><!-- #contact -->
-  <!--==========================
-    底部     Footer
-  ============================-->
-	<footer id="footer">
-		<div class="footer-top">
-			<div class="container"></div>
-		</div>
-
-		<div class="container">
-			<div class="copyright">
-				&copy; Copyright <strong>Regna</strong>. All Rights Reserved
-			</div>
-			<div class="credits">
-				<!--
-          All the links in the footer should remain intact.
-          You can delete the links only if you purchased the pro version.
-          Licensing information: https://bootstrapmade.com/license/
-          Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/buy/?theme=Regna
-        -->
-				Bootstrap Templates by <a href="https://bootstrapmade.com/">BootstrapMade</a>
-			</div>
-		</div>
-	</footer>
-	<!-- #footer -->
-<!--   ============================--> 
  
-  <jsp:include page="/regna-master/body.jsp" />
-
+<jsp:include page="/regna-master/body.jsp" />
+<jsp:include page="/front-end/HomeDriver/Footer.jsp" />
 </body>
 </html>
