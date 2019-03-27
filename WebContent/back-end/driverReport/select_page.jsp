@@ -82,6 +82,16 @@ select, #i1 {
 	border-radius: 5px; 
 }
 
+ul, menu, dir {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+}
+
 </style>
 
 </head>
@@ -94,7 +104,7 @@ select, #i1 {
 				
 					<!-- your content here -->
 					<div class="container-fluid">
-						<div class="col-9">
+						<div class="container wow fadeInUp">
 
 							<%-- 錯誤表列 --%>
 							<c:if test="${not empty errorMsgs}">
