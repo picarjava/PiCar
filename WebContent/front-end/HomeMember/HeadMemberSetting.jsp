@@ -54,7 +54,7 @@
     <body>
     <div>
 <a id="GIbutton" href=/PiCar/regna-master/homeindex.jsp>請按此回首頁</a>
-<a id="GIbutton" href="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">請按此回會員首頁</a>
+<%-- <a id="GIbutton" href="<%=request.getContextPath()%>/front-end/HomeMember/index.jsp">請按此回會員首頁</a> --%>
 
 <%-- <a id="GIbutton" href="<%=request.getServletContext().getContextPath()%>/front-end/groupBand/listAllOneGroupBand.jsp">揪團管理</a> --%>
 </div>

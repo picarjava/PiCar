@@ -125,11 +125,11 @@ float: right;
                             <div class="navbar-inner">
                               
                          <div id="rigthtop">
-                <form method="post"  action="/PiCar/front-end/HomeMember/logoutHandler.do" class="box1">	
-				<input type="submit" value="登出">	
-				 <input type="hidden" name="logout"	value="logout">	
-				</form>
-               <p id="p">${memberVO.name} 你好</p>
+<!--                 <form method="post"  action="/PiCar/front-end/HomeMember/logoutHandler.do" class="box1">	 -->
+<!-- 				<input type="submit" value="登出">	 -->
+<!-- 				 <input type="hidden" name="logout"	value="logout">	 -->
+<!-- 				</form> -->
+<%--                <p id="p">${memberVO.name}，你好</p> --%>
                </div>
               
                             <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">

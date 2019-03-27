@@ -48,11 +48,28 @@
 <link rel="apple-touch-icon-precomposed"
 	href="assets/ico/apple-touch-icon-57-precomposed.png">
 <style>
+body{
+	margin:0;
+	padding:0;
+	font-family:sans-serif;
+	background:	#DCDCDC;
+}
  span { 
  	text-align: left; 
  	　 
  } 
-
+ form { 
+ 	margin-top:100px; 
+ 	　 
+ } 
+  #div { 
+ 	margin-top:100px; 
+ 	　 
+ } 
+   #div1 { 
+ 	margin-top:30px; 
+ 	　 
+ } 
 
 </style>
 
@@ -75,14 +92,15 @@
 	}
 	
 	%>
-	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" />
-	<jsp:include page="/front-end/HomeMember/HeadMemberSetting.jsp" />
+	<jsp:include page="/front-end/HomeMember/HeadMember2.jsp" />
+<%-- 	<jsp:include page="/front-end/HomeMember/HeadMember.jsp" /> --%>
+	<div id="div1"><jsp:include page="/front-end/HomeMember/HeadMemberSetting.jsp" /></div>
 	<div class="container">
 		<div class="row">
 			<div class="contact-form span5">
 				
-				
-				<h3>addMember.jsp</h3>
+				<!-- 					<a href="select_page.jsp">回主頁面</a><br> -->
+<!-- 				<h3>addMember.jsp</h3> -->
 				<%-- 錯誤表列 --%>
 				<c:if test="${not empty errorMsgs}">
 				<font style="color: red">請修正以下錯誤:</font>
@@ -93,7 +111,7 @@
 				</ul>
 				</c:if>
 				<form method="post" action="member.do" name="form1" enctype="multipart/form-data">
-					<a href="select_page.jsp">回主頁面</a><br>
+
 					<span class="span">
 						會員姓名  ： <input type="text" name="name" size="45"
 						value="" /><br><br>
@@ -129,7 +147,7 @@
 						
 					</div>
 					
-					<div class="contact-address span5">
+					<div class="contact-address span5" id="div">
 						<br><br><br>
 						會員照片： <!-- 			<td> --> <!-- 			<input type="file" name="pic" > <br></td>	 -->
 						<input

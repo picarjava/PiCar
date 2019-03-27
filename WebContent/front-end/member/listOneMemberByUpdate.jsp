@@ -521,9 +521,9 @@ form{margin:0px; display:inline-block }
 <%-- 			</c:choose></td> --%>
 <!-- 		</tr> -->
 <!-- <!-- 		<tr> --> 
-<!-- <!-- 			<td>個人照片</td> --> 
-<%-- <%-- 			<td><img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200" --%> 
-<!-- <!-- 			></td> --> 
+			<td>個人照片</td> 
+			<td><img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200" 
+			></td> 
 <!-- <!-- 		</tr> --> 
 <!-- 	</table></div> -->
 	

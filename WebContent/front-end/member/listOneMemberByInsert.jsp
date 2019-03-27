@@ -68,7 +68,9 @@ width: 30%;
 }
 </style>
 <body bgcolor="#11e1e9">
-<h3>listOneMemberByInsert.jsp</h3>
+<jsp:include page="/front-end/HomeMember/HeadMember2.jsp" />
+<%-- 	<jsp:include page="/front-end/HomeMember/HeadMemberSetUp.jsp" /> --%>
+<!-- <h3>listOneMemberByInsert.jsp</h3> -->
 <a class="box" href=/PiCar/front-end/login/login.jsp> 請按此登入 </a>
 	<h1 align="center">Hello!!<%=memberVO.getName()%>，這是您的個人資料，恭喜你成為會員，請於申請信箱取得帳號密碼</h1>
 	<table align="center" border="1" id="table1">
@@ -94,33 +96,33 @@ width: 30%;
 			<td>${memberVO.phone}</td>
 		</tr>
 		<tr>	
-			<td>creditcard</td>
+			<td>信用卡號</td>
 			<td>${memberVO.creditcard}</td>
 		</tr>
 		<tr>	
-			<td>token</td>
+			<td>儲值金額</td>
 			<td>${memberVO.token}</td>
 		</tr>
+<!-- 		<tr>	 -->
+<!-- 			<td>activityToken</td> -->
+<%-- 			<td>${memberVO.activityToken}</td> --%>
+<!-- 		</tr> -->
 		<tr>	
-			<td>activityToken</td>
-			<td>${memberVO.activityToken}</td>
-		</tr>
-		<tr>	
-			<td>pet</td>
+			<td>寵物設定</td>
 			<td><c:choose>
 			  <c:when test="${memberVO.pet == '1'}"> 喜好寵物  </c:when>
 			  <c:when test="${memberVO.pet == '0'}">  不喜好寵物  </c:when>			 
 			</c:choose></td>
 		</tr>
 		<tr>
-			<td>smoke</td>
+			<td>抽菸設定</td>
 			<td><c:choose>
 			  <c:when test="${memberVO.smoke == '1'}">抽菸  </c:when>
 			  <c:when test="${memberVO.smoke == '0'}">  不抽菸  </c:when>			 
 			</c:choose></td>
 		</tr>
 		<tr>	
-			<td>gender</td>
+			<td>會員性別</td>
 			<td><c:choose>
 			  <c:when test="${memberVO.gender == '1'}">男生  </c:when>
 			  <c:when test="${memberVO.gender == '0'}">女生  </c:when>			 
@@ -128,19 +130,19 @@ width: 30%;
 		</tr>	
 		
 		<tr>	
-			<td>babySeat</td>
+			<td>嬰兒座椅</td>
 			<td><c:choose>
 			  <c:when test="${memberVO.babySeat == '1'}">需要  </c:when>
 			  <c:when test="${memberVO.babySeat == '0'}">不需要  </c:when>			 
 			</c:choose></td>			
 		</tr>
-		<tr>	
-			<td>verified</td>
-			<td><c:choose>
-			  <c:when test="${memberVO.verified == '1'}">已經驗證  </c:when>
-			  <c:when test="${memberVO.verified == '0'}">尚未驗證  </c:when>			 
-			</c:choose></td>
-		</tr>
+<!-- 		<tr>	 -->
+<!-- 			<td>verified</td> -->
+<%-- 			<td><c:choose> --%>
+<%-- 			  <c:when test="${memberVO.verified == '1'}">已經驗證  </c:when> --%>
+<%-- 			  <c:when test="${memberVO.verified == '0'}">尚未驗證  </c:when>			  --%>
+<%-- 			</c:choose></td> --%>
+<!-- 		</tr> -->
 		<tr>
 		<td>個人照片</td>
 		<td><img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${lastMem}"  width='200' height="200"
