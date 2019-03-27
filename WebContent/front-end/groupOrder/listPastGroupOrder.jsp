@@ -7,10 +7,12 @@
 <%@ page import="com.groupOrder.model.GroupOrderService"%>
 <%@ page import="com.groupOrder.model.GroupOrderVO"%>
 
-<!-- 本頁面待與登入功能串接 此處先指定memID-->
-<%-- <%String memID=(String)session.getAttribute("memID"); %>  --%>
-<%! String memID="M001";  %>
-<% session.setAttribute("memID", memID);%>
+<!-- 會員登入功能串接 ，將VOmemID指定給 memID-->
+<%@ page import="com.member.model.MemberVO"%>
+<%MemberVO memberVO=(MemberVO)session.getAttribute("memberVO");
+String memID=memberVO.getMemID();
+session.setAttribute("memID",memID);
+%> 
 
 <!-- 揪團訂單 -->
 <% GroupOrderService groupOrderSvc=new GroupOrderService();
@@ -73,7 +75,9 @@
 							  </thead>
 							  <tbody>
 		<c:forEach var="groupOrder" items="${groupOrderlist}" >			  
-			 <c:if test="${groupOrder.memID eq memID && groupOrder.state !=0 && groupOrder.state !=1 && groupOrder.state !=4}">
+			 <c:if test="${groupOrder.memID eq memberVO.memID}">
+						 <c:if test="${groupOrder.state !=0 && groupOrder.state !=1 && groupOrder.state !=4}">		
+						 
 						 		<tr>	 
 							      <td scope="row">${groupOrder.gorderID}</td>
 							      <td>
@@ -120,6 +124,7 @@
 								  </Form>
 							      </td>
 							    </tr>
+			</c:if>
 		</c:if>
 		</c:forEach>
 							</tbody>
