@@ -56,17 +56,18 @@
 }
 #GroupAnimation{
     position: absolute;
-    top: 40%;
+    top: 22%;
     left: 60%;
     width: 180px;
 }
 .marrgin{
-margin-top:30px;
+	margin-top:30px;
+    margin-bottom: 30px;
 }
 </style>
     </head>
 <body>
-	<div>
+	<div class="marrgin">
 		<img id="GroupTitles" src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/img/setUp.png">
 		<img id="GroupAnimation" src="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/img/setUpAnimation.png">
 	</div>	
