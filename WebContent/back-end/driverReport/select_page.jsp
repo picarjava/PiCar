@@ -100,8 +100,7 @@ ul, menu, dir {
 	<div class="wrapper ">
 		<jsp:include page="/back-end/kidBodyLeft.jsp" />
 		<div class=""style="margin-top: 10%;">
-			<div class="">
-				
+			<div class="">	
 					<!-- your content here -->
 					<div class="container-fluid">
 						<div class="container wow fadeInUp">
@@ -141,9 +140,9 @@ ul, menu, dir {
 
 
 						</div>
-					<div class="container wow fadeInUp" style="visibility: visible;animation-name: fadeInUp;">
-						<table class="table">
-							<thead class="thead-dark">
+						<div class="container wow fadeInUp" style="visibility: visible;animation-name: fadeInUp;">
+							<table class="table">
+								<thead class="thead-dark">
 								<tr>
 									<th>檢舉司機單號</th>
 									<th>司機編號</th>
