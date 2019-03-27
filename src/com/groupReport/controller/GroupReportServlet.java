@@ -141,13 +141,10 @@ public class GroupReportServlet extends HttpServlet {
 						errorMsgs.add("管理員編號輸入格式有誤");
 					}
 					
-					String content = req.getParameter("content");
-					String contentReg = "^[(\u4e00-\u9fa5)(a-zA-Z0-9_)]{1,50}$";
+					String content = req.getParameter("content").trim();
 					if (content == null ||content.trim().length()==0) {
 						errorMsgs.add("檢舉內容請勿空白");
-					} else if (!content.trim().matches(contentReg)) {
-						errorMsgs.add("檢舉內容: 只能用中、英文字母、數字和_ , 且長度必需在1到50之間");
-					}
+					} 
 					
 					java.sql.Date time = null;
 					try {
