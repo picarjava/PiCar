@@ -5,7 +5,16 @@
 
 <!DOCTYPE html>
 <html lang="zh">
-in
+<style>
+	p {
+	font-size:16px;
+	}
+	
+	h5 {
+    font-size: 25px;
+}
+
+</style>
 <head>
     
     <title>查看最新消息</title>
@@ -53,14 +62,14 @@ in
 					 		<div class="col-lg-12 col-md-6 wow fadeInUp" data-wow-delay="0.2s"> 
 					 		<div class="card" style="width: 65rem;height:35rem ">
 					 			  <c:if test="${empty activityVO.activityPost}" var="condition">
-					              <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" class='card-img-top' width='300' height='350'>
+					              <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" class='card-img-top' width="800" height="300" >
 					              </c:if>
 					              <c:if test="${not empty activityVO.activityPost}" var="condition">
-					              <img  src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' class='card-img-top' width='400' height='350' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/>
+					              <img  src='<%=request.getContextPath()%>/activity/Activ_servlet.html?activityID=${activityVO.activityID}' class='card-img-top' width="800" height="300" alt='"這是"+${activityVO.activityID}+"的活動海報"  '/>
 					              </c:if>
 							  <div class="card-body">
 							    <h5 class="card-title">${activityVO.activityName}</h5>
-							    <p class="card-text">${activityVO.activityStart}~${activityVO.activityEnd} ${activityVO.activityInfo}</p>
+							    <p class="card-text" >${activityVO.activityStart}~${activityVO.activityEnd} ${activityVO.activityInfo}</p>
 							    <form action="<%=request.getContextPath()%>/activity/Activ_servlet.html" method="post">
 							    <!--隱藏的參數action讓controller抓-->
 	              				<input type="hidden" name="action" value="GET_ONE">
