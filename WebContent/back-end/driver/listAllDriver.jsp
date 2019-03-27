@@ -14,6 +14,14 @@
 
     <title>後台所有司機列表</title>
     <jsp:include page="/regna-master/head.jsp" />
+    <style>
+    
+    h3{
+    margin-top:10%;
+    
+    }
+    
+    </style>
 </head>
 <body>
 <jsp:include page="/back-end/kidBodyLeft.jsp" />
@@ -33,7 +41,7 @@
     <%LinkedList<String> errorMsgs=(LinkedList<String>)request.getAttribute("errorMsgs");%>
     <!-- 錯誤列表 -->
     <c:if test="${not empty errorMsgs}"><ul class="list-group">
-		  <li class="list-group-item active">Opps!錯誤訊息回報</li>
+		  <li class="list-group-item active">請修正</li>
 		  <c:forEach var="massage" items="${errorMsgs}">
 		  <li class="list-group-item">${massage}</li>
 		  </c:forEach>
@@ -43,9 +51,9 @@
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">後台所有司機列表</h3>
-                    <form action="driverMemberManagement.jsp">
-			          <div class="text-center"><button type="submit" >返回</button></div>
-			         </form>
+<!--                     <form action="driverMemberManagement.jsp"> -->
+<!-- 			          <div class="text-center"><button type="submit" >返回</button></div> -->
+<!-- 			         </form> -->
                 </div>
             </div>
             <div class="container wow fadeInUp">
@@ -58,7 +66,7 @@
 						      <th scope="col">司機編號	</th>
 						      <th scope="col">姓名    	</th>
 						      <th scope="col">車牌號碼	</th>
-<!-- 						      <th scope="col">BAN	</th> -->
+						      <th scope="col">BAN	</th>
 <!-- 						      <th scope="col">到期時間	</th> -->
 <!-- 						      <th scope="col">是否線上	</th> -->
 						      <th scope="col">評價分數	</th>
@@ -104,28 +112,19 @@
 							</td>
 						      <td>${driverVO.plateNum}</td>
 <%-- 						      <td>${driverVO.licence}</td> --%>
-<!-- 						      <td> -->
-<%-- 						       	  <c:if test="${empty driverVO.photo}" var="condition"> --%>
-<%-- 					              <img src="<%=request.getContextPath()%>/regna-master/img/noFileUpdate.JPG" width="200" height="100"/> --%>
-<%-- 					              </c:if> --%>
-<%-- <%-- 					              <img  src='<%=request.getContextPath()%>/driver/Activ_servlet.html?activityID=${activityVO.activityID}' width='200' height='100' alt='"這是"+${activityVO.activityID}+"的活動海報"  '/> --%> 
-<%-- 					              <c:if test="${not empty driverVO.photo}" var="condition"> --%>
-<%-- 					              <img  src='<%=request.getContextPath()%>/driver.do?driverID=${driverVO.driverID}' width='200' height='100' alt='"這是"+${driverVO.driverID}+"的"  '/> --%>
-<%-- 					              </c:if>  --%>
-<!-- 						      </td> -->
-<!-- 						      <td> -->
-<%-- 						      <c:if test="${driverVO.banned == 0}"> --%>
+						      <td>
+						      <c:if test="${driverVO.banned == 0}">可以接單
 <!-- 						       <Form METHOD="post" ACTION="/driver.do" > -->
 <!-- 							    <div class="text-center"><button type="submit" class="btn btn-light">可以接單</button> -->
-<!-- <!-- 							      	/*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/ --> 
+<!--  							      	/*放隱藏的標籤，重複使用activityVO，讓Controller抓到參數進行操作*/  -->
 <!-- 							      	<input type="hidden" name="actionS" value="GET_ONE_FOR_BANNED"> -->
 <!-- 	                				<input type="hidden" name="action" value="GET_ONE_FOR_CHECK"> -->
 <%-- 	                				<input type="hidden" name="driverID" value="${driverVO.driverID}"> --%>
 <!-- 							     </div> -->
 <!-- 							  </Form> -->
-<%-- 						      </c:if> --%>
-<%-- 						      <c:if test="${driverVO.banned == 1}">禁止接單</c:if> --%>
-<!-- 						      </td> -->
+						      </c:if>
+						      <c:if test="${driverVO.banned == 1}">禁止接單</c:if>
+						      </td>
 <!-- 						      <td> -->
 <%-- <%-- 						      <c:if test="${driverVO.deadline != null}">${driverVO.deadline}</c:if> --%> 
 <%-- <%-- 						      <c:if test="${driverVO.deadline == null}">沒有到期日</c:if> --%> 
