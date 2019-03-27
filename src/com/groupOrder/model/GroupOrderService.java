@@ -153,6 +153,7 @@ public class GroupOrderService {
     	return dao.getAllGDelay();
     }
    
-    
-    
+    public GroupOrderVO getByMemIDAndGroupID(String memID, String groupID) {
+        return dao.getByMemIDAndGroupID(memID, groupID);
+    }
 }

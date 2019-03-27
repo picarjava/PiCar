@@ -510,6 +510,12 @@ public class GroupOrderJDBCDAO implements GroupOrderDAO_interface {
 		return null;
 	}
 
+    @Override
+    public GroupOrderVO getByMemIDAndGroupID(String memID, String groupID) {
+        // TODO Auto-generated method stub
+        return null;
+    }
+
 
 
 
