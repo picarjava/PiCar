@@ -42,7 +42,7 @@
         <![endif]-->
 
         <!-- Favicon and touch icons -->
-             <link rel="shortcut icon" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/favicon.ico">
+             <link rel="shortcut icon" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/logoCAR.png">
         <link rel="apple-touch-icon-precomposed" sizes="144x144" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/apple-touch-icon-144-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/assets/ico/apple-touch-icon-72-precomposed.png">
@@ -84,13 +84,6 @@
 	height: 300px;
 }
 
-.marrgin {
-	width: 150px;
-	height: 200px;
-	color: #fff;
-	background-color: #fff;
-	margin: auto;
-}
 
 .tentcenter {
 	text-align: center;

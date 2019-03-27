@@ -317,6 +317,13 @@ form{margin:0px; display:inline-block }
 				<i class="fas fa-times fa-2x"></i>
 			</button>
 			<div id="div2"><jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontPos.jsp"/></div> 
+			<div>
+				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/storeRecord/storeRecord.do" style="" class="box2" >
+					<input type="submit" value="儲值">
+					<input type="hidden" name="memID"  value="${memberVO.memID}">
+					<input type="hidden" name="action"	value="addToken">
+				</FORM>
+			</div>
 		</div>
 	</div>		
 	<div id="Deduction" style="display: none">
@@ -326,14 +333,7 @@ form{margin:0px; display:inline-block }
 			</button>
 			<div id="div2">
 				<jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontNeg.jsp"/>
-			</div> 
-			<div>
-				<FORM METHOD="post" ACTION="<%=request.getContextPath()%>/front-end/storeRecord/storeRecord.do" style="" class="box2" >
-					<input type="submit" value="儲值">
-					<input type="hidden" name="memID"  value="${memberVO.memID}">
-					<input type="hidden" name="action"	value="addToken">
-				</FORM>
-			</div>
+		 	</div> 
 		</div>
 	</div>			
 	<!-- <h3>listOneMemberByUpdate.jsp</h3> -->

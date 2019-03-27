@@ -55,8 +55,8 @@
 	width: 1000px;
 }
 #GroupAnimation{
-    position: absolute;
-    top: 40%;
+   	position: absolute;
+    top: 22%;
     left: 60%;
     width: 180px;
 }
