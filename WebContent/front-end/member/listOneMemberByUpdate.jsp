@@ -335,7 +335,18 @@ form{margin:0px; display:inline-block }
 				<jsp:include page="/front-end/storeRecord/listOneStoreRecordMemberFrontNeg.jsp"/>
 		 	</div> 
 		</div>
-	</div>			
+	</div>	
+	<%String lightBox =request.getParameter("lightBox");
+	if(lightBox!=null){
+		%>
+		<script>
+		$('#Store').show();
+		</script>
+	<%	
+	}
+	
+	%>	
+		
 	<!-- <h3>listOneMemberByUpdate.jsp</h3> -->
 	<!-- <a class="box" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a><br> -->
 	<%-- <a class="box" href=<%=request.getContextPath()%>/front-end/HomeMember/index.jsp> 請按此回會員首頁 </a> --%>
@@ -364,12 +375,12 @@ form{margin:0px; display:inline-block }
 				<div class="spacingTitle"></div>
 				<div class="TitleText">抽菸設定</div>
 				<div class="spacingTitle"></div>
-				<div class="TitleText">性        別</div>
+				<div class="TitleText">會員性別</div>
 				<div class="spacingTitle"></div>
 				<div class="TitleText">嬰兒座椅</div>
 				<div class="spacingTitle"></div>
-				<div class="TitleText">驗證狀態</div>
-				<div class="spacingTitle"></div>
+<!-- 				<div class="TitleText">驗證狀態</div> -->
+<!-- 				<div class="spacingTitle"></div> -->
 			</div>
 			
 			<div class="InnerText services-half-width-text span7" style="margin-top: 0px;">
@@ -415,13 +426,16 @@ form{margin:0px; display:inline-block }
 					</c:choose>
 				</div>
 				<div class="spacingInner"></div>
-				<div class="InnerText">
-					<c:choose>
-						<c:when test="${memberVO.verified == '1'}">已經驗證  </c:when>
-						<c:when test="${memberVO.verified == '0'}">尚未驗證  </c:when>
-					</c:choose>
-				</div>
-				<div class="spacingInner"></div>
+<!-- 				<div class="InnerText"> -->
+<%-- 					<c:choose> --%>
+<%-- 						<c:when test="${memberVO.verified == '1'}">已經驗證  </c:when> --%>
+<%-- 						<c:when test="${memberVO.verified == '0'}">尚未驗證  </c:when> --%>
+<%-- 					</c:choose> --%>
+<!-- 				</div> -->
+<!-- 				<div class="spacingInner"></div> -->
+				個人照片
+			<img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200" 
+			>
 			</div>
 		</div>
 	</div>
@@ -521,9 +535,9 @@ form{margin:0px; display:inline-block }
 <%-- 			</c:choose></td> --%>
 <!-- 		</tr> -->
 <!-- <!-- 		<tr> --> 
-			<td>個人照片</td> 
-			<td><img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200" 
-			></td> 
+<!-- 			<td>個人照片</td>  -->
+<%-- 			<td><img src="<%=request.getServletContext().getContextPath()%>/front-end/member/member.do?memID=${memberVO.memID}"  width='200' height="200"  --%>
+<!-- 			></td>  -->
 <!-- <!-- 		</tr> --> 
 <!-- 	</table></div> -->
 	
@@ -584,5 +598,8 @@ form{margin:0px; display:inline-block }
 		function DeductionFork(){
 			$('#Deduction').hide();
 		}		
+		function show(){
+			$('#Store').show();			
+		}
 	</script>
 </html>

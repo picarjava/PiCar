@@ -115,7 +115,7 @@ response.setDateHeader ("Expires", 0);
 		<tr>
 			<td>會員姓名：</td>
 			<td><input type="text" name="name" size="45" value="<%=memberVO.getName() %>" /></td>
-			<td rowspan="11">
+			<td rowspan="10">
 				<img src="/PiCar/front-end/member/member.do?memID=${memberVO.memID}" alt="這是圖片替代文字" onerror="this.src='cat.jpg'"  width="200" height ="200" id="preview_progressbarTW_img">
 				<input type="file" name="pic" onchange="readURL(this)" targetID="preview_progressbarTW_img"></td>
 			</tr>
@@ -182,15 +182,15 @@ response.setDateHeader ("Expires", 0);
 						<td><%=memberVO.getBirthday() %>
 						<input type="hidden" name="birthday" id="f_date1" ></td>
 					</tr>
-					<tr>
-						<td>驗證狀態：</td>
-						<td>
-							<c:choose>
-							<c:when test="${memberVO.verified == '1'}">已經驗證  </c:when>
-							<c:when test="${memberVO.verified == '0'}">尚未驗證  </c:when>
-							</c:choose>
+<!-- 					<tr> -->
+<!-- 						<td>驗證狀態：</td> -->
+<!-- 						<td> -->
+<%-- 							<c:choose> --%>
+<%-- 							<c:when test="${memberVO.verified == '1'}">已經驗證  </c:when> --%>
+<%-- 							<c:when test="${memberVO.verified == '0'}">尚未驗證  </c:when> --%>
+<%-- 							</c:choose> --%>
 							<input type = "hidden" name="verified" value= "<%=memberVO.getVerified() %>"></td>
-						</tr>
+<!-- 						</tr> -->
 						<tr>
 							<td>座椅設定：</td>
 							<td>
