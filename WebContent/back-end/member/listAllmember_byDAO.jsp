@@ -96,7 +96,7 @@ pageContext.setAttribute("list", list);
 <!-- 								<td>寵物設定</td> -->
 <!-- 								<td>抽菸設定</td> -->
 								<th>會員性別</td>
-								<th>一般代幣</td>
+								<th>儲值金額</td>
 <!-- 								<td>活動代幣</td> -->
 								<th>會員生日</td>
 								<th>會員權限</td>

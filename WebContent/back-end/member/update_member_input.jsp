@@ -38,13 +38,13 @@ table{
 <!-- <a href="select_page.jsp">回主頁面</a> -->
 	<table>
 		<tr>
-			<td>會員編號：</td>
+			<td>會員編號</td>
 			<td>  <%= memberVO.getMemID() %>   </td>		
 	
 		</tr>
 	
 		<tr>
-			<td>會員姓名：</td>
+			<td>會員姓名</td>
 			<td>
 			<%=memberVO.getName() %>
 			<input type="hidden" name="name" size="45" value="<%=memberVO.getName() %>" />
@@ -53,7 +53,7 @@ table{
 		</tr>
 		
 		<tr>
-			<td>會員信箱：</td>
+			<td>會員信箱</td>
 			<td>
 			<%=memberVO.getEmail() %>
 			<input type="hidden" name="email" size="45" value="<%=memberVO.getEmail() %>" />
@@ -69,41 +69,41 @@ table{
 <!-- 		</tr> -->
 		
 		<tr>
-			<td>會員電話：</td>
+			<td>會員電話</td>
 			<td>
 			<%=memberVO.getPhone() %>
 			<input type="hidden" name="phone" size="45" value="<%=memberVO.getPhone() %>" />
 			</td>		
 		</tr>
 		
-		<tr>
-			<td>信用卡號：</td>
-			<td>
-			<%=memberVO.getCreditcard() %>
+<!-- 		<tr> -->
+<!-- 			<td>信用卡號</td> -->
+<!-- 			<td> -->
+<%-- 			<%=memberVO.getCreditcard() %> --%>
 			<input type="hidden" name="creditcard" size="45" value="<%=memberVO.getCreditcard() %>" />
-			</td>		
-		</tr>
+<!-- 			</td>		 -->
+<!-- 		</tr> -->
 		
-		<tr>
-			<td>寵物喜好：</td>
-			<td><c:choose>
-			  <c:when test="${memberVO.pet == '1'}">喜歡寵物  </c:when>
-			  <c:when test="${memberVO.pet == '0'}">不喜歡寵物  </c:when>			 
-			</c:choose>
+<!-- 		<tr> -->
+<!-- 			<td>寵物喜好</td> -->
+<%-- 			<td><c:choose> --%>
+<%-- 			  <c:when test="${memberVO.pet == '1'}">喜歡寵物  </c:when> --%>
+<%-- 			  <c:when test="${memberVO.pet == '0'}">不喜歡寵物  </c:when>			  --%>
+<%-- 			</c:choose> --%>
 			<input type = "hidden" name="pet" value= "<%=memberVO.getPet() %>"></td>		
-		</tr>
+<!-- 		</tr> -->
 		
-		<tr>
-			<td>抽菸喜好：</td>
-			<td><c:choose>
-			  <c:when test="${memberVO.smoke == '1'}">抽菸  </c:when>
-			  <c:when test="${memberVO.smoke == '0'}">不抽菸  </c:when>			 
-			</c:choose>			
+<!-- 		<tr> -->
+<!-- 			<td>抽菸喜好</td> -->
+<%-- 			<td><c:choose> --%>
+<%-- 			  <c:when test="${memberVO.smoke == '1'}">抽菸  </c:when> --%>
+<%-- 			  <c:when test="${memberVO.smoke == '0'}">不抽菸  </c:when>			  --%>
+<%-- 			</c:choose>			 --%>
 			<input type = "hidden" name="smoke" value= "<%=memberVO.getSmoke() %>">	
-		</tr>
+<!-- 		</tr> -->
 		
 		<tr>
-			<td>會員性別：</td>
+			<td>會員性別</td>
 			<td><c:choose>
 			  <c:when test="${memberVO.gender == '1'}">男生  </c:when>
 			  <c:when test="${memberVO.gender == '0'}">女生  </c:when>			 
@@ -113,26 +113,26 @@ table{
 		</tr>
 		
 		<tr>
-			<td>儲值金額：</td>			
+			<td>儲值金額</td>			
 			<td><%=memberVO.getToken() %>
 			<input type="hidden" name="token" size="45" value="<%=memberVO.getToken() %>" ></td>		
 		</tr>
 		
-		<tr>
-			<td>活動代幣：</td>
-			<td><%=memberVO.getActivityToken() %>
+<!-- 		<tr> -->
+<!-- 			<td>活動代幣</td> -->
+<%-- 			<td><%=memberVO.getActivityToken() %> --%>
 			<input type="hidden" name="activityToken" size="45" value="<%=memberVO.getActivityToken() %>" />
-			</td>		
-		</tr>
+<!-- 			</td>		 -->
+<!-- 		</tr> -->
 		
 		<tr> 
-			<td>會員生日:</td>
+			<td>會員生日</td>
 			<td><%=memberVO.getBirthday() %>
 			<input type="hidden" name="birthday" id="f_date1" ></td>
 		</tr>	
 			
 		<tr>
-			<td>驗證狀態：</td>
+			<td>會員權限</td>
 			<td>
 			<select name="verified">
 			<option value="1" ${(memberVO.verified == '1')?'selected':'' }>驗證
@@ -141,15 +141,15 @@ table{
 			</td>		
 		</tr>
 	
-		<tr>
-			<td>嬰兒座椅：</td>
-			<td><c:choose>
-			  <c:when test="${memberVO.babySeat == '1'}">需要  </c:when>
-			  <c:when test="${memberVO.babySeat == '0'}">不需要  </c:when>
-			</c:choose>
+<!-- 		<tr> -->
+<!-- 			<td>嬰兒座椅</td> -->
+<%-- 			<td><c:choose> --%>
+<%-- 			  <c:when test="${memberVO.babySeat == '1'}">需要  </c:when> --%>
+<%-- 			  <c:when test="${memberVO.babySeat == '0'}">不需要  </c:when> --%>
+<%-- 			</c:choose> --%>
 			<input type="hidden" name="babySeat" value="<%=memberVO.getBabySeat() %>" />
-			</td>		
-		</tr>
+<!-- 			</td>		 -->
+<!-- 		</tr> -->
 		
 		<tr>
 		<td>個人照片</td>
