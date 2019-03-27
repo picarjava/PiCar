@@ -151,10 +151,13 @@ public class SingleOrderServlet extends HttpServlet {
             singleOrderService.updateDriverIDAndStateByOrderID(driverID, ESTABLISHED, orderIDs);
         } else if ("getInPiCar".equals(action)) {
             String driverID = jsonIn.get(DRIVER_ID).getAsString();
+            
             String orderID = jsonIn.get(ORDER_ID).getAsString();
+            String memID = jsonIn.get("memID").getAsString();
             SingleOrderVO singleOrderVO = singleOrderService.getOneSingleOrder(orderID);
             JsonObject jsonObject = new JsonObject();
-            if (singleOrderVO != null && driverID != null && driverID.equals(singleOrderVO.getDriverID())) {
+            if (singleOrderVO != null && driverID != null && driverID.equals(singleOrderVO.getDriverID())
+                    && memID != null && memID.equals(singleOrderVO.getMemID())) {
                 singleOrderService.updateDriverIDAndStateByOrderID(driverID, EXRCUTING, orderID);
                 Map<String, StoredInfo> driverLocation = LocationWebSocket.getMap();
                 Session session = driverLocation.get(driverID).getSession();
