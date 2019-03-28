@@ -182,11 +182,11 @@ if (memberVO != null){
 		form1.password.value = "123456"
 	}
 	function idwrite10(name) {
-		form1.account.value = "M0010"
+		form1.account.value = "M010"
 		form1.password.value = "123456"
 	}
 	function idwrite11(name) {
-		form1.account.value = "M0011"
+		form1.account.value = "M011"
 		form1.password.value = "123456"
 	}
 </script>
