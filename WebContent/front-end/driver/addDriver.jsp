@@ -49,13 +49,7 @@ session.setAttribute("memID",memID);
 		<div class="container wow fadeInUp">
 			<div class="col-lg-12 col-md-12">
 				<div class="section-header">
-					<h3 class="section-title">成為司機(上傳檢附文件)</h3>
-					<div class="text-center">
-						<form action="<%=request.getServletContext().getContextPath()%>/front-end/HomeMember/index.jsp">
-							<!-- 以上請寫成為司機的人 action="寫上上一頁的畫面" -->
-							<button type="submit" class="btn btn-outline-success"">返回</button>
-						</form>
-					</div>
+					<h3 class="section-title">成為司機</h3>
 				</div>
 			</div>
 		</div>
@@ -76,7 +70,7 @@ session.setAttribute("memID",memID);
 								<p>車牌號碼</p>
 								<input type="text" required name="plateNum" class="form-control"
 									 placeholder="請輸入車牌號碼例如:ABC-1234" />
-									 <img src="cat.jpg"	height="20" width="20" onClick="idwrite(this)">
+									 <img src="logoCAR.png"	height="20" width="20" onClick="idwrite(this)">
 							</div>
 							<div class="form-group">
 								<p>車型</p>

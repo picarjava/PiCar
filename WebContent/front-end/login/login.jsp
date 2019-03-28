@@ -126,7 +126,7 @@ if (memberVO != null){
 	<img src="PIC/M001.png"	height="45" width="45" onClick="idwrite1(this)">
 	<img src="PIC/M002.png"	height="45" width="45" onClick="idwrite2(this)">	
 	<img src="PIC/M003.jpg"	height="45" width="45" onClick="idwrite3(this)">	
-	<img src="PIC/M004.jpg"	height="45" width="45" onClick="idwrite4(this)">	
+	<img src="PIC/M004.png"	height="45" width="45" onClick="idwrite4(this)">	
 	<img src="PIC/M005.jpg"	height="45" width="45" onClick="idwrite5(this)">	
 	<img src="PIC/M006.png"	height="45" width="45" onClick="idwrite6(this)">		
 	<img src="PIC/M007.jpg"	height="45" width="45" onClick="idwrite7(this)">	

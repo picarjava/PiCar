@@ -323,49 +323,49 @@ margin-top: -20px;
             <div class="container wow fadeIn">
                 <div class="section-header">
                     <h3 class="section-title">PICAR為你服務</h3>
-                    <p class="section-description">Picar的誕生，帶來全新的乘車體驗，改變我們對於交通工具想法，能夠更安全迅速的抵達目的地</p>
+                    <p class="section-description">PICAR的誕生，帶來全新的乘車體驗，改變我們對於交通工具想法，能夠更安全迅速的抵達目的地</p>
                 </div>
                 <div class="row">
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
                         <div class="box">
                             <div class="icon"><a href=""><i class="fas fa-users"></i></a></div>
                             <h4 class="title"><a href="">優惠</a></h4>
-                            <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident</p>
+                            <p class="description">PICAR國際行銷團隊，將不定期推出限時免費活動代幣，供PICAR會員領取</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
                         <div class="box">
                             <div class="icon"><a href=""><i class="fas fa-tachometer-alt"></i></a></div>
                             <h4 class="title"><a href="">便捷</a></h4>
-                            <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque</p>
+                            <p class="description">立即下載行動APP，隨時隨地享受PICAR即時叫車、代駕等便捷服務</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
                         <div class="box">
                             <div class="icon"><a href=""><i class="fas fa-calendar-alt"></i></a></div>
                             <h4 class="title"><a href="">迅速</a></h4>
-                            <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur</p>
+                            <p class="description">PICAR官網預約叫車流程操作簡易，三步驟迅速完成預約</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.2s">
                         <div class="box">
                             <div class="icon"><a href=""><i class="fas fa-comments"></i></a></div>
                             <h4 class="title"><a href="">訊息</a></h4>
-                            <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum</p>
+                            <p class="description">行前三日系統自動排程扣款，並於「未來排程」中提供最新即時扣款推播訊息</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.4s">
                         <div class="box">
                             <div class="icon"><a href=""><i class="fas fa-id-card"></i></a></div>
                             <h4 class="title"><a href="">司機</a></h4>
-                            <p class="description">想成為斜槓人生的一員嗎？，想要改變生活嗎?想要認識朋友並走遍一個城市大街小巷，來成為Picar一員吧</p>
+                            <p class="description">想成為斜槓人生的一員嗎？，想要改變生活嗎?想要認識朋友並走遍一個城市大街小巷，來成為Pica司機吧</p>
                         </div>
                     </div>
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="0.6s">
                         <div class="box">
                             <div class="icon"><a href=""><i class="fas fa-home"></i></a></div>
                             <h4 class="title"><a href="">舒適</a></h4>
-                            <p class="description">Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi</p>
+                            <p class="description">PICAR嚴選優質司機與車種，乘車安全與舒適度就讓PICAR為您把關</p>
                         </div>
                     </div>
                 </div>
@@ -394,35 +394,35 @@ margin-top: -20px;
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">搭乘方案</h3>
-                    <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+                    <p class="section-description">2019現有的乘車方案，如下表所示。</p>
                 </div>
                 <div class="row" id="portfolio-wrapper">
                     <div class="col-lg-3 col-md-6">
                         <div class="member">
                             <div class="pic"><img src="img/team-1.jpg" alt="" class="img-thumbnail"></div>
                             <h4>揪團</h4>
-                            <span>Chief Executive Officer</span>
+                            <span>省錢，交朋友</span>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="member">
                             <div class="pic"><img src="img/team-2.jpg" alt="" class="img-thumbnail"></div>
                             <h4>共乘</h4>
-                            <span>Product Manager</span>
+                            <span>即將上市</span>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="member">
                             <div class="pic"><img src="img/team-3.jpg" alt="" class="img-thumbnail"></div>
                             <h4>代駕</h4>
-                            <span>CTO</span>
+                            <span>疲勞的好夥伴</span>
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-6">
                         <div class="member">
                             <div class="pic"><img src="img/team-4.jpg" alt="" class="img-thumbnail"></div>
                             <h4>預約</h4>
-                            <span>Accountant</span>
+                            <span>有預約好上路</span>
                         </div>
                     </div>
                 </div>
@@ -438,7 +438,7 @@ margin-top: -20px;
             <div class="container wow fadeInUp">
                 <div class="section-header">
                     <h3 class="section-title">Q&A</h3>
-                    <p class="section-description">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque</p>
+                    <p class="section-description">前百大問題列表</p>
                 </div>
                 <div class="row">
                     <div class="col-lg-12">
@@ -462,7 +462,7 @@ margin-top: -20px;
                         </p>
                         <div class="collapse" id="collapseExample">
                             <div class="card card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil 
+                               叫車可以更快速，效率更高。
                             </div>
                         </div>
                     </div>
@@ -477,7 +477,7 @@ margin-top: -20px;
                         </p>
                         <div class="collapse" id="collapseExample1">
                             <div class="card card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                               可以讓你有更優惠的價格
                             </div>
                         </div>
                     </div>

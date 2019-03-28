@@ -40,7 +40,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 		SimpleDateFormat tFormat = new SimpleDateFormat("yyyy/MM/dd a hh:mm:ss ");
 		TimeConverter timeConverter = new TimeConverter();
 		Date firstime = timeConverter.getThisHourToday(0);// 開始時間為伺服器啟動的當天0點
-		long period = 1000 * 60 *15  ; // 每12小時執行一次
+		long period = 1000 * 60 *2  ; // 每12小時執行一次
 
 		SingleOrderService singleOrderSvc = new SingleOrderService();
 		HashSet<SingleOrderVO> allUnpaid = new HashSet<SingleOrderVO>();// 待付款訂單
@@ -54,7 +54,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 				Date date = new Date(this.scheduledExecutionTime());
 				excutedTime = tFormat.format(date);
 				count++;
-				System.out.println("=======系統於" + excutedTime + " 做第" + count + "次預約訂單扣款=======");
+				System.out.println("=======s系統於" + excutedTime + " 做第" + count + "次預約訂單扣款=======");
 
 				// 1.=======撈出三日前未完成付款的訂單=======
 				// 將單程的部分加入待付款訂單

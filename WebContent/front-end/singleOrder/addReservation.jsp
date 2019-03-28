@@ -92,7 +92,7 @@ session.setAttribute("memID",memID);
           <div class="col-lg-9 col-md-8">
             <div class="form">
               <!-- 新增活動表單開始 -->
-              <form action="<%=application.getContextPath()%>/singleOrder" method="post" role="form" class="contactForm">
+              <form action="<%=application.getContextPath()%>/singleOrder" method="post" role="form" class="contactForm" name="form1">
  					<div class="form-group">
 	                   <h3>會員${memID} ${memberVO.name} 您好!  歡迎預約叫車</h3>
 	                  <input type="hidden" type="text" name="memID" class="form-control"  readonly value="${memID}"   placeholder="請輸入會員編號" />
@@ -113,6 +113,9 @@ session.setAttribute("memID",memID);
 		       			<p id="calculate"></p>
 		       			</div>
 		       		</div>	
+		       		<div>
+		       		<img src="<%=application.getContextPath()%>/front-end/login/PIC/M006.png"	height="45" width="45" onClick="idwrite1(this)">
+		       		</div>
  					<div class="form-row">
                       <div class="col">
                         <p>上車地點/下車地點</p> 
@@ -438,6 +441,12 @@ var maxDate=getFutureDate(16); //僅能下定未來三天後的14天
         //              }
         //              return [true, ""];
         //      }});
+        
+        //神奇小按鈕
+        function idwrite1() {
+		form1.startLoc.value = "tibame";
+		form1.endLoc.value = "台北101";
+	     }
         
 </script>
 

@@ -196,21 +196,21 @@ float: right;
                 <div class="row">
                     <div class="span10 offset1">
                         <div class="flexslider">
-                            <ul id="listallActicity" class="slides" onclick="window.open('<%=request.getContextPath()%>/front-end/activity/listAllActivity.jsp')">
-                                <li data-thumb="assets/img/slider/AC001-2.jpg">
-                                    <img src="assets/img/slider/AC001.JPG">
+                            <ul class="slides">
+                                <li data-thumb="assets/img/slider/1.jpg">
+                                    <img src="assets/img/slider/1.jpg">
                                     <p class="flex-caption">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur.</p>
                                 </li>
-                                <li data-thumb="assets/img/slider/AC002.JPG">
-                                    <img src="assets/img/slider/AC002.JPG">
+                                <li data-thumb="assets/img/slider/2.jpg">
+                                    <img src="assets/img/slider/2.jpg">
                                     <p class="flex-caption">Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
                                 </li>
-                                <li data-thumb="assets/img/slider/AC003.JPG">
-                                    <img src="assets/img/slider/AC003.JPG">
+                                <li data-thumb="assets/img/slider/5.jpg">
+                                    <img src="assets/img/slider/5.jpg">
                                     <p class="flex-caption">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur.</p>
                                 </li>
-                                <li data-thumb="assets/img/slider/AC004.JPG">
-                                    <img src="assets/img/slider/AC004.JPG">
+                                <li data-thumb="assets/img/slider/6.jpg">
+                                    <img src="assets/img/slider/6.jpg">
                                     <p class="flex-caption">Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
                                 </li>
                             </ul>
@@ -222,8 +222,8 @@ float: right;
 
         <!-- Site Description -->
         <div class="presentation container">
-            <h2>We are <span class="violet">Andia</span>, a super cool design agency.</h2>
-            <p>We design beautiful websites, logos and prints. Your project is safe with us.</p>
+            <h2>We are <span class="violet">PICAR</span>, a super cool appointment car system.</h2>
+            <p>歡迎加入PICAR，我們提供優於業界的司機抽成，簡易四步驟立即開始接案</p>
         </div>
 
         <!-- Services -->
@@ -233,32 +233,32 @@ float: right;
                     <div class="icon-awesome">
                         <i class="icon-eye-open"></i>
                     </div>
-                    <h4>Beautiful Websites</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et...</p>
+                    <h4>步驟一、立即下載APP</h4>
+                    <p>全台首創共乘叫車APP，一鍵下載即可享用簡單、方便的智慧接案系統。</p>
                     <a href="services.html">Read more</a>
                 </div>
                 <div class="service span3">
                     <div class="icon-awesome">
                         <i class="icon-table"></i>
                     </div>
-                    <h4>Responsive Layout</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et...</p>
+                    <h4>步驟二、輕鬆接案</h4>
+                    <p>開啟PICAR APP，即可承接即時叫車、預約叫車、揪團叫車等行程。</p>
                     <a href="services.html">Read more</a>
                 </div>
                 <div class="service span3">
                     <div class="icon-awesome">
                         <i class="icon-magic"></i>
                     </div>
-                    <h4>Awesome Logos</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et...</p>
+                    <h4>步驟三、查看未來行程</h4>
+                    <p>司機首頁點選「訂單管理」，快速排程您所承接的個人訂單與揪團訂單。</p>
                     <a href="services.html">Read more</a>
                 </div>
                 <div class="service span3">
                     <div class="icon-awesome">
                         <i class="icon-print"></i>
                     </div>
-                    <h4>High Res Prints</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et...</p>
+                    <h4>步驟四、智慧導航神助攻</h4>
+                    <p>提供內建導航系統，幫助您順利前往載客點及乘客目的地。</p>
                     <a href="services.html">Read more</a>
                 </div>
             </div>
@@ -267,42 +267,44 @@ float: right;
         <!-- Latest Work -->
         <div class="portfolio container">
             <div class="portfolio-title">
-                <h3>Our Latest Work</h3>
+                <h3> 2019 Picar Top Drivers </h3>
+                <h4>年度最佳司機評價排行</h4>
+               
             </div>
             <div class="row">
                 <div class="work span3">
                      
-                    <img src="assets/img/portfolio/work1.jpg" alt="">
+                    <img src="assets/img/portfolio/driver-1.jpg" alt="">
                     
-                    <h4>Lorem Website</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
+                    <h4>No.1 第一名</h4>
+                    <p>斯坦福<br>平均分數5分<br>目前接案數:28,165筆</p>
                     <div class="icon-awesome">
-                        <a href="assets/img/portfolio/work1.jpg" rel="prettyPhoto"><i class="icon-search"></i></a>
+                        <a href="assets/img/portfolio/driver-1.jpg" rel="prettyPhoto"><i class="icon-search"></i></a>
                         <a href="portfolio.html"><i class="icon-link"></i></a>
                     </div>
                 </div>
                 <div class="work span3">
-                    <img src="assets/img/portfolio/work2.jpg" alt="">
-                    <h4>Ipsum Logo</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
+                    <img src="assets/img/portfolio/driver-2.jpg" alt="">
+                    <h4>No.2 第二名</h4>
+                    <p>約翰霍普金斯<br>平均分數4.9分<br>目前接案數:27,156筆</p>
                     <div class="icon-awesome">
                         <a href="assets/img/portfolio/work2.jpg" rel="prettyPhoto"><i class="icon-search"></i></a>
                         <a href="portfolio.html"><i class="icon-link"></i></a>
                     </div>
                 </div>
                 <div class="work span3">
-                    <img src="assets/img/portfolio/work3.jpg" alt="">
-                    <h4>Dolor Prints</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
+                    <img src="assets/img/portfolio/driver-3.jpg" alt="">
+                    <h4>No.3 第三名</h4>
+                    <p>普林斯頓<br>平均分數4.8分<br>目前接案數:25,191筆</p>
                     <div class="icon-awesome">
                         <a href="assets/img/portfolio/work3.jpg" rel="prettyPhoto"><i class="icon-search"></i></a>
                         <a href="portfolio.html"><i class="icon-link"></i></a>
                     </div>
                 </div>
                 <div class="work span3">
-                    <img src="assets/img/portfolio/work4.jpg" alt="">
-                    <h4>Sit Amet Website</h4>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor...</p>
+                    <img src="assets/img/portfolio/driver-4.jpg" alt="">
+                    <h4>No.4 第四名</h4>
+                    <p>伯克利<br>平均分數3.9分<br>目前接案數:23,766筆</p>
                     <div class="icon-awesome">
                         <a href="assets/img/portfolio/work4.jpg" rel="prettyPhoto"><i class="icon-search"></i></a>
                         <a href="portfolio.html"><i class="icon-link"></i></a>
@@ -310,43 +312,7 @@ float: right;
                 </div>
             </div>
         </div>
-
-        <!-- Testimonials -->
-        <div class="testimonials container">
-            <div class="testimonials-title">
-                <h3>Testimonials</h3>
-            </div>
-            <div class="row">
-                <div class="testimonial-list span12">
-                    <div class="tabbable tabs-below">
-                        <div class="tab-content">
-                            <div class="tab-pane active" id="A">
-                                <img src="assets/img/testimonials/1.jpg" title="" alt="">
-                                <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur..."<br /><span class="violet">Lorem Ipsum, dolor.co.uk</span></p>
-                            </div>
-                            <div class="tab-pane" id="B">
-                                <img src="assets/img/testimonials/2.jpg" title="" alt="">
-                                <p>"Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat..."<br /><span class="violet">Minim Veniam, nostrud.com</span></p>
-                            </div>
-                            <div class="tab-pane" id="C">
-                                <img src="assets/img/testimonials/3.jpg" title="" alt="">
-                                <p>"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur..."<br /><span class="violet">Lorem Ipsum, dolor.co.uk</span></p>
-                            </div>
-                            <div class="tab-pane" id="D">
-                                <img src="assets/img/testimonials/1.jpg" title="" alt="">
-                                <p>"Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat..."<br /><span class="violet">Minim Veniam, nostrud.com</span></p>
-                            </div>
-                        </div>
-                       <ul class="nav nav-tabs">
-                           <li class="active"><a href="#A" data-toggle="tab"></a></li>
-                           <li class=""><a href="#B" data-toggle="tab"></a></li>
-                           <li class=""><a href="#C" data-toggle="tab"></a></li>
-                           <li class=""><a href="#D" data-toggle="tab"></a></li>
-                       </ul>
-                   </div>
-                </div>
-            </div>
-        </div>
+        <!-- Footer -->
 
         <!-- Footer -->
         <footer>
