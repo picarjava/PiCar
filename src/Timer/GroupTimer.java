@@ -180,7 +180,7 @@ public class GroupTimer extends HttpServlet {
 				GregorianCalendar gcToday=new GregorianCalendar(year, month-1, day, 0, 0, 0);
 				java.util.Date today=gcToday.getTime();
 				
-	        timer.scheduleAtFixedRate(task, today,24*60*60*1000); 
+	        timer.scheduleAtFixedRate(task, today,15*60*1000); 
 //	        24*60*60*1000
 	}
     /**
