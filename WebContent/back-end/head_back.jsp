@@ -53,3 +53,29 @@ table {
 }
 
 </style>
+
+<script type="text/javascript">
+	        function test(){
+	        var f = document.form1;
+	        var newPsw1 = f.password.value;
+	        var newPsw2 = f.password2.value;
+	        if(newPsw1 == "" || newPsw2 == ""){
+	        alert("密碼請勿空白");
+	        return false;
+	        }
+	        if(newPsw1.length<6){
+		   	alert("密碼不得低於6個英數字");
+		    return false;
+		    }
+	        if(newPsw1.length>12){
+			   	alert("密碼不得超過12個英數字");
+			    return false;
+			}
+	        if(newPsw1 != newPsw2){
+	        alert("新密碼輸入不一致");
+	        return false;
+	        }
+	        return true;
+	        }
+	
+</script>
