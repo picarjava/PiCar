@@ -257,7 +257,7 @@ reader.readAsDataURL(input.files[0]);
 }
 function idwrite(name) {
 form1.name.value = "卡比獸"
-form1.email.value="samchiang74@gmail.com"
+form1.email.value="2019picar.inc@gmail.com"
 form1.phone.value="0933-995-225"
 form1.creditcard.value="1584-5947-2846-5947"
 form1.pet.value = "1"
@@ -270,7 +270,7 @@ form1.birthday.value="2000-10-10"
 	
 function idwrite2(name) {
 	form1.name.value = "卡比獸"
-	form1.email.value="果瑞@gmail.com"
+	form1.email.value="samchiang74@gmail.com"
 	form1.phone.value="0933-995-225"
 	form1.creditcard.value="1584-5947-2846-5947"
 	form1.pet.value = "1"

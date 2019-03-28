@@ -123,12 +123,17 @@ if (memberVO != null){
 		
 		
 		
-	<img src="PIC/M001.png"	height="20" width="20" onClick="idwrite(this)">	
-	<img src="PIC/M005.png"	height="20" width="20" onClick="idwrite1(this)">	
-	<img src="PIC/M006.jpg"	height="20" width="20" onClick="idwrite2(this)">	
-	<img src="PIC/M007.jpg"	height="20" width="20" onClick="idwrite3(this)">	
-	<img src="PIC/M008.png"	height="20" width="20" onClick="idwrite4(this)">	
-	<img src="PIC/M011.png"	height="20" width="20" onClick="idwrite5(this)">	
+	<img src="PIC/M001.png"	height="20" width="20" onClick="idwrite1(this)">
+	<img src="PIC/M002.png"	height="20" width="20" onClick="idwrite2(this)">	
+	<img src="PIC/M003.jpg"	height="20" width="20" onClick="idwrite3(this)">	
+	<img src="PIC/M004.jpg"	height="20" width="20" onClick="idwrite4(this)">	
+	<img src="PIC/M005.png"	height="20" width="20" onClick="idwrite5(this)">	
+	<img src="PIC/M006.jpg"	height="20" width="20" onClick="idwrite6(this)">		
+	<img src="PIC/M007.jpg"	height="20" width="20" onClick="idwrite7(this)">	
+	<img src="PIC/M008.png"	height="20" width="20" onClick="idwrite8(this)">	
+	<img src="PIC/M009.png"	height="20" width="20" onClick="idwrite9(this)">	
+	<img src="PIC/M010.png"	height="20" width="20" onClick="idwrite10(this)">	
+	<img src="PIC/M011.png"	height="20" width="20" onClick="idwrite11(this)">	
 	</form>
 	
 	<a class="box1" href=/PiCar/regna-master/homeindex.jsp> 請按此回首頁 </a>
@@ -136,32 +141,52 @@ if (memberVO != null){
 </body>
 
 <script>
-	function idwrite(name) {
+	function idwrite1(name) {
 		form1.account.value = "M001"
 		form1.password.value = "123456"
 	}
 	function idwrite1(name) {
-		form1.account.value = "M005"
+		form1.account.value = "M001"
 		form1.password.value = "123456"
 	}
 	function idwrite2(name) {
-		form1.account.value = "M006"
+		form1.account.value = "M002"
 		form1.password.value = "123456"
 	}
 	function idwrite3(name) {
-		form1.account.value = "M007"
+		form1.account.value = "M003"
 		form1.password.value = "123456"
 	}
 	function idwrite4(name) {
-		form1.account.value = "M008"
-		form1.password.value = "123456"
-	}
-	function idwrite(name) {
-		form1.account.value = "M011"
+		form1.account.value = "M004"
 		form1.password.value = "123456"
 	}
 	function idwrite5(name) {
-		form1.account.value = "M001"
+		form1.account.value = "M005"
+		form1.password.value = "123456"
+	}
+	function idwrite6(name) {
+		form1.account.value = "M006"
+		form1.password.value = "123456"
+	}
+	function idwrite7(name) {
+		form1.account.value = "M007"
+		form1.password.value = "123456"
+	}
+	function idwrite8(name) {
+		form1.account.value = "M008"
+		form1.password.value = "123456"
+	}
+	function idwrite9(name) {
+		form1.account.value = "M009"
+		form1.password.value = "123456"
+	}
+	function idwrite10(name) {
+		form1.account.value = "M0010"
+		form1.password.value = "123456"
+	}
+	function idwrite11(name) {
+		form1.account.value = "M0011"
 		form1.password.value = "123456"
 	}
 </script>
