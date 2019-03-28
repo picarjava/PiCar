@@ -196,21 +196,21 @@ float: right;
                 <div class="row">
                     <div class="span10 offset1">
                         <div class="flexslider">
-                            <ul class="slides">
-                                <li data-thumb="assets/img/slider/1.jpg">
-                                    <img src="assets/img/slider/1.jpg">
+                            <ul id="listallActicity" class="slides" onclick="window.open('<%=request.getContextPath()%>/front-end/activity/listAllActivity.jsp')">
+                                <li data-thumb="assets/img/slider/AC001-2.jpg">
+                                    <img src="assets/img/slider/AC001.JPG">
                                     <p class="flex-caption">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur.</p>
                                 </li>
-                                <li data-thumb="assets/img/slider/2.jpg">
-                                    <img src="assets/img/slider/2.jpg">
+                                <li data-thumb="assets/img/slider/AC002.JPG">
+                                    <img src="assets/img/slider/AC002.JPG">
                                     <p class="flex-caption">Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
                                 </li>
-                                <li data-thumb="assets/img/slider/5.jpg">
-                                    <img src="assets/img/slider/5.jpg">
+                                <li data-thumb="assets/img/slider/AC003.JPG">
+                                    <img src="assets/img/slider/AC003.JPG">
                                     <p class="flex-caption">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et. Lorem ipsum dolor sit amet, consectetur.</p>
                                 </li>
-                                <li data-thumb="assets/img/slider/6.jpg">
-                                    <img src="assets/img/slider/6.jpg">
+                                <li data-thumb="assets/img/slider/AC004.JPG">
+                                    <img src="assets/img/slider/AC004.JPG">
                                     <p class="flex-caption">Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat.</p>
                                 </li>
                             </ul>
@@ -219,7 +219,6 @@ float: right;
                 </div>
             </div>
         </div>
-
         <!-- Site Description -->
         <div class="presentation container">
             <h2>We are <span class="violet">PICAR</span>, a super cool appointment car system.</h2>
