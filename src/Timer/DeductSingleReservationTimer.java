@@ -54,7 +54,7 @@ public class DeductSingleReservationTimer extends HttpServlet {
 				Date date = new Date(this.scheduledExecutionTime());
 				excutedTime = tFormat.format(date);
 				count++;
-				System.out.println("=======系統於" + excutedTime + " 做第" + count + "次預約訂單扣款=======");
+				System.out.println("=======s系統於" + excutedTime + " 做第" + count + "次預約訂單扣款=======");
 
 				// 1.=======撈出三日前未完成付款的訂單=======
 				// 將單程的部分加入待付款訂單
