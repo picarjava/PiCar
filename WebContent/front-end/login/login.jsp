@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=BIG5"
-    pageEncoding="BIG5"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ page import="com.member.model.*"%>
 <!DOCTYPE html>
 <html>
@@ -115,7 +115,7 @@ if (memberVO != null){
 		
 				<input type="text" name="account"  placeholder="Usernsme" value="">
 			
-				±KЅX
+				еЇ†зўј
 				<input type="password" name="password" placeholder="Password" value="">
 
 			
@@ -136,7 +136,7 @@ if (memberVO != null){
 	<img src="PIC/M011.png"	height="45" width="45" onClick="idwrite11(this)">	
 	</form>
 	
-	<a class="box1" href=/PiCar/regna-master/homeindex.jsp> ЅР«ц¦№¦^­є­¶ </a>
+	<a class="box1" href=/PiCar/regna-master/homeindex.jsp> и«‹жЊ‰ж­¤е›ћй¦–й Ѓ </a>
 
 </body>
 
