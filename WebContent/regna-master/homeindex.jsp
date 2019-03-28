@@ -462,7 +462,7 @@ margin-top: -20px;
                         </p>
                         <div class="collapse" id="collapseExample">
                             <div class="card card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil 
+                               叫車可以更快速，效率更高。
                             </div>
                         </div>
                     </div>
@@ -477,7 +477,7 @@ margin-top: -20px;
                         </p>
                         <div class="collapse" id="collapseExample1">
                             <div class="card card-body">
-                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                               可以讓你有更優惠的價格
                             </div>
                         </div>
                     </div>
