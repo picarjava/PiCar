@@ -126,10 +126,8 @@ public class MemberDAO implements MemberDAO_interface {
 			pstmt.executeUpdate();
 
 			ResultSet rs = pstmt.getGeneratedKeys();
-
 			String key = null;
 			if (rs.next()) {
-				key = rs.getString(1);
 				this.key = key;
 				System.out.println("自增主鍵值 = " + key + "(剛新增成功的員工編號)");
 			} else {

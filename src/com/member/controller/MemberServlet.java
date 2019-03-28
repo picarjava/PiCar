@@ -594,6 +594,9 @@ public class MemberServlet extends HttpServlet {
 				Integer babySeat = new Integer(req.getParameter("babySeat"));
 //				
 				Part part = req.getPart("pic");
+				if (part.getSize() == 0) {
+					errorMsgs.add("請輸入照片!");
+				}
 				InputStream in = part.getInputStream();
 				byte[] pic = new byte[in.available()];
 				in.read(pic);
@@ -628,7 +631,7 @@ public class MemberServlet extends HttpServlet {
 				memberVO = memberSvc.addMember(name, email, digestpassword, phone, creditcard, pet, smoke, gender, token,
 						activityToken, birthday, verified, babySeat, pic);
 				req.setAttribute("memberVO", memberVO);
-
+				
 				/****************************/
 				List<MemberVO> last = memberSvc.getAll();
 				String memIDlast = last.get(last.size()-1).getMemID();

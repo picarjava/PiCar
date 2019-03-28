@@ -9,6 +9,7 @@
 <head>
 <meta charset="UTF-8">
 <title>listALLRate</title>
+<jsp:include page="/back-end/kidHead.jsp" />
 </head>
 <style>
 #table1 {
@@ -30,6 +31,8 @@ table1, td {
 }
 </style>
 <body>
+<jsp:include page="/back-end/kidBodyLeft.jsp" />
+<jsp:include page="/back-end/kidNavbar.jsp" />
 	<h3>listALLRate.jsp</h3>
 	<%
 		RateService rateSvc = new RateService();
@@ -83,7 +86,7 @@ table1, td {
 
 
 
-
+<jsp:include page="/back-end/kidFooter.jsp" />
 
 </body>
 </html>

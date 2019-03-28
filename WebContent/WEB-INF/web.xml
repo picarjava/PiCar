@@ -353,7 +353,7 @@
     <url-pattern>/front-end/groupOrder/*</url-pattern>
     <url-pattern>/front-end/HomeDriver/*</url-pattern>
     <url-pattern>/front-end/location/*</url-pattern>    
-    <url-pattern>/front-end/member/*</url-pattern>    
+<!--     <url-pattern>/front-end/member/*</url-pattern>     -->
     <url-pattern>/front-end/singleOrder/*</url-pattern>    
     <url-pattern>/front-end/storeRecord/*</url-pattern>    
     <dispatcher>REQUEST</dispatcher>

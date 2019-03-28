@@ -33,7 +33,7 @@
             </a>
           </li>
           <li class="nav-item ">
-            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/rate/select_page.jsp">
+            <a class="nav-link" href="<%=request.getServletContext().getContextPath()%>/back-end/rate/listAllRate.jsp">
               <i class="material-icons">content_paste</i>
               <p>資費管理</p>
             </a>

@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,21 @@ public class MemberServlet1 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
+		res.setContentType("image/gif");
+		ServletOutputStream out = res.getOutputStream();
+
+		String memID = req.getParameter("memID");
+
+		MemberService memberSvc = new MemberService();
+		MemberVO memberVO = memberSvc.getOneMember(memID);
+
+		byte[] pic = memberVO.getPic();
+		if (pic != null) {
+			out.write(pic);
+		}
+		
+		
 		doPost(req, res);
 	}
 
